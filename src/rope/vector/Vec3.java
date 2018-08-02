@@ -17,6 +17,18 @@ public class Vec3 extends Vec {
     set(x,y,z);
   }
 	
+	public Vec3(String key_random, float r1) {
+		super(3);
+		if(key_random.equals(RANDOM)) {
+			set(random(-r1,r1),random(-r1,r1),random(-r1,r1));
+		} else if(key_random.equals(RANDOM_ZERO)) {
+			set(random(0,r1),random(0,r1),random(0,r1));
+		} else {
+      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
+      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+		}
+	}
+	
 	
 	
 	// SET
