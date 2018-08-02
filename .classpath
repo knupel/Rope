@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/stanislasmarcais/Desktop/BOULOT/CODE/Eclipse_workspace/Processing_core_3_4/core.jar"/>
+	<classpathentry kind="output" path="resources/code"/>
+</classpath>
