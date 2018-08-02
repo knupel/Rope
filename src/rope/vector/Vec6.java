@@ -1,4 +1,4 @@
-package rope.vec;
+package rope.vector;
 
 public class Vec6 extends Vec {
   public Vec6() {

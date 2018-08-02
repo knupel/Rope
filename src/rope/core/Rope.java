@@ -13,22 +13,10 @@ import java.util.Random;
 	*/
 
 public abstract class Rope implements RConstants {
-	PApplet p5;
 
-	public final static String VERSION = "##Rope 0.0.1##";
+	private String VERSION = "##Rope 0.0.1##";
 	
-	/*
-	public Rope(PApplet p5) {
-		this.p5 = p5;
-		hello();
-	}
-	*/
-	
-	private String hello() {
-		return "Hello I'm " +version() ;
-	}
-
-	private static String version() {
+	public String version() {
 		return VERSION;
 	}
 	

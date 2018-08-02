@@ -1,4 +1,4 @@
-package rope.vec;
+package rope.vector;
 import rope.core.Rope;
 /**
  * iVec class

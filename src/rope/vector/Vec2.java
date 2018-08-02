@@ -1,4 +1,4 @@
-package rope.vec;
+package rope.vector;
 /**
 * Vec2
 * v 1.0.0

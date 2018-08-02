@@ -164,3 +164,4 @@ public interface RConstants {
 	static final String TRIG_3 = "POW_SIN_PI" ;
 	static final String TRIG_4 = "SIN_TAN_POW_SIN" ;
 }
+
