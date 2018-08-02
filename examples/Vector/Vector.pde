@@ -4,6 +4,9 @@ import rope.vector.Vec4;
 import rope.vector.Vec5;
 import rope.vector.Vec6;
 
+import rope.vector.iVec3;
+import rope.vector.iVec4;
+
 
 void setup() {
   Vec2 v2 = new Vec2(4,5);
@@ -24,4 +27,13 @@ void setup() {
     Vec6 v6 = new Vec6(2);
   v6.set_b(65.45);
   println(v6);
+  
+  iVec3 iv3 = new iVec3(1,2,3);
+  println(iv3.sum());
+  
+  iVec4 ia4 = new iVec4(1,2,3,4);
+  iVec4 ib4 = new iVec4(4,3,2,1);
+  println(ia4.add(ib4));
+  
+  
 }
