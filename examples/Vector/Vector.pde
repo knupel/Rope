@@ -1,5 +1,5 @@
-import rope.vec.Vec2;
-import rope.vec.Vec3;
+import rope.vector.Vec2;
+import rope.vector.Vec3;
 
 
 void setup() {
