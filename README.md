@@ -1,12 +1,12 @@
 
-## Rope Library
+# Rope Library
 v 0.0.1
 This library is a logic way of Rope Method, utilities use for Romanesco software
 Now the methodes Rope is here :
 https://github.com/StanLepunK/Rope_method
 And in the library I start to add all the class Rope, to make something easy to use.
 
-# Available in the Library
+## Available in the Library
 float precision 
 Vec2, Vec3 and Vec4 with all operation from PVector and few more possibilities.
 Plus Vec5 and Vec6 to store data.
