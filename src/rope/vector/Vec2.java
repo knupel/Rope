@@ -25,9 +25,8 @@ public class Vec2 extends Vec {
     super(2);
     set(x,y);
   }
-  /**
-  Random constructor
-  */
+
+  private String warning = "Contructor class Vec2() cannot use the String key_random: ";
   public Vec2(String key_random, float r1) {
     super(2) ;
     if(key_random.equals(RANDOM)) {
@@ -35,8 +34,8 @@ public class Vec2 extends Vec {
     } else if(key_random.equals(RANDOM_ZERO)) {
       set(random(0,r1),random(0,r1));
     } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
-      System.err.println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' ") ;
+      this.x = this.y = this.s = this.t = this.u = this.v = 0;
+      System.err.println(warning+key_random);
     }
   }
   
@@ -49,8 +48,8 @@ public class Vec2 extends Vec {
     } else if(key_random.equals(RANDOM_RANGE)) {
       set(random(r1,r2),random(r1,r2));
     } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
-      System.err.println("the key word for the random is not available use the String 'RANDOM' or 'RANDOM ZERO' or 'RANDOM RANGE' ") ;
+      this.x = this.y = this.s = this.t = this.u = this.v = 0;
+      System.err.println(warning+key_random);
     }
   }
 
@@ -59,24 +58,28 @@ public class Vec2 extends Vec {
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2));
     } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0 ;
-      System.err.println("the key word for the random is not available use the String 'RANDOM RANGE' ") ;
+      this.x = this.y = this.s = this.t = this.u = this.v = 0;
+      System.err.println(warning+key_random);
     }
   }
 
   /**
-   * Set
-   * Sets components of the vector using two or three separate
-   * variables, the data from a Vec, or the values from a float array.
+   * 
+   * @param x
+   * @param y
+   * @return
    */
+  public Vec2 set(float x, float y) {
+    this.x = this.s = this.u = x;
+    this.y = this.t = this.v = y;
+    return this;
+  }
+  
   public Vec2 set(float v) {
     set(v,v);
     return this;
   }
 
-  /**
-  * @param v any variable of type Vec
-  */
   public Vec2 set(Vec v) {
     if(v == null) {
       set(0,0);
@@ -103,10 +106,7 @@ public class Vec2 extends Vec {
     }
   }
 
-  /**
-  * Set the x, y (and maybe z) coordinates using a float[] array as the source.
-  * @param source array to copy from
-  */
+
   public Vec2 set(float[] source) {
     set(source[0],source[1]);
     return this;
@@ -139,15 +139,8 @@ public class Vec2 extends Vec {
     return set(this.x,y);
   }
   
-  /**
-  * set method master
-  * here we cannot set the arg a,b, c,d,e,f cause r,g,b,a
-  */
-  public Vec2 set(float x, float y) {
-    this.x = this.s = this.u = x;
-    this.y = this.t = this.v = y;
-    return this;
-  }
+
+
 
   /**
   sum

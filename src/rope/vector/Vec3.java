@@ -17,6 +17,7 @@ public class Vec3 extends Vec {
     set(x,y,z);
   }
 	
+	private String warning = "Contructor class Vec3() cannot use the String key_random: ";
 	public Vec3(String key_random, float r1) {
 		super(3);
 		if(key_random.equals(RANDOM)) {
@@ -25,7 +26,7 @@ public class Vec3 extends Vec {
 			set(random(0,r1),random(0,r1),random(0,r1));
 		} else {
       this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+      System.out.println(warning+key_random);
 		}
 	}
 	
@@ -37,7 +38,7 @@ public class Vec3 extends Vec {
       set(random(0,r1),random(0,r2),random(0,r3));
     } else {
       this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+      System.out.println(warning+key_random);
     }
 	}
 	
@@ -47,7 +48,7 @@ public class Vec3 extends Vec {
       set(random(a1,a2),random(b1,b2),random(c1,c2));
     } else {
       this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+      System.out.println(warning+key_random);
     }
 	}
 	
