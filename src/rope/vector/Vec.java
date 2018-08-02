@@ -1,5 +1,5 @@
 package rope.vector;
-import rope.core.Rope;
+import rope.core.RVec;
 /**
  * Vec class
  * v 1.17.0
@@ -10,7 +10,7 @@ import rope.core.Rope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
-public abstract class Vec extends Rope {
+public abstract class Vec extends RVec {
 	public int num;
 	public float x,y,z,w = Float.NaN;
 	public float a,b,c,d,e,f = Float.NaN;

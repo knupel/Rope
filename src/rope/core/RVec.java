@@ -1,7 +1,4 @@
 package rope.core;
-
-import processing.core.*;
-import java.util.Random;
 /**
 	* ROPE > Romanesco processing environment
 	* Copyleft (c) 2014-2018
@@ -11,8 +8,9 @@ import java.util.Random;
 	* @see http://stanlepunk.xyz/
 	* @see https://github.com/StanLepunK/Rope
 	*/
-
-public abstract class Rope implements RConstants {
+//import processing.core.*;
+import java.util.Random;
+public abstract class RVec implements RConstants {
 
 	private String VERSION = "##Rope 0.0.1##";
 	
@@ -20,14 +18,17 @@ public abstract class Rope implements RConstants {
 		return VERSION;
 	}
 	
+	// I try to catch Processing method but my knowledge is to low ta pass this Static problem,
+	// so I rewrite the method from processing core
+	// return processing.core.PApplet.random(high);
+	// Cannot make a static reference to the non-static method random(float) from the type PApplet
 	
-//RANDOM NUMBERS
-	Random internalRandom;
 	/**
 	 * 
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
+	Random internalRandom;
 	protected float random(float high) {
 		// avoid an infinite loop when 0 or NaN are passed in
 		if (high == 0 || high != high) {
@@ -47,6 +48,7 @@ public abstract class Rope implements RConstants {
 		} while (value == high);
 		return value;
 	}
+	
 	
 	/**
 	 * 
@@ -111,8 +113,8 @@ public abstract class Rope implements RConstants {
    * @param stop2
    * @return Processing map() method
    */
-  protected float map(float value, float start1, float stop1,
-                                float start2, float stop2) {
+  protected float map(float value, 	float start1, float stop1,
+                                		float start2, float stop2) {
     float outgoing =
       start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     String badness = null;

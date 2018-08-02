@@ -1,5 +1,5 @@
 package rope.vector;
-import rope.core.Rope;
+import rope.core.RVec;
 /**
  * iVec class
  * v 1.0.0
@@ -10,7 +10,7 @@ import rope.core.Rope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
-public abstract class iVec extends Rope {
+public abstract class iVec extends RVec {
 	private int num;
 	public int x,y,z,w;
 	public int a,b,c,d,e,f;
