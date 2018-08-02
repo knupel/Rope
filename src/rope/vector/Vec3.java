@@ -29,6 +29,28 @@ public class Vec3 extends Vec {
 		}
 	}
 	
+	public Vec3(String key_random, float r1, float r2, float r3) {
+		super(3);
+		if(key_random.equals(RANDOM)) {
+      set(random(-r1,r1),random(-r2,r2),random(-r3,r3));
+    } else if(key_random.equals(RANDOM_ZERO)) {
+      set(random(0,r1),random(0,r2),random(0,r3));
+    } else {
+      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
+      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+    }
+	}
+	
+	public Vec3(String key_random, float a1, float a2, float b1, float b2, float c1, float c2) {
+    super(3);
+    if(key_random.equals(RANDOM_RANGE)) {
+      set(random(a1,a2),random(b1,b2),random(c1,c2));
+    } else {
+      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
+      System.out.println("Contructor class Vec3() cannot use the String key_random: "+key_random);
+    }
+	}
+	
 	
 	
 	// SET
