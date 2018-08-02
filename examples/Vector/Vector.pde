@@ -6,6 +6,7 @@ import rope.vector.Vec6;
 
 import rope.vector.iVec3;
 import rope.vector.iVec4;
+import rope.vector.iVec6;
 
 
 void setup() {
@@ -34,6 +35,9 @@ void setup() {
   iVec4 ia4 = new iVec4(1,2,3,4);
   iVec4 ib4 = new iVec4(4,3,2,1);
   println(ia4.add(ib4));
+  
+  iVec6 iv6 = new iVec6(1,2,3,4,5,6);
+  printArray(iv6.get_array());
   
   
 }
