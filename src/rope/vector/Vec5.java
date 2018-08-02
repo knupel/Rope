@@ -16,7 +16,7 @@ public class Vec5 extends Vec {
     set(a,b,c,d,e);
   }
   
-  private String warning = "Contructor class Vec4() cannot use the String key_random: ";
+  private String warning = "Contructor class Vec5() cannot use the String key_random: ";
   public Vec5(String key_random, float r1) {
     super(5) ;
     if(key_random.equals(RANDOM)) {
