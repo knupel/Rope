@@ -8,6 +8,8 @@ import rope.vector.iVec3;
 import rope.vector.iVec4;
 import rope.vector.iVec6;
 
+import rope.core.Rope;
+
 
 void setup() {
   Vec2 v2 = new Vec2(4,5);
@@ -38,6 +40,10 @@ void setup() {
   
   iVec6 iv6 = new iVec6(1,2,3,4,5,6);
   printArray(iv6.get_array());
+  
+  Rope r = new Rope();
+  println(r.version());
+  println("Euler",r.EULER);
   
   
 }

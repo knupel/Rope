@@ -10,7 +10,7 @@ package rope.core;
 	*/
 //import processing.core.*;
 import java.util.Random;
-public abstract class RVec implements RConstants {
+public abstract class BigBangRope implements RConstants {
 
 	private String VERSION = "##Rope 0.0.1##";
 	
