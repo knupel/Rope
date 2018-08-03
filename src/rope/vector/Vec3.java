@@ -494,6 +494,16 @@ public class Vec3 extends Vec {
     return this ;
   }
   
+  
+  public Vec3 map(float minIn, float maxIn, float minOut, float maxOut) {
+    x = map(x,minIn,maxIn,minOut,maxOut);
+    y = map(y,minIn,maxIn,minOut,maxOut);
+    z = map(z,minIn,maxIn,minOut,maxOut);
+
+    set(x,y,z) ;
+    return this ;
+  }
+  
   /**
    * limit
    * @param max
