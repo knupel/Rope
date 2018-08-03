@@ -499,7 +499,14 @@ public class Vec3 extends Vec {
     x = map(x,minIn,maxIn,minOut,maxOut);
     y = map(y,minIn,maxIn,minOut,maxOut);
     z = map(z,minIn,maxIn,minOut,maxOut);
-
+    set(x,y,z) ;
+    return this ;
+  }
+  
+  public Vec3 map(Vec3 minIn, Vec3 maxIn, Vec3 minOut, Vec3 maxOut) {
+    x = map(x,minIn.x,maxIn.x,minOut.x,maxOut.x);
+    y = map(y,minIn.y,maxIn.y,minOut.y,maxOut.y);   
+    z = map(z,minIn.z,maxIn.z,minOut.z,maxOut.z);   
     set(x,y,z) ;
     return this ;
   }
