@@ -439,14 +439,14 @@ public class Vec2 extends Vec {
    * @param maxOut
    * @return Vec2 
    */
-  public Vec2 map_vec(float minIn, float maxIn, float minOut, float maxOut) {
+  public Vec2 map(float minIn, float maxIn, float minOut, float maxOut) {
     x = map(x,minIn, maxIn, minOut, maxOut);
     y = map(y,minIn, maxIn, minOut, maxOut);  
     set(x,y) ;
     return this ;
   }
 
-  public Vec2 map_vec(Vec2 minIn, Vec2 maxIn, Vec2 minOut, Vec2 maxOut) {
+  public Vec2 map(Vec2 minIn, Vec2 maxIn, Vec2 minOut, Vec2 maxOut) {
     x = map(x,minIn.x, maxIn.x, minOut.x, maxOut.x);
     y = map(y,minIn.y, maxIn.y, minOut.y, maxOut.y);   
     set(x,y) ;

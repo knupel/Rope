@@ -466,7 +466,7 @@ public class Vec4 extends Vec {
    * @param maxOut
    * @return Vec4 where each target is Vec component
    */
-  public Vec4 map_vec(float minIn, float maxIn, float minOut, float maxOut) {
+  public Vec4 map(float minIn, float maxIn, float minOut, float maxOut) {
     x = map(x,minIn,maxIn,minOut,maxOut);
     y = map(y,minIn,maxIn,minOut,maxOut);
     z = map(z,minIn,maxIn,minOut,maxOut);
@@ -475,7 +475,7 @@ public class Vec4 extends Vec {
     return this;
   }
 
-  public Vec4 map_vec(Vec4 minIn, Vec4 maxIn, Vec4 minOut, Vec4 maxOut) {
+  public Vec4 map(Vec4 minIn, Vec4 maxIn, Vec4 minOut, Vec4 maxOut) {
     x = map(x,minIn.x,maxIn.x,minOut.x,maxOut.x);
     y = map(y,minIn.y,maxIn.y,minOut.y,maxOut.y);   
     z = map(z,minIn.z,maxIn.z,minOut.z,maxOut.z);   

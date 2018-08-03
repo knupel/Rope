@@ -22,6 +22,9 @@ void setup() {
   
   Vec4 a4 = new Vec4(3);
   Vec4 b4 = new Vec4(3,3,3,3);
+
+  println(a4.equals(b4));
+  b4.map(0,1,10,30);
   println(a4.equals(b4));
   
   Vec5 v5 = new Vec5(3,-1,4.5,PI,234);
@@ -44,6 +47,8 @@ void setup() {
   Rope r = new Rope();
   println(r.version());
   println("Euler",r.EULER);
+  
+  
   
   
 }
