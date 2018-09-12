@@ -58,7 +58,7 @@ public interface RConstants {
 	GRAPHIC
 	*/
 	static final int PIXEL = 800;
-	static final int STAR = 810;
+	static final int STAR = 805;
 	  
 	/**
 	COLOUR
