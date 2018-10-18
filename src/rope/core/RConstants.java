@@ -4,7 +4,7 @@ package rope.core;
 	* Copyleft (c) 2014-2018
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0
+	* v 0.2.0.1
 	* Processing 3.4
 	* @author Stan le Punk
 	* @see http://stanlepunk.xyz/
@@ -114,6 +114,12 @@ public interface RConstants {
 	// CARMINE > HSB,1,1,1 > color(0,1,.55);
 	static final int CARMINE = -7602176;
 	static final int CARMIN = -7602176; 
+	// GRENAT > HSB,1,1,1 > color(0.9848485 0.9 0.43137255);
+	static final int GRENAT = -9565420;
+	static final int GARNET = -9565420;
+	// GRENAT PROFOND > HSB,1,1,1 > color(0.0 1.0 0.28);
+	static final int GRENAT_PROFOND = -12124160;
+	static final int GARNET_DEEP = -12124160;
 	// ORANGE > HSB,1,1,1 > color(.08,1,1);
 	static final int ORANGE = -34304;
 	// OR > HSB,1,1,1 > color(0.12 1.0 1.0);

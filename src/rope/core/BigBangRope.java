@@ -12,7 +12,7 @@ package rope.core;
 import java.util.Random;
 public abstract class BigBangRope implements RConstants {
 
-	private String VERSION = "##Rope 0.0.1##";
+	private String VERSION = "##Rope 0.0.2##";
 	
 	public String version() {
 		return VERSION;
