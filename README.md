@@ -16,6 +16,9 @@ integer precision
 iVec2,iVec3,iVec4 with few operation
 and iVec5 and iVec6 to store data
 
+boolean precision
+bVec2,bVec3,bVec4,bVec5,bVec6
+
 
 
 
