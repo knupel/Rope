@@ -2,10 +2,10 @@
 ## Rope Library
 v 0.0.4
 copyleft(c) 2018-2019
-This library is a logic way of Rope Method, utilities use for Romanesco software
-Now the methodes Rope is here :
-https://github.com/StanLepunK/Rope_method
-And in the library I start to add all the class Rope, to make something easy to use.
+This library is a logic way of Rope Method, utilities use for Romanesco software.
+[Romanesco web site](http://romanesco.xyz)
+
+The methodes Rope work with Processing and Rope library is [here](https://github.com/StanLepunK/Rope_method)
 
 ## Available in the Library
 float precision 
