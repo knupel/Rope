@@ -19,8 +19,8 @@ and iVec5 and iVec6 to store data
 boolean precision
 bVec2,bVec3,bVec4,bVec5,bVec6
 
-
-
+## Download last build for OSX
+https://github.com/StanLepunK/Rope/Rope.zip
 
 
 
