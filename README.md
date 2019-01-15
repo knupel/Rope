@@ -1,7 +1,7 @@
 
-# Rope Library
-v 0.0.1
-copyleft(c) 2018-2018
+## Rope Library
+v 0.0.4
+copyleft(c) 2018-2019
 This library is a logic way of Rope Method, utilities use for Romanesco software
 Now the methodes Rope is here :
 https://github.com/StanLepunK/Rope_method
