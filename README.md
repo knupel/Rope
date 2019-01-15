@@ -20,7 +20,7 @@ boolean precision
 bVec2,bVec3,bVec4,bVec5,bVec6
 
 ## Download last build for OSX
-https://github.com/StanLepunK/Rope/blob/master/Rope.zip
+[download](https://github.com/StanLepunK/Rope/blob/master/Rope.zip)
 
 
 
