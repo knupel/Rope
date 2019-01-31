@@ -1,18 +1,18 @@
 package rope.vector;
 
-public class bVec5 extends bVec {
+public class bvec5 extends bvec {
 
-	public bVec5(boolean a,boolean b,boolean c, boolean d, boolean e) {
+	public bvec5(boolean a,boolean b,boolean c, boolean d, boolean e) {
 		super(5);
 		set(a,b,c,d,e);
 	}
 	
-	public bVec5(boolean arg) {
+	public bvec5(boolean arg) {
 		super(5);	
 		set(arg);
 	}
 	
-	public bVec5(bVec b) {
+	public bvec5(bvec b) {
 		super(5);	
 		set(b);
 	}
@@ -27,7 +27,7 @@ public class bVec5 extends bVec {
    * @param e
    * @return
    */
-  public bVec5 set(boolean a, boolean b, boolean c, boolean d, boolean e) {
+  public bvec5 set(boolean a, boolean b, boolean c, boolean d, boolean e) {
   	this.a = a;
   	this.b = b;
   	this.c = c;
@@ -36,16 +36,16 @@ public class bVec5 extends bVec {
   	return this;
   }
   
-  public bVec5 set(boolean arg){
+  public bvec5 set(boolean arg){
     set(arg,arg,arg,arg,arg);
     return this;
   }
 
-  public bVec5 set(bVec v) {
+  public bvec5 set(bvec v) {
     if(v == null) {
       this.a = this.b = this.c = this.d = this.e = false;
       return this;
-    } else if(v instanceof bVec5 || v instanceof bVec6) {
+    } else if(v instanceof bvec5 || v instanceof bvec6) {
       set(v.a,v.b,v.c,v.d,v.e);
       return this;
     } else {
@@ -56,23 +56,23 @@ public class bVec5 extends bVec {
 
 
   // abcde
-  public bVec5 set_a(boolean a) {
+  public bvec5 set_a(boolean a) {
     return set(a,this.b,this.c,this.d,this.e);
   }
 
-  public bVec5 set_b(boolean b) {
+  public bvec5 set_b(boolean b) {
     return set(this.a,b,this.c,this.d,this.e);
   }
 
-  public bVec5 set_c(boolean c) {
+  public bvec5 set_c(boolean c) {
     return set(this.a,this.b,c,this.d,this.e);
   }
 
-  public bVec5 set_d(boolean d) {
+  public bvec5 set_d(boolean d) {
     return set(this.a,this.b,this.c,d,this.e);
   }
 
-  public bVec5 set_e(boolean e) {
+  public bvec5 set_e(boolean e) {
     return set(this.a,this.b,this.c,this.d,e);
   }
 	

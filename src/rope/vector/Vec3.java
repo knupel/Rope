@@ -1,24 +1,24 @@
 package rope.vector;
 
-public class Vec3 extends Vec {
+public class vec3 extends vec {
 	// CONSTRUCTOR
-  public Vec3() {
+  public vec3() {
   	super(3);
   	set(0,0,0);
   }
   
-  public Vec3(float v) {
+  public vec3(float v) {
   	super(3);
   	set(v,v,v);
   }
 	
-	public Vec3(float x, float y, float z) {
+	public vec3(float x, float y, float z) {
     super(3) ;
     set(x,y,z);
   }
 	
 	private String warning = "Contructor class Vec3() cannot use the String key_random: ";
-	public Vec3(String key_random, float r1) {
+	public vec3(String key_random, float r1) {
 		super(3);
 		if(key_random.equals(RANDOM)) {
 			set(random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -30,7 +30,7 @@ public class Vec3 extends Vec {
 		}
 	}
 	
-	public Vec3(String key_random, float r1, float r2, float r3) {
+	public vec3(String key_random, float r1, float r2, float r3) {
 		super(3);
 		if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3));
@@ -42,7 +42,7 @@ public class Vec3 extends Vec {
     }
 	}
 	
-	public Vec3(String key_random, float a1, float a2, float b1, float b2, float c1, float c2) {
+	public vec3(String key_random, float a1, float a2, float b1, float b2, float c1, float c2) {
     super(3);
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2));
@@ -60,7 +60,7 @@ public class Vec3 extends Vec {
 	 * @param z
 	 * @return
 	 */
-  public Vec3 set(float x, float y, float z) {
+  public vec3 set(float x, float y, float z) {
   	this.x = this.r = this.s = x;
   	this.y = this.g = this.t = y;
   	this.z = this.b = this.p = z;
@@ -68,17 +68,17 @@ public class Vec3 extends Vec {
   }
   
   
-  public Vec3 set(float v) {
+  public vec3 set(float v) {
   	set(v,v,v);
   	return this;
   }
   
   
-  public Vec3 set(Vec v) {
+  public vec3 set(vec v) {
     if(v == null) {
       set(0,0,0);
       return this ;
-    } else if(v instanceof Vec5 || v instanceof Vec6) {
+    } else if(v instanceof vec5 || v instanceof vec6) {
       set(v.a,v.b,v.c);
       return this ;
     } else {
@@ -87,11 +87,11 @@ public class Vec3 extends Vec {
     }
   }
   
-  public Vec3 set(iVec v) {
+  public vec3 set(ivec v) {
     if(v == null) {
       set(0,0,0);
       return this ;
-    } else if(v instanceof iVec5 || v instanceof iVec6) {
+    } else if(v instanceof ivec5 || v instanceof ivec6) {
       set(v.a,v.b,v.c);
       return this ;
     } else {
@@ -100,45 +100,45 @@ public class Vec3 extends Vec {
     }
   }
   
-	public Vec3 set_x(float x) {
+	public vec3 set_x(float x) {
 		return set(x,this.y,this.z);
 	}
 
-	public Vec3 set_y(float y) {
+	public vec3 set_y(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public Vec3 set_z(float z) {
+	public vec3 set_z(float z) {
    return set(this.x,this.y,z);
 	}
 
 	// rgb
-	public Vec3 set_r(float x) {
+	public vec3 set_r(float x) {
    return set(x,this.y,this.z);
 	}
 
-	public Vec3 set_g(float y) {
+	public vec3 set_g(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public Vec3 set_b(float z) {
+	public vec3 set_b(float z) {
    return set(this.x,this.y,z);
 	}
 
 	// stp
-	public Vec3 set_s(float x) {
+	public vec3 set_s(float x) {
    return set(x,this.y,this.z);
 	}
 
-	public Vec3 set_t(float y) {
+	public vec3 set_t(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public Vec3 set_p(float z) {
+	public vec3 set_p(float z) {
    return set(this.x,this.y,z);
 	}
  
-  public Vec3 set(float[] source) {
+  public vec3 set(float[] source) {
     set(source[0],source[1],source[2]);
     return this ;
   }
@@ -158,7 +158,7 @@ public class Vec3 extends Vec {
    * @param m_z
    * @return
    */
-  public Vec3 mult(float m_x, float m_y, float m_z) {
+  public vec3 mult(float m_x, float m_y, float m_z) {
     x *= m_x;
     y *= m_y; 
     z *= m_z; 
@@ -166,17 +166,17 @@ public class Vec3 extends Vec {
     return this;
   }
 
-  public Vec3 mult(float m) {
+  public vec3 mult(float m) {
     return mult(m,m,m);
   }
   
-  public Vec3 mult(Vec v) {
+  public vec3 mult(vec v) {
     if(v != null) {
       return mult(v.x,v.y,v.z);
     } else return null;   
   }
 
-  public Vec3 mult(iVec v) {
+  public vec3 mult(ivec v) {
     if(v != null) {
       return mult(v.x,v.y,v.z);
     } else return null;   
@@ -189,7 +189,7 @@ public class Vec3 extends Vec {
    * @param d_z
    * @return
    */
-  public Vec3 div(float d_x, float d_y, float d_z) {
+  public vec3 div(float d_x, float d_y, float d_z) {
     if(d_x != 0) x /= d_x; 
     if(d_y != 0) y /= d_y; 
     if(d_z != 0) z /= d_z; 
@@ -197,17 +197,17 @@ public class Vec3 extends Vec {
     return this;
   }
 
-  public Vec3 div(float d) {
+  public vec3 div(float d) {
     return div(d,d,d);
   }
   
-  public Vec3 div(Vec v) {
+  public vec3 div(vec v) {
     if(v != null) {
       return div(v.x,v.y,v.z);
     } else return null;   
   }
   
-  public Vec3 div(iVec v) {
+  public vec3 div(ivec v) {
     if(v != null) {
       return div(v.x,v.y,v.z);
     } else return null;   
@@ -221,7 +221,7 @@ public class Vec3 extends Vec {
    * @param a_z
    * @return
    */
-  public Vec3 add(float a_x,float a_y,float a_z) {
+  public vec3 add(float a_x,float a_y,float a_z) {
     x += a_x;
     y += a_y;
     z += a_z;
@@ -229,17 +229,17 @@ public class Vec3 extends Vec {
     return this;
   }
   
-  public Vec3 add(float a) {
+  public vec3 add(float a) {
     return add(a,a,a);
   }
 
-  public Vec3 add(Vec v) {
+  public vec3 add(vec v) {
     if(v != null) {
       return add(v.x,v.y,v.z);
     } return null;
   }
 
-  public Vec3 add(iVec v) {
+  public vec3 add(ivec v) {
     if(v != null) {
       return add(v.x,v.y,v.z);
     } return null;
@@ -253,7 +253,7 @@ public class Vec3 extends Vec {
    * @param s_z
    * @return
    */
-  public Vec3 sub(float s_x,float s_y,float s_z) {
+  public vec3 sub(float s_x,float s_y,float s_z) {
     x -= s_x;
     y -= s_y;
     z -= s_z;
@@ -261,17 +261,17 @@ public class Vec3 extends Vec {
     return this;
   }
 
-  public Vec3 sub(float s) {
+  public vec3 sub(float s) {
     return sub(s,s,s);
   }
 
-  public Vec3 sub(Vec v) {
+  public vec3 sub(vec v) {
     if(v != null) {
       return sub(v.x,v.y,v.z);
     } return null;
   }
 
-  public Vec3 sub(iVec v) {
+  public vec3 sub(ivec v) {
     if(v != null) {
       return sub(v.x,v.y,v.z);
     } return null;
@@ -298,7 +298,7 @@ public class Vec3 extends Vec {
     return this.x*x + this.y*y + this.z*z;
   }
   
-  public float dot(Vec3 v) {
+  public float dot(vec3 v) {
     if(v != null) {
       return x*v.x + y*v.y + z*v.z;
     } else {
@@ -314,11 +314,11 @@ public class Vec3 extends Vec {
    * @param pow
    * @return each component of the vec is power push
    */
-  public Vec3 pow(int pow) {
+  public vec3 pow(int pow) {
     this.pow(pow,pow,pow);
     return this;
   }
-  public Vec3 pow(int pow_x, int pow_y, int pow_z) {
+  public vec3 pow(int pow_x, int pow_y, int pow_z) {
     x = (float)Math.pow(x,pow_x);
     y = (float)Math.pow(y,pow_y);
     z = (float)Math.pow(z,pow_z);
@@ -334,13 +334,13 @@ public class Vec3 extends Vec {
    * @return
    */
   @SuppressWarnings("unused")
-	public Vec3 cross(Vec3 v, Vec3 target) {
+	public vec3 cross(vec3 v, vec3 target) {
     if(v != null && target != null) {
       float crossX = y*v.z - v.y*z;
       float crossY = z*v.x - v.z*x;
       float crossZ = x*v.y - v.x*y;
       if (target == null) {
-        target = new Vec3(crossX, crossY, crossZ);
+        target = new vec3(crossX, crossY, crossZ);
       } else {
         target.set(crossX, crossY, crossZ);
       }
@@ -348,15 +348,15 @@ public class Vec3 extends Vec {
     } else return null ;
   }
   
-  public Vec3 cross(Vec3 v) {
+  public vec3 cross(vec3 v) {
     if(v != null) {
       return cross(v, null);
     } else return null ;
     
   }
   
-  public Vec3 cross(float x, float y, float z) {
-    Vec3 v = new Vec3(x,y,z) ;
+  public vec3 cross(float x, float y, float z) {
+    vec3 v = new vec3(x,y,z) ;
     return cross(v, null);
   }
   
@@ -365,7 +365,7 @@ public class Vec3 extends Vec {
    * @param target
    * @return
    */
-  public float dist(Vec target) {
+  public float dist(vec target) {
     if(target != null) {
       float dx = x -target.x;
       float dy = y -target.y;
@@ -381,7 +381,7 @@ public class Vec3 extends Vec {
    * @param origin
    * @return
    */
-  public Vec3 dir(Vec3 origin) {
+  public vec3 dir(vec3 origin) {
     if(origin != null) {
       float dist = dist(origin) ;
       sub(origin) ;
@@ -391,12 +391,12 @@ public class Vec3 extends Vec {
     return this ;
   }
   
-  public Vec3 dir() {
-    return dir(new Vec3(0)) ;
+  public vec3 dir() {
+    return dir(new vec3(0)) ;
   }
   
-  public Vec3 dir(float a_x, float a_y, float a_z) {
-    return dir(new Vec3(a_x,a_y,a_z)) ;
+  public vec3 dir(float a_x, float a_y, float a_z) {
+    return dir(new vec3(a_x,a_y,a_z)) ;
   }
   
   
@@ -405,15 +405,15 @@ public class Vec3 extends Vec {
    * @param vector_to_make_plane_ref
    * @return
    */
-  public Vec3 tan(Vec3 vector_to_make_plane_ref) {
+  public vec3 tan(vec3 vector_to_make_plane_ref) {
     if(vector_to_make_plane_ref != null) {
-      Vec3 tangent = cross(vector_to_make_plane_ref) ;
+      vec3 tangent = cross(vector_to_make_plane_ref) ;
       return tangent ;
     } else return null ;
   }
   
-  public Vec3 tan(float float_to_make_plane_ref_x, float float_to_make_plane_ref_y, float float_to_make_plane_ref_z) {
-    return tan(new Vec3(float_to_make_plane_ref_x, float_to_make_plane_ref_y, float_to_make_plane_ref_z)) ;
+  public vec3 tan(float float_to_make_plane_ref_x, float float_to_make_plane_ref_y, float float_to_make_plane_ref_z) {
+    return tan(new vec3(float_to_make_plane_ref_x, float_to_make_plane_ref_y, float_to_make_plane_ref_z)) ;
   }
   
   
@@ -451,7 +451,7 @@ public class Vec3 extends Vec {
    * @param v_target
    * @return
    */
-  float mag(Vec3 v_target) {
+  float mag(vec3 v_target) {
     if(v_target != null) {
       float new_x = (v_target.x -x) *(v_target.x -x);
       float new_y = (v_target.y -y) *(v_target.y -y);
@@ -473,9 +473,9 @@ public class Vec3 extends Vec {
    * @param target
    * @return
    */
-  public Vec3 normalize(Vec3 target) {
+  public vec3 normalize(vec3 target) {
     if (target == null) {
-      target = new Vec3();
+      target = new vec3();
     }
     float m = mag();
     if (m > 0) {
@@ -486,7 +486,7 @@ public class Vec3 extends Vec {
     return target;
   }
 
-  public Vec3 normalize() {
+  public vec3 normalize() {
     float m = mag();
     if (m != 0 && m != 1) {
       div(m);
@@ -495,7 +495,7 @@ public class Vec3 extends Vec {
   }
   
   
-  public Vec3 map(float minIn, float maxIn, float minOut, float maxOut) {
+  public vec3 map(float minIn, float maxIn, float minOut, float maxOut) {
     x = map(x,minIn,maxIn,minOut,maxOut);
     y = map(y,minIn,maxIn,minOut,maxOut);
     z = map(z,minIn,maxIn,minOut,maxOut);
@@ -503,7 +503,7 @@ public class Vec3 extends Vec {
     return this ;
   }
   
-  public Vec3 map(Vec3 minIn, Vec3 maxIn, Vec3 minOut, Vec3 maxOut) {
+  public vec3 map(vec3 minIn, vec3 maxIn, vec3 minOut, vec3 maxOut) {
     x = map(x,minIn.x,maxIn.x,minOut.x,maxOut.x);
     y = map(y,minIn.y,maxIn.y,minOut.y,maxOut.y);   
     z = map(z,minIn.z,maxIn.z,minOut.z,maxOut.z);   
@@ -516,7 +516,7 @@ public class Vec3 extends Vec {
    * @param max
    * @return
    */
-  public Vec3 limit(float max) {
+  public vec3 limit(float max) {
     if (magSq() > max*max) {
       normalize();
       mult(max);
@@ -531,7 +531,7 @@ public class Vec3 extends Vec {
    * @param range_z
    * @return
    */
-  public Vec3 jitter(int range_x,int range_y, int range_z) {
+  public vec3 jitter(int range_x,int range_y, int range_z) {
     x += random_next_gaussian(range_x,3);
     y += random_next_gaussian(range_y,3);
     z += random_next_gaussian(range_z,3);
@@ -539,11 +539,11 @@ public class Vec3 extends Vec {
     return this;
   }
   
-  public Vec3 jitter(int range) {
+  public vec3 jitter(int range) {
     return jitter(range,range,range) ;
   }
   
-  public Vec3 jitter(Vec3 range) {
+  public vec3 jitter(vec3 range) {
     if(range != null) {
       return jitter((int)range.x,(int)range.y,(int)range.z) ;
     } else return jitter(0, 0, 0) ;
@@ -556,7 +556,7 @@ public class Vec3 extends Vec {
    * @param target
    * @return true if the target is equals to vec, you can pass one argument to compare with all vec components 
    */
-  public boolean equals(Vec3 target) {
+  public boolean equals(vec3 target) {
     if(target != null) {
       if((x == target.x) && (y == target.y) && (z == target.z)) {
         return true ; 
@@ -582,8 +582,8 @@ public class Vec3 extends Vec {
    * @return
    * 
    */
-  public Vec3 copy() {
-  	return new Vec3(x,y,z);
+  public vec3 copy() {
+  	return new vec3(x,y,z);
   }
   
   

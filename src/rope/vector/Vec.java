@@ -10,7 +10,7 @@ import rope.core.BigBangRope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
-public abstract class Vec extends BigBangRope {
+public abstract class vec extends BigBangRope {
 	public int num;
 	public float x,y,z,w = Float.NaN;
 	public float a,b,c,d,e,f = Float.NaN;
@@ -18,7 +18,7 @@ public abstract class Vec extends BigBangRope {
 	public float s,t,p,q = Float.NaN;
 	public float u,v = Float.NaN;
 	
-  public Vec(int num) {
+  public vec(int num) {
   	// super();
     this.num = num;
   }

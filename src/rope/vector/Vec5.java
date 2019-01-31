@@ -1,23 +1,23 @@
 package rope.vector;
 
-public class Vec5 extends Vec {
-  public Vec5() {
+public class vec5 extends vec {
+  public vec5() {
   	super(5);
   	set(0,0,0,0,0);
   }
   
-  public Vec5(float v) {
+  public vec5(float v) {
   	super(5);
   	set(v,v,v,v,v);
   }
 
-  public Vec5(float a, float b, float c, float d, float e) {
+  public vec5(float a, float b, float c, float d, float e) {
     super(5) ;
     set(a,b,c,d,e);
   }
   
   private String warning = "Contructor class Vec5() cannot use the String key_random: ";
-  public Vec5(String key_random, float r1) {
+  public vec5(String key_random, float r1) {
     super(5) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
@@ -29,7 +29,7 @@ public class Vec5 extends Vec {
     }
   }
   
-  public Vec5(String key_random, float r1, float r2, float r3, float r4, float r5) {
+  public vec5(String key_random, float r1, float r2, float r3, float r4, float r5) {
     super(5) ;
     if(key_random.equals(RANDOM)) {
       set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4),random(-r5,r5));
@@ -41,7 +41,7 @@ public class Vec5 extends Vec {
     }
   }
 
-  public Vec5(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2) {
+  public vec5(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2) {
     super(5) ;
     if(key_random.equals(RANDOM_RANGE)) {
       set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2),random(e1,e2));
@@ -60,7 +60,7 @@ public class Vec5 extends Vec {
    * @param e
    * @return
    */
-  public Vec5 set(float a,float b, float c, float d, float e) {
+  public vec5 set(float a,float b, float c, float d, float e) {
   	this.a = a;
   	this.b = b;
   	this.c = c;
@@ -69,21 +69,21 @@ public class Vec5 extends Vec {
   	return this;
   }
   
-  public Vec5 set(float[] source) {
+  public vec5 set(float[] source) {
     set(source[0],source[1],source[2],source[3],source[4]);
     return this ;
   }
   
-  public Vec5 set(float v) {
+  public vec5 set(float v) {
     set(v,v,v,v,v);
     return this;
   }
   
-  public Vec5 set(Vec v) {
+  public vec5 set(vec v) {
     if( v == null) {
       a = b = c = d = e = 0 ;
       return this ;
-    } else if(v instanceof Vec5 || v instanceof Vec6) {
+    } else if(v instanceof vec5 || v instanceof vec6) {
       set(v.a,v.b,v.c,v.d,v.e);
       return this ;
     } else {
@@ -94,23 +94,23 @@ public class Vec5 extends Vec {
   
   
   // abcde
-  public Vec5 set_a(float a) {
+  public vec5 set_a(float a) {
     return set(a,this.b,this.c,this.d,this.e);
   }
 
-  public Vec5 set_b(float b) {
+  public vec5 set_b(float b) {
     return set(this.a,b,this.c,this.d,this.e);
   }
 
-  public Vec5 set_c(float c) {
+  public vec5 set_c(float c) {
     return set(this.a,this.b,c,this.d,this.e);
   }
 
-  public Vec5 set_d(float d) {
+  public vec5 set_d(float d) {
     return set(this.a,this.b,this.c,d,this.e);
   }
 
-  public Vec5 set_e(float e) {
+  public vec5 set_e(float e) {
     return set(this.a,this.b,this.c,this.d,e);
   }
   
@@ -138,8 +138,8 @@ public class Vec5 extends Vec {
    * copy
    * @return
    */
-  public Vec5 copy() {
-    return new Vec5(a,b,c,d,e) ;
+  public vec5 copy() {
+    return new vec5(a,b,c,d,e) ;
   }
   
   @Override 

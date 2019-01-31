@@ -1,22 +1,22 @@
 package rope.vector;
 
-public class iVec3 extends iVec {
-	public iVec3() {
+public class ivec3 extends ivec {
+	public ivec3() {
   	super(3);
   	set(0,0,0);
   }
   
-  public iVec3(int v) {
+  public ivec3(int v) {
   	super(3);
   	set(v,v,v);
   }
   
-  public iVec3(int x, int y, int z) {
+  public ivec3(int x, int y, int z) {
     super(3);
     set(x,y,z);
   }
 
-  public iVec3(iVec v) {
+  public ivec3(ivec v) {
     super(3);
     set(v);
   }
@@ -28,23 +28,23 @@ public class iVec3 extends iVec {
    * @param z
    * @return
    */
-  public iVec3 set(int x, int y, int z) {
+  public ivec3 set(int x, int y, int z) {
   	this.x = this.r = this.s = x;
   	this.y = this.g = this.t = y;
   	this.z = this.b = this.p = z;
   	return this;
   }
   
-  public iVec3 set(int arg){
+  public ivec3 set(int arg){
     set(arg,arg,arg);
     return this;
   }
 
-  public iVec3 set(iVec v) {
+  public ivec3 set(ivec v) {
     if(v == null) {
       this.x = this.y = this.z = 0;
       return this;
-    } else if(v instanceof iVec5 || v instanceof iVec6) {
+    } else if(v instanceof ivec5 || v instanceof ivec6) {
       set(v.a,v.b,v.c);
       return this;
     } else {
@@ -54,41 +54,41 @@ public class iVec3 extends iVec {
   }
 
   // xyz
-  public iVec3 set_x(int x) {
+  public ivec3 set_x(int x) {
     return set(x,this.y,this.z);
   }
 
-  public iVec3 set_y(int y) {
+  public ivec3 set_y(int y) {
     return set(this.x,y,this.z);
   }
 
-  public iVec3 set_z(int z) {
+  public ivec3 set_z(int z) {
     return set(this.x,this.y,z);
   }
 
   // rgb
-  public iVec3 set_r(int x) {
+  public ivec3 set_r(int x) {
     return set(x,this.y,this.z);
   }
 
-  public iVec3 set_g(int y) {
+  public ivec3 set_g(int y) {
     return set(this.x,y,this.z);
   }
 
-  public iVec3 set_b(int z) {
+  public ivec3 set_b(int z) {
     return set(this.x,this.y,z);
   }
 
   // stp
-  public iVec3 set_s(int x) {
+  public ivec3 set_s(int x) {
     return set(x,this.y,this.z);
   }
 
-  public iVec3 set_t(int y) {
+  public ivec3 set_t(int y) {
     return set(this.x,y,this.z);
   }
 
-  public iVec3 set_p(int z) {
+  public ivec3 set_p(int z) {
     return set(this.x,this.y,z);
   }
   
@@ -108,7 +108,7 @@ public class iVec3 extends iVec {
    * @param m_z
    * @return
    */
-  public iVec3 mult(int m_x, int m_y, int m_z) {
+  public ivec3 mult(int m_x, int m_y, int m_z) {
     x *= m_x; 
     y *= m_y; 
     z *= m_z;
@@ -116,11 +116,11 @@ public class iVec3 extends iVec {
     return this ;
   }
 
-  public iVec3 mult(int m) {
+  public ivec3 mult(int m) {
     return mult(m,m,m);
   }
 
-  public iVec3 mult(iVec v) {
+  public ivec3 mult(ivec v) {
     if(v != null) {
       return mult(v.x,v.y,v.z);
     } else return null ;
@@ -133,7 +133,7 @@ public class iVec3 extends iVec {
    * @param d_z
    * @return
    */
-  public iVec3 div(int d_x, int d_y, int d_z) {
+  public ivec3 div(int d_x, int d_y, int d_z) {
     if(d_x != 0) x /= d_x; 
     if(d_y != 0) y /= d_y; 
     if(d_z != 0) z /= d_z; 
@@ -141,11 +141,11 @@ public class iVec3 extends iVec {
     return this;
   }
   
-  public iVec3 div(int d) {
+  public ivec3 div(int d) {
     return div(d,d,d);
   }
   
-  public iVec3 div(iVec v) {
+  public ivec3 div(ivec v) {
     if(v != null) {
       return div(v.x,v.y,v.z);
     } else return null;
@@ -158,7 +158,7 @@ public class iVec3 extends iVec {
    * @param a_z
    * @return
    */
-  public iVec3 add(int a_x,int a_y,int a_z) {
+  public ivec3 add(int a_x,int a_y,int a_z) {
     x += a_x;
     y += a_y;
     z += a_z;
@@ -166,11 +166,11 @@ public class iVec3 extends iVec {
     return this;
   }
 
-  public iVec3 add(int a) {
+  public ivec3 add(int a) {
     return add(a,a,a);
   }
 
-  public iVec3 add(iVec v) {
+  public ivec3 add(ivec v) {
     if(v != null) {
       return add(v.x,v.y,v.z);
     } else return null;
@@ -183,7 +183,7 @@ public class iVec3 extends iVec {
    * @param a_z
    * @return
    */
-  public iVec3 sub(int a_x,int a_y,int a_z) {
+  public ivec3 sub(int a_x,int a_y,int a_z) {
     x -= a_x;
     y -= a_y;
     z -= a_z;
@@ -191,11 +191,11 @@ public class iVec3 extends iVec {
     return this;
   }
 
-  public iVec3 sub(int a) {
+  public ivec3 sub(int a) {
     return sub(a,a,a);
   }
 
-  public iVec3 sub(iVec v) {
+  public ivec3 sub(ivec v) {
     if(v != null) {
       return sub(v.x,v.y,v.z);
     } else return null;
@@ -206,7 +206,7 @@ public class iVec3 extends iVec {
    * @param target
    * @return
    */
-  public boolean equals(iVec3 target) {
+  public boolean equals(ivec3 target) {
     if(target != null ) {
       if((x == target.x) && (y == target.y) && (z == target.z)) {
         return true; 
@@ -230,8 +230,8 @@ public class iVec3 extends iVec {
    * copy
    * @return
    */
-  public iVec3 copy() {
-    return new iVec3(x,y,z) ;
+  public ivec3 copy() {
+    return new ivec3(x,y,z) ;
   }
   
   

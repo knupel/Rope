@@ -10,7 +10,7 @@ import rope.core.BigBangRope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
-public abstract class iVec extends BigBangRope {
+public abstract class ivec extends BigBangRope {
 	private int num;
 	public int x,y,z,w;
 	public int a,b,c,d,e,f;
@@ -19,7 +19,7 @@ public abstract class iVec extends BigBangRope {
 	public int u,v;
 	
 
-	public iVec(int num) {
+	public ivec(int num) {
 		this.num = num;
 	}
 	

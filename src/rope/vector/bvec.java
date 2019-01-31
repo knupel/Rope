@@ -10,11 +10,11 @@ import rope.core.BigBangRope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
-public abstract class bVec extends BigBangRope {
+public abstract class bvec extends BigBangRope {
 	private int num ;
 	public boolean x,y,z,w;
 	public boolean a,b,c,d,e,f;
-	public bVec(int num) {
+	public bvec(int num) {
 		this.num = num;
 	}
 	

@@ -1,18 +1,18 @@
 package rope.vector;
 
-public class bVec2 extends bVec {
+public class bvec2 extends bvec {
 	
-	public bVec2(boolean x,boolean y) {
+	public bvec2(boolean x,boolean y) {
 		super(2);
 		set(x,y);
 	}
 	
-	public bVec2(boolean arg) {
+	public bvec2(boolean arg) {
 		super(2);
 		set(arg);
 	}
 	
-	public bVec2(bVec b) {
+	public bvec2(bvec b) {
 		super(2);
 		set(b);	
 	}
@@ -24,22 +24,22 @@ public class bVec2 extends bVec {
    * @param y
    * @return
    */
-  public bVec2 set(boolean x, boolean y) {
+  public bvec2 set(boolean x, boolean y) {
   	this.x = x;
   	this.y = y;
   	return this;
   }
   
-  public bVec2 set(boolean arg){
+  public bvec2 set(boolean arg){
     set(arg,arg);
     return this;
   }
   
-  public bVec2 set(bVec v) {
+  public bvec2 set(bvec v) {
     if(v == null) {
       this.x = this.y = false;
       return this;
-    } else if(v instanceof bVec5 || v instanceof bVec6) {
+    } else if(v instanceof bvec5 || v instanceof bvec6) {
       set(v.a,v.b);
       return this;
     } else {
@@ -49,11 +49,11 @@ public class bVec2 extends bVec {
   }
   
   // xy
-  public bVec2 set_x(boolean x) {
+  public bvec2 set_x(boolean x) {
     return set(x,this.y);
   }
 
-  public bVec2 set_y(boolean y) {
+  public bvec2 set_y(boolean y) {
     return set(this.x,y);
   }
 	

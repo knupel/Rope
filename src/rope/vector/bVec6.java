@@ -1,18 +1,18 @@
 package rope.vector;
 
-public class bVec6 extends bVec {
+public class bvec6 extends bvec {
 	
-	public bVec6(boolean a,boolean b,boolean c, boolean d, boolean e, boolean f) {
+	public bvec6(boolean a,boolean b,boolean c, boolean d, boolean e, boolean f) {
 		super(6);
 		set(a,b,c,d,e,f);
 	}
 	
-	public bVec6(boolean arg) {
+	public bvec6(boolean arg) {
 		super(6);
 		set(arg);
 	}
 	
-	public bVec6(bVec b) {
+	public bvec6(bvec b) {
 		super(6);	
 		set(b);
 	}
@@ -28,7 +28,7 @@ public class bVec6 extends bVec {
    * @param f
    * @return
    */
-  public bVec6 set(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f) {
+  public bvec6 set(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f) {
   	this.a = a;
   	this.b = b;
   	this.c = c;
@@ -38,16 +38,16 @@ public class bVec6 extends bVec {
   	return this;
   }
   
-  public bVec6 set(boolean arg){
+  public bvec6 set(boolean arg){
     set(arg,arg,arg,arg,arg,arg);
     return this;
   }
 
-  public bVec6 set(bVec v) {
+  public bvec6 set(bvec v) {
     if(v == null) {
       this.a = this.b = this.c = this.d = this.e = this.f = false;
       return this;
-    } else if(v instanceof bVec5 || v instanceof bVec6) {
+    } else if(v instanceof bvec5 || v instanceof bvec6) {
       set(v.a,v.b,v.c,v.d,v.e,v.f);
       return this;
     } else {
@@ -57,27 +57,27 @@ public class bVec6 extends bVec {
   }
 
   // abcdef
-  public bVec6 set_a(boolean a) {
+  public bvec6 set_a(boolean a) {
     return set(a,this.b,this.c,this.d,this.e,this.f);
   }
 
-  public bVec6 set_b(boolean b) {
+  public bvec6 set_b(boolean b) {
     return set(this.a,b,this.c,this.d,this.e,this.f);
   }
 
-  public bVec6 set_c(boolean c) {
+  public bvec6 set_c(boolean c) {
     return set(this.a,this.b,c,this.d,this.e,this.f);
   }
 
-  public bVec6 set_d(boolean d) {
+  public bvec6 set_d(boolean d) {
     return set(this.a,this.b,this.c,d,this.e,this.f);
   }
 
-  public bVec6 set_e(boolean e) {
+  public bvec6 set_e(boolean e) {
     return set(this.a,this.b,this.c,this.d,e,this.f);
   }
 
-  public bVec6 set_f(boolean f) {
+  public bvec6 set_f(boolean f) {
     return set(this.a,this.b,this.c,this.d,this.e,f);
   }
 	
