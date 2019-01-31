@@ -30,7 +30,7 @@ void setup() {
   Vec5 v5 = new Vec5(3,-1,4.5,PI,234);
   println(v5.max_vec(),v5.min_vec());
   
-    Vec6 v6 = new Vec6(2);
+  Vec6 v6 = new Vec6(2);
   v6.set_b(65.45);
   println(v6);
   
@@ -47,8 +47,4 @@ void setup() {
   Rope r = new Rope();
   println(r.version());
   println("Euler",r.EULER);
-  
-  
-  
-  
 }

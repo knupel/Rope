@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" output="bin" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/stan/Desktop/code/eclipse-workspace/libs/core_Processing_3_4.jar"/>
+	<classpathentry kind="lib" path="/Users/stan/En cours/code/eclipse-workspace/libs/core_processing_3_5_2.jar"/>
 	<classpathentry kind="output" path="resources/code"/>
 </classpath>
