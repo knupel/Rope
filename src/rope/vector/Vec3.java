@@ -545,10 +545,60 @@ public class vec3 extends vec {
   
   public vec3 jitter(vec3 range) {
     if(range != null) {
-      return jitter((int)range.x,(int)range.y,(int)range.z) ;
-    } else return jitter(0, 0, 0) ;
-    
+      return jitter((int)range.x,(int)range.y,(int)range.z);
+    } else return jitter(0,0,0) ;
   }
+
+
+
+
+
+  /**
+  * WAVE COSINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @param sz float speed for all vec arg z
+  * @return vec3 cosinus of the value
+  */
+  public vec3 wave_cos(int value, float s) {
+    return wave_cos(value,s,s,s);
+  }
+
+  public vec3 wave_cos(int value, float sx, float sy, float sz) {
+    float x = (float)Math.cos(value *sx);
+    float y = (float)Math.cos(value *sy);
+    float z = (float)Math.cos(value *sz);
+    set(x,y,z);
+    return this;
+  }
+
+  /**
+  * WAVE SINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @param sz float speed for all vec arg z
+  * @return vec3 sinus of the value
+  */
+  public vec3 wave_sin(int value, float s) {
+    return wave_sin(value,s,s,s);
+  }
+
+  public vec3 wave_sin(int value, float sx, float sy, float sz) {
+    float x = (float)Math.sin(value *sx);
+    float y = (float)Math.sin(value *sy);
+    float z = (float)Math.sin(value *sz);
+    set(x,y,z);
+    return this;
+  }
+
+
+
+
+
   
   
   /**

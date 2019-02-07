@@ -524,6 +524,63 @@ public class vec4 extends vec {
     set(x,y,z,w);
     return this;
   }
+
+
+
+
+
+
+
+
+  /**
+  * WAVE COSINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @param sz float speed for all vec arg z
+  * @param sw float speed for all vec arg w
+  * @return vec4 cosinus of the value
+  */
+  public vec4 wave_cos(int value, float s) {
+    return wave_cos(value,s,s,s,s);
+  }
+
+  public vec4 wave_cos(int value, float sx, float sy, float sz, float sw) {
+    float x = (float)Math.cos(value *sx);
+    float y = (float)Math.cos(value *sy);
+    float z = (float)Math.cos(value *sz);
+    float w = (float)Math.cos(value *sw);
+    set(x,y,z,w);
+    return this;
+  }
+
+  /**
+  * WAVE SINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @param sz float speed for all vec arg z
+  * @param sw float speed for all vec arg w
+  * @return vec4 sinus of the value
+  */
+  public vec4 wave_sin(int value, float s) {
+    return wave_sin(value,s,s,s,s);
+  }
+
+  public vec4 wave_sin(int value, float sx, float sy, float sz, float sw) {
+    float x = (float)Math.sin(value *sx);
+    float y = (float)Math.sin(value *sy);
+    float z = (float)Math.sin(value *sz);
+    float w = (float)Math.sin(value *sw);
+    set(x,y,z,w);
+    return this;
+  }
+
+
+
+
   
   /**
    * equals

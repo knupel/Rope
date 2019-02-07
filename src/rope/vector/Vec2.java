@@ -377,7 +377,7 @@ public class vec2 extends vec {
   * @brief Calculate the angle of rotation for this vector
   */
   public float angle() {
-    float angle = (float) Math.atan2(y, x);
+    float angle = (float)Math.atan2(y, x);
     return angle;
   }
   /**
@@ -502,7 +502,7 @@ public class vec2 extends vec {
   
 
   /** 
-   * 
+   * DIST
    * @param target
    * distance between himself and an other vector
    * @return float distance between the Vec and the target
@@ -520,7 +520,7 @@ public class vec2 extends vec {
   
   
   /**
-   * 
+  * JITTER
 	* @param range int
 	* @return Vec2 altered with a random gaussian effect
 	*/
@@ -541,9 +541,50 @@ public class vec2 extends vec {
    * @param range_y int
    * @return Vec2 altered with a random gaussian effect
    */
-  public vec2 jitter(int range_x,int range_y) {
+  public vec2 jitter(int range_x, int range_y) {
     x += random_next_gaussian(range_x,3);
     y += random_next_gaussian(range_y,3);
+    set(x,y);
+    return this;
+  }
+
+
+  /**
+  * WAVE COSINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @return vec2 cosinus of the value
+  */
+  public vec2 wave_cos(int value, float s) {
+    return wave_cos(value,s,s);
+  }
+
+
+  public vec2 wave_cos(int value, float sx, float sy) {
+    float x = (float)Math.cos(value *sx);
+    float y = (float)Math.cos(value *sy);
+    set(x,y);
+    return this;
+  }
+
+  /**
+  * WAVE SINUS
+  * @param value int
+  * @param s float speed for all vec arg
+  * @param sx float speed for all vec arg x
+  * @param sy float speed for all vec arg y
+  * @return vec2 sinus of the value
+  */
+  public vec2 wave_sin(int value, float s) {
+    return wave_sin(value,s,s);
+  }
+
+
+  public vec2 wave_sin(int value, float sx, float sy) {
+    float x = (float)Math.sin(value *sx);
+    float y = (float)Math.sin(value *sy);
     set(x,y);
     return this;
   }
