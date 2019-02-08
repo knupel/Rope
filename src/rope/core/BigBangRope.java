@@ -1,18 +1,18 @@
 package rope.core;
 /**
-	* ROPE > Romanesco processing environment
-	* Copyleft (c) 2014-2018
-	* v 0.0.1
-	* Processing 3.4
-	* @author Stan le Punk
-	* @see http://stanlepunk.xyz/
-	* @see https://github.com/StanLepunK/Rope
-	*/
+* ROPE > Romanesco processing environment
+* Copyleft (c) 2014-2019
+* v 0.2.1
+* Processing 3.5.3
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
+*/
 //import processing.core.*;
 import java.util.Random;
 public abstract class BigBangRope implements RConstants {
 
-	private String VERSION = "##Rope 0.0.2##";
+	private String VERSION = "##Rope 0.2.1##";
 	
 	public String version() {
 		return VERSION;
@@ -70,7 +70,7 @@ public abstract class BigBangRope implements RConstants {
 
 
 
-	// Min_MAX
+	// min max
 	private String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
 	/**
 	 * 
@@ -87,6 +87,17 @@ public abstract class BigBangRope implements RConstants {
     }
     return max;
   }
+
+  protected int max(int[] list) {
+    if (list.length == 0) {
+      throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+    }
+    int max = list[0];
+    for (int i = 1; i < list.length; i++) {
+      if (list[i] > max) max = list[i];
+    }
+    return max;
+  }
 	
   /**
    * 
@@ -98,6 +109,17 @@ public abstract class BigBangRope implements RConstants {
       throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
     }
     float min = list[0];
+    for (int i = 1; i < list.length; i++) {
+      if (list[i] < min) min = list[i];
+    }
+    return min;
+  }
+
+  protected int min(int[] list) {
+    if (list.length == 0) {
+      throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+    }
+    int min = list[0];
     for (int i = 1; i < list.length; i++) {
       if (list[i] < min) min = list[i];
     }

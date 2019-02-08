@@ -1,15 +1,15 @@
-package rope.vector;
-import rope.core.BigBangRope;
 /**
- * Vec class
- * v 1.18.0
+* vec class
+* v 1.18.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
- * @author Stan le Punk
- * @see http://stanlepunk.xyz/
- * @see https://github.com/StanLepunK/Rope
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
 */
+package rope.vector;
+import rope.core.BigBangRope;
 public abstract class vec extends BigBangRope {
 	public int num;
 	public float x,y,z,w = Float.NaN;

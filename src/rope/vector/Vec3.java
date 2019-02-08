@@ -1,9 +1,5 @@
-package rope.vector;
-
-import rope.core.BigBangRope;
-
 /**
- * Vec3 class
+ * vec3 class
  * v 1.0.0
 * 2015-2019
 * Processing 3.5.3
@@ -12,6 +8,7 @@ import rope.core.BigBangRope;
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
+package rope.vector;
 public class vec3 extends vec {
 	// CONSTRUCTOR
   public vec3() {

@@ -1,15 +1,15 @@
+/**
+* bvec class
+* v 1.0.1
+* 2015-2019
+* Processing 3.5.3
+* Vector with a boolean precision
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.vector;
 import rope.core.BigBangRope;
-/**
- * bvec class
- * v 1.0.1
- * 2015-2019
- * Processing 3.5.3
- * Vector with a boolean precision
- * @author Stan le Punk
- * @see http://stanlepunk.xyz/
- * @see https://github.com/StanLepunK/Rope
-*/
 public abstract class bvec extends BigBangRope {
 	private int num ;
 	public boolean x,y,z,w;

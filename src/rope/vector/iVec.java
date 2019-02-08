@@ -1,15 +1,15 @@
+/**
+* ivec class
+* v 1.0.1
+* 2015-2018
+* Processing 3.5.3
+* Vector with a integer precision
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.vector;
 import rope.core.BigBangRope;
-/**
- * ivec class
- * v 1.0.1
- * 2015-2018
- * Processing 3.5.3
- * Vector with a integer precision
- * @author Stan le Punk
- * @see http://stanlepunk.xyz/
- * @see https://github.com/StanLepunK/Rope
-*/
 public abstract class ivec extends BigBangRope {
 	private int num;
 	public int x,y,z,w;

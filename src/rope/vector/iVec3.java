@@ -1,17 +1,14 @@
-package rope.vector;
-
-import rope.core.BigBangRope;
-
 /**
- * ivec3 class
- * v 1.0.0
+* ivec3 class
+* v 1.0.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
- * @author Stan le Punk
- * @see http://stanlepunk.xyz/
- * @see https://github.com/StanLepunK/Rope
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
 */
+package rope.vector;
 public class ivec3 extends ivec {
 	public ivec3() {
   	super(3);

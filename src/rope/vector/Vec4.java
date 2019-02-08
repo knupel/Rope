@@ -1,14 +1,14 @@
-package rope.vector;
 /**
- * Vec4 class
- * v 1.0.0
+* vec4 class
+* v 1.0.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
- * @author Stan le Punk
- * @see http://stanlepunk.xyz/
- * @see https://github.com/StanLepunK/Rope
+* @author Stan le Punk
+* @see http://stanlepunk.xyz/
+* @see https://github.com/StanLepunK/Rope
 */
+package rope.vector;
 public class vec4 extends vec {
 	public vec4() {
   	super(4);
