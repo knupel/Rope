@@ -1,15 +1,17 @@
 package rope.vector;
-/**
-* Vec2
-* v 1.0.0
-* 2015-2018
-* Processing 3.4 compatible
-* Vector class with a float precision
-* @author Stan le Punk
-* @see http://stanlepunk.xyz/
-* @see https://github.com/StanLepunK/Rope
-*/
 
+import rope.core.BigBangRope;
+
+/**
+ * Vec2 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class vec2 extends vec {
   public vec2() {
   	super(2);
@@ -26,42 +28,6 @@ public class vec2 extends vec {
     set(x,y);
   }
 
-  private String warning = "Contructor class Vec2() cannot use the String key_random: ";
-  public vec2(String key_random, float r1) {
-    super(2) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r1,r1));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r1));
-    } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0;
-      System.err.println(warning+key_random);
-    }
-  }
-  
-  public vec2(String key_random, float r1, float r2) {
-    super(2) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r2,r2));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r2));
-    } else if(key_random.equals(RANDOM_RANGE)) {
-      set(random(r1,r2),random(r1,r2));
-    } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0;
-      System.err.println(warning+key_random);
-    }
-  }
-
-  public vec2(String key_random, float a1, float a2, float b1, float b2) {
-    super(2) ;
-    if(key_random.equals(RANDOM_RANGE)) {
-      set(random(a1,a2),random(b1,b2));
-    } else {
-      this.x = this.y = this.s = this.t = this.u = this.v = 0;
-      System.err.println(warning+key_random);
-    }
-  }
 
   /**
    * 
@@ -388,21 +354,6 @@ public class vec2 extends vec {
   }
   
 
-  /**
-  Min Max
-  */
-  /**
-  * find the min and the max value in the vector list
-  * @return float
-  */
-  public float max_vec() {
-    float [] list = {x,y};
-    return max(list);
-  }
-  public float min_vec() {
-    float [] list = {x,y};
-    return min(list);
-  }
 
   /**
   Normalize
@@ -519,6 +470,9 @@ public class vec2 extends vec {
   }
   
   
+
+
+
   /**
   * JITTER
 	* @param range int
@@ -547,6 +501,44 @@ public class vec2 extends vec {
     set(x,y);
     return this;
   }
+
+
+
+
+  /**
+   * random
+   * @param max float
+   * @return
+   */
+  public vec2 rand(float max) {
+    return rand(new vec2(0,max),new vec2(0,max));
+  }
+  /**
+   * random
+   * @param min float
+   * @param max float
+   * @return
+   */
+  public vec2 rand(float min, float max) {
+    return rand(new vec2(min,max),new vec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @return
+   */
+  public vec2 random(vec2 mx, vec2 my) {
+    x = random(mx.x,mx.y);
+    y = random(my.x,my.y);
+    set(x,y);
+    return this;
+  }
+
+
+
+
 
 
   /**

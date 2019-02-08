@@ -1,5 +1,14 @@
 package rope.vector;
-
+/**
+ * Vec4 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class vec4 extends vec {
 	public vec4() {
   	super(4);
@@ -16,40 +25,6 @@ public class vec4 extends vec {
     set(x,y,z,w);
   }
   
-  private String warning = "Contructor class Vec4() cannot use the String key_random: ";
-  public vec4(String key_random, float r1) {
-    super(4) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r1),random(0,r1),random(0,r1));
-    } else {
-      this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
-      System.out.println(warning+key_random);
-    }
-  }
-  
-  public vec4(String key_random, float r1, float r2, float r3, float r4) {
-    super(4) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r2),random(0,r3),random(0,r4));
-    } else {
-      this.x = this.y = this.z = this.w = this.r = this.g = this.b = this.a =this.s = this.t = this.p = this.q = 0 ;
-      System.out.println(warning+key_random);;
-    }
-  }
-
-  public vec4(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2) {
-    super(4) ;
-    if(key_random.equals(RANDOM_RANGE)) {
-      set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2));
-    } else {
-      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0 ;
-      System.out.println(warning+key_random);
-    }
-  }
   
   /**
    * set vec
@@ -103,53 +78,53 @@ public class vec4 extends vec {
     return this ;
   }
   
-  public vec4 set_x(float x) {
+  public vec4 x(float x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public vec4 set_y(float y) {
+  public vec4 y(float y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public vec4 set_z(float z) {
+  public vec4 z(float z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public vec4 set_w(float w) {
+  public vec4 w(float w) {
     return set(this.x,this.y,this.z,w);
   }
 
   // rgba
-  public vec4 set_r(float x) {
+  public vec4 r(float x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public vec4 set_g(float y) {
+  public vec4 g(float y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public vec4 set_b(float z) {
+  public vec4 b(float z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public vec4 set_a(float w) {
+  public vec4 a(float w) {
     return set(this.x,this.y,this.z,w);
   }
 
   // stpq
-  public vec4 set_s(float x) {
+  public vec4 s(float x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public vec4 set_t(float y) {
+  public vec4 t(float y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public vec4 set_p(float z) {
+  public vec4 p(float z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public vec4 set_q(float w) {
+  public vec4 q(float w) {
     return set(this.x,this.y,this.z,w);
   }
   
@@ -382,23 +357,7 @@ public class vec4 extends vec {
     return this;
   }
   
-  /**
-   * max
-   * @return
-   */
-  public float max_vec() {
-    float [] list = {x,y,z,w};
-    return max(list);
-  }
-  
-  /**
-   * min
-   * @return
-   */
-  public float min_vec() {
-    float [] list = {x,y,z,w};
-    return min(list);
-  }
+
   
   
   /**
@@ -521,6 +480,41 @@ public class vec4 extends vec {
     y += random_next_gaussian(range_y,3);
     z += random_next_gaussian(range_z,3);
     w += random_next_gaussian(range_w,3);
+    set(x,y,z,w);
+    return this;
+  }
+
+
+  /**
+   * random
+   * @param max float
+   * @return
+   */
+  public vec4 rand(float max) {
+    return rand(new vec2(0,max),new vec2(0,max),new vec2(0,max),new vec2(0,max));
+  }
+  /**
+   * random
+   * @param min float
+   * @param max float
+   * @return
+   */
+  public vec4 rand(float min, float max) {
+    return rand(new vec2(min,max),new vec2(min,max),new vec2(min,max),new vec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @param w vec2
+   * @return
+   */
+  public vec4 rand(vec2 mx, vec2 my, vec2 mz, vec2 mw) {
+    x = random(mx.x,mx.y);
+    y = random(my.x,my.y);
+    z = random(mz.x,mz.y);
+    w = random(mw.x,mw.y);
     set(x,y,z,w);
     return this;
   }

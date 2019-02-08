@@ -18,7 +18,7 @@ public abstract class BigBangRope implements RConstants {
 		return VERSION;
 	}
 	
-	// I try to catch Processing method but my knowledge is to low ta pass this Static problem,
+	// I try to catch Processing method but my knowledge is to low to pass this Static problem,
 	// so I rewrite the method from processing core
 	// return processing.core.PApplet.random(high);
 	// Cannot make a static reference to the non-static method random(float) from the type PApplet
@@ -29,7 +29,7 @@ public abstract class BigBangRope implements RConstants {
 	 * @return random number, this method is a copy of Processing one
 	 */
 	Random internalRandom;
-	protected float random(float high) {
+	public float random(float high) {
 		// avoid an infinite loop when 0 or NaN are passed in
 		if (high == 0 || high != high) {
 			return 0;
@@ -56,7 +56,7 @@ public abstract class BigBangRope implements RConstants {
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
-	protected float random(float low, float high) {	
+	public float random(float low, float high) {	
 		if (low >= high) return low;
 		float diff = high - low;
 		float value = 0;

@@ -1,5 +1,14 @@
 package rope.vector;
-
+/**
+ * ivec5 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class ivec5 extends ivec {
   public ivec5() {
   	super(5);
@@ -57,35 +66,42 @@ public class ivec5 extends ivec {
     }
   }
 
+  public ivec5 set(vec v) {
+    if(v == null) {
+      this.a = this.b = this.c = this.d = this.e = 0;
+      return this;
+    } else if(v instanceof vec5 || v instanceof vec6) {
+      set((int)v.a,(int)v.b,(int)v.c,(int)v.d,(int)v.e);
+      return this;
+    } else {
+      set((int)v.x,(int)v.y,(int)v.z,(int)v.w,0);
+      return this;
+    }
+  }
+
 
   // abcde
-  public ivec5 set_a(int a) {
+  public ivec5 a(int a) {
     return set(a,this.b,this.c,this.d,this.e);
   }
 
-  public ivec5 set_b(int b) {
+  public ivec5 b(int b) {
     return set(this.a,b,this.c,this.d,this.e);
   }
 
-  public ivec5 set_c(int c) {
+  public ivec5 c(int c) {
     return set(this.a,this.b,c,this.d,this.e);
   }
 
-  public ivec5 set_d(int d) {
+  public ivec5 d(int d) {
     return set(this.a,this.b,this.c,d,this.e);
   }
 
-  public ivec5 set_e(int e) {
+  public ivec5 e(int e) {
     return set(this.a,this.b,this.c,this.d,e);
   }
   
-  /**
-   * get array component
-   */
-  public int [] get_array() {
-    int array [] = {a,b,c,d,e};
-    return array ;
-  }
+
   
   /**
    * copy

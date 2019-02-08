@@ -1,5 +1,17 @@
 package rope.vector;
 
+import rope.core.BigBangRope;
+
+/**
+ * ivec2 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class ivec2 extends ivec {
 	public ivec2() {
   	super(2);
@@ -50,31 +62,44 @@ public class ivec2 extends ivec {
       return this;
     }
   }
+
+  public ivec2 set(vec v) {
+    if(v == null) {
+      this.x = this.y = 0;
+      return this;
+    } else if(v instanceof vec5 || v instanceof vec6) {
+      set((int)v.a,(int)v.b);
+      return this;
+    } else {
+      set((int)v.x,(int)v.y);
+      return this;
+    }
+  }
   
   // xy
-  public ivec2 set_x(int x) {
+  public ivec2 x(int x) {
     return set(x,this.y);
   }
 
-  public ivec2 set_y(int y) {
+  public ivec2 y(int y) {
     return set(this.x,y);
   }
 
   // st
-  public ivec2 set_s(int x) {
+  public ivec2 s(int x) {
     return set(x,this.y);
   }
 
-  public ivec2 set_t(int y) {
+  public ivec2 t(int y) {
     return set(this.x,y);
   }
 
   // uv
-  public ivec2 set_u(int x) {
+  public ivec2 u(int x) {
     return set(x,this.y);
   }
 
-  public ivec2 set_v(int y) {
+  public ivec2 v(int y) {
     return set(this.x,y);
   }
   
@@ -207,6 +232,42 @@ public class ivec2 extends ivec {
     return true; 
     else return false;
   }
+
+
+    /**
+   * random
+   * @param max int
+   * @return
+   */
+  public ivec2 rand(int max) {
+    return rand(new ivec2(0,max),new ivec2(0,max));
+  }
+  /**
+   * random
+   * @param min int
+   * @param max int
+   * @return
+   */
+  public ivec2 rand(int min, int max) {
+    return rand(new ivec2(min,max),new ivec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @return
+   */
+  public ivec2 rand(ivec2 mx, ivec2 my) {
+    x = (int)random(mx.x,mx.y);
+    y = (int)random(my.x,my.y);
+    set(x,y);
+    return this;
+  }
+
+
+
+
   
   /**
    * copy

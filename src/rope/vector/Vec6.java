@@ -1,5 +1,14 @@
 package rope.vector;
-
+/**
+ * Vec6 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class vec6 extends vec {
   public vec6() {
   	super(6);
@@ -16,40 +25,6 @@ public class vec6 extends vec {
     set(a,b,c,d,e,f);
   }
   
-  private String warning = "Contructor class Vec6() cannot use the String key_random: ";
-  public vec6(String key_random, float r1) {
-    super(6) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1),random(-r1,r1));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r1),random(0,r1),random(0,r1),random(0,r1),random(0,r1));
-    } else {
-      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
-      System.out.println(warning+key_random);
-    }
-  }
-  
-  public vec6(String key_random, float r1, float r2, float r3, float r4, float r5, float r6) {
-    super(6) ;
-    if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r2,r2),random(-r3,r3),random(-r4,r4),random(-r5,r5),random(-r6,r6));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r2),random(0,r3),random(0,r4),random(0,r5),random(0,r6));
-    } else {
-      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
-      System.out.println(warning+key_random);
-    }
-  }
-
-  public vec6(String key_random, float a1, float a2, float b1, float b2, float c1, float c2, float d1, float d2, float e1, float e2, float f1, float f2) {
-    super(6) ;
-    if(key_random.equals(RANDOM_RANGE)) {
-      set(random(a1,a2),random(b1,b2),random(c1,c2),random(d1,d2),random(e1,e2),random(f1,f2));
-    } else {
-      this.a = this.b = this.c = this.d = this.e = this.f = 0 ;
-      System.out.println(warning+key_random);
-    }
-  }
   
   /**
    * set
@@ -80,12 +55,26 @@ public class vec6 extends vec {
     set(v,v,v,v,v,v);
     return this;
   }
+
   
   public vec6 set(vec v) {
     if ( v == null) {    
       a = b = c = d = e = f = 0;
       return this;
     } else if(v instanceof vec5 || v instanceof vec6) {
+      set(v.a,v.b,v.c,v.d,v.e,v.f);
+      return this;
+    } else {
+      set(v.x,v.y,v.z,v.w,0,0);
+      return this;
+    }
+  }
+
+  public vec6 set(ivec v) {
+    if ( v == null) {    
+      a = b = c = d = e = f = 0;
+      return this;
+    } else if(v instanceof ivec5 || v instanceof ivec6) {
       set(v.a ,v.b,v.c,v.d,v.e,v.f);
       return this;
     } else {
@@ -94,47 +83,30 @@ public class vec6 extends vec {
     }
   }
   
-  public vec6 set_a(float a) {
+  public vec6 a(float a) {
     return set(a,this.b,this.c,this.d,this.e,this.f);
   }
 
-  public vec6 set_b(float b) {
+  public vec6 b(float b) {
     return set(this.a,b,this.c,this.d,this.e,this.f);
   }
 
-  public vec6 set_c(float c) {
+  public vec6 c(float c) {
     return set(this.a,this.b,c,this.d,this.e,this.f);
   }
 
-  public vec6 set_d(float d) {
+  public vec6 d(float d) {
     return set(this.a,this.b,this.c,d,this.e,this.f);
   }
 
-  public vec6 set_e(float e) {
+  public vec6 e(float e) {
     return set(this.a,this.b,this.c,this.d,e,this.f);
   }
 
-  public vec6 set_f(float f) {
+  public vec6 f(float f) {
     return set(this.a,this.b,this.c,this.d,this.e,f);
   }
   
-  /**
-   * max
-   * @return
-   */
-  public float max_vec() {
-    float [] list = {a,b,c,d,e,f} ;
-    return max(list) ;
-  }
-  
-  /**
-   * min
-   * @return
-   */
-  public float min_vec() {
-    float [] list = {a,b,c,d,e,f} ;
-    return min(list) ;
-  }
   
   /**
    * copy

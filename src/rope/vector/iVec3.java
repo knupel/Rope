@@ -1,5 +1,17 @@
 package rope.vector;
 
+import rope.core.BigBangRope;
+
+/**
+ * ivec3 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class ivec3 extends ivec {
 	public ivec3() {
   	super(3);
@@ -53,42 +65,55 @@ public class ivec3 extends ivec {
     }
   }
 
+  public ivec3 set(vec v) {
+    if(v == null) {
+      this.x = this.y = this.z = 0;
+      return this;
+    } else if(v instanceof vec5 || v instanceof vec6) {
+      set((int)v.a,(int)v.b,(int)v.c);
+      return this;
+    } else {
+      set((int)v.x,(int)v.y,(int)v.z);
+      return this;
+    }
+  }
+
   // xyz
-  public ivec3 set_x(int x) {
+  public ivec3 x(int x) {
     return set(x,this.y,this.z);
   }
 
-  public ivec3 set_y(int y) {
+  public ivec3 y(int y) {
     return set(this.x,y,this.z);
   }
 
-  public ivec3 set_z(int z) {
+  public ivec3 z(int z) {
     return set(this.x,this.y,z);
   }
 
   // rgb
-  public ivec3 set_r(int x) {
+  public ivec3 r(int x) {
     return set(x,this.y,this.z);
   }
 
-  public ivec3 set_g(int y) {
+  public ivec3 g(int y) {
     return set(this.x,y,this.z);
   }
 
-  public ivec3 set_b(int z) {
+  public ivec3 b(int z) {
     return set(this.x,this.y,z);
   }
 
   // stp
-  public ivec3 set_s(int x) {
+  public ivec3 s(int x) {
     return set(x,this.y,this.z);
   }
 
-  public ivec3 set_t(int y) {
+  public ivec3 t(int y) {
     return set(this.x,y,this.z);
   }
 
-  public ivec3 set_p(int z) {
+  public ivec3 p(int z) {
     return set(this.x,this.y,z);
   }
   
@@ -225,6 +250,41 @@ public class ivec3 extends ivec {
     return true; 
     else return false;
   }
+
+  /**
+   * random
+   * @param max int
+   * @return
+   */
+  public ivec3 rand(int max) {
+    return rand(new ivec2(0,max),new ivec2(0,max),new ivec2(0,max));
+  }
+  /**
+   * random
+   * @param min int
+   * @param max int
+   * @return
+   */
+  public ivec3 rand(int min, int max) {
+    return rand(new ivec2(min,max),new ivec2(min,max),new ivec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @return
+   */
+  public ivec3 rand(ivec2 mx, ivec2 my, ivec2 mz) {
+    x = (int)random(mx.x,mx.y);
+    y = (int)random(my.x,my.y);
+    z = (int)random(mz.x,mz.y);
+    set(x,y,z);
+    return this;
+  }
+
+
+
   
   /**
    * copy

@@ -1,5 +1,17 @@
 package rope.vector;
 
+import rope.core.BigBangRope;
+
+/**
+ * ivec4 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class ivec4 extends ivec {
   public ivec4() {
   	super(4);
@@ -56,54 +68,67 @@ public class ivec4 extends ivec {
     }
   }
 
+  public ivec4 set(vec v) {
+    if(v == null) {
+      this.x  = this.y = this.z = this.w = 0 ;
+      return this;
+    } else if(v instanceof vec5 || v instanceof vec6) {
+      set((int)v.a,(int)v.b,(int)v.c,(int)v.d);
+      return this;
+    } else {
+      set((int)v.x,(int)v.y,(int)v.z,(int)v.w);
+      return this;
+    }
+  }
+
   // xyzw
-  public ivec4 set_x(int x) {
+  public ivec4 x(int x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public ivec4 set_y(int y) {
+  public ivec4 y(int y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public ivec4 set_z(int z) {
+  public ivec4 z(int z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public ivec4 set_w(int w) {
+  public ivec4 w(int w) {
     return set(this.x,this.y,this.z,w);
   }
 
   // rgba
-  public ivec4 set_r(int x) {
+  public ivec4 r(int x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public ivec4 set_g(int y) {
+  public ivec4 g(int y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public ivec4 set_b(int z) {
+  public ivec4 b(int z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public ivec4 set_a(int w) {
+  public ivec4 a(int w) {
     return set(this.x,this.y,this.z,w);
   }
 
   // stpq
-  public ivec4 set_s(int x) {
+  public ivec4 s(int x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public ivec4 set_t(int y) {
+  public ivec4 t(int y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public ivec4 set_p(int z) {
+  public ivec4 p(int z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public ivec4 set_q(int w) {
+  public ivec4 q(int w) {
     return set(this.x,this.y,this.z,w);
   }
   
@@ -248,6 +273,43 @@ public class ivec4 extends ivec {
     return true; 
     else return false;
   }
+
+
+
+  /**
+   * random
+   * @param max int
+   * @return
+   */
+  public ivec4 rand(int max) {
+    return rand(new ivec2(0,max),new ivec2(0,max),new ivec2(0,max),new ivec2(0,max));
+  }
+  /**
+   * random
+   * @param min int
+   * @param max int
+   * @return
+   */
+  public ivec4 rand(int min, int max) {
+    return rand(new ivec2(min,max),new ivec2(min,max),new ivec2(min,max),new ivec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @param w vec2
+   * @return
+   */
+  public ivec4 rand(ivec2 mx, ivec2 my, ivec2 mz, ivec2 mw) {
+    x = (int)random(mx.x,mx.y);
+    y = (int)random(my.x,my.y);
+    z = (int)random(mz.x,mz.y);
+    w = (int)random(mw.x,mw.y);
+    set(x,y,z,w);
+    return this;
+  }
+
   
   /**
    * copy

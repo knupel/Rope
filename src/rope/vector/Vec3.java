@@ -1,5 +1,17 @@
 package rope.vector;
 
+import rope.core.BigBangRope;
+
+/**
+ * Vec3 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class vec3 extends vec {
 	// CONSTRUCTOR
   public vec3() {
@@ -17,40 +29,6 @@ public class vec3 extends vec {
     set(x,y,z);
   }
 	
-	private String warning = "Contructor class Vec3() cannot use the String key_random: ";
-	public vec3(String key_random, float r1) {
-		super(3);
-		if(key_random.equals(RANDOM)) {
-			set(random(-r1,r1),random(-r1,r1),random(-r1,r1));
-		} else if(key_random.equals(RANDOM_ZERO)) {
-			set(random(0,r1),random(0,r1),random(0,r1));
-		} else {
-      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println(warning+key_random);
-		}
-	}
-	
-	public vec3(String key_random, float r1, float r2, float r3) {
-		super(3);
-		if(key_random.equals(RANDOM)) {
-      set(random(-r1,r1),random(-r2,r2),random(-r3,r3));
-    } else if(key_random.equals(RANDOM_ZERO)) {
-      set(random(0,r1),random(0,r2),random(0,r3));
-    } else {
-      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println(warning+key_random);
-    }
-	}
-	
-	public vec3(String key_random, float a1, float a2, float b1, float b2, float c1, float c2) {
-    super(3);
-    if(key_random.equals(RANDOM_RANGE)) {
-      set(random(a1,a2),random(b1,b2),random(c1,c2));
-    } else {
-      this.x = this.y = this.z  = this.r = this.g = this.b =this.s = this.t = this.p = 0;
-      System.out.println(warning+key_random);
-    }
-	}
 	
 	
 	/**
@@ -100,41 +78,41 @@ public class vec3 extends vec {
     }
   }
   
-	public vec3 set_x(float x) {
+	public vec3 x(float x) {
 		return set(x,this.y,this.z);
 	}
 
-	public vec3 set_y(float y) {
+	public vec3 y(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public vec3 set_z(float z) {
+	public vec3 z(float z) {
    return set(this.x,this.y,z);
 	}
 
 	// rgb
-	public vec3 set_r(float x) {
+	public vec3 r(float x) {
    return set(x,this.y,this.z);
 	}
 
-	public vec3 set_g(float y) {
+	public vec3 g(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public vec3 set_b(float z) {
+	public vec3 b(float z) {
    return set(this.x,this.y,z);
 	}
 
 	// stp
-	public vec3 set_s(float x) {
+	public vec3 s(float x) {
    return set(x,this.y,this.z);
 	}
 
-	public vec3 set_t(float y) {
+	public vec3 t(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public vec3 set_p(float z) {
+	public vec3 p(float z) {
    return set(this.x,this.y,z);
 	}
  
@@ -417,23 +395,6 @@ public class vec3 extends vec {
   }
   
   
-  /**
-   * max
-   * @return
-   */
-  public float max_vec() {
-    float [] list = { x, y, z } ;
-    return max(list) ;
-  }
-  
-  /**
-   * min
-   * @return
-   */
-  public float min_vec() {
-    float [] list = { x, y, z } ;
-    return min(list) ;
-  }
   
   /**
    * 
@@ -547,6 +508,40 @@ public class vec3 extends vec {
     if(range != null) {
       return jitter((int)range.x,(int)range.y,(int)range.z);
     } else return jitter(0,0,0) ;
+  }
+
+
+
+  /**
+   * random
+   * @param max float
+   * @return
+   */
+  public vec3 rand(float max) {
+    return rand(new vec2(0,max),new vec2(0,max),new vec2(0,max));
+  }
+  /**
+   * random
+   * @param min float
+   * @param max float
+   * @return
+   */
+  public vec3 rand(float min, float max) {
+    return rand(new vec2(min,max),new vec2(min,max),new vec2(min,max));
+  }
+    /**
+   * random
+   * @param x vec2
+   * @param y vec2
+   * @param z vec2
+   * @return
+   */
+  public vec3 rand(vec2 mx, vec2 my, vec2 mz) {
+    x = random(mx.x,mx.y);
+    y = random(my.x,my.y);
+    z = random(mz.x,mz.y);
+    set(x,y,z);
+    return this;
   }
 
 

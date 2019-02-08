@@ -1,10 +1,10 @@
 package rope.vector;
 import rope.core.BigBangRope;
 /**
- * bVec class
+ * bvec class
  * v 1.0.1
  * 2015-2019
- * Processing 3.4
+ * Processing 3.5.3
  * Vector with a boolean precision
  * @author Stan le Punk
  * @see http://stanlepunk.xyz/

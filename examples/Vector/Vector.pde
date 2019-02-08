@@ -1,48 +1,70 @@
-import rope.vector.Vec2;
-import rope.vector.Vec3;
-import rope.vector.Vec4;
-import rope.vector.Vec5;
-import rope.vector.Vec6;
 
-import rope.vector.iVec3;
-import rope.vector.iVec4;
-import rope.vector.iVec6;
+/**
+* simple examples to use Rope vector : vec, ivec and bvec
+* a lot of example is here
+* @see https://github.com/StanLepunK/Rope_method
+* you will find all the method vec apply 
+* to Processing method, GLSL method and rope method indeed.
+*/
+import rope.vector.vec2;
+import rope.vector.vec3;
+import rope.vector.vec4;
+import rope.vector.vec5;
+import rope.vector.vec6;
+
+import rope.vector.ivec3;
+import rope.vector.ivec4;
+import rope.vector.ivec6;
+
+import rope.vector.bvec2;
 
 import rope.core.Rope;
-
-
 void setup() {
-  Vec2 v2 = new Vec2(4,5);
+  vec2 v2 = new vec2(4,5);
   v2.pow(2,3);
   println(v2);
   
-  Vec3 v3 = new Vec3(4.5);
+  vec3 v3 = new vec3(4.5);
   v3.add(3.);
   println(v3);
+  v3.rand(2);
+  println("simple rand",v3);
+  v3.rand(10,11);
+  println("doubre rand",v3);
+  v3.rand(new vec2(0,1),new vec2(10,12),new vec2(-1,-3));
+  println("doubre rand",v3);
   
-  Vec4 a4 = new Vec4(3);
-  Vec4 b4 = new Vec4(3,3,3,3);
+  vec4 a4 = new vec4(3);
+  vec4 b4 = new vec4(3,3,3,3);
 
   println(a4.equals(b4));
   b4.map(0,1,10,30);
   println(a4.equals(b4));
   
-  Vec5 v5 = new Vec5(3,-1,4.5,PI,234);
-  println(v5.max_vec(),v5.min_vec());
+  vec5 v5 = new vec5(3,-1,4.5,PI,234);
+  println(v5.max(),v5.min());
   
-  Vec6 v6 = new Vec6(2);
-  v6.set_b(65.45);
+
+  
+  vec6 v6 = new vec6(2);
+  v6.set(65.45);
   println(v6);
   
-  iVec3 iv3 = new iVec3(1,2,3);
+  ivec3 iv3 = new ivec3(1,2,3);
   println(iv3.sum());
   
-  iVec4 ia4 = new iVec4(1,2,3,4);
-  iVec4 ib4 = new iVec4(4,3,2,1);
+  ivec4 ia4 = new ivec4(1,2,3,4);
+  ivec4 ib4 = new ivec4(4,3,2,1);
   println(ia4.add(ib4));
   
-  iVec6 iv6 = new iVec6(1,2,3,4,5,6);
-  printArray(iv6.get_array());
+  ivec6 iv6 = new ivec6(1,2,3,4,5,6);
+  printArray(iv6.array());
+  
+  
+
+
+  bvec2 bv2 = new bvec2(true,false);
+  println(bv2);
   
   Rope r = new Rope();
   println(r.version());

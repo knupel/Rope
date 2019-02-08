@@ -1,5 +1,14 @@
 package rope.vector;
-
+/**
+ * bvec3 class
+ * v 1.0.0
+* 2015-2019
+* Processing 3.5.3
+* Vector class with a float precision
+ * @author Stan le Punk
+ * @see http://stanlepunk.xyz/
+ * @see https://github.com/StanLepunK/Rope
+*/
 public class bvec3 extends bvec {
 	
 	public bvec3(boolean x, boolean y, boolean z) {
