@@ -1,15 +1,28 @@
-package rope.core;
 /**
 * ROPE > Romanesco processing environment
 * Copyleft (c) 2014-2019
+* revision 010
 * v 0.2.1
 * Processing 3.5.3
 * @author Stan le Punk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
-//import processing.core.*;
+package rope.core;
 import java.util.Random;
+//import processing.core.*;
+/** 
+ * I try to catch Processing method but my knowledge is to low to pass this Static problem,
+ * so I rewrite the method from processing core
+ * processing.core.PApplet.random(high);
+ * processing.core.PApplet.random(low,high);
+ * processing.core.PApplet.min(float [] arg);
+ * processing.core.PApplet.min(int [] arg);
+ * processing.core.PApplet.max(float [] arg);
+ * processing.core.PApplet.max(int [] arg);
+ * Cannot make a static reference to the non-static method random(float) from the type PApplet
+ */
+
 public abstract class BigBangRope implements RConstants {
 
 	private String VERSION = "##Rope 0.2.1##";
@@ -18,10 +31,8 @@ public abstract class BigBangRope implements RConstants {
 		return VERSION;
 	}
 	
-	// I try to catch Processing method but my knowledge is to low to pass this Static problem,
-	// so I rewrite the method from processing core
-	// return processing.core.PApplet.random(high);
-	// Cannot make a static reference to the non-static method random(float) from the type PApplet
+
+
 	
 	/**
 	 * 
@@ -29,7 +40,7 @@ public abstract class BigBangRope implements RConstants {
 	 * @return random number, this method is a copy of Processing one
 	 */
 	Random internalRandom;
-	public float random(float high) {
+	protected float random(float high) {
 		// avoid an infinite loop when 0 or NaN are passed in
 		if (high == 0 || high != high) {
 			return 0;
@@ -56,7 +67,7 @@ public abstract class BigBangRope implements RConstants {
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
-	public float random(float low, float high) {	
+	protected float random(float low, float high) {	
 		if (low >= high) return low;
 		float diff = high - low;
 		float value = 0;
@@ -78,7 +89,7 @@ public abstract class BigBangRope implements RConstants {
 	 * @return from Processing max() method
 	 */
 	protected float max(float[] list) {
-    if (list.length == 0) {
+		if (list.length == 0) {
       throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
     }
     float max = list[0];
