@@ -72,29 +72,29 @@ public class vec2 extends vec {
 	}
 
 	// xy
-	public vec2 set_x(float x) {
+	public vec2 x(float x) {
 		return set(x, this.y);
 	}
 
-	public vec2 set_y(float y) {
+	public vec2 y(float y) {
 		return set(this.x, y);
 	}
 
 	// st
-	public vec2 set_s(float x) {
+	public vec2 s(float x) {
 		return set(x, this.y);
 	}
 
-	public vec2 set_t(float y) {
+	public vec2 t(float y) {
 		return set(this.x, y);
 	}
 
 	// uv
-	public vec2 set_u(float x) {
+	public vec2 u(float x) {
 		return set(x, this.y);
 	}
 
-	public vec2 set_v(float y) {
+	public vec2 v(float y) {
 		return set(this.x, y);
 	}
 

@@ -60,15 +60,15 @@ public class bvec3 extends bvec {
   }
 
   // xyz
-  public bvec3 set_x(boolean x) {
+  public bvec3 x(boolean x) {
     return set(x,this.y,this.z);
   }
 
-  public bvec3 set_y(boolean y) {
+  public bvec3 y(boolean y) {
     return set(this.x,y,this.z);
   }
 
-  public bvec3 set_z(boolean z) {
+  public bvec3 z(boolean z) {
     return set(this.x,this.y,z);
   }
 	

@@ -65,23 +65,23 @@ public class bvec5 extends bvec {
 
 
   // abcde
-  public bvec5 set_a(boolean a) {
+  public bvec5 a(boolean a) {
     return set(a,this.b,this.c,this.d,this.e);
   }
 
-  public bvec5 set_b(boolean b) {
+  public bvec5 b(boolean b) {
     return set(this.a,b,this.c,this.d,this.e);
   }
 
-  public bvec5 set_c(boolean c) {
+  public bvec5 c(boolean c) {
     return set(this.a,this.b,c,this.d,this.e);
   }
 
-  public bvec5 set_d(boolean d) {
+  public bvec5 d(boolean d) {
     return set(this.a,this.b,this.c,d,this.e);
   }
 
-  public bvec5 set_e(boolean e) {
+  public bvec5 e(boolean e) {
     return set(this.a,this.b,this.c,this.d,e);
   }
 	

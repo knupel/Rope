@@ -20,6 +20,7 @@ import java.util.Random;
  * processing.core.PApplet.min(int [] arg);
  * processing.core.PApplet.max(float [] arg);
  * processing.core.PApplet.max(int [] arg);
+ * processing.core.PApplet.map(float value, float start1, float stop1, float start2, float stop2);
  * Cannot make a static reference to the non-static method random(float) from the type PApplet
  */
 

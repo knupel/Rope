@@ -64,19 +64,19 @@ public class bvec4 extends bvec {
   }
 
   // xyzw
-  public bvec4 set_x(boolean x) {
+  public bvec4 x(boolean x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public bvec4 set_y(boolean y) {
+  public bvec4 y(boolean y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public bvec4 set_z(boolean z) {
+  public bvec4 z(boolean z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public bvec4 set_w(boolean w) {
+  public bvec4 w(boolean w) {
     return set(this.x,this.y,this.z,w);
   }
 

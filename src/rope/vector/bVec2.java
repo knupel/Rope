@@ -58,11 +58,11 @@ public class bvec2 extends bvec {
   }
   
   // xy
-  public bvec2 set_x(boolean x) {
+  public bvec2 x(boolean x) {
     return set(x,this.y);
   }
 
-  public bvec2 set_y(boolean y) {
+  public bvec2 y(boolean y) {
     return set(this.x,y);
   }
 	

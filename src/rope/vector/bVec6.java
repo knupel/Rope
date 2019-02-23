@@ -66,27 +66,27 @@ public class bvec6 extends bvec {
   }
 
   // abcdef
-  public bvec6 set_a(boolean a) {
+  public bvec6 a(boolean a) {
     return set(a,this.b,this.c,this.d,this.e,this.f);
   }
 
-  public bvec6 set_b(boolean b) {
+  public bvec6 b(boolean b) {
     return set(this.a,b,this.c,this.d,this.e,this.f);
   }
 
-  public bvec6 set_c(boolean c) {
+  public bvec6 c(boolean c) {
     return set(this.a,this.b,c,this.d,this.e,this.f);
   }
 
-  public bvec6 set_d(boolean d) {
+  public bvec6 d(boolean d) {
     return set(this.a,this.b,this.c,d,this.e,this.f);
   }
 
-  public bvec6 set_e(boolean e) {
+  public bvec6 e(boolean e) {
     return set(this.a,this.b,this.c,this.d,e,this.f);
   }
 
-  public bvec6 set_f(boolean f) {
+  public bvec6 f(boolean f) {
     return set(this.a,this.b,this.c,this.d,this.e,f);
   }
 	
