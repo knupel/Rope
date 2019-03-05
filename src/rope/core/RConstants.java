@@ -1,11 +1,11 @@
 package rope.core;
 /**
 	* ROPE - Romanesco processing environment – 
-	* Copyleft (c) 2014-2018
+	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.1
-	* Processing 3.4
+	* v 0.2.0.2
+	* Processing 3.5.3
 	* @author Stan le Punk
 	* @see http://stanlepunk.xyz/
 	* @see https://github.com/StanLepunK/Rope
@@ -44,6 +44,7 @@ public interface RConstants {
 
 	static final int DRAW = 400;
 	static final int FIT = 450;
+	static final int SCALE = 451;
 
 	static final int CARTESIAN = 500;
 	static final int POLAR = 501 ;
