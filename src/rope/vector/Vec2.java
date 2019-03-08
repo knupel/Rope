@@ -530,11 +530,11 @@ public class vec2 extends vec {
 	 * @param sy    float speed for all vec arg y
 	 * @return vec2 cosinus of the value
 	 */
-	public vec2 wave_cos(int value, float s) {
-		return wave_cos(value, s, s);
+	public vec2 cos_wave(int value, float s) {
+		return cos_wave(value, s, s);
 	}
 
-	public vec2 wave_cos(int value, float sx, float sy) {
+	public vec2 cos_wave(int value, float sx, float sy) {
 		float x = (float) Math.cos(value * sx);
 		float y = (float) Math.cos(value * sy);
 		set(x, y);
@@ -550,11 +550,11 @@ public class vec2 extends vec {
 	 * @param sy    float speed for all vec arg y
 	 * @return vec2 sinus of the value
 	 */
-	public vec2 wave_sin(int value, float s) {
-		return wave_sin(value, s, s);
+	public vec2 sin_wave(int value, float s) {
+		return sin_wave(value, s, s);
 	}
 
-	public vec2 wave_sin(int value, float sx, float sy) {
+	public vec2 sin_wave(int value, float sx, float sy) {
 		float x = (float) Math.sin(value * sx);
 		float y = (float) Math.sin(value * sy);
 		set(x, y);

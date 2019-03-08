@@ -1,11 +1,11 @@
 /**
 * bvec class
-* v 1.0.1
+* v 1.1.0
 * 2015-2019
 * Processing 3.5.3
 * Vector with a boolean precision
-* @author Stan le Punk
-* @see http://stanlepunk.xyz/
+* @author @stanlepunk
+* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -18,11 +18,63 @@ public abstract class bvec extends BigBangRope {
 		this.num = num;
 	}
 	
+  /**
+  * @return the number of components
+  */
 	public int get_num() {
 		return this.num;
 	}
+
+  /**
+   * return single boolean component
+   * @return boolean
+   */
+  public boolean x() {
+    return x;
+  }
+
+  public boolean y() {
+    return y;
+  }
+
+  public boolean z() {
+    return z;
+  }
+
+  public boolean w() {
+    return w;
+  }
+    
+  public boolean a() {
+    return a;
+  }
+    
+  public boolean b() {
+    return b;
+  }
+
+  public boolean c() {
+    return c;
+  }
+
+  public boolean d() {
+    return d;
+  }
+
+  public boolean e() {
+    return e;
+  }
+
+  public boolean f() {
+    return f;
+  }
+
+  
 	
-	
+	/**
+  * return the list of component
+  * @return boolean []
+  */
 	public boolean [] array() {
     if(num == 2) {
       boolean array [] = {x,y};

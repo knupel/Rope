@@ -536,11 +536,11 @@ public class vec4 extends vec {
   * @param sw float speed for all vec arg w
   * @return vec4 cosinus of the value
   */
-  public vec4 wave_cos(int value, float s) {
-    return wave_cos(value,s,s,s,s);
+  public vec4 cos_wave(int value, float s) {
+    return cos_wave(value,s,s,s,s);
   }
 
-  public vec4 wave_cos(int value, float sx, float sy, float sz, float sw) {
+  public vec4 cos_wave(int value, float sx, float sy, float sz, float sw) {
     float x = (float)Math.cos(value *sx);
     float y = (float)Math.cos(value *sy);
     float z = (float)Math.cos(value *sz);
@@ -559,11 +559,11 @@ public class vec4 extends vec {
   * @param sw float speed for all vec arg w
   * @return vec4 sinus of the value
   */
-  public vec4 wave_sin(int value, float s) {
-    return wave_sin(value,s,s,s,s);
+  public vec4 sin_wave(int value, float s) {
+    return sin_wave(value,s,s,s,s);
   }
 
-  public vec4 wave_sin(int value, float sx, float sy, float sz, float sw) {
+  public vec4 sin_wave(int value, float sx, float sy, float sz, float sw) {
     float x = (float)Math.sin(value *sx);
     float y = (float)Math.sin(value *sy);
     float z = (float)Math.sin(value *sz);
