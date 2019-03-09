@@ -1,10 +1,9 @@
 /**
 * ivec2 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
-* Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -51,9 +50,6 @@ public class ivec2 extends ivec {
     if(v == null) {
       this.x = this.y = 0;
       return this;
-    } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b);
-      return this;
     } else {
       set(v.x,v.y);
       return this;
@@ -63,9 +59,6 @@ public class ivec2 extends ivec {
   public ivec2 set(vec v) {
     if(v == null) {
       this.x = this.y = 0;
-      return this;
-    } else if(v instanceof vec5 || v instanceof vec6) {
-      set((int)v.a,(int)v.b);
       return this;
     } else {
       set((int)v.x,(int)v.y);
@@ -111,13 +104,13 @@ public class ivec2 extends ivec {
   
   /**
    * mult
-   * @param m_x
-   * @param m_y
+   * @param mx
+   * @param my
    * @return
    */
-  public ivec2 mult(int m_x, int m_y) {
-    x *= m_x; 
-    y *= m_y; 
+  public ivec2 mult(int mx, int my) {
+    x *= mx; 
+    y *= my; 
     set(x,y);
     return this;
   }
@@ -135,13 +128,13 @@ public class ivec2 extends ivec {
   
   /**
    * div
-   * @param d_x
-   * @param d_y
+   * @param dx
+   * @param dy
    * @return
    */
-  public ivec2 div(int d_x, int d_y) {
-    if(d_x != 0) x /= d_x; 
-    if(d_y != 0) y /= d_y; 
+  public ivec2 div(int dx, int dy) {
+    if(dx != 0) x /= dx; 
+    if(dy != 0) y /= dy; 
     set(x,y);
     return this;
   }
@@ -159,13 +152,13 @@ public class ivec2 extends ivec {
   
   /**
    * add
-   * @param a_x
-   * @param a_y
+   * @param ax
+   * @param ay
    * @return
    */
-  public ivec2 add(int a_x,int a_y) {
-    x += a_x;
-    y += a_y;
+  public ivec2 add(int ax,int ay) {
+    x += ax;
+    y += ay;
     set(x,y);
     return this;
   }
@@ -183,19 +176,19 @@ public class ivec2 extends ivec {
   
   /**
    * sub
-   * @param a_x
-   * @param a_y
+   * @param sx
+   * @param sy
    * @return
    */
-  public ivec2 sub(int a_x,int a_y) {
-    x -= a_x;
-    y -= a_y;
+  public ivec2 sub(int sx,int sy) {
+    x -= sx;
+    y -= sy;
     set(x,y);
     return this;
   }
 
-  public ivec2 sub(int a) {
-    return sub(a,a);
+  public ivec2 sub(int s) {
+    return sub(s,s);
   }
 
 

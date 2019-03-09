@@ -1,8 +1,7 @@
 /**
 * ivec class
-* v 1.1.0
+* v 2.0.0
 * 2015-2018
-* Processing 3.5.3
 * Vector with a integer precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -13,8 +12,7 @@ import rope.core.BigBangRope;
 public abstract class ivec extends BigBangRope {
 	private int num;
 	public int x,y,z,w;
-	public int a,b,c,d,e,f;
-	public int r,g;
+	public int e,f; // for ivec5 and ivec6
 	public int s,t,p,q;
 	public int u,v;
 	
@@ -29,6 +27,103 @@ public abstract class ivec extends BigBangRope {
 	public int get_num() {
 		return num;
 	}
+
+
+    /**
+  * return the list of component
+  * @return int []
+  */
+  public int [] array() {
+    if(num == 2) {
+      int array [] = {x,y};
+      return array;
+    } else if(num == 3) {
+      int array [] = {x,y,z};
+      return array;
+    } else if(num == 4) {
+      int array [] = {x,y,z,w};
+      return array;
+    } else if(num == 5) {
+      int array [] = {x,y,z,w,e};
+      return array;
+    } else if(num == 6) {
+      int array [] = {x,y,z,w,e,f};
+      return array;
+    } else return null ;
+  }
+
+  /**
+  * max
+  * find the min and the max value in the vector list
+  * @return int
+  */
+  public int max() {
+    int [] list = new int[num];
+    if(num == 2) {
+      list[0] = x;
+      list[1] = y;
+    } else if(num == 3) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+    } else if(num == 4) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+    } else if(num == 5) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+    } else if(num == 6) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+      list[5] = f;
+    } 
+    return max(list);
+  }
+  /**
+  * min
+  * find the min and the max value in the vector list
+  * @return int
+  */
+  public int min() {
+    int [] list = new int[num];
+    if(num == 2) {
+      list[0] = x;
+      list[1] = y;
+    } else if(num == 3) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+    } else if(num == 4) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+    } else if(num == 5) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+    } else if(num == 6) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+      list[5] = e;
+    } 
+    return min(list);
+  }
+
+
 	
 	/**
 	 * return single int component
@@ -51,19 +146,19 @@ public abstract class ivec extends BigBangRope {
 	}
 	  
 	public int a() {
-		return a;
+		return x;
 	}
 	  
 	public int b() {
-		return b;
+		return y;
 	}
 
 	public int c() {
-		return c;
+		return z;
 	}
 
 	public int d() {
-		return d;
+		return w;
 	}
 
 	public int e() {
@@ -72,14 +167,6 @@ public abstract class ivec extends BigBangRope {
 
 	public int f() {
 		return f;
-	}
-
-	public int r() {
-		return r;
-	}
-
-	public int g() {
-		return g;
 	}
 
 	public int s() {
@@ -106,11 +193,99 @@ public abstract class ivec extends BigBangRope {
 		return v;
 	}
 
+  // rgb
+  public int red() {
+    return x;
+  }
 
-	    /**
+  public int gre() {
+    return y;
+  }
+
+  public int blu() {
+    return z;
+  }
+
+  // hsb
+  public int hue() {
+    return x;
+  }
+
+  public int sat() {
+    return y;
+  }
+
+  public int bri() {
+    return z;
+  }
+  
+  // alpha
+  public int alp() {
+    return w;
+  }
+
+
+	/**
    * return multi float component
    * @return float
    */
+
+  // special
+  public ivec2 uv() {
+    return new ivec2(x,y);
+  }
+
+  public ivec2 st() {
+    return new ivec2(x,y);
+  }
+
+  public ivec2 pq() {
+    return new ivec2(z,w);
+  }
+
+  public ivec3 rgb() {
+    return new ivec3(x,y,z);
+  }
+
+  public ivec3 hsb() {
+    return new ivec3(x,y,z);
+  }
+
+  public ivec4 stpq() {
+    return new ivec4(x,y,z,w);
+  }
+
+  public ivec4 rgba() {
+    return new ivec4(x,y,z,w);
+  }
+
+  public ivec4 hsba() {
+    return new ivec4(x,y,z,w);
+  }
+
+  public ivec2 ab() {
+    return new ivec2(x,y);
+  }
+
+  public ivec3 abc() {
+    return new ivec3(x,y,z);
+  }
+
+  public ivec4 abcd() {
+    return new ivec4(x,y,z,w);
+  }
+
+  public ivec5 abcde() {
+    return new ivec5(x,y,z,w,e);
+  }
+
+  public ivec6 abcdef() {
+    return new ivec6(x,y,z,w,e,f);
+  }
+
+
+
+  // XYZW
   public ivec2 ww() {
     return new ivec2(w,w);
   }
@@ -1450,100 +1625,5 @@ public abstract class ivec extends BigBangRope {
   public ivec4 zzzz() {
     return new ivec4(z,z,z,z);
   }
-
-
-
-	/**
-	* return the list of component
-	* @return int []
-	*/
-	public int [] array() {
-		if(num == 2) {
-			int array [] = {x,y};
-			return array;
-		} else if(num == 3) {
-			int array [] = {x,y,z};
-			return array;
-		} else if(num == 4) {
-			int array [] = {x,y,z,w};
-			return array;
-		} else if(num == 5) {
-			int array [] = {a,b,c,d,e};
-			return array;
-		} else if(num == 6) {
-			int array [] = {a,b,c,d,e,f};
-			return array;
-		} else return null ;
-	}
-
-  /**
-  * max
-  * find the min and the max value in the vector list
-  * @return int
-  */
-  public int max() {
-    int [] list = new int[num];
-    if(num == 2) {
-      list[0] = x;
-      list[1] = y;
-    } else if(num == 3) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-    } else if(num == 4) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-      list[3] = w;
-    } else if(num == 5) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-    } else if(num == 6) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-      list[5] = e;
-    } 
-    return max(list);
-  }
-  /**
-  * min
-  * find the min and the max value in the vector list
-  * @return int
-  */
-  public int min() {
-    int [] list = new int[num];
-    if(num == 2) {
-      list[0] = x;
-      list[1] = y;
-    } else if(num == 3) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-    } else if(num == 4) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-      list[3] = w;
-    } else if(num == 5) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-    } else if(num == 6) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-      list[5] = e;
-    } 
-    return min(list);
-  }
+  // 
 }

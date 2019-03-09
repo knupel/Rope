@@ -1,9 +1,8 @@
 /**
 * bvec4 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
-* Processing 3.5.3
-* Vector class with a float precision
+* Vector class with a boolean precision
 * @author Stan le Punk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
@@ -53,9 +52,6 @@ public class bvec4 extends bvec {
   public bvec4 set(bvec v) {
     if(v == null) {
       this.x = this.y = this.z = this.w = false;
-      return this;
-    } else if(v instanceof bvec5 || v instanceof bvec6) {
-      set(v.a,v.b,v.c,v.d);
       return this;
     } else {
       set(v.x,v.y,v.z,v.w);

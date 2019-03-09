@@ -1,10 +1,10 @@
 /**
 * ivec3 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -38,9 +38,9 @@ public class ivec3 extends ivec {
    * @return
    */
   public ivec3 set(int x, int y, int z) {
-  	this.x = this.r = this.s = x;
-  	this.y = this.g = this.t = y;
-  	this.z = this.b = this.p = z;
+  	this.x = this.s = x;
+  	this.y = this.t = y;
+  	this.z = this.p = z;
   	return this;
   }
   
@@ -53,9 +53,6 @@ public class ivec3 extends ivec {
     if(v == null) {
       this.x = this.y = this.z = 0;
       return this;
-    } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b,v.c);
-      return this;
     } else {
       set(v.x,v.y,v.z);
       return this;
@@ -65,9 +62,6 @@ public class ivec3 extends ivec {
   public ivec3 set(vec v) {
     if(v == null) {
       this.x = this.y = this.z = 0;
-      return this;
-    } else if(v instanceof vec5 || v instanceof vec6) {
-      set((int)v.a,(int)v.b,(int)v.c);
       return this;
     } else {
       set((int)v.x,(int)v.y,(int)v.z);
@@ -89,15 +83,28 @@ public class ivec3 extends ivec {
   }
 
   // rgb
-  public ivec3 r(int x) {
+  public ivec3 red(int x) {
     return set(x,this.y,this.z);
   }
 
-  public ivec3 g(int y) {
+  public ivec3 gre(int y) {
     return set(this.x,y,this.z);
   }
 
-  public ivec3 b(int z) {
+  public ivec3 blu(int z) {
+    return set(this.x,this.y,z);
+  }
+
+  // hsb
+  public ivec3 hue(int x) {
+    return set(x,this.y,this.z);
+  }
+
+  public ivec3 sat(int y) {
+    return set(this.x,y,this.z);
+  }
+
+  public ivec3 bri(int z) {
     return set(this.x,this.y,z);
   }
 
@@ -125,15 +132,15 @@ public class ivec3 extends ivec {
   
   /**
    * mult
-   * @param m_x
-   * @param m_y
-   * @param m_z
+   * @param mx
+   * @param my
+   * @param mz
    * @return
    */
-  public ivec3 mult(int m_x, int m_y, int m_z) {
-    x *= m_x; 
-    y *= m_y; 
-    z *= m_z;
+  public ivec3 mult(int mx, int my, int mz) {
+    x *= mx; 
+    y *= my; 
+    z *= mz;
     set(x,y,z) ;
     return this ;
   }
@@ -150,15 +157,15 @@ public class ivec3 extends ivec {
   
   /**
    * div
-   * @param d_x
-   * @param d_y
-   * @param d_z
+   * @param dx
+   * @param dy
+   * @param dz
    * @return
    */
-  public ivec3 div(int d_x, int d_y, int d_z) {
-    if(d_x != 0) x /= d_x; 
-    if(d_y != 0) y /= d_y; 
-    if(d_z != 0) z /= d_z; 
+  public ivec3 div(int dx, int dy, int dz) {
+    if(dx != 0) x /= dx; 
+    if(dy != 0) y /= dy; 
+    if(dz != 0) z /= dz; 
     set(x,y,z);
     return this;
   }
@@ -175,15 +182,15 @@ public class ivec3 extends ivec {
   
   /**
    * add
-   * @param a_x
-   * @param a_y
-   * @param a_z
+   * @param ax
+   * @param ay
+   * @param az
    * @return
    */
-  public ivec3 add(int a_x,int a_y,int a_z) {
-    x += a_x;
-    y += a_y;
-    z += a_z;
+  public ivec3 add(int ax,int ay,int az) {
+    x += ax;
+    y += ay;
+    z += az;
     set(x,y,z);
     return this;
   }
@@ -200,15 +207,15 @@ public class ivec3 extends ivec {
   
   /**
    * sub
-   * @param a_x
-   * @param a_y
-   * @param a_z
+   * @param sx
+   * @param sy
+   * @param sz
    * @return
    */
-  public ivec3 sub(int a_x,int a_y,int a_z) {
-    x -= a_x;
-    y -= a_y;
-    z -= a_z;
+  public ivec3 sub(int sx,int sy,int sz) {
+    x -= sx;
+    y -= sy;
+    z -= sz;
     set(x,y,z);
     return this;
   }

@@ -2,9 +2,8 @@
 * bvec6 class
 * v 1.0.0
 * 2015-2019
-* Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -38,10 +37,10 @@ public class bvec6 extends bvec {
    * @return
    */
   public bvec6 set(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f) {
-  	this.a = a;
-  	this.b = b;
-  	this.c = c;
-  	this.d = d;
+  	this.x = a;
+  	this.y = b;
+  	this.z = c;
+  	this.w = d;
   	this.e = e;
   	this.f = f;
   	return this;
@@ -54,10 +53,10 @@ public class bvec6 extends bvec {
 
   public bvec6 set(bvec v) {
     if(v == null) {
-      this.a = this.b = this.c = this.d = this.e = this.f = false;
+      this.x = this.y = this.z = this.w = this.e = this.f = false;
       return this;
     } else if(v instanceof bvec5 || v instanceof bvec6) {
-      set(v.a,v.b,v.c,v.d,v.e,v.f);
+      set(v.x,v.y,v.z,v.w,v.e,v.f);
       return this;
     } else {
       set(v.x,v.y,v.z,v.w,false,false);
@@ -67,31 +66,31 @@ public class bvec6 extends bvec {
 
   // abcdef
   public bvec6 a(boolean a) {
-    return set(a,this.b,this.c,this.d,this.e,this.f);
+    return set(a,this.y,this.z,this.w,this.e,this.f);
   }
 
   public bvec6 b(boolean b) {
-    return set(this.a,b,this.c,this.d,this.e,this.f);
+    return set(this.x,b,this.z,this.w,this.e,this.f);
   }
 
   public bvec6 c(boolean c) {
-    return set(this.a,this.b,c,this.d,this.e,this.f);
+    return set(this.x,this.y,c,this.w,this.e,this.f);
   }
 
   public bvec6 d(boolean d) {
-    return set(this.a,this.b,this.c,d,this.e,this.f);
+    return set(this.x,this.y,this.z,d,this.e,this.f);
   }
 
   public bvec6 e(boolean e) {
-    return set(this.a,this.b,this.c,this.d,e,this.f);
+    return set(this.x,this.y,this.z,this.w,e,this.f);
   }
 
   public bvec6 f(boolean f) {
-    return set(this.a,this.b,this.c,this.d,this.e,f);
+    return set(this.x,this.y,this.z,this.w,this.e,f);
   }
 	
 	@Override 
 	public String toString() {
-		return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]";
+		return "[ " + x + ", " + y + ", " + z + ", " + w + ", " + e + ", " + f + " ]";
 	}
 }

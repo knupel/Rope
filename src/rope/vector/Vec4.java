@@ -1,10 +1,9 @@
 /**
 * vec4 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
-* Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -35,10 +34,10 @@ public class vec4 extends vec {
    * @return
    */
   public vec4 set(float x, float y, float z, float w) {
-    this.x = this.r = this.s = x ;
-    this.y = this.g = this.t = y ;
-    this.z = this.b = this.p = z ;
-    this.w = this.a = this.q = w ;
+    this.x = this.s = x ;
+    this.y = this.t = y ;
+    this.z = this.p = z ;
+    this.w = this.q = w ;
     return this ;
   }
   
@@ -51,9 +50,6 @@ public class vec4 extends vec {
     if ( v == null) {
       set(0,0,0,0);
       return this ;
-    }  else if(v instanceof vec5 || v instanceof vec6) {
-      set(v.a,v.b,v.c,v.d);
-      return this ;
     } else {
       set(v.x,v.y,v.z,v.w);
       return this ;
@@ -63,9 +59,6 @@ public class vec4 extends vec {
   public vec4 set(ivec v) {
     if ( v == null) {
       set(0,0,0,0);
-      return this ;
-    } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b,v.c,v.d);
       return this ;
     } else {
       set(v.x,v.y,v.z,v.w);
@@ -94,20 +87,34 @@ public class vec4 extends vec {
     return set(this.x,this.y,this.z,w);
   }
 
-  // rgba
-  public vec4 r(float x) {
+  // rgb
+  public vec4 red(float x) {
     return set(x,this.y,this.z,this.w);
   }
 
-  public vec4 g(float y) {
+  public vec4 gre(float y) {
     return set(this.x,y,this.z,this.w);
   }
 
-  public vec4 b(float z) {
+  public vec4 blu(float z) {
     return set(this.x,this.y,z,this.w);
   }
 
-  public vec4 a(float w) {
+  // hsb
+  public vec4 hue(float x) {
+    return set(x,this.y,this.z,this.w);
+  }
+
+  public vec4 sat(float y) {
+    return set(this.x,y,this.z,this.w);
+  }
+
+  public vec4 bri(float z) {
+    return set(this.x,this.y,z,this.w);
+  }
+  
+  // alpha
+  public vec4 alp(float w) {
     return set(this.x,this.y,this.z,w);
   }
 
@@ -138,17 +145,17 @@ public class vec4 extends vec {
   
   /**
    * mult
-   * @param m_x
-   * @param m_y
-   * @param m_z
-   * @param m_w
+   * @param mx
+   * @param my
+   * @param mz
+   * @param mw
    * @return
    */
-  public vec4 mult(float m_x, float m_y, float m_z, float m_w) {
-    x *= m_x ; 
-    y *= m_y ; 
-    z *= m_z ; 
-    w *= m_w ;
+  public vec4 mult(float mx, float my, float mz, float mw) {
+    x *= mx ; 
+    y *= my ; 
+    z *= mz ; 
+    w *= mw ;
     set(x,y,z,w) ;
     return this ;
   }
@@ -171,17 +178,17 @@ public class vec4 extends vec {
   
   /**
    * div
-   * @param d_x
-   * @param d_y
-   * @param d_z
-   * @param d_w
+   * @param dx
+   * @param dy
+   * @param dz
+   * @param dw
    * @return
    */
-  public vec4 div(float d_x, float d_y, float d_z, float d_w) {
-    if(d_x != 0) x /= d_x; 
-    if(d_y != 0) y /= d_y; 
-    if(d_z != 0) z /= d_z; 
-    if(d_w != 0) w /= d_w;
+  public vec4 div(float dx, float dy, float dz, float dw) {
+    if(dx != 0) x /= dx; 
+    if(dy != 0) y /= dy; 
+    if(dz != 0) z /= dz; 
+    if(dw != 0) w /= dw;
     set(x,y,z,w);
     return this;
   }
@@ -205,17 +212,17 @@ public class vec4 extends vec {
   
   /**
    * add
-   * @param a_x
-   * @param a_y
-   * @param a_z
-   * @param a_w
+   * @param ax
+   * @param ay
+   * @param az
+   * @param aw
    * @return
    */
-  public vec4 add(float a_x,float a_y,float a_z,float a_w) {
-    x += a_x;
-    y += a_y;
-    z += a_z;
-    w += a_w;
+  public vec4 add(float ax,float ay,float az,float aw) {
+    x += ax;
+    y += ay;
+    z += az;
+    w += aw;
     set(x,y,z,w);
     return this;
   }
@@ -239,17 +246,17 @@ public class vec4 extends vec {
   
   /**
    * sub
-   * @param a_x
-   * @param a_y
-   * @param a_z
-   * @param a_w
+   * @param ax
+   * @param ay
+   * @param az
+   * @param aw
    * @return
    */
-  public vec4 sub(float a_x,float a_y,float a_z, float a_w) {
-    x -= a_x;
-    y -= a_y;
-    z -= a_z;
-    w -= a_w; 
+  public vec4 sub(float ax,float ay,float az, float aw) {
+    x -= ax;
+    y -= ay;
+    z -= az;
+    w -= aw; 
     set(x,y,z,w);
     return this;
   }
@@ -419,26 +426,26 @@ public class vec4 extends vec {
   
   /**
    * map
-   * @param minIn
-   * @param maxIn
-   * @param minOut
-   * @param maxOut
+   * @param min_in
+   * @param max_in
+   * @param min_out
+   * @param max_out
    * @return Vec4 where each target is Vec component
    */
-  public vec4 map(float minIn, float maxIn, float minOut, float maxOut) {
-    x = map(x,minIn,maxIn,minOut,maxOut);
-    y = map(y,minIn,maxIn,minOut,maxOut);
-    z = map(z,minIn,maxIn,minOut,maxOut);
-    w = map(w,minIn,maxIn,minOut,maxOut);
+  public vec4 map(float min_in, float max_in, float min_out, float max_out) {
+    x = map(x,min_in,max_in,min_out,max_out);
+    y = map(y,min_in,max_in,min_out,max_out);
+    z = map(z,min_in,max_in,min_out,max_out);
+    w = map(w,min_in,max_in,min_out,max_out);
     set(x,y,z,w);
     return this;
   }
 
-  public vec4 map(vec4 minIn, vec4 maxIn, vec4 minOut, vec4 maxOut) {
-    x = map(x,minIn.x,maxIn.x,minOut.x,maxOut.x);
-    y = map(y,minIn.y,maxIn.y,minOut.y,maxOut.y);   
-    z = map(z,minIn.z,maxIn.z,minOut.z,maxOut.z);   
-    w = map(w,minIn.w,maxIn.w,minOut.w,maxOut.w);
+  public vec4 map(vec4 min_in, vec4 max_in, vec4 min_out, vec4 max_out) {
+    x = map(x,min_in.x,max_in.x,min_out.x,max_out.x);
+    y = map(y,min_in.y,max_in.y,min_out.y,max_out.y);   
+    z = map(z,min_in.z,max_in.z,min_out.z,max_out.z);   
+    w = map(w,min_in.w,max_in.w,min_out.w,max_out.w);
     set(x,y,z,w);
     return this;
   }

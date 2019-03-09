@@ -40,10 +40,10 @@ public class ivec4 extends ivec {
    * @return
    */
   public ivec4 set(int x, int y, int z, int w) {
-  	this.x = this.r = this.s = x;
-  	this.y = this.g = this.t = y;
-  	this.z = this.b = this.p = z;
-  	this.w = this.a = this.q = w;
+  	this.x = this.s = x;
+  	this.y = this.t = y;
+  	this.z = this.p = z;
+  	this.w = this.q = w;
   	return this;
   }
   
@@ -54,10 +54,7 @@ public class ivec4 extends ivec {
 
   public ivec4 set(ivec v) {
     if(v == null) {
-      this.x  = this.y = this.z = this.w = 0 ;
-      return this;
-    } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b,v.c,v.d);
+      this.x = this.y = this.z = this.w = 0;
       return this;
     } else {
       set(v.x,v.y,v.z,v.w);
@@ -67,10 +64,7 @@ public class ivec4 extends ivec {
 
   public ivec4 set(vec v) {
     if(v == null) {
-      this.x  = this.y = this.z = this.w = 0 ;
-      return this;
-    } else if(v instanceof vec5 || v instanceof vec6) {
-      set((int)v.a,(int)v.b,(int)v.c,(int)v.d);
+      this.x  = this.y = this.z = this.w = 0;
       return this;
     } else {
       set((int)v.x,(int)v.y,(int)v.z,(int)v.w);
@@ -140,16 +134,16 @@ public class ivec4 extends ivec {
   
   /**
    * mult
-   * @param m_x
-   * @param m_y
-   * @param m_z
-   * @param m_w
+   * @param mx
+   * @param my
+   * @param mz
+   * @param mw
    * @return
    */
-  public ivec4 mult(int m_x, int m_y, int m_z, int m_w) {
-    x *= m_x ; y *= m_y ; z *= m_z ; w *= m_w ;
-    set(x,y,z,w) ;
-    return this ;
+  public ivec4 mult(int mx, int my, int mz, int mw) {
+    x *= mx ; y *= my ; z *= mz ; w *= mw;
+    set(x,y,z,w);
+    return this;
   }
 
   public ivec4 mult(int m) {
@@ -165,17 +159,17 @@ public class ivec4 extends ivec {
   
   /**
    * div
-   * @param d_x
-   * @param d_y
-   * @param d_z
-   * @param d_w
+   * @param dx
+   * @param dy
+   * @param dz
+   * @param dw
    * @return
    */
-  public ivec4 div(int d_x, int d_y, int d_z, int d_w) {
-    if(d_x != 0) x /= d_x; 
-    if(d_y != 0) y /= d_y; 
-    if(d_z != 0) z /= d_z; 
-    if(d_w != 0) w /= d_w;
+  public ivec4 div(int dx, int dy, int dz, int dw) {
+    if(dx != 0) x /= dx; 
+    if(dy != 0) y /= dy; 
+    if(dz != 0) z /= dz; 
+    if(dw != 0) w /= dw;
     set(x,y,z,w);
     return this;
   }
@@ -192,17 +186,17 @@ public class ivec4 extends ivec {
   
   /**
    * add
-   * @param a_x
-   * @param a_y
-   * @param a_z
-   * @param a_w
+   * @param ax
+   * @param ay
+   * @param az
+   * @param aw
    * @return
    */
-  public ivec4 add(int a_x,int a_y,int a_z,int a_w) {
-    x += a_x;
-    y += a_y;
-    z += a_z;
-    w += a_w;
+  public ivec4 add(int ax,int ay,int az,int aw) {
+    x += ax;
+    y += ay;
+    z += az;
+    w += aw;
     set(x,y,z,w);
     return this;
   }
@@ -220,17 +214,17 @@ public class ivec4 extends ivec {
   
   /**
    * sub
-   * @param a_x
-   * @param a_y
-   * @param a_z
-   * @param a_w
+   * @param ax
+   * @param ay
+   * @param az
+   * @param aw
    * @return
    */
-  public ivec4 sub(int a_x,int a_y,int a_z, int a_w) {
-    x -= a_x;
-    y -= a_y;
-    z -= a_z;
-    w -= a_w; 
+  public ivec4 sub(int ax,int ay,int az, int aw) {
+    x -= ax;
+    y -= ay;
+    z -= az;
+    w -= aw; 
     set(x,y,z,w);
     return this;
   }

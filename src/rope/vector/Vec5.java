@@ -36,10 +36,10 @@ public class vec5 extends vec {
    * @return
    */
   public vec5 set(float a,float b, float c, float d, float e) {
-  	this.a = a;
-  	this.b = b;
-  	this.c = c;
-  	this.d = d;
+  	this.x = a;
+  	this.y = b;
+  	this.z = c;
+  	this.w = d;
   	this.e = e;
   	return this;
   }
@@ -56,10 +56,10 @@ public class vec5 extends vec {
   
   public vec5 set(vec v) {
     if( v == null) {
-      a = b = c = d = e = 0 ;
+      this.x = this.y = this.z = this.w = this.e = 0;
       return this ;
     } else if(v instanceof vec5 || v instanceof vec6) {
-      set(v.a,v.b,v.c,v.d,v.e);
+      set(v.x,v.y,v.z,v.w,v.e);
       return this ;
     } else {
       set(v.x,v.y,v.z,v.w,0);
@@ -69,10 +69,10 @@ public class vec5 extends vec {
 
     public vec5 set(ivec v) {
     if( v == null) {
-      a = b = c = d = e = 0 ;
+      this.x = this.y = this.z = this.w = this.e = 0 ;
       return this ;
     } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b,v.c,v.d,v.e);
+      set(v.x,v.y,v.z,v.w,v.e);
       return this ;
     } else {
       set(v.x,v.y,v.z,v.w,0);
@@ -83,23 +83,23 @@ public class vec5 extends vec {
   
   // abcde
   public vec5 a(float a) {
-    return set(a,this.b,this.c,this.d,this.e);
+    return set(a,this.y,this.z,this.w,this.e);
   }
 
   public vec5 b(float b) {
-    return set(this.a,b,this.c,this.d,this.e);
+    return set(this.x,b,this.z,this.w,this.e);
   }
 
   public vec5 c(float c) {
-    return set(this.a,this.b,c,this.d,this.e);
+    return set(this.x,this.y,c,this.w,this.e);
   }
 
   public vec5 d(float d) {
-    return set(this.a,this.b,this.c,d,this.e);
+    return set(this.x,this.y,this.z,d,this.e);
   }
 
   public vec5 e(float e) {
-    return set(this.a,this.b,this.c,this.d,e);
+    return set(this.x,this.y,this.z,this.w,e);
   }
   
   
@@ -110,11 +110,11 @@ public class vec5 extends vec {
    * @return
    */
   public vec5 copy() {
-    return new vec5(a,b,c,d,e) ;
+    return new vec5(x,y,z,w,e) ;
   }
   
   @Override 
   public String toString() {
-    return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + " ]";
+    return "[ " + x + ", " + y + ", " + z + ", " + w + ", " + e + " ]";
   }
 }

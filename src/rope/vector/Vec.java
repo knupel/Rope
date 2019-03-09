@@ -1,11 +1,10 @@
 /**
 * vec class
-* v 1.19.0
+* v 2.0.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -13,8 +12,7 @@ import rope.core.BigBangRope;
 public abstract class vec extends BigBangRope {
 	public int num;
 	public float x,y,z,w = Float.NaN;
-	public float a,b,c,d,e,f = Float.NaN;
-	public float r,g = Float.NaN;
+	public float e,f = Float.NaN; // for vec5 and vec6 
 	public float s,t,p,q = Float.NaN;
 	public float u,v = Float.NaN;
 	
@@ -27,6 +25,105 @@ public abstract class vec extends BigBangRope {
   */
   public int get_num() {
     return num;
+  }
+
+
+  /**
+  array
+  */
+  /**
+  * return the list of component
+  * @return float []
+  */
+  public float [] array() {
+    if(num == 2) {
+      float array [] = {x,y};
+      return array;
+    } else if(num == 3) {
+      float array [] = {x,y,z};
+      return array;
+    } else if(num == 4) {
+      float array [] = {x,y,z,w};
+      return array;
+    } else if(num == 5) {
+      float array [] = {x,y,z,w,e};
+      return array;
+    } else if(num == 6) {
+      float array [] = {x,y,z,w,e,f};
+      return array;
+    } else return null ;
+  }
+
+
+  /**
+  * max
+  * find the min and the max value in the vector list
+  * @return float
+  */
+  public float max() {
+    float [] list = new float[num];
+    if(num == 2) {
+      list[0] = x;
+      list[1] = y;
+    } else if(num == 3) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+    } else if(num == 4) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+    } else if(num == 5) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+    } else if(num == 6) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+      list[5] = e;
+    } 
+    return max(list);
+  }
+  /**
+  * min
+  * find the min and the max value in the vector list
+  * @return float
+  */
+  public float min() {
+    float [] list = new float[num];
+    if(num == 2) {
+      list[0] = x;
+      list[1] = y;
+    } else if(num == 3) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+    } else if(num == 4) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+    } else if(num == 5) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+    } else if(num == 6) {
+      list[0] = x;
+      list[1] = y;
+      list[2] = z;
+      list[3] = w;
+      list[4] = e;
+      list[5] = f;
+    } 
+    return min(list);
   }
   
   /**
@@ -50,19 +147,19 @@ public abstract class vec extends BigBangRope {
   }
     
   public float a() {
-    return a;
+    return x;
   }
     
   public float b() {
-    return b;
+    return y;
   }
 
   public float c() {
-    return c;
+    return z;
   }
 
   public float d() {
-    return d;
+    return w;
   }
 
   public float e() {
@@ -71,14 +168,6 @@ public abstract class vec extends BigBangRope {
 
   public float f() {
     return f;
-  }
-
-  public float r() {
-    return r;
-  }
-
-  public float g() {
-    return g;
   }
 
   public float s() {
@@ -104,13 +193,101 @@ public abstract class vec extends BigBangRope {
   public float v() {
     return v;
   }
+  
+  // rgb
+  public float red() {
+    return x;
+  }
 
-    /**
+  public float gre() {
+    return y;
+  }
+
+  public float blu() {
+    return z;
+  }
+
+  // hsb
+  public float hue() {
+    return x;
+  }
+
+  public float sat() {
+    return y;
+  }
+
+  public float bri() {
+    return z;
+  }
+  
+  // alpha
+  public float alp() {
+    return w;
+  }
+
+
+  /**
    * return multi float component
    * @return float
    */
-  public vec2 ww() {
-    return new vec2(w,w);
+
+  // special
+  public vec2 uv() {
+    return new vec2(x,y);
+  }
+
+  public vec2 st() {
+    return new vec2(x,y);
+  }
+
+  public vec2 pq() {
+    return new vec2(z,w);
+  }
+
+  public vec3 rgb() {
+    return new vec3(x,y,z);
+  }
+
+  public vec3 hsb() {
+    return new vec3(x,y,z);
+  }
+
+  public vec4 stpq() {
+    return new vec4(x,y,z,w);
+  }
+
+  public vec4 rgba() {
+    return new vec4(x,y,z,w);
+  }
+
+  public vec4 hsba() {
+    return new vec4(x,y,z,w);
+  }
+
+  public vec2 ab() {
+    return new vec2(x,y);
+  }
+
+  public vec3 abc() {
+    return new vec3(x,y,z);
+  }
+
+  public vec4 abcd() {
+    return new vec4(x,y,z,w);
+  }
+
+  public vec5 abcde() {
+    return new vec5(x,y,z,w,e);
+  }
+
+  public vec6 abcdef() {
+    return new vec6(x,y,z,w,e,f);
+  }
+
+
+  // XYZW
+  public vec2 ww() { 
+    return new vec2(w,w); 
   }
   
   public vec2 wx() {
@@ -1448,123 +1625,5 @@ public abstract class vec extends BigBangRope {
   public vec4 zzzz() {
     return new vec4(z,z,z,z);
   }
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-  
-  /**
-  array
-  */
-  /**
-  * return the list of component
-  * @return float []
-  */
-  public float [] array() {
-    if(num == 2) {
-      float array [] = {x,y};
-      return array;
-    } else if(num == 3) {
-      float array [] = {x,y,z};
-      return array;
-    } else if(num == 4) {
-      float array [] = {x,y,z,w};
-      return array;
-    } else if(num == 5) {
-      float array [] = {a,b,c,d,e};
-      return array;
-    } else if(num == 6) {
-      float array [] = {a,b,c,d,e,f};
-      return array;
-    } else return null ;
-  }
-
-
-  /**
-  * max
-  * find the min and the max value in the vector list
-  * @return float
-  */
-  public float max() {
-    float [] list = new float[num];
-    if(num == 2) {
-      list[0] = x;
-      list[1] = y;
-    } else if(num == 3) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-    } else if(num == 4) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-      list[3] = w;
-    } else if(num == 5) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-    } else if(num == 6) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-      list[5] = e;
-    } 
-    return max(list);
-  }
-  /**
-  * min
-  * find the min and the max value in the vector list
-  * @return float
-  */
-  public float min() {
-    float [] list = new float[num];
-    if(num == 2) {
-      list[0] = x;
-      list[1] = y;
-    } else if(num == 3) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-    } else if(num == 4) {
-      list[0] = x;
-      list[1] = y;
-      list[2] = z;
-      list[3] = w;
-    } else if(num == 5) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-    } else if(num == 6) {
-      list[0] = a;
-      list[1] = b;
-      list[2] = c;
-      list[3] = d;
-      list[4] = e;
-      list[5] = e;
-    } 
-    return min(list);
-  }
+  //  
 }

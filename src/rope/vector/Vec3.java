@@ -1,10 +1,9 @@
 /**
  * vec3 class
- * v 1.0.0
+ * v 1.1.0
 * 2015-2019
-* Processing 3.5.3
 * Vector class with a float precision
- * @author Stan le Punk
+ * @author @stanlepunk
  * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
@@ -36,9 +35,9 @@ public class vec3 extends vec {
 	 * @return
 	 */
   public vec3 set(float x, float y, float z) {
-  	this.x = this.r = this.s = x;
-  	this.y = this.g = this.t = y;
-  	this.z = this.b = this.p = z;
+  	this.x = this.s = x;
+  	this.y = this.t = y;
+  	this.z = this.p = z;
   	return this;
   }
   
@@ -53,9 +52,6 @@ public class vec3 extends vec {
     if(v == null) {
       set(0,0,0);
       return this ;
-    } else if(v instanceof vec5 || v instanceof vec6) {
-      set(v.a,v.b,v.c);
-      return this ;
     } else {
       set(v.x,v.y,v.z);
       return this ;
@@ -65,9 +61,6 @@ public class vec3 extends vec {
   public vec3 set(ivec v) {
     if(v == null) {
       set(0,0,0);
-      return this ;
-    } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a,v.b,v.c);
       return this ;
     } else {
       set(v.x,v.y,v.z);
@@ -88,17 +81,30 @@ public class vec3 extends vec {
 	}
 
 	// rgb
-	public vec3 r(float x) {
+	public vec3 red(float x) {
    return set(x,this.y,this.z);
 	}
 
-	public vec3 g(float y) {
+	public vec3 gre(float y) {
    return set(this.x,y,this.z);
 	}
 
-	public vec3 b(float z) {
+	public vec3 blu(float z) {
    return set(this.x,this.y,z);
 	}
+
+  // hsb
+  public vec3 hue(float x) {
+   return set(x,this.y,this.z);
+  }
+
+  public vec3 sat(float y) {
+   return set(this.x,y,this.z);
+  }
+
+  public vec3 bri(float z) {
+   return set(this.x,this.y,z);
+  }
 
 	// stp
 	public vec3 s(float x) {
@@ -128,15 +134,15 @@ public class vec3 extends vec {
   
   /**
    * mult
-   * @param m_x
-   * @param m_y
-   * @param m_z
+   * @param mx
+   * @param my
+   * @param mz
    * @return
    */
-  public vec3 mult(float m_x, float m_y, float m_z) {
-    x *= m_x;
-    y *= m_y; 
-    z *= m_z; 
+  public vec3 mult(float mx, float my, float mz) {
+    x *= mx;
+    y *= my; 
+    z *= mz; 
     set(x,y,z);
     return this;
   }
@@ -164,10 +170,10 @@ public class vec3 extends vec {
    * @param d_z
    * @return
    */
-  public vec3 div(float d_x, float d_y, float d_z) {
-    if(d_x != 0) x /= d_x; 
-    if(d_y != 0) y /= d_y; 
-    if(d_z != 0) z /= d_z; 
+  public vec3 div(float dx, float dy, float dz) {
+    if(dx != 0) x /= dx; 
+    if(dy != 0) y /= dy; 
+    if(dz != 0) z /= dz; 
     set(x,y,z);
     return this;
   }
@@ -191,15 +197,15 @@ public class vec3 extends vec {
   
   /**
    * add main method
-   * @param a_x
-   * @param a_y
-   * @param a_z
+   * @param ax
+   * @param ay
+   * @param az
    * @return
    */
-  public vec3 add(float a_x,float a_y,float a_z) {
-    x += a_x;
-    y += a_y;
-    z += a_z;
+  public vec3 add(float ax,float ay,float az) {
+    x += ax;
+    y += ay;
+    z += az;
     set(x,y,z);
     return this;
   }
@@ -223,15 +229,15 @@ public class vec3 extends vec {
   
   /**
    * sub main method
-   * @param s_x
-   * @param s_y
-   * @param s_z
+   * @param sx
+   * @param sy
+   * @param sz
    * @return
    */
-  public vec3 sub(float s_x,float s_y,float s_z) {
-    x -= s_x;
-    y -= s_y;
-    z -= s_z;
+  public vec3 sub(float sx,float sy,float sz) {
+    x -= sx;
+    y -= sy;
+    z -= sz;
     set(x,y,z);
     return this;
   }

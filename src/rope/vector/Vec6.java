@@ -37,10 +37,10 @@ public class vec6 extends vec {
    * @return
    */
   public vec6 set(float a, float b, float c, float d, float e, float f) {
-  	this.a = a;
-  	this.b = b;
-  	this.c = c;
-  	this.d = d;
+  	this.x = a;
+  	this.y = b;
+  	this.z = c;
+  	this.w = d;
   	this.e = e;
   	this.f = f;
   	return this;
@@ -59,10 +59,10 @@ public class vec6 extends vec {
   
   public vec6 set(vec v) {
     if ( v == null) {    
-      a = b = c = d = e = f = 0;
+      this.x = this.y = this.z = this.w = this.e = this.f = 0;
       return this;
     } else if(v instanceof vec5 || v instanceof vec6) {
-      set(v.a,v.b,v.c,v.d,v.e,v.f);
+      set(v.x,v.y,v.z,v.w,v.e,v.f);
       return this;
     } else {
       set(v.x,v.y,v.z,v.w,0,0);
@@ -72,10 +72,10 @@ public class vec6 extends vec {
 
   public vec6 set(ivec v) {
     if ( v == null) {    
-      a = b = c = d = e = f = 0;
+      this.x = this.y = this.z = this.w = this.e = this.f = 0;
       return this;
     } else if(v instanceof ivec5 || v instanceof ivec6) {
-      set(v.a ,v.b,v.c,v.d,v.e,v.f);
+      set(v.x,v.y,v.z,v.w,v.e,v.f);
       return this;
     } else {
       set(v.x,v.y,v.z,v.w,0,0);
@@ -84,27 +84,27 @@ public class vec6 extends vec {
   }
   
   public vec6 a(float a) {
-    return set(a,this.b,this.c,this.d,this.e,this.f);
+    return set(a,this.y,this.z,this.w,this.e,this.f);
   }
 
   public vec6 b(float b) {
-    return set(this.a,b,this.c,this.d,this.e,this.f);
+    return set(this.x,b,this.z,this.w,this.e,this.f);
   }
 
   public vec6 c(float c) {
-    return set(this.a,this.b,c,this.d,this.e,this.f);
+    return set(this.x,this.y,c,this.w,this.e,this.f);
   }
 
   public vec6 d(float d) {
-    return set(this.a,this.b,this.c,d,this.e,this.f);
+    return set(this.x,this.y,this.z,d,this.e,this.f);
   }
 
   public vec6 e(float e) {
-    return set(this.a,this.b,this.c,this.d,e,this.f);
+    return set(this.x,this.y,this.z,this.w,e,this.f);
   }
 
   public vec6 f(float f) {
-    return set(this.a,this.b,this.c,this.d,this.e,f);
+    return set(this.x,this.y,this.z,this.w,this.e,f);
   }
   
   
@@ -113,12 +113,12 @@ public class vec6 extends vec {
    * @return
    */
   public vec6 copy() {
-    return new vec6(a,b,c,d,e,f) ;
+    return new vec6(x,y,z,w,e,f) ;
   }
   
   @Override 
   public String toString() {
-    return "[ " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + " ]" ;
+    return "[ " + x + ", " + y + ", " + z + ", " + w + ", " + e + ", " + f + " ]" ;
   }
   
   
