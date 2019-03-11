@@ -1,8 +1,8 @@
 /**
-* ROPE > Romanesco processing environment
+* ROPE > ROmanesco Processing Environment
 * Copyleft (c) 2014-2019
 * revision 010
-* v 0.2.1
+* v 0.3.1
 * Processing 3.5.3
 * @author Stan le Punk
 * @see http://stanlepunk.xyz/
@@ -31,6 +31,8 @@ public abstract class BigBangRope implements RConstants {
 	public String version() {
 		return VERSION;
 	}
+	
+	
 	
 
 

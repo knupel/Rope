@@ -1,12 +1,12 @@
 package rope.core;
 /**
-	* ROPE - Romanesco processing environment – 
+	* ROPE - ROmanesco Processing Environment – 
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.2
+	* v 0.2.0.3
 	* Processing 3.5.3
-	* @author Stan le Punk
+	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
@@ -19,12 +19,20 @@ public interface RConstants {
 	static final int  NONE = 0;
 	static final int  NULL = 0;
 	
+  static final float MAX_FLOAT = Float.MAX_VALUE;
+  static final float MIN_FLOAT = -Float.MAX_VALUE;
+  static final int MAX_INT = Integer.MAX_VALUE;
+  static final int MIN_INT = Integer.MIN_VALUE;
+	
 	static final float PHI = (1 + (float)Math.sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
 	static final float GOLD_NUMBER = PHI;
 	static final float GOLD_ANGLE = (float)(2*Math.PI) / (PHI*PHI); // > 137.500 in degree
 	static final float ROOT2 = (float)Math.sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+	static final float PI = (float) Math.PI;
+	static final float TWO_PI = (float) (2.0 * Math.PI);
+	static final float TAU = (float) (2.0 * Math.PI);
 	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
-	static final double G    = 0.00000000006693; // last gravity constant
+	static final double G = 0.00000000006693; // last gravity constant
 
 	static final int HUE = 50;
 	static final int SATURATION = 51;
