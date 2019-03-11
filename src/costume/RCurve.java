@@ -1,12 +1,12 @@
 /**
 * RCurve class
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
 */
-package costume;
+package rope.costume;
 
 import rope.vector.*;
 import rope.core.*;

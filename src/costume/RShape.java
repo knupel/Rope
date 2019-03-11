@@ -6,12 +6,13 @@
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
 */
-package costume;
+package rope.costume;
 
 import rope.core.RConstants;
 import rope.core.RImage;
-import processing.core.*;
 import rope.vector.*;
+import processing.core.*;
+
 
 public class RShape extends RImage implements RConstants {
 	processing.core.PGraphics other;

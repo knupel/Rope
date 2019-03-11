@@ -1,15 +1,14 @@
 /**
 * RBezier class
-* v 0.0.1
+* v 0.0.2
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
 */
 
-package costume;
+package rope.costume;
 
-// import processing.core.*;
 import rope.vector.*;
 
 public class RBezier {
