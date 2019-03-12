@@ -1,27 +1,35 @@
 
 ## Rope Library
-v 0.0.4
+v 0.4.1
 copyleft(c) 2018-2019
 
-This library is a logic way of Rope Method, utilities use for [Romanesco software.](http://romanesco.xyz)
+This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
 
 Romanesco source [repository](https://github.com/StanLepunK/ROMANESCO-Processing)
 
-Rope work with Processing and Rope method, available [here](https://github.com/StanLepunK/Rope_method)
+Rope framework available [here](https://github.com/StanLepunK/Rope_framework)
 
 ## Available in the Library
-float precision 
-Vec2, Vec3 and Vec4 with all operation from PVector and few more possibilities.
-Plus Vec5 and Vec6 to store data.
 
-integer precision
-iVec2,iVec3,iVec4 with few operation
-and iVec5 and iVec6 to store data
+### vector package
+float precision:
+vec2, vec3 and vec4 with all operation from PVector and few more possibilities.
+Plus vec5 and vec6 to store data.
+note : class vec is note write with Uppercase RVec, or Vec for the first letter like is done usualy. The reason is dur of the number time where you write the Class, it's possible to accept is a type, like in GLSL !!!
 
-boolean precision
-bVec2,bVec3,bVec4,bVec5,bVec6
+integer precision:
+ivec2,ivec3,ivec4 with few operation
+and ivec5 and ivec6 to store data
 
-Constant set.
+boolean precision:
+bvec2,bvec3,bvec4,bvec5,bvec6
+
+### core package
+Constants set, mathematical, direct color code
+
+### costume package
+vertex and vertexBezier method with direct acces via the vec type.
+Collection of shape in the costume package.
 
 ## Download last build for OSX
 [download](https://github.com/StanLepunK/Rope/blob/master/Rope.zip)
