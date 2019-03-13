@@ -15,28 +15,38 @@ import processing.core.*;
 public class RCurve extends RShape implements RConstants{
   RBezier[] bezier;
 
-  public RCurve(PApplet pa,int num) {
+  public RCurve(PApplet pa, int summits) {
   	super(pa);
     float offset_angle = 0;
-    build(num,offset_angle);
+    build(summits,offset_angle);
   }
   
-  public RCurve(PApplet pa,int num, PGraphics other) {
+  public RCurve(PApplet pa, int summits, PGraphics other) {
   	super(pa,other);
     float offset_angle = 0;
-    build(num,offset_angle);
+    build(summits,offset_angle);
   }
 
-  private void build(int num, float offset_angle) {
-  	if(num < 2) {
-      num = 2;
+  public RCurve(PApplet pa, int summits, float offset_angle) {
+    super(pa);
+    build(summits,offset_angle);
+  }
+  
+  public RCurve(PApplet pa, int summits, float offset_angle, PGraphics other) {
+    super(pa,other);
+    build(summits,offset_angle);
+  }
+
+  private void build(int summits, float offset_angle) {
+  	if(summits < 2) {
+      summits = 2;
       System.err.println("class Curve: the construtor need minimum 2 points to build Curve,\nsorry the class add the minimum require points to make your desire real");
     }
-    bezier = new RBezier[num];
-    float step = (float)(1. /num);
+    bezier = new RBezier[summits];
+    float step = (float)(1. /summits);
     float to_angle = TWO_PI *step;
     float mag = (float)( (4. /3.) *Math.tan(PI*.5 *step));
-    for (int i = 0; i < num; ++i) {
+    for (int i = 0; i < summits; ++i) {
       float angle = offset_angle +i *to_angle;
       bezier[i] = new RBezier();
       bezier[i].from_angle(angle,mag);
