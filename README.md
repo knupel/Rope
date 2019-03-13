@@ -1,6 +1,6 @@
 
 ## Rope Library
-v 0.4.1
+v 0.4.2
 copyleft(c) 2018-2019
 
 This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
