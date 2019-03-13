@@ -1,6 +1,6 @@
 /**
 * ivec5 class
-* v 1.1.0
+* v 1.2.0
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk
@@ -27,6 +27,11 @@ public class ivec5 extends ivec {
   public ivec5(ivec v) {
     super(5) ;
     set(v);
+  }
+
+  public ivec5(int [] source) {
+    super(5);
+    set(source); 
   }
   
   /**

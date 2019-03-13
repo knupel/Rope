@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.1.0
+ * v 1.2.0
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -23,6 +23,26 @@ public class vec3 extends vec {
 	public vec3(float x, float y, float z) {
     super(3) ;
     set(x,y,z);
+  }
+
+  public vec3(vec v) {
+    super(3);
+    set(v);
+  }
+
+  public vec3(ivec v) {
+    super(3);
+    set(v.x,v.y,v.z);
+  }
+
+  public vec3(float [] source) {
+    super(3);
+    set(source);
+  }
+
+  public vec3(int [] source) {
+    super(3);
+    set(source);
   }
 	
 	
@@ -67,6 +87,19 @@ public class vec3 extends vec {
   }
   
   public vec3 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2]);
+    } else if(source.length > 3) {
+      set(source[0],source[1],source[2]);
+    }
+    return this;
+  }
+  
+  public vec3 set(int[] source) {
     if(source.length == 1) {
       set(source[0],this.y,this.z);
     } else if(source.length == 2) {

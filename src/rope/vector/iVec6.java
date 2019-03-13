@@ -18,6 +18,7 @@ public class ivec6 extends ivec {
   	super(6);
   	set(v,v,v,v,v,v); 
   }
+
   public ivec6(int a, int b, int c, int d, int e, int f) {
     super(6);
     set(a,b,c,d,e,f);
@@ -26,6 +27,11 @@ public class ivec6 extends ivec {
   public ivec6(ivec v) {
     super(6);
     set(v);
+  }
+
+  public ivec6(int [] source) {
+    super(6);
+    set(source); 
   }
   
   /**

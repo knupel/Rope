@@ -1,9 +1,9 @@
 /**
 * bvec4 class
-* v 1.1.0
+* v 1.2.0
 * 2015-2019
 * Vector class with a boolean precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -26,6 +26,11 @@ public class bvec4 extends bvec {
 		super(4);
 		set(b);
 	}
+
+  public bvec4(boolean [] source) {
+    super(4);
+    set(source); 
+  }
 
 
 	/**

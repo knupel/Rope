@@ -1,10 +1,10 @@
 /**
 * vec5 class
-* v 1.0.0
+* v 1.2.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -23,6 +23,26 @@ public class vec5 extends vec {
   public vec5(float a, float b, float c, float d, float e) {
     super(5) ;
     set(a,b,c,d,e);
+  }
+
+  public vec5(vec v) {
+    super(5);
+    set(v);
+  }
+
+  public vec5(ivec v) {
+    super(5);
+    set(v.x,v.y,v.z,v.w,v.e);
+  }
+
+  public vec5(float [] source) {
+    super(5);
+    set(source);
+  }
+
+  public vec5(int [] source) {
+    super(5);
+    set(source);
   }
   
   
@@ -72,6 +92,23 @@ public class vec5 extends vec {
   }
   
   public vec5 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w,this.e);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w,this.e);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w,this.e);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3],this.e);
+    } else if(source.length == 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);
+    } else if(source.length > 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);    
+    }
+    return this;
+  }
+
+  public vec5 set(int[] source) {
     if(source.length == 1) {
       set(source[0],this.y,this.z,this.w,this.e);
     } else if(source.length == 2) {

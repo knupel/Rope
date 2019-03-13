@@ -1,10 +1,10 @@
 /**
 * ivec4 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
-* @author Stan le Punk
+* @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
@@ -28,6 +28,11 @@ public class ivec4 extends ivec {
   public ivec4(ivec v) {
     super(4);
     set(v);
+  }
+
+  public ivec4(int [] source) {
+    super(4);
+    set(source); 
   }
   
   

@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.1.0 
+ * v 1.2.0
  * 2015-2019
  * Vector class with a float precision
  * @author @stanlepunk
@@ -23,6 +23,27 @@ public class vec2 extends vec {
 		super(2);
 		set(x,y);
 	}
+
+	public vec2(vec v) {
+    super(2);
+    set(v);
+  }
+
+  public vec2(ivec v) {
+    super(2);
+    set(v.x,v.y);
+  }
+
+
+	public vec2(float [] source) {
+    super(3);
+    set(source);
+  }
+
+  public vec2(int [] source) {
+    super(3);
+    set(source);
+  }
 
 	/**
 	 * 
@@ -61,6 +82,17 @@ public class vec2 extends vec {
 
 	
 	public vec2 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y);
+    } else if(source.length == 2) {
+      set(source[0],source[1]);
+    } else if(source.length > 2) {
+      set(source[0],source[1]);
+    } 
+    return this;
+  }
+
+  public vec2 set(int[] source) {
     if(source.length == 1) {
       set(source[0],this.y);
     } else if(source.length == 2) {

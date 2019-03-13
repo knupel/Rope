@@ -1,6 +1,6 @@
 /**
 * bvec5 class
-* v 1.1.0
+* v 1.2.0
 * 2015-2019
 * Vector class with a boolean precision
 * @author @stanlepunk
@@ -24,6 +24,11 @@ public class bvec5 extends bvec {
 		super(5);	
 		set(b);
 	}
+
+  public bvec5(boolean [] source) {
+    super(5);
+    set(source); 
+  }
 
 
 	/**

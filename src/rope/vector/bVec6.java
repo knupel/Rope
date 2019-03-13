@@ -1,6 +1,6 @@
 /**
 * bvec6 class
-* v 1.0.0
+* v 1.1.0
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk
@@ -24,6 +24,11 @@ public class bvec6 extends bvec {
 		super(6);	
 		set(b);
 	}
+
+  public bvec6(boolean [] source) {
+    super(6);
+    set(source); 
+  }
 
 
 	/**

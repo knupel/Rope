@@ -1,6 +1,6 @@
 /**
 * ivec3 class
-* v 1.1.0
+* v 1.2.0
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
@@ -28,6 +28,11 @@ public class ivec3 extends ivec {
   public ivec3(ivec v) {
     super(3);
     set(v);
+  }
+
+  public ivec3(int [] source) {
+    super(3);
+    set(source); 
   }
   
   /**

@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.1.0
+* v 1.2.0
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk
@@ -22,6 +22,26 @@ public class vec4 extends vec {
   public vec4(float x, float y, float z, float w) {
     super(4) ;
     set(x,y,z,w);
+  }
+
+  public vec4(vec v) {
+    super(4);
+    set(v);
+  }
+
+  public vec4(ivec v) {
+    super(4);
+    set(v.x,v.y,v.z,v.w);
+  }
+
+  public vec4(float [] source) {
+    super(4);
+    set(source);
+  }
+
+  public vec4(int [] source) {
+    super(4);
+    set(source);
   }
   
   
@@ -66,6 +86,21 @@ public class vec4 extends vec {
   }
   
   public vec4 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3]);
+    } else if(source.length > 4) {
+      set(source[0],source[1],source[2],source[3]);
+    }
+    return this;
+  }
+
+  public vec4 set(int[] source) {
     if(source.length == 1) {
       set(source[0],this.y,this.z,this.w);
     } else if(source.length == 2) {
