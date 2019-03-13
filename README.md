@@ -19,7 +19,7 @@ Plus 'vec5' and 'vec6' to store data.
 note: class vec is note write with Uppercase RVec, or Vec for the first letter like is done usualy. The reason is due of the number of time where you must write this Classes, it's possible to accept is a type, like in GLSL !!!
 
 integer precision:
-'ivec2' 'ivec3' 'ivec4' with few operation
+`ivec2` 'ivec3' 'ivec4' with few operation
 and 'ivec5' and 'ivec6' to store data.
 
 boolean precision:
