@@ -13,10 +13,10 @@ Rope framework available [here](https://github.com/StanLepunK/Rope_framework)
 
 ### vector package
 float precision:
-`vec2` `vec3` and `vec4` with all operation from PVector and few more possibilities.
+`vec2` `vec3` and `vec4` with all operation from `PVector` and few more possibilities.
 Plus `vec5` and `vec6` to store data.
 
-note: class vec is note write with Uppercase RVec, or Vec for the first letter like is done usualy. The reason is due of the number of time where you must write this Classes, it's possible to accept is a type, like in GLSL !!!
+note: class vec is note write with Uppercase RVec, or Vec for the first letter like is done usualy. The reason is due of the number of time where you must write this Classes, it's possible to accept is a type, like in GLSL!!!
 
 integer precision:
 `ivec2` `ivec3` `ivec4` with few operation
