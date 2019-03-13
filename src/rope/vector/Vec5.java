@@ -44,11 +44,6 @@ public class vec5 extends vec {
   	return this;
   }
   
-  public vec5 set(float[] source) {
-    set(source[0],source[1],source[2],source[3],source[4]);
-    return this ;
-  }
-  
   public vec5 set(float v) {
     set(v,v,v,v,v);
     return this;
@@ -57,27 +52,40 @@ public class vec5 extends vec {
   public vec5 set(vec v) {
     if( v == null) {
       this.x = this.y = this.z = this.w = this.e = 0;
-      return this ;
     } else if(v instanceof vec5 || v instanceof vec6) {
       set(v.x,v.y,v.z,v.w,v.e);
-      return this ;
     } else {
-      set(v.x,v.y,v.z,v.w,0);
-      return this ;
+      set(v.x,v.y,v.z,v.w,0);   
     }
+    return this;
   }
 
-    public vec5 set(ivec v) {
+  public vec5 set(ivec v) {
     if( v == null) {
       this.x = this.y = this.z = this.w = this.e = 0 ;
-      return this ;
     } else if(v instanceof ivec5 || v instanceof ivec6) {
       set(v.x,v.y,v.z,v.w,v.e);
-      return this ;
     } else {
       set(v.x,v.y,v.z,v.w,0);
-      return this ;
     }
+    return this;
+  }
+  
+  public vec5 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w,this.e);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w,this.e);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w,this.e);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3],this.e);
+    } else if(source.length == 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);
+    } else if(source.length > 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);    
+    }
+    return this;
   }
   
   

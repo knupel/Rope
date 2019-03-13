@@ -54,14 +54,31 @@ public class bvec6 extends bvec {
   public bvec6 set(bvec v) {
     if(v == null) {
       this.x = this.y = this.z = this.w = this.e = this.f = false;
-      return this;
     } else if(v instanceof bvec5 || v instanceof bvec6) {
       set(v.x,v.y,v.z,v.w,v.e,v.f);
-      return this;
     } else {
       set(v.x,v.y,v.z,v.w,false,false);
-      return this;
     }
+  	return this;
+  }
+  
+  public bvec6 set(boolean[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w,this.e,this.f);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w,this.e,this.f);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w,this.e,this.f);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3],this.e,this.f);
+    } else if(source.length == 5) {
+      set(source[0],source[1],source[2],source[3],source[4],this.f);
+    } else if(source.length == 6) {
+      set(source[0],source[1],source[2],source[3],source[4],source[5]);
+    } else if(source.length > 6) {
+      set(source[0],source[1],source[2],source[3],source[4],source[5]);
+    }
+    return this;
   }
 
   // abcdef

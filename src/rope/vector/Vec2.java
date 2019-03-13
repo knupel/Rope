@@ -44,27 +44,32 @@ public class vec2 extends vec {
 	public vec2 set(vec v) {
 		if (v == null) {
 			set(0,0);
-			return this;
 		} else {
 			set(v.x, v.y);
-			return this;
 		}
+		return this;
 	}
 
 	public vec2 set(ivec v) {
 		if (v == null) {
 			set(0,0);
-			return this;
 		} else {
-			set(v.x, v.y);
-			return this;
+			set(v.x, v.y);	
 		}
-	}
-
-	public vec2 set(float[] source) {
-		set(source[0], source[1]);
 		return this;
 	}
+
+	
+	public vec2 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y);
+    } else if(source.length == 2) {
+      set(source[0],source[1]);
+    } else if(source.length > 2) {
+      set(source[0],source[1]);
+    } 
+    return this;
+  }
 
 	// xy
 	public vec2 x(float x) {

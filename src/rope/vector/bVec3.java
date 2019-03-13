@@ -48,11 +48,23 @@ public class bvec3 extends bvec {
   public bvec3 set(bvec v) {
     if(v == null) {
       this.x = this.y = this.z = false;
-      return this;
     } else {
       set(v.x,v.y,v.z);
-      return this;
     }
+    return this;
+  }
+  
+  public bvec3 set(boolean[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2]);
+    } else if(source.length > 3) {
+      set(source[0],source[1],source[2]);
+    }
+    return this;
   }
 
   // xyz

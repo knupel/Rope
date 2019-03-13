@@ -59,16 +59,25 @@ public class vec4 extends vec {
   public vec4 set(ivec v) {
     if ( v == null) {
       set(0,0,0,0);
-      return this ;
     } else {
       set(v.x,v.y,v.z,v.w);
-      return this ;
     }
+    return this;
   }
   
   public vec4 set(float[] source) {
-    set(source[0],source[1],source[2],source[3]);
-    return this ;
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3]);
+    } else if(source.length > 4) {
+      set(source[0],source[1],source[2],source[3]);
+    }
+    return this;
   }
   
   public vec4 x(float x) {

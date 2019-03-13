@@ -55,21 +55,34 @@ public class ivec4 extends ivec {
   public ivec4 set(ivec v) {
     if(v == null) {
       this.x = this.y = this.z = this.w = 0;
-      return this;
     } else {
       set(v.x,v.y,v.z,v.w);
-      return this;
     }
+    return this;
   }
 
   public ivec4 set(vec v) {
     if(v == null) {
       this.x  = this.y = this.z = this.w = 0;
-      return this;
     } else {
       set((int)v.x,(int)v.y,(int)v.z,(int)v.w);
-      return this;
     }
+    return this;
+  }
+  
+  public ivec4 set(int[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3]);
+    } else if(source.length > 4) {
+      set(source[0],source[1],source[2],source[3]);
+    }
+    return this;
   }
 
   // xyzw

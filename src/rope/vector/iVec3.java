@@ -52,21 +52,32 @@ public class ivec3 extends ivec {
   public ivec3 set(ivec v) {
     if(v == null) {
       this.x = this.y = this.z = 0;
-      return this;
     } else {
       set(v.x,v.y,v.z);
-      return this;
     }
+  	return this;
   }
 
   public ivec3 set(vec v) {
     if(v == null) {
       this.x = this.y = this.z = 0;
-      return this;
     } else {
       set((int)v.x,(int)v.y,(int)v.z);
-      return this;
     }
+  	return this;
+  }
+  
+  public ivec3 set(int[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2]);
+    } else if(source.length > 3) {
+      set(source[0],source[1],source[2]);
+    }
+    return this;
   }
 
   // xyz

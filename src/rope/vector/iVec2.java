@@ -49,21 +49,30 @@ public class ivec2 extends ivec {
   public ivec2 set(ivec v) {
     if(v == null) {
       this.x = this.y = 0;
-      return this;
     } else {
       set(v.x,v.y);
-      return this;
     }
+  	return this;
   }
 
   public ivec2 set(vec v) {
     if(v == null) {
       this.x = this.y = 0;
-      return this;
     } else {
       set((int)v.x,(int)v.y);
-      return this;
     }
+  	return this;
+  }
+  
+  public ivec2 set(int[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y);
+    } else if(source.length == 2) {
+      set(source[0],source[1]);
+    } else if(source.length > 2) {
+      set(source[0],source[1]);
+    }
+    return this;
   }
   
   // xy

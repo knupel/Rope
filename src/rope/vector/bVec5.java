@@ -52,14 +52,29 @@ public class bvec5 extends bvec {
   public bvec5 set(bvec v) {
     if(v == null) {
       this.x = this.y = this.z = this.w = this.e = false;
-      return this;
     } else if(v instanceof bvec5 || v instanceof bvec6) {
       set(v.x,v.y,v.z,v.w,v.e);
-      return this;
     } else {
       set(v.x,v.y,v.z,v.w,false);
-      return this;
     }
+  	return this;
+  }
+  
+  public bvec5 set(boolean[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w,this.e);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w,this.e);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w,this.e);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3],this.e);
+    } else if(source.length == 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);
+    } else if(source.length > 5) {
+      set(source[0],source[1],source[2],source[3],source[4]);
+    }
+    return this;
   }
 
 

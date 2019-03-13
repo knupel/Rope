@@ -52,11 +52,25 @@ public class bvec4 extends bvec {
   public bvec4 set(bvec v) {
     if(v == null) {
       this.x = this.y = this.z = this.w = false;
-      return this;
     } else {
       set(v.x,v.y,v.z,v.w);
-      return this;
     }
+  	return this;
+  }
+  
+  public bvec4 set(boolean[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z,this.w);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z,this.w);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2],this.w);
+    } else if(source.length == 4) {
+      set(source[0],source[1],source[2],source[3]);
+    } else if(source.length > 4) {
+      set(source[0],source[1],source[2],source[3]);
+    }
+    return this;
   }
 
   // xyzw

@@ -51,21 +51,32 @@ public class vec3 extends vec {
   public vec3 set(vec v) {
     if(v == null) {
       set(0,0,0);
-      return this ;
     } else {
       set(v.x,v.y,v.z);
-      return this ;
     }
+    return this;
   }
   
   public vec3 set(ivec v) {
     if(v == null) {
       set(0,0,0);
-      return this ;
     } else {
       set(v.x,v.y,v.z);
-      return this ;
     }
+    return this;
+  }
+  
+  public vec3 set(float[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y,this.z);
+    } else if(source.length == 2) {
+      set(source[0],source[1],this.z);
+    } else if(source.length == 3) {
+      set(source[0],source[1],source[2]);
+    } else if(source.length > 3) {
+      set(source[0],source[1],source[2]);
+    }
+    return this;
   }
   
 	public vec3 x(float x) {
@@ -119,10 +130,6 @@ public class vec3 extends vec {
    return set(this.x,this.y,z);
 	}
  
-  public vec3 set(float[] source) {
-    set(source[0],source[1],source[2]);
-    return this ;
-  }
   
   /**
    * sum

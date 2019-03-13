@@ -46,11 +46,21 @@ public class bvec2 extends bvec {
   public bvec2 set(bvec v) {
     if(v == null) {
       this.x = this.y = false;
-      return this;
     } else {
       set(v.x,v.y);
-      return this;
     }
+    return this;
+  }
+  
+  public bvec2 set(boolean[] source) {
+    if(source.length == 1) {
+      set(source[0],this.y);
+    } else if(source.length == 2) {
+      set(source[0],source[1]);
+    } else if(source.length > 2) {
+      set(source[0],source[1]);
+    }
+    return this;
   }
   
   // xy
