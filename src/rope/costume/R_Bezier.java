@@ -1,5 +1,5 @@
 /**
-* RBezier class
+* R_Bezier class
 * v 0.0.2
 * 2019-2019
 * @author @stanlepunk
@@ -11,12 +11,12 @@ package rope.costume;
 
 import rope.vector.*;
 
-public class RBezier {
+public class R_Bezier {
 	private vec3 pos;
   private vec3 fore_handle;
   private vec3 rear_handle;
 
-  public RBezier() {
+  public R_Bezier() {
     pos = new vec3();
     fore_handle = new vec3();
     rear_handle = new vec3();

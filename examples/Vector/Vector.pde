@@ -1,23 +1,15 @@
 
 /**
-* simple examples to use Rope vector : vec, ivec and bvec
+* Rope vector
+* 2018-2019
+* v 0.2.0
+* fews examples to use Rope vector : vec, ivec and bvec
 * a lot of example is here
-* @see https://github.com/StanLepunK/Rope_method
+* @see https://github.com/StanLepunK/Rope_framework
 * you will find all the method vec apply 
 * to Processing method, GLSL method and rope method indeed.
 */
-import rope.vector.vec2;
-import rope.vector.vec3;
-import rope.vector.vec4;
-import rope.vector.vec5;
-import rope.vector.vec6;
-
-import rope.vector.ivec3;
-import rope.vector.ivec4;
-import rope.vector.ivec6;
-
-import rope.vector.bvec2;
-
+import rope.vector.*;
 import rope.core.Rope;
 void setup() {
   vec2 v2 = new vec2(4,5);

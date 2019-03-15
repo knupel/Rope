@@ -17,6 +17,7 @@ public abstract class vec extends BigBangRope {
 	public float u,v = Float.NaN;
 	
   public vec(int num) {
+  	super();
     this.num = num;
   }
   

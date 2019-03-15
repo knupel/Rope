@@ -1,5 +1,7 @@
 /**
 * Rope test
+* 2019-2019
+* v 0.0.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */

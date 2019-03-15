@@ -14,23 +14,42 @@ package rope.core;
 
 
 
-public interface RConstants {
-	static final int  NOTHING = 0;
-	static final int  NONE = 0;
-	static final int  NULL = 0;
+public interface R_Constants {
+	/**
+	 * 
+	 * Processing CONSTANTS
+	 */
+  static final int OPEN = 1;
+  static final int CLOSE = 2;
+
+
+  // shape drawing modes
+  static final int CORNER   = 0;
+  static final int CORNERS  = 1;
+  static final int RADIUS   = 2;
+  static final int CENTER   = 3;
+  static final int DIAMETER = 3;
 	
   static final float MAX_FLOAT = Float.MAX_VALUE;
   static final float MIN_FLOAT = -Float.MAX_VALUE;
   static final int MAX_INT = Integer.MAX_VALUE;
   static final int MIN_INT = Integer.MIN_VALUE;
+  
+	static final float PI = (float) Math.PI;
+	static final float TWO_PI = (float) (2.0 * Math.PI);
+	static final float TAU = (float) (2.0 * Math.PI);
+  
+  /**
+   * Rope CONSTANTS 
+   */
+	static final int  NOTHING = 0;
+	static final int  NONE = 0;
+	static final int  NULL = 0;
 	
 	static final float PHI = (1 + (float)Math.sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
 	static final float GOLD_NUMBER = PHI;
 	static final float GOLD_ANGLE = (float)(2*Math.PI) / (PHI*PHI); // > 137.500 in degree
 	static final float ROOT2 = (float)Math.sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
-	static final float PI = (float) Math.PI;
-	static final float TWO_PI = (float) (2.0 * Math.PI);
-	static final float TAU = (float) (2.0 * Math.PI);
 	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
 	static final double G = 0.00000000006693; // last gravity constant
 
@@ -159,15 +178,25 @@ public interface RConstants {
 	/**
 	 * String Constants
 	 */
+	@Deprecated
 	static final String RANDOM = "RANDOM";
+	@Deprecated
 	static final String RANDOM_ZERO = "RANDOM ZERO";
+	@Deprecated
 	static final String RANDOM_RANGE = "RANDOM RANGE";
+	@Deprecated
 	static final String RANDOM_ROOT = "ROOT_RANDOM";
+	@Deprecated
 	static final String RANDOM_QUARTER ="QUARTER_RANDOM";
+	@Deprecated
 	static final String RANDOM_2 = "2_RANDOM" ;
+	@Deprecated
 	static final String RANDOM_3 = "3_RANDOM" ;
+	@Deprecated
 	static final String RANDOM_4 = "4_RANDOM" ;
+	@Deprecated
 	static final String RANDOM_X_A = "SPECIAL_A_RANDOM" ;
+	@Deprecated
 	static final String RANDOM_X_B = "SPECIAL_B_RANDOM" ;
 
 	static final String SIN = "SIN" ;

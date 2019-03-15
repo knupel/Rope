@@ -1,6 +1,6 @@
 
 ## Rope Library
-v 0.4.4
+v 0.5.0
 v 19
 copyleft(c) 2018-2019
 
@@ -32,6 +32,9 @@ Constants set, mathematical, direct color code
 ### costume package
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
 Collection of shape in the costume package.
+
+For the moment costume available: primitive 2D, circle with bezier handle, virus, star
+
 
 ## Download last build for OSX
 [download](https://github.com/StanLepunK/Rope/blob/master/Rope.zip)

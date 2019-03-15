@@ -1,5 +1,5 @@
 /**
-* RImage class
+* R_Image class
 * v 0.0.1
 * 2019-2019
 * @author @stanlepunk
@@ -11,10 +11,11 @@ package rope.core;
 
 import processing.core.*;
 
-public class RImage {
-	public PGraphics pg;
-	public RImage(PApplet pa) {
-		this.pg = pa.g;
+public class R_Image extends BigBangRope {
+	// public PGraphics pg;
+	public R_Image(PApplet pa) {
+		super(pa);
+		//this.pg = pa.g;
 	}
 	
 	/**
@@ -23,7 +24,7 @@ public class RImage {
 	 */
 	public boolean renderer_P3D() {
 		// System.err.println(processing.core.PConstants.P3D);;
-	  if(get_renderer(pg).equals(processing.core.PConstants.P3D)) return true ; else return false ;
+	  if(get_renderer(pa.g).equals(processing.core.PConstants.P3D)) return true ; else return false ;
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class RImage {
 	 * @return String of the the graphic context
 	 */
 	public String get_renderer() {
-	  return get_renderer(pg);
+	  return get_renderer(pa.g);
 	}
   
 	/**
