@@ -1,6 +1,6 @@
 /**
 * R_Circle class
-* v 0.0.3
+* v 0.0.4
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -16,7 +16,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   private R_Bezier[] bezier;
   private int summits = 2;
   private float offset_angle = 0;
-  
+
   /**
    * 
    * @param pa
@@ -140,7 +140,16 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     vertex(closing_pos);
     endShape();
   }
-
+  
+  // GET
+  public int get_summit() {
+  	return this.summits;
+  }
+  
+  public float get_angle() {
+  	return this.offset_angle;
+  }
+  
   public R_Bezier [] get_bezier() {
     return bezier;
   }
