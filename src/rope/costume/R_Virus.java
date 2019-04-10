@@ -43,7 +43,7 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 		build();
 	}
 
-	public void set_num(int num) {
+	public void set_summits(int num) {
 		this.num = num;
 		build();
 	}
@@ -62,7 +62,7 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 		return this.node;
 	}
 
-	public int get_num() {
+	public int get_summits() {
 		return this.num;
 	}
 

@@ -1,6 +1,6 @@
 /**
 * R_Circle class
-* v 0.0.4
+* v 0.1.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -26,7 +26,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   	super(pa);
 		pos(0);
 		size(1);
-		set_summits(summits);
+		set_summit(summits);
 		set_angle(offset_angle);
     build();
   }
@@ -41,7 +41,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   	super(pa,other);
 		pos(0);
 		size(1);
-		set_summits(summits);
+		set_summit(summits);
     build();
   }
   /**
@@ -54,7 +54,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     super(pa);
 		pos(0);
 		size(1);
-		set_summits(summits);
+		set_summit(summits);
 		set_angle(offset_angle);
     build();
   }
@@ -70,7 +70,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     super(pa,other);
 		pos(0);
 		size(1);
-		set_summits(summits);
+		set_summit(summits);
 		set_angle(offset_angle);
     build();
   }
