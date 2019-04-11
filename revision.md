@@ -1,4 +1,15 @@
+*version 0.6.2.23
+
+
+
+
+
+
 *version 0.6.1.22
+
+>change constant GRAY_1 to GRAY_9 by array constant from 0 to 19
+
+
 
 
 

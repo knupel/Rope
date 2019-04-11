@@ -4,7 +4,7 @@ package rope.core;
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.3
+	* v 0.2.0.4
 	* Processing 3.5.3
 	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
@@ -95,40 +95,48 @@ public interface R_Constants {
 	static final int NOIR = -16777216;
 	static final int WHITE = -1;
 	static final int BLANC = -1;
-	// static final int GRAY = 4050 ; // this already existe
-	// static final int GRAY_MEDIUM = -8618884;
-		
-	// GRAY_1 > HSB,1,1,1 > color(0,0,.1); > close to BLACK
-	static final int GRAY_1 = -15132391;
-	static final int GRIS_1 = -15132391;
-	// GRAY_2 > HSB,1,1,1 > color(0,0,.2);	
-	static final int GRAY_2 = -13421773;
-	static final int GRIS_2 = -13421773;
-	// GRAY_3 > HSB,1,1,1 > color(0,0,.3);
-	static final int GRAY_3 = -11776948;
-	static final int GRIS_3 = -11776948;
-	// GRAY_4 > HSB,1,1,1 > color(0,0,.4);
-	static final int GRAY_4 = -10066330;
-	static final int GRIS_4 = -10066330;
-	// GRAY_5 > HSB,1,1,1 > color(0,0,.5);
+	
+	static final int [] GRAY = {
+		-15790321,-15132391,-14474461,-13816531,-12961222,
+		-12105913,-11250604,-10263709,-9276814,-8421505,
+		-7566196,-6710887,-5921371,-5066062,-4210753,
+		-3355444,-2697514,-2039584,-1381654,-723724
+	};
+	static final int [] GRIS = {
+		-15790321,-15132391,-14474461,-13816531,-12961222,
+		-12105913,-11250604,-10263709,-9276814,-8421505,
+		-7566196,-6710887,-5921371,-5066062,-4210753,
+		-3355444,-2697514,-2039584,-1381654,-723724
+	};
+	// static final int GRAY = 4050 ; // this GRAY already existe
 	static final int GRAY_MEDIUM = -8421505;
-	static final int GRAY_5 = -8421505;
-	static final int GRIS = -8421505;
+	// static final int GRIS = -8421505;
 	static final int GRIS_MOYEN = -8421505;
-	static final int GRIS_5 = -8421505;
-	// GRAY_6 > HSB,1,1,1 > color(0,0,.6);
-	static final int GRAY_6 = -6710887;
-	static final int GRIS_6 = -6710887;
-	// GRAY_7 > HSB,1,1,1 > color(0,0,.7);
-	static final int GRAY_7 = -5066062;
-	static final int GRIS_7 = -5066062;
-	// GRAY_8 > HSB,1,1,1 > color(0,0,.8);
-	static final int GRAY_8 = -3355444;
-	static final int GRIS_8 = -3355444;
-	// GRAY_9 > HSB,1,1,1 > color(0,0,.9); > close to WHITE
-	static final int GRAY_9 = -1710619;
-	static final int GRIS_9 = -1710619;
-	  
+  /*
+  HSB,1,1,1
+  --
+  GRAY[0] color(0,0,0.06) int = -15790321
+	GRAY[1] color(0,0,0.1) int = -15132391
+	GRAY[2] color(0,0,0.14) int = -14474461
+	GRAY[3] color(0,0,0.18) int = -13816531
+	GRAY[4] color(0,0,0.23) int = -12961222
+	GRAY[5] color(0,0,0.28) int = -12105913
+	GRAY[6] color(0,0,0.33) int = -11250604
+	GRAY[7] color(0,0,0.39) int = -10263709
+	GRAY[8] color(0,0,0.45) int = -9276814
+	GRAY[9] color(0,0,0.5) int = -8421505
+	GRAY[10] color(0,0,0.55) int = -7566196
+	GRAY[11] color(0,0,0.6) int = -6710887
+	GRAY[12] color(0,0,0.65) int = -5921371
+	GRAY[13] color(0,0,0.7) int = -5066062
+	GRAY[14] color(0,0,0.75) int = -4210753
+	GRAY[15] color(0,0,0.8) int = -3355444
+	GRAY[16] color(0,0,0.84) int = -2697514
+	GRAY[17] color(0,0,0.88) int = -2039584
+	GRAY[18] color(0,0,0.92) int = -1381654
+	GRAY[19] color(0,0,0.96) int = -723724
+	*/
+
 	/**
 	 * color guide
 	 * @see https://fr.wikipedia.org/wiki/Liste_de_noms_de_couleur
@@ -178,6 +186,7 @@ public interface R_Constants {
 	/**
 	 * String Constants
 	 */
+	 /*
 	@Deprecated
 	static final String RANDOM = "RANDOM";
 	@Deprecated
@@ -198,6 +207,7 @@ public interface R_Constants {
 	static final String RANDOM_X_A = "SPECIAL_A_RANDOM" ;
 	@Deprecated
 	static final String RANDOM_X_B = "SPECIAL_B_RANDOM" ;
+	*/
 
 	static final String SIN = "SIN" ;
 	static final String COS = "COS" ;
