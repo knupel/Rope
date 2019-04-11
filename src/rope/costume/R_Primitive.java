@@ -1,6 +1,6 @@
 /**
 * R_Primitive class
-* v 0.0.1
+* v 0.2.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -15,8 +15,6 @@ import processing.core.*;
 public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contract  {
 	private boolean init;
 	private vec2 dir;
-	private vec3[] pts;
-	private int summits = 0;
 	private float angle = 0;
 
 	public R_Primitive(PApplet pa) {
@@ -46,7 +44,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		super(pa);
 		this.angle = angle;
 		this.summits = summits;
-		if (dir == null) {
+		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
 			this.dir.set(dir);
@@ -77,7 +75,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		super(pa, other);
 		this.angle = angle;
 		this.summits = summits;
-		if (dir == null) {
+		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
 			this.dir.set(dir);
@@ -110,17 +108,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		return dir;
 	}
 
-
-  
-	/*
-	public float get_radius() {
-		return (float) (diam * .5);
-	}
-	*/
-
-	public int get_summits() {
-		return summits;
-	}
 
 	public float get_angle() {
 		return angle;
@@ -165,7 +152,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 
 
 	public void show() {
-		vec3 radius = this.size.mult((float).5);
+		vec3 radius = this.size.copy().mult((float).5);
 		// boolean check_line = false;
 
 		vec3[] temp_pos = new vec3[pts.length];

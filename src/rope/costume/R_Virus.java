@@ -1,6 +1,6 @@
 /**
 * R_Virus class
-* v 0.0.3
+* v 0.1.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope

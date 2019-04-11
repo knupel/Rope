@@ -26,7 +26,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   	super(pa);
 		pos(0);
 		size(1);
-		set_summit(summits);
+		set_summits(summits);
 		set_angle(offset_angle);
     build();
   }
@@ -41,7 +41,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   	super(pa,other);
 		pos(0);
 		size(1);
-		set_summit(summits);
+		set_summits(summits);
     build();
   }
   /**
@@ -54,7 +54,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     super(pa);
 		pos(0);
 		size(1);
-		set_summit(summits);
+		set_summits(summits);
 		set_angle(offset_angle);
     build();
   }
@@ -70,7 +70,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     super(pa,other);
 		pos(0);
 		size(1);
-		set_summit(summits);
+		set_summits(summits);
 		set_angle(offset_angle);
     build();
   }

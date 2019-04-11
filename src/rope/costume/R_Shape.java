@@ -1,6 +1,6 @@
 /**
 * RShape class
-* v 0.0.3
+* v 0.2.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -17,6 +17,12 @@ public class R_Shape extends R_Image implements R_Constants {
 	processing.core.PGraphics other;
 	public vec3 pos;
 	public vec3 size;
+	public int summits;
+	public vec3 [] pts;
+	public vec3 [] final_pts;
+
+	private boolean use_pos_is = true;
+  private boolean reset_is = false;
 	/**
 	 * 
 	 * @param pa
@@ -24,12 +30,50 @@ public class R_Shape extends R_Image implements R_Constants {
 	public R_Shape(PApplet pa) {
 		super(pa);
 	}
+
+	/**
+	 * 
+	 * @param pa
+	 * @param other
+	 */
+	public R_Shape(PApplet pa, PGraphics other) {
+		super(pa);
+		this.other = other;
+	}
+  
+  
+	public R_Shape(PApplet pa, int summits) {
+		super(pa);
+		this.summits = summits;
+    pts = new vec3[summits];  
+	}
+
+	public R_Shape(PApplet pa, int summits, PGraphics other) {
+		super(pa);
+		this.other = other;
+		this.summits = summits;
+    pts = new vec3[summits];  
+	}
 	
 	
 	/**
 	 * METHODES for child classes
 	 */
 	// SET
+
+	  /**
+   * 
+   * @param is
+   */
+  public void use_pos_is(boolean is) {
+    use_pos_is = is;
+  }
+  
+
+  public void reset_is(boolean is) {
+    this.reset_is = is;
+  }
+
 	public void pos(float p) {
 		pos(new vec3(p));
 	}
@@ -80,6 +124,23 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	
 	// GET
+	  /**
+   * 
+   * @return
+   */
+  public boolean use_pos_is() {
+    return use_pos_is;
+  }
+
+    /**
+   * 
+   * @return
+   */
+  public boolean reset_is() {
+    return reset_is;
+  }
+
+
 	public vec3 pos() {
 		return pos;
 	}
@@ -88,18 +149,38 @@ public class R_Shape extends R_Image implements R_Constants {
 		return size;
 	}
 
+	public int get_summits() {
+    return summits;
+  }
+
+  public vec3 [] get_points() {
+    return pts;
+  }
+
+  public vec3 get_point(int target) {
+  	if(pts != null && target >= 0 && target < pts.length) {
+  		return pts[target];
+  	} else {
+  		return null;
+  	}  
+  }
+
+  public vec3 [] get_final_points() {
+    return final_pts;
+  }
+
+  public vec3 get_final_points(int target) {
+  	if(final_pts != null && target >= 0 && target < final_pts.length) {
+  		return final_pts[target];
+  	} else {
+  		return null;
+  	}  
+  }
+
 	
 	
 	
-	/**
-	 * 
-	 * @param pa
-	 * @param other
-	 */
-	public R_Shape(PApplet pa, PGraphics other) {
-		super(pa);
-		this.other = other;
-	}
+	
 	
 	/**
 	 * ghost method
