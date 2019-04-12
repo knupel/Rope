@@ -32,7 +32,7 @@ Constants set, mathematical, direct color code
 ### costume package
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
 Collection of shape classes in the costume package : 
-'R_STAR', 'R_Polygon', 'R_Chose', 'R_Virus', 'R_Primitive', 'R_Circle', 'R_Bezier'
+`R_STAR`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`
 
 
 
