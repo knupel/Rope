@@ -1,6 +1,6 @@
 /**
 * RShape class
-* v 0.2.0
+* v 0.3.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -20,6 +20,8 @@ public class R_Shape extends R_Image implements R_Constants {
 	public int summits;
 	public vec3 [] pts;
 	public vec3 [] final_pts;
+
+	protected float angle_offset = 0;
 
 	private boolean use_pos_is = true;
   private boolean reset_is = false;
@@ -41,13 +43,23 @@ public class R_Shape extends R_Image implements R_Constants {
 		this.other = other;
 	}
   
-  
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 */
 	public R_Shape(PApplet pa, int summits) {
 		super(pa);
 		this.summits = summits;
     pts = new vec3[summits];  
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param other
+	 */
 	public R_Shape(PApplet pa, int summits, PGraphics other) {
 		super(pa);
 		this.other = other;
@@ -60,8 +72,15 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * METHODES for child classes
 	 */
 	// SET
-
-	  /**
+  /**
+   * 
+   * @param angle_offset
+   */
+	public void angle(float angle_offset) {
+		this.angle_offset = angle_offset;
+	}
+	
+	/**
    * 
    * @param is
    */
@@ -69,27 +88,53 @@ public class R_Shape extends R_Image implements R_Constants {
     use_pos_is = is;
   }
   
-
+  /**
+   * 
+   * @param is
+   */
   public void reset_is(boolean is) {
     this.reset_is = is;
   }
-
+  
+  /**
+   * 
+   * @param p
+   */
 	public void pos(float p) {
 		pos(new vec3(p));
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void pos(float x, float y) {
 		pos(new vec2(x,y));
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void pos(float x, float y, float z) {
 		pos(new vec3(x,y,z));
 	}
 	
+	/**
+	 * 
+	 * @param pos
+	 */
 	public void pos(ivec pos) {
 		pos(new vec3(pos));
 	}
 	
+	/**
+	 * 
+	 * @param pos
+	 */
 	public void pos(vec pos) {
 		if(this.pos == null) {
 			this.pos = new vec3(pos);
@@ -98,22 +143,45 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param s
+	 */
 	public void size(int s) {
 		size(new vec3(s,s,s));
 	}
 	
+	/**
+	 * 
+	 * @param w
+	 * @param h
+	 */
 	public void size(int w, int h) {
 		size(new vec2(w,h));
 	}
 	
+	/**
+	 * 
+	 * @param w
+	 * @param h
+	 * @param d
+	 */
 	public void size(int w, int h, int d) {
 		size(new vec3(w,h,d));
 	}
 	
+	/**
+	 * 
+	 * @param size
+	 */
 	public void size(ivec size) {
 		size(new vec3(size));
 	}
 	
+	/**
+	 * 
+	 * @param size
+	 */
 	public void size(vec size) {
 		if(this.size == null) {
 			this.size = new vec3(size);
@@ -124,7 +192,15 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	
 	// GET
-	  /**
+	/**
+	 * 
+	 * @return
+	 */
+	public float get_angle() {
+  	return this.angle_offset;
+  }
+	
+	/**
    * 
    * @return
    */
@@ -140,15 +216,26 @@ public class R_Shape extends R_Image implements R_Constants {
     return reset_is;
   }
 
-
+  /**
+   * 
+   * @return
+   */
 	public vec3 pos() {
 		return pos;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public vec3 size() {
 		return size;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int get_summits() {
     return summits;
   }
@@ -156,7 +243,12 @@ public class R_Shape extends R_Image implements R_Constants {
   public vec3 [] get_points() {
     return pts;
   }
-
+  
+  /**
+   * 
+   * @param target
+   * @return
+   */
   public vec3 get_point(int target) {
   	if(pts != null && target >= 0 && target < pts.length) {
   		return pts[target];
@@ -164,12 +256,21 @@ public class R_Shape extends R_Image implements R_Constants {
   		return null;
   	}  
   }
-
+  
+  /**
+   * 
+   * @return
+   */
   public vec3 [] get_final_points() {
     return final_pts;
   }
-
-  public vec3 get_final_points(int target) {
+  
+  /**
+   * 
+   * @param target
+   * @return
+   */
+  public vec3 get_final_point(int target) {
   	if(final_pts != null && target >= 0 && target < final_pts.length) {
   		return final_pts[target];
   	} else {
@@ -243,6 +344,11 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void translate(float x, float y) {
 		if(other != null) {
 			other.translate(x,y);

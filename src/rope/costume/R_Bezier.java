@@ -22,20 +22,37 @@ public class R_Bezier {
     rear_handle = new vec3();
   }
 
-  // set 
+  // set
+  /**
+   * 
+   * @param pos
+   */
   public void set_pos(vec pos) {
     this.pos.set(pos);
   }
-
+  
+  /**
+   * 
+   * @param fore
+   */
   public void set_a(vec fore) {
     this.fore_handle.set(fore);
   }
-
+  
+  /**
+   * 
+   * @param rear
+   */
   public void set_b(vec rear) {
     this.rear_handle.set(rear);
   }
 
   // engine
+  /**
+   * 
+   * @param angle
+   * @param handle_mag
+   */
   public void from_angle(float angle, float handle_mag) {
     float cos_angle = (float)Math.cos(angle);
     float sin_angle = (float)Math.sin(angle);
@@ -47,14 +64,26 @@ public class R_Bezier {
   }
   
   // get
+  /**
+   * 
+   * @return
+   */
   public vec3 get_pos() {
     return pos;
   }
-
+  
+  /**
+   * 
+   * @return
+   */
   public vec3 get_a() {
     return fore_handle;
   }
-
+  
+  /**
+   * 
+   * @return
+   */
   public vec3 get_b() {
     return rear_handle;
   }

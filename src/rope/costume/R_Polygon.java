@@ -1,6 +1,6 @@
 /**
 * R_Polygon
-* v 0.1.0
+* v 0.2.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -12,21 +12,31 @@ import rope.core.*;
 import processing.core.*;
 
 public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract {
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 */
   public R_Polygon(PApplet pa, int summits) {
     super(pa,summits);
     build();
   }
-
+  
+  /**
+   * 
+   * @param pa
+   * @param summits
+   * @param other
+   */
   public R_Polygon(PApplet pa, int summits, PGraphics other) {
     super(pa,summits,other);
     build();
   }
   
+  /**
+   * 
+   */
   public void build() {
-  	build(0);
-  }
-
-  public void build(float angle_offset) {
     float angle_step = (2*PI)/summits;
     float angle = 0;
     if(summits == 4) {
@@ -35,8 +45,8 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
       angle = PI;
     }
 
-    if(angle_offset != 0) {
-      angle += angle_offset;
+    if(get_angle() != 0) {
+      angle = get_angle();
     }
 
     for(int i = 0 ; i < summits ; i++) {
@@ -56,29 +66,58 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    * 
    */
   public void show() {
-    if(final_pts == null || reset_is()) {
-      calc_final_points(true);
-    } else {
+    calc();
+    if(final_pts != null && final_pts.length > 0) {
       beginShape();
       for(int i = 0 ; i < final_pts.length ; i++) {
         vertex(final_pts[i]);
       }
       vertex(final_pts[0]);
       endShape();
+    } 
+  }
+
+  /**
+   * 
+   */
+  public void calc() {
+    if(final_pts == null || reset_is() || angle_modified_is()) {
+      calc_final_points(true);
     }
   }
+  
+  float ref_angle;
+  /**
+   * 
+   * @return
+   */
+  boolean angle_modified_is() {
+    boolean angle_modified_is = false;
+    if(ref_angle != get_angle()) {
+      angle_modified_is = true;
+      build();
+      ref_angle = get_angle();
+    }
+    return angle_modified_is;
+  }
+
 
 
   // set
-  public void set_angle(float angle_offset) {
-    build(angle_offset);
-  }
-
+  /**
+   * 
+   * @param radius
+   */
   public void radius(int radius) {
     size(radius*2);
   }
 
   // get
+  /**
+   * 
+   * @param render
+   * @return
+   */
   private vec3 [] calc_final_points(boolean render) {
     if(final_pts == null || final_pts.length != pts.length) {
       final_pts = new vec3[pts.length];

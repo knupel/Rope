@@ -17,7 +17,11 @@ public class R_Star extends R_Shape implements R_Constants {
 	int summits;
 	float angle;
 	float [] ratio;
-
+	
+	/**
+	 * 
+	 * @param pa
+	 */
 	public R_Star(PApplet pa) {
 		super(pa);
 		pos(0);
@@ -28,27 +32,43 @@ public class R_Star extends R_Shape implements R_Constants {
 		angle = 0;
 	}
 	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param angle
+	 * @param ratio
+	 */
 	public R_Star(PApplet pa, int summits, float angle, float... ratio) {
 		super(pa);
 		pos(0);
 		size(1);
 		set_summits(summits);
-		set_angle(angle);
+		angle(angle);
 		set_ratio(ratio);
 	}
-
+	
+	/**
+	 * 
+	 * @param is_3D
+	 */
 	public void is_3D(boolean is_3D) {
 		this.is_3D = is_3D;
 	}
-
+	
+	/**
+	 * 
+	 * @param summits
+	 */
 	public void set_summits(int summits) {
 		if(summits > 3) this.summits = summits;
 	}
-
-	public void set_angle(float angle) {
-		this.angle = angle;
-	}
-
+	
+	
+	/**
+	 * 
+	 * @param ratio
+	 */
 	public void set_ratio(float... ratio) {
 		this.ratio = ratio;
 	}
@@ -79,7 +99,14 @@ public class R_Star extends R_Shape implements R_Constants {
 			popMatrix();
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param pos
+	 * @param size
+	 * @param p
+	 * @param ratio
+	 */
 	private void star_3D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
 		vec3 radius = size.xyz().mult((float).5);
 		int count_ratio = 0;
@@ -132,7 +159,13 @@ public class R_Star extends R_Shape implements R_Constants {
 	}
 
 
-
+	/**
+	 * 
+	 * @param pos
+	 * @param size
+	 * @param p
+	 * @param ratio
+	 */
 	private void star_2D(vec3 pos, vec3 size, vec3 [] p, float[] ratio) {
 		vec3 radius = size.xyz().mult((float).5);
 		int count_ratio = 0;

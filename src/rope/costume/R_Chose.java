@@ -1,7 +1,7 @@
 /**
 * R_Chose
 * 2019-2019
-* v 0.1.1
+* v 0.2.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -13,62 +13,86 @@ import processing.core.*;
 public class R_Chose extends R_Polygon {
   private float [] radius;
   private boolean symmetric_is;
-
+  
+  /**
+   * 
+   * @param pa
+   * @param summits
+   */
   public R_Chose(PApplet pa, int summits) {
     super(pa,summits);
     build();
   }
   
+  /**
+   * 
+   * @param pa
+   * @param summits
+   * @param other
+   */
   public R_Chose(PApplet pa, int summits, PGraphics other) {
     super(pa,summits,other);
     build();
   }
 
+  
   private boolean ref_symmetria;
-  public void show() {
+  /**
+   * 
+   */
+  public void calc() {
     boolean new_calc_is = false;
     if(ref_symmetria != symmetric_is()) {
       ref_symmetria = symmetric_is();
       new_calc_is = true;
     }
-    if(final_pts == null || reset_is() || new_calc_is) {
+    if(final_pts == null || reset_is() || new_calc_is || angle_modified_is()) {
       calc_final_points(true);
-    } else {
-      beginShape();
-      for(int i = 0 ; i < final_pts.length ; i++) {
-        vertex(final_pts[i]);
-      }
-      vertex(final_pts[0]);
-      endShape();
     }
   }
-
-
-
+  
+  /**
+   * 
+   */
   public void is_pair() {
     if(pts.length%2 != 0) {
     	this.summits = pts.length+1;
     	pts = new vec3[this.summits];
-    	build(0);
+    	build();
     }
   }
-
+  
+  /**
+   * 
+   * @param is
+   */
   public void symmetric_is(boolean is) {
     symmetric_is = is;
   }
-
+  
+  /**
+   * 
+   * @return
+   */
   public boolean symmetric_is() {
     return symmetric_is;
   }
 
   
   // set 
-  public void set_radius(float... radius) {
+  /**
+   * 
+   * @param radius
+   */
+  public void radius(float... radius) {
     this.radius = radius;
   }
 
-
-  // get
+  /**
+   * 
+   * @param render
+   * @return
+   */
   private vec3 [] calc_final_points(boolean render) {
     if(final_pts == null || final_pts.length != pts.length) {
       final_pts = new vec3[pts.length];

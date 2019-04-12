@@ -16,13 +16,21 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	private boolean init;
 	private vec2 dir;
 	private float angle = 0;
-
+	/**
+	 * 
+	 * @param pa
+	 */
 	public R_Primitive(PApplet pa) {
 		super(pa);
 		pos(0);
 		size(1);
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 */
 	public R_Primitive(PApplet pa, int summits) {
 		super(pa);
 		this.summits = summits;
@@ -30,7 +38,13 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param angle
+	 */
 	public R_Primitive(PApplet pa, int summits, float angle) {
 		super(pa);
 		this.angle = angle;
@@ -39,7 +53,14 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param angle
+	 * @param dir
+	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir) {
 		super(pa);
 		this.angle = angle;
@@ -53,7 +74,13 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param other
+	 */
 	public R_Primitive(PApplet pa, int summits, PGraphics other) {
 		super(pa, other);
 		this.summits = summits;
@@ -61,7 +88,14 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param angle
+	 * @param other
+	 */
 	public R_Primitive(PApplet pa, int summits, float angle, PGraphics other) {
 		super(pa, other);
 		this.angle = angle;
@@ -70,7 +104,15 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @param pa
+	 * @param summits
+	 * @param angle
+	 * @param dir
+	 * @param other
+	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir, PGraphics other) {
 		super(pa, other);
 		this.angle = angle;
@@ -84,11 +126,19 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		size(1);
 		calc();
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public vec3[] get_normal() {
 		return pts;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public vec3[] get() {
 		vec3[] temp = new vec3[pts.length];
 		vec3 radius = size.mult((float).5);
@@ -103,17 +153,26 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		return temp;
 	}
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public vec2 get_dir() {
 		return dir;
 	}
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public float get_angle() {
 		return angle;
 	}
 
 	// Primitive with vec method and angle to display
+	/**
+	 * 
+	 */
 	private void calc() {
 		if (!init || this.summits != summits || this.angle != angle) {
 			this.summits = summits;
@@ -148,9 +207,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * main SHOW primitive the line rendering is awful, very very low when there is
 	 * a lot of shape, may be the compute on polygon_2D() is guilty
 	 */
-
-
-
 	public void show() {
 		vec3 radius = this.size.copy().mult((float).5);
 		// boolean check_line = false;
@@ -194,12 +250,22 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	/**
 	 * POLYGON 2D v 0.1.0
 	 */
+	/**
+	 * 
+	 * @param num
+	 * @return
+	 */
 	public vec3[] polygon_2D(int num) {
 		float new_orientation = 0;
 		return polygon_2D(num, new_orientation);
 	}
 
-	// main method
+	/**
+	 * main method
+	 * @param num
+	 * @param new_orientation
+	 * @return
+	 */
 	public vec3[] polygon_2D(int num, float new_orientation) {
 		vec3[] p = new vec3[num];
 		// choice your starting point
@@ -228,6 +294,13 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * POLYGON 3D but must be refactoring because the metod is a little shitty !!!!!
 	 */
 	// polygon with 3D direction in cartesian world
+	/**
+	 * 
+	 * @param num
+	 * @param new_orientation
+	 * @param dir
+	 * @return
+	 */
 	public vec3[] polygon_3D(int num, float new_orientation, vec3 dir) {
 		vec3 pos = new vec3();
 		int radius = 1;
@@ -239,6 +312,15 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * Paul Bourke February 1997
 	 * 
 	 * @see http://paulbourke.net/geometry/circlesphere/
+	 */
+	/**
+	 * 
+	 * @param pos
+	 * @param radius
+	 * @param num
+	 * @param new_orientation
+	 * @param dir
+	 * @return
 	 */
 	public vec3[] polygon_3D(vec3 pos, float radius, int num, float new_orientation, vec3 dir) {
 

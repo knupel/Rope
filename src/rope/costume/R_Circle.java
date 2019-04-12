@@ -1,6 +1,6 @@
 /**
 * R_Circle class
-* v 0.1.0
+* v 0.1.2
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -14,7 +14,6 @@ import processing.core.*;
 
 public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   private R_Bezier[] bezier;
-  private int summits = 2;
   private float offset_angle = 0;
 
   /**
@@ -106,7 +105,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     float to_angle = TWO_PI *step;
     float mag = (float)( (4. /3.) *Math.tan(PI*.5 *step));
     for (int i = 0; i < summits; ++i) {
-      float angle = offset_angle +i *to_angle;
+      float angle = get_angle() +i *to_angle;
       bezier[i] = new R_Bezier();
       bezier[i].from_angle(angle,mag);
     }
@@ -141,19 +140,20 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     endShape();
   }
   
-  // GET
-  public int get_summit() {
-  	return this.summits;
-  }
-  
-  public float get_angle() {
-  	return this.offset_angle;
-  }
-  
+  // GET  
+  /**
+   * 
+   * @return
+   */
   public R_Bezier [] get_bezier() {
     return bezier;
   }
-
+  
+  /**
+   * 
+   * @param which
+   * @return
+   */
   public R_Bezier get_bezier(int which) {
     if(which >= 0 && which < bezier.length) {
       return bezier[which];

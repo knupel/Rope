@@ -1,6 +1,15 @@
+*version 0.6.3.24
+
+
 *version 0.6.2.23
 
-
+>mod: class R_Shape: method get_final_points(int target) > get_final_point(int target)
+>add: class R_Chose method calc() to compute without use method show();
+>add: class R_Polygon method calc() to compute without use method show();
+>add: class R_Shape method angle(float val) and float get_angle();
+>remove: angle from R_Virus and R_Polygon
+>clean: R_Star
+>clean: R_Virus
 
 
 
