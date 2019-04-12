@@ -1,7 +1,7 @@
 
 ## Rope Library
-v 0.5.0
-v 19
+v 0.6.2
+v 22
 copyleft(c) 2018-2019
 
 This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
@@ -31,9 +31,9 @@ Constants set, mathematical, direct color code
 
 ### costume package
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
-Collection of shape in the costume package.
+Collection of shape classes in the costume package : 
+'R_STAR', 'R_Polygon', 'R_Chose', 'R_Virus', 'R_Primitive', 'R_Circle', 'R_Bezier'
 
-For the moment costume available: primitive 2D, circle with bezier handle, virus, star
 
 
 ## Download last build for OSX
