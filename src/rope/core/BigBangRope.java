@@ -31,7 +31,7 @@ import processing.core.*;
  * method random(float) from the type PApplet
  */
 
-public abstract class BigBangRope implements R_Constants {
+public abstract class BigBangRope implements R_Constants,R_Constants_Colour {
 	public PApplet pa;
 	
 	public BigBangRope() {
