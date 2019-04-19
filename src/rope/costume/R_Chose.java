@@ -1,7 +1,7 @@
 /**
 * R_Chose
 * 2019-2019
-* v 0.2.1
+* v 0.3.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -36,18 +36,21 @@ public class R_Chose extends R_Polygon {
   }
 
   
-  private boolean ref_symmetria;
+  public void calc() {
+    calc(false);
+  }
   /**
    * 
    */
-  public void calc() {
+  private boolean ref_symmetria;
+  protected void calc(boolean render) {
     boolean new_calc_is = false;
     if(ref_symmetria != symmetric_is()) {
       ref_symmetria = symmetric_is();
       new_calc_is = true;
     }
     if(final_pts == null || reset_is() || new_calc_is || angle_modified_is()) {
-      calc_final_points(true);
+      calc_final_points(render);
     }
   }
   

@@ -1,6 +1,6 @@
 /**
 * R_Polygon
-* v 0.2.0
+* v 0.3.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -66,7 +66,7 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    * 
    */
   public void show() {
-    calc();
+    calc(true);
     if(final_pts != null && final_pts.length > 0) {
       beginShape();
       for(int i = 0 ; i < final_pts.length ; i++) {
@@ -76,21 +76,24 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
       endShape();
     } 
   }
+  
 
-  /**
-   * 
-   */
   public void calc() {
+    calc(false);
+  }
+
+  protected void calc(boolean render) {
     if(final_pts == null || reset_is() || angle_modified_is()) {
-      calc_final_points(true);
+      calc_final_points(render);
     }
   }
   
-  float ref_angle;
+  
   /**
    * 
    * @return
    */
+  float ref_angle;
   boolean angle_modified_is() {
     boolean angle_modified_is = false;
     if(ref_angle != get_angle()) {

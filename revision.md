@@ -1,6 +1,6 @@
 *version 0.7.1.25 in progress
 
-
+>fix calc() for R_Polygon and R_Chose
 
 *version 0.7.0.24
 
