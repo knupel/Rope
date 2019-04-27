@@ -88,6 +88,9 @@ public class R_Chose extends R_Polygon {
    * @param radius
    */
   public void radius(float... radius) {
+    if(radius.length  == 0) {
+      System.err.println("class R_Chose > method radius(float... radius) radius cannot be equal to zero");
+    }
     this.radius = radius;
   }
 
@@ -97,6 +100,7 @@ public class R_Chose extends R_Polygon {
    * @return
    */
   private vec3 [] calc_final_points(boolean render) {
+
     if(final_pts == null || final_pts.length != pts.length) {
       final_pts = new vec3[pts.length];
     }
@@ -112,6 +116,7 @@ public class R_Chose extends R_Polygon {
       }
       
       if(radius != null){
+      	if(count < 0) count = 0;
         final_pts[i].mult(radius[count]);
         count += inc;
         if(symmetric_is() && count%radius.length == 0) {
