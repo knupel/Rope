@@ -3,6 +3,7 @@
 >R_Polygon and R_Chose: fix bug for void calc()
 >R_Chose: add security for the where radius target is negative
 >R_Chose: add waring for the case where the array radius is equal to zero.
+>R_Constants: add RAND
 
 *version 0.7.0.24
 

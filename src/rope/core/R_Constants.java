@@ -29,6 +29,8 @@ public interface R_Constants {
   static final int RADIUS   = 2;
   static final int CENTER   = 3;
   static final int DIAMETER = 3;
+  
+  static final int RAND = 2456417;
 	
   static final float MAX_FLOAT = Float.MAX_VALUE;
   static final float MIN_FLOAT = -Float.MAX_VALUE;
