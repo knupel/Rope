@@ -4,6 +4,7 @@
 >R_Chose: add security for the where radius target is negative
 >R_Chose: add waring for the case where the array radius is equal to zero.
 >R_Constants: add RAND
+>vec3: fix bug on method vec3 cross(vec3 v, vec3 target)
 
 *version 0.7.0.24
 

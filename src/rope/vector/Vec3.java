@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.2.0
+ * v 1.2.1
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -354,9 +354,8 @@ public class vec3 extends vec {
    * @param target
    * @return
    */
-  @SuppressWarnings("unused")
 	public vec3 cross(vec3 v, vec3 target) {
-    if(v != null && target != null) {
+    if(v != null) {
       float crossX = y*v.z - v.y*z;
       float crossY = z*v.x - v.z*x;
       float crossZ = x*v.y - v.x*y;
