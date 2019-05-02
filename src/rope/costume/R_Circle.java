@@ -123,14 +123,14 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
 
     beginShape();
 
-    vec3 temp_pos = previous_knot.get_pos().xyz().mult(radius).add(pos);
+    vec3 temp_pos = previous_knot.pos().xyz().mult(radius).add(pos);
     vec3 closing_pos = temp_pos.copy();
     vertex(temp_pos);
 
     for (int i = 1 ; i <= bezier.length; i++) {
       current_knot = bezier[i%bezier.length];
       vec3 a = previous_knot.get_a().xyz().mult(radius).add(pos);
-      temp_pos = current_knot.get_pos().xyz().mult(radius).add(pos);
+      temp_pos = current_knot.pos().xyz().mult(radius).add(pos);
       vec3 b = current_knot.get_b().xyz().mult(radius).add(pos);
       bezierVertex(a,b,temp_pos);
       previous_knot = current_knot;

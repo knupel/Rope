@@ -1,6 +1,6 @@
 /**
 * R_Bezier class
-* v 0.0.2
+* v 0.0.3
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -27,7 +27,7 @@ public class R_Bezier {
    * 
    * @param pos
    */
-  public void set_pos(vec pos) {
+  public void pos(vec pos) {
     this.pos.set(pos);
   }
   
@@ -58,7 +58,7 @@ public class R_Bezier {
     float sin_angle = (float)Math.sin(angle);
     
     vec2 pos = new vec2(cos_angle,sin_angle);
-    set_pos(pos);
+    pos(pos);
     set_a(new vec2(pos.x -sin_angle *handle_mag, pos.y +cos_angle *handle_mag)); 
     set_b(new vec2(pos.x +sin_angle *handle_mag, pos.y -cos_angle *handle_mag));
   }
@@ -68,7 +68,7 @@ public class R_Bezier {
    * 
    * @return
    */
-  public vec3 get_pos() {
+  public vec3 pos() {
     return pos;
   }
   

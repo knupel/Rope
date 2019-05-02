@@ -5,6 +5,8 @@
 >R_Chose: add waring for the case where the array radius is equal to zero.
 >R_Constants: add RAND
 >vec3: fix bug on method vec3 cross(vec3 v, vec3 target)
+>R_Bezier: change get_pos() to pos()
+>R_Bezier: change set_pos(arg) to pos(arg)
 
 *version 0.7.0.24
 
