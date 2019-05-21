@@ -43,6 +43,6 @@ void generator_chose() {
   for(int i = 0 ; i < relief.length ; i++) {
     relief[i] = random(0,width/2);
   }
-  chose.set_radius(relief); // create a radius for each summits, and if missing cycling is used symetric or not.
+  chose.radius(relief); // create a radius for each summits, and if missing cycling is used symetric or not.
   chose.pos(width/2,height/2);
 }
