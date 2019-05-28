@@ -1,6 +1,6 @@
 /**
 * R_Image class
-* v 0.0.1
+* v 0.1.0
 * 2019-2019
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -11,10 +11,18 @@ package rope.core;
 
 import processing.core.*;
 
-public class R_Image extends BigBangRope {
+public class R_Image extends BigBang {
+	protected processing.core.PGraphics other;
+	
 	// public PGraphics pg;
 	public R_Image(PApplet pa) {
 		super(pa);
+		//this.pg = pa.g;
+	}
+	
+	public R_Image(PApplet pa, PGraphics other) {
+		super(pa);
+		this.other = other;
 		//this.pg = pa.g;
 	}
 	
@@ -55,5 +63,23 @@ public class R_Image extends BigBangRope {
 	  }
 	  return "Unknown";
 	}
+	
+	
+	
+	
+	
+	/**
+	 * METHODES for child classes
+	 */
+	
+  /**
+   * 
+   * @param other
+   */
+  public void pass_graphic(PGraphics other) {
+  	if(other != null) {
+  		this.other = other;	
+  	}
+  }
 
 }

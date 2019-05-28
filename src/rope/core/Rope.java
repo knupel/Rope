@@ -9,7 +9,7 @@
 
 package rope.core;
 
-public class Rope extends BigBangRope implements R_Constants {
+public class Rope extends BigBang implements R_Constants {
 	public Rope() {
 		
 	}

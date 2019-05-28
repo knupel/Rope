@@ -31,17 +31,17 @@ import processing.core.*;
  * method random(float) from the type PApplet
  */
 
-public abstract class BigBangRope implements R_Constants,R_Constants_Colour {
+public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	public PApplet pa;
 	
-	public BigBangRope() {
+	public BigBang() {
 	}
 	
-	public BigBangRope(PApplet pa) {
+	public BigBang(PApplet pa) {
 		this.pa = pa;
 	}
 
-	private String VERSION = "##Rope 0.4.4##";
+	private String VERSION = "##Rope 0.8.1.26##";
 
 	public String version() {
 		return VERSION;

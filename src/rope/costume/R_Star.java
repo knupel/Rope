@@ -15,7 +15,6 @@ import rope.vector.*;
 public class R_Star extends R_Shape implements R_Constants {
 	boolean is_3D = false;
 	int summits;
-	float angle;
 	float [] ratio;
 	
 	/**
@@ -29,7 +28,7 @@ public class R_Star extends R_Shape implements R_Constants {
 		summits = 5;
 		ratio = new float[1]; 
 		ratio[0] = (float).38;
-		angle = 0;
+		angle_x(0);
 	}
 	
 	/**
@@ -44,7 +43,7 @@ public class R_Star extends R_Shape implements R_Constants {
 		pos(0);
 		size(1);
 		set_summits(summits);
-		angle(angle);
+		angle_x(angle);
 		set_ratio(ratio);
 	}
 	
@@ -82,12 +81,12 @@ public class R_Star extends R_Shape implements R_Constants {
 	 * @param size_raw width,height,depth of the Star
 	 */
 	public void show() {
-		if(pos.z != 0) {
+		if(pos.z() != 0) {
 			pushMatrix();
-			translate(0,0,pos.z);
+			translate(0,0,pos.z());
 		}
 
-		vec3 [] p = new R_Primitive(pa).polygon_2D(summits*2,angle);
+		vec3 [] p = new R_Primitive(pa).polygon_2D(summits*2,angle_x());
     
     if(is_3D) {
     	star_3D(pos,size,p,ratio);
@@ -95,7 +94,7 @@ public class R_Star extends R_Shape implements R_Constants {
     	star_2D(pos,size,p,ratio);
     }
 
-		if(pos.z != 0) {
+		if(pos.z() != 0) {
 			popMatrix();
 		}
 	}
@@ -129,8 +128,8 @@ public class R_Star extends R_Shape implements R_Constants {
 	  float top = radius.z;
 	  float bottom = -radius.z;
 	  vec3 center = barycenter(p);
-	  vec3 center_top = new vec3(center.x,center.y,top);
-	  vec3 center_bottom = new vec3(center.x,center.y,bottom);
+	  vec3 center_top = new vec3(center.x(),center.y(),top);
+	  vec3 center_bottom = new vec3(center.x(),center.y(),bottom);
 
 		for(int i = 0 ; i < p.length ; i++) {
 			// face top

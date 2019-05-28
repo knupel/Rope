@@ -8,8 +8,8 @@
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.BigBangRope;
-public abstract class bvec extends BigBangRope {
+import rope.core.BigBang;
+public abstract class bvec extends BigBang {
 	private int num ;
 	public boolean x,y,z,w;
 	public boolean e,f; // for bvec5 and bvec6

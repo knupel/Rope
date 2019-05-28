@@ -1,4 +1,8 @@
-*version 0.7.1.25 in progress
+*version 0.8.1.26 in progress
+
+
+
+*version 0.8.0.25
 
 >R_Polygon and R_Chose: fix bug for void calc()
 >R_Chose: add security for the where radius target is negative
@@ -7,6 +11,10 @@
 >vec3: fix bug on method vec3 cross(vec3 v, vec3 target)
 >R_Bezier: change get_pos() to pos()
 >R_Bezier: change set_pos(arg) to pos(arg)
+>R_Image: add method pass_graphic(PGraphics other);
+>R_Shape: remove float angle to vec3 angle
+>R_Shape: change get_angle() to angle() angle_x(), angle_y(), angle_z()
+>R_Shape: change set_angle(arg) to angle(float x, float y, float z), angle(vec angle) angle_x(float value), angle_y(float value), angle_z(float value)
 
 *version 0.7.0.24
 

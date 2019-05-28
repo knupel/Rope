@@ -34,8 +34,8 @@ public class R_Chose extends R_Polygon {
     super(pa,summits,other);
     build();
   }
-
   
+
   public void calc() {
     calc(false);
   }

@@ -1,6 +1,6 @@
 /**
 * R_Primitive class
-* v 0.2.0
+* v 0.3.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -15,7 +15,7 @@ import processing.core.*;
 public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contract  {
 	private boolean init;
 	private vec2 dir;
-	private float angle = 0;
+	private float angle_ref_x;
 	/**
 	 * 
 	 * @param pa
@@ -47,7 +47,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle) {
 		super(pa);
-		this.angle = angle;
+		angle_x(angle);
 		this.summits = summits;
 		pos(0);
 		size(1);
@@ -63,7 +63,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir) {
 		super(pa);
-		this.angle = angle;
+		angle_x(angle);
 		this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
@@ -98,7 +98,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, PGraphics other) {
 		super(pa, other);
-		this.angle = angle;
+		angle_x(angle);
 		this.summits = summits;
 		pos(0);
 		size(1);
@@ -115,7 +115,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir, PGraphics other) {
 		super(pa, other);
-		this.angle = angle;
+		angle_x(angle);
 		this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
@@ -160,23 +160,21 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public vec2 get_dir() {
 		return dir;
 	}
+	
+	
 
-	/**
-	 * 
-	 * @return
-	 */
-	public float get_angle() {
-		return angle;
-	}
+
+
+
 
 	// Primitive with vec method and angle to display
 	/**
 	 * 
 	 */
 	private void calc() {
-		if (!init || this.summits != summits || this.angle != angle) {
+		if (!init || this.summits != summits || angle_x() != angle_ref_x) {
 			this.summits = summits;
-			this.angle = angle;
+			angle_ref_x = angle_x();
 			build();
 			init = true;
 		}
@@ -193,12 +191,12 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 
 		pts = new vec3[this.summits];
 		// create coord of the shape
-		if (this.summits == 2 && this.angle == 0) {
+		if (this.summits == 2 && angle_x() == 0) {
 			pts[0] = new vec3((float) -.5, 0, 0);
 			pts[1] = new vec3((float) .5, 0, 0);
 		} else {
 			for (int i = 0; i < this.summits; i++) {
-				pts[i] = polygon_2D(this.summits, this.angle)[i].copy();
+				pts[i] = polygon_2D(this.summits, angle_x())[i].copy();
 			}
 		}
 	}

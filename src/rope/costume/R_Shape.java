@@ -14,14 +14,15 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Image implements R_Constants {
-	processing.core.PGraphics other;
 	public vec3 pos;
 	public vec3 size;
+	public vec3 angle;
+	
 	public int summits;
 	public vec3 [] pts;
 	public vec3 [] final_pts;
 
-	protected float angle_offset = 0;
+	// protected float angle_offset = 0;
 
 	private boolean use_pos_is = true;
   private boolean reset_is = false;
@@ -39,8 +40,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * @param other
 	 */
 	public R_Shape(PApplet pa, PGraphics other) {
-		super(pa);
-		this.other = other;
+		super(pa,other);
 	}
   
 	/**
@@ -61,25 +61,18 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * @param other
 	 */
 	public R_Shape(PApplet pa, int summits, PGraphics other) {
-		super(pa);
-		this.other = other;
+		super(pa,other);
 		this.summits = summits;
     pts = new vec3[summits];  
 	}
 	
 	
-	/**
-	 * METHODES for child classes
-	 */
-	// SET
-  /**
-   * 
-   * @param angle_offset
-   */
-	public void angle(float angle_offset) {
-		this.angle_offset = angle_offset;
-	}
 	
+	
+	
+
+  
+	// SET
 	/**
    * 
    * @param is
@@ -96,6 +89,10 @@ public class R_Shape extends R_Image implements R_Constants {
     this.reset_is = is;
   }
   
+  
+  /**
+   * POS
+   */
   /**
    * 
    * @param p
@@ -144,6 +141,9 @@ public class R_Shape extends R_Image implements R_Constants {
 	}
 	
 	/**
+	 * SIZE
+	 */
+	/**
 	 * 
 	 * @param s
 	 */
@@ -191,14 +191,93 @@ public class R_Shape extends R_Image implements R_Constants {
 	}
 	
 	
+	/**
+	 * ANGLE
+	 */
+	public void angle_x(float value) {
+		if(angle == null) {
+			angle = new vec3(value,0,0);
+		} else {
+			angle.x(value);
+		}	
+	}
+	
+	public void angle_y(float value) {
+		if(angle == null) {
+			angle = new vec3(0,value,0);
+		} else {
+			angle.y(value);
+		}	
+	}
+	
+	public void angle_z(float value) {
+		if(angle == null) {
+			angle = new vec3(0,0,value);
+		} else {
+			angle.z(value);
+		}	
+	}
+
+
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void angle(float x, float y, float z) {
+		angle(new vec3(x,y,z));
+	}
+	
+
+	
+	/**
+	 * 
+	 * @param pos
+	 */
+	public void angle(vec angle) {
+		if(this.angle == null) {
+			this.angle = new vec3(angle);
+		} else {
+			this.angle.set(angle);
+		}
+	}
+	
 	// GET
 	/**
 	 * 
 	 * @return
 	 */
-	public float get_angle() {
-  	return this.angle_offset;
+	public vec3 angle() {
+  	return this.angle;
   }
+	
+	
+	public float angle_x() {
+		if(angle != null) {
+			return angle.x();
+		} else {
+			return (float)0.0;
+		}
+  }
+	
+	public float angle_y() {
+		if(angle != null) {
+			return angle.y();
+		} else {
+			return (float)0.0;
+		}
+  }
+	
+	public float angle_z() {
+		if(angle != null) {
+			return angle.z();
+		} else {
+			return (float)0.0;
+		}
+  }
+	
 	
 	/**
    * 

@@ -1,6 +1,6 @@
 /**
 * R_Circle class
-* v 0.1.2
+* v 0.2.0
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -54,7 +54,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
 		pos(0);
 		size(1);
 		set_summits(summits);
-		set_angle(offset_angle);
+		angle_x(offset_angle);
     build();
   }
   
@@ -70,7 +70,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
 		pos(0);
 		size(1);
 		set_summits(summits);
-		set_angle(offset_angle);
+		angle_x(offset_angle);
     build();
   }
   
@@ -91,7 +91,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
    * @param offset_angle
    */
   public void set_angle(float offset_angle) {
-  	this.offset_angle = offset_angle;
+  	angle_x(offset_angle);
   }
   
   /**
@@ -105,7 +105,7 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     float to_angle = TWO_PI *step;
     float mag = (float)( (4. /3.) *Math.tan(PI*.5 *step));
     for (int i = 0; i < summits; ++i) {
-      float angle = get_angle() +i *to_angle;
+      float angle = angle_x() +i *to_angle;
       bezier[i] = new R_Bezier();
       bezier[i].from_angle(angle,mag);
     }

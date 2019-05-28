@@ -108,31 +108,31 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 	 */
 	public void show() {
 		vec3 radius = size.mult((float).5);
-		if(get_angle() != 0) {
+		if(angle_x() != 0) {
 			pushMatrix();
 			translate(pos);
-			rotate(get_angle());
+			rotate(angle_x());
 		}
 		for(int k = 0 ; k < summits ; k++) {
 			if(node == 2) {
 				vec3 final_pos_a = branch[0][k].copy();
-				final_pos_a.add(to_cartesian_2D(get_angle()));
+				final_pos_a.add(to_cartesian_2D(angle_x()));
 				final_pos_a.mult(radius);
-				if(get_angle() == 0) final_pos_a.add(pos);
+				if(angle_x() == 0) final_pos_a.add(pos);
 
 				vec3 final_pos_b = branch[1][k].copy();
 				final_pos_b.mult(radius) ;
-				if(get_angle() == 0) final_pos_b.add(pos);
+				if(angle_x() == 0) final_pos_b.add(pos);
 				line(final_pos_a, final_pos_b);
 			} else if( node > 2) {
 				beginShape();
 				vec3 first_point = branch[0][k].copy().mult(radius);
-				if(get_angle() == 0) first_point.add(pos);
+				if(angle_x() == 0) first_point.add(pos);
 				vertex(first_point);
 				for(int m = 1 ; m < node ; m++) {
 					vec3 final_pos = branch[m][k].copy();
 					final_pos.mult(radius);
-					if(get_angle() == 0) final_pos.add(pos);
+					if(angle_x() == 0) final_pos.add(pos);
 					vertex(final_pos);
 				}
 				vertex(first_point);
@@ -140,11 +140,11 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 			} else {
 				vec3 final_pos = branch[0][k].copy();
 				final_pos.mult(radius);
-				if(get_angle() == 0) final_pos.add(pos);
+				if(angle_x() == 0) final_pos.add(pos);
 				point(final_pos);
 			}
 		}
-		if(get_angle() != 0) popMatrix();
+		if(angle_x() != 0) popMatrix();
 	}
   
   // get

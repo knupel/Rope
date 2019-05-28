@@ -1,6 +1,6 @@
 /**
 * R_Polygon
-* v 0.3.0
+* v 0.3.1
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -45,8 +45,8 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
       angle = PI;
     }
 
-    if(get_angle() != 0) {
-      angle = get_angle();
+    if(angle_x() != 0) {
+      angle = angle_x();
     }
 
     for(int i = 0 ; i < summits ; i++) {
@@ -96,10 +96,10 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
   float ref_angle;
   boolean angle_modified_is() {
     boolean angle_modified_is = false;
-    if(ref_angle != get_angle()) {
+    if(ref_angle != angle_x()) {
       angle_modified_is = true;
       build();
-      ref_angle = get_angle();
+      ref_angle = angle_x();
     }
     return angle_modified_is;
   }

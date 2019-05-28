@@ -8,8 +8,8 @@
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.BigBangRope;
-public abstract class vec extends BigBangRope {
+import rope.core.BigBang;
+public abstract class vec extends BigBang {
 	public int num;
 	public float x,y,z,w = Float.NaN;
 	public float e,f = Float.NaN; // for vec5 and vec6 

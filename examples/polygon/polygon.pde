@@ -47,7 +47,7 @@ void set_polygon(int num, int summits, int size) {
 
 void draw_poly() {  
   for(R_Polygon p : poly) {
-    p.angle(map(mouseX,0,width,-TAU,TAU));
+    p.angle_x(map(mouseX,0,width,-TAU,TAU));
     p.reset_is(true); // give the possibility to refresh the vector position
     p.show();
   }
