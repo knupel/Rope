@@ -109,7 +109,7 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 	public void show() {
 		vec3 radius = size.mult((float).5);
 		if(angle_x() != 0) {
-			pushMatrix();
+			push();
 			translate(pos);
 			rotate(angle_x());
 		}
@@ -144,7 +144,9 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 				point(final_pos);
 			}
 		}
-		if(angle_x() != 0) popMatrix();
+		if(angle_x() != 0) {
+			pop();
+		}
 	}
   
   // get

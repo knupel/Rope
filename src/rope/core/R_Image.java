@@ -1,6 +1,6 @@
 /**
 * R_Image class
-* v 0.1.0
+* v 0.2.0
 * 2019-2019
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -10,6 +10,7 @@
 package rope.core;
 
 import processing.core.*;
+import rope.vector.*;
 
 public class R_Image extends BigBang {
 	protected processing.core.PGraphics other;
@@ -80,6 +81,65 @@ public class R_Image extends BigBang {
   	if(other != null) {
   		this.other = other;	
   	}
+  }
+  
+  
+  /**
+   * improve Processing method
+   */
+  /**
+   * Set 
+   */
+  /**
+   * 
+   * @param pos
+   * @param c
+   * @param other
+   */
+  public void set(vec2 pos, int c, PGraphics other) {
+    set((int)pos.x(),(int)pos.y(),c,other);
+  }
+  
+  /**
+   * 
+   * @param pos
+   * @param c
+   * @param other
+   */
+  public void set(ivec2 pos, int c, PGraphics other) {
+  	set(pos.x(),pos.y(),c,other);
+  }
+  /**
+   * 
+   * @param pos
+   * @param c
+   */
+  public void set(vec2 pos, int c) {
+  	pa.g.set((int)pos.x(),(int)pos.y(),c);
+  }
+  
+  /**
+   * 
+   * @param pos
+   * @param c
+   */
+  public void set(ivec2 pos, int c) {
+  	pa.g.set(pos.x(),pos.y(),c);
+  }
+  
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param c
+   * @param other
+   */
+  public void set(int x, int y, int c, PGraphics other) {
+    if(other != null) {
+      other.set(x,y,c);
+    } else {
+      pa.g.set(x,y,c);
+    }
   }
 
 }

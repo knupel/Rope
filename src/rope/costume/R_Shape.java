@@ -1,6 +1,6 @@
 /**
 * RShape class
-* v 0.3.0
+* v 0.3.1
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -147,7 +147,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * 
 	 * @param s
 	 */
-	public void size(int s) {
+	public void size(float s) {
 		size(new vec3(s,s,s));
 	}
 	
@@ -156,7 +156,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * @param w
 	 * @param h
 	 */
-	public void size(int w, int h) {
+	public void size(float w, float h) {
 		size(new vec2(w,h));
 	}
 	
@@ -166,7 +166,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * @param h
 	 * @param d
 	 */
-	public void size(int w, int h, int d) {
+	public void size(float w, float h, float d) {
 		size(new vec3(w,h,d));
 	}
 	
@@ -356,6 +356,130 @@ public class R_Shape extends R_Image implements R_Constants {
   		return null;
   	}  
   }
+  
+  
+  
+  /**
+   * IMPROVE PROCESSING METHODS
+   */
+  
+  /**
+  * shape
+  * v 0.2.0
+  */
+  public void beginShape(PGraphics other) {
+    if(other != null) {
+      other.beginShape();
+    } else {
+      pa.g.beginShape();
+    }
+  }
+
+  public void beginShape(int kind, PGraphics other) {
+    if(other != null) {
+      other.beginShape(kind);
+    } else {
+    	pa.g.beginShape(kind);
+    }
+  }
+
+
+  public void endShape(PGraphics other) {
+    if(other != null) {
+      other.endShape();
+    } else {
+    	pa.g.endShape();
+    }
+  }
+
+  public void endShape(int mode, PGraphics other) {
+    if(other != null) {
+      other.endShape(mode);
+    } else {
+    	pa.g.endShape(mode);
+    }
+  }
+  
+  
+
+  /**
+  * vertex
+  * v 0.2.0
+  */
+  public void vertex(float x, float y, PGraphics other) {
+  	this.other = other;
+  	vertex(x,y);
+  }
+
+  public void vertex(float x, float y, float z, PGraphics other) {
+  	this.other = other;
+  	vertex(x,y,z);
+  }
+
+
+  public void vertex(float [] v, PGraphics other) {
+  	this.other = other;
+  	vertex(v);
+  }
+
+
+  public void vertex(float x, float y, float u, float v, PGraphics other) {
+  	this.other = other;
+  	vertex(x,y,u,v);
+  }
+
+  public void vertex(float x, float y, float z, float u, float v, PGraphics other) {
+  	this.other = other;
+  	vertex(x,y,z,u,v);
+  }
+
+  //
+  public void vertex(vec coord, PGraphics other) {
+  	this.other = other;
+  	vertex(coord);
+  }
+
+  
+  public void vertex(vec2 coord, vec2 uv, PGraphics other) {
+  	this.other = other;
+  	vertex(coord,uv);
+  }
+
+  
+  public void vertex(vec3 coord, vec2 uv, PGraphics other) {
+  	this.other = other;
+  	vertex(coord.x(),coord.y(),coord.z(),uv.u(),uv.v());
+  }
+ 
+  
+	/**
+	 * 
+	 * @param v 
+	 */
+	public void vertex(vec v) {
+		if(renderer_P3D() && v instanceof vec3) {
+			vertex(v.x(),v.y(),v.z());
+		} else {
+			vertex(v.x(),v.y());
+		}
+	}
+
+	public void vertex(vec2 v, vec2 uv) {
+		if(renderer_P3D()) {
+			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+		} else {
+			vertex(v.x(),v.y(),uv.x(),uv.y());
+		}
+	}
+	
+	public void vertex(vec3 v, vec2 uv) {
+		if(renderer_P3D()) {
+			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+		} else {
+			vertex(v.x(),v.y(),uv.x(),uv.y());
+		}
+	}
+	
 
 	
 	
@@ -363,31 +487,228 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	
 	/**
-	 * ghost method
+	 * BEZIER VERTEX
 	 */
-	public void pushMatrix() {
-		if(other != null) {
-			other.pushMatrix();
-		} else {
-			pa.g.pushMatrix();
-		}
-  }
+	public void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, PGraphics other) {
+		this.other = other;
+		bezierVertex(x2,y2, x3,y3, x4,y4);
+	}
 
+	public void bezierVertex(float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, PGraphics other) {
+		this.other = other;
+		bezierVertex(x2,y2,z2, x3,y3,z3, x4,y4,z4);
+	}
+	
+
+
+	public void bezierVertex(vec a, vec b, vec pos, PGraphics other) {
+		this.other = other;
+	  bezierVertex(a,b,pos);
+	}
+	
+	
+  public void bezierVertex(vec a, vec b, vec pos){
+  	if(renderer_P3D() && a instanceof vec3 && b instanceof vec3 && pos instanceof vec3) {
+  		bezierVertex(a.x(),a.y(),a.z(), b.x(),b.y(),b.z(), pos.x(),pos.y(),pos.z());	
+  	} else {
+  		bezierVertex(a.x(),a.y() ,b.x(),b.y(), pos.x(),pos.y());	
+  	}	
+	}
+	
+	
 	/**
-	 * ghost method
+	 * QUADRATIC VERTEX
 	 */
-	public void popMatrix() {
-		if(other != null) {
-			other.popMatrix();
+	public void quadraticVertex(float cx, float cy, float x3, float y3, PGraphics other) {
+		this.other = other;
+	  quadraticVertex(cx,cy, x3,y3);
+	}
+
+	public void quadraticVertex(float cx, float cy, float cz, float x3, float y3, float z3, PGraphics other) {
+		this.other = other;
+	  quadraticVertex(cx,cy,cz, x3,y3,z3);
+	}
+
+	public void quadraticVertex(vec a, vec b, PGraphics other) {
+		this.other = other;
+		quadraticVertex(a,b);
+	}
+	
+	
+	public void quadraticVertex(vec a, vec b) {
+		if(renderer_P3D() && a instanceof vec3 && b instanceof vec3) {
+			quadraticVertex(a.x(), a.y(), a.z(), b.x(), b.y(), b.z());
 		} else {
-			pa.g.popMatrix();
+			quadraticVertex(a.x(), a.y(), b.x(), b.y());
 		}
-  }
+	}
+
+
+
+	
+	
+	
 	/**
-	 * ghost method
+	 * CURVE VERTEX
 	 */
 	
-	/*
+  /**
+   * 
+   * @param pos the x,y,z coordinate of the vertex
+   */
+	
+	public void curveVertex(float x, float y, float z, PGraphics other) {
+		this.other = other;
+	  curveVertex(x,y,z);
+	}
+
+	public void curveVertex(float x, float y, PGraphics other) {
+		this.other = other;
+	  curveVertex(x,y);
+	}
+
+	//
+
+	public void curveVertex(vec pos, PGraphics other) {
+  	this.other = other;
+  	curveVertex(pos);
+	}
+	
+	
+	public void curveVertex(vec pos){
+  	if(renderer_P3D() && pos instanceof vec3) {
+  		curveVertex(pos.x(),pos.y(),pos.z());	
+  	} else {
+  		curveVertex(pos.x(),pos.y());	
+  	}
+  }
+  
+  
+  
+  /**
+   * POINT
+   */
+  /**
+   * @param pos x,y,z-coordinate of the point
+   */
+  public void point(vec pos){
+    if(renderer_P3D() && pos instanceof vec3) {
+    	point(pos.x(),pos.y(),pos.z()); 
+    } else {
+    	point(pos.x(),pos.y());
+    }
+  }
+  
+  /**
+   * @param pos x,y,z-coordinate of the point
+   */
+  public void point(ivec pos){
+    if(renderer_P3D() && pos instanceof ivec3) {
+    	point(pos.x(),pos.y(),pos.z()); 
+    } else {
+    	point(pos.x(),pos.y());
+    }
+  }
+  
+  
+  /**
+   * LINE
+   */
+	
+  /**
+   * 
+   * @param a
+   * @param b
+   */
+  public void line(vec a, vec b){
+    if(renderer_P3D() && a instanceof vec3 && b instanceof vec3) {
+    	line(a.x(),a.y(),a.z(),b.x(),b.y(),b.z()); 
+    } else {
+    	line(a.x(),a.y(),b.x(),b.y());
+    }
+  }
+
+  /**
+   * 
+   * @param a
+   * @param b
+   */
+  public void line(ivec a, ivec b) {
+    if(renderer_P3D() && a instanceof ivec3 && b instanceof ivec3) {
+    	line(a.x(),a.y(),a.z(),b.x(),b.y(),b.z()); 
+    } else {
+    	line(a.x(),a.y(),b.x(),b.y());
+    }
+  }
+  
+  
+  /**
+   * TRIANGLE
+   */
+	
+  /**
+   * @param a
+   * @param b
+   * @param c
+   */
+  public void triangle(ivec a, ivec b, ivec c) {
+    triangle(new vec3(a.x(),a.y(),a.z()), new vec3(b.x(),b.y(),b.z()), new vec3(c.x(),c.y(),c.z()));
+  }
+  
+  /**
+   * @param a
+   * @param b
+   * @param c
+   */
+  public void triangle(vec a, vec b, vec c) {
+    if(a.z == 0 && b.z == 0 && c.z == 0) {
+      triangle(a.x(),a.y(),b.x(),b.y(),c.x(),c.y());
+    } else {
+      if(renderer_P3D() && a instanceof vec3 && b instanceof vec3 && c instanceof vec3) {
+        beginShape();
+        vertex(a.x(),a.y(),a.z());
+        vertex(b.x(),b.y(),b.z());
+        vertex(c.x(),c.y(),c.z());
+        vertex(a.x(),a.y(),a.z()); // close
+        endShape();
+      } else {
+        triangle(a.x(),a.y(),b.x(),b.y(),c.x(),c.y());
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	
+	/**
+	 * GHOST METHOD
+	 */
+	
+	/**
+	 * push + pop
+	 */
 	public void push() {
 		if(other != null) {
 			other.push();
@@ -395,22 +716,22 @@ public class R_Shape extends R_Image implements R_Constants {
 			pa.g.push();
 		}
   }
-  */
 
-	/**
-	 * ghost method
-	 */
-	/*
+
+
 	public void pop() {
 		if(other != null) {
 			other.pop();
 		} else {
 			pa.g.pop();
 		}
-  }*/
+  }
+	
 	
 	/**
-	 * ghost method
+	 * translate
+	 */
+	/**
 	 * @param x
 	 * @param y
 	 * @param z
@@ -441,29 +762,15 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * @param v
 	 */
 	public void translate(vec v) {
-		if(renderer_P3D()) {
-			translate(v.x,v.y,v.z);	
+		if(renderer_P3D() && v instanceof vec3) {
+			translate(v.x(),v.y(),v.z());	
 		} else {
-			translate(v.x,v.y);
+			translate(v.x(),v.y());
 		}
   }
 	
+
 	/**
-	 *
-	 * @param v
-	 */
-	public void translate(ivec v) {
-		if(renderer_P3D()) {
-			translate(v.x,v.y,v.z);	
-		} else {
-			translate(v.x,v.y);
-		}
-	}
-	
-	
-	
-	/**
-	 * ghost method
 	 * @param angle
 	 */
 	public void rotate(float angle) {
@@ -475,7 +782,6 @@ public class R_Shape extends R_Image implements R_Constants {
   }
 	
 	/**
-	 * ghost method
 	 * @param angle
 	 */
 	public void rotateX(float angle) {
@@ -487,7 +793,6 @@ public class R_Shape extends R_Image implements R_Constants {
   }
 	
 	/**
-	 * ghost method
 	 * @param angle
 	 */
 	public void rotateY(float angle) {
@@ -499,7 +804,6 @@ public class R_Shape extends R_Image implements R_Constants {
   }
 	
 	/**
-	 * ghost method
 	 * @param angle
 	 */
 	public void rotateZ(float angle) {
@@ -520,7 +824,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 
 	/**
-	 * ghost method
+	 * beginShape + endShape
 	 */
 	public void beginShape() {
 		if(other != null) {
@@ -530,9 +834,6 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
 	}
 	
-	/**
-	 * ghost method
-	 */
 	public void endShape() {
 		if(other != null) {
 			other.endShape();
@@ -541,11 +842,6 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
 	}
 	
-	/**
-	 * for an unknown reason this method from Processing cause an error compilation
-	 * ghost method
-	 */
-	/*
 	public void endShape(int mode) {
 		if(other != null) {
 			other.endShape(mode);
@@ -553,7 +849,6 @@ public class R_Shape extends R_Image implements R_Constants {
 			pa.g.endShape(mode);
 		}
 	}
-	*/
 	
 	
 	/**
@@ -561,12 +856,10 @@ public class R_Shape extends R_Image implements R_Constants {
 	 */
 	
 	/**
-	 * ghost method
 	 * @param x x-coordinate of the vertex
 	 * @param y y-coordinate of the vertex
 	 */
 	public void vertex(float x, float y) {
-		// pg.vertex(x,y);
 		if(other != null) {
 			other.vertex(x,y);
 		} else {
@@ -593,30 +886,60 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	/**
 	 * 
-	 * @param v 
+	 * @param v
 	 */
-	public void vertex(vec v) {
+	public void vertex(float [] v) {
+		if(other != null) {
+			other.vertex(v);
+		} else {
+			pa.g.vertex(v);
+		}
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param u
+	 * @param v
+	 */
+	public void vertex(float x, float y, float u, float v) {
+		if(other != null) {
+			other.vertex(x,y, u,v);
+		} else {
+			pa.g.vertex(x,y, u,v);
+		}
+	}
+	
+/**
+ * 
+ * @param x
+ * @param y
+ * @param z
+ * @param u
+ * @param v
+ */
+	public void vertex(float x, float y, float z, float u, float v) {	
 		if(other != null) {
 			if(renderer_P3D()) {
-				other.vertex(v.x,v.y,v.z);	
-			} else {
-				other.vertex(v.x,v.y);	
+				other.vertex(x,y,z, u,v);	
 			}
 		} else {
 			if(renderer_P3D()) {
-				pa.g.vertex(v.x,v.y,v.z);	
-			} else {
-				pa.g.vertex(v.x,v.y);	
+				pa.g.vertex(x,y,z, u,v);	
 			}
 		}
 	}
+	
+	
 	
 	
 	/**
 	 * BEZIER VERTEX PART
 	 */
 	/**
-	 * ghost method
 	 * @param x2 the x-coordinate of the 1st control point
 	 * @param y2 the y-coordinate of the 1st control point
 	 * @param x3 the x-coordinate of the 2nd control point
@@ -635,7 +958,6 @@ public class R_Shape extends R_Image implements R_Constants {
 	}
 	
 	/**
-	 * Ghost method
 	 * @param x2 the x-coordinate of the 1st control point
 	 * @param y2 the y-coordinate of the 1st control point
 	 * @param z2 the z-coordinate of the 1st control point
@@ -656,55 +978,31 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
   
-  /**
-   * 
-   * @param a x,y,z coordinate of the 1st control point
-   * @param b x,y,z coordinate of the 2st control point
-   * @param pos x,y,z coordinate of the anchor point
-   */
-  public void bezierVertex(vec a, vec b, vec pos){
-  	if(other != null) {
-			if(renderer_P3D()) {
-				other.bezierVertex(a.x,a.y,a.z, b.x,b.y,b.z, pos.x,pos.y,pos.z);	
-			} else {
-				other.bezierVertex(a.x,a.y ,b.x,b.y, pos.x,pos.y);	
-			}
-		} else {
-			if(renderer_P3D()) {
-				pa.g.bezierVertex(a.x,a.y,a.z, b.x,b.y,b.z, pos.x,pos.y,pos.z);	
-			} else {
-				pa.g.bezierVertex(a.x,a.y ,b.x,b.y, pos.x,pos.y);	
-			}
-		}
-}
+
   
   
   /**
-   * for an unknown reason this method from Processing cause an error compilation
    * 
-   * Ghost method
    * @param cx the x-coordinate of the control point
    * @param cy the y-coordinate of the control point
    * @param x3 the x-coordinate of the anchor point
    * @param y3 the y-coordinate of the anchor point
    */
   
-  /*
+
   public void quadraticVertex(float cx, float cy,
                               float x3, float y3) {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,x3,y3);
 		} else {
-			pg.quadraticVertex(cx,cy,x3,y3);
+			pa.g.quadraticVertex(cx,cy,x3,y3);
 		}
   }
-  */
+
   
   
   /**
-   * for an unknown reason this method from Processing cause an error compilation
    * 
-   * Ghost method
    * @param cx the x-coordinate of the control point
    * @param cy the y-coordinate of the control point
    * @param cz the z-coordinate of the control point
@@ -712,16 +1010,16 @@ public class R_Shape extends R_Image implements R_Constants {
    * @param y3 the y-coordinate of the anchor point
    * @param z3 the z-coordinate of the anchor point
    */
-  /*
+
   public void quadraticVertex(float cx, float cy, float cz,
                               float x3, float y3, float z3) {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		} else {
-			pg.quadraticVertex(cx,cy,cz,x3,y3,z3);
+			pa.g.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		}
   }
-  */
+
   
   
   /**
@@ -750,34 +1048,9 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
   
-  /**
-   * 
-   * @param pos the x,y,z coordinate of the vertex
-   */
-  public void curveVertex(vec pos){
-  	if(other != null) {
-			if(renderer_P3D()) {
-				other.curveVertex(pos.x,pos.y,pos.z);	
-			} else {
-				other.curveVertex(pos.x,pos.y);	
-			}
-		} else {
-			if(renderer_P3D()) {
-				pa.g.curveVertex(pos.x,pos.y,pos.z);	
-			} else {
-				pa.g.curveVertex(pos.x,pos.y);	
-			}
-		}
-  }
+
   
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   
   
@@ -787,7 +1060,6 @@ public class R_Shape extends R_Image implements R_Constants {
    */
   
   /**
-   * ghost method
    * @param x x-coordinate of the point
    * @param y y-coordinate of the point
    */
@@ -800,7 +1072,6 @@ public class R_Shape extends R_Image implements R_Constants {
   }
   
   /**
-   * ghost method
    * @param x x-coordinate of the point
    * @param y y-coordinate of the point
    * @param z z-coordinate of the point
@@ -813,25 +1084,10 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
   
-  /**
-   * @param pos x,y,z-coordinate of the point
-   */
-  public void point(vec pos){
-    if(renderer_P3D()) point(pos.x,pos.y,pos.z); 
-    else point(pos.x,pos.y);
-  }
-  
-  /**
-   * @param pos x,y,z-coordinate of the point
-   */
-  public void point(ivec pos){
-    if(renderer_P3D()) point(pos.x,pos.y,pos.z); 
-    else point(pos.x,pos.y);
-  }
+
   
   
-  /**
-   * ghost method
+  /** 
    * @param x1 x-coordinate of the first point
    * @param y1 y-coordinate of the first point
    * @param x2 x-coordinate of the second point
@@ -847,7 +1103,6 @@ public class R_Shape extends R_Image implements R_Constants {
 
 
   /**
-   * ghost method
    * @param z1 z-coordinate of the first point
    * @param z2 z-coordinate of the second point
    */
@@ -860,34 +1115,9 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
   
-  /**
-   * 
-   * @param a
-   * @param b
-   */
-  public void line(vec2 a, vec2 b){
-    line(a.x,a.y,b.x,b.y);
-  }
-  
-  /**
-   * 
-   * @param a
-   * @param b
-   */
-  public void line(vec a, vec b){
-    if(renderer_P3D()) line(a.x,a.y,a.z,b.x,b.y,b.z); 
-    else line(a.x,a.y,b.x,b.y);
-  }
 
-  /**
-   * 
-   * @param a
-   * @param b
-   */
-  public void line(ivec a, ivec b) {
-    if(renderer_P3D()) line(a.x,a.y,a.z,b.x,b.y,b.z); 
-    else line(a.x,a.y,b.x,b.y);
-  }
+  
+
   
   
   /**
@@ -909,38 +1139,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
   
-  /**
-   * Triangle Rope
-   * @param a
-   * @param b
-   * @param c
-   */
-  public void triangle(ivec a, ivec b, ivec c) {
-    triangle(new vec3(a.x,a.y,a.z), new vec3(b.x,b.y,b.z), new vec3(c.x,c.y,c.z));
-  }
-  
-  /**
-   * Triangle Rope
-   * @param a
-   * @param b
-   * @param c
-   */
-  public void triangle(vec a, vec b, vec c) {
-    if(a.z == 0 && b.z == 0 && c.z == 0) {
-      triangle(a.x,a.y,b.x,b.y,c.x,c.y);
-    } else {
-      if(renderer_P3D()) {
-        beginShape();
-        vertex(a.x,a.y,a.z);
-        vertex(b.x,b.y,b.z);
-        vertex(c.x,c.y,c.z);
-        vertex(a.x,a.y,a.z); // close
-        endShape();
-      } else {
-        triangle(a.x,a.y,b.x,b.y,c.x,c.y);
-      }
-    }
-  }
+
   
  
   
@@ -951,18 +1150,10 @@ public class R_Shape extends R_Image implements R_Constants {
    */
 	public void square(float x, float y, float extent) {
   	if(other != null) {
-			other.rect(x,y,extent,extent);
-		} else {
-			pa.g.rect(x,y,extent,extent);
-		}
-  	/*
-  	 * for some unknown reason this method from Processing cause an error compilation
-  	if(other != null) {
 			other.square(x,y,extent);
 		} else {
-			pg.square(x,y,extent);
+			pa.g.square(x,y,extent);
 		}
-		*/
   }
 	
   /**

@@ -1,6 +1,6 @@
 /**
 * R_Star class
-* v 0.0.3
+* v 0.0.4
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -82,7 +82,7 @@ public class R_Star extends R_Shape implements R_Constants {
 	 */
 	public void show() {
 		if(pos.z() != 0) {
-			pushMatrix();
+			push();
 			translate(0,0,pos.z());
 		}
 
@@ -95,7 +95,7 @@ public class R_Star extends R_Shape implements R_Constants {
     }
 
 		if(pos.z() != 0) {
-			popMatrix();
+			pop();
 		}
 	}
 	
@@ -141,8 +141,7 @@ public class R_Star extends R_Shape implements R_Constants {
 			} else {
 				vertex(p[0]);
 			}
-			vertex(p[i]); // close
-			endShape();
+			endShape(CLOSE);
 			// face bottom
 			beginShape() ;
 			vertex(p[i]);
@@ -152,8 +151,7 @@ public class R_Star extends R_Shape implements R_Constants {
 			} else {
 				vertex(p[0]);
 			}
-			vertex(p[i]); // close
-			endShape();
+			endShape(CLOSE);
 		}
 	}
 
@@ -188,8 +186,7 @@ public class R_Star extends R_Shape implements R_Constants {
 		for(int i = 0 ; i < p.length ; i++) {
 			vertex(p[i]);
 		}
-		vertex(p[0]); // close
-		endShape();
+		endShape(CLOSE);
 	}
 
 }

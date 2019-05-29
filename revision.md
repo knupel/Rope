@@ -1,5 +1,13 @@
 *version 0.8.1.26 in progress
 
+>R_Shape: remove pushMatrix() and popMatrix()
+>R_Shape: add push() and pop() methods
+>R_Shape: add endShape(int type);
+>Bug fix the problem of Processing core version
+>R_Shape: add ghost methods quadraticVertex()
+>R_Shape: change method(int... arg) to method(float... arg)
+>R_Shape: add method vertex, bezierVertex, quadraticVertex, curveVertex with arg PGraphics
+
 
 
 *version 0.8.0.25
