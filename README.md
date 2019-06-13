@@ -6,7 +6,7 @@ ROPE mean ROmanesco Processing Environment.
 This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
 
 ## Download last build for OSX
-[download](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip)
+[download last build](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip)
 
 Rope framework available [here](https://github.com/StanLepunK/Rope_framework)
 
