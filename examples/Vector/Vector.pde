@@ -11,6 +11,7 @@
 */
 import rope.vector.*;
 import rope.core.Rope;
+Rope r = new Rope();
 void setup() {
   vec2 v2 = new vec2(4,5);
   v2.pow(2,3);
@@ -73,7 +74,9 @@ void setup() {
   bvec2 bv2 = new bvec2(true,false);
   println(bv2);
   
-  Rope r = new Rope();
+
   println(r.version());
-  println("Euler",r.EULER);
+  println("MAGENTA constant",r.MAGENTA);
+  println("Fluid constant",r.FLUID);
+  println("Euler constant",r.EULER);
 }
