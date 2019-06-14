@@ -1,4 +1,14 @@
-*version 0.8.1.26 in progress
+*version 0.8.3.28 in progress
+
+
+
+
+*version 0.8.2.27
+
+>clean code
+>add javadoc
+
+*version 0.8.1.26 
 
 >R_Shape: remove pushMatrix() and popMatrix()
 >R_Shape: add push() and pop() methods
