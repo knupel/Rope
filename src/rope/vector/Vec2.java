@@ -358,11 +358,7 @@ public class vec2 extends vec {
 	/**
 	 *
 	 * Calculate the angle of rotation for this vector (only 2D vectors)
-	 *
-	 * @webref vec:method
-	 * @usage web_application
 	 * @return the angle of rotation
-	 * @brief Calculate the angle of rotation for this vector
 	 */
 	public float angle() {
 		float angle = (float) Math.atan2(y, x);
@@ -441,7 +437,7 @@ public class vec2 extends vec {
 
 	/**
 	 * 
-	 * @param v_target
+	 * @param target
 	 * @return float
 	 */
 	public float mag(vec target) {
@@ -541,9 +537,8 @@ public class vec2 extends vec {
 	/**
 	 * random
 	 * 
-	 * @param x vec2
-	 * @param y vec2
-	 * @param z vec2
+	 * @param mx vec2
+	 * @param my vec2
 	 * @return
 	 */
 	public vec2 rand(vec2 mx, vec2 my) {
@@ -558,8 +553,6 @@ public class vec2 extends vec {
 	 * 
 	 * @param value int
 	 * @param s     float speed for all vec arg
-	 * @param sx    float speed for all vec arg x
-	 * @param sy    float speed for all vec arg y
 	 * @return vec2 cosinus of the value
 	 */
 	public vec2 cos_wave(int value, float s) {
@@ -578,8 +571,6 @@ public class vec2 extends vec {
 	 * 
 	 * @param value int
 	 * @param s     float speed for all vec arg
-	 * @param sx    float speed for all vec arg x
-	 * @param sy    float speed for all vec arg y
 	 * @return vec2 sinus of the value
 	 */
 	public vec2 sin_wave(int value, float s) {

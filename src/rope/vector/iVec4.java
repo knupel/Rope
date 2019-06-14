@@ -304,10 +304,10 @@ public class ivec4 extends ivec {
   }
     /**
    * random
-   * @param x vec2
-   * @param y vec2
-   * @param z vec2
-   * @param w vec2
+   * @param mx vec2
+   * @param my vec2
+   * @param mz vec2
+   * @param mw vec2
    * @return
    */
   public ivec4 rand(ivec2 mx, ivec2 my, ivec2 mz, ivec2 mw) {

@@ -96,8 +96,6 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
   
   /**
    * 
-   * @param summits
-   * @param offset_angle
    */
   public void build() {
     bezier = new R_Bezier[summits];

@@ -552,11 +552,13 @@ public class R_Shape extends R_Image implements R_Constants {
 	 * CURVE VERTEX
 	 */
 	
-  /**
-   * 
-   * @param pos the x,y,z coordinate of the vertex
-   */
-	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param other
+	 */
 	public void curveVertex(float x, float y, float z, PGraphics other) {
 		this.other = other;
 	  curveVertex(x,y,z);
@@ -1157,7 +1159,6 @@ public class R_Shape extends R_Image implements R_Constants {
   }
 	
   /**
-   * @webref shape:attributes
    * @param mode either CORNER, CORNERS, CENTER, or RADIUS
    */
   public void rectMode(int mode) {

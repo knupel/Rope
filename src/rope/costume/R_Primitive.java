@@ -1,6 +1,6 @@
 /**
 * R_Primitive class
-* v 0.3.0
+* v 0.3.1
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -228,7 +228,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		} else if (temp_pos.length == 4) {
 			// faster method to display a lot of rect
 			rectMode(CENTER);
-			float side = (float) (radius.x() * ROOT2);
+			float side = radius.x() * ROOT2;
 			square(this.pos.x, this.pos.y, side);
 		} else {
 			beginShape();
@@ -350,7 +350,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 
 		// create normal direction for the point
 		float theta, delta;
-		delta = (float) (TAU / num);
+		delta = TAU / num;
 		int step = 0;
 		for (theta = 0; theta < TAU; theta += delta) {
 			plane.x = (float) (p1.x + r.x * Math.cos(theta + delta) + s.x * Math.sin(theta + delta));

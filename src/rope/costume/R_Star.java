@@ -75,11 +75,7 @@ public class R_Star extends R_Shape implements R_Constants {
 	
 
 
-	/**
-	 * 
-	 * @param position x,y,z-coordinate of the Star
-	 * @param size_raw width,height,depth of the Star
-	 */
+
 	public void show() {
 		if(pos.z() != 0) {
 			push();

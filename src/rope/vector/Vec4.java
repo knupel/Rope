@@ -555,10 +555,10 @@ public class vec4 extends vec {
   }
     /**
    * random
-   * @param x vec2
-   * @param y vec2
-   * @param z vec2
-   * @param w vec2
+   * @param mx vec2
+   * @param my vec2
+   * @param mz vec2
+   * @param mw vec2
    * @return
    */
   public vec4 rand(vec2 mx, vec2 my, vec2 mz, vec2 mw) {
@@ -581,16 +581,21 @@ public class vec4 extends vec {
   * WAVE COSINUS
   * @param value int
   * @param s float speed for all vec arg
-  * @param sx float speed for all vec arg x
-  * @param sy float speed for all vec arg y
-  * @param sz float speed for all vec arg z
-  * @param sw float speed for all vec arg w
   * @return vec4 cosinus of the value
   */
   public vec4 cos_wave(int value, float s) {
     return cos_wave(value,s,s,s,s);
   }
-
+  
+  /**
+   * 
+   * @param value
+   * @param sx float speed for all vec arg x
+   * @param sy float speed for all vec arg y
+   * @param sz float speed for all vec arg z
+   * @param sw float speed for all vec arg w
+   * @return
+   */
   public vec4 cos_wave(int value, float sx, float sy, float sz, float sw) {
     float x = (float)Math.cos(value *sx);
     float y = (float)Math.cos(value *sy);
@@ -604,16 +609,21 @@ public class vec4 extends vec {
   * WAVE SINUS
   * @param value int
   * @param s float speed for all vec arg
-  * @param sx float speed for all vec arg x
-  * @param sy float speed for all vec arg y
-  * @param sz float speed for all vec arg z
-  * @param sw float speed for all vec arg w
   * @return vec4 sinus of the value
   */
   public vec4 sin_wave(int value, float s) {
     return sin_wave(value,s,s,s,s);
   }
-
+  
+  /**
+   * 
+   * @param value
+   * @param sx float speed for all vec arg x
+   * @param sy float speed for all vec arg y
+   * @param sz float speed for all vec arg z
+   * @param sw float speed for all vec arg w
+   * @return
+   */
   public vec4 sin_wave(int value, float sx, float sy, float sz, float sw) {
     float x = (float)Math.sin(value *sx);
     float y = (float)Math.sin(value *sy);

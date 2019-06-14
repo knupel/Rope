@@ -27,7 +27,7 @@ public class R_Shape_template extends R_Shape implements R_Constants, R_Shape_co
 
 	}
 	
-	/**
+	/*
 	 * Is good to compute the shape between -0.5 > 0.5
 	 * and pass the computing size and position to method show
 	 */
@@ -35,7 +35,7 @@ public class R_Shape_template extends R_Shape implements R_Constants, R_Shape_co
 		
 	}
 	
-  /**
+  /*
    * show
    * useful to keep all Shape with the same range of size, 
    * this thing is due because the first shape coded is a primitive calculte on a circle shape

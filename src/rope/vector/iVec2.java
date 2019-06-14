@@ -255,11 +255,11 @@ public class ivec2 extends ivec {
   public ivec2 rand(int min, int max) {
     return rand(new ivec2(min,max),new ivec2(min,max));
   }
-    /**
+  
+	/**
    * random
-   * @param x vec2
-   * @param y vec2
-   * @param z vec2
+   * @param mx vec2
+   * @param my vec2
    * @return
    */
   public ivec2 rand(ivec2 mx, ivec2 my) {

@@ -290,9 +290,9 @@ public class ivec3 extends ivec {
   }
     /**
    * random
-   * @param x vec2
-   * @param y vec2
-   * @param z vec2
+   * @param mx vec2
+   * @param my vec2
+   * @param mz vec2
    * @return
    */
   public ivec3 rand(ivec2 mx, ivec2 my, ivec2 mz) {
