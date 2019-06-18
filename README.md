@@ -1,6 +1,6 @@
 
 ## Rope Library
-v 0.8.2.27
+v 0.8.3.28
 copyleft(c) 2018-2019
 ROPE mean ROmanesco Processing Environment.
 This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
