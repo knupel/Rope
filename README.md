@@ -5,7 +5,7 @@ copyleft(c) 2018-2019
 ROPE mean ROmanesco Processing Environment.
 This library is a logic way of Rope framework used to [Romanesco software.](http://romanesco.xyz)
 
-[Rope library download the last build](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip)
+[Download library link > unzip > add in Processing library folder](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip)
 
 [ROPE page](https://stanlepunk.github.io/Rope/)
 
