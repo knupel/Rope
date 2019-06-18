@@ -14,7 +14,7 @@ This library is a logic way of Rope framework used to [Romanesco software.](http
 [Romanesco software source repository](https://github.com/StanLepunK/ROMANESCO-Processing)
 
 # WARNING
-When the library is download the file name for 
+When the library is downloaded the file name for 
 
 `vec2.java` `vec3.java` `vec4.java` `vec5.java` `vec6.java` `ivec2.java` `ivec3.java` `ivec4.java` `ivec5.java` `ivec6.java` `bvec2.java` `bvec3.java` `bvec4.java` `bvec5.java` `bvec6.java` 
 
