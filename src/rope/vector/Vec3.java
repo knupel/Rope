@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.2.1
+ * v 1.3.0
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -164,13 +164,7 @@ public class vec3 extends vec {
 	}
  
   
-  /**
-   * sum
-   * @return float component sum
-   */
-  public float sum() {
-    return x+y+z;
-  }
+
   
   /**
    * mult
@@ -299,13 +293,7 @@ public class vec3 extends vec {
   }
   
   
-  /**
-   * average
-   * @return float average of the sum component
-   */
-  public float average() {
-    return (this.x + this.y +this.z) *.333f;
-  }
+
   
   
   /**
@@ -331,14 +319,24 @@ public class vec3 extends vec {
   
   
   /**
+   * each component of the vec is power push
    * 
    * @param pow
-   * @return each component of the vec is power push
+   * @return vec3 
    */
   public vec3 pow(int pow) {
     this.pow(pow,pow,pow);
     return this;
   }
+  
+  /**
+   * each component of the vec is power push
+   * 
+   * @param pow_x
+   * @param pow_y
+   * @param pow_z
+   * @return
+   */
   public vec3 pow(int pow_x, int pow_y, int pow_z) {
     x = (float)Math.pow(x,pow_x);
     y = (float)Math.pow(y,pow_y);
@@ -352,7 +350,7 @@ public class vec3 extends vec {
    * 
    * @param v
    * @param target
-   * @return
+   * @return vec3
    */
 	public vec3 cross(vec3 v, vec3 target) {
     if(v != null) {
@@ -365,9 +363,14 @@ public class vec3 extends vec {
         target.set(crossX, crossY, crossZ);
       }
       return target;
-    } else return null ;
+    } else return null;
   }
   
+	/**
+	 * 
+	 * @param v
+	 * @return vec3
+	 */
   public vec3 cross(vec3 v) {
     if(v != null) {
       return cross(v, null);
@@ -375,100 +378,18 @@ public class vec3 extends vec {
     
   }
   
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param z
+   * @return vec3
+   */
   public vec3 cross(float x, float y, float z) {
     vec3 v = new vec3(x,y,z) ;
     return cross(v, null);
   }
   
-  /**
-   * 
-   * @param target
-   * @return
-   */
-  public float dist(vec target) {
-    if(target != null) {
-      float dx = x -target.x;
-      float dy = y -target.y;
-      return (float) Math.sqrt(dx*dx + dy*dy);
-    } else {
-    	System.out.println("Your Vec arg is "+null);
-      return 0 ;
-    }
-  }
-  
-  /**
-   * 
-   * @param origin
-   * @return
-   */
-  public vec3 dir(vec3 origin) {
-    if(origin != null) {
-      float dist = dist(origin) ;
-      sub(origin) ;
-      div(dist) ;
-    }
-    set(x,y,z) ;
-    return this ;
-  }
-  
-  public vec3 dir() {
-    return dir(new vec3(0)) ;
-  }
-  
-  public vec3 dir(float a_x, float a_y, float a_z) {
-    return dir(new vec3(a_x,a_y,a_z)) ;
-  }
-  
-  
-  /**
-   * 
-   * @param vector_to_make_plane_ref
-   * @return
-   */
-  public vec3 tan(vec3 vector_to_make_plane_ref) {
-    if(vector_to_make_plane_ref != null) {
-      vec3 tangent = cross(vector_to_make_plane_ref) ;
-      return tangent ;
-    } else return null ;
-  }
-  
-  public vec3 tan(float float_to_make_plane_ref_x, float float_to_make_plane_ref_y, float float_to_make_plane_ref_z) {
-    return tan(new vec3(float_to_make_plane_ref_x, float_to_make_plane_ref_y, float_to_make_plane_ref_z)) ;
-  }
-  
-  
-  
-  /**
-   * 
-   * @return
-   */
-  public float magSq() {
-    return (x*x + y*y + z*z) ;
-  }
-
-
-
-
-  /**
-   * 
-   * @param v_target
-   * @return
-   */
-  float mag(vec3 v_target) {
-    if(v_target != null) {
-      float new_x = (v_target.x -x) *(v_target.x -x);
-      float new_y = (v_target.y -y) *(v_target.y -y);
-      float new_z = (v_target.z -z) *(v_target.z -z);
-      return (float)Math.sqrt(new_x +new_y +new_z);
-    } else {
-      System.out.println("Your Vec arg is "+null) ;
-      return 0 ;
-    }
-  }
-  
-  public float mag() {
-    return (float) Math.sqrt(x*x + y*y + z*z) ;
-  }
   
   
   /**
@@ -494,7 +415,7 @@ public class vec3 extends vec {
     if (m != 0 && m != 1) {
       div(m);
     }
-    return this ;
+    return this;
   }
   
   
@@ -642,6 +563,173 @@ public class vec3 extends vec {
     set(x,y,z);
     return this;
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /**
+   * GET PART
+   * 
+   */
+  
+  /**
+   * sum of all components
+   * @return float
+   */
+  public float sum() {
+    return x+y+z;
+  }
+  
+  /**
+   * average of all components
+   * @return float
+   */
+  public float average() {
+    return (this.x + this.y +this.z) *.333f;
+  }
+  
+  /**
+   * return distance of the vector or length
+   * 
+   * @return float
+   */
+  float dist() {
+  	return dist(new vec3());
+  }
+  
+  /**
+   * * return distance between vector
+   * 
+   * @param target
+   * @return
+   */
+  public float dist(vec target) {
+    if(target != null) {
+      float dx = x -target.x;
+      float dy = y -target.y;
+      return (float) Math.sqrt(dx*dx + dy*dy);
+    } else {
+    	System.out.println("Your Vec arg is "+null);
+      return 0 ;
+    }
+  }
+  
+
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @return vec3
+   */
+  public vec3 dir() {
+    return dir(new vec3(0)) ;
+  }
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @param a_x
+   * @param a_y
+   * @param a_z
+   * @return vec3
+   */
+  public vec3 dir(float a_x, float a_y, float a_z) {
+    return dir(new vec3(a_x,a_y,a_z)) ;
+  }
+  
+  
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @param origin
+   * @return
+   */
+  public vec3 dir(vec3 origin) {
+  	vec3 temp = this.copy();
+    if(origin != null) {
+      float dist = dist(origin) ;
+      temp.sub(origin) ;
+      temp.div(dist) ;
+    }
+    return temp;
+  }
+  
+  
+
+  
+  public vec3 tan(float float_to_make_plane_ref_x, float float_to_make_plane_ref_y, float float_to_make_plane_ref_z) {
+    return tan(new vec3(float_to_make_plane_ref_x, float_to_make_plane_ref_y, float_to_make_plane_ref_z)) ;
+  }
+  
+  
+  /**
+   * 
+   * @param vector_to_make_plane_ref
+   * @return
+   */
+  public vec3 tan(vec3 vector_to_make_plane_ref) {
+    if(vector_to_make_plane_ref != null) {
+      vec3 tangent = cross(vector_to_make_plane_ref) ;
+      return tangent ;
+    } else return null ;
+  }
+  
+  
+  
+  /**
+   * 
+   * @return
+   */
+  public float magSq() {
+    return (x*x + y*y + z*z) ;
+  }
+
+
+
+
+  /**
+   * 
+   * @param v_target
+   * @return
+   */
+  public float mag(vec3 v_target) {
+    if(v_target != null) {
+      float new_x = (v_target.x -x) *(v_target.x -x);
+      float new_y = (v_target.y -y) *(v_target.y -y);
+      float new_z = (v_target.z -z) *(v_target.z -z);
+      return (float)Math.sqrt(new_x +new_y +new_z);
+    } else {
+      System.out.println("Your Vec arg is "+null) ;
+      return 0 ;
+    }
+  }
+  
+  public float mag() {
+    return (float) Math.sqrt(x*x + y*y + z*z) ;
+  }
+  
+  
+  
 
 
 

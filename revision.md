@@ -1,5 +1,6 @@
 *version 0.8.3.28 in progress
-
+>change : method dir() and tan() now the behavior is get not a setting behavior, change for vec2, vec3 and vec4
+>vec2: add methode angle(vec2 target);
 
 
 
@@ -7,6 +8,7 @@
 
 >clean code
 >add javadoc
+
 
 *version 0.8.1.26 
 

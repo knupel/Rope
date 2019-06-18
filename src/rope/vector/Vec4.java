@@ -179,13 +179,7 @@ public class vec4 extends vec {
     return set(this.x,this.y,this.z,w);
   }
   
-  /**
-   * sum
-   * @return
-   */
-  public float sum() {
-    return x+y+z+w;
-  }
+
   
   /**
    * mult
@@ -321,13 +315,7 @@ public class vec4 extends vec {
     } else return null;
   }
   
-  /**
-   * average
-   * @return float average of sum components
-   */
-  public float average() {
-    return (this.x + this.y +this.z +this.w) *.25f;
-  }
+
   
   /**
    * 
@@ -367,78 +355,6 @@ public class vec4 extends vec {
     return this;
   }
   
-  /**
-   * 
-   * @param v_target
-   * @return
-   */
-  float dist(vec4 v_target) {
-    if(v_target != null) {
-      float dx = x - v_target.x;
-      float dy = y - v_target.y;
-      float dz = z - v_target.z;
-      float dw = w - v_target.w;
-      return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
-    } else {
-      System.out.println("Your Vec arg is"+null);
-      return 0 ;
-    }
-  }
-  
-  
-  
-  /**
-   * direction normal
-   * @return
-   */
-  public vec4 dir() {
-    return dir(new vec4(0)) ;
-  }
-  public vec4 dir(float a_x, float a_y, float a_z, float a_w) {
-    return dir(new vec4(a_x,a_y,a_z,a_w));
-  }
-  
-  public vec4 dir(vec4 origin) {
-    if(origin != null) {
-      float dist = dist(origin);
-      sub(origin);
-      div(dist);
-    }
-    set(x,y,z,w);
-    return this;
-  }
-  
-
-  
-  
-  /**
-   * magSq
-   * @return
-   */
-  public float magSq() {
-    return (x*x + y*y + z*z +w*w) ;
-  }
-
-  /**
-   * mag
-   * @return
-   */
-  public float mag() {
-    return (float) Math.sqrt(x*x + y*y + z*z + w*w);
-  }
-
-  float mag(vec4 v_target) {
-    if(v_target != null) {
-      float new_x = (v_target.x -x) *(v_target.x -x);
-      float new_y = (v_target.y -y) *(v_target.y -y);
-      float new_z = (v_target.z -z) *(v_target.z -z);
-      float new_w = (v_target.w -w) *(v_target.w -w);
-      return (float)Math.sqrt(new_x +new_y +new_z +new_w);
-    } else {
-      System.out.println("Your Vec arg is"+null);
-      return 0 ;
-    }
-  }
   
   
   /**
@@ -632,6 +548,150 @@ public class vec4 extends vec {
     set(x,y,z,w);
     return this;
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /**
+   * GET PART
+   * 
+   */
+  
+  /**
+   * addition of all components
+   * @return float
+   */
+  public float sum() {
+    return x+y+z+w;
+  }
+  
+  
+  /**
+   * average of all components
+   * @return float average of sum components
+   */
+  public float average() {
+    return (this.x + this.y +this.z +this.w) *.25f;
+  }
+  
+  
+  /**
+   * return distance of the vector or length
+   * 
+   * @return float
+   */
+  float dist() {
+  	return dist(new vec4());
+  }
+  
+  /**
+   * 
+   * @param v_target
+   * @return float
+   */
+  float dist(vec4 v_target) {
+    if(v_target != null) {
+      float dx = x - v_target.x;
+      float dy = y - v_target.y;
+      float dz = z - v_target.z;
+      float dw = w - v_target.w;
+      return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+    } else {
+      System.out.println("Your Vec arg is"+null);
+      return 0 ;
+    }
+  }
+  
+  
+  
+  /**
+   * return normal cartesian angle coord
+   * @return vec4
+   */
+  public vec4 dir() {
+    return dir(new vec4(0)) ;
+  }
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @param a_x float
+   * @param a_y float 
+   * @param a_z float
+   * @param a_w float
+   * @return vec4 
+   */
+  public vec4 dir(float a_x, float a_y, float a_z, float a_w) {
+    return dir(new vec4(a_x,a_y,a_z,a_w));
+  }
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @param origin vec4
+   * @return vec4
+   */
+  public vec4 dir(vec4 origin) {
+  	vec4 temp = this.copy();
+    if(origin != null) {
+      float dist = dist(origin);
+      temp.sub(origin);
+      temp.div(dist);
+    }
+    return temp;
+  }
+  
+
+  
+  
+  /**
+   * magSq
+   * @return
+   */
+  public float magSq() {
+    return (x*x + y*y + z*z +w*w) ;
+  }
+
+  /**
+   * mag
+   * @return
+   */
+  public float mag() {
+    return (float) Math.sqrt(x*x + y*y + z*z + w*w);
+  }
+
+  float mag(vec4 v_target) {
+    if(v_target != null) {
+      float new_x = (v_target.x -x) *(v_target.x -x);
+      float new_y = (v_target.y -y) *(v_target.y -y);
+      float new_z = (v_target.z -z) *(v_target.z -z);
+      float new_w = (v_target.w -w) *(v_target.w -w);
+      return (float)Math.sqrt(new_x +new_y +new_z +new_w);
+    } else {
+      System.out.println("Your Vec arg is"+null);
+      return 0 ;
+    }
+  }
+  
+  
+  
 
 
 

@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.2.0
+ * v 1.3.0
  * 2015-2019
  * Vector class with a float precision
  * @author @stanlepunk
@@ -130,17 +130,7 @@ public class vec2 extends vec {
 		return set(this.x, y);
 	}
 
-	/**
-	 * sum
-	 */
-	/**
-	 * sum return the sum of all components
-	 * 
-	 * @return float
-	 */
-	public float sum() {
-		return x + y;
-	}
+	
 
 	/**
 	 * multiplication
@@ -266,12 +256,7 @@ public class vec2 extends vec {
 			return null;
 	}
 
-	/**
-	 * Average
-	 */
-	public float average() {
-		return (this.x + this.y) * (float) .5;
-	}
+	
 
 	/**
 	 * Dot v 0.0.1.1
@@ -304,73 +289,8 @@ public class vec2 extends vec {
 		return this;
 	}
 
-	/**
-	 * Direction
-	 */
-	/**
-	 * return mapping vector
-	 * 
-	 * @return Vec2
-	 */
-	public vec2 dir() {
-		return dir(new vec2(0, 0));
-	}
 
-	public vec2 dir(float a_x, float a_y) {
-		return dir(new vec2(a_x, a_y));
-	}
 
-	public vec2 dir(vec2 origin) {
-		if (origin != null) {
-			float dist = dist(origin);
-			sub(origin);
-			div(dist);
-		}
-		set(x, y);
-		return this;
-	}
-
-	/**
-	 * Tangent
-	 */
-	public vec2 tan() {
-		return tan(new vec2(x, y));
-	}
-
-	public vec2 tan(float a_x, float a_y) {
-		return tan(new vec2(a_x, a_y));
-	}
-
-	public vec2 tan(vec2 target) {
-		if (target != null) {
-			float mag = mag();
-			target.div(mag);
-			x = -target.y;
-			y = target.x;
-		}
-		set(x, y);
-		return this;
-	}
-
-	/**
-	 * Angle Heading for PVector
-	 */
-	/**
-	 *
-	 * Calculate the angle of rotation for this vector (only 2D vectors)
-	 * @return the angle of rotation
-	 */
-	public float angle() {
-		float angle = (float) Math.atan2(y, x);
-		return angle;
-	}
-
-	/**
-	 * heading is a similar method of PVector
-	 */
-	public float heading() {
-		return angle();
-	}
 
 	/**
 	 * Normalize
@@ -418,68 +338,6 @@ public class vec2 extends vec {
 		return this;
 	}
 
-	/**
-	 * magnitude or length of Vec2
-	 * 
-	 * @return float
-	 */
-	public float magSq() {
-		return (x * x + y * y);
-	}
-
-	/**
-	 * 
-	 * @return float
-	 */
-	public float mag() {
-		return (float) Math.sqrt(x * x + y * y);
-	}
-
-	/**
-	 * 
-	 * @param target
-	 * @return float
-	 */
-	public float mag(vec target) {
-		if (target != null) {
-			float new_x = (target.x - x) * (target.x - x);
-			float new_y = (target.y - y) * (target.y - y);
-			return (float) Math.sqrt(new_x + new_y);
-		} else {
-			System.out.println("Your Vec arg is " + null);
-			return 0;
-		}
-	}
-
-	/**
-	 * 
-	 * @param max
-	 * @return
-	 */
-	public vec2 limit(float max) {
-		if (magSq() > max * max) {
-			normalize();
-			mult(max);
-		}
-		return this;
-	}
-
-	/**
-	 * DIST
-	 * 
-	 * @param target distance between himself and an other vector
-	 * @return float distance between the Vec and the target
-	 */
-	public float dist(vec target) {
-		if (target != null) {
-			float dx = x - target.x;
-			float dy = y - target.y;
-			return (float) Math.sqrt(dx * dx + dy * dy);
-		} else {
-			System.out.println("Your Vec arg is " + null);
-			return 0;
-		}
-	}
 
 	/**
 	 * JITTER
@@ -548,6 +406,23 @@ public class vec2 extends vec {
 		return this;
 	}
 
+
+
+	/**
+	 * 
+	 * @param max
+	 * @return
+	 */
+	public vec2 limit(float max) {
+		if (magSq() > max * max) {
+			normalize();
+			mult(max);
+		}
+		return this;
+	}
+
+
+
 	/**
 	 * WAVE COSINUS
 	 * 
@@ -583,6 +458,249 @@ public class vec2 extends vec {
 		set(x, y);
 		return this;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+  * GET STUF
+  */
+
+
+
+	/**
+	 * sum of all components
+	 * @return float
+	 */
+	public float sum() {
+		return x+y;
+	}
+
+
+
+	/**
+	 * average of all componentsb
+	 * @return float
+	 */
+	public float average() {
+		return (this.x+this.y)*(float)0.5;
+	}
+
+
+	/**
+   * return distance of the vector or length
+   * 
+   * @return float
+   */
+  float dist() {
+  	return dist(new vec2());
+  }
+  
+/**
+ * return distance of the vector or length
+ * 
+ * @param target
+ * @return float
+ */
+	public float dist(vec target) {
+		if (target != null) {
+			float dx = x - target.x;
+			float dy = y - target.y;
+			return (float) Math.sqrt(dx * dx + dy * dy);
+		} else {
+			System.out.println("Your vec arg is " + null);
+			return 0;
+		}
+	}
+
+	/**
+	 * return normal cartesian angle coord
+	 * 
+	 * @return vec2
+	 */
+	public vec2 dir() {
+		return dir(new vec2(0, 0));
+	}
+  
+  /**
+   * return normal cartesian angle coord
+   * 
+   * @param a_x
+   * @param a_y
+   * @return vec2
+   */
+	public vec2 dir(float a_x, float a_y) {
+		return dir(new vec2(a_x, a_y));
+	}
+  
+	
+	/**
+	 * return normal cartesian angle coord
+	 * 
+	 * @param origin
+	 * @return vec2
+	 */
+	public vec2 dir(vec2 origin) {
+		vec2 temp = this.copy();
+		if (origin != null) {
+			float dist = dist(origin);
+			temp.sub(origin);
+			temp.div(dist);
+		}
+		return temp;
+	}
+
+	/**
+	 * return tangent of the vector direction
+	 * 
+	 * @return vec2
+	 */
+	public vec2 tan() {
+		return tan(new vec2(x, y));
+	}
+  
+	/**
+	 * return tangent of the vector direction
+	 * 
+	 * @param a_x
+	 * @param a_y
+	 * @return vec2
+	 */
+	public vec2 tan(float a_x, float a_y) {
+		return tan(new vec2(a_x, a_y));
+	}
+  
+	/**
+	 * return tangent of the vector direction
+	 * 
+	 * @param target
+	 * @return vec2
+	 */
+	public vec2 tan(vec2 target) {
+		vec2 temp = this.copy();
+		if (target != null) {
+			float mag = mag();
+			target.div(mag);
+			temp.x = -target.y;
+			temp.y = target.x;
+		}
+		return temp;
+	}
+
+	/**
+	 * return heading angle
+	 */
+	/**
+	 *
+	 * Calculate the angle of rotation for this vector (only 2D vectors)
+	 * @return the float angle of rotation
+	 */
+	public float angle() {
+		float angle = (float) Math.atan2(y, x);
+		return angle;
+	}
+	
+	/**
+	 * return heading angle
+	 * @param target
+	 * @return the float angle between this and the target vector
+	 */
+	public float angle(vec2 target) {
+		return (float)Math.atan2(target.y -this.y, target.x -this.x);
+	}
+
+	/**
+	 * Angle heading
+	 */
+	/**
+	 *
+	 * Calculate the angle of rotation for this vector (only 2D vectors)
+	 * @return the float angle of rotation
+	 */
+	public float heading() {
+		return angle();
+	}
+
+	
+
+	/**
+	 * return square root of magnitude or length of vec2
+	 * 
+	 * @return float
+	 */
+	public float magSq() {
+		return (x * x + y * y);
+	}
+
+	/**
+	 * return mag
+	 * 
+	 * @return float
+	 */
+	public float mag() {
+		return (float) Math.sqrt(x * x + y * y);
+	}
+
+	/**
+	 * return mag between this vector and the target
+	 * 
+	 * @param target
+	 * @return float
+	 */
+	public float mag(vec target) {
+		if (target != null) {
+			float new_x = (target.x - x) * (target.x - x);
+			float new_y = (target.y - y) * (target.y - y);
+			return (float) Math.sqrt(new_x + new_y);
+		} else {
+			System.out.println("Your vec arg is " + null);
+			return 0;
+		}
+	}
+
+	
+
+
+
+	
+
+	
 
 	/**
 	 * 

@@ -234,7 +234,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	/**
 	 * 
-	 * @param pos
+	 * @param angle
 	 */
 	public void angle(vec angle) {
 		if(this.angle == null) {
