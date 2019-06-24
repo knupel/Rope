@@ -26,6 +26,8 @@ public class R_Shape extends R_Image implements R_Constants {
 
 	private boolean use_pos_is = true;
   private boolean reset_is = false;
+  
+
 	/**
 	 * 
 	 * @param pa
@@ -359,6 +361,23 @@ public class R_Shape extends R_Image implements R_Constants {
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   /**
    * IMPROVE PROCESSING METHODS
    */
@@ -367,36 +386,54 @@ public class R_Shape extends R_Image implements R_Constants {
   * shape
   * v 0.2.0
   */
+  
+  /**
+   * 
+   * @param other
+   */
   public void beginShape(PGraphics other) {
     if(other != null) {
       other.beginShape();
     } else {
-      pa.g.beginShape();
+      pa.beginShape();
     }
   }
-
+  
+  /**
+   * 
+   * @param kind
+   * @param other
+   */
   public void beginShape(int kind, PGraphics other) {
     if(other != null) {
       other.beginShape(kind);
     } else {
-    	pa.g.beginShape(kind);
+    	pa.beginShape(kind);
     }
   }
 
-
+  /**
+   * 
+   * @param other
+   */
   public void endShape(PGraphics other) {
     if(other != null) {
       other.endShape();
     } else {
-    	pa.g.endShape();
+    	pa.endShape();
     }
   }
-
+  
+  /**
+   * 
+   * @param mode
+   * @param other
+   */
   public void endShape(int mode, PGraphics other) {
     if(other != null) {
       other.endShape(mode);
     } else {
-    	pa.g.endShape(mode);
+    	pa.endShape(mode);
     }
   }
   
@@ -406,46 +443,94 @@ public class R_Shape extends R_Image implements R_Constants {
   * vertex
   * v 0.2.0
   */
+  
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param other
+   */
   public void vertex(float x, float y, PGraphics other) {
   	this.other = other;
   	vertex(x,y);
   }
-
+  
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param z
+   * @param other
+   */
   public void vertex(float x, float y, float z, PGraphics other) {
   	this.other = other;
   	vertex(x,y,z);
   }
 
-
+  /**
+   * 
+   * @param v
+   * @param other
+   */
   public void vertex(float [] v, PGraphics other) {
   	this.other = other;
   	vertex(v);
   }
 
-
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param u
+   * @param v
+   * @param other
+   */
   public void vertex(float x, float y, float u, float v, PGraphics other) {
   	this.other = other;
   	vertex(x,y,u,v);
   }
-
+  
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param z
+   * @param u
+   * @param v
+   * @param other
+   */
   public void vertex(float x, float y, float z, float u, float v, PGraphics other) {
   	this.other = other;
   	vertex(x,y,z,u,v);
   }
 
-  //
+  /**
+   * 
+   * @param coord
+   * @param other
+   */
   public void vertex(vec coord, PGraphics other) {
   	this.other = other;
   	vertex(coord);
   }
 
-  
+  /**
+   * 
+   * @param coord
+   * @param uv
+   * @param other
+   */
   public void vertex(vec2 coord, vec2 uv, PGraphics other) {
   	this.other = other;
   	vertex(coord,uv);
   }
 
-  
+  /**
+   * 
+   * @param coord
+   * @param uv
+   * @param other
+   */
   public void vertex(vec3 coord, vec2 uv, PGraphics other) {
   	this.other = other;
   	vertex(coord.x(),coord.y(),coord.z(),uv.u(),uv.v());
@@ -463,7 +548,12 @@ public class R_Shape extends R_Image implements R_Constants {
 			vertex(v.x(),v.y());
 		}
 	}
-
+  
+	/**
+	 * 
+	 * @param v
+	 * @param uv
+	 */
 	public void vertex(vec2 v, vec2 uv) {
 		if(renderer_P3D()) {
 			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
@@ -472,6 +562,11 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param v
+	 * @param uv
+	 */
 	public void vertex(vec3 v, vec2 uv) {
 		if(renderer_P3D()) {
 			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
@@ -707,7 +802,6 @@ public class R_Shape extends R_Image implements R_Constants {
 	/**
 	 * GHOST METHOD
 	 */
-	
 	/**
 	 * push + pop
 	 */
@@ -715,7 +809,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.push();
 		} else {
-			pa.g.push();
+			pa.push();
 		}
   }
 
@@ -725,7 +819,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.pop();
 		} else {
-			pa.g.pop();
+			pa.pop();
 		}
   }
 	
@@ -742,7 +836,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.translate(x,y,z);
 		} else {
-			pa.g.translate(x,y,z);
+			pa.translate(x,y,z);
 		}
   }
 	
@@ -755,7 +849,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.translate(x,y);
 		} else {
-			pa.g.translate(x,y);
+			pa.translate(x,y);
 		}
   }
 	
@@ -779,7 +873,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.rotate(angle);
 		} else {
-			pa.g.rotate(angle);
+			pa.rotate(angle);
 		}
   }
 	
@@ -790,7 +884,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.rotateX(angle);
 		} else {
-			pa.g.rotateX(angle);
+			pa.rotateX(angle);
 		}
   }
 	
@@ -801,7 +895,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.rotateY(angle);
 		} else {
-			pa.g.rotateY(angle);
+			pa.rotateY(angle);
 		}
   }
 	
@@ -812,7 +906,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.rotateZ(angle);
 		} else {
-			pa.g.rotateZ(angle);
+			pa.rotateZ(angle);
 		}
   }
 	
@@ -832,7 +926,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.beginShape();
 		} else {
-			pa.g.beginShape();
+			pa.beginShape();
 		}
 	}
 	
@@ -840,7 +934,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.endShape();
 		} else {
-			pa.g.endShape();
+			pa.endShape();
 		}
 	}
 	
@@ -848,7 +942,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.endShape(mode);
 		} else {
-			pa.g.endShape(mode);
+			pa.endShape(mode);
 		}
 	}
 	
@@ -865,7 +959,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.vertex(x,y);
 		} else {
-			pa.g.vertex(x,y);
+			pa.vertex(x,y);
 		}
 	}
 	
@@ -881,7 +975,7 @@ public class R_Shape extends R_Image implements R_Constants {
 			}
 		} else {
 			if(renderer_P3D()) {
-				pa.g.vertex(x,y,z);	
+				pa.vertex(x,y,z);	
 			}
 		}
 	}
@@ -894,7 +988,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.vertex(v);
 		} else {
-			pa.g.vertex(v);
+			pa.vertex(v);
 		}
 	}
 	
@@ -911,7 +1005,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.vertex(x,y, u,v);
 		} else {
-			pa.g.vertex(x,y, u,v);
+			pa.vertex(x,y, u,v);
 		}
 	}
 	
@@ -930,7 +1024,7 @@ public class R_Shape extends R_Image implements R_Constants {
 			}
 		} else {
 			if(renderer_P3D()) {
-				pa.g.vertex(x,y,z, u,v);	
+				pa.vertex(x,y,z, u,v);	
 			}
 		}
 	}
@@ -955,7 +1049,7 @@ public class R_Shape extends R_Image implements R_Constants {
 		if(other != null) {
 			other.bezierVertex(x2,y2,x3,y3,x4,y4);
 		} else {
-			pa.g.bezierVertex(x2,y2,x3,y3,x4,y4);
+			pa.bezierVertex(x2,y2,x3,y3,x4,y4);
 		}
 	}
 	
@@ -976,7 +1070,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
 		} else {
-			pa.g.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
+			pa.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
 		}
   }
   
@@ -997,7 +1091,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,x3,y3);
 		} else {
-			pa.g.quadraticVertex(cx,cy,x3,y3);
+			pa.quadraticVertex(cx,cy,x3,y3);
 		}
   }
 
@@ -1018,7 +1112,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		} else {
-			pa.g.quadraticVertex(cx,cy,cz,x3,y3,z3);
+			pa.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		}
   }
 
@@ -1032,7 +1126,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.curveVertex(x,y);
 		} else {
-			pa.g.curveVertex(x,y);
+			pa.curveVertex(x,y);
 		}
   }
 
@@ -1046,7 +1140,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.curveVertex(x,y,z);
 		} else {
-			pa.g.curveVertex(x,y,z);
+			pa.curveVertex(x,y,z);
 		}
   }
   
@@ -1069,7 +1163,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.point(x,y);
 		} else {
-			pa.g.point(x,y);
+			pa.point(x,y);
 		}
   }
   
@@ -1082,7 +1176,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.point(x,y,z);
 		} else {
-			pa.g.point(x,y,z);
+			pa.point(x,y,z);
 		}
   }
   
@@ -1099,7 +1193,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.line(x1,y1, x2,y2);
 		} else {
-			pa.g.line(x1,y1, x2,y2);
+			pa.line(x1,y1, x2,y2);
 		}
   }
 
@@ -1113,7 +1207,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.line(x1,y1,z1, x2,y2,z2);
 		} else {
-			pa.g.line(x1,y1,z1, x2,y2,z2);
+			pa.line(x1,y1,z1, x2,y2,z2);
 		}
   }
   
@@ -1137,7 +1231,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.triangle(x1,y1, x2,y2, x3,y3);
 		} else {
-			pa.g.triangle(x1,y1, x2,y2, x3,y3);
+			pa.triangle(x1,y1, x2,y2, x3,y3);
 		}
   }
   
@@ -1154,7 +1248,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.square(x,y,extent);
 		} else {
-			pa.g.square(x,y,extent);
+			pa.square(x,y,extent);
 		}
   }
 	
@@ -1165,7 +1259,7 @@ public class R_Shape extends R_Image implements R_Constants {
   	if(other != null) {
 			other.rectMode(mode);
 		} else {
-			pa.g.rectMode(mode);
+			pa.rectMode(mode);
 		}
   }
 

@@ -1,6 +1,6 @@
 /**
 * R_Image class
-* v 0.2.0
+* v 0.2.2
 * 2019-2019
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -15,10 +15,10 @@ import rope.vector.*;
 public class R_Image extends BigBang {
 	protected processing.core.PGraphics other;
 	
+	
 	// public PGraphics pg;
 	public R_Image(PApplet pa) {
 		super(pa);
-		//this.pg = pa.g;
 	}
 	
 	public R_Image(PApplet pa, PGraphics other) {
@@ -27,13 +27,23 @@ public class R_Image extends BigBang {
 		//this.pg = pa.g;
 	}
 	
-	/**
-	 * 
-	 * @return true if the graphic constext is is P3D, else return fase
-	 */
+  private boolean render_checked_is = false ;
+  private boolean render_p3d_is = false;
+  
+  /**
+   * 
+   * @return true if the graphic constext is is P3D, else return fase
+   */
 	public boolean renderer_P3D() {
-		// System.err.println(processing.core.PConstants.P3D);;
-	  if(get_renderer(pa.g).equals(processing.core.PConstants.P3D)) return true ; else return false ;
+    if(!render_checked_is) {
+      render_checked_is = true;
+      if(get_renderer(pa.g).equals(processing.core.PConstants.P3D)) {
+        render_p3d_is = true ; 
+      } else {
+        render_p3d_is = false ;
+      }
+    }
+    return render_p3d_is;  
 	}
 
 	/**

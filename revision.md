@@ -1,6 +1,12 @@
-*version 0.8.3.28 in progress
+*version 0.8.4.29 in progress
+
+
+
+*version 0.8.3.28 
 >change : method dir() and tan() now the behavior is get not a setting behavior, change for vec2, vec3 and vec4
 >vec2: add methode angle(vec2 target);
+>clean class R_Shape
+>fix checking P3D mode by add a boolean to save and store the last check to avoid new checking who cause a big big system slowdown when there is a lot particles.
 
 
 
