@@ -1,4 +1,7 @@
 *version 0.8.4.29 in progress
+>vec2, vec3, vec4, ivec2, ivec3, ivec4 : add method constrain(arg min arg max)
+>vec2 : fix bug for method angle(vec2 dst);
+>vec2 : angle() remove the offset HALF_PI addition
 
 
 

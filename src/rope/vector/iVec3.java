@@ -246,6 +246,55 @@ public class ivec3 extends ivec {
     } else return null;
   }
   
+  
+  
+  /**
+   * Constrains a value to not exceed a maximum and minimum value. 
+   * @param min
+   * @param max
+   * @return
+   */
+	public ivec3 constrain(int min, int max) {
+		return constrain(new ivec3(min), new ivec3(max));
+	}
+  
+	/**
+	 * Constrains a value to not exceed a maximum and minimum value. 
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public ivec3 constrain(ivec3 min, ivec3 max) {
+		if(x < min.x()) {
+			x = min.x();
+		}
+
+		if(y < min.y()) {
+			y = min.y();
+		}
+		
+		if(z < min.z()) {
+			z = min.z();
+		}
+		
+
+		if(x > max.x()) {
+			x = max.x();
+		}
+
+		if(y > max.y()) {
+			y = max.y();
+		}
+		
+		if(z > max.z()) {
+			z = max.z();
+		}
+		
+		
+		set(x,y,z);
+		return this;
+	}
+  
   /**
    * equals
    * @param target

@@ -1,6 +1,6 @@
 /**
 * ivec4 class
-* v 1.1.0
+* v 1.1.1
 * 2015-2019
 * Processing 3.5.3
 * Vector class with a float precision
@@ -256,6 +256,61 @@ public class ivec4 extends ivec {
       return sub(v.x,v.y,v.z,v.w);
     } else return null;
   }
+  
+  
+  
+  /**
+   * Constrains a value to not exceed a maximum and minimum value. 
+   * @param min
+   * @param max
+   * @return
+   */
+	public ivec4 constrain(int min, int max) {
+		return constrain(new ivec4(min), new ivec4(max));
+	}
+  
+	/**
+	 * Constrains a value to not exceed a maximum and minimum value. 
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public ivec4 constrain(ivec4 min, ivec4 max) {
+		if(x < min.x()) {
+			x = min.x();
+		}
+
+		if(y < min.y()) {
+			y = min.y();
+		}
+		
+		if(z < min.z()) {
+			z = min.z();
+		}
+		
+		if(w < min.w()) {
+			w = min.w();
+		}
+
+		if(x > max.x()) {
+			x = max.x();
+		}
+
+		if(y > max.y()) {
+			y = max.y();
+		}
+		
+		if(z > max.z()) {
+			z = max.z();
+		}
+		
+		if(w > max.w()) {
+			w = max.w();
+		}
+		
+		set(x,y,z,w);
+		return this;
+	}
   
   
   /**

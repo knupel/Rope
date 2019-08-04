@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.0
+ * v 1.3.1
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -447,6 +447,53 @@ public class vec3 extends vec {
     }
     return this;
   }
+  
+  
+  
+  
+  /**
+   * Constrains a value to not exceed a maximum and minimum value. 
+   * @param min
+   * @param max
+   * @return
+   */
+	public vec3 constrain(float min, float max) {
+		return constrain(new vec3(min), new vec3(max));
+	}
+  
+	/**
+	 * Constrains a value to not exceed a maximum and minimum value. 
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public vec3 constrain(vec3 min, vec3 max) {
+		if(x < min.x()) {
+			x = min.x();
+		}
+
+		if(y < min.y()) {
+			y = min.y();
+		}
+		
+		if(z < min.z()) {
+			z = min.z();
+		}
+
+		if(x > max.x()) {
+			x = max.x();
+		}
+
+		if(y > max.y()) {
+			y = max.y();
+		}
+		
+		if(z > max.z()) {
+			z = max.z();
+		}
+		set(x,y,z);
+		return this;
+	}
   
   /**
    * jitter

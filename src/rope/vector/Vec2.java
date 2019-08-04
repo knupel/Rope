@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.3.0
+ * v 1.3.2
  * 2015-2019
  * Vector class with a float precision
  * @author @stanlepunk
@@ -259,7 +259,7 @@ public class vec2 extends vec {
 	
 
 	/**
-	 * Dot v 0.0.1.1
+	 * Dot v 0.1.1
 	 */
 	public float dot(vec v) {
 		if (v != null) {
@@ -418,6 +418,44 @@ public class vec2 extends vec {
 			normalize();
 			mult(max);
 		}
+		return this;
+	}
+
+
+
+  /**
+   * Constrains a value to not exceed a maximum and minimum value. 
+   * @param min
+   * @param max
+   * @return
+   */
+	public vec2 constrain(float min, float max) {
+		return constrain(new vec2(min), new vec2(max));
+	}
+  
+	/**
+	 * Constrains a value to not exceed a maximum and minimum value. 
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public vec2 constrain(vec2 min, vec2 max) {
+		if(x < min.x()) {
+			x = min.x();
+		}
+
+		if(y < min.y()) {
+			y = min.y();
+		}
+
+		if(x > max.x()) {
+			x = max.x();
+		}
+
+		if(y > max.y()) {
+			y = max.y();
+		}
+		set(x,y);
 		return this;
 	}
 
@@ -632,7 +670,7 @@ public class vec2 extends vec {
 	 * @return the float angle of rotation
 	 */
 	public float angle() {
-		float angle = (float) Math.atan2(y, x);
+		float angle = (float) Math.atan2(y,x);
 		return angle;
 	}
 	
@@ -642,7 +680,8 @@ public class vec2 extends vec {
 	 * @return the float angle between this and the target vector
 	 */
 	public float angle(vec2 target) {
-		return (float)Math.atan2(target.y -this.y, target.x -this.x);
+		double temp = Math.atan2(target.y-this.y,target.x-this.x);
+		return (float)temp;
 	}
 
 	/**
