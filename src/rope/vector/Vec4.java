@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.2.1
+* v 1.2.2
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk
@@ -763,17 +763,55 @@ public class vec4 extends vec {
     } else return false;
   }
   
+  /**
+   * * return true if the vector this is equals to float target
+   * @param target
+   * @return
+   */
   public boolean equals(float target) {
     if((x == target) && (y == target) && (z == target) && (w == target)) 
     return true; 
     else return false;
   }
   
+  
+  /**
+   * return true if the vector this is equals to float arguments
+   * @param t_x
+   * @param t_y
+   * @param t_z
+   * @param t_w
+   * @return
+   */
   public boolean equals(float t_x,float t_y,float t_z,float t_w) {
     if((x == t_x) && (y == t_y) && (z == t_z)&& (w == t_w)) 
     return true; 
     else return false;
   }
+  
+  
+  /**
+   * return true if the vector this and vector target are in the same vector area
+   * @param target
+   * @param area
+   * @return
+   */
+  public boolean compare(vec4 target, vec4 area) {
+    if(this != null && target != null && area != null ) {
+      if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+          && (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y()) 
+          && (this.z() >= target.z() -area.z() && this.z() <= target.z() +area.z()) 
+          && (this.w() >= target.w() -area.w() && this.w() <= target.w() +area.w())) {
+              return true ; 
+      } else {
+        return false ;
+      }
+    } else {
+      return false ;
+    }
+  }
+  
+  
   
   /**
    * copy

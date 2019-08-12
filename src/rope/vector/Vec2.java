@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.3.2
+ * v 1.3.3
  * 2015-2019
  * Vector class with a float precision
  * @author @stanlepunk
@@ -742,9 +742,9 @@ public class vec2 extends vec {
 	
 
 	/**
-	 * 
+	 * return true if the vector this is equals to vector target
 	 * @param target Vec2
-	 * @return true if Vec is equals
+	 * @return
 	 */
 	public boolean equals(vec2 target) {
 		if (target != null) {
@@ -757,9 +757,9 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * 
+	 * return true if the vector this is equals to float target
 	 * @param target float
-	 * @return true if float param is equals to all component of vec
+	 * @return
 	 */
 	public boolean equals(float target) {
 		if ((x == target) && (y == target))
@@ -769,10 +769,10 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * 
+	 * * return true if the vector this is equals to float arguments
 	 * @param t_x float
 	 * @param t_y float
-	 * @return true if float param t_x and t_y is equals to all component of vec
+	 * @return
 	 */
 	public boolean equals(float t_x, float t_y) {
 		if ((x == t_x) && (y == t_y))
@@ -780,6 +780,27 @@ public class vec2 extends vec {
 		else
 			return false;
 	}
+	
+	
+	
+	/**
+   * return true if the vector this and vector target are in the same vector area
+   * @param target
+   * @param area
+   * @return
+   */
+  public boolean compare(vec2 target, vec2 area) {
+    if(this != null && target != null && area != null ) {
+      if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+          && (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y())) { 
+              return true ; 
+      } else {
+        return false ;
+      }
+    } else {
+      return false ;
+    }
+  }
 
 	/**
 	 * copy() return all the component of vec

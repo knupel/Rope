@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.1
+ * v 1.3.2
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -785,9 +785,9 @@ public class vec3 extends vec {
   
   
   /**
-   * equals
+   * return true if the vector this is equals to vector target
    * @param target
-   * @return true if the target is equals to vec, you can pass one argument to compare with all vec components 
+   * @return 
    */
   public boolean equals(vec3 target) {
     if(target != null) {
@@ -797,16 +797,51 @@ public class vec3 extends vec {
     } else return false ;
   }
   
+  /**
+   * return true if the vector this is equals to float target
+   * @param target
+   * @return
+   */
   public boolean equals(float target) {
     if((x == target) && (y == target) && (z == target)) 
     return true ; 
     else return false ;
   }
   
+  /**
+   * return true if the vector this is equals to float arguments
+   * @param t_x
+   * @param t_y
+   * @param t_z
+   * @return
+   */
   public boolean equals(float t_x,float t_y,float t_z) {
     if((x == t_x) && (y == t_y) && (z == t_z)) 
     return true ; 
     else return false ;
+  }
+  
+  
+  
+  
+  /**
+   * return true if the vector this and vector target are in the same vector area
+   * @param target
+   * @param area
+   * @return
+   */
+  public boolean compare(vec3 target, vec3 area) {
+    if(this != null && target != null && area != null ) {
+      if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+          && (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y()) 
+          && (this.z() >= target.z() -area.z() && this.z() <= target.z() +area.z())) { 
+              return true ; 
+      } else {
+        return false ;
+      }
+    } else {
+      return false ;
+    }
   }
   
   
