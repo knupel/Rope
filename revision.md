@@ -1,14 +1,19 @@
-*version 0.8.4.29 in progress
+*version 0.8.5.30 in progress
+
+
+*version 0.8.4.29
 >vec2, vec3, vec4, ivec2, ivec3, ivec4 : add method constrain(arg min arg max)
 >vec2 : fix bug for method angle(vec2 dst);
 >vec2 : angle() remove the offset HALF_PI addition
 >vec2, vec3, vec4 : add method compare vector this with vector target in vector area
+>R_Line2D: add new class R_Line2D to manage line, node between 2D line and few more helpful stuff
+>R_Shape and R_Image : mode a lot of method from R_Shape to R_Image, now R_Image manage the drawing system inherited from Processing and R_Shape manage only the shapes.
 
 
 
 *version 0.8.3.28 
 >change : method dir() and tan() now the behavior is get not a setting behavior, change for vec2, vec3 and vec4
->vec2: add methode angle(vec2 target);
+>vec2: add method angle(vec2 target);
 >clean class R_Shape
 >fix checking P3D mode by add a boolean to save and store the last check to avoid new checking who cause a big big system slowdown when there is a lot particles.
 
