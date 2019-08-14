@@ -5,9 +5,9 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * 
-* work with
+* dependancies
 * Processing 3.5.3
-* Rope library 0.8.4.29
+* Rope library 0.8.5.30
 */
 
 import rope.costume.R_Line2D;
@@ -26,8 +26,15 @@ void draw() {
   background(255);
   vec2 node = line_a.intersection(line_b);
   line_b.b(mouseX,mouseY);
+  float dist = line_b.dist();
+  vec2 middle = line_b.coord((int)dist/2);
+  vec2 coord_norm = line_b.coord(0.25);
   
   strokeWeight(10);
+  stroke(0,255,0);
+  point(middle.x(),middle.y());
+  stroke(0,0,255);
+  point(coord_norm.x(),coord_norm.y());
   stroke(255,0,0);
   if(node != null) point(node.x(),node.y());
   

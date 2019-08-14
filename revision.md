@@ -1,4 +1,6 @@
 *version 0.8.5.30 in progress
+>R_Line2D : fix toString() bug
+>R_Line2D: add method to catch coordinate from a normal position or distance on the line
 
 
 *version 0.8.4.29

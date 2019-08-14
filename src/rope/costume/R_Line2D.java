@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.1.1
+* v 0.1.3
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -252,6 +252,37 @@ public class R_Line2D extends R_Image implements R_Constants {
     this.b = new vec2(ax,ay).mult(dist()).add(a);
     return this;
   }
+  
+  
+  /**
+   * return coordinate of the normal position on the line from the a point
+   * @param normal_pos
+   * @return
+   */
+  public vec2 coord(float normal_pos) {
+  	if(normal_pos >= 0 && normal_pos <= 1) {
+  		float dx = (float)Math.cos(angle());
+			float dy = (float)Math.sin(angle());
+			return new vec2(dx,dy).mult(normal_pos*dist()).add(this.a);
+  	} else {
+  		return null;
+  	}
+  }
+  
+  /**
+   * return coordinate of distance from the a point on the line
+   * @param rank
+   * @return
+   */
+  public vec2 coord(int rank) {
+  	if(rank >= 0 && rank <= dist()) {
+  		float dx = (float)Math.cos(angle());
+			float dy = (float)Math.sin(angle());
+			return new vec2(dx,dy).mult(rank).add(this.a);
+  	} else {
+  		return null;
+  	}
+  }
 
 
 
@@ -267,6 +298,6 @@ public class R_Line2D extends R_Image implements R_Constants {
   
   @Override
 	public String toString() {
-		return "[ " + this.a.x + ", " + this.a.y + this.b.x + ", " + this.b.y +" ]";
+		return "[ " + this.a.x + ", " + this.a.y + ", "+ this.b.x + ", " + this.b.y +" ]";
 	}
 }
