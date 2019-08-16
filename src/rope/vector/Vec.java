@@ -27,6 +27,7 @@ public abstract class vec extends BigBang {
   public int get_num() {
     return num;
   }
+  
 
 
   /**

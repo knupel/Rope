@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.3.3
+ * v 1.3.4
  * 2015-2019
  * Vector class with a float precision
  * @author @stanlepunk
@@ -102,21 +102,63 @@ public class vec2 extends vec {
     } 
     return this;
   }
-
-	// xy
+  
+  // operation on simplest argument
+	// x
 	public vec2 x(float x) {
 		return set(x, this.y);
 	}
-
+	
+	public vec2 add_x(float x) {
+  	this.x += x;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 sub_x(float x) {
+  	this.x -= x;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 mult_x(float x) {
+  	this.x *= x;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 div_x(float x) {
+  	this.x /= x;
+  	return set(this.x,this.y);
+  }
+  
+	// y
 	public vec2 y(float y) {
 		return set(this.x, y);
 	}
+	
+	public vec2 add_y(float y) {
+  	this.y += y;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 sub_y(float y) {
+  	this.y -= y;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 mult_y(float y) {
+  	this.y *= y;
+  	return set(this.x,this.y);
+  }
+  
+  public vec2 div_y(float y) {
+  	this.y /= y;
+  	return set(this.x,this.y);
+  }
 
 	// st
 	public vec2 s(float x) {
 		return set(x, this.y);
 	}
-
+	
 	public vec2 t(float y) {
 		return set(this.x, y);
 	}
@@ -125,26 +167,27 @@ public class vec2 extends vec {
 	public vec2 u(float x) {
 		return set(x, this.y);
 	}
-
+	
 	public vec2 v(float y) {
 		return set(this.x, y);
 	}
 
 	
 
+
 	/**
-	 * multiplication
-	 */
-	/**
-	 * multiply Vector by different float value
-	 */
+ * multiply Vector by different float value
+ * @param m_x
+ * @param m_y
+ * @return
+ */
 	public vec2 mult(float m_x, float m_y) {
 		x *= m_x;
 		y *= m_y;
 		set(x, y);
 		return this;
 	}
-
+  
 	public vec2 mult(float m) {
 		return mult(m,m);
 	}
@@ -163,11 +206,12 @@ public class vec2 extends vec {
 			return null;
 	}
 
-	/**
-	 * division
-	 */
+
 	/**
 	 * divide Vector by a float value
+	 * @param d_x
+	 * @param d_y
+	 * @return
 	 */
 	public vec2 div(float d_x, float d_y) {
 		if (d_x != 0)
@@ -197,11 +241,11 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * Addition
-	 */
-	/**
-	 * add float value
-	 */
+  * add float value
+  * @param a_a
+  * @param a_b
+  * @return
+  */
 	public vec2 add(float a_a, float a_b) {
 		x += a_a;
 		y += a_b;
@@ -228,9 +272,11 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * Substraction
+	 * sub float value
+	 * @param s_a
+	 * @param s_b
+	 * @return
 	 */
-	/* add float value */
 	public vec2 sub(float s_a, float s_b) {
 		x -= s_a;
 		y -= s_b;
@@ -259,7 +305,9 @@ public class vec2 extends vec {
 	
 
 	/**
-	 * Dot v 0.1.1
+	 * 
+	 * @param v
+	 * @return
 	 */
 	public float dot(vec v) {
 		if (v != null) {
@@ -274,14 +322,21 @@ public class vec2 extends vec {
 		return this.x * x + this.y * y;
 	}
 
-	/**
-	 * POW
-	 */
+/**
+ * 
+ * @param pow
+ * @return
+ */
 	public vec2 pow(int pow) {
 		this.pow(pow, pow);
 		return this;
 	}
-
+  /**
+   * return the power result of this vector
+   * @param pow_x
+   * @param pow_y
+   * @return
+   */
 	public vec2 pow(int pow_x, int pow_y) {
 		x = (float) Math.pow(x, pow_x);
 		y = (float) Math.pow(y, pow_y);
@@ -292,9 +347,11 @@ public class vec2 extends vec {
 
 
 
-	/**
-	 * Normalize
-	 */
+/**
+ * Normalize vector
+ * @param target
+ * @return
+ */
 	public vec2 normalize(vec2 target) {
 		if (target == null) {
 			target = new vec2();
@@ -330,7 +387,14 @@ public class vec2 extends vec {
 		set(x, y);
 		return this;
 	}
-
+ /**
+  * 
+  * @param minIn
+  * @param maxIn
+  * @param minOut
+  * @param maxOut
+  * @return
+  */
 	public vec2 map(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut) {
 		x = map(x, minIn.x, maxIn.x, minOut.x, maxOut.x);
 		y = map(y, minIn.y, maxIn.y, minOut.y, maxOut.y);
@@ -355,7 +419,6 @@ public class vec2 extends vec {
 		} else {
 			return jitter(0, 0);
 		}
-
 	}
 
 	/**

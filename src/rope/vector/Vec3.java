@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.2
+ * v 1.3.3
 * 2015-2019
 * Vector class with a float precision
  * @author @stanlepunk
@@ -112,17 +112,81 @@ public class vec3 extends vec {
     return this;
   }
   
+  
+  // x
 	public vec3 x(float x) {
 		return set(x,this.y,this.z);
 	}
-
+	
+  public vec3 add_x(float x) {
+  	this.x += x;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 sub_x(float x) {
+  	this.x -= x;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 mult_x(float x) {
+  	this.x *= x;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 div_x(float x) {
+  	this.x /= x;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  // y
 	public vec3 y(float y) {
    return set(this.x,y,this.z);
 	}
-
+	
+	public vec3 add_y(float y) {
+  	this.y += y;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 sub_y(float y) {
+  	this.y -= y;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 mult_y(float y) {
+  	this.y *= y;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 div_y(float y) {
+  	this.y /= y;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  // z
 	public vec3 z(float z) {
    return set(this.x,this.y,z);
 	}
+	
+	public vec3 add_z(float z) {
+  	this.z += z;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 sub_z(float z) {
+  	this.z -= z;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 mult_z(float z) {
+  	this.z *= z;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  public vec3 div_z(float z) {
+  	this.z /= z;
+  	return set(this.x,this.y,this.z);
+  }
 
 	// rgb
 	public vec3 red(float x) {

@@ -1,6 +1,6 @@
 /**
 * ivec2 class
-* v 1.2.1
+* v 1.3.0
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk

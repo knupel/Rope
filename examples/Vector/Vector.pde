@@ -19,7 +19,11 @@ void setup() {
   
   vec3 v3 = new vec3(4.5);
   v3.add(3.);
-  println("normal",v3);
+  println("add",v3);
+  v3.add_x(1);
+  println("add x",v3);
+  v3.div_y(2);
+  println("div y",v3);
   v3.rand(2);
   println("simple rand",v3);
   v3.rand(10,11);

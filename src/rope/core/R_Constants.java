@@ -4,7 +4,7 @@
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.5
+	* v 0.2.0.6
 	* Processing 3.5.3
 	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
@@ -29,6 +29,7 @@ public interface R_Constants {
   static final int RADIUS   = 2;
   static final int CENTER   = 3;
   static final int DIAMETER = 3;
+  
   
   static final int RAND = 2456417;
 	
@@ -77,6 +78,11 @@ public interface R_Constants {
 
 	static final int CARTESIAN = 500;
 	static final int POLAR = 501 ;
+	
+  static final int HORIZONTAL = 550;
+  static final int VERTICAL = 551;
+  static final int DIAGONAL = 552;
+  static final int CIRCULAR = 553;
 
 	static final int MIX = 600 ;
 

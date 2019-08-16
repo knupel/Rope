@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.2.2
+* v 1.2.3
 * 2015-2019
 * Vector class with a float precision
 * @author @stanlepunk
@@ -114,21 +114,105 @@ public class vec4 extends vec {
     }
     return this;
   }
-  
+  // x
   public vec4 x(float x) {
     return set(x,this.y,this.z,this.w);
   }
-
+  
+  public vec4 add_x(float x) {
+  	this.x += x;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 sub_x(float x) {
+  	this.x -= x;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 mult_x(float x) {
+  	this.x *= x;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 div_x(float x) {
+  	this.x /= x;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  // y
   public vec4 y(float y) {
     return set(this.x,y,this.z,this.w);
   }
-
+  
+  public vec4 add_y(float y) {
+  	this.y += y;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 sub_y(float y) {
+  	this.y -= y;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 mult_y(float y) {
+  	this.y *= y;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 div_y(float y) {
+  	this.y /= y;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  // z
   public vec4 z(float z) {
     return set(this.x,this.y,z,this.w);
   }
-
+  
+  public vec4 add_z(float z) {
+  	this.z += z;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 sub_z(float z) {
+  	this.z -= z;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 mult_z(float z) {
+  	this.z *= z;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 div_z(float z) {
+  	this.z /= z;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  // w
   public vec4 w(float w) {
     return set(this.x,this.y,this.z,w);
+  }
+  
+  
+  public vec4 add_w(float w) {
+  	this.w += w;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 sub_w(float w) {
+  	this.w -= w;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 mult_w(float w) {
+  	this.w *= w;
+  	return set(this.x,this.y,this.z,this.w);
+  }
+  
+  public vec4 div_w(float w) {
+  	this.w /= w;
+  	return set(this.x,this.y,this.z,this.w);
   }
 
   // rgb

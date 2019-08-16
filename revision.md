@@ -1,6 +1,8 @@
 *version 0.8.5.30 in progress
 >R_Line2D : fix toString() bug
 >R_Line2D: add method to catch coordinate from a normal position or distance on the line
+>R_Constants: add constants VERTICAL, HORIZONTAL, DIAGONAL, CIRCULAR
+>vec2, vec3, vec4: add method to add, multiply, subtract and divide simple argument x,y,z and w
 
 
 *version 0.8.4.29
