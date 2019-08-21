@@ -4,7 +4,7 @@
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.6
+	* v 0.2.0.7
 	* Processing 3.5.3
 	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
@@ -55,6 +55,29 @@ public interface R_Constants {
 	static final float ROOT2 = (float)Math.sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
 	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
 	static final double G = 0.00000000006693; // last gravity constant
+	
+	
+  //for the unicity value we note the angle between -PI to PI from atan2
+	static final float NORTH = (float)(-(PI *0.5));
+	static final float NORTH_EAST = (float)(-PI *0.25);
+	static final float EAST = 0;
+	static final float SOUTH_EAST = (float)(PI *0.25);
+	static final float SOUTH = (float)(PI *0.5);
+	static final float SOUTH_WEST = (float)((3*PI)*0.25);
+	static final float WEST = PI;
+	static final float NORTH_WEST = (float)(-(3*PI)*0.25);
+	
+	// classic angle notation
+  // float north = HALF_PI;
+  // float north_east = QUARTER_PI;
+  // float east = PI;
+  // float south_east = (7*PI)*0.25;
+  // float south = (3*PI)*0.5;
+  // float south_west = (5*PI)*0.25;
+  // float west = 0;
+  // float north_west = (3*PI)*0.25;
+
+	
 
 	static final int HUE = 50;
 	static final int SATURATION = 51;

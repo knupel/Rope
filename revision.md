@@ -3,6 +3,7 @@
 >R_Line2D: add method to catch coordinate from a normal position or distance on the line
 >R_Constants: add constants VERTICAL, HORIZONTAL, DIAGONAL, CIRCULAR
 >vec2, vec3, vec4: add method to add, multiply, subtract and divide simple argument x,y,z and w
+>R_COnstants: add const for the cardinal and sub cardinal points
 
 
 *version 0.8.4.29
