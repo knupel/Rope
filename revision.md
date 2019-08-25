@@ -4,7 +4,7 @@
 >R_Constants: add constants VERTICAL, HORIZONTAL, DIAGONAL, CIRCULAR
 >vec2, vec3, vec4: add method to add, multiply, subtract and divide simple argument x,y,z and w
 >R_COnstants: add const for the cardinal and sub cardinal points
-
+>R_Chose: add method to return the radius list and a specific radius too.
 
 *version 0.8.4.29
 >vec2, vec3, vec4, ivec2, ivec3, ivec4 : add method constrain(arg min arg max)
