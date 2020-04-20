@@ -1,7 +1,7 @@
 /**
  * vec2 class 
- * v 1.3.4
- * 2015-2019
+ * v 1.3.5
+ * 2015-2020
  * Vector class with a float precision
  * @author @stanlepunk
  * @see http://stanlepunk.xyz/
@@ -441,7 +441,7 @@ public class vec2 extends vec {
 	 * @return
 	 */
 	public vec2 rand(float max) {
-		return rand(new vec2(0, max), new vec2(0, max));
+		return rand(0,max);
 	}
 
 	/**
@@ -452,7 +452,10 @@ public class vec2 extends vec {
 	 * @return
 	 */
 	public vec2 rand(float min, float max) {
-		return rand(new vec2(min, max), new vec2(min, max));
+		x = random(min, max);
+		y = random(min, max);
+		set(x, y);
+		return this;
 	}
 
 	/**
@@ -462,9 +465,9 @@ public class vec2 extends vec {
 	 * @param my vec2
 	 * @return
 	 */
-	public vec2 rand(vec2 mx, vec2 my) {
-		x = random(mx.x, mx.y);
-		y = random(my.x, my.y);
+	public vec2 rand(vec2 min, vec2 max) {
+		x = random(min.x(), max.x());
+		y = random(min.y(), max.y());
 		set(x, y);
 		return this;
 	}

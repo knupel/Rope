@@ -1,7 +1,7 @@
 /**
 * ivec4 class
-* v 1.1.1
-* 2015-2019
+* v 1.1.2
+* 2015-2020
 * Processing 3.5.3
 * Vector class with a float precision
 * @author @stanlepunk
@@ -346,7 +346,7 @@ public class ivec4 extends ivec {
    * @return
    */
   public ivec4 rand(int max) {
-    return rand(new ivec2(0,max),new ivec2(0,max),new ivec2(0,max),new ivec2(0,max));
+    return rand(0,max);
   }
   /**
    * random
@@ -355,7 +355,12 @@ public class ivec4 extends ivec {
    * @return
    */
   public ivec4 rand(int min, int max) {
-    return rand(new ivec2(min,max),new ivec2(min,max),new ivec2(min,max),new ivec2(min,max));
+    x = (int)random(min,max);
+    y = (int)random(min,max);
+    z = (int)random(min,max);
+    w = (int)random(min,max);
+    set(x,y,z,w);
+    return this;
   }
     /**
    * random
@@ -365,11 +370,11 @@ public class ivec4 extends ivec {
    * @param mw vec2
    * @return
    */
-  public ivec4 rand(ivec2 mx, ivec2 my, ivec2 mz, ivec2 mw) {
-    x = (int)random(mx.x,mx.y);
-    y = (int)random(my.x,my.y);
-    z = (int)random(mz.x,mz.y);
-    w = (int)random(mw.x,mw.y);
+  public ivec4 rand(ivec4 min, ivec4 max) {
+    x = (int)random(min.x(),max.x());
+    y = (int)random(min.y(),max.y());
+    z = (int)random(min.z(),max.z());
+    w = (int)random(min.w(),max.w());
     set(x,y,z,w);
     return this;
   }
