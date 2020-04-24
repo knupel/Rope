@@ -1,7 +1,7 @@
 /**
 * vec class
-* v 2.0.0
-* 2015-2019
+* v 2.0.1
+* 2015-2020
 * Processing 3.5.3
 * Vector class with a float precision
 * @author @stanlepunk
@@ -732,6 +732,10 @@ public abstract class vec extends BigBang {
   public vec4 wxzy() {
     return new vec4(w,x,z,y);
   }
+
+  public vec4 wxzz() {
+    return new vec4(w,x,z,z);
+  }
   
   // y3
   public vec4 wyww() {
@@ -989,6 +993,10 @@ public abstract class vec extends BigBang {
   public vec4 xxzy() {
     return new vec4(x,x,z,y);
   }
+
+  public vec4 xxzz() {
+    return new vec4(x,x,z,z);
+  }
   
   // y3
   public vec4 xyww() {
@@ -1049,6 +1057,10 @@ public abstract class vec extends BigBang {
   
   public vec4 xyzy() {
     return new vec4(x,y,z,y);
+  }
+
+  public vec4 xyzz() {
+    return new vec4(x,y,z,z);
   }
   
   // z3
@@ -1246,6 +1258,10 @@ public abstract class vec extends BigBang {
     return new vec4(y,x,z,y);
   }
   
+  public vec4 yxzz() {
+    return new vec4(y,x,z,z);
+  }
+  
   // y3
   public vec4 yyww() {
     return new vec4(y,y,w,w);
@@ -1305,6 +1321,10 @@ public abstract class vec extends BigBang {
   
   public vec4 yyzy() {
     return new vec4(y,y,z,y);
+  }
+
+  public vec4 yyzz() {
+    return new vec4(y,y,z,z);
   }
   
   // z3
@@ -1502,6 +1522,10 @@ public abstract class vec extends BigBang {
   public vec4 zxzy() {
     return new vec4(z,x,z,y);
   }
+
+  public vec4 zxzz() {
+    return new vec4(z,x,z,z);
+  }
   
   // y3
   public vec4 zyww() {
@@ -1562,6 +1586,10 @@ public abstract class vec extends BigBang {
   
   public vec4 zyzy() {
     return new vec4(z,y,z,y);
+  }
+
+  public vec4 zyzz() {
+    return new vec4(z,y,z,z);
   }
   
   // z3

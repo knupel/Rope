@@ -1,7 +1,7 @@
 /**
 * ivec class
-* v 2.0.0
-* 2015-2018
+* v 2.0.1
+* 2015-2020
 * Vector with a integer precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -730,6 +730,10 @@ public abstract class ivec extends BigBang {
   public ivec4 wxzy() {
     return new ivec4(w,x,z,y);
   }
+
+  public ivec4 wxzz() {
+    return new ivec4(w,x,z,z);
+  }
   
   // y3
   public ivec4 wyww() {
@@ -780,7 +784,6 @@ public abstract class ivec extends BigBang {
     return new ivec4(w,y,y,z);
   }
   
-  
   public ivec4 wyzw() {
     return new ivec4(w,y,z,w);
   }
@@ -791,6 +794,10 @@ public abstract class ivec extends BigBang {
   
   public ivec4 wyzy() {
     return new ivec4(w,y,z,y);
+  }
+
+  public ivec4 wyzz() {
+    return new ivec4(w,y,z,z);
   }
   
   // z3
@@ -927,6 +934,7 @@ public abstract class ivec extends BigBang {
     return new ivec4(x,w,z,z);
   }
   
+
   // x3
   public ivec4 xxww() {
     return new ivec4(x,x,w,w);
@@ -987,7 +995,12 @@ public abstract class ivec extends BigBang {
   public ivec4 xxzy() {
     return new ivec4(x,x,z,y);
   }
+
+  public ivec4 xxzz() {
+    return new ivec4(x,x,z,z);
+  }
   
+
   // y3
   public ivec4 xyww() {
     return new ivec4(x,y,w,w);
@@ -1048,6 +1061,11 @@ public abstract class ivec extends BigBang {
   public ivec4 xyzy() {
     return new ivec4(x,y,z,y);
   }
+
+  public ivec4 xyzz() {
+    return new ivec4(x,y,z,z);
+  }
+
   
   // z3
   public ivec4 xzww() {
@@ -1183,6 +1201,7 @@ public abstract class ivec extends BigBang {
     return new ivec4(y,w,z,z);
   }
   
+
   // x3
   public ivec4 yxww() {
     return new ivec4(y,x,w,w);
@@ -1242,6 +1261,10 @@ public abstract class ivec extends BigBang {
   
   public ivec4 yxzy() {
     return new ivec4(y,x,z,y);
+  }
+
+  public ivec4 yxzz() {
+    return new ivec4(y,x,z,z);
   }
   
   // y3
@@ -1304,7 +1327,12 @@ public abstract class ivec extends BigBang {
   public ivec4 yyzy() {
     return new ivec4(y,y,z,y);
   }
+
+  public ivec4 yyzz() {
+    return new ivec4(y,y,z,z);
+  }
   
+
   // z3
   public ivec4 yzww() {
     return new ivec4(y,z,w,w);
@@ -1500,6 +1528,10 @@ public abstract class ivec extends BigBang {
   public ivec4 zxzy() {
     return new ivec4(z,x,z,y);
   }
+
+  public ivec4 zxzz() {
+    return new ivec4(z,x,z,z);
+  }
   
   // y3
   public ivec4 zyww() {
@@ -1561,6 +1593,11 @@ public abstract class ivec extends BigBang {
   public ivec4 zyzy() {
     return new ivec4(z,y,z,y);
   }
+
+  public ivec4 zyzz() {
+    return new ivec4(z,y,z,z);
+  }
+  
   
   // z3
   public ivec4 zzww() {

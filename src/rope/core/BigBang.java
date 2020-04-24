@@ -41,7 +41,7 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 		this.pa = pa;
 	}
 
-	private String VERSION = "0.8.5.31";
+	private String VERSION = "0.8.6.32";
 
 	public String version() {
 		return VERSION;
