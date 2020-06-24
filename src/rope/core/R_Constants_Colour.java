@@ -3,7 +3,7 @@
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope Constants Colour
-	* v 0.0.1
+	* v 0.0.2
 	* Processing 3.5.3
 	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
@@ -156,23 +156,23 @@ public interface R_Constants_Colour {
 
 
 	// JAUNE > color(0.166 1.0 1.0);
-	static public int YELLOW = -256;
-	static public int JAUNE = -256;
+	static final int YELLOW = -256;
+	static final int JAUNE = -256;
 	// OCRE_JAUNE  > #DFAF2C > 0.12197393 , 0.80269057 , 0.8745098
 	static final int OCRE_JAUNE = -2117844;
 	// OR  > color(0.12 1.0 1.0);
-	static public int OR = -20736;
-	static public int GOLD = -20736;
+	static final int OR = -20736;
+	static final int GOLD = -20736;
 	// MIMOSA > #FEF86C > 0.15981735 , 0.5748032 , 0.99607843
-	static public int MIMOSA = -67476;
+	static final int MIMOSA = -67476;
 	// NAPLE > #FFF0BC > 0.12935324 , 0.2627451 , 1.0
-	static public int NAPLE = -3908;
+	static final int NAPLE = -3908;
 	// NANKIN > #F7E269 > 0.14201878 , 0.5748988 , 0.96862745
-	static public int NANKIN = -531863;
+	static final int NANKIN = -531863;
 	// BLOND > #E2BC74 > 0.1090909 , 0.48672566 , 0.8862745
-	static public int BLOND = -1917836;
+	static final int BLOND = -1917836;
 	// AMBRE > #F0C300 > 0.13541667 , 1.0 , 0.9411765
-	static public int AMBRE = -998656;
+	static final int AMBRE = -998656;
 
 
 
@@ -181,7 +181,7 @@ public interface R_Constants_Colour {
 	static final int GREEN = -16711936;
 	static final int VERT = -16711936;
 	// PISTACHE > #BEF574 > 0.23772609 , 0.5265306 , 0.9607843
-	static public int PISTACHE = -4262540;
+	static final int PISTACHE = -4262540;
 	// BOUTEILLE > #096A09 > 0.33333334 , 0.9150943 , 0.41568628
 	static final int BOUTEILLE = -16160247;
 	// SAPIN > #095228 > 0.4041096 , 0.8902439 , 0.32156864
@@ -222,11 +222,11 @@ public interface R_Constants_Colour {
 	// CAERULEUM > #357AB7 > 0.5782051 , 0.7103825 , 0.7176471
 	static final int CAERULEUM = -13272393;
 	// CYAN > color(0.5 1.0 1.0);
-	static public int CYAN = -16711681;
+	static final int CYAN = -16711681;
 	// AZUR > #007FFF > 0.5836601 , 1.0 , 1.0
-	static public int AZUR = -16744449;
+	static final int AZUR = -16744449;
 	// COBALT > #22427C > 0.6074074 , 0.7258065 , 0.4862745
-	static public int COBALT = -14531972;
+	static final int COBALT = -14531972;
 	// FRANCE > #318CE7 > 0.5833333 , 0.7878788 , 0.90588236
 	static final int FRANCE = -13529881;
 	// LAPIS_LAZULI > #26619C > 0.5833333 , 0.75641024 , 0.6117647
@@ -239,35 +239,35 @@ public interface R_Constants_Colour {
 	static final int SMALT = -16764007; 
 
 	// ROSE  > color(.86,.65,1);
-	static public int PINK = -42524;
-	static public int ROSE = -42524;
+	static final int PINK = -42524;
+	static final int ROSE = -42524;
 	// MAGENTA  > color(.8333,1,1);
-	static public int MAGENTA = -65281;
+	static final int MAGENTA = -65281;
 	// CAPUCINE > #FF5E4D > 0.0159176 , 0.69803923 , 1.0
-	static public int CAPUCINE = -41395;
+	static final int CAPUCINE = -41395;
 	// FUSCHIA > #FD3F92 > 0.927193 , 0.7509881 , 0.99215686
-	static public int FUSCHIA = -180334;
+	static final int FUSCHIA = -180334;
 
 
 
 	// VIOLET  > color(.7496,1,1);
-	static public int VIOLET = -8453889;  
-	static public int PURPLE = -8453889;
+	static final int VIOLET = -8453889;  
+	static final int PURPLE = -8453889;
 	// LAVANDE > #9683EC > 0.69682544 , 0.44491526 , 0.9254902
-	static public int LAVANDE = -6913044;
+	static final int LAVANDE = -6913044;
 	// LILAS > #B666D2 > 0.79012346 , 0.51428574 , 0.8235294
-	static public int LILAS = -4823342;
+	static final int LILAS = -4823342;
 	// MAUVE > #D473D4 > 0.8333333 , 0.45754716 , 0.83137256
-	static public int MAUVE = -2853932;
+	static final int MAUVE = -2853932;
 	// MOUNTBATTEN > #997A8D > 0.89784944 , 0.20261438 , 0.6
-	static public int MOUNTBATTEN = -6718835;
+	static final int MOUNTBATTEN = -6718835;
 	// EVEQUE > #723E64 > 0.8782051 , 0.45614034 , 0.44705883
-	static public int EVEQUE = -9290140;
+	static final int EVEQUE = -9290140;
 	// ZINZOLIN > #6C0277 > 0.81766385 , 0.9831933 , 0.46666667
-	static public int ZINZOLIN = -9698697;
+	static final int ZINZOLIN = -9698697;
 	// PRUNE > #811453 > 0.9036697 , 0.8449612 , 0.5058824
-	static public int PRUNE = -8317869;
+	static final int PRUNE = -8317869;
 	// AUBERGINE > #370028 > 0.8787879 , 1.0 , 0.21568628
-	static public int AUBERGINE = -13172696;
+	static final int AUBERGINE = -13172696;
 
 }
