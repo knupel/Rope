@@ -10,8 +10,8 @@
 /**
  * BIG BANG ROPE
  * is the main class of library
- * 2018-2019
- * v 1.0.0
+ * 2018-2020
+ * v 1.0.1
  */
 package rope.core;
 
@@ -40,8 +40,6 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	public BigBang(PApplet pa) {
 		this.pa = pa;
 	}
-
-	private String VERSION = "0.8.6.32";
 
 	public String version() {
 		return VERSION;

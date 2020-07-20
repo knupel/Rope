@@ -1,10 +1,10 @@
 
 /**
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2019
+	* Copyleft (c) 2014-2020
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.7
+	* v 0.2.0.8
 	* Processing 3.5.3
 	* @author @stanlepunk
 	* @see http://stanlepunk.xyz/
@@ -15,6 +15,7 @@
 package rope.core;
 
 public interface R_Constants {
+	static final String VERSION = "0.8.7.33";
 	/**
 	 * 
 	 * Processing CONSTANTS
