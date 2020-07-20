@@ -40,10 +40,6 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	public BigBang(PApplet pa) {
 		this.pa = pa;
 	}
-
-	public String version() {
-		return VERSION;
-	}
   
 	
 	/**
