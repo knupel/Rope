@@ -15,7 +15,7 @@
 package rope.core;
 
 public interface R_Constants {
-	static final String VERSION = "0.8.7.33";
+	static final String VERSION = "0.8.8.34";
 	/**
 	 * 
 	 * Processing CONSTANTS
