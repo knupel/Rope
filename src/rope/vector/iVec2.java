@@ -1,8 +1,8 @@
 /**
 * ivec2 class
-* v 1.3.1
-* 2015-2020
-* Vector class with a float precision
+* v 1.4.0
+* 2015-2021
+* Vector class with a int precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
@@ -85,9 +85,50 @@ public class ivec2 extends ivec {
 		return set(x,this.y);
 	}
 
+	public ivec2 add_x(int x) {
+  	this.x += x;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 sub_x(int x) {
+  	this.x -= x;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 mult_x(int x) {
+  	this.x *= x;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 div_x(int x) {
+  	this.x /= x;
+  	return set(this.x,this.y);
+  }
+
+
 	public ivec2 y(int y) {
 		return set(this.x,y);
 	}
+
+		public ivec2 add_y(int y) {
+  	this.y += y;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 sub_y(int y) {
+  	this.y -= y;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 mult_y(int y) {
+  	this.y *= y;
+  	return set(this.x,this.y);
+  }
+  
+  public ivec2 div_y(int y) {
+  	this.y /= y;
+  	return set(this.x,this.y);
+  }
 
 	// st
 	public ivec2 s(int x) {

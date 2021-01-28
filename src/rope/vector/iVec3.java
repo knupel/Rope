@@ -1,9 +1,9 @@
 /**
 * ivec3 class
-* v 1.2.1
-* 2015-2020
+* v 1.3.0
+* 2015-2021
 * Processing 3.5.3
-* Vector class with a float precision
+* Vector class with a int precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
@@ -90,13 +90,74 @@ public class ivec3 extends ivec {
     return set(x,this.y,this.z);
   }
 
+  public ivec3 add_x(int x) {
+		this.x += x;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 sub_x(int x) {
+		this.x -= x;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 mult_x(int x) {
+		this.x *= x;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 div_x(int x) {
+		this.x /= x;
+		return set(this.x,this.y,this.z);
+	}
+
+
   public ivec3 y(int y) {
     return set(this.x,y,this.z);
   }
 
+  public ivec3 add_y(int y) {
+		this.y += y;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 sub_y(int y) {
+		this.y -= y;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 mult_y(int y) {
+		this.y *= y;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 div_y(int y) {
+		this.y /= y;
+		return set(this.x,this.y,this.z);
+	}
+
   public ivec3 z(int z) {
     return set(this.x,this.y,z);
   }
+
+  public ivec3 add_z(int z) {
+		this.z += z;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 sub_z(int z) {
+		this.z -= z;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 mult_z(int z) {
+		this.z *= z;
+		return set(this.x,this.y,this.z);
+	}
+	
+	public ivec3 div_z(int z) {
+		this.z /= z;
+		return set(this.x,this.y,this.z);
+	}
 
   // rgb
   public ivec3 red(int x) {

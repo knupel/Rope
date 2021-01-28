@@ -1,9 +1,9 @@
 /**
 * ivec4 class
-* v 1.1.2
-* 2015-2020
+* v 1.2.0
+* 2015-2021
 * Processing 3.5.3
-* Vector class with a float precision
+* Vector class with a int precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
@@ -95,17 +95,97 @@ public class ivec4 extends ivec {
     return set(x,this.y,this.z,this.w);
   }
 
+  public ivec4 add_x(int x) {
+		this.x += x;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 sub_x(int x) {
+		this.x -= x;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 mult_x(int x) {
+		this.x *= x;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 div_x(int x) {
+		this.x /= x;
+		return set(this.x,this.y,this.z,this.w);
+	}
+
   public ivec4 y(int y) {
     return set(this.x,y,this.z,this.w);
   }
+
+  public ivec4 add_y(int y) {
+		this.y += y;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 sub_y(int y) {
+		this.y -= y;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 mult_y(int y) {
+		this.y *= y;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 div_y(int y) {
+		this.y /= y;
+		return set(this.x,this.y,this.z,this.w);
+	}
 
   public ivec4 z(int z) {
     return set(this.x,this.y,z,this.w);
   }
 
+  public ivec4 add_z(int z) {
+		this.z += z;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 sub_z(int z) {
+		this.z -= z;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 mult_z(int z) {
+		this.z *= z;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 div_z(int z) {
+		this.z /= z;
+		return set(this.x,this.y,this.z,this.w);
+	}
+
   public ivec4 w(int w) {
     return set(this.x,this.y,this.z,w);
   }
+
+  public ivec4 add_w(int w) {
+		this.w += w;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 sub_w(int w) {
+		this.w -= w;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 mult_w(int w) {
+		this.w *= w;
+		return set(this.x,this.y,this.z,this.w);
+	}
+	
+	public ivec4 div_w(int w) {
+		this.w /= w;
+		return set(this.x,this.y,this.z,this.w);
+	}
 
   // rgba
   public ivec4 r(int x) {
