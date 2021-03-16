@@ -1,17 +1,16 @@
 /**
 * ROPE > ROmanesco Processing Environment
-* Copyleft (c) 2014-2019
+* Copyleft (c) 2014-2021
 * Processing 3.5.3
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 
 /**
  * BIG BANG ROPE
  * is the main class of library
- * 2018-2020
- * v 1.0.1
+ * 2018-2021
+ * v 1.1.0
  */
 package rope.core;
 
@@ -114,11 +113,208 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 		}
 	}
   
-	
 	/**
-	 * To cartesian coord
+	 * map method
+	 * 
+	 * @param value
+	 * @param start1
+	 * @param stop1
+	 * @param start2
+	 * @param stop2
+	 * @return Processing map() method
 	 */
+	protected float map(float value, float start1, float stop1, float start2, float stop2) {
+		// return PApplet.map(value, start1, stop1, start2, stop2); // don't do that cause crash
+		float output = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+		String badness = null;
+		if (output != output) {
+			badness = "NaN (not a number)";
+
+		} else if (output == Float.NEGATIVE_INFINITY || output == Float.POSITIVE_INFINITY) {
+			badness = "infinity";
+		}
+		if (badness != null) {
+			final String msg = String.format("map(%s, %s, %s, %s, %s) called, which returns %s", value, start1, stop1, start2,
+					stop2, badness);
+			System.out.println(msg);
+		}
+		return output;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * MATH
+	 * v 0.1.1
+	 * */
+
+	/**
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @return
+	 */
+	protected float dist(float x1, float y1, float x2, float y2) {
+		float dx = x1 - x2;
+		float dy = y1 - y2;
+		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+
+	/**
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param z1
+	 * @param x2
+	 * @param y2
+	 * @param z2
+	 * @return
+	 */
+	protected float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
+		float dx = x1 - x2;
+		float dy = y1 - y2;
+		float dz = z1 - z2;
+		return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+	}
+
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	protected float dist(vec2 a, vec2 b) {
+		if(a != null && b != null) {
+			float dx = a.x() - b.x();
+			float dy = a.y() - b.y();
+			return (float) Math.sqrt(dx*dx + dy*dy);
+		} else return Float.NaN ;	
+	}
+
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	protected float dist(vec3 a, vec3 b) {
+		if(a != null && b != null) {
+			float dx = a.x() - b.x();
+			float dy = a.y() - b.y();
+			float dz = a.z() - b.z();
+			return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+		} else return Float.NaN ;
+	}
+
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	protected float dist(vec4 a, vec4 b) {
+		if(a != null && b != null) {
+			float dx = a.x() - b.x();
+			float dy = a.y() - b.y();
+			float dz = a.z() - b.z();
+			float dw = a.w() - b.w();
+			return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+		} else return Float.NaN ;
+	}
+	
+
+
+	/**
+	 * @link https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
+	* refactoring from Quark Algorithm
+	 * 
+	 * @param start
+	 * @param end
+	 * @param point
+	 * @param range
+	 * @return
+	 */
+	protected boolean is_on_line(vec2 start, vec2 end, vec2 point, float range) {
+		vec2 vp = new vec2();
+		vec2 line = sub(end,start);
+		float l2 = line.magSq();
+		if (l2 == 0.0) {
+			vp.set(start);
+			return false;
+		}
+		vec2 pv0_line = sub(point, start);
+		float t = pv0_line.dot(line)/l2;
+		pv0_line.normalize();
+		vp.set(line);
+		vp.mult(t);
+		vp.add(start);
+		float d = dist(point, vp);
+		if (t >= 0 && t <= 1 && d <= range) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	* @link https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html
+	* @link http://paulbourke.net/geometry/
+	* thks to Moggach and Paul Brook
+	 * @param points
+	 * @param pos
+	 * @return
+	 */
+	protected boolean in_polygon(vec [] points, vec2 pos) {
+		int i, j;
+		boolean is = false;
+		int sides = points.length;
+		for(i = 0, j = sides - 1 ; i < sides ; j = i++) {
+			if (( ((points[i].y() <= pos.y()) && (pos.y() < points[j].y())) || ((points[j].y() <= pos.y()) && (pos.y() < points[i].y()))) &&
+						(pos.x() < (points[j].x() - points[i].x()) * (pos.y() - points[i].y()) / (points[j].y() - points[i].y()) + points[i].x())) {
+				is = !is;
+			}
+		}
+		return is;
+	}
+
+
+
+
 	/**
 	 * 
 	 * @param pos
@@ -201,6 +397,9 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 		return new vec2(x, y);
 	}
   
+
+
+
 	/**
 	 * 
 	 * @param v
@@ -244,6 +443,8 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	}
 	
 	
+
+
 
 	/**
 	 * Projection
@@ -331,6 +532,10 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	  return p ;
 	}
 
+
+
+
+
 	/**
 	 * 
 	 * @param high
@@ -378,106 +583,7 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 		return value;
 	}
 
-	
-	
-	/**
-	 * MIN MAX method
-	 */
-	private String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
-	/**
-	 * 
-	 * @param arg
-	 * @return from Processing max() method
-	 */
-	protected float max(float[] list) {
-		// return PApplet.max(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		float max = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] > max)
-				max = list[i];
-		}
-		return max;
-	}
-
-	protected int max(int[] list) {
-		// return PApplet.max(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		int max = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] > max)
-				max = list[i];
-		}
-		return max;
-	}
-
-	/**
-	 * 
-	 * @param arg
-	 * @return Processing min() method
-	 */
-	protected float min(float[] list) {
-		// return PApplet.min(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		float min = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] < min)
-				min = list[i];
-		}
-		return min;
-	}
-
-	protected int min(int[] list) {
-		// return PApplet.min(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		int min = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] < min)
-				min = list[i];
-		}
-		return min;
-	}
-
-	
-	
-	
-	/**
-	 * map method
-	 * 
-	 * @param value
-	 * @param start1
-	 * @param stop1
-	 * @param start2
-	 * @param stop2
-	 * @return Processing map() method
-	 */
-	protected float map(float value, float start1, float stop1, float start2, float stop2) {
-		// return PApplet.map(value, start1, stop1, start2, stop2); // don't do that cause crash
-		float output = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-		String badness = null;
-		if (output != output) {
-			badness = "NaN (not a number)";
-
-		} else if (output == Float.NEGATIVE_INFINITY || output == Float.POSITIVE_INFINITY) {
-			badness = "infinity";
-		}
-		if (badness != null) {
-			final String msg = String.format("map(%s, %s, %s, %s, %s) called, which returns %s", value, start1, stop1, start2,
-					stop2, badness);
-			System.out.println(msg);
-		}
-		return output;
-	}
-
-	/**
+		/**
 	 * Next Gaussian randomize v 0.0.2
 	 */
 	/**
@@ -529,4 +635,804 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 		}
 	}
 
+	
+	
+	/**
+	 * MIN MAX method
+	 */
+	private String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
+	/**
+	 * 
+	 * @param arg
+	 * @return from Processing max() method
+	 */
+	protected float max(float... list) {
+		// return PApplet.max(list); // don't do that cause crash
+		if (list.length == 0) {
+			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		}
+		float max = list[0];
+		for (int i = 1; i < list.length; i++) {
+			if (list[i] > max)
+				max = list[i];
+		}
+		return max;
+	}
+
+	protected int max(int... list) {
+		// return PApplet.max(list); // don't do that cause crash
+		if (list.length == 0) {
+			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		}
+		int max = list[0];
+		for (int i = 1; i < list.length; i++) {
+			if (list[i] > max)
+				max = list[i];
+		}
+		return max;
+	}
+
+	protected vec2 max(vec2 a, vec2 b) {
+  	return new vec2(max(a.x(),b.x()),max(a.y(),b.y()));
+	}
+
+	protected vec3 max(vec3 a, vec3 b) {
+  	return new vec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
+	}
+
+	protected vec4 max(vec4 a, vec4 b) {
+  	return new vec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
+	}
+
+	protected ivec2 max(ivec2 a, ivec2 b) {
+  	return new ivec2(max(a.x(),b.x()),max(a.y(),b.y()));
+	}
+
+	protected ivec3 max(ivec3 a, ivec3 b) {
+  	return new ivec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
+	}
+
+	protected ivec4 max(ivec4 a, ivec4 b) {
+  	return new ivec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
+	}
+
+
+
+
+
+	/**
+	 * 
+	 * @param arg
+	 * @return Processing min() method
+	 */
+	protected float min(float... list) {
+		if (list.length == 0) {
+			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		}
+		float min = list[0];
+		for (int i = 1; i < list.length; i++) {
+			if (list[i] < min)
+				min = list[i];
+		}
+		return min;
+	}
+	protected int min(int... list) {
+		if (list.length == 0) {
+			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		}
+		int min = list[0];
+		for (int i = 1; i < list.length; i++) {
+			if (list[i] < min)
+				min = list[i];
+		}
+		return min;
+	}
+
+	protected vec2 min(vec2 a, vec2 b) {
+		return new vec2(min(a.x(),b.x()),min(a.y(),b.y()));
+	}
+
+	protected vec3 min(vec3 a, vec3 b) {
+		return new vec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
+	}
+
+	protected vec4 min(vec4 a, vec4 b) {
+		return new vec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
+	}
+
+	protected ivec2 min(ivec2 a, ivec2 b) {
+		return new ivec2(min(a.x(),b.x()),min(a.y(),b.y()));
+	}
+
+	protected ivec3 min(ivec3 a, ivec3 b) {
+		return new ivec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
+	}
+
+	protected ivec4 min(ivec4 a, ivec4 b) {
+		return new ivec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
+	}
+
+
+
+
+
+	/**
+	abs
+	*/
+	protected vec2 abs(vec2 arg) {
+		return new vec2(Math.abs(arg.x()),Math.abs(arg.y()));
+	}
+
+	protected vec3 abs(vec3 arg) {
+		return new vec3(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()));
+	}
+
+	protected vec4 abs(vec4 arg) {
+		return new vec4(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()),Math.abs(arg.w()));
+	}
+
+	protected ivec2 abs(ivec2 arg) {
+		return new ivec2(Math.abs(arg.x()),Math.abs(arg.y()));
+	}
+
+	protected ivec3 abs(ivec3 arg) {
+		return new ivec3(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()));
+	}
+
+	protected ivec4 abs(ivec4 arg) {
+		return new ivec4(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()),Math.abs(arg.w()));
+	}
+	
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*
+	 * GLSL METHOD TO COMPARE
+	 *
+	 */
+
+	/**
+	mix
+	*/
+	public float mix(float x, float y, float a) {
+		return x*(1-a)+y*a;
+	}
+
+	public vec2 mix(vec2 x, vec2 y, vec2 a) {
+		return new vec2(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y));
+	}
+
+	public vec3 mix(vec3 x, vec3 y, vec3 a) {
+		return new vec3(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z));
+	}
+
+	public vec4 mix(vec4 x, vec4 y, vec4 a) {
+		return new vec4(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z),mix(x.w,y.w,a.w));
+	}
+
+	/**
+	fract
+	*/
+	public float fract(float x) {
+		return x - (float)Math.floor(x);
+	}
+
+	public vec2 fract(vec2 v) {
+		return new vec2(fract(v.x),fract(v.y));
+	}
+
+	public vec3 fract(vec3 v) {
+		return new vec3(fract(v.x),fract(v.y),fract(v.z));
+	}
+
+	public vec4 fract(vec4 v) {
+		return new vec4(fract(v.x),fract(v.y),fract(v.z),fract(v.w));
+	}
+
+	/**
+	sign
+	*/
+	public float sign(float x) {
+		if(x < 0 ) {
+			return -1.0f;
+		} else if(x > 0) {
+			return 1.0f;
+		} else return 0.0f;
+	}
+
+	public vec2 sign(vec2 x) {
+		return new vec2(sign(x.x),sign(x.y));
+	}
+
+	public vec3 sign(vec3 x) {
+		return new vec3(sign(x.x),sign(x.y),sign(x.z));
+	}
+
+	public vec4 sign(vec4 x) {
+		return new vec4(sign(x.x),sign(x.y),sign(x.z),sign(x.w));
+	}
+
+
+	public int sign(int x) {
+		return (int)sign((float)x);
+	}
+
+	public ivec2 sign(ivec2 x) {
+		return new ivec2(sign(x.x()),sign(x.y()));
+	}
+
+	public ivec3 sign(ivec3 x) {
+		return new ivec3(sign(x.x()),sign(x.y()),sign(x.z()));
+	}
+
+	public ivec4 sign(ivec4 x) {
+		return new ivec4(sign(x.x()),sign(x.y()),sign(x.z()),sign(x.w()));
+	}
+
+
+	/**
+	step
+	*/
+	public float step(float edge, float x) {
+		if(x < edge) return 0; else return 1;
+	}
+
+	public vec2 step(vec2 edge, vec2 x) {
+		return new vec2(step(edge.x(),x.x()),step(edge.y(),x.y()));
+	}
+
+	public vec3 step(vec3 edge, vec3 x) {
+		return new vec3(step(edge.x(),x.x()),step(edge.y(),x.y()),step(edge.z(),x.z()));
+	}
+
+	public vec4 step(vec4 edge, vec4 x) {
+		return new vec4(step(edge.x(),x.x()),step(edge.y(),x.y()),step(edge.z(),x.z()),step(edge.w(),x.w()));
+	}
+
+
+	/**
+	smoothstep
+	*/
+	public float smoothstep(float edge0, float edge1, float x) {
+		if(x <= edge0) {
+			return 0; 
+		} else if(x >= edge1) {
+			return 1;
+		} else {
+			float t = clamp((x-edge0)/(edge1-edge0),0.0f,1.0f);
+			return t*t*(3.0f-2.0f*t);
+		}
+	}
+
+	public vec2 smoothstep(vec2 edge0, vec2 edge1, vec2 x) {
+		return new vec2(smoothstep(edge0.x(),edge1.x(),x.x()),smoothstep(edge0.y(),edge1.y(),x.y()));
+	}
+
+	public vec3 smoothstep(vec3 edge0, vec3 edge1, vec3 x) {
+		return new vec3(smoothstep(edge0.x(),edge1.x(),x.x()),smoothstep(edge0.y(),edge1.y(),x.y()),smoothstep(edge0.z(),edge1.z(),x.z()));
+	}
+
+	public vec4 smoothstep(vec4 edge0, vec4 edge1, vec4 x) {
+		return new vec4(smoothstep(edge0.x(),edge1.x(),x.x()),smoothstep(edge0.y(),edge1.y(),x.y()),smoothstep(edge0.z(),edge1.z(),x.z()),smoothstep(edge0.w(),edge1.w(),x.w()));
+	}
+
+
+
+	/*
+	mod
+	*/
+	public float mod(float x, float y) {
+		return x-y*(float)Math.floor(x/y);
+	}
+
+	public vec2 mod(vec2 x, vec2 y) {
+		return new vec2(mod(x.x(),y.x()),mod(x.y(),y.y()));
+	}
+
+	public vec3 mod(vec3 x, vec3 y) {
+		return new vec3(mod(x.x(),y.x()),mod(x.y(),y.y()),mod(x.z(),y.z()));
+	}
+
+	public vec4 mod(vec4 x, vec4 y) {
+		return new vec4(mod(x.x(),y.x()),mod(x.y(),y.y()),mod(x.z(),y.z()),mod(x.w(),y.w()));
+	}
+
+	public ivec2 mod(ivec2 x, ivec2 y) {
+		return new ivec2((int)mod(x.x(),y.x()), (int)mod(x.y(),y.y()));
+	}
+
+	public ivec3 mod(ivec3 x, ivec3 y) {
+		return new ivec3((int)mod(x.x(),y.x()),(int)mod(x.y(),y.y()),(int)mod(x.z(),y.z()));
+	}
+
+	public ivec4 mod(ivec4 x, ivec4 y) {
+		return new ivec4((int)mod(x.x(),y.x()),(int)mod(x.y(),y.y()),(int)mod(x.z(),y.z()),(int)mod(x.w(),y.w()));
+	}
+
+	/**
+	clamp
+	*/
+	public float clamp(float x, float min, float max) {
+		return Math.min(Math.max(x,min),max);
+	}
+
+	public vec2 clamp(vec2 x, vec2 min, vec2 max) {
+		return min(max(x,min),max);
+	}
+
+	public vec3 clamp(vec3 x, vec3 min, vec3 max) {
+		return min(max(x,min),max);
+	}
+
+	public vec4 clamp(vec4 x, vec4 min, vec4 max) {
+		return min(max(x,min),max);
+	}
+
+
+
+
+	/**
+	equal
+	*/
+	public boolean equal(float x, float y) {
+		return x==y?true:false;
+	}
+
+	public boolean equal(int x, int y) {
+		return equal((float)x,(float)y);
+	}
+
+	// with vec
+	public bvec2 equal(vec2 x, vec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(equal(x.x(),y.x()),equal(x.y(),y.y()));
+		} else return null;
+	}
+
+	public bvec3 equal(vec3 x, vec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(equal(x.x(),y.x()),equal(x.y(),y.y()),equal(x.z(),y.z()));
+		} else return null;
+	}
+
+	public bvec4 equal(vec4 x, vec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(equal(x.x(),y.x()),equal(x.y(),y.y()),equal(x.z(),y.z()),equal(x.w(),y.w()));
+		} else return null;
+	}
+
+	// width ivec
+	public bvec2 equal(ivec2 x, ivec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(equal(x.x(),y.x()),equal(x.y(),y.y()));
+		} else return null;
+	}
+
+	public bvec3 equal(ivec3 x, ivec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(equal(x.x(),y.x()),equal(x.y(),y.y()),equal(x.z(),y.z()));
+		} else return null;
+	}
+
+	public bvec4 equal(ivec4 x, ivec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(equal(x.x(),y.x()),equal(x.y(),y.y()),equal(x.z(),y.z()),equal(x.w(),y.w()));
+		} else return null;
+	}
+
+
+
+
+	/**
+	lessThan
+	*/
+	public boolean lessThan(float x, float y) {
+		return x<y?true:false;
+	}
+
+	public boolean lessThan(int x, int y) {
+		return lessThan((float)x,(float)y);
+	}
+
+	// with vec
+	public bvec2 lessThan(vec2 x, vec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()));
+		} else return null;
+	}
+
+	public bvec3 lessThan(vec3 x, vec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()),lessThan(x.z(),y.z()));
+		} else return null;
+	}
+
+	public bvec4 lessThan(vec4 x, vec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()),lessThan(x.z(),y.z()),lessThan(x.w(),y.w()));
+		} else return null;
+	}
+
+	// width ivec
+	public bvec2 lessThan(ivec2 x, ivec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()));
+		} else return null;
+	}
+
+	public bvec3 lessThan(ivec3 x, ivec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()),lessThan(x.z(),y.z()));
+		} else return null;
+	}
+
+	public bvec4 lessThan(ivec4 x, ivec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()),lessThan(x.z(),y.z()),lessThan(x.w(),y.w()));
+		} else return null;
+	}
+
+
+
+
+
+	/**
+	greaterThan
+	*/
+	public boolean greaterThan(float x, float y) {
+		return x>y?true:false;
+	}
+
+	public boolean greaterThan(int x, int y) {
+		return greaterThan((float)x,(float)y);
+	}
+
+	// with vec
+	public bvec2 greaterThan(vec2 x, vec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 greaterThan(vec3 x, vec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 greaterThan(vec4 x, vec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()),greaterThan(x.w(),y.w()));
+		} else return null; 
+	}
+
+	// width ivec
+	public bvec2 greaterThan(ivec2 x, ivec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 greaterThan(ivec3 x, ivec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 greaterThan(ivec4 x, ivec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()),greaterThan(x.w(),y.w()));
+		} else return null; 
+	}
+
+
+	/**
+	greaterThanEqual
+	*/
+	public boolean greaterThanEqual(float x, float y) {
+		return x>=y?true:false;
+	}
+
+	public boolean greaterThanEqual(int x, int y) {
+		return greaterThanEqual((float)x,(float)y);
+	}
+
+	// with vec
+	public bvec2 greaterThanEqual(vec2 x, vec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 greaterThanEqual(vec3 x, vec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()),greaterThanEqual(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 greaterThanEqual(vec4 x, vec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()),greaterThanEqual(x.z(),y.z()),greaterThanEqual(x.w(),y.w()));
+		} else return null; 
+	}
+
+	// width ivec
+	public bvec2 greaterThanEqual(ivec2 x, ivec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 greaterThanEqual(ivec3 x, ivec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()),greaterThanEqual(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 greaterThanEqual(ivec4 x, ivec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()),greaterThanEqual(x.z(),y.z()),greaterThanEqual(x.w(),y.w()));
+		} else return null; 
+	}
+
+
+	/**
+	lessThanEqual
+	*/
+	public boolean lessThanEqual(float x, float y) {
+		return x<=y?true:false;
+	}
+
+	public boolean lessThanEqual(int x, int y) {
+		return lessThanEqual((float)x,(float)y);
+	}
+
+	// with vec
+	public bvec2 lessThanEqual(vec2 x, vec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 lessThanEqual(vec3 x, vec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()),lessThanEqual(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 lessThanEqual(vec4 x, vec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()),lessThanEqual(x.z(),y.z()),lessThanEqual(x.w(),y.w()));
+		} else return null; 
+	}
+
+	// width ivec
+	public bvec2 lessThanEqual(ivec2 x, ivec2 y) {
+		if(x != null && y != null) {
+			return new bvec2(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()));
+		} else return null; 
+	}
+
+	public bvec3 lessThanEqual(ivec3 x, ivec3 y) {
+		if(x != null && y != null) {
+			return new bvec3(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()),lessThanEqual(x.z(),y.z()));
+		} else return null; 
+	}
+
+	public bvec4 lessThanEqual(ivec4 x, ivec4 y) {
+		if(x != null && y != null) {
+			return new bvec4(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()),lessThanEqual(x.z(),y.z()),lessThanEqual(x.w(),y.w()));
+		} else return null; 
+	}
+
+
+
+	/**
+	all
+	v 0.0.2
+	*/
+	public boolean all(bvec2 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = true;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == false) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method all(bvec2 b) return false bvec2 b is null");
+			return false;
+		}
+	}
+
+	public boolean all(bvec3 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = true;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == false) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method all(bvec3 b) return false because bvec3 b is null");
+			return false;
+		}
+	}
+
+	public boolean all(bvec4 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = true;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == false) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method all(bvec4 b) return false because bvec4 b is null");
+			return false;
+		}
+	}
+
+	public boolean all(bvec5 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = true;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == false) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method all(bvec5 b) return false because bvec5 b is null");
+			return false;
+		}
+	}
+
+	public boolean all(bvec6 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = true;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == false) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method all(bvec6 b) return false because bvec6 b is null");
+			return false;
+		}
+	}
+
+	/**
+	any
+	*/
+	public boolean any(bvec2 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = false;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == true) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method any() return false because argument bvec2 b is null");
+			return false;
+		}
+	}
+
+	public boolean any(bvec3 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = false;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == true) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method any() return false because argument bvec3 b is null");
+			return false;
+		}
+	}
+
+	public boolean any(bvec4 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = false;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == true) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method any() return false because argument bvec4 b is null");
+			return false;
+		}
+	}
+
+	public boolean any(bvec5 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = false;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == true) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method any() return false because argument bvec5 b is null");
+			return false;
+		}
+	}
+
+	public boolean any(bvec6 b) {
+		if(b != null) {
+			boolean [] list = b.array();
+			boolean result = false;
+			for(int i = 0 ; i < list.length ; i++) {
+				if(list[i] == true) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		} else {
+			System.err.println("method any() return false because argument bvec6 b is null");
+			return false;
+		}
+	}
 }

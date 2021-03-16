@@ -24,7 +24,6 @@ public class R_Image extends BigBang {
 	public R_Image(PApplet pa, PGraphics other) {
 		super(pa);
 		this.other = other;
-		//this.pg = pa.g;
 	}
 	
   private boolean render_checked_is = false ;
@@ -1042,4 +1041,23 @@ public class R_Image extends BigBang {
 		}
   }
 
+
+	public void aspect(int fill, int stroke, float thickness) {
+		aspect(fill, stroke, thickness, pa.g);
+	}
+
+	public void aspect(int fill, int stroke, float thickness, PGraphics other) {
+		if(other.alpha(fill) <= 0) {
+			other.noFill(); 
+		} else {
+			other.fill(fill);
+		}
+
+		if(other.alpha(stroke) <= 0  || thickness <= 0) {
+			other.noStroke(); 
+		} else {
+			other.stroke(stroke);
+			other.strokeWeight(thickness);
+		}
+	}  
 }

@@ -3,6 +3,8 @@ tmp
 distribution
 CONCEPT
 
+# vscode
+out
 
 # Runtime data
 pids
