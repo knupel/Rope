@@ -1,7 +1,7 @@
 /**
 * R_Primitive class
-* v 0.3.1
-* 2019-2019
+* v 0.3.2
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RPrimitive store the utilities to draw shape and costume
@@ -131,8 +131,13 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * 
 	 * @return
 	 */
+	public vec3[] get_normals() {
+		return ref_pts;
+	}
+
+	@Deprecated
 	public vec3[] get_normal() {
-		return pts;
+		return ref_pts;
 	}
 	
 	/**
@@ -140,10 +145,10 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return
 	 */
 	public vec3[] get() {
-		vec3[] temp = new vec3[pts.length];
+		vec3[] temp = new vec3[ref_pts.length];
 		vec3 radius = size.mult((float).5);
 		for (int i = 0; i < temp.length; i++) {
-			temp[i] = pts[i].copy();
+			temp[i] = ref_pts[i].copy();
 			if (temp.length == 2) {
 				temp[i].mult(radius).add(pos);
 			} else {
@@ -189,14 +194,14 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 			this.summits = 2;
 		}
 
-		pts = new vec3[this.summits];
+		ref_pts = new vec3[this.summits];
 		// create coord of the shape
 		if (this.summits == 2 && angle_x() == 0) {
-			pts[0] = new vec3((float) -.5, 0, 0);
-			pts[1] = new vec3((float) .5, 0, 0);
+			ref_pts[0] = new vec3((float) -.5, 0, 0);
+			ref_pts[1] = new vec3((float) .5, 0, 0);
 		} else {
 			for (int i = 0; i < this.summits; i++) {
-				pts[i] = polygon_2D(this.summits, angle_x())[i].copy();
+				ref_pts[i] = polygon_2D(this.summits, angle_x())[i].copy();
 			}
 		}
 	}
@@ -209,9 +214,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		vec3 radius = this.size.copy().mult((float).5);
 		// boolean check_line = false;
 
-		vec3[] temp_pos = new vec3[pts.length];
+		vec3[] temp_pos = new vec3[ref_pts.length];
 		for (int i = 0; i < temp_pos.length; i++) {
-			temp_pos[i] = pts[i].copy();
+			temp_pos[i] = ref_pts[i].copy();
 		}
 
 		if (temp_pos.length == 2) {

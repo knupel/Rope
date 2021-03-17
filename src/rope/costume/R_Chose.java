@@ -1,7 +1,7 @@
 /**
 * R_Chose
-* 2019-2019
-* v 0.3.1
+* 2019-2021
+* v 0.3.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -41,12 +41,12 @@ public class R_Chose extends R_Polygon {
    */
   public void show() {
     calc(true);
-    if(final_pts != null && final_pts.length > 0) {
+    if(pts != null && pts.length > 0) {
       beginShape();
-      for(int i = 0 ; i < final_pts.length ; i++) {
-        vertex(final_pts[i]);
+      for(int i = 0 ; i < pts.length ; i++) {
+        vertex(pts[i]);
       }
-      vertex(final_pts[0]);
+      vertex(pts[0]);
       endShape();
     } 
   }
@@ -68,7 +68,7 @@ public class R_Chose extends R_Polygon {
       ref_symmetria = symmetric_is();
       new_calc_is = true;
     }
-    if(final_pts == null || reset_is() || new_calc_is || angle_modified_is()) {
+    if(pts == null || reset_is() || new_calc_is || angle_modified_is()) {
       calc_final_points(render);
     }
   }
@@ -77,9 +77,9 @@ public class R_Chose extends R_Polygon {
    * 
    */
   public void is_pair() {
-    if(pts.length%2 != 0) {
-    	this.summits = pts.length+1;
-    	pts = new vec3[this.summits];
+    if(ref_pts.length%2 != 0) {
+    	this.summits = ref_pts.length+1;
+    	ref_pts = new vec3[this.summits];
     	build();
     }
   }
@@ -141,23 +141,23 @@ public class R_Chose extends R_Polygon {
    * @return
    */
   private vec3 [] calc_final_points(boolean render) {
-    if(final_pts == null || final_pts.length != pts.length) {
-      final_pts = new vec3[pts.length];
+    if(pts == null || pts.length != ref_pts.length) {
+      pts = new vec3[ref_pts.length];
     }
     
     int count = 0;
     int inc = 1;
     if(render) beginShape();
-    for(int i = 0 ; i < pts.length ; i++) {
-      if(final_pts[i] == null) {
-        final_pts[i] = new vec3(pts[i].x,pts[i].y,pts[i].z);
+    for(int i = 0 ; i < ref_pts.length ; i++) {
+      if(pts[i] == null) {
+        pts[i] = new vec3(ref_pts[i].x,ref_pts[i].y,ref_pts[i].z);
       } else {
-        final_pts[i].set(pts[i]);
+        pts[i].set(ref_pts[i]);
       }
       
       if(radius != null){
       	if(count < 0) count = 0;
-        final_pts[i].mult(radius[count]);
+        pts[i].mult(radius[count]);
         count += inc;
         if(symmetric_is() && count%radius.length == 0) {
           inc *= -1;
@@ -169,18 +169,18 @@ public class R_Chose extends R_Polygon {
           count = 0;
         }
       } else {
-        final_pts[i].mult(size.x*(float).5);
+        pts[i].mult(size.x*(float).5);
       }
 
       if(use_pos_is()) {
-        final_pts[i].add(pos);
+        pts[i].add(pos);
       }
-      if(render) vertex(final_pts[i]);
+      if(render) vertex(pts[i]);
     }
     if(render) {
-      vertex(final_pts[0]);
+      vertex(pts[0]);
       endShape();
     }
-    return final_pts;
+    return pts;
   }
 }

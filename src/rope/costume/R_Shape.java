@@ -19,8 +19,8 @@ public class R_Shape extends R_Image implements R_Constants {
 	protected vec3 angle;
 	
 	protected int summits;
+	protected vec3 [] ref_pts;
 	protected vec3 [] pts;
-	protected vec3 [] final_pts;
 
 
 	private boolean use_pos_is = true;
@@ -52,7 +52,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	public R_Shape(PApplet pa, int summits) {
 		super(pa);
 		this.summits = summits;
-    pts = new vec3[summits];  
+    ref_pts = new vec3[summits];  
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class R_Shape extends R_Image implements R_Constants {
 	public R_Shape(PApplet pa, int summits, PGraphics other) {
 		super(pa,other);
 		this.summits = summits;
-    pts = new vec3[summits];  
+    ref_pts = new vec3[summits];  
 	}
 	
 	
@@ -334,6 +334,27 @@ public class R_Shape extends R_Image implements R_Constants {
     return summits;
   }
 
+  public vec3 [] get_ref_points() {
+    return ref_pts;
+  }
+  
+  /**
+   * 
+   * @param target
+   * @return
+   */
+  public vec3 get_ref_point(int target) {
+  	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
+  		return ref_pts[target];
+  	} else {
+  		return null;
+  	}  
+  }
+  
+  /**
+   * 
+   * @return
+   */
   public vec3 [] get_points() {
     return pts;
   }
@@ -350,25 +371,5 @@ public class R_Shape extends R_Image implements R_Constants {
   		return null;
   	}  
   }
-  
-  /**
-   * 
-   * @return
-   */
-  public vec3 [] get_final_points() {
-    return final_pts;
-  }
-  
-  /**
-   * 
-   * @param target
-   * @return
-   */
-  public vec3 get_final_point(int target) {
-  	if(final_pts != null && target >= 0 && target < final_pts.length) {
-  		return final_pts[target];
-  	} else {
-  		return null;
-  	}  
-  }
+
 }
