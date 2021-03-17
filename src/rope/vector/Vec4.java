@@ -1,7 +1,7 @@
 /**
 * vec4 class
-* v 1.2.5
-* 2015-2020
+* v 1.2.6
+* 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
@@ -634,12 +634,33 @@ public class vec4 extends vec {
 
 
 
+	/**
+	 * 
+	 * @param timeline
+	 * @param s
+	 * @return vec4 cosinus of each argument
+	 */
+	public vec4 wave(int timeline, float s) {
+			return cos_wave(timeline, s, s, s, s);
+	}
 
+	/**
+	 * 
+	 * @param timeline
+	 * @param sx
+	 * @param sy
+	 * @param sz
+	 * @param sw
+	 * @return vec4 cosinus of each argument
+	 */
+	public vec4 wave(int timeline, float sx, float sy, float sz, float sw) {
+		return cos_wave(timeline, sx, sy, sz, sw);
+	}
 	/**
 	* WAVE COSINUS
 	* @param timeline int
 	* @param s float speed for all vec arg
-	* @return vec4 cosinus of the value
+	* @return vec4 cosinus of each argument
 	*/
 	public vec4 cos_wave(int timeline, float s) {
 		return cos_wave(timeline,s,s,s,s);

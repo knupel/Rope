@@ -591,6 +591,14 @@ public class R_Image extends BigBang {
 		}
   }
 
+	public void pushMatrix() {
+		if(other != null) {
+			other.pushMatrix();
+		} else {
+			pa.pushMatrix();
+		}
+  }
+
 
 
 	public void pop() {
@@ -598,6 +606,14 @@ public class R_Image extends BigBang {
 			other.pop();
 		} else {
 			pa.pop();
+		}
+  }
+
+	public void popMatrix() {
+		if(other != null) {
+			other.popMatrix();
+		} else {
+			pa.popMatrix();
 		}
   }
 	
@@ -687,7 +703,160 @@ public class R_Image extends BigBang {
 			pa.rotateZ(angle);
 		}
   }
+	/**
+	 * 
+	 * @param rot
+	 */
+	public void rotateXY(vec2 rot) {
+  	rotateXY(rot,null);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 * @param other
+	 */
+	public void rotateXY(vec2 rot, PGraphics other) {
+  	rotateX(rot.x);
+  	rotateY(rot.y);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 */
+	public void rotateXZ(vec2 rot) {
+  	rotateXZ(rot,null);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 * @param other
+	 */
+	public void rotateXZ(vec2 rot, PGraphics other) {
+  	rotateX(rot.x);
+  	rotateZ(rot.y);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 */
+	public void rotateYZ(vec2 rot) {
+  	rotateYZ(rot,null);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 * @param other
+	 */
+	public void rotateYZ(vec2 rot, PGraphics other) {
+  	rotateY(rot.x);
+  	rotateZ(rot.y);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 */
+	public void rotateXYZ(vec3 rot) {
+  	rotateXYZ(rot,null);
+	}
+
+	/**
+	 * 
+	 * @param rot
+	 * @param other
+	 */
+	public void rotateXYZ(vec3 rot, PGraphics other) {
+  	rotateX(rot.x);
+  	rotateY(rot.y);
+  	rotateZ(rot.z);
+	}
 	
+
+	// ASPECT AND COLOR
+	public int color(float gray) {
+		return pa.color(gray);
+	}
+	
+	public int color(float gray, float alpha) {
+		return pa.color(gray, alpha);	
+	}
+
+	public int color(float v1, float v2, float v3) {
+		return pa.color(v1, v2, v3);
+	}
+
+	public int color(float v1, float v2, float v3, float alpha) {
+		return pa.color(v1, v2, v3, alpha);
+	}
+	/**
+	 * 
+	 * @param arg
+	 */
+	public void fill(int arg) {
+		if(other != null) {
+			other.fill(arg);
+		} else {
+			pa.fill(arg);
+		}
+	}
+
+	public void noFill() {
+		if(other != null) {
+			other.noFill();
+		} else {
+			pa.noFill();
+		}
+	}
+
+	/**
+	 * 
+	 * @param arg
+	 */
+	public void stroke(int arg) {
+		if(other != null) {
+			other.stroke(arg);
+		} else {
+			pa.stroke(arg);
+		}
+	}
+
+
+	public void noStroke() {
+		if(other != null) {
+			other.noStroke();
+		} else {
+			pa.noStroke();
+		}
+	}
+
+	/**
+	 * 
+	 * @param thickness
+	 */
+	public void strokeWeight(float thickness) {
+		if(other != null) {
+			other.strokeWeight(thickness);
+		} else {
+			pa.strokeWeight(thickness);
+		}
+	}
+
+	/**
+	 * 
+	 * @param thickness
+	 */
+	public void thickness(float thickness) {
+		if(other != null) {
+			other.strokeWeight(thickness);
+		} else {
+			pa.strokeWeight(thickness);
+		}
+	}
 	
 	
 	
@@ -716,6 +885,10 @@ public class R_Image extends BigBang {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param mode
+	 */
 	public void endShape(int mode) {
 		if(other != null) {
 			other.endShape(mode);

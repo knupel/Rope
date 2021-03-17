@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.3.6
+ * v 1.3.7
  * 2015-2020
  * Vector class with a float precision
  * @author @stanlepunk
@@ -528,6 +528,28 @@ public class vec2 extends vec {
 
 
 	/**
+	 * WAVE
+	 * 
+	 * @param timeline int
+	 * @param s     float speed for all vec arg
+	 * @return vec2 cosinus of the value
+	 */
+	public vec2 wave(int timeline, float s) {
+			return cos_wave(timeline, s, s);
+	}
+
+		/**
+	 * 
+	 * @param timeline
+	 * @param sx
+	 * @param sy
+	 * @return
+	 */
+	public vec2 wave(int timeline, float sx, float sy) {
+		return cos_wave(timeline, sx, sy);
+	}
+
+	/**
 	 * WAVE COSINUS
 	 * 
 	 * @param timeline int
@@ -537,7 +559,13 @@ public class vec2 extends vec {
 	public vec2 cos_wave(int timeline, float s) {
 		return cos_wave(timeline, s, s);
 	}
-
+	/**
+	 * 
+	 * @param timeline
+	 * @param sx
+	 * @param sy
+	 * @return
+	 */
 	public vec2 cos_wave(int timeline, float sx, float sy) {
 		float x = (float) Math.cos(timeline * sx);
 		float y = (float) Math.cos(timeline * sy);

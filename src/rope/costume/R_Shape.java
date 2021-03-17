@@ -68,46 +68,18 @@ public class R_Shape extends R_Image implements R_Constants {
 	}
 	
 	
-	
-	
-	
 
 
-
-	// SET
+  
+  
+ // POS
 	/**
    * 
-   * @param summits
+   * @return
    */
-  public void set_summits(int summits) {
-  	if(summits < 3) {
-      System.err.println("class R_Shape: the construtor need minimum 3 points to build Curve,\nsorry the class add the minimum require points to make your desire real");
-    } else {
-    	this.summits = summits; 	
-    }	
-  }
-
-
-	/**
-   * 
-   * @param is
-   */
-  public void use_pos_is(boolean is) {
-    use_pos_is = is;
-  }
-  
-  /**
-   * 
-   * @param is
-   */
-  public void reset_is(boolean is) {
-    this.reset_is = is;
-  }
-  
-  
-  /**
-   * POS
-   */
+	public vec3 pos() {
+		return pos;
+	}
   /**
    * 
    * @param p
@@ -155,9 +127,14 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
 	}
 	
-	/**
-	 * SIZE
+	// SIZE
+		/**
+	 * 
+	 * @return
 	 */
+	public vec3 size() {
+		return size;
+	}
 	/**
 	 * 
 	 * @param s
@@ -209,33 +186,16 @@ public class R_Shape extends R_Image implements R_Constants {
 	/**
 	 * ANGLE
 	 */
-	public void angle_x(float value) {
-		if(angle == null) {
-			angle = new vec3(value,0,0);
-		} else {
-			angle.x(value);
-		}	
-	}
-	
-	public void angle_y(float value) {
-		if(angle == null) {
-			angle = new vec3(0,value,0);
-		} else {
-			angle.y(value);
-		}	
-	}
-	
-	public void angle_z(float value) {
-		if(angle == null) {
-			angle = new vec3(0,0,value);
-		} else {
-			angle.z(value);
-		}	
-	}
 
+	 	/**
+	 * 
+	 * @return
+	 */
+	public vec3 angle() {
+  	return this.angle;
+  }
 
-
-	/**
+		/**
 	 * 
 	 * @param x
 	 * @param y
@@ -258,18 +218,20 @@ public class R_Shape extends R_Image implements R_Constants {
 			this.angle.set(angle);
 		}
 	}
-	
-	// GET
-	/**
-	 * 
-	 * @return
-	 */
-	public vec3 angle() {
-  	return this.angle;
-  }
-	
-	
-	public float angle_x() {
+
+
+
+	// ANGLE X
+
+	public void angle_x(float value) {
+		if(angle == null) {
+			angle = new vec3(value,0,0);
+		} else {
+			angle.x(value);
+		}	
+	}
+
+		public float angle_x() {
 		if(angle != null) {
 			return angle.x();
 		} else {
@@ -277,6 +239,16 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
 	
+
+	// ANGLE Y
+	public void angle_y(float value) {
+		if(angle == null) {
+			angle = new vec3(0,value,0);
+		} else {
+			angle.y(value);
+		}	
+	}
+
 	public float angle_y() {
 		if(angle != null) {
 			return angle.y();
@@ -285,6 +257,17 @@ public class R_Shape extends R_Image implements R_Constants {
 		}
   }
 	
+
+	// ANGLE Z
+
+	public void angle_z(float value) {
+		if(angle == null) {
+			angle = new vec3(0,0,value);
+		} else {
+			angle.z(value);
+		}	
+	}
+
 	public float angle_z() {
 		if(angle != null) {
 			return angle.z();
@@ -292,14 +275,32 @@ public class R_Shape extends R_Image implements R_Constants {
 			return (float)0.0;
 		}
   }
-	
-	
-	/**
+
+
+	// MISC
+		/**
    * 
    * @return
    */
   public boolean use_pos_is() {
     return use_pos_is;
+  }
+
+
+		/**
+   * 
+   * @param is
+   */
+  public void use_pos_is(boolean is) {
+    use_pos_is = is;
+  }
+  
+  /**
+   * 
+   * @param is
+   */
+  public void reset_is(boolean is) {
+    this.reset_is = is;
   }
 
     /**
@@ -310,21 +311,9 @@ public class R_Shape extends R_Image implements R_Constants {
     return reset_is;
   }
 
-  /**
-   * 
-   * @return
-   */
-	public vec3 pos() {
-		return pos;
-	}
+
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public vec3 size() {
-		return size;
-	}
+
 	
 	/**
 	 * 
@@ -333,6 +322,22 @@ public class R_Shape extends R_Image implements R_Constants {
 	public int get_summits() {
     return summits;
   }
+
+	/**
+   * @param summits
+   */
+  public void set_summits(int summits) {
+  	if(summits < 3) {
+      System.err.println("class R_Shape: the construtor need minimum 3 points to build Curve,\nsorry the class add the minimum require points to make your desire real");
+    } else {
+    	this.summits = summits; 	
+    }	
+  }
+
+
+
+
+
 
   public vec3 [] get_ref_points() {
     return ref_pts;

@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.5
+ * v 1.3.6
 * 2015-2020
 * Vector class with a float precision
  * @author @stanlepunk
@@ -625,12 +625,34 @@ public class vec3 extends vec {
 
 
 
+	/**
+	 * 
+	 * @param timeline
+	 * @param s
+	 * @return vec3 cosinus of each argument
+	 */
+	public vec3 wave(int timeline, float s) {
+			return cos_wave(timeline, s, s, s);
+	}
+
+	/**
+	 * 
+	 * @param timeline
+	 * @param sx
+	 * @param sy
+	 * @param sz
+	 * @return vec3 cosinus of each argument
+	 */
+	public vec3 wave(int timeline, float sx, float sy, float sz) {
+		return cos_wave(timeline, sx, sy, sz);
+	}
+
 
 	/**
 	* WAVE COSINUS
 	* @param timeline int
 	* @param s float speed for all vec arg
-	* @return vec3 cosinus of the value
+	* @return vec3 cosinus of each argument
 	*/
 	public vec3 cos_wave(int timeline, float s) {
 		return cos_wave(timeline,s,s,s);
@@ -643,7 +665,7 @@ public class vec3 extends vec {
 	 * @param sx float speed for all vec arg x
 	 * @param sy float speed for all vec arg y
 	 * @param sz float speed for all vec arg z
-	 * @return
+	 * @return vec3 cosinus of each argument
 	 */
 	public vec3 cos_wave(int timeline, float sx, float sy, float sz) {
 		float x = (float)Math.cos(timeline *sx);
