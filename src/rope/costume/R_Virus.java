@@ -1,7 +1,7 @@
 /**
 * R_Virus class
-* v 0.2.0
-* 2019-2019
+* v 0.2.1
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class R_Virus is strange stuff with angle broken !!!!
@@ -24,13 +24,23 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 		super(pa);
 		pos(0);
 		size(1);
+		set_summits((int)random(3,10));
 		build();
 	}
 
-  // set
 	/**
 	 * 
+	 * @param pa
 	 */
+	public R_Virus(PApplet pa, int summits) {
+		super(pa);
+		pos(0);
+		size(1);
+		set_summits(summits);
+		build();
+	}
+
+
 	public void build() {
 		branch = new vec3 [node][summits] ;
 		for(int i = 0 ; i < node ; i++) {
@@ -52,22 +62,12 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 	
 	/**
 	 * 
-	 * @param summits
-	 */
-	public void set_summits(int summits) {
-		this.summits = summits;
-		build();
-	}
-	
-	/**
-	 * 
 	 * @param mutation
 	 */
 	public void set_mutation(int mutation) {
 		this.mutation = mutation;
 	}
   
-
   // get
 	/**
 	 * 
@@ -85,27 +85,17 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 		return this.node;
 	}
 
-
-
-
   // method
-	/**
-	 * 
-	 */
 	public void reset() {
-		for(int i = 0 ; i < node ; i++) {
-			for(int k = 0 ; k < summits ; k++) {
+				for(int i = 0 ; i < branch.length ; i++) {
+			for(int k = 0 ; k < branch[0].length ; k++) {
 				vec3 dir = new vec3().rand(-1,1);
 				branch[i][k].set(projection(dir));
 			}
 		}
 	}
   
-
   // SHOW
-	/**
-	 * 
-	 */
 	public void show() {
 		vec3 radius = size.mult((float).5);
 		if(angle_x() != 0) {
@@ -113,7 +103,7 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
 			translate(pos);
 			rotate(angle_x());
 		}
-		for(int k = 0 ; k < summits ; k++) {
+		for(int k = 0 ; k < branch[0].length ; k++) {
 			if(node == 2) {
 				vec3 final_pos_a = branch[0][k].copy();
 				final_pos_a.add(to_cartesian_2D(angle_x()));
@@ -152,7 +142,7 @@ public class R_Virus extends R_Shape implements R_Constants, R_Shape_contract  {
   // get
 	/**
 	 * 
-	 * @return
+	 * @return array tab of branch
 	 */
 	public vec3 [][] get() {
 		return branch;

@@ -1,7 +1,7 @@
 /**
 * R_Star class
-* v 0.0.4
-* 2019-2019
+* v 0.0.5
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RPrimitive store the utilities to draw shape and costume
@@ -14,7 +14,6 @@ import rope.vector.*;
 
 public class R_Star extends R_Shape implements R_Constants {
 	boolean is_3D = false;
-	int summits;
 	float [] ratio;
 	
 	/**
@@ -25,7 +24,7 @@ public class R_Star extends R_Shape implements R_Constants {
 		super(pa);
 		pos(0);
 		size(1);
-		summits = 5;
+		set_summits(5);
 		ratio = new float[1]; 
 		ratio[0] = (float).38;
 		angle_x(0);
@@ -55,13 +54,6 @@ public class R_Star extends R_Shape implements R_Constants {
 		this.is_3D = is_3D;
 	}
 	
-	/**
-	 * 
-	 * @param summits
-	 */
-	public void set_summits(int summits) {
-		if(summits > 3) this.summits = summits;
-	}
 	
 	
 	/**

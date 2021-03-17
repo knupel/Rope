@@ -1,7 +1,7 @@
 /**
 * R_Circle class
-* v 0.2.0
-* 2019-2019
+* v 0.2.1
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
@@ -74,17 +74,6 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     build();
   }
   
-  /**
-   * 
-   * @param summits
-   */
-  public void set_summits(int summits) {
-  	if(summits < 2) {
-      System.err.println("class R_Circle: the construtor need minimum 2 points to build Curve,\nsorry the class add the minimum require points to make your desire real");
-    } else {
-    	this.summits = summits; 	
-    }	
-  }
   
   /**
    * 

@@ -1,7 +1,7 @@
 /**
 * RShape class
-* v 0.3.1
-* 2019-2019
+* v 0.3.2
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
@@ -14,13 +14,13 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Image implements R_Constants {
-	public vec3 pos;
-	public vec3 size;
-	public vec3 angle;
+	protected vec3 pos;
+	protected vec3 size;
+	protected vec3 angle;
 	
-	public int summits;
-	public vec3 [] pts;
-	public vec3 [] final_pts;
+	protected int summits;
+	protected vec3 [] pts;
+	protected vec3 [] final_pts;
 
 
 	private boolean use_pos_is = true;
@@ -72,8 +72,22 @@ public class R_Shape extends R_Image implements R_Constants {
 	
 	
 
-  
+
+
 	// SET
+	/**
+   * 
+   * @param summits
+   */
+  public void set_summits(int summits) {
+  	if(summits < 3) {
+      System.err.println("class R_Shape: the construtor need minimum 3 points to build Curve,\nsorry the class add the minimum require points to make your desire real");
+    } else {
+    	this.summits = summits; 	
+    }	
+  }
+
+
 	/**
    * 
    * @param is
