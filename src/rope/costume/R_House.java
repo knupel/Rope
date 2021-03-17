@@ -140,8 +140,8 @@ public class R_House extends R_Shape {
 	}
 
 	public void stroke_ground(float x, float y, float z, float a) {
-    int c = this.pa.color(x,y,z,a);
-		stroke_ground(c);
+    // int c = this.pa.color(x,y,z,a);
+		stroke_ground(color(x,y,z,a));
 	}
 
 	public void thickness(float thickness) {
