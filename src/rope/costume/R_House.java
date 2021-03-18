@@ -1,7 +1,14 @@
+/**
+* R_House class
+* v 0.0.2
+* 2021-2021
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
+
 package rope.costume;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 import rope.vector.vec3;
 
 public class R_House extends R_Shape {
@@ -188,7 +195,7 @@ public class R_House extends R_Shape {
 
     // DEFINE FINAL OFFSET
     vec3 def_pos = null;
-	  if(this.type == PConstants.TOP) {
+	  if(this.type == TOP) {
 	  	if(pos == null) {
 	  		def_pos = new vec3();
 	  		def_pos.add(new vec3(0,size.y*0.5f,0));
@@ -196,7 +203,7 @@ public class R_House extends R_Shape {
 	  		def_pos = pos.copy();
 	  		def_pos.add(new vec3(0,size.y*0.5f,0));		
 	  	}
-	  } else if(this.type == PConstants.BOTTOM) {
+	  } else if(this.type == BOTTOM) {
 	  	if(pos == null) {
 	  		def_pos = new vec3();
 	  		def_pos.add(new vec3(0,-size.y,0));

@@ -1,6 +1,6 @@
 /**
 * R_Icosahedron class
-* v 0.0.1
+* v 0.0.2
 * 2021-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -15,7 +15,6 @@ import rope.mesh.R_Face;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 import rope.vector.vec3;
 
 public class R_Icosahedron extends R_Shape {
@@ -32,7 +31,7 @@ public class R_Icosahedron extends R_Shape {
 
 	private float ref_radius;
 
-	private int type = PConstants.VERTEX;
+	private int type = VERTEX;
 
   // constructor
   public R_Icosahedron(PApplet pa, float radius) {
@@ -137,7 +136,7 @@ public class R_Icosahedron extends R_Shape {
 	}
 
 	private void show_imp() {
-		if(type == PConstants.POINT) {
+		if(type == POINT) {
 			point(top_point);
 			point(bottom_point);
 			for(int i = 0 ; i < top_pent.length ; i++) {

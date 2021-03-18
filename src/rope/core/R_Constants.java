@@ -1,35 +1,86 @@
 
 /**
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2020
+	* Copyleft (c) 2014-2021
 	* Variable shared throughout rope.core.
 	* Rope constants
-	* v 0.2.0.8
+	* v 0.2.1.0
 	* Processing 3.5.3
 	* @author @stanlepunk
-	* @see http://stanlepunk.xyz/
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
 	*/
 
 package rope.core;
+import java.awt.event.KeyEvent;
 
 public interface R_Constants {
-	static final String VERSION = "0.8.8.34";
+	static final String VERSION = "0.9.2.37";
+
+	static final String P2D = "processing.opengl.PGraphics2D";
+	static final String P3D = "processing.opengl.PGraphics3D";
+
+	static final int VERTEX = 0; // processing value
+
+  static final int POINT = 2; // processing value
+
+  static final int LINE = 4; // processing value
+
+  static final int TRIANGLE = 8; // processing value
+  static final int SQUARE = 14;
+  static final int PENTAGON = 15;
+  static final int HEXAGON = 16;
+  static final int HEPTAGON = 17;
+  static final int OCTOGON = 18;
+  static final int NONAGON = 19;
+  static final int DECAGON = 20;
+  static final int HENDECAGON = 21;
+  static final int DODECAGON = 22;
+
+	static final int TEXT = 26;
+  // static final int TEXT_ROPE = 26;
+
+  static final int RECT = 30; // processing value
+  static final int ELLIPSE = 31; // processing value
+  static final int ARC = 32;  // processing value
+
+  static final int SPHERE = 40; // processing value
+  static final int BOX = 41; // processing value
+
+  static final int CROSS_RECT = 52;
+  static final int CROSS_BOX_2 = 53;
+  static final int CROSS_BOX_3 = 54;
+
+  static final int SPHERE_LOW = 100;
+  static final int SPHERE_MEDIUM = 101;
+  static final int SPHERE_HIGH = 102;
+  static final int TETRAHEDRON = 103;
+
+  static final int PIXEL = 800;
+
+  static final int STAR = 805;
+  static final int STAR_3D = 806;
+
+  static final int FLOWER = 900;
+
+  static final int TETRAHEDRON_LINE = 1001;
+  static final int CUBE_LINE = 1002;
+  static final int OCTOHEDRON_LINE = 1003;
+  static final int RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE = 1004;
+  static final int ICOSI_DODECAHEDRON_LINE = 1005;
+
+  static final int HOUSE = 2000;
+
+  static final int VIRUS = 88_888_888;
 	/**
 	 * 
 	 * Processing CONSTANTS
 	 */
-  static final int OPEN = 1;
-  static final int CLOSE = 2;
+  static final int OPEN = 1; // processing value
+  static final int CLOSE = 2; // processing value
 
 
-  // shape drawing modes
-  static final int CORNER   = 0;
-  static final int CORNERS  = 1;
-  static final int RADIUS   = 2;
-  static final int CENTER   = 3;
-  static final int DIAMETER = 3;
+
   
   
   static final int RAND = 2456417;
@@ -67,6 +118,45 @@ public interface R_Constants {
 	static final float SOUTH_WEST = (float)((3*PI)*0.25);
 	static final float WEST = PI;
 	static final float NORTH_WEST = (float)(-(3*PI)*0.25);
+
+	  // shape drawing modes
+  static final int CORNER   = 0; // processing value
+  static final int CORNERS  = 1; // processing value
+  static final int RADIUS   = 2; // processing value
+  static final int DIAMETER = 3; // processing value
+
+	static final int CENTER   = 3; // processing value
+
+  static final int TOP = 101;
+  static final int BOTTOM = 102;
+
+	/**
+	 * KeyEvent.VK
+	 * shift:     16
+	 * control:   17
+	 * alt:       18
+	 * meta:      157
+	 * enter:     10
+	 * backspace: 8
+	 * escape:    27
+	 * left:      37
+	 * up:        38
+	 * right:     39
+	 * down:      40
+	 * pg_down:   34
+	 * pg_up:     33
+	 * a:         65
+	 * >>>
+	 * z:         90
+	 * space:     32
+	 * tab:       9
+	 */
+  static final int UP	= KeyEvent.VK_UP; // 38
+  static final int DOWN	= KeyEvent.VK_DOWN; // 40
+  static final int LEFT	= KeyEvent.VK_LEFT; // 37
+  static final int RIGHT = KeyEvent.VK_RIGHT; // 39
+
+
 	
 	// classic angle notation
   // float north = HALF_PI;
@@ -78,13 +168,16 @@ public interface R_Constants {
   // float west = 0;
   // float north_west = (3*PI)*0.25;
 
-	
+	static final int RGB   = 1;  // image & color // processing value
+	static final int ARGB  = 2;  // image // processing value
+	static final int RGBA  = 2;  // image // processing value
+	static final int HSB   = 3;  // color // processing value
+	static final int ALPHA = 4;  // image // processing value
 
 	static final int HUE = 50;
 	static final int SATURATION = 51;
 	static final int BRIGHTNESS = 52;
 
-	static final int ALPHA = 100 ;
 
 	static final int FLUID = 200;
 	static final int GRAVITY = 201;
@@ -114,12 +207,6 @@ public interface R_Constants {
 	static final int DYNAMIC = 1001;
 
 
-	/**
-	GRAPHIC
-	*/
-	static final int PIXEL = 800;
-	static final int STAR = 805;
-	  
 	
 
 
