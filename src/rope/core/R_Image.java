@@ -15,8 +15,6 @@ import rope.vector.*;
 public class R_Image extends BigBang {
 	protected processing.core.PGraphics other;
 	
-	
-	// public PGraphics pg;
 	public R_Image(PApplet pa) {
 		super(pa);
 	}
@@ -28,6 +26,11 @@ public class R_Image extends BigBang {
 	
   private boolean render_checked_is = false ;
   private boolean render_p3d_is = false;
+
+
+	public PImage loadImage(String filename) {
+    return pa.loadImage(filename, null);
+  }
   
   /**
    * 
@@ -94,33 +97,6 @@ public class R_Image extends BigBang {
   
   
   /**
-   * improve Processing method
-   */
-  /**
-   * Set 
-   */
-  /**
-   * 
-   * @param pos
-   * @param c
-   * @param other
-   */
-  // public void set(vec2 pos, int c, PGraphics other) {
-  //   set((int)pos.x(),(int)pos.y(),c,other);
-  // }
-  
-  /**
-   * 
-   * @param pos
-   * @param c
-   * @param other
-   */
-  // public void set(ivec2 pos, int c, PGraphics other) {
-  // 	set(pos.x(),pos.y(),c,other);
-  // }
-
-  
-  /**
    * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
    * @param x
    * @param y
@@ -152,15 +128,6 @@ public class R_Image extends BigBang {
   	set(pos.x(),pos.y(),c);
   }
 
-
-  // public void set(int x, int y, int c, PGraphics other) {
-  //   if(other != null) {
-  //     other.set(x,y,c);
-  //   } else {
-  //     pa.g.set(x,y,c);
-  //   }
-  // }
-  
   
   
   /**
@@ -365,29 +332,13 @@ public class R_Image extends BigBang {
 		}
 	}
 
-// void ellipse(vec p, float x, float y) {
-//   ellipse(p,x,y,null);
-// }
-
 	public void ellipse(vec p, float x, float y) {
 		ellipse(p, new vec2(x,y));
 	}
 
-	// public void ellipse(vec p, float x) {
-	// 	ellipse(p,x);
-	// }
-
 	public void ellipse(vec p, float x) {
 		ellipse(p,new vec2(x));
 	}
-
-
-/**
-* main method
-*/
-	// public void ellipse(vec p, vec s) {
-	// 	ellipse(p,s,null);
-	// }
 
 	public void ellipse(vec p, vec s) {
 		if(renderer_P3D() && p instanceof vec3) {
@@ -418,9 +369,6 @@ public class R_Image extends BigBang {
 		}
   }
 
-// void square(vec p, float extent) {
-//   square(p,extent,null);
-// }
 	/**
 	 * 
 	 * @param p
@@ -455,10 +403,6 @@ public class R_Image extends BigBang {
 			this.pa.rect(px,py,sx,sy);
 		}
 	}
-
-	// void rect(vec p, vec s) {
-	//   rect(p,s,null);
-	// }
 
 	public void rect(vec p, vec s) {
 		if(renderer_P3D() && p instanceof vec3) {
@@ -657,13 +601,53 @@ public class R_Image extends BigBang {
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param arg
 	 */
-	public void fill(int arg) {
+	public void fill(int rgb) {
 		if(other != null) {
-			other.fill(arg);
+			other.fill(rgb);
 		} else {
-			pa.fill(arg);
+			pa.fill(rgb);
 		}
 	}
+
+  public void fill(int rgb, float alpha) {
+    if(other != null) {
+			other.fill(rgb, alpha);
+		} else {
+			pa.fill(rgb, alpha);
+		}
+  }
+
+  public void fill(float gray) {
+		if(other != null) {
+			other.fill(gray);
+		} else {
+			pa.fill(gray);
+		}
+  }
+
+  public void fill(float gray, float alpha) {
+    if(other != null) {
+			other.fill(gray, alpha);
+		} else {
+			pa.fill(gray, alpha);
+		}
+  }
+
+  public void fill(float x, float y, float z) {
+    if(other != null) {
+			other.fill(x, y, z);
+		} else {
+			pa.fill(x, y, z);
+		}
+  }
+
+  public void fill(float x, float y, float z, float a) {
+    if(other != null) {
+			other.fill(x, y, z, a);
+		} else {
+			pa.fill(x, y, z, a);
+		}
+  }
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -687,6 +671,46 @@ public class R_Image extends BigBang {
 			pa.stroke(arg);
 		}
 	}
+
+	public void stroke(int rgb, float alpha) {
+    if(other != null) {
+			other.stroke(rgb, alpha);
+		} else {
+			pa.stroke(rgb, alpha);
+		}
+  }
+
+  public void stroke(float gray) {
+		if(other != null) {
+			other.stroke(gray);
+		} else {
+			pa.stroke(gray);
+		}
+  }
+
+  public void stroke(float gray, float alpha) {
+    if(other != null) {
+			other.stroke(gray, alpha);
+		} else {
+			pa.stroke(gray, alpha);
+		}
+  }
+
+  public void stroke(float x, float y, float z) {
+    if(other != null) {
+			other.stroke(x, y, z);
+		} else {
+			pa.stroke(x, y, z);
+		}
+  }
+
+  public void stroke(float x, float y, float z, float a) {
+    if(other != null) {
+			other.stroke(x, y, z, a);
+		} else {
+			pa.stroke(x, y, z, a);
+		}
+  }
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -893,13 +917,6 @@ public class R_Image extends BigBang {
 			pa.rotateZ(angle);
 		}
   }
-	/**
-	 * 
-	 * @param rot
-	 */
-	// public void rotateXY(vec2 rot) {
-  // 	rotateXY(rot,null);
-	// }
 
 	/**
 	 * 
@@ -914,28 +931,12 @@ public class R_Image extends BigBang {
 	/**
 	 * 
 	 * @param rot
-	 */
-	// public void rotateXZ(vec2 rot) {
-  // 	rotateXZ(rot,null);
-	// }
-
-	/**
-	 * 
-	 * @param rot
 	 * @param other
 	 */
 	public void rotateXZ(vec2 rot) {
   	rotateX(rot.x);
   	rotateZ(rot.y);
 	}
-
-	/**
-	 * 
-	 * @param rot
-	 */
-	// public void rotateYZ(vec2 rot) {
-  // 	rotateYZ(rot,null);
-	// }
 
 	/**
 	 * 
@@ -967,36 +968,109 @@ public class R_Image extends BigBang {
 	}
 
 
+	/**
+   * Increases or decreases the size of a shape by expanding and contracting
+   * vertices. Objects always scale from their relative origin to the coordinate
+   * system. Scale values are specified as decimal percentages. For example, the
+   * function call <b>scale(2.0)</b> increases the dimension of a shape by
+   * 200%.<br />
+   * <br />
+   * Transformations apply to everything that happens after and subsequent calls
+   * to the function multiply the effect. For example, calling <b>scale(2.0)</b>
+   * and then <b>scale(1.5)</b> is the same as <b>scale(3.0)</b>. If
+   * <b>scale()</b> is called within <b>draw()</b>, the transformation is reset
+   * when the loop begins again. Using this function with the <b>z</b> parameter
+   * requires using P3D as a parameter for <b>size()</b>, as shown in the third
+   * example above. This function can be further controlled with
+	* <b>pushMatrix()</b> and <b>popMatrix()</b>.
+	 * @param s
+	 */
+	public void scale(float s) {
+    if(other != null) {
+			other.scale(s);
+		} else {
+			pa.g.scale(s);
+		}
+  }
+
+
+  /**
+   * Not recommended for use in 3D, because the z-dimension is just
+   * scaled by 1, since there's no way to know what else to scale it by.
+   *
+   * @param x percentage to scale the object in the x-axis
+   * @param y percentage to scale the object in the y-axis
+   */
+  public void scale(float x, float y) {
+    if(other != null) {
+			other.scale(x, y);
+		} else {
+			pa.g.scale(x, y);
+		}
+  }
+
+
+  /**
+   * @param z percentage to scale the object in the z-axis
+   */
+  public void scale(float x, float y, float z) {
+    if(other != null) {
+			other.scale(x, y, z);
+		} else {
+			pa.g.scale(x, y, z);
+		}
+  }
+
+
+  /**
+   *
+   * see Processing documention
+	 * @param angle
+   */
+	public void shearX(float angle) {
+    if(other != null) {
+			other.shearX(angle);
+		} else {
+			pa.g.shearX(angle);
+		}
+  }
+
+	/**
+	 * see Processing documention
+	 * @param angle
+	 */
+	public void shearY(float angle) {
+    if(other != null) {
+			other.shearY(angle);
+		} else {
+			pa.g.shearY(angle);
+		}
+  }
 
 
 	/**
-	 * BEGIN_SHAPE
+	 * BEGIN_CONTOUR / END_CONTOUR
 	 */
 
-	/**
-   * 
-   * @param other
-   */
-  // public void beginShape(PGraphics other) {
-  //   if(other != null) {
-  //     other.beginShape();
-  //   } else {
-  //     pa.beginShape();
-  //   }
-  // }
+	public void beginContour() {
+		if(other != null) {
+			other.beginContour();
+		} else {
+			pa.g.beginContour();
+		}
+	}
+
+
+	public void endContour() {
+		if(other != null) {
+			other.endContour();
+		} else {
+			pa.g.endContour();
+		}
+	}
+
   
-  /**
-   * 
-   * @param kind
-   * @param other
-   */
-  // public void beginShape(int kind, PGraphics other) {
-  //   if(other != null) {
-  //     other.beginShape(kind);
-  //   } else {
-  //   	pa.beginShape(kind);
-  //   }
-  // }
+
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -1005,7 +1079,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.beginShape();
 		} else {
-			pa.beginShape();
+			pa.g.beginShape();
 		}
 	}
 
@@ -1017,7 +1091,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.beginShape(kind);
 		} else {
-			pa.beginShape(kind);
+			pa.g.beginShape(kind);
 		}
 	}
 	
@@ -1025,30 +1099,6 @@ public class R_Image extends BigBang {
 	 * END_SHAPE
 	 */
 
-	/**
-   * 
-   * @param other
-   */
-  // public void endShape(PGraphics other) {
-  //   if(other != null) {
-  //     other.endShape();
-  //   } else {
-  //   	pa.endShape();
-  //   }
-  // }
-  
-  /**
-   * 
-   * @param mode
-   * @param other
-   */
-  // public void endShape(int mode, PGraphics other) {
-  //   if(other != null) {
-  //     other.endShape(mode);
-  //   } else {
-  //   	pa.endShape(mode);
-  //   }
-  // }
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -1057,7 +1107,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.endShape();
 		} else {
-			pa.endShape();
+			pa.g.endShape();
 		}
 	}
 	
@@ -1069,7 +1119,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.endShape(mode);
 		} else {
-			pa.endShape(mode);
+			pa.g.endShape(mode);
 		}
 	}
 	
@@ -1180,10 +1230,18 @@ public class R_Image extends BigBang {
 	 * @param v 
 	 */
 	public void vertex(vec v) {
-		if(renderer_P3D() && v instanceof vec3) {
-			vertex(v.x(),v.y(),v.z());
+		if(other == null) {
+			if(renderer_P3D() && v instanceof vec3) {
+				pa.g.vertex(v.x(),v.y(),v.z());
+			} else {
+				pa.g.vertex(v.x(),v.y());
+			}
 		} else {
-			vertex(v.x(),v.y());
+			if(renderer_P3D() && v instanceof vec3) {
+				other.vertex(v.x(),v.y(),v.z());
+			} else {
+				other.vertex(v.x(),v.y());
+			}
 		}
 	}
   
@@ -1193,10 +1251,18 @@ public class R_Image extends BigBang {
 	 * @param uv
 	 */
 	public void vertex(vec2 v, vec2 uv) {
-		if(renderer_P3D()) {
-			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+		if(other == null) {
+			if(renderer_P3D()) {
+				pa.g.vertex(v.x(),v.y(),0,uv.x(),uv.y());
+			} else {
+				pa.g.vertex(v.x(),v.y(),uv.x(),uv.y());
+			}
 		} else {
-			vertex(v.x(),v.y(),uv.x(),uv.y());
+			if(renderer_P3D()) {
+				other.vertex(v.x(),v.y(),0,uv.x(),uv.y());
+			} else {
+				other.vertex(v.x(),v.y(),uv.x(),uv.y());
+			}
 		}
 	}
 	
@@ -1206,10 +1272,18 @@ public class R_Image extends BigBang {
 	 * @param uv
 	 */
 	public void vertex(vec3 v, vec2 uv) {
-		if(renderer_P3D()) {
-			vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+		if(other == null) {
+			if(renderer_P3D()) {
+				pa.g.vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+			} else {
+				pa.g.vertex(v.x(),v.y(),uv.x(),uv.y());
+			}
 		} else {
-			vertex(v.x(),v.y(),uv.x(),uv.y());
+			if(renderer_P3D()) {
+				other.vertex(v.x(),v.y(),v.z(),uv.x(),uv.y());
+			} else {
+				other.vertex(v.x(),v.y(),uv.x(),uv.y());
+			}
 		}
 	}
 	/**
@@ -1217,10 +1291,10 @@ public class R_Image extends BigBang {
 	 * @param y y-coordinate of the vertex
 	 */
 	public void vertex(float x, float y) {
-		if(other != null) {
-			other.vertex(x,y);
+		if(other == null) {
+			pa.g.vertex(x,y);
 		} else {
-			pa.vertex(x,y);
+			other.vertex(x,y);
 		}
 	}
 	
@@ -1230,13 +1304,17 @@ public class R_Image extends BigBang {
 	 * @param z z-coordinate of the vertex
 	 */
 	public void vertex(float x, float y, float z) {	
-		if(other != null) {
+		if(other == null) {
 			if(renderer_P3D()) {
-				other.vertex(x,y,z);	
+				pa.g.vertex(x,y,z);	
+			} else {
+				pa.g.vertex(x,y);
 			}
 		} else {
 			if(renderer_P3D()) {
-				pa.vertex(x,y,z);	
+				other.vertex(x,y,z);	
+			} else {
+				other.vertex(x,y);	
 			}
 		}
 	}
@@ -1246,10 +1324,10 @@ public class R_Image extends BigBang {
 	 * @param v
 	 */
 	public void vertex(float [] v) {
-		if(other != null) {
-			other.vertex(v);
+		if(other == null) {
+			pa.g.vertex(v);
 		} else {
-			pa.vertex(v);
+			other.vertex(v);
 		}
 	}
 	
@@ -1263,10 +1341,10 @@ public class R_Image extends BigBang {
 	 * @param v
 	 */
 	public void vertex(float x, float y, float u, float v) {
-		if(other != null) {
-			other.vertex(x,y, u,v);
+		if(other == null) {
+			pa.g.vertex(x,y, u,v);
 		} else {
-			pa.vertex(x,y, u,v);
+			other.vertex(x,y, u,v);
 		}
 	}
 	
@@ -1279,13 +1357,17 @@ public class R_Image extends BigBang {
  * @param v
  */
 	public void vertex(float x, float y, float z, float u, float v) {	
-		if(other != null) {
+		if(other == null) {
 			if(renderer_P3D()) {
-				other.vertex(x,y,z, u,v);	
+				pa.g.vertex(x,y,z, u,v);	
+			} else {
+				pa.g.vertex(x,y, u,v);
 			}
 		} else {
 			if(renderer_P3D()) {
-				pa.vertex(x,y,z, u,v);	
+				other.vertex(x,y,z, u,v);	
+			} else {
+				other.vertex(x,y, u,v);
 			}
 		}
 	}
@@ -1335,7 +1417,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.bezierVertex(x2,y2,x3,y3,x4,y4);
 		} else {
-			pa.bezierVertex(x2,y2,x3,y3,x4,y4);
+			pa.g.bezierVertex(x2,y2,x3,y3,x4,y4);
 		}
 	}
 	
@@ -1356,7 +1438,7 @@ public class R_Image extends BigBang {
   	if(other != null) {
 			other.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
 		} else {
-			pa.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
+			pa.g.bezierVertex(x2,y2,z2,x3,y3,z3,x4,y4,z4);
 		}
   }
   
@@ -1404,7 +1486,7 @@ public class R_Image extends BigBang {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,x3,y3);
 		} else {
-			pa.quadraticVertex(cx,cy,x3,y3);
+			this.pa.g.quadraticVertex(cx,cy,x3,y3);
 		}
   }
 
@@ -1425,7 +1507,7 @@ public class R_Image extends BigBang {
   	if(other != null) {
 			other.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		} else {
-			pa.quadraticVertex(cx,cy,cz,x3,y3,z3);
+			this.pa.g.quadraticVertex(cx,cy,cz,x3,y3,z3);
 		}
   }
 
@@ -1471,7 +1553,7 @@ public class R_Image extends BigBang {
   	if(other != null) {
 			other.curveVertex(x,y);
 		} else {
-			pa.curveVertex(x,y);
+			this.pa.g.curveVertex(x,y);
 		}
   }
 
@@ -1485,7 +1567,7 @@ public class R_Image extends BigBang {
   	if(other != null) {
 			other.curveVertex(x,y,z);
 		} else {
-			this.pa.curveVertex(x,y,z);
+			this.pa.g.curveVertex(x,y,z);
 		}
   }
 
@@ -1499,15 +1581,40 @@ public class R_Image extends BigBang {
 	/**
 	 * TEXT
 	 */
-	public void textFont(PFont which) {
+
+	public void textAlign(int alignX) {
 		if(other != null) {
-			other.textFont(which);
+			other.textAlign(alignX);
 		} else {
-			this.pa.textFont(which);
+			this.pa.g.textAlign(alignX);
 		}
   }
 
 
+  /**
+   * @webref typography:attributes
+   * @webBrief Sets the current alignment for drawing text.
+   * @param alignX horizontal alignment, either LEFT, CENTER, or RIGHT
+   * @param alignY vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE
+   */
+  public void textAlign(int alignX, int alignY) {
+		if(other != null) {
+			other.textAlign(alignX, alignY);
+		} else {
+			this.pa.g.textAlign(alignX, alignY);
+		}
+  }
+
+
+
+
+	public void textFont(PFont which) {
+		if(other != null) {
+			other.textFont(which);
+		} else {
+			this.pa.g.textFont(which);
+		}
+  }
   /**
    * @param size the size of the letters in units of pixels
    */
@@ -1515,7 +1622,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.textFont(which, size);
 		} else {
-			this.pa.textFont(which, size);
+			this.pa.g.textFont(which, size);
 		}
   }
 
@@ -1524,7 +1631,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.textSize(size);
 		} else {
-			this.pa.textSize(size);
+			this.pa.g.textSize(size);
 		}
   }
 
@@ -1533,7 +1640,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.text(c, x, y);
 		} else {
-			this.pa.text(c, x, y);
+			this.pa.g.text(c, x, y);
 		}
   }
 
@@ -1541,7 +1648,7 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.text(c, x, y, z);
 		} else {
-			this.pa.text(c, x, y, z);
+			this.pa.g.text(c, x, y, z);
 		}
   }
 
@@ -1550,19 +1657,17 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.text(str, x, y);
 		} else {
-			this.pa.text(str, x, y);
+			this.pa.g.text(str, x, y);
 		}
   }
-
 
   public void text(char[] chars, int start, int stop, float x, float y) {
 		if(other != null) {
 			other.text(chars, start, stop, x, y);
 		} else {
-			this.pa.text(chars, start, stop, x, y);
+			this.pa.g.text(chars, start, stop, x, y);
 		}
   }
-
 
   /**
    * Same as above but with a z coordinate.
@@ -1571,17 +1676,16 @@ public class R_Image extends BigBang {
 	 if(other != null) {
 			other.text(str, x, y, z);
 		} else {
-			this.pa.text(str, x, y, z);
+			this.pa.g.text(str, x, y, z);
 		}
   }
-
 
   public void text(char[] chars, int start, int stop,
                    float x, float y, float z) {
 		if(other != null) {
 			other.text(chars, start, stop, x, y, z);
 		} else {
-			this.pa.text(chars, start, stop, x, y, z);
+			this.pa.g.text(chars, start, stop, x, y, z);
 		}
   }
 
@@ -1589,25 +1693,23 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.text(str, x1, y1, x2, y2);
 		} else {
-			this.pa.text(str, x1, y1, x2, y2);
+			this.pa.g.text(str, x1, y1, x2, y2);
 		}
   }
-
 
   public void text(int i_num, float x, float y) {
 		if(other != null) {
 			other.text(i_num, x, y);
 		} else {
-			this.pa.text(i_num, x, y);
+			this.pa.g.text(i_num, x, y);
 		}
   }
-
 
   public void text(int i_num, float x, float y, float z) {
 		if(other != null) {
 			other.text(i_num, x, y, z);
 		} else {
-			this.pa.text(i_num, x, y, z);
+			this.pa.g.text(i_num, x, y, z);
 		}
   }
 
@@ -1615,17 +1717,70 @@ public class R_Image extends BigBang {
 		if(other != null) {
 			other.text(f_num, x, y);
 		} else {
-			this.pa.text(f_num, x, y);
+			this.pa.g.text(f_num, x, y);
 		}
   }
-
 
   public void text(float f_num, float x, float y, float z) {
 		if(other != null) {
 			other.text(f_num, x, y, z);
 		} else {
-			this.pa.text(f_num, x, y, z);
+			this.pa.g.text(f_num, x, y, z);
 		}
   }
+
+	public void text(String s, vec2 pos, vec2 size) {
+		if(other != null) {
+			other.text(s, pos.x(),pos.y(), size.x(),size.y());
+		} else {
+			pa.g.text(s, pos.x(),pos.y(), size.x(),size.y());
+		}
+	}
+
+
+  public void text(String s, vec pos) {
+		if(pos instanceof vec2 && s != null) {
+			vec2 p = (vec2)pos;
+			text(s, p.x(),p.y());
+		} else if(pos instanceof vec3 && s != null) {
+			vec3 p = (vec3)pos;
+			text(s, p.x(),p.y(),p.z());
+		} else {
+			//printErrTempo(60,"method text(): String message is null or vec is not an instance of vec3 or vec2");
+		}
+	}
+
+  public void text(char c, vec pos) {
+		if(pos instanceof vec2) {
+			vec2 p = (vec2)pos;
+			text(c, p.x(),p.y());
+		} else if(pos instanceof vec3) {
+			vec3 p = (vec3)pos;
+			text(c, p.x(),p.y(),p.z());
+		}
+	}
+
+  public void text(int i, vec pos) {
+		if(pos instanceof vec2) {
+			vec2 p = (vec2)pos;
+			text(i, p.x(),p.y());
+		} else if(pos instanceof vec3) {
+			vec3 p = (vec3)pos;
+			text(i, p.x(),p.y(),p.z());
+		} 
+	}
+
+  public void text(float f, vec pos) {
+		if(pos instanceof vec2) {
+			vec2 p = (vec2) pos;
+			text(f, p.x(),p.y());
+		} else if(pos instanceof vec3) {
+			vec3 p = (vec3) pos;
+			text(f,p.x(),p.y(),p.z());
+		} 
+	}
+
+
+
 
 }

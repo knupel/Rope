@@ -1,11 +1,13 @@
 /**
 * R_Costume
-* v 0.1.0
+* v 0.2.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.costume;
+
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -20,6 +22,8 @@ public class R_Costume extends R_Shape {
 	private boolean fill_is = true;
 	private boolean stroke_is = true;
 	private boolean alpha_is = true;
+
+	private float ratio_costume_size = 1.0f;
 
 	// vec3 pos;
 	// vec3 size;
@@ -43,51 +47,78 @@ public class R_Costume extends R_Shape {
 	private boolean is_3D = false;
 	private boolean is_vertex = true;
 	private R_Primitive prim;
+	private R_Polyhedron poly;
+	private R_Virus virus;
+	private R_House house;
+	private R_Circle flower;
+	private R_Star star;
+	ArrayList <R_Costume_Pict> costume_pic_list = new ArrayList<R_Costume_Pict>() ;
 
 	int align = LEFT;
 
 	public R_Costume(PApplet pa) {
 		super(pa);
+		init();
 	}
 
 	public R_Costume(PApplet pa, int type) {
 		super(pa);
+		init();
 		this.type = type;
 	}
 
 	public R_Costume(PApplet pa, String costume_text) {
 		super(pa);
+		init();
 		this.type = TEXT;
 		this.costume_text = costume_text;
 	}
 
 
-	public void pos(float x, float y, float z) {
-		if(pos == null) {
-			pos = new vec3(x,y,z);
-		} else {
-			pos.set(x,y,z);
+	private void init() {
+		poly = new R_Polyhedron(pa);
+	}
+
+	/**
+	 * load image for the costume, only SVG or PNG
+	 * @param path
+	 */
+	public void load_pict(String path) {
+		if(path.endsWith("png") || path.endsWith("PNG") || path.endsWith("svg") || path.endsWith("SVG")) {
+			int new_ID = costume_pic_list.size() * (-1) ;
+			new_ID -= 1 ;
+			R_Costume_Pict c = new R_Costume_Pict(this.pa, path, new_ID) ;
+			costume_pic_list.add(c);
+			String mess = "ID pic: " +new_ID;
+			System.err.println(mess);
 		}
 	}
 
 
+	// public void pos(float x, float y, float z) {
+	// 	if(pos == null) {
+	// 		pos = new vec3(x,y,z);
+	// 	} else {
+	// 		pos.set(x,y,z);
+	// 	}
+	// }
 
 
-	public void size(float x, float y, float z) {
-		if(size == null) {
-			size = new vec3(x,y,z);
-		} else {
-			size.set(x,y,z);
-		}
-	}
+	// public void size(float x, float y, float z) {
+	// 	if(size == null) {
+	// 		size = new vec3(x,y,z);
+	// 	} else {
+	// 		size.set(x,y,z);
+	// 	}
+	// }
 
-	public void angle(float x, float y, float z) {
-		if(angle == null) {
-			angle = new vec3(x,y,z);
-		} else {
-			angle.set(x,y,z);
-		}
-	}
+	// public void angle(float x, float y, float z) {
+	// 	if(angle == null) {
+	// 		angle = new vec3(x,y,z);
+	// 	} else {
+	// 		angle.set(x,y,z);
+	// 	}
+	// }
 
 	public void pass_graphic(PGraphics other) {
   	if(other != null) {
@@ -128,11 +159,6 @@ public class R_Costume extends R_Shape {
 		this.align = align;
 	} 
 
-	/**
-	public void set_angle(float angle) {
-		this.angle = angle;
-	}
-	*/
 
 	public void set_ratio(float... ratio) {
 		this.ratio = ratio;
@@ -156,19 +182,6 @@ public class R_Costume extends R_Shape {
 
 
 	// get
-	public vec3 pos() {
-		return pos;
-	}
-
-	public vec3 size() {
-		return size;
-	}
-
-	public vec3 angle() {
-		return angle;
-	}
-
-
 	public int get_fill() {
 		return fill;
 	}
@@ -335,7 +348,7 @@ public class R_Costume extends R_Shape {
 	  init_bool_aspect();
 	}
 
-	public void aspect(vec fill, vec stroke, float thickness, Costume costume) {
+	public void aspect(vec fill, vec stroke, float thickness, R_Costume costume) {
 		aspect(fill,stroke,thickness,costume.get_type());
 	}
 
@@ -343,7 +356,7 @@ public class R_Costume extends R_Shape {
 	public void aspect(vec fill, vec stroke, float thickness, int costume) {
 	  if(costume == NULL) {
 	    // 
-		} else if(costume != r.NULL || costume != POINT) {
+		} else if(costume != NULL || costume != POINT) {
 	    if(fill.w() <= 0 || !this.fill_is) {
 	    	noFill() ; 
 	    } else {
@@ -375,19 +388,19 @@ public class R_Costume extends R_Shape {
 			if(alpha_is()) {
 				this.fill = color(c.x(),c.x(),c.x(),c.y());
 			} else { 
-				this.fill = color(c.x(),c.x(),c.x(),pa.g.colorModeA);
+				this.fill = color(c.x(),c.x(),c.x(),this.pa.g.colorModeA);
 			}
 			fill(this.fill);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.fill = color(c.x(),c.y(),c.z(),pa.g.colorModeA);
+			this.fill = color(c.x(),c.y(),c.z(),this.pa.g.colorModeA);
 			fill(this.fill);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
 			if(alpha_is()) {
 				this.fill = color(c.x(),c.y(),c.z(),c.w());
 			} else {
-				this.fill = color(c.x(),c.y(),c.z(),pa.g.colorModeA);
+				this.fill = color(c.x(),c.y(),c.z(),this.pa.g.colorModeA);
 			}
 			fill(this.fill);
 		} else if(arg instanceof Integer) {
@@ -395,10 +408,10 @@ public class R_Costume extends R_Shape {
 			if(alpha_is()) {
 				fill(c);	
 			} else {
-				if(g.colorMode == 3) {
-					this.fill = color(hue(c),saturation(c),brightness(c),pa.g.colorModeA);
+				if(this.pa.g.colorMode == 3) {
+					this.fill = color(hue(c),saturation(c),brightness(c),this.pa.g.colorModeA);
 				} else {
-					this.fill = color(red(c),green(c),blue(c),pa.g.colorModeA);
+					this.fill = color(red(c),green(c),blue(c),this.pa.g.colorModeA);
 				}
 				fill(this.fill);
 			}
@@ -411,30 +424,30 @@ public class R_Costume extends R_Shape {
 			if(alpha_is()) {
 				this.stroke = color(c.x(),c.x(),c.x(),c.y());
 			} else {
-				this.stroke = color(c.x(),c.x(),c.x(),pa.g.colorModeA);
+				this.stroke = color(c.x(),c.x(),c.x(),this.pa.g.colorModeA);
 			}
-			stroke(this.stroke,other);
+			stroke(this.stroke);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
-			this.stroke = color(c.x(),c.y(),c.z(),pa.g.colorModeA);
-			stroke(this.stroke,other);
+			this.stroke = color(c.x(),c.y(),c.z(),this.pa.g.colorModeA);
+			stroke(this.stroke);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
 			if(alpha_is()) {
 				this.stroke = color(c.x(),c.y(),c.z(),c.w());
 			} else {
-				this.stroke = color(c.x(),c.y(),c.z(),pa.g.colorModeA);
+				this.stroke = color(c.x(),c.y(),c.z(),this.pa.g.colorModeA);
 			}			
 			stroke(this.stroke);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
 			if(alpha_is()) {
-				stroke(c,other);	
+				stroke(c);	
 			} else {
-				if(g.colorMode == 3) {
-					this.stroke = color(hue(c),saturation(c),brightness(c),pa.g.colorModeA);
+				if(this.pa.g.colorMode == 3) {
+					this.stroke = color(hue(c),saturation(c),brightness(c),this.pa.g.colorModeA);
 				} else {
-					this.stroke = color(red(c),green(c),blue(c),pa.g.colorModeA);
+					this.stroke = color(red(c),green(c),blue(c),this.pa.g.colorModeA);
 				}
 				stroke(this.stroke);
 			}
@@ -495,10 +508,26 @@ public class R_Costume extends R_Shape {
 	}
 
 
+
+
+
+
+
+
+	/**
+	 * It the main method, it's here where the choice 
+	 * what must be shown among the various objects in the collection
+	 */
 	public void show() {
 		show(pos,size,angle);
 	}
-
+	/**
+	 * It the main method, it's here where the choice 
+	 * what must be shown among the various objects in the collection
+	 * @param pos
+	 * @param size
+	 * @param rot
+	 */
 	public void show(vec3 pos, vec3 size, vec rot) {
 		if(rot.x() != 0) costume_rotate_x();
 		if(rot.y() != 0) costume_rotate_y();
@@ -666,8 +695,6 @@ public class R_Costume extends R_Shape {
 			pop();
 		}
 
-
-
 	  else if(this.get_type() == TEXT) {
 	  	push();
 	  	translate(pos);
@@ -702,7 +729,7 @@ public class R_Costume extends R_Shape {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("TETRAHEDRON","VERTEX",(int)size.x(),other);
+			poly.polyhedron("TETRAHEDRON",VERTEX,(int)size.x());
 			pop();
 		} else if (this.get_type() == BOX) {
 			push();
@@ -721,7 +748,7 @@ public class R_Costume extends R_Shape {
 			star_3D_is(false);
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
-			star(new vec3(),size,other);
+			star(new vec3(),size);
 			pop();
 		} else if (this.get_type() == STAR_3D) {
 			float [] ratio = {0.38f};
@@ -732,7 +759,7 @@ public class R_Costume extends R_Shape {
 			star_3D_is(true);
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
-			star(new vec3(),size,other);
+			star(new vec3(),size);
 			pop();
 		}
 
@@ -759,10 +786,13 @@ public class R_Costume extends R_Shape {
 				strength[i] = 1.0f;
 			}
 
+			set_flower((int)size.x(),get_summit());
+			// flower_static() create the flower from the circle
 			for(int i = 0 ; i < get_summit() ; i++) {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
-			flower(new vec3(),(int)size.x,get_summit(),other);
+
+			flower(new vec3(),(int)size.x(),get_summit());
 			pop();
 		}
 
@@ -771,31 +801,31 @@ public class R_Costume extends R_Shape {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("TETRAHEDRON","LINE",(int)size.x(),other);
+			poly.polyhedron("TETRAHEDRON",LINE,(int)size.x());
 			pop();
 		} else if (this.get_type() == CUBE_LINE) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("CUBE","LINE",(int)size.x(),other);
+			poly.polyhedron("CUBE",LINE,(int)size.x());
 			pop();
 		} else if (this.get_type() == OCTOHEDRON_LINE) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("OCTOHEDRON","LINE",(int)size.x(),other);
+			poly.polyhedron("OCTOHEDRON",LINE,(int)size.x());
 			pop();
 		} else if (this.get_type() == RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("RHOMBIC COSI DODECAHEDRON SMALL","LINE",(int)size.x(),other);
+			poly.polyhedron("RHOMBIC COSI DODECAHEDRON SMALL",LINE,(int)size.x());
 			pop();
 		} else if (this.get_type() == ICOSI_DODECAHEDRON_LINE) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			polyhedron("ICOSI DODECAHEDRON","LINE",(int)size.x(),other);
+			poly.polyhedron("ICOSI DODECAHEDRON",LINE,(int)size.x());
 			pop();
 		}
 
@@ -804,9 +834,9 @@ public class R_Costume extends R_Shape {
 			translate(pos);
 			costume_rotate(rot);
 			if(size.z() == 1) {
-				house(size.xyy(),other);
+				house(size.xyy());
 			} else {
-				house(size.xyz(),other);
+				house(size.xyz());
 			}
 			pop();
 		}
@@ -827,7 +857,7 @@ public class R_Costume extends R_Shape {
 			translate(pos);
 			costume_rotate(rot) ;
 			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
-				Costume_pic p = costume_pic_list.get(i);
+				R_Costume_Pict p = costume_pic_list.get(i);
 				if(p.get_id() == this.get_type()) {
 					if(p.get_type() == 1) {
 						PImage img_temp = p.get_img().copy();
@@ -841,9 +871,9 @@ public class R_Costume extends R_Shape {
 					} else if(p.get_type() == 2) {
 						vec2 scale = new vec2(1) ;
 						if(size.x == size.y) {
-	            scale = vec2(size.x / p.get_svg().width(), size.x / p.get_svg().width());
+	            scale = new vec2(size.x() / p.get_svg().width(), size.x() / p.get_svg().width());
 						} else {
-							scale = vec2(size.x / p.get_svg().width(), size.y / p.get_svg().height());
+							scale = new vec2(size.x() / p.get_svg().width(), size.y() / p.get_svg().height());
 						}
 						
 						p.get_svg().scaling(scale);
@@ -856,5 +886,218 @@ public class R_Costume extends R_Shape {
 		}
 	  // reset variable can be change the other costume, if the effect is don't use.
 		ratio_costume_size = 1;
+		
+	}
+
+
+
+
+
+
+
+
+
+	/**
+	 * THE METHOD COLLECTION for those are not a specific class
+	 */
+
+	/**
+	 * 
+	 * @param pos
+	 * @param thickness
+	 * @param radius
+	 */
+	private void cross_rect(ivec2 pos, int thickness, int radius) {
+		float h = radius;
+		float w = thickness/3;
+		// verticale one
+		vec2 size = new vec2(w,h);
+		vec2 pos_temp = new vec2(pos.x, pos.y -floor(size.y/2) +(w/2));
+		pos_temp.sub(w/2);
+		rect(pos_temp,size);	
+		// horizontal one
+		size.set(h,w);
+		pos_temp.set(pos.x-floor(size.x/2) +(w/2),pos.y);
+		pos_temp.sub(w/2);
+		rect(pos_temp,size);
+	}
+
+	/**
+	 * 
+	 * @param size
+	 */
+	private void cross_box_2(vec2 size) {
+		float scale_cross = size.sum() *0.5f;
+		float small_part = scale_cross *ratio_costume_size *0.3f;
+
+		box(size.x,small_part,small_part);
+		box(small_part,size.y,small_part);
+	}
+	/**
+	 * 
+	 * @param size
+	 */
+	private void cross_box_3(vec3 size) {
+		float scale_cross = size.sum() *0.3f;
+		float small_part = scale_cross *ratio_costume_size *0.3f;
+		
+		box(size.x,small_part,small_part);
+		box(small_part,size.y,small_part);
+		box(small_part,small_part,size.z);
+	}
+
+
+
+	private boolean make_virus = true ;
+	private void virus(vec pos, vec size, float angle, int close) {
+		if(make_virus) {
+			virus = new R_Virus(this.pa);
+			make_virus = false ;
+		}
+
+		if(virus.get_mutation() > 0 && this.pa.frameCount%virus.get_mutation() == 0) {
+			virus.reset() ;
+		}
+		virus.angle_x(angle) ;
+		virus.pos(pos) ;
+		virus.size(size) ;
+		virus.show() ;	
+	}
+
+	private void virus_mutation(int mutation) {
+		if(virus != null && mutation != 0 && mutation != virus.get_mutation()) {
+			virus.set_mutation(abs(mutation));
+		}
+	}
+
+	private void virus_num(int num) {
+		if(virus != null && num != 0 && num != virus.get_summits()) {
+			virus.set_summits(abs(num));
+		}
+	}
+
+	private void virus_node(int node) {
+		if(virus != null && node != 0 && node != virus.get_node()) {
+			virus.set_node(abs(node));
+		}
+	}
+
+
+	
+	/**
+	 * 
+	 * @param size
+	 */
+	private void house(vec3 size) {
+		if(house != null) {
+			house.size(size);
+			house.pass_graphic(other);
+			// house_costume_rope.show(g);
+			house.show();
+		} else {
+			//house_costume_rope = new House();
+			house = new R_House(this.pa);
+		}
+	}
+
+
+
+	/**
+	 * 
+	 * @param pos
+	 * @param diam
+	 * @param petals_num
+	 */
+
+	 private void set_flower(int diam, int petals_num) {
+		 if(flower == null || flower.get_summits() != petals_num) {
+			if(petals_num < 3) petals_num = 3;
+			flower = new R_Circle(this.pa, petals_num);
+		} 
+	}
+
+	private void flower(vec pos, int diam, int petals_num) {
+		flower.pos(pos);
+		flower.size(diam);
+		flower.pass_graphic(other);
+		flower.show();
+	}
+
+	private void flower_wind(vec2 petal_left, float strength_left, vec2 petal_right, float strength_right) {
+		if(flower != null) {
+			for(R_Bezier b : flower.get_bezier()) {
+				vec2 trouble = new vec2().sin_wave(this.pa.frameCount,petal_left.x(),petal_left.y()).mult(strength_left);
+				b.set_a(trouble);
+				trouble = new vec2().cos_wave(this.pa.frameCount,petal_right.x(),petal_right.y()).mult(strength_right);
+				b.set_b(trouble);
+			}
+		}
+	}
+
+
+	private void flower_static(vec2 petal_left, float strength_left, vec2 petal_right, float strength_right) {
+		if(flower != null) {
+			for(R_Bezier b : flower.get_bezier()) {
+				vec2 petal_show = new vec2(petal_left.x(),petal_left.y()).mult(strength_left);
+				b.set_a(petal_show);
+				petal_show = new vec2(petal_right.x(),petal_right.y()).mult(strength_right);
+				b.set_b(petal_show);
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+	private void star(vec position, vec size) {
+		if(star != null) {
+			star.pos(position);
+			star.size(size);
+			star.pass_graphic(this.other);
+			star.show();
+		} else {
+			star = new R_Star(this.pa);
+		}
+	}
+
+
+	private void star_3D_is(boolean is_3D) {
+		if(star != null) {
+			star.is_3D(is_3D);
+		} else {
+			star = new R_Star(this.pa);
+		}
+	}
+
+
+	private void star_summits(int summits) {
+		if(star != null) {
+			star.set_summits(summits);
+		} else {
+			star = new R_Star(this.pa);
+		}
+	}
+
+	private void star_angle(float angle) {
+		if(star != null) {
+			star.angle_x(angle);
+		} else {
+			star = new R_Star(this.pa);
+		}
+	}
+
+	private void star_ratio(float... ratio) {
+		if(star != null) {
+			star.set_ratio(ratio);
+		} else {
+			star = new R_Star(this.pa);
+		}
 	}
 }

@@ -258,9 +258,9 @@ public class R_Icosahedron extends R_Shape {
 	}
 
 	private void triangle_imp(vec3 a, vec3 b, vec3 c) {
-		if(type == PConstants.VERTEX) {
+		if(type == VERTEX) {
 			triangle_vertex(a, b, c);
-		} else if (type == PConstants.LINE) {
+		} else if (type == LINE) {
 			triangle_line(a, b, c);
 		} else triangle_vertex(a, b, c);
 	}

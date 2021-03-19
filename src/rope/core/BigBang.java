@@ -10,10 +10,12 @@
  * BIG BANG ROPE
  * is the main class of library
  * 2018-2021
- * v 1.1.0
+ * v 1.1.1
  */
 package rope.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import rope.vector.*;
 import processing.core.*;
@@ -92,6 +94,40 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 			float z = a.z - b.z;
 			float w = a.w - b.w;
 			return new vec4(x, y, z, w);
+		}
+	}
+
+
+	protected vec2 mult(vec2 a, vec2 b) {
+		if(a == null || b == null) {
+			return null ;
+		} else {
+			float x = a.x() * b.x();
+			float y = a.y() * b.y();
+			return new vec2(x,y);
+		}
+	}
+
+	protected vec3 mult(vec3 a, vec3 b) {
+		if(a == null || b == null) {
+			return null ;
+		} else {
+			float x = a.x() * b.x();
+			float y = a.y() * b.y();
+			float z = a.z() * b.z();
+			return new vec3(x,y,z);
+		}
+	}
+
+	protected vec4 mult(vec4 a, vec4 b) {
+		if(a == null || b == null) {
+			return null ;
+		} else {
+			float x = a.x() * b.x();
+			float y = a.y() * b.y();
+			float z = a.z() * b.z();
+			float w = a.w() * b.w();
+			return new vec4(x,y,z,w);
 		}
 	}
 
@@ -759,6 +795,14 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	/**
 	abs
 	*/
+	protected float abs(float arg) {
+		return Math.abs(arg);
+	}
+
+	protected int abs(int arg) {
+		return Math.abs(arg);
+	}
+
 	protected vec2 abs(vec2 arg) {
 		return new vec2(Math.abs(arg.x()),Math.abs(arg.y()));
 	}
@@ -782,10 +826,199 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	protected ivec4 abs(ivec4 arg) {
 		return new ivec4(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()),Math.abs(arg.w()));
 	}
+
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected int floor(float value) {
+		return (int)Math.floor(value);
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected int ceil(float value) {
+		return (int)Math.ceil(value);
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected int round(float value) {
+		return (int)Math.round(value);
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected float sq(float value) {
+		return value * value;
+	}
 	
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected float sqrt(float value) {
+		return (float)Math.sqrt(value);
+	}
+
+	/**
+	 * 
+	 * @param n
+	 * @param e
+	 * @return
+	 */
+	protected float pow(float n, float e) {
+    return (float)Math.pow(n, e);
+  }
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected float atan(float value) {
+		return (float)Math.atan(value);
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected float cos(float value) {
+		return (float)Math.cos(value);
+	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	protected float sin(float value) {
+		return (float)Math.sin(value);
+	}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /**
+  *
+  * Converts a <b>String</b> representation of a hexadecimal number to its
+  * equivalent integer value.
+  *
+  *
+	*/
+	public int unhex(String value) {
+    // has to parse as a Long so that it'll work for numbers bigger than 2^31
+    return (int) (Long.parseLong(value, 16));
+  }
+
+	/**
+	 * 
+	 * @param value
+	 * @param delim
+	 * @return
+	 */
+	public String[] split(String value, char delim) {
+    // do this so that the exception occurs inside the user's
+    // program, rather than appearing to be a bug inside split()
+    if (value == null) return null;
+    //return split(what, String.valueOf(delim));  // huh
+
+    char[] chars = value.toCharArray();
+    int splitCount = 0; //1;
+    for (char ch : chars) {
+      if (ch == delim) splitCount++;
+    }
+    // make sure that there is something in the input string
+    //if (chars.length > 0) {
+      // if the last char is a delimeter, get rid of it..
+      //if (chars[chars.length-1] == delim) splitCount--;
+      // on second thought, i don't agree with this, will disable
+    //}
+    if (splitCount == 0) {
+      String[] splits = new String[1];
+      splits[0] = value;
+      return splits;
+    }
+    //int pieceCount = splitCount + 1;
+    String[] splits = new String[splitCount + 1];
+    int splitIndex = 0;
+    int startIndex = 0;
+    for (int i = 0; i < chars.length; i++) {
+      if (chars[i] == delim) {
+        splits[splitIndex++] =
+          new String(chars, startIndex, i-startIndex);
+        startIndex = i + 1;
+      }
+    }
+    //if (startIndex != chars.length) {
+      splits[splitIndex] =
+        new String(chars, startIndex, chars.length-startIndex);
+    //}
+    return splits;
+  }
+
+	/**
+	 * 
+	 * @param value
+	 * @param delim
+	 * @return
+	 */
+	public String[] split(String value, String delim) {
+    List<String> items = new ArrayList<>();
+    int index;
+    int offset = 0;
+    while ((index = value.indexOf(delim, offset)) != -1) {
+      items.add(value.substring(offset, index));
+      offset = index + delim.length();
+    }
+    items.add(value.substring(offset));
+    String[] outgoing = new String[items.size()];
+    items.toArray(outgoing);
+    return outgoing;
+  }
+
+	/**
+	 * remove the path of your String to return the file name of it.
+	 * @param file_path
+	 * @return
+	 */
+	public String file_name(String file_path) {
+		String file_name = "" ;
+		String [] split_path = file_path.split("/") ;
+		file_name = split_path[split_path.length -1] ;
+		return file_name ;
+	}
 
 
 

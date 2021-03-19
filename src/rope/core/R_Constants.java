@@ -20,6 +20,11 @@ public interface R_Constants {
 	static final String P2D = "processing.opengl.PGraphics2D";
 	static final String P3D = "processing.opengl.PGraphics3D";
 
+static final int BEZIER_VERTEX = 1; // processing value
+	static final int QUADRATIC_VERTEX = 2; // processing value
+	static final int CURVE_VERTEX = 3; // processing value
+	static final int BREAK = 4; // processing value
+
 	static final int VERTEX = 0; // processing value
 
   static final int POINT = 2; // processing value

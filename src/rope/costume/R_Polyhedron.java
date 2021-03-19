@@ -172,14 +172,14 @@ public class R_Polyhedron extends R_Image {
 	void rhombic_dodecahedron(int size) {
 		add_vertices(1,1,1);
 		add_permutations(0,0,2);
-		edge_polyhedron_length = (float)Math.sqrt(3);
+		edge_polyhedron_length = sqrt(3);
 		factor_size_polyhedron = size /2.8f;
 	}
 
 	void rhombic_triacontahedron(int size) {
 		add_vertices(sq(PHI), sq(PHI), sq(PHI));
-		add_permutations(sq(PHI), 0, (float)Math.pow(PHI, 3));
-		add_permutations(0,PHI, (float)Math.pow(PHI,3));
+		add_permutations(sq(PHI), 0, pow(PHI, 3));
+		add_permutations(0,PHI, pow(PHI,3));
 		edge_polyhedron_length = PHI*sqrt(PHI+2);
 		factor_size_polyhedron = size /7.2f;
 	}
@@ -191,7 +191,7 @@ public class R_Polyhedron extends R_Image {
 	}
 
 	void rhombic_cosi_dodecahedron_small(int size) {
-		add_permutations(1, 1, (float)Math.pow(PHI,3));
+		add_permutations(1, 1, pow(PHI,3));
 		add_permutations(sq(PHI),PHI,2*PHI);
 		add_permutations(PHI+2,0,sq(PHI));
 		edge_polyhedron_length = 2;
@@ -250,10 +250,6 @@ public class R_Polyhedron extends R_Image {
 	}
 
 
-
-	void polyhedron_draw_vertex(String name) {
-		polyhedron_draw_vertex(name,null);
-	}
 
 	void polyhedron_draw_vertex(String name) {
 		// TETRAHEDRON
