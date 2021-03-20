@@ -109,8 +109,6 @@ public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {
     R_Bezier current_knot;
 
     beginShape();
-    // System.err.println("R_Circle");
-    // System.err.println(other);
     vec3 temp_pos = previous_knot.pos().xyz().mult(radius).add(pos);
     vec3 closing_pos = temp_pos.copy();
     vertex(temp_pos);

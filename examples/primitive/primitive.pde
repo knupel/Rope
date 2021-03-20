@@ -1,7 +1,7 @@
 /**
 * Rope Polygon
-* v 0.0.1
-* 2019-2019
+* v 0.0.2
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 *
@@ -23,7 +23,7 @@ void setup() {
     println("normal vector");
     printArray(prim[i].get_points());
     println("final vector");
-    printArray(prim[i].get_final_points());
+    printArray(prim[i].get_points());
     println("dir is not implemented, you can use just for store data for now");
     printArray(prim[i].get_dir());
   }

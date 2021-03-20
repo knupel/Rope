@@ -94,32 +94,6 @@ public class R_Costume extends R_Shape {
 		}
 	}
 
-
-	// public void pos(float x, float y, float z) {
-	// 	if(pos == null) {
-	// 		pos = new vec3(x,y,z);
-	// 	} else {
-	// 		pos.set(x,y,z);
-	// 	}
-	// }
-
-
-	// public void size(float x, float y, float z) {
-	// 	if(size == null) {
-	// 		size = new vec3(x,y,z);
-	// 	} else {
-	// 		size.set(x,y,z);
-	// 	}
-	// }
-
-	// public void angle(float x, float y, float z) {
-	// 	if(angle == null) {
-	// 		angle = new vec3(x,y,z);
-	// 	} else {
-	// 		angle.set(x,y,z);
-	// 	}
-	// }
-
 	public void pass_graphic(PGraphics other) {
   	if(other != null) {
   		this.other = other;
@@ -679,19 +653,19 @@ public class R_Costume extends R_Shape {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			cross_rect(new ivec2(0),(int)size.y(),(int)size.x());
+			cross_rect_show(new ivec2(0),(int)size.y(),(int)size.x());
 			pop();
 		} else if (this.get_type() == CROSS_BOX_2) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			cross_box_2(new vec2(size.x(), size.y()));
+			cross_box_2_show(new vec2(size.x(), size.y()));
 			pop();
 		} else if (this.get_type() == CROSS_BOX_3) {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			cross_box_3(size);
+			cross_box_3_show(size);
 			pop();
 		}
 
@@ -740,18 +714,28 @@ public class R_Costume extends R_Shape {
 		}
 
 		else if (this.get_type() == STAR) {
-			float [] ratio = {0.38f};
+			if(this.get_ratio() == null) {
+				star_ratio(0.38f);
+			} else {
+				star_ratio(this.ratio);
+			}
 			push();
 			translate(pos);
 			costume_rotate(rot);
 
 			star_3D_is(false);
-			if(get_summit() == 0 ) set_summit(5);
+			if(get_summit() == 0 ) {
+				set_summit(5);
+			}
 			star_summits(get_summit());
-			star(new vec3(),size);
+			star_show(new vec3(),size);
 			pop();
 		} else if (this.get_type() == STAR_3D) {
-			float [] ratio = {0.38f};
+			if(this.get_ratio() == null) {
+				star_ratio(0.38f);
+			} else {
+				star_ratio(this.ratio);
+			}
 			push();
 			translate(pos);
 			costume_rotate(rot);
@@ -759,7 +743,7 @@ public class R_Costume extends R_Shape {
 			star_3D_is(true);
 			if(get_summit() == 0 ) set_summit(5);
 			star_summits(get_summit());
-			star(new vec3(),size);
+			star_show(new vec3(),size);
 			pop();
 		}
 
@@ -792,7 +776,7 @@ public class R_Costume extends R_Shape {
 				flower_static(pair[i],strength[i],pair[i+get_summit()],strength[i+get_summit()]);
 			}
 
-			flower(new vec3(),(int)size.x(),get_summit());
+			flower_show(new vec3(),(int)size.x(),get_summit());
 			pop();
 		}
 
@@ -834,9 +818,9 @@ public class R_Costume extends R_Shape {
 			translate(pos);
 			costume_rotate(rot);
 			if(size.z() == 1) {
-				house(size.xyy());
+				house_show(size.xyy());
 			} else {
-				house(size.xyz());
+				house_show(size.xyz());
 			}
 			pop();
 		}
@@ -846,7 +830,13 @@ public class R_Costume extends R_Shape {
 			push();
 			translate(pos);
 			costume_rotate(rot);
-			virus(new vec3(),size,0,-1);
+			if(get_summit() == 0 ) {
+				set_summit(5);
+			}
+			virus_summits(get_summit());
+			virus_node((int)(get_summit() /2));
+			virus_mutation((int)(get_summit() /2));
+			virus_show(new vec3(),size,0,-1);
 			pop();
 		}
 
@@ -907,7 +897,7 @@ public class R_Costume extends R_Shape {
 	 * @param thickness
 	 * @param radius
 	 */
-	private void cross_rect(ivec2 pos, int thickness, int radius) {
+	private void cross_rect_show(ivec2 pos, int thickness, int radius) {
 		float h = radius;
 		float w = thickness/3;
 		// verticale one
@@ -926,7 +916,7 @@ public class R_Costume extends R_Shape {
 	 * 
 	 * @param size
 	 */
-	private void cross_box_2(vec2 size) {
+	private void cross_box_2_show(vec2 size) {
 		float scale_cross = size.sum() *0.5f;
 		float small_part = scale_cross *ratio_costume_size *0.3f;
 
@@ -937,7 +927,7 @@ public class R_Costume extends R_Shape {
 	 * 
 	 * @param size
 	 */
-	private void cross_box_3(vec3 size) {
+	private void cross_box_3_show(vec3 size) {
 		float scale_cross = size.sum() *0.3f;
 		float small_part = scale_cross *ratio_costume_size *0.3f;
 		
@@ -949,7 +939,7 @@ public class R_Costume extends R_Shape {
 
 
 	private boolean make_virus = true ;
-	private void virus(vec pos, vec size, float angle, int close) {
+	private void virus_show(vec pos, vec size, float angle, int close) {
 		if(make_virus) {
 			virus = new R_Virus(this.pa);
 			make_virus = false ;
@@ -970,7 +960,7 @@ public class R_Costume extends R_Shape {
 		}
 	}
 
-	private void virus_num(int num) {
+	private void virus_summits(int num) {
 		if(virus != null && num != 0 && num != virus.get_summits()) {
 			virus.set_summits(abs(num));
 		}
@@ -988,7 +978,7 @@ public class R_Costume extends R_Shape {
 	 * 
 	 * @param size
 	 */
-	private void house(vec3 size) {
+	private void house_show(vec3 size) {
 		if(house != null) {
 			house.size(size);
 			house.pass_graphic(other);
@@ -1016,7 +1006,7 @@ public class R_Costume extends R_Shape {
 		} 
 	}
 
-	private void flower(vec pos, int diam, int petals_num) {
+	private void flower_show(vec pos, int diam, int petals_num) {
 		flower.pos(pos);
 		flower.size(diam);
 		flower.pass_graphic(other);
@@ -1056,7 +1046,7 @@ public class R_Costume extends R_Shape {
 
 
 
-	private void star(vec position, vec size) {
+	private void star_show(vec position, vec size) {
 		if(star != null) {
 			star.pos(position);
 			star.size(size);
@@ -1067,29 +1057,21 @@ public class R_Costume extends R_Shape {
 		}
 	}
 
-
 	private void star_3D_is(boolean is_3D) {
 		if(star != null) {
 			star.is_3D(is_3D);
 		} else {
 			star = new R_Star(this.pa);
+			star.is_3D(is_3D);
 		}
 	}
-
 
 	private void star_summits(int summits) {
 		if(star != null) {
 			star.set_summits(summits);
 		} else {
 			star = new R_Star(this.pa);
-		}
-	}
-
-	private void star_angle(float angle) {
-		if(star != null) {
-			star.angle_x(angle);
-		} else {
-			star = new R_Star(this.pa);
+			star.set_summits(summits);
 		}
 	}
 
@@ -1098,6 +1080,7 @@ public class R_Costume extends R_Shape {
 			star.set_ratio(ratio);
 		} else {
 			star = new R_Star(this.pa);
+			star.set_ratio(ratio);
 		}
 	}
 }

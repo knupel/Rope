@@ -1,7 +1,7 @@
 /**
 * Rope Polygon
-* v 0.0.1
-* 2019-2019
+* v 0.0.2
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 *
@@ -22,7 +22,7 @@ void setup() {
     println("normal vector");
     printArray(poly[i].get_points());
     println("final vector");
-    printArray(poly[i].get_final_points());
+    printArray(poly[i].get_points());
   }
 }
 

@@ -1,3 +1,5 @@
+file .project use Sublim Text to see it, is not visible with VScode and in Eclipse
+
 Sometime a part of this code is lost and eclipse don't reconize it.
 So look if the
 <buildSpec>
