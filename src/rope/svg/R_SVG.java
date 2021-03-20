@@ -1,6 +1,6 @@
 /**
 * R_SVG
-* v 0.2.0
+* v 0.2.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -23,14 +23,14 @@ import rope.vector.vec4;
 import rope.vector.vec6;
 
 public class R_SVG extends R_Image {
-  PShape shape_SVG ;
-  String path = "" ;
-  String folder_brick_name = "brick";
+	private PShape shape_SVG ;
+	private String path = "" ;
+	private String folder_brick_name = "brick";
   // R_Brick_SVG builder;
-  ArrayList<R_Brick_SVG> list_brick_SVG = new ArrayList<R_Brick_SVG>() ;
-  String name = "" ;
-  String header_svg = "" ;
-  int ID_brick ;
+	private ArrayList<R_Brick_SVG> list_brick_SVG = new ArrayList<R_Brick_SVG>() ;
+  private String name = "" ;
+  private String header_svg = "" ;
+  private int ID_brick;
   private String saved_path_bricks_svg = "" ;
 
   private boolean position_center = false ;
@@ -100,8 +100,7 @@ public class R_SVG extends R_Image {
 
 
   /**
-  PUBLIC METHOD
-
+  * PUBLIC METHOD
   */
   public void build(String path_import, String path_brick) {
     list_brick_SVG.clear() ;
@@ -122,6 +121,14 @@ public class R_SVG extends R_Image {
     build(path, saved_path_bricks_svg) ;
   } 
 
+
+
+  /**
+   * 
+   */
+  public String get_name() {
+    return this.name;
+  }
 
 
 
