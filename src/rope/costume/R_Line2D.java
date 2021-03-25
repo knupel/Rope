@@ -16,7 +16,7 @@ import rope.vector.*;
 
 
 
-public class R_Line2D extends R_Image implements R_Constants {
+public class R_Line2D extends R_Graphic implements R_Constants {
   private vec2 a;
   private vec2 b;
   

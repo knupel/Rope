@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.vector.ivec2;
 import rope.vector.vec2;
 import rope.vector.vec3;
 
-public class R_Bloc extends R_Image {
+public class R_Bloc extends R_Graphic {
 	private ArrayList<vec3> list;
 	private int id;
 	private String name;

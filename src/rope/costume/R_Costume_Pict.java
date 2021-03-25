@@ -10,10 +10,10 @@ package rope.costume;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.svg.R_SVG;
 
-public class R_Costume_Pict extends R_Image {
+public class R_Costume_Pict extends R_Graphic {
 	PImage img;
 	R_SVG svg;
 	int type = -1; 

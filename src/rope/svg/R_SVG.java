@@ -15,14 +15,14 @@ import processing.core.PFont;
 import processing.core.PShape;
 import processing.core.PVector;
 import processing.data.XML;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec4;
 import rope.vector.vec6;
 
-public class R_SVG extends R_Image {
+public class R_SVG extends R_Graphic {
 	private PShape shape_SVG ;
 	private String path = "" ;
 	private String folder_brick_name = "brick";

@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 
-public class R_Megabloc extends R_Image {
+public class R_Megabloc extends R_Graphic {
 	private ArrayList<R_Bloc> list;
 	private int width;
 	private int height;

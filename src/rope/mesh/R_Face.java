@@ -8,10 +8,10 @@
 package rope.mesh;
 
 import processing.core.PApplet;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.vector.vec3;
 
-public class R_Face extends R_Image {
+public class R_Face extends R_Graphic {
 	private vec3 [] pts = new vec3[3];
 	private vec3 [] ref = new vec3[3];
 	private int fill;

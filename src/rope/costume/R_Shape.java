@@ -13,7 +13,7 @@ import rope.vector.*;
 import processing.core.*;
 
 
-public class R_Shape extends R_Image {
+public class R_Shape extends R_Graphic {
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;

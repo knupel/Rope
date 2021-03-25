@@ -11,10 +11,10 @@ package rope.svg;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.data.XML;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.vector.vec4;
 
-public class R_Brick_SVG extends R_Image {
+public class R_Brick_SVG extends R_Graphic {
     private String file_name ;
     private String brick_name = "no name" ;
     private String family_name = "no name" ;

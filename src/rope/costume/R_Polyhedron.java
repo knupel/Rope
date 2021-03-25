@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import rope.core.R_Image;
+import rope.core.R_Graphic;
 import rope.vector.vec3;
 
-public class R_Polyhedron extends R_Image {
+public class R_Polyhedron extends R_Graphic {
 	
 	R_Polyhedron(PApplet pa) {
 		super(pa);

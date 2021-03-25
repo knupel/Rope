@@ -12,14 +12,14 @@ package rope.core;
 import processing.core.*;
 import rope.vector.*;
 
-public class R_Image extends BigBang {
+public class R_Graphic extends BigBang {
 	protected processing.core.PGraphics other;
 	
-	public R_Image(PApplet pa) {
+	public R_Graphic(PApplet pa) {
 		super(pa);
 	}
 	
-	public R_Image(PApplet pa, PGraphics other) {
+	public R_Graphic(PApplet pa, PGraphics other) {
 		super(pa);
 		this.other = other;
 	}
