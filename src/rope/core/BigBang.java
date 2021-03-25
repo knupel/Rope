@@ -10,7 +10,7 @@
  * BIG BANG ROPE
  * is the main class of library
  * 2018-2021
- * v 1.1.1
+ * v 1.2.0
  */
 package rope.core;
 
@@ -41,8 +41,26 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	public BigBang(PApplet pa) {
 		this.pa = pa;
 	}
+
+
+	/**
+	 * MISC IMPORTANT
+	 */
   
+	 /**
+		* 
+		* @param filename
+		* @return
+	  */
+	public PImage loadImage(String filename) {
+    return pa.loadImage(filename, null);
+  }
 	
+
+
+
+
+
 	/**
 	 * OPERATION
 	 */
@@ -572,12 +590,33 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 
 
 
+
+
+
+	/**
+	 * 
+	 * @param value
+	 */
+	public void noiseSeed(int value) {
+		this.pa.noiseSeed(value);
+	}
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public float noise(float x, float y) {
+		return this.pa.noise(x,y);
+	}
+
 	/**
 	 * 
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
-	Random internalRandom;
+	private Random internalRandom;
 	protected float random(float high) {	
 		// return pa.random(high); // don't do that because that's create a Processing dependency and need to pass this: PApplet in the sketch
 		// avoid an infinite loop when 0 or NaN are passed in
@@ -627,7 +666,7 @@ public abstract class BigBang implements R_Constants,R_Constants_Colour {
 	 * 
 	 * @return float
 	 */
-	Random random = new Random();
+	private Random random = new Random();
 	public float random_next_gaussian() {
 		return random_next_gaussian(1, 1);
 	}
