@@ -1,6 +1,6 @@
 /**
-* RShape class
-* v 0.3.2
+* R_Shape class
+* v 0.3.3
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -13,7 +13,7 @@ import rope.vector.*;
 import processing.core.*;
 
 
-public class R_Shape extends R_Image implements R_Constants {
+public class R_Shape extends R_Image {
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;
