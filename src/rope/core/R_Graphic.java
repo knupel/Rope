@@ -1,6 +1,6 @@
 /**
 * R_Graphic class
-* v 0.2.3
+* v 0.3.0
 * 2019-2021
 * @author @stanlepunk
 * @see http://stanlepunk.xyz
@@ -525,111 +525,7 @@ public class R_Graphic extends BigBang {
   
   
 
-	// ASPECT AND COLOR
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param gray
-	 * @return
-	 */
-	public int color(float gray) {
-		return pa.color(gray);
-	}
-	
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param gray
-	 * @param alpha
-	 * @return
-	 */
-	public int color(float gray, float alpha) {
-		return pa.color(gray, alpha);	
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param v1
-	 * @param v2
-	 * @param v3
-	 * @return
-	 */
-	public int color(float v1, float v2, float v3) {
-		return pa.color(v1, v2, v3);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param v1
-	 * @param v2
-	 * @param v3
-	 * @param alpha
-	 * @return
-	 */
-	public int color(float v1, float v2, float v3, float alpha) {
-		return pa.color(v1, v2, v3, alpha);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float alpha(int value) {
-		return this.pa.alpha(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float hue(int value) {
-		return this.pa.hue(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float saturation(int value) {
-		return this.pa.saturation(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float brightness(int value) {
-		return this.pa.brightness(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float red(int value) {
-		return this.pa.red(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float green(int value) {
-		return this.pa.green(value);
-	}
-
-	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
-	 */
-	public float blue(int value) {
-		return this.pa.blue(value);
-	}
+	// ASPECT
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it

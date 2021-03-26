@@ -1,6 +1,6 @@
 /**
 * R_Pixo class
-* v 0.1.0
+* v 0.2.0
 * 2021-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -9,10 +9,10 @@
 package rope.pixo;
 
 import processing.core.PApplet;
-import rope.core.BigBang;
+import rope.core.Rope;
 import rope.vector.vec3;
 
-public class R_Pixo extends BigBang {
+public class R_Pixo extends Rope {
 	private vec3 home;
 	private boolean home_is = true;
 	private boolean migration_is = false;
@@ -21,14 +21,21 @@ public class R_Pixo extends BigBang {
 	private vec3 pos;
 	private vec3 size;
 	private int colour;
-	private float alpha;
+	private float alpha = 255.0f;
 
-	public R_Pixo(PApplet pa) {
-    super(pa);
+	// public R_Pixo(PApplet pa) {
+  //   super(pa);
+	// 	this.pos = new vec3();
+	// 	this.size = new vec3(1);
+	// 	this.colour = BLACK;
+	// 	this.alpha = this.pa.g.colorModeA;
+	// }
+
+	public R_Pixo() {
+    super();
 		this.pos = new vec3();
 		this.size = new vec3(1);
 		this.colour = BLACK;
-		this.alpha = this.pa.g.colorModeA;
 	}
 
 	// pos

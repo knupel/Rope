@@ -1,15 +1,15 @@
 /**
 * vec class
-* v 2.0.1
-* 2015-2020
-* Processing 3.5.3
+* v 2.1.0
+* 2015-2021
+* Processing 3.5.4
 * Vector class with a float precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.BigBang;
-public abstract class vec extends BigBang {
+import rope.core.Rope;
+public abstract class vec extends Rope {
 	public int size;
 	public float x,y,z,w = Float.NaN;
 	public float e,f = Float.NaN; // for vec5 and vec6 

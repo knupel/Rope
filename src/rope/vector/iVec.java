@@ -1,15 +1,14 @@
 /**
 * ivec class
 * v 2.0.1
-* 2015-2020
+* 2015-2021
 * Vector with a integer precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.BigBang;
-public abstract class ivec extends BigBang {
+import rope.core.Rope;
+public abstract class ivec extends Rope {
 	private int size;
 	public int x,y,z,w;
 	public int e,f; // for ivec5 and ivec6

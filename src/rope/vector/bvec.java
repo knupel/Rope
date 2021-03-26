@@ -1,15 +1,14 @@
 /**
 * bvec class
-* v 2.0.1
-* 2015-2019
+* v 2.1.0
+* 2015-2021
 * Vector with a boolean precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.BigBang;
-public abstract class bvec extends BigBang {
+import rope.core.Rope;
+public abstract class bvec extends Rope {
 	private int size;
 	public boolean x,y,z,w;
 	public boolean e,f; // for bvec5 and bvec6
