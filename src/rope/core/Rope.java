@@ -1491,8 +1491,16 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	
 	
-	
-	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width the width of you 2D array pixel
+	 * @return a linear position from a 2D array tab
+	 */
+	int index_pixel_array(int x, int y, int width) {
+		return (x + y * width);
+	}
 	 /**
   *
   * Converts a <b>String</b> representation of a hexadecimal number to its

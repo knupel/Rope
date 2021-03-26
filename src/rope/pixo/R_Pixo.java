@@ -9,43 +9,31 @@
 package rope.pixo;
 
 import processing.core.PApplet;
-import rope.core.Rope;
+import rope.pixo.R_Pix;
 import rope.vector.vec3;
 
-public class R_Pixo extends Rope {
+
+public class R_Pixo extends R_Pix {
 	private vec3 home;
 	private boolean home_is = true;
 	private boolean migration_is = false;
 	private vec3 canvas;
 	private vec3 speed;
-	private vec3 pos;
+
 	private vec3 size;
-	private int colour;
+
 	private float alpha = 255.0f;
 
-	// public R_Pixo(PApplet pa) {
-  //   super(pa);
-	// 	this.pos = new vec3();
-	// 	this.size = new vec3(1);
-	// 	this.colour = BLACK;
-	// 	this.alpha = this.pa.g.colorModeA;
-	// }
 
 	public R_Pixo() {
     super();
-		this.pos = new vec3();
 		this.size = new vec3(1);
 		this.colour = BLACK;
 	}
 
-	// pos
-	public void pos(float x, float y, float z) {
-		this.pos.set(x,y,z);
-	}
 
-	public vec3 pos() {
-		return this.pos;
-	}
+
+
 
 	// migration
 	public void migration_is(boolean is) {
@@ -100,6 +88,10 @@ public class R_Pixo extends Rope {
 		this.size(size,size,size);
 	}
 
+	public void size(float x, float y) {
+		this.size.set(x,y,0);
+	}
+
 	public void size(float x, float y, float z) {
 		this.size.set(x,y,z);
 	}
@@ -111,6 +103,10 @@ public class R_Pixo extends Rope {
 	// speed
 	public void speed(float speed) {
 		this.speed(speed,speed,speed);
+	}
+
+	public void speed(float x, float y) {
+		speed(x,y,0);
 	}
 
 	public void speed(float x, float y, float z) {
@@ -125,14 +121,7 @@ public class R_Pixo extends Rope {
 		return this.speed;
 	}
 
-	//colour
-	public void colour(int colour) {
-		this.colour = colour;
-	}
 
-	public int colour() {
-		return this.colour;
-	}
 
 	// alpha
 	public void alpha(int alpha) {
