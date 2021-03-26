@@ -1,4 +1,19 @@
-*version 0.8.5.30 in progress
+*version 0.11.0.39 < 0.8.5.30
+A lot of work between those version, too much to describe it with precision
+>add package colour, begin of class to manage colour and palette.
+>add package pixo, begin of classes to manage pixel like particles.
+>add package image, contain R_Image, R_Pattern and R_Image_Manager class
+>add package svg, make something in the illustraotr spirit.
+>add package costume to manage and attach item shape to différent position, size and rotation.
+>split class Rope and BigBang, now BigBang is child of Pixo.
+>Modify BigBang class, now there is only the Processing function and method
+>Modify and rich Rope class with all the proper function who dont need dependencies.
+>add item icosahedron to class Costume
+
+
+
+
+*version 0.8.5.30
 >R_Line2D : fix toString() bug
 >R_Line2D: add method to catch coordinate from a normal position or distance on the line
 >R_Constants: add constants VERTICAL, HORIZONTAL, DIAGONAL, CIRCULAR
