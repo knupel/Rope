@@ -174,7 +174,7 @@ public class R_SVG extends R_Graphic {
     int num = 0 ;
     vec3 correction = new vec3() ;
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(i) ;
+      R_Brick_SVG b = list_brick_SVG.get(i) ;
       if( b.get_family_name().contains(layer_name)) {
         // catch position before the scaling
         for(int k = 0 ; k < list_svg_vec(b.get_id()).length ; k++) {
@@ -191,7 +191,7 @@ public class R_SVG extends R_Graphic {
 
     vec3 [] list_raw = new vec3[num] ;
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
-      R_Brick_SVG b = (R_Brick_SVG)list_brick_SVG.get(i) ;
+      R_Brick_SVG b = list_brick_SVG.get(i) ;
       if( b.get_family_name().contains(layer_name)) {
         // catch position before the scaling
         for(int k = 0 ; k < list_svg_vec(b.get_id()).length ; k++) {
@@ -539,7 +539,7 @@ public class R_SVG extends R_Graphic {
   */
   public void add_def(int target, vec3... value) {
     if(list_brick_SVG.size() > 0) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(target) ;
+      R_Brick_SVG b = list_brick_SVG.get(target) ;
       if(b.get_kind() == "polygon" || b.get_kind() == "path" || b.get_kind() == "polyline") {
         for(Vertices v : list_vertice_SVG) {
           if(v.ID == b.get_id()) v.add_value(value) ;
@@ -586,7 +586,7 @@ public class R_SVG extends R_Graphic {
     p[0] = new vec3(2147483647,2147483647,2147483647) ; // it's maximum value of int in 8 bit :)
 
     if(list_brick_SVG.size() > 0) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(target) ;
+      R_Brick_SVG b = list_brick_SVG.get(target) ;
       if(b.get_kind() == "polygon" || b.get_kind() == "path" || b.get_kind() == "polyline") {
         for(Vertices v : list_vertice_SVG) {
           if(v.ID == b.get_id()) return v.vertices() ;
@@ -619,19 +619,6 @@ public class R_SVG extends R_Graphic {
   }
 
 
-  // public PVector [] list_svg_PVector(int target) {
-  //   PVector [] p  ;
-  //   vec3 [] temp_list ;
-  //   temp_list = list_svg_vec(target).clone() ;
-  //   int num = temp_list.length ;
-  //   p = new PVector[num] ;
-  //   for(int i = 0 ; i < num ; i++) {
-  //     p[i] = new PVector(temp_list[i].x, temp_list[i].y, temp_list[i].z) ;
-  //   }
-  //   if (p != null) return p ; else return null ;
-  // }
-
-
 
 
 
@@ -650,7 +637,7 @@ public class R_SVG extends R_Graphic {
 
   public String brick_name(int target) {
     if(list_brick_SVG.size() > 0 && target < list_brick_SVG.size()) {
-      R_Brick_SVG b = (R_Brick_SVG)list_brick_SVG.get(target) ;
+      R_Brick_SVG b = list_brick_SVG.get(target) ;
       return b.get_brick_name();
 
     } else return "No idea for this ID !" ;
@@ -662,7 +649,7 @@ public class R_SVG extends R_Graphic {
 
   public String family_brick(int target) {
     if(list_brick_SVG.size() > 0 && target < list_brick_SVG.size()) {
-      R_Brick_SVG b = (R_Brick_SVG)list_brick_SVG.get(target) ;
+      R_Brick_SVG b = list_brick_SVG.get(target) ;
       return b.get_family_name();
 
     } else return "No idea for this ID !" ;
@@ -673,7 +660,7 @@ public class R_SVG extends R_Graphic {
   }
   public String kind_brick(int target) {
     if(list_brick_SVG.size() > 0 && target < list_brick_SVG.size()) {
-      R_Brick_SVG b = (R_Brick_SVG)list_brick_SVG.get(target) ;
+      R_Brick_SVG b = list_brick_SVG.get(target) ;
       return b.get_kind();
 
     } else return "No idea for this ID !" ;
@@ -770,17 +757,6 @@ public class R_SVG extends R_Graphic {
 
 
 
-  
-  
-  
-  
-  
-  
-
-
-
-
-
 
   
   
@@ -833,7 +809,7 @@ public class R_SVG extends R_Graphic {
   // INTERN METHOD 2D
   private void draw_SVG(vec pos_, vec scale_, vec jitter_) {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(i) ;
+      R_Brick_SVG b = list_brick_SVG.get(i) ;
       draw_final(pos_, scale_, jitter_, b) ;
     }
   }
@@ -845,7 +821,7 @@ public class R_SVG extends R_Graphic {
   // 2D
   private void draw_SVG (vec pos_, vec scale_, vec jitter_, int ID) {
     if(ID < list_brick_SVG.size()) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(ID) ;
+      R_Brick_SVG b = list_brick_SVG.get(ID) ;
       draw_final(pos_, scale_, jitter_, b) ;
     }
   }
@@ -858,7 +834,7 @@ public class R_SVG extends R_Graphic {
   // must be factoring is very ligth method :)
   private void draw_SVG (vec pos_, vec scale_, vec jitter_, String layer_name) {
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
-      R_Brick_SVG b = (R_Brick_SVG) list_brick_SVG.get(i) ;
+      R_Brick_SVG b = list_brick_SVG.get(i) ;
       if( b.get_family_name().contains(layer_name)) {
         draw_final(pos_, scale_, jitter_, b) ;
       }
@@ -942,27 +918,6 @@ public class R_SVG extends R_Graphic {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /**
   BUILD
 
@@ -1033,7 +988,7 @@ public class R_SVG extends R_Graphic {
       // Problem here with P3D and P2D mode
       // return null pointer exception with type 'text'
       
-      R_Brick_SVG b = (R_Brick_SVG) list.get(i) ;
+      R_Brick_SVG b = list.get(i) ;
       if(b.get_kind() == "polygon" || b.get_kind() == "path" || b.get_kind() == "polyline")  vertex_count(children[0], mother.getName(), b.get_id()) ;
       if(b.get_kind() == "line")  line_count(b.get_xml_brick(), mother.getName(), b.get_id()) ;
       else if(b.get_kind() == "circle" || b.get_kind() == "ellipse") ellipse_count(b.get_xml_brick(), b.get_id()) ;
@@ -1167,8 +1122,8 @@ public class R_SVG extends R_Graphic {
   private void ellipse_count(XML xml_shape, int ID) {
     vec6 matrix = matrix_vec(xml_shape) ;
     float r = xml_shape.getChild(0).getFloat("r") ;
-    float rx = (float)xml_shape.getChild(0).getFloat("rx") ;
-    float ry = (float)xml_shape.getChild(0).getFloat("ry") ;
+    float rx = xml_shape.getChild(0).getFloat("rx") ;
+    float ry = xml_shape.getChild(0).getFloat("ry") ;
     float cx = xml_shape.getChild(0).getFloat("cx") ;
     float cy = xml_shape.getChild(0).getFloat("cy") ;
     if(r > 0 ) rx = ry = r ;
@@ -1907,7 +1862,7 @@ public class R_SVG extends R_Graphic {
     Save name of SVG, width, height and other global properties
     */
     for(int i = 0 ; i < list_brick_SVG.size() ; i++) {
-      R_Brick_SVG shape = (R_Brick_SVG) list_brick_SVG.get(i) ;
+      R_Brick_SVG shape = list_brick_SVG.get(i);
       this.pa.saveXML(shape.get_xml_brick(),  saved_path_bricks_svg + folder_brick_name + "_" + i + ".svg") ;
     }
   }

@@ -1,3 +1,9 @@
+*version 0.11.1.40
+>remove waring build
+>add class R_Moxo to split method from R_Pixo, Moxo name is a contraxion of Pixo and Motion
+
+
+
 *version 0.11.0.39 < 0.8.5.30
 A lot of work between those version, too much to describe it with precision
 >add package colour, begin of class to manage colour and palette.

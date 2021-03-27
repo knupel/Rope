@@ -1,9 +1,8 @@
 /**
- * Rope is the initializer
- *  but how that's work is like a mystery !
+ * Rope
  * @author stan
- * 2018-2019
- * v 0.1.0
+ * 2018-2021
+ * v 0.2.0
  * 
  */
 
@@ -27,9 +26,7 @@ import rope.vector.vec3;
 import rope.vector.vec4;
 
 public class Rope implements R_Constants, R_Constants_Colour {
-	public Rope() {
-		
-	}
+	public Rope() {}
 	
 	
 	/**
@@ -804,7 +801,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return
 	 */
 	protected int round(float value) {
-		return (int)Math.round(value);
+		return Math.round(value);
 	}
 
 	/**

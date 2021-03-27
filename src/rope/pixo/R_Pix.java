@@ -6,11 +6,12 @@ import rope.vector.vec3;
 
 public class R_Pix extends Rope {
   protected vec3 pos;
-  protected int colour;
+  protected int fill;
   protected int entry;
 
   public R_Pix() {
     this.pos = new vec3();
+		this.fill = BLACK;
   }
 
   // entry
@@ -21,17 +22,31 @@ public class R_Pix extends Rope {
 	public void set_entry(int entry) {
 		this.entry = entry;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int get_entry() {
 		return this.entry;
 	}
 
 
-  	// pos
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void pos(float x, float y) {
 		this.pos.set(x,y,0);
 	}
-
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void pos(float x, float y, float z) {
 		this.pos.set(x,y,z);
 	}
@@ -41,13 +56,20 @@ public class R_Pix extends Rope {
 	}
 
 
-  //colour
-	public void colour(int colour) {
-		this.colour = colour;
+  /**
+   * 
+   * @param fill
+   */
+	public void fill(int fill) {
+		this.fill = fill;
 	}
-
-	public int colour() {
-		return this.colour;
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int fill() {
+		return this.fill;
 	}
 
 }

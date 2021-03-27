@@ -1,7 +1,7 @@
 /**
 * R_Line2D class
-* v 0.1.3
-* 2019-2019
+* v 0.1.4
+* 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -10,7 +10,7 @@ package rope.costume;
 import rope.core.*;
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import rope.vector.*;
+import rope.vector.vec2;
 
 
 
@@ -164,7 +164,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public float dist() {
-    return (float)Math.abs(a.dist(b));
+    return abs(a.dist(b));
   }
 
   /**
@@ -173,7 +173,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public vec2 intersection(R_Line2D target) {
-    return intersection(target, null);
+    return intersection(target);
   }
 
   /**

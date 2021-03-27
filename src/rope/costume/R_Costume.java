@@ -1,6 +1,6 @@
 /**
 * R_Costume
-* v 0.2.1
+* v 0.2.2
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -834,8 +834,8 @@ public class R_Costume extends R_Shape {
 				set_summit(5);
 			}
 			virus_summits(get_summit());
-			virus_node((int)(get_summit() /2));
-			virus_mutation((int)(get_summit() /2));
+			virus_node((get_summit() /2));
+			virus_mutation((get_summit() /2));
 			virus_show(new vec3(),size,0,-1);
 			pop();
 		}
