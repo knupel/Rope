@@ -1,9 +1,8 @@
 /**
 * R_Graphic class
-* v 0.3.0
+* v 0.3.1
 * 2019-2021
 * @author @stanlepunk
-* @see http://stanlepunk.xyz
 * @see https://github.com/StanLepunK/Rope
 * Class with Image utilities for Rope Library
 */
@@ -435,6 +434,22 @@ public class R_Graphic extends BigBang {
 			other.rect(px,py,sx,sy);
 		} else {
 			this.pa.rect(px,py,sx,sy);
+		}
+	}
+	
+	public void rect(float px, float py, float sx, float sy, float r) {
+		if(other != null) {
+			other.rect(px,py,sx,sy,r);
+		} else {
+			this.pa.rect(px,py,sx,sy,r);
+		}
+	}
+	
+	public void rect(float px, float py, float sx, float sy, float tl, float tr, float br, float bl) {
+		if(other != null) {
+			other.rect(px,py,sx,sy,tl, tr, br, bl);
+		} else {
+			this.pa.rect(px,py,sx,sy,tl, tr, br, bl);
 		}
 	}
 

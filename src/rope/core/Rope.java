@@ -32,6 +32,58 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * OPERATION
 	 */
+	
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	protected vec2 add(vec2 a, vec2 b) {
+	  if(a == null || b == null) {
+	    return null ;
+	  } else {
+	    float x = a.x() + b.x();
+	    float y = a.y() + b.y();
+	    return new vec2(x,y);
+	  }
+	}
+
+	protected vec3 add(vec3 a, vec3 b) {
+	  if(a == null || b == null) {
+	    return null ;
+	  } else {
+	    float x = a.x() + b.x();
+	    float y = a.y() + b.y();
+	    float z = a.z() + b.z();
+	    return new vec3(x,y,z);
+	  }
+	}
+
+	protected vec4 add(vec4 a, vec4 b) {  
+	  if(a == null || b == null) {
+	    return null ;
+	  } else {
+	    float x = a.x() + b.x();
+	    float y = a.y() + b.y();
+	    float z = a.z() + b.z();
+	    float w = a.w() + b.w();
+	    return new vec4(x,y,z,w);
+	  }
+	}
+	
+	protected vec2 add(vec2 a, float arg) {
+	  return add(a, new vec2(arg,arg));
+	}
+
+	protected vec3 add(vec3 a, float arg) {
+	  return add(a,new vec3(arg,arg,arg));
+	}
+
+	protected vec4 add(vec4 a, float arg) {  
+	  return add(a, new vec4(arg,arg,arg,arg));
+	}
+	
 	/**
 	 * 
 	 * @param a
@@ -48,12 +100,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
-	 */
 	protected vec3 sub(vec3 a, vec3 b) {
 		if (a == null || b == null) {
 			return null;
@@ -65,12 +111,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
-	 */
 	protected vec4 sub(vec4 a, vec4 b) {
 		if (a == null || b == null) {
 			return null;
@@ -82,8 +122,25 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			return new vec4(x, y, z, w);
 		}
 	}
+	
+	protected vec2 sub(vec2 a, float arg) {
+	  return sub(a, new vec2(arg,arg));
+	}
 
+	protected vec3 sub(vec3 a, float arg) {
+	  return sub(a, new vec3(arg,arg,arg));
+	}
 
+	protected vec4 sub(vec4 a, float arg) {  
+	  return sub(a, new vec4(arg,arg,arg,arg));
+	}
+
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	protected vec2 mult(vec2 a, vec2 b) {
 		if(a == null || b == null) {
 			return null ;
@@ -116,6 +173,70 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			return new vec4(x,y,z,w);
 		}
 	}
+	
+	protected vec2 mult(vec2 a, float arg) {
+	  return mult(a, new vec2(arg,arg));
+	}
+
+	protected vec3 mult(vec3 a, float arg) {
+	  return mult(a, new vec3(arg,arg,arg));
+	}
+
+	protected vec4 mult(vec4 a, float arg) {  
+	  return mult(a, new vec4(arg,arg,arg,arg));
+	}
+	
+	
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	protected vec2 div(vec2 a, vec2 b) {
+	  if(a == null || b == null) {
+	    return null;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    return new vec2(x,y);
+	  }
+	}
+
+	protected vec3 div(vec3 a, vec3 b) {
+	  if(a == null || b == null) {
+	    return null;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    float z = a.z() /b.z();
+	    return new vec3(x,y,z);
+	  }
+	}
+
+	protected vec4 div(vec4 a, vec4 b) {
+	  if(a == null || b == null) {
+	    return null ;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    float z = a.z() /b.z();
+	    float w = a.w() /b.w();
+	    return new vec4(x,y,z,w);
+	  }
+	}
+	
+	protected vec2 div(vec2 a, float arg) {
+	  return div(a, new vec2(arg,arg));
+	}
+
+	protected vec3 div(vec3 a, float arg) {
+	  return div(a, new vec3(arg,arg,arg));
+	}
+
+	protected vec4 div(vec4 a, float arg) {  
+	  return div(a, new vec4(arg,arg,arg,arg));
+	}
 
 	/**
 	 * Cross product of vec3
@@ -134,6 +255,29 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			return new vec3(crossX, crossY, crossZ);
 		}
 	}
+	
+	
+	/**
+  *
+  * Constrains a value to not exceed a maximum and minimum value.
+  *
+  * @webref math:calculation
+  * @webBrief Constrains a value to not exceed a maximum and minimum value.
+  * @param amt the value to constrain
+  * @param low minimum limit
+  * @param high maximum limit
+  * @see PApplet#max(float, float, float)
+  * @see PApplet#min(float, float, float)
+  */
+	protected int constrain(int amt, int low, int high) {
+    return (amt < low) ? low : ((amt > high) ? high : amt);
+  }
+
+
+	protected float constrain(float amt, float low, float high) {
+    return (amt < low) ? low : ((amt > high) ? high : amt);
+  }
+  
   
 	/**
 	 * map method
@@ -785,6 +929,18 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	protected int floor(float value) {
 		return (int)Math.floor(value);
 	}
+	
+	protected vec2 floor(vec2 arg) {
+	  return new vec2(floor(arg.x()),floor(arg.y()));
+	}
+
+	protected vec3 floor(vec3 arg) {
+	  return new vec3(floor(arg.x()),floor(arg.y()),floor(arg.z()));
+	}
+
+	protected vec4 floor(vec4 arg) {
+	  return new vec4(floor(arg.x()),floor(arg.y()),floor(arg.z()),floor(arg.w()));
+	}
 
 	/**
 	 * 
@@ -794,6 +950,18 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	protected int ceil(float value) {
 		return (int)Math.ceil(value);
 	}
+	
+	protected vec2 ceil(vec2 arg) {
+	  return new vec2(ceil(arg.x()),ceil(arg.y()));
+	}
+
+	protected vec3 ceil(vec3 arg) {
+	  return new vec3(ceil(arg.x()),ceil(arg.y()),ceil(arg.z()));
+	}
+
+	protected vec4 ceil(vec4 arg) {
+	  return new vec4(ceil(arg.x()),ceil(arg.y()),ceil(arg.z()),ceil(arg.w()));
+	}
 
 	/**
 	 * 
@@ -802,6 +970,18 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 */
 	protected int round(float value) {
 		return Math.round(value);
+	}
+	
+	protected vec2 round(vec2 arg) {
+	  return new vec2(round(arg.x()),round(arg.y()));
+	}
+
+	protected vec3 round(vec3 arg) {
+	  return new vec3(round(arg.x()),round(arg.y()),round(arg.z()));
+	}
+
+	protected vec4 round(vec4 arg) {
+	  return new vec4(round(arg.x()),round(arg.y()),round(arg.z()),round(arg.w()));
 	}
 
 	/**
@@ -1495,9 +1675,54 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param width the width of you 2D array pixel
 	 * @return a linear position from a 2D array tab
 	 */
-	int index_pixel_array(int x, int y, int width) {
+	public int index_pixel_array(int x, int y, int width) {
 		return (x + y * width);
 	}
+	
+	
+	
+	
+	
+	
+	public float truncate(float x) {
+		return round(x * 100.0f) /100.0f;
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param num
+	 * @return a float number with a number after comma equal to the num arg
+	 */
+	public float truncate(float x, int num) {
+		float result = 0.0f;
+		switch(num) {
+			case 0:
+				result = round(x * 1.0f) /1.0f;
+				break;
+			case 1:
+				result = round(x * 10.0f) /10.0f;
+				break;
+			case 2:
+				result = round(x * 100.0f) /100.0f;
+				break;
+			case 3:
+				result = round(x * 1000.0f) /1000.0f;
+				break;
+			case 4:
+				result = round(x * 10000.0f) /10000.0f;
+				break;
+			case 5:
+				result = round(x * 100000.0f) /100000.0f;
+				break;
+			default:
+				result = x;
+				break;
+		}
+		return result;
+	}
+
+
 	 /**
   *
   * Converts a <b>String</b> representation of a hexadecimal number to its
@@ -1635,6 +1860,22 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public void print_err(Object... obj) {
 		System.err.println(write_message(obj));
 		System.err.flush();
+	}
+	
+	
+	public void print_err_tempo(int tempo, Object... obj) {
+		if(System.currentTimeMillis()/10%tempo == 0) {
+			String message = write_message(obj);
+			System.err.println(message);
+			System.err.flush();
+		}
+	}
+
+	public void print_tempo(int tempo, Object... obj) {
+		if(System.currentTimeMillis()/10%tempo == 0) {
+			String message = write_message(obj);
+			System.out.println(message);
+		}
 	}
 
 	
