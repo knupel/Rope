@@ -532,13 +532,19 @@ public class R_Slider extends Crope {
 	private void molette_update_calc() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(!molette[i].select_is()) {
-				if(molette_used_is(i) && State.dna_current_slider() == 0) {
+				if(molette_used_is(i) && any(State.dna_current_slider() == 0, State.keep_selection_is())) {
 					State.dna_current_slider(get_dna());
 				}
 				
 				boolean auth_is = false;
-				if(any(molette[i].used_is(), State.dna_current_slider() == get_dna(), State.keep_selection_is())) {
-					auth_is = true;
+				if(State.keep_selection_is()) {
+					if(any(molette[i].used_is(), State.dna_current_slider() == get_dna())) {
+						auth_is = true;
+					}
+				} else {
+					if(State.dna_current_slider() == get_dna()) {
+						auth_is = true;
+					}
 				}
 				
 				boolean is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
@@ -919,7 +925,7 @@ public class R_Slider extends Crope {
 				result = true ;
 			}
 
-			if (!event) { 
+			if(!event) { 
 				result = false ; 
 				State.molette_is(false);
 			}
@@ -928,31 +934,5 @@ public class R_Slider extends Crope {
 			return false;   
 		}
 	}
-	/*
-	protected boolean select(int index, boolean locked_method, boolean result, boolean auth) {
-		if(auth) {
-			if(!State.molette_is()) {
-				if (locked_method) {
-					State.molette_is(true);
-					result = true;
-				}
-			} else if(locked_method) {
-				if(index == -1) {
-					for(int i = 0 ; i < molette.length ;i++) {
-						molette[i].select(false);
-					}
-				} else if(index >= 0 && index < molette.length) {
-					molette[index].select(false);
-				}
-				result = true ;
-			}
-
-			if (!event) { 
-				result = false ; 
-				State.molette_is(false);
-			}
-			return result;
-		} else return false;   
-	}
-	*/
+	//
 }
