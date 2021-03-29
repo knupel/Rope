@@ -1,11 +1,13 @@
 
 /**
+ * * R_Constants
 	* ROPE - ROmanesco Processing Environment – 
 	* Copyleft (c) 2014-2021
 	* Variable shared throughout rope.core.
+	* *
 	* Rope constants
-	* v 0.2.1.0
-	* Processing 3.5.3
+	* v 1.0.0
+	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
@@ -19,8 +21,13 @@ public interface R_Constants {
 
 	static final String P2D = "processing.opengl.PGraphics2D";
 	static final String P3D = "processing.opengl.PGraphics3D";
+	static final String JAVA2D = "processing.awt.PGraphicsJava2D";
+	static final String FX2D = "processing.javafx.PGraphicsFX2D";
+	static final String PDF = "processing.pdf.PGraphicsPDF";
+	static final String SVG = "processing.svg.PGraphicsSVG";
+	static final String DXF = "processing.dxf.RawDXF";
 
-static final int BEZIER_VERTEX = 1; // processing value
+	static final int BEZIER_VERTEX = 1; // processing value
 	static final int QUADRATIC_VERTEX = 2; // processing value
 	static final int CURVE_VERTEX = 3; // processing value
 	static final int BREAK = 4; // processing value

@@ -129,11 +129,11 @@ public class R_State {
 		}
 		
 		// dna current slider
-		public static void dna_current_slider(int dna) {
+		public static void set_dna_current_crope(int dna) {
 			env.dna_current_slider = dna;
 		}
 		
-		public static int dna_current_slider() {
+		public static int get_dna_current_crope() {
 			return env.dna_current_slider;
 		}
 

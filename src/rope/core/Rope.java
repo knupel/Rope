@@ -1909,6 +1909,32 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			System.out.println(message);
 		}
 	}
+	
+	
+	/**
+	* Check OS
+	* v 0.0.2
+	*/
+	public String get_os() {
+		return System.getProperty("os.name").toLowerCase();
+	}
+
+	public String get_os_family() {
+		String os = System.getProperty("os.name").toLowerCase();
+		String family = "";
+		if(os.indexOf("win") >= 0) {
+			family = "win";
+		} else if(os.indexOf("mac") >= 0) {
+			family = "mac";
+		} else if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") >= 0) {
+			family = "unix";
+		} else if(os.indexOf("solaris") >= 0) {
+			family = "solaris";
+		}
+		return family;
+	}
+	
+	
 
 	
 	

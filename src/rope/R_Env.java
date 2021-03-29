@@ -1,3 +1,14 @@
+/**
+* REnv
+* Control ROmanesco Processing Environment
+* v 0.0.1
+* Copyleft (c) 2021-2021
+
+* dependencies
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope;
 
 import rope.vector.bvec2;

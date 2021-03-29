@@ -1,3 +1,14 @@
+/**
+* R_Mol
+* Control ROmanesco Processing Environment
+* v 1.0.0
+* Copyleft (c) 2018-2021
+
+* dependencies
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.gui;
 
 import processing.core.PApplet;
@@ -284,8 +295,8 @@ public class R_Mol extends R_Graphic {
       else return false ;
     } else {
       temp_pos.sub(size.copy().mult(0.5f));
-      if(cursor.x() > temp_pos.x && cursor.x() < temp_pos.x() +size.x() && 
-         cursor.y() > temp_pos.y && cursor.y() < temp_pos.y() +size.y()) return true; 
+      if(cursor.x() > temp_pos.x() && cursor.x() < temp_pos.x() +size.x() && 
+         cursor.y() > temp_pos.y() && cursor.y() < temp_pos.y() +size.y()) return true; 
         else return false ;
     }
   }

@@ -10,13 +10,15 @@
  * BIG BANG ROPE
  * is the main class of library
  * 2018-2021
- * v 2.0.0
- *  * WARNING : Here it's PROCESSING BIG BANG
+ * v 2.0.1
+ * 
+ * WARNING : Here it's PROCESSING BIG BANG
  * BigBang is used to use directly the Processing method, to keep Rope with only Java Stuff
  
  */
 package rope.core;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 
@@ -28,6 +30,10 @@ public abstract class BigBang extends Rope {
 	
 
 	public BigBang(PApplet pa) {
+		if(pa == null) {
+			print_err("Papplet pa is null, maybe your forget to use function State.papplet(PApplet pa)");
+			System.exit(0);
+		}
 		this.pa = pa;
 	}
 
@@ -42,6 +48,26 @@ public abstract class BigBang extends Rope {
 	  */
 	public void pass_processing(PApplet pa) {
 		this.pa = pa;
+	}
+	
+	
+	public String get_renderer() {
+	  return get_renderer(this.pa.g);
+	}
+
+	public String get_renderer(final PGraphics graph) {
+	  try {
+	    if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
+	    if (Class.forName(FX2D).isInstance(graph)) return FX2D;
+	    if (Class.forName(P2D).isInstance(graph)) return P2D;
+	    if (Class.forName(P3D).isInstance(graph)) return P3D;
+	    if (Class.forName(PDF).isInstance(graph)) return PDF;
+	    if (Class.forName(DXF).isInstance(graph)) return DXF;
+	  }
+
+	  catch (ClassNotFoundException ex) {
+	  }
+	  return "Unknown";
 	}
   
 	 /**

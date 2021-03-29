@@ -1,3 +1,14 @@
+/**
+* R_SLider
+* Control ROmanesco Processing Environment
+* v 1.0.0
+* Copyleft (c) 2018-2021
+
+* dependencies
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.gui.slider;
 
 import java.util.Arrays;
@@ -493,7 +504,7 @@ public class R_Slider extends Crope {
 		}
 
 		if(State.env().pointer == null) {
-			print_err_tempo(100,"Static State.env().pointer is null, maybe you forget to use: State.pointer()");
+			print_err_tempo(100,"Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
 		} else {
 			update(State.env().pointer.x(),State.env().pointer.y());
 		}
@@ -519,7 +530,7 @@ public class R_Slider extends Crope {
 	protected void molette_update() {
 		event = this.pa.mousePressed;
 		if(!event) {
-			State.dna_current_slider(0); 
+			State.set_dna_current_crope(0); 
 		}
 		if(molette == null) {
 			init_molette(1);
@@ -532,17 +543,17 @@ public class R_Slider extends Crope {
 	private void molette_update_calc() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(!molette[i].select_is()) {
-				if(molette_used_is(i) && any(State.dna_current_slider() == 0, State.keep_selection_is())) {
-					State.dna_current_slider(get_dna());
+				if(molette_used_is(i) && any(State.get_dna_current_crope() == 0, State.keep_selection_is())) {
+					State.set_dna_current_crope(get_dna());
 				}
 				
 				boolean auth_is = false;
 				if(State.keep_selection_is()) {
-					if(any(molette[i].used_is(), State.dna_current_slider() == get_dna())) {
+					if(any(molette[i].used_is(), State.get_dna_current_crope() == get_dna())) {
 						auth_is = true;
 					}
 				} else {
-					if(State.dna_current_slider() == get_dna()) {
+					if(State.get_dna_current_crope() == get_dna()) {
 						auth_is = true;
 					}
 				}

@@ -7,7 +7,7 @@
 * dependencies
 * Processing 3.5.4
 * @author @stanlepunk
-* @see https://github.com/StanLepunK/Crope
+* @see https://github.com/StanLepunK/Rope
 */
 
 package rope.gui;
