@@ -519,48 +519,31 @@ public class R_Slider extends Crope {
 	protected void molette_update() {
 		event = this.pa.mousePressed;
 		if(!event) {
-			// reset, because in this case there is no current slider
 			State.dna_current_slider(0); 
 		}
-		// inside(ELLIPSE);
 		if(molette == null) {
 			init_molette(1);
 		}
-		
-		/*
-		for(int i = 0 ; i < molette.length ; i++) {
-			if(State.dna_current_slider() != get_dna()) {
-				molette[i].select(false);
-			} else {
-				print_err("State.dna_current_slider()",State.dna_current_slider());
-				molette[i].select(true);
-			}
-		}
-		*/
-
-		// normal
-		// System.out.println("");
+		molette_update_calc();
+		molette_update_wheel();
+	}
+	
+	
+	private void molette_update_calc() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(!molette[i].select_is()) {
-				
-				boolean auth_is = false;
 				if(molette_used_is(i) && State.dna_current_slider() == 0) {
 					State.dna_current_slider(get_dna());
 				}
-				if(any(molette[i].used_is(), State.dna_current_slider() == get_dna())) {
-				// if(all(molette_used_is(i), molette[i].used_is())) {
+				
+				boolean auth_is = false;
+				if(any(molette[i].used_is(), State.dna_current_slider() == get_dna(), State.keep_selection_is())) {
 					auth_is = true;
-					//print_err(get_dna(), State.keep_selection_is(), molette_used_is(i), molette[i].used_is(), auth_is);
 				}
 				
 				boolean is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
-				// boolean is = select(i, molette_used_is(i), molette[i].used_is(), true);
-				
-				// print_err("State.keep_selection_is()",State.keep_selection_is());
-				// print_err(get_dna(), "select(", molette_used_is(i), molette[i].used_is(), true,")");
 				molette[i].used(is);
 				
-				// print_err("get_dna()", get_dna(), is, molette[i].used_is());
 				if(molette[i].used_is()) {
 					mol_update_pos(i, temp_min(i), temp_max(i));
 					mol_update_used_by_cursor(i, temp_min(i), temp_max(i));
@@ -568,8 +551,9 @@ public class R_Slider extends Crope {
 				}   
 			}
 		}
-		
-		// wheel case
+	}
+	
+	private void molette_update_wheel() {
 		if(wheel_is()) {
 			if(scroll == null) {
 				print_err_tempo(100, "class Slider method molette_update(): the wheelEvent is innacessible\nmay be you must use method scroll(MouseEvent e) in void mouseWheel(MouseEvent e)");
