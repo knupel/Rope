@@ -482,9 +482,12 @@ public class R_Slider extends Crope {
 
 
 
-	// MISC
-	public void update() {
+	/**
+	 * UPDATE
+	 */
+	
 
+	public void update() {
 		if(State.select_mol_is() != null) {
 			select(State.select_mol_is().x(), State.select_mol_is().y());
 		}
@@ -509,6 +512,106 @@ public class R_Slider extends Crope {
 		molette_update();
 	}
 	
+	
+	/**
+	 * It's the main method to move the molette the slider.
+	 */
+	protected void molette_update() {
+		event = this.pa.mousePressed;
+		if(!event) {
+			// reset, because in this case there is no current slider
+			State.dna_current_slider(0); 
+		}
+		// inside(ELLIPSE);
+		if(molette == null) {
+			init_molette(1);
+		}
+		
+		/*
+		for(int i = 0 ; i < molette.length ; i++) {
+			if(State.dna_current_slider() != get_dna()) {
+				molette[i].select(false);
+			} else {
+				print_err("State.dna_current_slider()",State.dna_current_slider());
+				molette[i].select(true);
+			}
+		}
+		*/
+
+		// normal
+		// System.out.println("");
+		for(int i = 0 ; i < molette.length ; i++) {
+			if(!molette[i].select_is()) {
+				
+				boolean auth_is = false;
+				if(molette_used_is(i) && State.dna_current_slider() == 0) {
+					State.dna_current_slider(get_dna());
+				}
+				if(any(molette[i].used_is(), State.dna_current_slider() == get_dna())) {
+				// if(all(molette_used_is(i), molette[i].used_is())) {
+					auth_is = true;
+					//print_err(get_dna(), State.keep_selection_is(), molette_used_is(i), molette[i].used_is(), auth_is);
+				}
+				
+				boolean is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
+				// boolean is = select(i, molette_used_is(i), molette[i].used_is(), true);
+				
+				// print_err("State.keep_selection_is()",State.keep_selection_is());
+				// print_err(get_dna(), "select(", molette_used_is(i), molette[i].used_is(), true,")");
+				molette[i].used(is);
+				
+				// print_err("get_dna()", get_dna(), is, molette[i].used_is());
+				if(molette[i].used_is()) {
+					mol_update_pos(i, temp_min(i), temp_max(i));
+					mol_update_used_by_cursor(i, temp_min(i), temp_max(i));
+					break;
+				}   
+			}
+		}
+		
+		// wheel case
+		if(wheel_is()) {
+			if(scroll == null) {
+				print_err_tempo(100, "class Slider method molette_update(): the wheelEvent is innacessible\nmay be you must use method scroll(MouseEvent e) in void mouseWheel(MouseEvent e)");
+			} else {
+				float val = 0;
+				if(size.x() >= size.y()) {
+					float temp = molette[0].pos.x();
+					temp += scroll.x();
+					molette[0].pos.x(temp);
+					val = molette[0].pos.x();
+				} else {
+					float temp = molette[0].pos.y();
+					temp += scroll.y();
+					molette[0].pos.y(temp);
+					val = molette[0].pos.y();
+				}
+				mol_update_pos(0,temp_min(0),temp_max(0));
+				if(size.x() >= size.y()) {
+					val = round(constrain(val, temp_min(0).x(), temp_max(0).x()));
+				} else { 
+					val = round(constrain(val, temp_min(0).y(), temp_max(0).y()));
+				}
+				molette[0].set(val);
+			}   
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// MISC
 	private boolean wheel_is;
 	public void wheel(boolean wheel_is) {
 		if(molette == null) {
@@ -521,6 +624,21 @@ public class R_Slider extends Crope {
 			this.wheel_is = false;
 		} 
 	}
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	public void scroll(MouseEvent e) {
+		if(scroll == null) {
+			scroll = new ivec2(e.getCount());
+		} else {
+			scroll.set(e.getCount());
+		}
+	}
+	
+	
+	
 
 
 	protected void init_molette(int len) {
@@ -530,7 +648,7 @@ public class R_Slider extends Crope {
 	}
 
 	private void molette_builder(int num) {
-		molette = new R_Mol[num]; // create list of molette
+		molette = new R_Mol[num];
 		for(int i = 0 ; i < num ; i++) {
 			molette[i] = new R_Mol();
 			this.set_pos_molette(i);
@@ -568,67 +686,7 @@ public class R_Slider extends Crope {
 		}
 	}
 
-	/**
-	 * It's the main methode to move the molette the slider.
-	 */
-	protected void molette_update() {
-		inside(ELLIPSE);
-		if(molette == null) {
-			init_molette(1);
-		}
-		for(int i = 0 ; i < molette.length ; i++) {
-			if(!molette[i].select_is()) {
-				event = this.pa.mousePressed;
-				boolean is = select(i,molette_used_is(i),molette[i].used_is(),true);
-				molette[i].used(is);
-				if(molette[i].used_is()) {
-					mol_update_pos(i,temp_min(i),temp_max(i));
-					mol_update_used_by_cursor(i,temp_min(i),temp_max(i));
-					break;
-				}   
-			}
-		}
 
-		if(wheel_is()) {
-			if(scroll == null) {
-				print_err_tempo(100, "class Slider method molette_update(): the wheelEvent is innacessible\nmay be you must use method scroll(MouseEvent e) in void mouseWheel(MouseEvent e)");
-			} else {
-				float val = 0;
-				if (size.x() >= size.y()) {
-					float temp = molette[0].pos.x();
-					temp += scroll.x();
-					molette[0].pos.x(temp);
-					val = molette[0].pos.x();
-				} else {
-					float temp = molette[0].pos.y();
-					temp += scroll.y();
-					molette[0].pos.y(temp);
-					val = molette[0].pos.y();
-				}
-				mol_update_pos(0,temp_min(0),temp_max(0));
-				if (size.x() >= size.y()) {
-					val = round(constrain(val, temp_min(0).x(), temp_max(0).x()));
-				} else { 
-					val = round(constrain(val, temp_min(0).y(), temp_max(0).y()));
-				}
-				molette[0].set(val);
-			}   
-		}
-	}
-	
-	/**
-	 * 
-	 * @param e
-	 */
-	public void scroll(MouseEvent e) {
-		if(scroll == null) {
-			scroll = new ivec2(e.getCount());
-		} else {
-			scroll.set(e.getCount());
-		}
-	}
-
-	
 	
 	private void mol_update_used_by_cursor(int index, vec2 min, vec2 max) {
 		if (molette[index].used_is) {
@@ -716,7 +774,6 @@ public class R_Slider extends Crope {
 		return molette[index].inside_is();
 	}
 
-	// inside molette
 	public boolean inside_molette_rect() {
 		boolean state = false;
 		for(int i = 0 ; i < molette.length; i++) {
@@ -747,7 +804,9 @@ public class R_Slider extends Crope {
 	}
 
 	public boolean inside_molette_ellipse(int index) {
-		if(cursor == null) cursor = new vec2();
+		if(cursor == null) {
+			cursor = new vec2();
+		}
 		float radius = molette[index].size.x();
 		int pos_x = (int)(radius * 0.5f + molette[index].pos.x()); 
 		int pos_y = (int)(size.y() * 0.5f + molette[index].pos.y());
@@ -778,7 +837,7 @@ public class R_Slider extends Crope {
 	public void update_midi(int index, int value) {
 		//update the Midi position only if the Midi Button move
 		if (midi_value != value) { 
-			if(size.x >= size.y) {
+			if(size.x() >= size.y()) {
 				float temp = map(value, 1, 127, pos_min.x(), pos_max.x());
 				molette[index].pos.x(temp);
 				molette[index].set(temp); 
@@ -793,6 +852,20 @@ public class R_Slider extends Crope {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 *  SELECTION
+	 *  
+	 *  
+	 */
+	
+	
 	boolean keep_selection = true;
 	public void keep_selection(boolean is) {
 		if(is) {
@@ -804,35 +877,35 @@ public class R_Slider extends Crope {
 	}
 
 	// select
-	public void select(boolean authorization) {
+	public void select(boolean auth) {
 		for(int i = 0 ; i < molette.length ; i++) {
-			select(i,authorization);
+			select(i,auth);
 		}
 	}
 	
-	private void select(int index, boolean authorization) {
+	private void select(int index, boolean auth) {
 		molette[index].select(keep_selection);
 		event = this.pa.mousePressed;
-		molette[index].used_is = select(index, molette_used_is(index), molette[index].used_is, authorization);
+		molette[index].used_is = select(index, molette_used_is(index), molette[index].used_is, auth);
 	}
 	
 	
-	public  void select(boolean authorization_1, boolean authorization_2) {
+	public  void select(boolean auth_1, boolean auth_2) {
 		for(int i = 0 ; i < molette.length ; i++) {
-			select(i,authorization_1,authorization_2);
+			select(i,auth_1,auth_2);
 		}
 	}
 
-	private void select(int index, boolean authorization_1, boolean authorization_2) {
+	private void select(int index, boolean auth_1, boolean auth_2) {
 		molette[index].select(keep_selection);
-		event = authorization_1;
-		molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,authorization_2);
+		event = auth_1;
+		molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,auth_2);
 	}
 	
 
 	// this method is used to switch false all select_is molette
-	protected boolean select(boolean locked_method, boolean result, boolean authorization) {
-		return select(-1, locked_method,result,authorization);
+	protected boolean select(boolean locked_method, boolean result, boolean auth) {
+		return select(-1, locked_method,result,auth);
 	}
 
 
@@ -844,8 +917,36 @@ public class R_Slider extends Crope {
 	 * @param authorization
 	 * @return
 	 */
-	protected boolean select(int index, boolean locked_method, boolean result, boolean authorization) {
-		if(authorization) {
+	protected boolean select(int index, boolean locked_method, boolean result, boolean auth) {
+		if(auth) {
+			if(!State.molette_is()) {
+				if (locked_method) {
+					State.molette_is(true);
+					result = true;
+				}
+			} else if(locked_method) {
+				if(index == -1) {
+					for(int i = 0 ; i < molette.length ;i++) {
+						molette[i].select(false);
+					}
+				} else if(index >= 0 && index < molette.length) {
+					molette[index].select(false);
+				}
+				result = true ;
+			}
+
+			if (!event) { 
+				result = false ; 
+				State.molette_is(false);
+			}
+			return result;
+		} else {
+			return false;   
+		}
+	}
+	/*
+	protected boolean select(int index, boolean locked_method, boolean result, boolean auth) {
+		if(auth) {
 			if(!State.molette_is()) {
 				if (locked_method) {
 					State.molette_is(true);
@@ -869,4 +970,5 @@ public class R_Slider extends Crope {
 			return result;
 		} else return false;   
 	}
+	*/
 }

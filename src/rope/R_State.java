@@ -65,6 +65,13 @@ public class R_State {
 			return env.mouse_pressed;
 		}
 		
+		
+		
+		/**
+		 * Control ROPE
+		 * 
+		 */
+		
 		// selector adjustable molette
 		public static void select_adj_is(boolean is) {
 			env.auth_select_adj = is;
@@ -121,6 +128,14 @@ public class R_State {
 			return env.pointer;
 		}
 		
+		// dna current slider
+		public static void dna_current_slider(int dna) {
+			env.dna_current_slider = dna;
+		}
+		
+		public static int dna_current_slider() {
+			return env.dna_current_slider;
+		}
 
 		
 	}

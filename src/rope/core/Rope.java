@@ -2,7 +2,7 @@
  * Rope
  * @author stan
  * 2018-2021
- * v 0.2.0
+ * v 0.2.1
  * 
  */
 
@@ -1575,6 +1575,22 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			return false;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @return true if all elments of the list is true
+	 */
+	public boolean all(boolean ...list) {
+		boolean result = true;
+		for(int i = 0 ; i < list.length ; i++) {
+			if(list[i] == false) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
 
 	/**
 	any
@@ -1662,6 +1678,22 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			System.err.println("method any() return false because argument bvec6 b is null");
 			return false;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @return return true if any element of the list is true
+	 */
+	public boolean any(boolean ...list) {
+		boolean result = false;
+		for(int i = 0 ; i < list.length ; i++) {
+			if(list[i] == true) {
+				result = true;
+				break;
+			}
+		}
+		return result;
 	}
 	
 	

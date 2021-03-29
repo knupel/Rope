@@ -16,14 +16,17 @@ public class R_Env {
 	public int w;
 	public int h;
 	
+	
+	
 	public vec2 scroll;
 	public boolean mouse_pressed;
 	public boolean key_pressed;
 	public vec3 pointer;
 	
+	//Control Rope
 	public boolean select;
-	
 	public boolean molette;
+	public int dna_current_slider;
 	public boolean auth_select_adj;
 	public bvec2 auth_select_mol;
 	public boolean auth_select_keep;
