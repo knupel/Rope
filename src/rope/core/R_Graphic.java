@@ -129,6 +129,41 @@ public class R_Graphic extends BigBang {
   }
   
   
+  void image(PImage img) {
+    if(img != null) {
+    	image(img, 0, 0);
+    } else {
+    	print_err_tempo(100,"void image(PImage img): PImage img pass to method image() is null");
+    }
+  }
+  
+  public void image(PImage img, float a, float b) {
+  	if(other != null) {
+			other.image(img, a, b);
+		} else {
+			this.pa.g.image(img, a, b);
+		}
+  }
+  
+  public void image(PImage img, float a, float b, float c, float d) {
+  	if(other != null) {
+			other.image(img, a, b, c, d);
+		} else {
+			this.pa.g.image(img, a, b, c, d);
+		}
+  }
+  
+  public void image(PImage img,
+      							float a, float b, float c, float d,
+      							int u1, int v1, int u2, int v2) {
+  	if(other != null) {
+			other.image(img, a, b, c, d, u1, v1, u2, v2);
+		} else {
+			this.pa.g.image(img, a, b, c, d, u1, v1, u2, v2);
+		}
+  }
+  
+  
   /**
    * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
    * @param x
