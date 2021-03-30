@@ -20,7 +20,8 @@ import rope.vector.vec2;
 import rope.R_State.State;
 
 abstract public class Crope extends R_Graphic  {
-  protected vec2 pos, size;
+  protected vec2 pos;
+  protected vec2 size;
   protected vec2 pos_ref;
 
   protected vec2 cursor = new vec2();
@@ -55,7 +56,7 @@ abstract public class Crope extends R_Graphic  {
   private int rank;
 
   private String type = "Crope";
-  private int rollover_type = RECT;
+  protected int rollover_type = RECT;
 
   protected boolean crope_build_is = false;
 
@@ -383,11 +384,11 @@ abstract public class Crope extends R_Graphic  {
       	return false;
       }
     } else {
-    	if(cursor.x() > pos.x && 
+    	if(cursor.x() > pos.x() && 
     			cursor.x() < pos.x() +size.x() && 
-    			cursor.y() > pos.y && 
+    			cursor.y() > pos.y() && 
     			cursor.y() < pos.y() +size.y()) {
-    		return true; 
+    		  return true; 
     		} else {
       		return false ;
       	}

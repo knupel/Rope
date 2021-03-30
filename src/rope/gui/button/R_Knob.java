@@ -5,6 +5,7 @@
 */
 package rope.gui.button;
 
+import rope.R_State.State;
 import rope.gui.R_Mol;
 import rope.vector.vec2;
 
@@ -96,8 +97,8 @@ public class R_Knob extends R_Button {
   }
 
   public R_Knob set_fill_molette(int c_in, int c_out) {
-    this.molette.fill_in(c_in);
-    this.molette.fill_out(c_out);
+    this.molette.set_fill_in(c_in);
+    this.molette.set_fill_out(c_out);
     return this;
   }
   
@@ -107,13 +108,13 @@ public class R_Knob extends R_Button {
   }
 
   public R_Knob set_stroke_molette(int c_in, int c_out) {
-    this.molette.stroke_in(c_in);
-    this.molette.stroke_out(c_out);
+    this.molette.set_stroke_in(c_in);
+    this.molette.set_stroke_out(c_out);
     return this;
   }
 
   public R_Knob set_thickness_molette(float thickness) {
-    this.molette.thickness(thickness);
+    this.molette.set_thickness(thickness);
     return this;
   }
 
@@ -151,13 +152,13 @@ public class R_Knob extends R_Button {
       int c = 0;
       if(on_off_is) {
         if (is) {
-          if (inside() && authorization) {
+          if (inside() && auth_rollover) {
             c = color_out_ON; 
           } else {
             c = color_in_ON;
           }
         } else {
-          if (inside() && authorization) {
+          if (inside() && auth_rollover) {
             c = color_out_OFF; 
           } else {
             c = color_in_OFF;
@@ -191,8 +192,13 @@ public class R_Knob extends R_Button {
 
 
   // misc
+  public void update() {
+  	// print_err("event",this.event);
+    update(State.env().pointer.x(),State.env().pointer.y(),State.env().event.x(),true);
+  }
+  
   public void update(float x, float y) {
-    update(x,y,mousePressed,true);
+    update(x,y,State.env().event.x(),true);
   }
 
   public void update(float x, float y, boolean event_1) {
@@ -208,10 +214,10 @@ public class R_Knob extends R_Button {
     molette.set_offset(pos.copy().add(size.copy().mult(0.5f)));
     boolean inside_mol = molette.inside(cursor);
     molette.inside_is(inside_mol);
-    if(inside_mol && event) {
+    if(inside_mol && this.event) {
       molette.used(true);
     }
-    if(!event) {
+    if(!this.event) {
       molette.used(false);
       previous_angle_ref = molette.angle();
       ref_angle_is = false;
@@ -306,10 +312,10 @@ public class R_Knob extends R_Button {
   }
   
   // select
-  private void select(boolean event) {
-    use_event_is = true;
-    this.event = event;
-  }
+  // private void select(boolean event) {
+  //   use_event_is = true;
+  //   this.event = event;
+  // }
   
   private void select(boolean event_1, boolean event_2) {
     use_event_is = true;

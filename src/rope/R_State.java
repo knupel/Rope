@@ -11,6 +11,7 @@ package rope;
 import processing.core.PApplet;
 import rope.vector.vec3;
 import rope.vector.bvec2;
+import rope.vector.bvec4;
 
 public class R_State {
 	public static class State {
@@ -63,6 +64,32 @@ public class R_State {
 		
 		public static boolean mouse_pressed_is() {
 			return env.mouse_pressed;
+		}
+		
+		public static void event(boolean... event) {
+			if(env.event == null) {
+				env.event = new bvec4();
+			}
+			
+			if(event.length == 1) {
+				env.event.x(event[0]);
+			} else if(event.length == 2) {
+				env.event.x(event[0]);
+				env.event.y(event[1]);
+			} else if(event.length == 3) {
+				env.event.x(event[0]);
+				env.event.y(event[1]);
+				env.event.z(event[2]);
+			}else if(event.length == 4) {
+				env.event.x(event[0]);
+				env.event.y(event[1]);
+				env.event.z(event[2]);
+				env.event.w(event[3]);
+			}
+		}
+		
+		public static bvec4 event() {
+			return env.event;
 		}
 		
 		

@@ -1,7 +1,7 @@
 /**
 * bvec5 class
-* v 1.2.0
-* 2015-2019
+* v 1.2.1
+* 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
@@ -10,7 +10,12 @@
 package rope.vector;
 public class bvec5 extends bvec {
 
-	public bvec5(boolean a,boolean b,boolean c, boolean d, boolean e) {
+	public bvec5() {
+		super(5);
+		set(false);
+	}
+	
+	public bvec5(boolean a, boolean b, boolean c, boolean d, boolean e) {
 		super(5);
 		set(a,b,c,d,e);
 	}

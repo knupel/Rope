@@ -1,7 +1,7 @@
 /**
 * bvec4 class
-* v 1.2.0
-* 2015-2019
+* v 1.3.0
+* 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
@@ -10,10 +10,14 @@
 package rope.vector;
 public class bvec4 extends bvec {
 	
-	public bvec4(boolean x,boolean y,boolean z, boolean w) {
+	public bvec4() {
 		super(4);
-		set(x,y,z,w);
-		
+		set(false);
+	}
+	
+	public bvec4(boolean x, boolean y, boolean z, boolean w) {
+		super(4);
+		set(x,y,z,w);	
 	}
 	
 	public bvec4(boolean arg) {

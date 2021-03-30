@@ -1833,6 +1833,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
     return outgoing;
   }
 
+
+
+	
+
+
+
+
+
 	/**
 	 * remove the path of your String to return the file name of it.
 	 * @param file_path

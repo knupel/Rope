@@ -10,6 +10,11 @@
 package rope.vector;
 public class bvec3 extends bvec {
 	
+	public bvec3() {
+		super(3);
+		set(false);
+	}
+	
 	public bvec3(boolean x, boolean y, boolean z) {
 		super(3);
 		set(x,y,z);

@@ -18,8 +18,14 @@
  */
 package rope.core;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
+
+
+import java.awt.Font; 
+import java.awt.image.BufferedImage ;
+import java.awt.FontMetrics;
 
 
 public abstract class BigBang extends Rope {
@@ -81,8 +87,22 @@ public abstract class BigBang extends Rope {
 		* @return
 	  */
 	public PImage loadImage(String filename) {
-    return pa.loadImage(filename, null);
+    return this.pa.loadImage(filename, null);
   }
+
+
+
+	public PFont createFont(String name, float size) {
+		return this.pa.createFont(name, size);
+	}
+
+	public PFont createFont(String name, float size, boolean smooth) {
+		return this.pa.createFont(name, size, smooth);
+	}
+
+	public PFont createFont(String name, float size, boolean smooth, char[] charset) {
+		return this.pa.createFont(name, size, smooth, charset);
+	}
 	
 
 
@@ -217,6 +237,122 @@ public abstract class BigBang extends Rope {
 	 */
 	public float blue(int value) {
 		return this.pa.blue(value);
+	}
+
+
+
+
+
+
+	public int longest_String(String[] string_list) {
+		int finish = 0;
+		if(string_list != null) finish = string_list.length;
+		return longest_String(string_list, 0, finish);
+	}
+
+	//with starting and end keypoint in the String must be sort
+	public int longest_String(String[] string_list, int start, int finish) {
+		int length = 0;
+		if(string_list != null) {
+			for ( int i = start ; i < finish ; i++) {
+				if (string_list[i].length() > length ) length = string_list[i].length() ;
+			}
+		}
+		return length;
+	}
+
+	/**
+	Longuest String with PFont
+	*/
+	public int longest_String_pixel(PFont font, String[] string_list) {
+		int [] size_font = new int[1];
+		size_font[0] = font.getSize();
+		int finish = 0;
+		if(string_list != null) finish = string_list.length;
+		return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
+	}
+
+	public int longest_String_pixel(PFont font, String[] string_list, int... size_font) {
+		int finish = 0;
+		if(string_list != null) finish = string_list.length;
+		return longest_String_pixel(font.getName(), string_list, size_font, 0, finish);
+	}
+
+	public int longest_String_pixel(PFont font, String[] string_list, int [] size_font, int start, int finish) {
+		return longest_String_pixel(font.getName(), string_list, size_font, start, finish);
+	}
+
+	/**
+	Longuest String with String name Font
+	*/
+	public int longest_String_pixel(String font_name, String[] string_list, int... size_font) {
+		int finish = 0;
+		if(string_list != null) finish = string_list.length;
+		return longest_String_pixel(font_name, string_list, size_font, 0, finish);
+	}
+
+	// diferrent size by line
+	public int longest_String_pixel(String font_name, String[] string_list, int size_font, int start, int finish) {
+		int [] s_font = new int[1];
+		s_font[0] = size_font;
+		return longest_String_pixel(font_name, string_list, s_font, start, finish);
+	}
+
+	public int longest_String_pixel(String font_name, String[] string_list, int [] size_font, int start, int finish) {
+		int width_pix = 0 ;
+		if(string_list != null) {
+			int target_size_font = 0;
+			for (int i = start ; i < finish && i < string_list.length; i++) {
+				if(i >= size_font.length) target_size_font = 0 ;
+				if (width_String(font_name, string_list[i], size_font[target_size_font]) > width_pix) {
+					width_pix = width_String(string_list[i],size_font[target_size_font]);
+				}
+				target_size_font++;
+			}
+		}
+		return width_pix;
+	}
+
+
+
+
+	/**
+	width String
+	*/
+	public int width_String(String target, int size) {
+		return width_String("defaultFont", target, size) ;
+	}
+
+	public int width_String(PFont pfont, String target, int size) {
+		return width_String(pfont.getName(), target, size);
+	}
+
+	public int width_String(String font_name, String target, int size) {
+		Font font = new Font(font_name, Font.BOLD, size) ;
+		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+		FontMetrics fm = img.getGraphics().getFontMetrics(font);
+		if(target == null) {
+			target = "";
+		}
+		return fm.stringWidth(target);
+	}
+
+
+
+
+	public int width_char(char target, int size) {
+		return width_char("defaultFont", target, size) ;
+	}
+
+	public int width_char(PFont pfont, char target, int size) {
+		return width_char(pfont.getName(), target, size);
+	}
+
+	public int width_char(String font_name, char target, int size) {
+		Font font = new Font(font_name, Font.BOLD, size) ;
+		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+		FontMetrics fm = img.getGraphics().getFontMetrics(font);
+		return fm.charWidth(target);
 	}
 
 	

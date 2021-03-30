@@ -11,7 +11,7 @@
 */
 package rope.gui;
 
-import processing.core.PApplet;
+// import processing.core.PApplet;
 import rope.core.R_Graphic;
 import rope.vector.vec2;
 import rope.R_State.State;
@@ -106,7 +106,7 @@ public class R_Mol extends R_Graphic {
     return this;
   }
   
-  /*
+  
   public R_Mol set_fill_in(int c) {
     this.fill_in = c;
     return this;
@@ -127,51 +127,53 @@ public class R_Mol extends R_Graphic {
     return this; 
   }
 
-  public R_Mol set_fill_in_OFF(int c) {
-  	set_fill_in(c);
-    return this;
-  }
-
-  public R_Mol set_fill_out_OFF(int c) {
-  	set_fill_out(c);
-    return this;   
-  }
-
-  public R_Mol set_stroke_in_OFF(int c) {
-  	set_stroke_in(c);
-    return this;   
-  }
-
-  public R_Mol set_stroke_out_OFF(int c) {
-  	set_stroke_out(c);
-    return this; 
-  }
-
-  public R_Mol set_fill_in_ON(int c) {
-    this.fill_in = c;
-    return this;
-  }
-
-  public R_Mol set_fill_out_ON(int c) {
-    this.fill_out_ON = c;
-    return this;   
-  }
-
-  public R_Mol set_stroke_in_ON(int c) {
-    this.stroke_in_ON = c;
-    return this;   
-  }
-
-  public R_Mol set_stroke_out_ON(int c) {
-    this.stroke_out_ON = c;
-    return this; 
-  }
-
   public R_Mol set_thickness(float thickness){
     this.thickness = thickness;
     return this;
   }
-  */
+
+  // public R_Mol set_fill_in_OFF(int c) {
+  // 	set_fill_in(c);
+  //   return this;
+  // }
+
+  // public R_Mol set_fill_out_OFF(int c) {
+  // 	set_fill_out(c);
+  //   return this;   
+  // }
+
+  // public R_Mol set_stroke_in_OFF(int c) {
+  // 	set_stroke_in(c);
+  //   return this;   
+  // }
+
+  // public R_Mol set_stroke_out_OFF(int c) {
+  // 	set_stroke_out(c);
+  //   return this; 
+  // }
+
+  // public R_Mol set_fill_in_ON(int c) {
+  //   this.fill_in = c;
+  //   return this;
+  // }
+
+  // public R_Mol set_fill_out_ON(int c) {
+  //   this.fill_out_ON = c;
+  //   return this;   
+  // }
+
+  // public R_Mol set_stroke_in_ON(int c) {
+  //   this.stroke_in_ON = c;
+  //   return this;   
+  // }
+
+  // public R_Mol set_stroke_out_ON(int c) {
+  //   this.stroke_out_ON = c;
+  //   return this; 
+  // }
+
+
+  
 
 
 
@@ -247,7 +249,7 @@ public class R_Mol extends R_Graphic {
     if(shape_type == ELLIPSE) {
       ellipse(new vec2(),size);
     } else if(shape_type == RECT) {
-      vec2 temp_pos = pos.copy().sub(size.copy().mult(0.5f));
+      // vec2 temp_pos = pos.copy().sub(size.copy().mult(0.5f));
       rotate(angle);
       rect(size.copy().mult(0.5f).mult(-1),size);
     } else {

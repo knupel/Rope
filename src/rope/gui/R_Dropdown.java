@@ -8,6 +8,7 @@
 package rope.gui;
 
 import processing.core.PFont;
+import rope.colour.R_Colour;
 import rope.gui.slider.R_Slider;
 import rope.vector.ivec2;
 import rope.vector.vec2;
@@ -45,8 +46,9 @@ public class R_Dropdown extends Crope {
   private vec2 pos_header_text;
   private vec2 pos_box_text;
 
-  private float pos_ref_x, pos_ref_y ;
-  private vec2 change_pos;
+  private float pos_ref_x;
+  private float pos_ref_y ;
+  // private vec2 change_pos;
   // private float factorPos; // use to calculate the margin between the box
   // box
   private float height_box;
@@ -59,7 +61,7 @@ public class R_Dropdown extends Crope {
 
   private int box_starting_rank_position = 1;
 
-  private boolean wheel_ise;
+  private boolean wheel_is;
 
   /**
   CONSTRUCTOR
@@ -81,11 +83,11 @@ public class R_Dropdown extends Crope {
     set_box_height(size.y);
     
     int offset_text_x = 2 ;
-    float offset_text_header_y = (size.y - size_header_text)/2;
-    set_header_text_pos(offset_text_x,size.y -offset_text_header_y);
-    float offset_text_content_y = (size_box.y - size_content_text)/2;
-    set_box_text_pos(offset_text_x,size_box.y - offset_text_content_y); 
-    event = mousePressed;
+    float offset_text_header_y = (size.y() - size_header_text)/2;
+    set_header_text_pos(offset_text_x,size.y() -offset_text_header_y);
+    float offset_text_content_y = (size_box.y() - size_content_text)/2;
+    set_box_text_pos(offset_text_x,size_box.y() - offset_text_content_y); 
+    // event = mousePressed;
   }
 
 
@@ -410,7 +412,7 @@ public class R_Dropdown extends Crope {
   // misc
   public void update(int x,int y) {
     cursor(x,y);
-    event = mousePressed;
+    // event = mousePressed;
     open_dropdown();
   }
 
@@ -460,7 +462,7 @@ public class R_Dropdown extends Crope {
       }
       textFont(font_box);
       float x = pos.x +pos_box_text.x;
-      float y = pos.y +height_box -(ceil(height_box*.2));
+      float y = pos.y +height_box -(ceil(height_box * 0.2f));
       text(content,x,y);
     }
   }

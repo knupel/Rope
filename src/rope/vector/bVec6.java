@@ -1,7 +1,7 @@
 /**
 * bvec6 class
-* v 1.1.0
-* 2015-2019
+* v 1.2.0
+* 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
 * @see http://stanlepunk.xyz/
@@ -9,8 +9,12 @@
 */
 package rope.vector;
 public class bvec6 extends bvec {
+	public bvec6() {
+		super(6);
+		set(false);
+	}
 	
-	public bvec6(boolean a,boolean b,boolean c, boolean d, boolean e, boolean f) {
+	public bvec6(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f) {
 		super(6);
 		set(a,b,c,d,e,f);
 	}

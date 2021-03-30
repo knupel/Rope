@@ -23,20 +23,20 @@ public class R_Button extends Crope {
 
   protected PImage [] pic;
 
-  protected boolean authorization;
+  protected boolean auth_rollover;
   protected boolean is = false;  
 
   public vec2 offset;
 
-  protected R_Button() {
+  public R_Button() {
     super("Button");
   }
 
-  private R_Button(String type) {
+  public R_Button(String type) {
     super(type);
   }
 
-  private R_Button(String type, vec2 pos, vec2 size) {
+  public R_Button(String type, vec2 pos, vec2 size) {
     super(type);
     this.pos(pos);
     this.size(size); 
@@ -98,10 +98,6 @@ public class R_Button extends Crope {
   }
   */
 
-
-
-
-
   public float get() {
     if(is) return 1;
     else return 0;
@@ -117,8 +113,12 @@ public class R_Button extends Crope {
   private void update(float x, float y) {
     cursor(x,y);
   }
-  
 
+
+  public boolean inside() {
+    return inside(pos, size, rollover_type);
+  }
+  
 
   /**
   * offset
@@ -141,17 +141,10 @@ public class R_Button extends Crope {
   }
 
 
-
-
-  
-
-  public void rollover(boolean authorization) {
-    this.authorization = authorization;
+  public void rollover(boolean auth_rollover) {
+    this.auth_rollover = auth_rollover;
   }
   
-
-
-
   // SHOW
   public void show() {
     show(ELLIPSE,true);
@@ -174,7 +167,7 @@ public class R_Button extends Crope {
     int offset_x = -1 ;
     if(pic.length == 4) {
       if (is) {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           // inside
           image(pic[0],pos.x() +offset_x, pos.y()); 
         } else {
@@ -182,7 +175,7 @@ public class R_Button extends Crope {
           image(pic[1],pos.x() +offset_x, pos.y());
         }
       } else {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           // inside
           image(pic[2],pos.x() +offset_x, pos.y()); 
         } else {
@@ -197,13 +190,13 @@ public class R_Button extends Crope {
   public void show_label() {
     if(this.name != null) {
       if (is) {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           color_on_off = color_in_ON; 
         } else {
           color_on_off = color_out_ON;
         }
       } else {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           color_on_off = color_in_OFF; 
         } else {
           color_on_off = color_out_OFF;
@@ -245,21 +238,17 @@ public class R_Button extends Crope {
     show_value(get());
   }
 
-
-
-
-
   private void aspect(boolean on_off_is) {
     noStroke();
     if(on_off_is) {
       if (is) {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           color_on_off = color_in_ON; 
         } else {
           color_on_off = color_out_ON;
         }
       } else {
-        if (inside() && authorization) {
+        if (inside() && auth_rollover) {
           color_on_off = color_in_OFF; 
         } else {
           color_on_off = color_out_OFF;

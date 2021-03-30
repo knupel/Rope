@@ -12,6 +12,7 @@
 package rope;
 
 import rope.vector.bvec2;
+import rope.vector.bvec4;
 import rope.vector.vec2;
 import rope.vector.vec3;
 
@@ -29,9 +30,12 @@ public class R_Env {
 	
 	
 	
-	public vec2 scroll;
+	
 	public boolean mouse_pressed;
 	public boolean key_pressed;
+	
+	public vec2 scroll;
+	public bvec4 event;
 	public vec3 pointer;
 	
 	//Control Rope

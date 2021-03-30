@@ -23,8 +23,7 @@ import rope.vector.vec2;
 public class R_Slider extends Crope {
 	protected R_Mol [] molette;
 	
-
-	private boolean init_molette_is = false;
+	// private boolean init_molette_is = false;
 	
 	private ivec2 scroll;
 	protected vec2 pos_min;
@@ -528,7 +527,7 @@ public class R_Slider extends Crope {
 	 * It's the main method to move the molette the slider.
 	 */
 	protected void molette_update() {
-		event = this.pa.mousePressed;
+		this.event = this.pa.mousePressed;
 		if(!event) {
 			State.set_dna_current_crope(0); 
 		}
@@ -657,7 +656,7 @@ public class R_Slider extends Crope {
 			molette[i].id = 0;
 			molette[i].used_is = false;
 			molette[i].inside_is = false;
-			init_molette_is = true;
+			// init_molette_is = true;
 		}
 		set_molette_min_max_pos();
 		crope_build_is = true;
