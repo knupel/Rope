@@ -1,9 +1,10 @@
 /**
 * GUI CROPE EXAMPLE
 * Processing 3.5.4
-* Rope Library 0.12.0.40
-* 2016-2019
-* v 0.1.3
+* Rope Library 0.12.1.41
+*
+* 2016-2021
+* v 1.0.1
 * slider classic
 */
 import rope.gui.slider.R_Slider;
@@ -23,8 +24,8 @@ void draw() {
   // instead update(mouseX,mouseY) by this way all Crope gui pointer is update with those pointers 
   // and can be change in one place.
   State.pointer(mouseX,mouseY);
-  // State.select_mol_is(keyPressed, true);
-  
+  State.event(mousePressed);
+
   // slider
   slider_draw();
 }
@@ -42,18 +43,7 @@ void slider_setup(int x, int y) {
 
 
 void slider_draw() {
-  // by default select is mousePressed arg
-  // slider.select(keyPressed); 
-  // slider.select(mousePressed);
-  slider.keep_selection(keyPressed);
-  
-  // println("select",slider.select_is());
-  // println("used",slider.used_is());
-  // println("value",slider.get(0));
-
-  // slider.update(mouseX,mouseY);
   slider.update();
-
   slider.show_structure();
   slider.show_molette();
   slider.show_label(); 

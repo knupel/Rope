@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.0.0
+* v 1.1.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -16,16 +16,11 @@ import java.util.Arrays;
 import rope.R_State.State;
 import rope.gui.Crope;
 import rope.gui.R_Mol;
-// import processing.event.MouseEvent;
-import rope.vector.ivec2;
 import rope.vector.vec2;
 
 public class R_Slider extends Crope {
 	protected R_Mol [] molette;
 	
-	// private boolean init_molette_is = false;
-	
-	private ivec2 scroll;
 	protected vec2 pos_min;
 	protected vec2 pos_max;
 
@@ -213,22 +208,6 @@ public class R_Slider extends Crope {
 		return this;
 	}
 
-	@Deprecated
-	public R_Slider set_aspect_molette(int f_c, int s_c, float thickness) {
-		set_fill_molette(f_c,f_c);
-		set_stroke_molette(s_c,s_c);
-		set_thickness_molette(thickness);
-		return this;
-	}
-	
-	@Deprecated
-	public R_Slider set_aspect_molette(int f_c_in, int f_c_out, int s_c_in,  int s_c_out, float thickness) {
-		set_fill_molette(f_c_in,f_c_out);
-		set_stroke_molette(s_c_in,s_c_out);
-		set_thickness_molette(thickness);
-		return this;
-	}
-
 
 
 
@@ -321,16 +300,7 @@ public class R_Slider extends Crope {
 		} else {
 			inside = inside_molette_rect(index);
 		}
-				/**
-		 * 
-		 * 
-		 * 
-		 * WARNING MUST CHANGE THAT
-		 * remove event ????
-		 * 
-		 * 
-		 * 
-		 */
+
 		if (inside && event) {
 			return true ; 
 		} else {
@@ -513,10 +483,14 @@ public class R_Slider extends Crope {
 		}
 
 		if(State.env().pointer == null) {
-			print_err_tempo(100,"Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
-		} else {
-			update(State.env().pointer.x(),State.env().pointer.y());
+			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
+			System.exit(0);
 		}
+		if(State.env().event == null) {
+			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
+			System.exit(0);
+		} 
+		update(State.env().pointer.x(),State.env().pointer.y());
 	}
 	
 	/**
@@ -537,17 +511,7 @@ public class R_Slider extends Crope {
 	 * It's the main method to move the molette the slider.
 	 */
 	protected void molette_update() {
-		/**
-		 * 
-		 * 
-		 * 
-		 * WARNING MUST CHANGE THAT
-		 * this.pa.mousePressed;
-		 * 
-		 * 
-		 * 
-		 */
-		this.event = this.pa.mousePressed;
+		this.event = State.env().event.a();
 		if(!event) {
 			State.set_dna_current_crope(0); 
 		}
@@ -644,20 +608,7 @@ public class R_Slider extends Crope {
 			this.wheel_is = false;
 		} 
 	}
-	
-	/**
-	 * 
-	 * @param e
-	 */
-	// public void scroll(MouseEvent e) {
-	// 	if(scroll == null) {
-	// 		scroll = new ivec2(e.getCount());
-	// 	} else {
-	// 		scroll.set(e.getCount());
-	// 	}
-	// }
-	
-	
+
 	
 
 
@@ -676,7 +627,6 @@ public class R_Slider extends Crope {
 			molette[i].id = 0;
 			molette[i].used_is = false;
 			molette[i].inside_is = false;
-			// init_molette_is = true;
 		}
 		set_molette_min_max_pos();
 		crope_build_is = true;
@@ -745,7 +695,6 @@ public class R_Slider extends Crope {
 
 	private vec2 temp_min(int index) {
 		vec2 min = pos_min.copy();
-		// def min
 		if(molette.length > 1 && index > 0) {
 			min.set(molette[index-1].pos);
 			if(molette_type == ELLIPSE) {
@@ -905,17 +854,7 @@ public class R_Slider extends Crope {
 	
 	private void select(int index, boolean auth) {
 		molette[index].select(keep_selection);
-		/**
-		 * 
-		 * 
-		 * 
-		 * WARNING MUST CHANGE THAT
-		 * this.pa.mousePressed;
-		 * 
-		 * 
-		 * 
-		 */
-		event = this.pa.mousePressed;
+		event = State.env().event.a();
 		molette[index].used_is = select(index, molette_used_is(index), molette[index].used_is, auth);
 	}
 	
@@ -927,16 +866,6 @@ public class R_Slider extends Crope {
 	}
 
 	private void select(int index, boolean auth_1, boolean auth_2) {
-		/**
-		 * 
-		 * 
-		 * 
-		 * WARNING MUST CHANGE THAT
-		 * variable event must be remove ????
-		 * 
-		 * 
-		 * 
-		 */
 		molette[index].select(keep_selection);
 		event = auth_1;
 		molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,auth_2);

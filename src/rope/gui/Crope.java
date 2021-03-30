@@ -25,16 +25,8 @@ abstract public class Crope extends R_Graphic  {
   protected vec2 pos_ref;
 
   protected vec2 cursor = new vec2();
-  /**
-   * 
-   * 
-   *  WARNING
-   * must be remove that : this.pa.mousePressed;
-   *  and protected boolean event ????
-   * 
-   * 
-   */
-  protected boolean event = this.pa.mousePressed;
+
+  protected boolean event;
   protected boolean use_event_is = false;
 
   protected int fill_in = GRAY[4];

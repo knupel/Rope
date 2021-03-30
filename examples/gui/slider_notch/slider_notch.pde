@@ -1,3 +1,13 @@
+/**
+* GUI CROPE EXAMPLE 
+* Processing 3.5.4
+* Rope Library 0.12.1.41
+*
+* slider notch
+* 2021-2021
+* v 1.0.0
+*/
+
 import rope.gui.slider.R_Slotch;
 import rope.R_State.State;
 
@@ -14,7 +24,8 @@ void draw() {
   background(0);
   // instead update(mouseX,mouseY) by this way all Crope gui pointer is update with those pointers 
   // and can be change in one place.
-  State.pointer(mouseX,mouseY); 
+  State.pointer(mouseX,mouseY);
+  State.event(mousePressed);
 
   slotch_draw();
 

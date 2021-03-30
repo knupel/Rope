@@ -1,9 +1,10 @@
 /**
 * GUI CROPE EXAMPLE
 * Processing 3.5.4
-* Rope Library 0.12.0.40
+* Rope Library 0.12.1.41
+*
 * 2016-2021
-* v 0.2.0
+* v 1.0.1
 * multi slider multi molette
 *
 */
@@ -23,6 +24,7 @@ void setup() {
 void draw() {
 	background(0);
 	State.pointer(mouseX,mouseY);
+	State.event(mousePressed);
   multi_slider_draw();
 }
 
@@ -50,5 +52,5 @@ void multi_slider_draw() {
 Processing and Rope event
 */
 void mouseWheel(MouseEvent e) {
-	multi_slider.scroll(e);
+	State.scroll(e);
 }

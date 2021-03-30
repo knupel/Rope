@@ -1,9 +1,10 @@
 /**
 * GUI CROPE EXAMPLE
 * Processing 3.5.4
-* Rope Library 0.12.0.40
+* Rope Library 0.12.1.41
+*
 * 2016-2021
-* v 0.2.0
+* v 1.0.1
 * slider wheel
 */
 import rope.gui.slider.R_Slider;
@@ -21,6 +22,7 @@ void setup() {
 void draw() {
   background(255);
   State.pointer(mouseX,mouseY);
+  State.event(mousePressed);
   slider_draw();
 }
 

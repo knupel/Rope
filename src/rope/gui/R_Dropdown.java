@@ -422,15 +422,8 @@ public class R_Dropdown extends Crope {
     	print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... is)");
     	System.exit(0);
     }
-    /**
-     * WARNING : must be remove event
-     * private void open_dropdown(boolean new_variaable_to_pass_auth) ????
-     * 
-     * 
-     * 
-     * 
-     */
-    event = State.env().event.x();
+
+    event = State.env().event.a();
     open_dropdown();
   }
 
@@ -441,17 +434,6 @@ public class R_Dropdown extends Crope {
       if(event) {
         locked = true;
       }
-
-      		/**
-		 * 
-		 * 
-		 * 
-		 * WARNING MUST CHANGE THAT
-		 * this.pa.mousePressed;
-		 * 
-		 * 
-		 * 
-		 */
     } else if(!inside && event && slider_dd == null) {
       locked = false;
     } else if(!inside && event && slider_dd != null && !slider_dd.inside(RECT)) {

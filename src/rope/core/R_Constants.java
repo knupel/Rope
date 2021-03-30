@@ -17,7 +17,7 @@ package rope.core;
 import java.awt.event.KeyEvent;
 
 public interface R_Constants {
-	static final String VERSION = "0.11.1.40";
+	static final String VERSION = "0.12.1.41";
 
 	static final String P2D = "processing.opengl.PGraphics2D";
 	static final String P3D = "processing.opengl.PGraphics3D";
@@ -50,7 +50,6 @@ public interface R_Constants {
   static final int DODECAGON = 22;
 
 	static final int TEXT = 26;
-  // static final int TEXT_ROPE = 26;
 
   static final int RECT = 30; // processing value
   static final int ELLIPSE = 31; // processing value
@@ -130,6 +129,16 @@ public interface R_Constants {
 	static final float SOUTH_WEST = (float)((3*PI)*0.25);
 	static final float WEST = PI;
 	static final float NORTH_WEST = (float)(-(3*PI)*0.25);
+	// classic angle notation
+  // float north = HALF_PI;
+  // float north_east = QUARTER_PI;
+  // float east = PI;
+  // float south_east = (7*PI)*0.25;
+  // float south = (3*PI)*0.5;
+  // float south_west = (5*PI)*0.25;
+  // float west = 0;
+  // float north_west = (3*PI)*0.25;
+	
 
 	  // shape drawing modes
   static final int CORNER   = 0; // processing value
@@ -170,15 +179,7 @@ public interface R_Constants {
 
 
 	
-	// classic angle notation
-  // float north = HALF_PI;
-  // float north_east = QUARTER_PI;
-  // float east = PI;
-  // float south_east = (7*PI)*0.25;
-  // float south = (3*PI)*0.5;
-  // float south_west = (5*PI)*0.25;
-  // float west = 0;
-  // float north_west = (3*PI)*0.25;
+
 
 	static final int RGB   = 1;  // image & color // processing value
 	static final int ARGB  = 2;  // image // processing value

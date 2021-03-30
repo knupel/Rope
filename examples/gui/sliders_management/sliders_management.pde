@@ -1,7 +1,8 @@
 /**
 * GUI CROPE EXAMPLE 
 * Processing 3.5.4
-* 
+* Rope Library 0.12.1.41
+*
 * Multiple slider
 * 2021-2021
 * v 0.2.0
@@ -23,6 +24,7 @@ void draw() {
   // instead update(mouseX,mouseY) by this way all Crope gui pointer is update with those pointers 
   // and can be change in one place.
   State.pointer(mouseX,mouseY);
+  State.event(mousePressed);
   // if press anykey you pass in multiselection mode
   State.keep_selection_is(keyPressed);
   println("current crope dna", State.get_dna_current_crope());
