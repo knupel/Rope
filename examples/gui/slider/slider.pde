@@ -1,0 +1,70 @@
+/**
+* GUI CROPE EXAMPLE
+* Processing 3.5.4
+* Rope Library 0.12.0.40
+* 2016-2019
+* v 0.1.3
+* slider classic
+*/
+import rope.gui.slider.R_Slider;
+import rope.vector.vec2;
+import rope.R_State.State;
+
+int x = 50;
+int y = 50;
+void setup() {
+  size(400,200);
+  State.papplet(this);
+  slider_setup(x,y);
+}
+
+void draw() {
+  background(255);
+  // instead update(mouseX,mouseY) by this way all Crope gui pointer is update with those pointers 
+  // and can be change in one place.
+  State.pointer(mouseX,mouseY);
+  // State.select_mol_is(keyPressed, true);
+  
+  // slider
+  slider_draw();
+}
+
+R_Slider slider ;
+void slider_setup(int x, int y) {
+  slider = new R_Slider(new vec2(x,y), new vec2(200,20));
+  slider.set_label("Paye ton slide");
+  slider.set_molette(ELLIPSE);
+  slider.set_rounded(20);
+  slider.set_value(0.75);
+  // slider.set_pos_label(0,-5);
+  // slider.set_pos_value(slider.size.x(),-5);
+}
+
+
+void slider_draw() {
+  // by default select is mousePressed arg
+  // slider.select(keyPressed); 
+  // slider.select(mousePressed);
+  slider.keep_selection(keyPressed);
+  
+  // println("select",slider.select_is());
+  // println("used",slider.used_is());
+  // println("value",slider.get(0));
+
+  // slider.update(mouseX,mouseY);
+  slider.update();
+
+  slider.show_structure();
+  slider.show_molette();
+  slider.show_label(); 
+
+  if(keyPressed) {
+    // add array value display under the label, useful when the slider value has mapped
+    float new_value = 100 * slider.get(0);
+    slider.show_value(new_value);
+  } else {
+    // display the normal array value return by the slider
+    slider.show_value(); 
+  }
+}
+  
