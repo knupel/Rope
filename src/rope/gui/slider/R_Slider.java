@@ -16,7 +16,7 @@ import java.util.Arrays;
 import rope.R_State.State;
 import rope.gui.Crope;
 import rope.gui.R_Mol;
-import processing.event.MouseEvent;
+// import processing.event.MouseEvent;
 import rope.vector.ivec2;
 import rope.vector.vec2;
 
@@ -527,6 +527,16 @@ public class R_Slider extends Crope {
 	 * It's the main method to move the molette the slider.
 	 */
 	protected void molette_update() {
+		/**
+		 * 
+		 * 
+		 * 
+		 * WARNING MUST CHANGE THAT
+		 * this.pa.mousePressed;
+		 * 
+		 * 
+		 * 
+		 */
 		this.event = this.pa.mousePressed;
 		if(!event) {
 			State.set_dna_current_crope(0); 
@@ -571,18 +581,18 @@ public class R_Slider extends Crope {
 	
 	private void molette_update_wheel() {
 		if(wheel_is()) {
-			if(scroll == null) {
-				print_err_tempo(100, "class Slider method molette_update(): the wheelEvent is innacessible\nmay be you must use method scroll(MouseEvent e) in void mouseWheel(MouseEvent e)");
+			if(State.env().scroll == null) {
+				print_err_tempo(500,"Static State.env().scroll is null, maybe you forget to use: State.scroll(MouseEvent e) in the function void mouseWheel(MouseEvent e) {}");
 			} else {
 				float val = 0;
 				if(size.x() >= size.y()) {
 					float temp = molette[0].pos.x();
-					temp += scroll.x();
+					temp += State.env().scroll.x();
 					molette[0].pos.x(temp);
 					val = molette[0].pos.x();
 				} else {
 					float temp = molette[0].pos.y();
-					temp += scroll.y();
+					temp += State.env().scroll.y();
 					molette[0].pos.y(temp);
 					val = molette[0].pos.y();
 				}
@@ -629,13 +639,13 @@ public class R_Slider extends Crope {
 	 * 
 	 * @param e
 	 */
-	public void scroll(MouseEvent e) {
-		if(scroll == null) {
-			scroll = new ivec2(e.getCount());
-		} else {
-			scroll.set(e.getCount());
-		}
-	}
+	// public void scroll(MouseEvent e) {
+	// 	if(scroll == null) {
+	// 		scroll = new ivec2(e.getCount());
+	// 	} else {
+	// 		scroll.set(e.getCount());
+	// 	}
+	// }
 	
 	
 	

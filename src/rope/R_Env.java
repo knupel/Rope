@@ -1,5 +1,5 @@
 /**
-* REnv
+* R_Env
 * Control ROmanesco Processing Environment
 * v 0.0.1
 * Copyleft (c) 2021-2021
@@ -12,8 +12,8 @@
 package rope;
 
 import rope.vector.bvec2;
-import rope.vector.bvec4;
-import rope.vector.vec2;
+import rope.vector.bvec6;
+import rope.vector.ivec2;
 import rope.vector.vec3;
 
 public class R_Env {
@@ -34,8 +34,10 @@ public class R_Env {
 	public boolean mouse_pressed;
 	public boolean key_pressed;
 	
-	public vec2 scroll;
-	public bvec4 event;
+	public ivec2 scroll;
+	public bvec6 event;
+	public bvec6 event_mut;
+	public bvec6 event_ref;
 	public vec3 pointer;
 	
 	//Control Rope

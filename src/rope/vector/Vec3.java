@@ -1,10 +1,9 @@
 /**
  * vec3 class
- * v 1.3.6
-* 2015-2020
+ * v 1.3.7
+* 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
- * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -111,6 +110,13 @@ public class vec3 extends vec {
 		}
 		return this;
 	}
+	
+  public vec3 set_to(int index, float arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	if(index == 2) z(arg);
+  	return this;
+  }
 	
 	
 	// x

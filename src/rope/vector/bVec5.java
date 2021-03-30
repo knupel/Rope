@@ -4,7 +4,6 @@
 * 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -86,6 +85,15 @@ public class bvec5 extends bvec {
     }
     return this;
   }
+  
+  public bvec5 set_to(int index, boolean arg) {
+  	if(index == 0) a(arg);
+  	if(index == 1) b(arg);
+  	if(index == 2) c(arg);
+  	if(index == 3) d(arg);
+  	if(index == 4) e(arg);
+  	return this;
+  }
 
 
   // abcde
@@ -108,6 +116,59 @@ public class bvec5 extends bvec {
   public bvec5 e(boolean e) {
     return set(this.x,this.y,this.z,this.w,e);
   }
+  
+  
+  /*
+   * change the state of the target argument
+   */
+  
+  public bvec5 swap() {
+		this.x = !this.x;
+		this.y = !this.y;
+		this.z = !this.z;
+		this.w = !this.w;
+		this.e = !this.e;
+  	return set(this.x,this.y,this.z,this.w,this.e);
+  }
+  
+  
+  public bvec5 swap(int index) {
+  	if(index >= 0 && index < 5) {
+  		if(index == 0) this.x = !this.x;
+  		if(index == 1) this.y = !this.y;
+  		if(index == 2) this.z = !this.z;
+  		if(index == 3) this.w = !this.w;
+  		if(index == 4) this.e = !this.e;
+  	}
+  	return set(this.x,this.y,this.z,this.w,this.e);
+  }
+  
+  
+  public bvec5 swap_a() {
+  	this.x = !this.x;
+    return set(this.x,this.y,this.z,this.w,this.e);
+  }
+
+  public bvec5 swap_b() {
+  	this.y = !this.y;
+    return set(this.x,this.y,this.z,this.w,this.e);
+  }
+
+  public bvec5 swap_c() {
+  	this.z = !this.z;
+    return set(this.x,this.y,this.z,this.w,this.e);
+  }
+
+  public bvec5 swap_d() {
+  	this.w = !this.w;
+    return set(this.x,this.y,this.z,this.w,this.e);
+  }
+
+  public bvec5 swap_e() {
+  	this.e = !this.e;
+    return set(this.x,this.y,this.z,this.w,this.e);
+  }
+
 	
 	@Override 
 	public String toString() {

@@ -1,10 +1,9 @@
 /**
 * vec4 class
-* v 1.2.6
+* v 1.2.7
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -114,6 +113,15 @@ public class vec4 extends vec {
 		}
 		return this;
 	}
+	
+  public vec4 set_to(int index, float arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	if(index == 2) z(arg);
+  	if(index == 3) w(arg);
+  	return this;
+  }
+	
 	// x
 	public vec4 x(float x) {
 		return set(x,this.y,this.z,this.w);

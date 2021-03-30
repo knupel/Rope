@@ -54,7 +54,6 @@ public class R_Button extends Crope {
     this.is = is;
   }
 
-
   public void switch_is() {
     this.is = !this.is;
   }
@@ -106,18 +105,23 @@ public class R_Button extends Crope {
   
   // misc
   public void update() {
-    update(State.pointer().x(),State.pointer().y());
+    update(State.pointer().x(),State.pointer().y(),State.env().event_mut.a());
   }
   
   
-  private void update(float x, float y) {
+  private void update(float x, float y, boolean event) {
     cursor(x,y);
+    if(all(inside(),event != is())) {
+      switch_is();
+    }
   }
 
-
+  /*
+  @Deprecated
   public boolean inside() {
     return inside(pos, size, rollover_type);
   }
+  */
   
 
   /**

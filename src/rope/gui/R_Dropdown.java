@@ -13,6 +13,8 @@ import rope.gui.slider.R_Slider;
 import rope.vector.ivec2;
 import rope.vector.vec2;
 
+import rope.R_State.State;
+
 public class R_Dropdown extends Crope {
   // protected boolean selected_type;
   //Slider dropdown
@@ -323,7 +325,7 @@ public class R_Dropdown extends Crope {
     show_box();
   }
 
-  private void show_selection(float x, float y) {
+  public void show_selection(float x, float y) {
     if (inside(RECT)) {
       fill(colour_header_text_in); 
     } else {
@@ -410,9 +412,18 @@ public class R_Dropdown extends Crope {
 
 
   // misc
-  public void update(int x,int y) {
+  
+  public void update() {
+    update(State.env().pointer.x(),State.env().pointer.y());
+  }
+  
+  public void update(float x, float y) {
     cursor(x,y);
-    // event = mousePressed;
+    if(State.env().event == null) {
+    	print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... is)");
+    	System.exit(0);
+    }
+    event = State.env().event.x();
     open_dropdown();
   }
 

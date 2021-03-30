@@ -2,10 +2,9 @@
 * ivec4 class
 * v 1.2.0
 * 2015-2021
-* Processing 3.5.3
+* Processing 3.5.4
 * Vector class with a int precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -88,6 +87,14 @@ public class ivec4 extends ivec {
       set(source[0],source[1],source[2],source[3]);
     }
     return this;
+  }
+  
+  public ivec4 set_to(int index, int arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	if(index == 2) z(arg);
+  	if(index == 3) w(arg);
+  	return this;
   }
 
   // xyzw

@@ -1,11 +1,10 @@
 /**
 * vec5 class
-* v 1.2.0
-* 2015-2019
-* Processing 3.5.3
+* v 1.2.1
+* 2015-2021
+* Processing 3.5.4
 * Vector class with a float precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -124,6 +123,16 @@ public class vec5 extends vec {
     }
     return this;
   }
+  
+  public vec5 set_to(int index, float arg) {
+  	if(index == 0) a(arg);
+  	if(index == 1) b(arg);
+  	if(index == 2) c(arg);
+  	if(index == 3) d(arg);
+  	if(index == 4) e(arg);
+  	return this;
+  }
+  
   
   
   // abcde

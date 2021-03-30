@@ -1,10 +1,9 @@
 /**
 * ivec5 class
-* v 1.2.0
-* 2015-2019
+* v 1.2.1
+* 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -94,6 +93,15 @@ public class ivec5 extends ivec {
       set(source[0],source[1],source[2],source[3],source[4]);
     }
     return this;
+  }
+  
+  public ivec5 set_to(int index, int arg) {
+  	if(index == 0) a(arg);
+  	if(index == 1) b(arg);
+  	if(index == 2) c(arg);
+  	if(index == 3) d(arg);
+  	if(index == 4) e(arg);
+  	return this;
   }
 
 

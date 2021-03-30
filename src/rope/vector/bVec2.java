@@ -2,9 +2,8 @@
 * bvec2 class
 * v 1.3.0
 * 2015-2021
-* Vector class with a float precision
+* Vector class with a boolean precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -60,6 +59,42 @@ public class bvec2 extends bvec {
       set(v.x,v.y);
     }
     return this;
+  }
+  
+  public bvec2 set_to(int index, boolean arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	return this;
+  }
+  
+  /*
+   * change the state of the target argument
+   */
+  
+  public bvec2 swap() {
+		this.x = !this.x;
+		this.y = !this.y;
+  	return set(this.x,this.y);
+  }
+  
+  
+  public bvec2 swap(int index) {
+  	if(index >= 0 && index < 4) {
+  		if(index == 0) this.x = !this.x;
+  		if(index == 1) this.y = !this.y;
+  	}
+  	return set(this.x,this.y);
+  }
+
+  
+  public bvec2 swap_x() {
+  	this.x = !this.x;
+    return set(this.x,this.y);
+  }
+
+  public bvec2 swap_y() {
+  	this.y = !this.y;
+    return set(this.x,this.y);
   }
   
   public bvec2 set(boolean[] source) {

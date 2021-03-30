@@ -366,15 +366,15 @@ abstract public class Crope extends R_Graphic  {
 
 
   // inside crope
-  protected boolean inside() {
+  public boolean inside() {
     return inside(pos, size, rollover_type);
   }
 
-  protected boolean inside(int shape_type) {
+  public boolean inside(int shape_type) {
     return inside(pos,size,shape_type);
   }
 
-  protected boolean inside(vec2 pos, vec2 size, int shape_type) {
+  public boolean inside(vec2 pos, vec2 size, int shape_type) {
   	if(shape_type == ELLIPSE) {
   		// this part can be improve to check the 'x' and the 'y'
   		vec2 offset = pos.copy().add(size().copy().mult(0.5f));

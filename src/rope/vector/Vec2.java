@@ -1,7 +1,7 @@
 /**
  * vec2 class 
- * v 1.3.7
- * 2015-2020
+ * v 1.3.8
+ * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
  * @see http://stanlepunk.xyz/
@@ -101,6 +101,12 @@ public class vec2 extends vec {
       set(source[0],source[1]);
     } 
     return this;
+  }
+  
+  public vec2 set_to(int index, float arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	return this;
   }
   
   // operation on simplest argument

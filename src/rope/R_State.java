@@ -9,9 +9,11 @@
 package rope;
 
 import processing.core.PApplet;
+import processing.event.MouseEvent;
 import rope.vector.vec3;
 import rope.vector.bvec2;
-import rope.vector.bvec4;
+import rope.vector.bvec6;
+import rope.vector.ivec2;
 
 public class R_State {
 	public static class State {
@@ -29,9 +31,7 @@ public class R_State {
 			env.a = pa.g.colorModeA;
 			env.m = pa.g.colorMode;
 			env.w = pa.g.width;
-			env.h = pa.g.width;
-			
-			
+			env.h = pa.g.width;		
 		}
 		
 		public static PApplet pa() {
@@ -66,38 +66,66 @@ public class R_State {
 			return env.mouse_pressed;
 		}
 		
+		
 		public static void event(boolean... event) {
 			if(env.event == null) {
-				env.event = new bvec4();
+				env.event = new bvec6();
+				env.event_mut = new bvec6();
+				env.event_ref = new bvec6();
 			}
 			
 			if(event.length == 1) {
-				env.event.x(event[0]);
+				env.event.a(event[0]);
 			} else if(event.length == 2) {
-				env.event.x(event[0]);
-				env.event.y(event[1]);
+				env.event.a(event[0]);
+				env.event.b(event[1]);
 			} else if(event.length == 3) {
-				env.event.x(event[0]);
-				env.event.y(event[1]);
-				env.event.z(event[2]);
-			}else if(event.length == 4) {
-				env.event.x(event[0]);
-				env.event.y(event[1]);
-				env.event.z(event[2]);
-				env.event.w(event[3]);
+				env.event.a(event[0]);
+				env.event.b(event[1]);
+				env.event.c(event[2]);
+			} else if(event.length == 4) {
+				env.event.a(event[0]);
+				env.event.b(event[1]);
+				env.event.c(event[2]);
+				env.event.d(event[3]);
+			} else if(event.length == 5) {
+				env.event.a(event[0]);
+				env.event.b(event[1]);
+				env.event.c(event[2]);
+				env.event.d(event[3]);
+				env.event.e(event[4]);
+			} else if(event.length == 6) {
+				env.event.a(event[0]);
+				env.event.b(event[1]);
+				env.event.c(event[2]);
+				env.event.d(event[3]);
+				env.event.e(event[4]);
+				env.event.f(event[5]);
 			}
+
+			
+			for(int i = 0 ; i < event.length && i < 6 ; i++) {
+				if(event[i]) {
+					if(env.event_ref.array()[i] != event[i]) {
+						env.event_mut.swap(i);
+					}
+					env.event_ref.set_to(i,true);
+				} else {
+					env.event_ref.set_to(i,false);
+				}
+			}
+			
 		}
 		
-		public static bvec4 event() {
+		public static bvec6 event() {
 			return env.event;
 		}
 		
+		public static bvec6 event_mut() {
+			return env.event_mut;
+		}
 		
-		
-		/**
-		 * Control ROPE
-		 * 
-		 */
+	
 		
 		// selector adjustable molette
 		public static void select_adj_is(boolean is) {
@@ -153,6 +181,19 @@ public class R_State {
 		
 		public static vec3 pointer() {
 			return env.pointer;
+		}
+		
+		
+		public static void scroll(MouseEvent e) {
+			if(env.scroll == null) {
+				env.scroll = new ivec2(e.getCount());
+			} else {
+				env.scroll.set(e.getCount());
+			}
+		}
+		
+		public static ivec2 scroll() {
+			return env.scroll;
 		}
 		
 		// dna current slider

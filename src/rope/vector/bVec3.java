@@ -1,10 +1,9 @@
 /**
 * bvec3 class
-* v 1.2.0
-* 2015-2019
+* v 1.2.1
+* 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -76,6 +75,13 @@ public class bvec3 extends bvec {
     }
     return this;
   }
+  
+  public bvec3 set_to(int index, boolean arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	if(index == 2) z(arg);
+  	return this;
+  }
 
   // xyz
   public bvec3 x(boolean x) {
@@ -90,6 +96,43 @@ public class bvec3 extends bvec {
     return set(this.x,this.y,z);
   }
 	
+  /*
+   * change the state of the target argument
+   */
+  
+  public bvec3 swap() {
+		this.x = !this.x;
+		this.y = !this.y;
+		this.z = !this.z;
+  	return set(this.x,this.y,this.z);
+  }
+  
+  
+  public bvec3 swap(int index) {
+  	if(index >= 0 && index < 4) {
+  		if(index == 0) this.x = !this.x;
+  		if(index == 1) this.y = !this.y;
+  		if(index == 2) this.z = !this.z;
+  	}
+  	return set(this.x,this.y,this.z);
+  }
+  
+  
+  public bvec3 swap_x() {
+  	this.x = !this.x;
+    return set(this.x,this.y,this.z);
+  }
+
+  public bvec3 swap_y() {
+  	this.y = !this.y;
+    return set(this.x,this.y,this.z);
+  }
+
+  public bvec3 swap_z() {
+  	this.z = !this.z;
+    return set(this.x,this.y,this.z);
+  }
+  
 	@Override 
 	public String toString() {
 		return "[ " + x + ", " + y + ", " + z + " ]";

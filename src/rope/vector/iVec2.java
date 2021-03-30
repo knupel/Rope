@@ -1,10 +1,9 @@
 /**
 * ivec2 class
-* v 1.4.0
+* v 1.4.1
 * 2015-2021
 * Vector class with a int precision
 * @author @stanlepunk
-* @see http://stanlepunk.xyz/
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
@@ -79,6 +78,12 @@ public class ivec2 extends ivec {
 		}
 		return this;
 	}
+	
+  public ivec2 set_to(int index, int arg) {
+  	if(index == 0) x(arg);
+  	if(index == 1) y(arg);
+  	return this;
+  }
 	
 	// xy
 	public ivec2 x(int x) {
