@@ -54,7 +54,12 @@ public abstract class BigBang extends Rope {
 	public String get_renderer() {
 	  return get_renderer(this.pa.g);
 	}
-
+	
+	/**
+	 * Return the current render in your processing Sketch
+	 * @param graph
+	 * @return
+	 */
 	public String get_renderer(final PGraphics graph) {
 	  try {
 	    if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;

@@ -5,6 +5,7 @@
 */
 package rope.gui.button;
 
+import rope.R_State.State;
 import processing.core.PImage;
 import rope.gui.Crope;
 import rope.vector.vec2;
@@ -58,6 +59,10 @@ public class R_Button extends Crope {
     this.is = !this.is;
   }
   
+  public boolean is() {
+    return this.is;
+  }
+  
 
   public R_Button set_colour_in_on(int c) {
     this.color_in_ON = c;
@@ -81,8 +86,9 @@ public class R_Button extends Crope {
     return this;
   }
   
-  @Deprecated
+  
   /*
+  @Deprecated
   public R_Button set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
     set_colour_in_on(color_in_ON);
     set_colour_in_off(color_in_OFF);
@@ -94,9 +100,7 @@ public class R_Button extends Crope {
 
 
 
-  public boolean is() {
-    return is;
-  }
+
 
   public float get() {
     if(is) return 1;
@@ -105,9 +109,15 @@ public class R_Button extends Crope {
 
   
   // misc
-  public void update(float x, float y) {
+  public void update() {
+    update(State.pointer().x(),State.pointer().y());
+  }
+  
+  
+  private void update(float x, float y) {
     cursor(x,y);
   }
+  
 
 
   /**
