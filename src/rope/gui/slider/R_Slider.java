@@ -321,6 +321,16 @@ public class R_Slider extends Crope {
 		} else {
 			inside = inside_molette_rect(index);
 		}
+				/**
+		 * 
+		 * 
+		 * 
+		 * WARNING MUST CHANGE THAT
+		 * remove event ????
+		 * 
+		 * 
+		 * 
+		 */
 		if (inside && event) {
 			return true ; 
 		} else {
@@ -895,6 +905,16 @@ public class R_Slider extends Crope {
 	
 	private void select(int index, boolean auth) {
 		molette[index].select(keep_selection);
+		/**
+		 * 
+		 * 
+		 * 
+		 * WARNING MUST CHANGE THAT
+		 * this.pa.mousePressed;
+		 * 
+		 * 
+		 * 
+		 */
 		event = this.pa.mousePressed;
 		molette[index].used_is = select(index, molette_used_is(index), molette[index].used_is, auth);
 	}
@@ -907,6 +927,16 @@ public class R_Slider extends Crope {
 	}
 
 	private void select(int index, boolean auth_1, boolean auth_2) {
+		/**
+		 * 
+		 * 
+		 * 
+		 * WARNING MUST CHANGE THAT
+		 * variable event must be remove ????
+		 * 
+		 * 
+		 * 
+		 */
 		molette[index].select(keep_selection);
 		event = auth_1;
 		molette[index].used_is = select(index,molette_used_is(index),molette[index].used_is,auth_2);
