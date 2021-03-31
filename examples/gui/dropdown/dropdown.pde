@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.0
+* v 1.0.1
 * dropdown
 */
 
@@ -27,10 +27,7 @@ void draw() {
 	background(30);
   State.pointer(mouseX,mouseY);
   State.event(mousePressed);
-
 	dropdown_draw();
-  
-  // State.event(mousePressed);
 }
 
 
@@ -49,34 +46,39 @@ void dropdown_setup(int x, int y) {
 	// String [] content_1 = {"tigre","lynx"};
 	int num = 2;
 	dropdown = new R_Dropdown[num];
-	dropdown[0] = new R_Dropdown(new vec2(x,y), new vec2(60,20), "Menu", content_0);
-	dropdown[1] = new R_Dropdown(new vec2(x*8,y), new vec2(60,20), "Menu", content_1);
+	dropdown[0] = new R_Dropdown(new vec2(x,y), new vec2(60,20));
+	dropdown[1] = new R_Dropdown(new vec2(x*8,y), new vec2(60,20));
 	int num_box_display = 7;
 	int rank_box_position = 1;
 
+  dropdown[0].set_label("Menu de chat");
+  dropdown[0].set_content(content_0);
   dropdown[0].wheel(true);
   dropdown[0].set_box(num_box_display, rank_box_position);
+  float pos_val_x = dropdown[0].pos().x() + dropdown[0].get_header_text_pos().x();
+  float pos_val_y = dropdown[0].pos().y() + dropdown[0].size().y() + dropdown[0].get_header_text_pos().y();
+  dropdown[0].set_pos_value(pos_val_x,pos_val_y);
   
   rank_box_position = 2;
+  dropdown[1].set_label("Menu de chien");
+  dropdown[1].set_content(content_1);
   dropdown[1].wheel(true);
   dropdown[1].set_box(num_box_display, rank_box_position);
+  pos_val_x = dropdown[1].pos().x() + dropdown[1].get_header_text_pos().x();
+  pos_val_y = dropdown[1].pos().y() + dropdown[1].size().y() + dropdown[1].get_header_text_pos().y();
+  dropdown[1].set_pos_value(pos_val_x,pos_val_y);
 
 }
 
 
 void dropdown_draw() {
   dropdown[0].update();
-  dropdown[0].show();
-  float x = dropdown[0].pos().x + dropdown[0].get_header_text_pos().x;
-  float y = dropdown[0].pos().y + dropdown[0].size().y + dropdown[0].get_header_text_pos().y;
-  // dropdown[0].show_selection(x,y);
-  
+  dropdown[0].show_structure();
+  // dropdown[0].show_value();
   
   dropdown[1].update();
-  dropdown[1].show();
-  x = dropdown[1].pos().x + dropdown[1].get_header_text_pos().x;
-  y = dropdown[1].pos().y + dropdown[1].size().y + dropdown[1].get_header_text_pos().y;
-  dropdown[1].show_selection(x,y);
+  dropdown[1].show_structure();
+  dropdown[1].show_value();
 }
 
 

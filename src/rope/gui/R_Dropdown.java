@@ -1,6 +1,6 @@
 /**
 * R_DROPDOWN 
-* v 1.0.0
+* v 1.1.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -15,7 +15,7 @@ import rope.vector.vec2;
 
 import rope.R_State.State;
 
-public class R_Dropdown extends Crope {
+public class R_Dropdown extends Crope implements R_GUI {
   // protected boolean selected_type;
   //Slider dropdown
   private R_Slider slider_dd;
@@ -67,21 +67,17 @@ public class R_Dropdown extends Crope {
 
   /**
   CONSTRUCTOR
-  */
-  public R_Dropdown(vec2 pos, vec2 size, String name, String [] content) {
+  */  
+  public R_Dropdown(vec2 pos, vec2 size) {
     super("Dropdown");
     int size_header_text = (int)(size.y() * 0.6f);
     this.font = createFont("defaultFont",size_header_text);
     int size_content_text = (int)(size.y() * 0.6f);
     this.font_box = createFont("defaultFont",size_content_text);
-    this.name = name; 
     this.pos = pos.copy();
     pos_ref_x = pos.x();
     pos_ref_y = pos.y();
     this.size = size.copy(); // header size
-
-    set_box(content.length);
-    set_content(content);
     set_box_height(size.y);
     
     int offset_text_x = 2 ;
@@ -189,7 +185,8 @@ public class R_Dropdown extends Crope {
   }
 
   // content
-  public R_Dropdown set_content(String [] content) {
+  public R_Dropdown set_content(String... content) {
+  	set_box(content.length);
     boolean new_slider = false ;
     if(this.content == null || this.content.length != content.length) {
       new_slider = true ;
@@ -278,9 +275,6 @@ public class R_Dropdown extends Crope {
     return line ;
   }
 
-  public String get_name() {
-    return this.name;
-  }
 
   public String [] get_content() {
     return content;
@@ -318,14 +312,14 @@ public class R_Dropdown extends Crope {
 
 
   // show
-  public void show() {
+  public void show_structure() {
     show_header();
-    show_header_text();
+    show_label();
     show_box();
   }
-
-  public void show_selection(float x, float y) {
-    if (inside(RECT)) {
+  
+  public void show_value() {
+  	if (inside(RECT)) {
       fill(colour_header_text_in); 
     } else {
       fill(colour_header_text_out);
@@ -336,10 +330,11 @@ public class R_Dropdown extends Crope {
       index = 0;
     }
     if(get_content().length > 0 && get_content()[index] != null) {
-      text(get_content()[index],x,y);
+      text(get_content()[index],pos_value);
     } else {
-      text("empty",x,y);
+      text("empty",pos_value);
     }
+  	
   }
   
   public void show_header() {
@@ -352,7 +347,7 @@ public class R_Dropdown extends Crope {
     rect(pos(),size());
   }
 
-  public void show_header_text(String name) {
+  public void show_label(String name) {
     if(name != null) {
       if (inside(RECT)) {
         fill(colour_header_text_in); 
@@ -364,8 +359,8 @@ public class R_Dropdown extends Crope {
     }
   }
 
-  public void show_header_text() {
-    show_header_text(this.name);
+  public void show_label() {
+    show_label(this.name);
   }
 
 

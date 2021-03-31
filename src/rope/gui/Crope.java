@@ -34,6 +34,7 @@ abstract public class Crope extends R_Graphic  {
   protected int stroke_in = fill_in;
   protected int stroke_out = fill_out;
   protected float thickness = 0;
+  
   protected int color_label_in = fill_in;
   protected int color_label_out = fill_out;
 
