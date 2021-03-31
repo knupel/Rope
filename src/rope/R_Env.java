@@ -15,6 +15,7 @@ import rope.vector.bvec2;
 import rope.vector.bvec6;
 import rope.vector.ivec2;
 import rope.vector.vec3;
+import rope.vector.vec4;
 
 public class R_Env {
 	
@@ -27,6 +28,14 @@ public class R_Env {
 	private int m;
 	private int w;
 	private int h;
+	
+	public vec4 cxyza() {
+		return new vec4(this.x,this.y,this.z,this.a);
+	}
+	
+	public vec3 cxyz() {
+		return new vec3(this.x,this.y,this.z);
+	}
 	
 	public float cx() {
 		return this.x;
