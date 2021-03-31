@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.1.0
+* v 1.1.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -24,8 +24,8 @@ public class R_Slider extends Crope {
 	protected vec2 pos_min;
 	protected vec2 pos_max;
 
-	protected int fill_molette_in = color(State.env().x * 0.4f);
-	protected int fill_molette_out = color(State.env().x * 0.2f);
+	protected int fill_molette_in = color(State.env().cx() * 0.4f);
+	protected int fill_molette_out = color(State.env().cx() * 0.2f);
 	protected int stroke_molette_in = fill_molette_in;
 	protected int stroke_molette_out = fill_molette_out;
 	protected float thickness_molette = 0;
@@ -486,10 +486,6 @@ public class R_Slider extends Crope {
 			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
 			System.exit(0);
 		}
-		if(State.env().event == null) {
-			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
-			System.exit(0);
-		} 
 		update(State.env().pointer.x(),State.env().pointer.y());
 	}
 	
@@ -511,6 +507,10 @@ public class R_Slider extends Crope {
 	 * It's the main method to move the molette the slider.
 	 */
 	protected void molette_update() {
+		if(State.env().event == null) {
+			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
+			System.exit(0);
+		} 
 		this.event = State.env().event.a();
 		if(!event) {
 			State.set_dna_current_crope(0); 

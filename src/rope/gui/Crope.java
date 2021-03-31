@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.0.0
+* v 1.0.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -13,9 +13,9 @@
 package rope.gui;
 
 
-import processing.core.PApplet;
 import processing.core.PFont;
 import rope.core.R_Graphic;
+import rope.vector.vec;
 import rope.vector.vec2;
 import rope.R_State.State;
 
@@ -120,7 +120,7 @@ abstract public class Crope extends R_Graphic  {
   /**
   private
   */
-  protected void cursor(vec2 cursor) {
+  protected void cursor(vec cursor) {
     cursor(cursor.x(),cursor.y());
   }
 
@@ -275,7 +275,7 @@ abstract public class Crope extends R_Graphic  {
   }
 
   public Crope set_font(String font_name, int size) {
-    this.font = this.pa.createFont(font_name,size);
+    this.font = createFont(font_name,size);
     return this;
   }
 
@@ -319,6 +319,22 @@ abstract public class Crope extends R_Graphic  {
   */
   public vec2 pos() {
     return pos;
+  }
+  
+  public int top() {
+  	return (int)pos.y();
+  }
+  
+  public int bottom() {
+  	return (int)(pos.y() + size.y());
+  }
+  
+  public int left() {
+  	return (int)pos.x();
+  }
+  
+  public int right() {
+  	return (int)(pos.x() + size.x());
   }
 
   public vec2 size() {
@@ -386,9 +402,9 @@ abstract public class Crope extends R_Graphic  {
       }
     } else {
     	if(cursor.x() > pos.x() && 
-    			cursor.x() < pos.x() +size.x() && 
+    			cursor.x() < pos.x() + size.x() && 
     			cursor.y() > pos.y() && 
-    			cursor.y() < pos.y() +size.y()) {
+    			cursor.y() < pos.y() + size.y()) {
     		  return true; 
     		} else {
       		return false ;

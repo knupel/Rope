@@ -1,12 +1,22 @@
+/**
+* R_Slotch
+* Control ROmanesco Processing Environment
+* v 1.0.1
+* Copyleft (c) 2018-2021
+
+* dependencies
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.gui.slider;
 
-// import processing.core.PApplet;
 import rope.vector.vec2;
 import rope.R_State.State;
 
 public class R_Slotch extends R_Slider {
 	protected float [] notches_pos;
-	protected int colour_notch = (int)(State.env().x);
+	protected int colour_notch = (int)(State.env().cx());
 	protected float thickness_notch = 1.0f;
 
 	protected boolean notch_is;

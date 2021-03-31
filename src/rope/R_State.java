@@ -1,6 +1,6 @@
 /**
- * R_state is use to manage all the state of Rope like in React in lesser :)
- * v 0.0.1
+ * R_State is use to manage all the state of Rope like in React in lesser :)
+ * v 0.0.2
  * 2021-2021
  * @author stanlepunk
  *
@@ -25,13 +25,13 @@ public class R_State {
 			if(env == null) {
 				env = new R_Env();
 			}
-			env.x = pa.g.colorModeX;
-			env.y = pa.g.colorModeY;
-			env.z = pa.g.colorModeZ;
-			env.a = pa.g.colorModeA;
-			env.m = pa.g.colorMode;
-			env.w = pa.g.width;
-			env.h = pa.g.width;		
+			env.cx(pa.g.colorModeX);
+			env.cy(pa.g.colorModeY);
+			env.cz(pa.g.colorModeZ);
+			env.ca(pa.g.colorModeA);
+			env.cm(pa.g.colorMode);
+			env.width(pa.g.width);
+			env.height(pa.g.width);		
 		}
 		
 		public static PApplet pa() {

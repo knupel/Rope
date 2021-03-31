@@ -1,3 +1,14 @@
+/**
+* R_Sladj
+* Control ROmanesco Processing Environment
+* v 1.0.1
+* Copyleft (c) 2018-2021
+
+* dependencies
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
 package rope.gui.slider;
 
 import processing.core.PApplet;
@@ -16,10 +27,10 @@ public class R_Sladj extends R_Slider {
 	private vec2 pos_norm_adj = new vec2(1,0.5f);
 	private vec2 size_norm_adj = new vec2(1,0.2f);
 
-	protected int fill_adj_in = color(State.env().x/2);
-	protected int fill_adj_out = color(State.env().x /4);
-	protected int stroke_adj_in = color(State.env().x/2);
-	protected int stroke_adj_out = color(State.env().x /4);
+	protected int fill_adj_in = color(State.env().cx()/2);
+	protected int fill_adj_out = color(State.env().cx() /4);
+	protected int stroke_adj_in = color(State.env().cx()/2);
+	protected int stroke_adj_out = color(State.env().cx()/4);
 	protected float thickness_adj = 0;
 
 	private boolean locked_min, locked_max;

@@ -1,7 +1,7 @@
 /**
 * R_Mol
 * Control ROmanesco Processing Environment
-* v 1.0.0
+* v 1.0.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -35,13 +35,13 @@ public class R_Mol extends R_Graphic {
   public boolean used_is;
   public boolean inside_is;
 
-  protected int fill_in = color(State.env().x * 0.4f);
-  protected int fill_out = color(State.env().x * 0.2f);
+  protected int fill_in = color(State.env().cx() * 0.4f);
+  protected int fill_out = color(State.env().cx() * 0.2f);
   protected int stroke_in = fill_in;
   protected int stroke_out = fill_out;
 
-  protected int fill_in_ON = color(State.env().x * 0.4f);
-  protected int fill_out_ON = color(State.env().x * 0.2f);
+  protected int fill_in_ON = color(State.env().cx() * 0.4f);
+  protected int fill_out_ON = color(State.env().cx() * 0.2f);
   protected int stroke_in_ON = fill_in;
   protected int stroke_out_ON = fill_out;
 

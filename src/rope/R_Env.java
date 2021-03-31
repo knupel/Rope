@@ -20,13 +20,69 @@ public class R_Env {
 	
 	R_Env() {}
 	
-	public float x;
-	public float y;
-	public float z;
-	public float a;
-	public int m;
-	public int w;
-	public int h;
+	private float x;
+	private float y;
+	private float z;
+	private float a;
+	private int m;
+	private int w;
+	private int h;
+	
+	public float cx() {
+		return this.x;
+	}
+	
+	public void cx(float x) {
+		this.x = x;
+	}
+	
+	public float cy() {
+		return this.y;
+	}
+	
+	public void cy(float y) {
+		this.y = y;
+	}
+	
+	public float cz() {
+		return this.z;
+	}
+	
+	public void cz(float z) {
+		this.z = z;
+	}
+	
+	public float ca() {
+		return this.a;
+	}
+	
+	public void ca(float a) {
+		this.a = a;
+	}
+	
+	public int cm() {
+		return this.m;
+	}
+	
+	public void cm(int m) {
+		this.m = m;
+	}
+	
+	public int width() {
+		return this.w;
+	}
+	
+	public void width(int w) {
+		this.w = w;
+	}
+	
+	public int height() {
+		return this.h;
+	}
+	
+	public void height(int h) {
+		this.h = h;
+	}
 	
 	
 	
