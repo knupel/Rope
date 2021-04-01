@@ -1,3 +1,14 @@
+*version 0.12.0.41
+>add pack gui
+>add class R_Slider, R_Palette, R_Dropdown, R_Button...
+>add function to core Rope, like hex(), binary()
+>add function to core BigBang : like colorMode(), ellipseMode()...
+
+
+
+
+
+
 *version 0.11.1.40
 >remove waring build
 >add class R_Moxo to split method from R_Pixo, Moxo name is a contraxion of Pixo and Motion

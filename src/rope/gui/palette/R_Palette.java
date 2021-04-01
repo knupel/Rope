@@ -1,3 +1,9 @@
+/**
+* PALETTE
+* Processing 3.5.4
+* v 1.0.0
+* 2021-2021
+*/
 package rope.gui.palette;
 
 import rope.gui.Crope;

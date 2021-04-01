@@ -1754,7 +1754,36 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return result;
 	}
 
+	
+	public String hex(byte value) {
+    return hex(value, 2);
+  }
 
+	public String hex(char value) {
+    return hex(value, 4);
+  }
+
+	public String hex(int value) {
+    return hex(value, 8);
+  }
+/**
+ * @param digits the number of digits (maximum 8)
+ */
+	public String hex(int value, int digits) {
+    String stuff = Integer.toHexString(value).toUpperCase();
+    if (digits > 8) {
+      digits = 8;
+    }
+
+    int length = stuff.length();
+    if (length > digits) {
+      return stuff.substring(length - digits);
+
+    } else if (length < digits) {
+      return "00000000".substring(8 - (digits-length)) + stuff;
+    }
+    return stuff;
+  }
 	 /**
   *
   * Converts a <b>String</b> representation of a hexadecimal number to its
@@ -1765,6 +1794,68 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public int unhex(String value) {
     // has to parse as a Long so that it'll work for numbers bigger than 2^31
     return (int) (Long.parseLong(value, 16));
+  }
+	
+	
+	public String binary(byte value) {
+    return binary(value, 8);
+  }
+
+	public String binary(char value) {
+    return binary(value, 16);
+  }
+
+  public String binary(int value) {
+    return binary(value, 32);
+  }
+
+  /*
+   * Returns a String that contains the binary value of an int.
+   * The digits parameter determines how many digits will be used.
+   */
+
+ /**
+  *
+  * Converts an <b>int</b>, <b>byte</b>, <b>char</b>, or <b>color</b> to a
+  * <b>String</b> containing the equivalent binary notation. For example, the
+  * <b>color</b> value produced by <b>color(0, 102, 153, 255)</b> will convert
+  * to the <b>String</b> value <b>"11111111000000000110011010011001"</b>. This
+  * function can help make your geeky debugging sessions much happier.<br />
+  * <br />
+  * Note that the maximum number of digits is 32, because an <b>int</b> value
+  * can only represent up to 32 bits. Specifying more than 32 digits will have
+  * no effect.
+  *
+  * @webref data:conversion
+  * @webBrief Converts a byte, char, int, or color to a String containing the
+  *           equivalent binary notation.
+  * @param value
+  *          value to convert
+  * @param digits
+  *          number of digits to return
+  * @see PApplet#unbinary(String)
+  * @see PApplet#hex(int,int)
+  * @see PApplet#unhex(String)
+  */
+  public String binary(int value, int digits) {
+    String stuff = Integer.toBinaryString(value);
+    if (digits > 32) {
+      digits = 32;
+    }
+
+    int length = stuff.length();
+    if (length > digits) {
+      return stuff.substring(length - digits);
+
+    } else if (length < digits) {
+      int offset = 32 - (digits-length);
+      return "00000000000000000000000000000000".substring(offset) + stuff;
+    }
+    return stuff;
+  }
+  
+  public int unbinary(String value) {
+    return Integer.parseInt(value, 2);
   }
 
 	/**
