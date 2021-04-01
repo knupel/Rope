@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.1.1
+* v 1.1.2
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -36,23 +36,13 @@ public class R_Slider extends Crope implements R_GUI {
 
 	protected int molette_type = RECT;
 
-
-	public R_Slider() {
-		super("Slider");
-		this.pos(new vec2(-1));
-		this.size(new vec2(-1));
-	}
 	
 	public R_Slider(vec2 pos, vec2 size) {
-		super("Slider");
-		this.pos(pos);
-		this.size(size);
+		super("Slider", pos, size);
 	}
 
 	public R_Slider(String type, vec2 pos, vec2 size) {
-		super(type);
-		this.pos(pos);
-		this.size(size);
+		super(type, pos, size);
 	}
 
 	// SET
@@ -423,50 +413,21 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 	
-	public void show_label() {
-		if(this.name != null) {
-			textAlign(align_label_name);
-			if(font != null) textFont(font);
-			if(font_size > 0) textSize(font_size);
-			if(inside(RECT)) {
-				fill(color_label_in);
-			} else {
-				fill(color_label_out);
-			}
-			text(this.name, add(pos,pos_label));
-		}  
-	}
 
 	public void show_value() {
 		show_value(get());
 	}
-
+	
 	public void show_value(float... value) {
-		if(this.name != null) {
-			 textAlign(align_label_value);
-			 if(font != null) textFont(font);
-			 if(font_size > 0) textSize(font_size);
-			 if(inside(RECT)) {
-				fill(color_label_in);
-			} else {
-				fill(color_label_out);
-			}
-
-			String message = "[ ";
-			for(int i = 0 ; i < value.length ; i++) {
-				float f = truncate(value[i],2);
-				message += f;
-				if(i < value.length -1) message += ",";
-			}
-			message += " ]";
-			text(message, add(pos,pos_value));
+		String message = "[ ";
+		for(int i = 0 ; i < value.length ; i++) {
+			float f = truncate(value[i],2);
+			message += f;
+			if(i < value.length -1) message += ",";
 		}
+		message += " ]";
+		show_value_impl(message);
 	}
-
-
-
-
-
 
 
 

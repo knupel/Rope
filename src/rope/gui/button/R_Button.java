@@ -1,6 +1,9 @@
 /**
 * CLASS BUTTON 
-* v 2.0.0
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+* v 2.1.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -28,25 +31,13 @@ public class R_Button extends Crope {
 
   public vec2 offset;
 
-  public R_Button() {
-    super("Button");
-  }
-
-  public R_Button(String type) {
-    super(type);
-  }
-
   public R_Button(String type, vec2 pos, vec2 size) {
-    super(type);
-    this.pos(pos);
-    this.size(size); 
+    super(type, pos, size);
   }
 
 
   public R_Button(vec2 pos, vec2 size) {
-    super("Button");
-    this.pos(pos);
-    this.size(size);
+    super("Button", pos, size);
   }
 
 
@@ -85,17 +76,6 @@ public class R_Button extends Crope {
     return this;
   }
   
-  
-  /*
-  @Deprecated
-  public R_Button set_aspect_on_off(int color_in_ON, int color_out_ON, int color_in_OFF, int color_out_OFF) {
-    set_colour_in_on(color_in_ON);
-    set_colour_in_off(color_in_OFF);
-    set_colour_out_on(color_out_ON);
-    set_colour_out_off(color_out_OFF);
-    return this;
-  }
-  */
 
   public float get() {
     if(is) return 1;
@@ -115,14 +95,6 @@ public class R_Button extends Crope {
       switch_is();
     }
   }
-
-  /*
-  @Deprecated
-  public boolean inside() {
-    return inside(pos, size, rollover_type);
-  }
-  */
-  
 
   /**
   * offset
@@ -191,51 +163,12 @@ public class R_Button extends Crope {
   }
 
 
-  public void show_label() {
-    if(this.name != null) {
-      if (is) {
-        if (inside() && auth_rollover) {
-          color_on_off = color_in_ON; 
-        } else {
-          color_on_off = color_out_ON;
-        }
-      } else {
-        if (inside() && auth_rollover) {
-          color_on_off = color_in_OFF; 
-        } else {
-          color_on_off = color_out_OFF;
-        }
-      }
-      
-      if(pos_label == null) {
-        pos_label = new vec2();
-      }
-      // display text
-      if(font != null) textFont(font);
-      if(font_size > 0) textSize(font_size);
-      textAlign(align_label_name);
-      fill(color_on_off);
-      text(this.name,add(pos,pos_label));
-    }  
-  }
-
   public void show_value(float value) {
-    if(this.name != null) {
-       textAlign(align_label_value);
-       if(font != null) textFont(font);
-       if(font_size > 0) textSize(font_size);
-       if(inside(RECT)) {
-        fill(color_label_in);
-      } else {
-        fill(color_label_out);
-      }
-
-      String message = "[ ";
-      float f = truncate(value,2);
-      message += f;
-      message += " ]";
-      text(message,add(pos,pos_value));
-    }
+    String message = "[ ";
+    float f = truncate(value,2);
+    message += f;
+    message += " ]";
+    show_value_impl(message);
   }
 
   public void show_value() {

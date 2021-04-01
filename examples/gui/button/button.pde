@@ -41,7 +41,6 @@ void button_simple_setup(int x, int y) {
 	button.set_colour_out_on(r.SAPIN);
 	button.set_colour_in_off(r.RED);
 	button.set_colour_out_off(r.BLOOD);
-	button.set_pos_label(20,20);
 	button.set_label("Hello World");
 }
 
@@ -51,6 +50,7 @@ void button_simple_draw() {
 	button.rollover(true);
 
 	button.show_label();
+	button.show_value();
 	
 	button.show(ELLIPSE,true);
 	//button.show(RECT,true);

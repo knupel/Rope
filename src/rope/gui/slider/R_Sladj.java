@@ -36,7 +36,7 @@ public class R_Sladj extends R_Slider {
 	private boolean locked_min, locked_max;
 		
 	public R_Sladj(vec2 pos, vec2 size) {
-		super("Sladj",pos, size);
+		super("Sladj", pos, size);
 		this.new_pos_max = new vec2();
 		this.new_pos_min = pos.copy();
 		this.size_min_max = size.copy();

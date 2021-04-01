@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.0.1
+* v 1.0.2
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -41,13 +41,14 @@ abstract public class Crope extends R_Graphic  {
   protected float rounded = 0;
   // label
   protected int align_label_name = LEFT;
-  protected int align_label_value = RIGHT;
+  protected int align_label_value = LEFT;
   protected String name = null;
-  protected vec2 pos_label = new vec2(0,-2);
-  protected vec2 pos_value = new vec2(0,-2);
+  
+  protected vec2 pos_label;
+  protected vec2 pos_value;
 
   protected PFont font;
-  protected int font_size = 0;
+  protected int font_size;
 
   protected int midi_value;
   protected int id_midi = -2 ;
@@ -62,11 +63,16 @@ abstract public class Crope extends R_Graphic  {
 
   protected boolean crope_build_is = false;
 
-  public Crope(String type) {
+  public Crope(String type, vec2 pos, vec2 size) {
   	super(State.pa());
     this.type = type;
+    this.pos(pos);
+		this.size(size);
+		font_size = (int)State.pa().g.textSize;
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
     if(dna == 0) dna = 1;
+    pos_label = new vec2(pos.x(),bottom() + font_size);
+    pos_value = pos_label.copy().add_y(font_size);
   }
 
 
@@ -190,7 +196,36 @@ abstract public class Crope extends R_Graphic  {
     return this;
   }
 
-  // set label
+  /**
+   * 
+   *  LABEL
+   * 
+   * 
+   */
+  
+  
+   public Crope set_fill_label(int c) {
+    set_fill_label(c,c);
+    return this;
+  }
+
+  public Crope set_fill_label(int c_in, int c_out) {
+    this.color_label_in = c_in;
+    this.color_label_out = c_out;
+    return this;
+  }
+
+  public Crope set_align_label_name(int align) {
+    this.align_label_name = align;
+    return this;
+  }
+
+  public Crope set_align_label_value(int align) {
+    this.align_label_value = align;
+    return this;
+  }
+
+
   public Crope set_name(String name) {
     this.name = name;
     return this;
@@ -229,9 +264,33 @@ abstract public class Crope extends R_Graphic  {
     }
     return this;
   }
+  
+  public void show_label() {
+  	 show_label_impl();
+  }
+  
+  
+  protected void show_label_impl() {
+		if(this.name != null) {
+			textAlign(align_label_name);
+			if(font != null) textFont(font);
+			if(font_size > 0) textSize(font_size);
+			if(inside(RECT)) {
+				fill(color_label_in);
+			} else {
+				fill(color_label_out);
+			}
+			text(this.name, pos_label);
+		}  
+	}
+
+  /**
+   * 
+   * VALUE
+   */
 
   public Crope set_pos_value(vec2 pos) {
-    set_pos_label(pos.x(),pos.y());
+    set_pos_value(pos.x(),pos.y());
     return this;
   }
 
@@ -245,27 +304,26 @@ abstract public class Crope extends R_Graphic  {
   }
 
 
+  public void show_value() {
+    String message = "no values available";
+		show_value_impl(message);
+	}
 
-  public Crope set_fill_label(int c) {
-    set_fill_label(c,c);
-    return this;
-  }
+	protected void show_value_impl(String mess) {
+		 textAlign(align_label_value);
+		 if(font != null) textFont(font);
+		 if(font_size > 0) textSize(font_size);
+		 if(inside(RECT)) {
+			fill(color_label_in);
+		} else {
+			fill(color_label_out);
+		}
+		text(mess, pos_value);
+	}
 
-  public Crope set_fill_label(int c_in, int c_out) {
-    this.color_label_in = c_in;
-    this.color_label_out = c_out;
-    return this;
-  }
 
-  public Crope set_align_label_name(int align) {
-    this.align_label_name = align;
-    return this;
-  }
 
-  public Crope set_align_label_value(int align) {
-    this.align_label_value = align;
-    return this;
-  }
+
 
   /**
   font

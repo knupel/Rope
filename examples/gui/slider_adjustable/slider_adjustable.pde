@@ -1,9 +1,9 @@
 /**
 * GUI CROPE EXAMPLE
-* Processing 3.5.3
-* Rope Library 0.8.5.30
-* 2016-2019
-* v 0.1.1
+* Processing 3.5.4
+* Rope Library 0.12.1.41
+* 2016-2021
+* v 1.0.0
 * slider adjustable
 */
 
@@ -31,6 +31,7 @@ void draw() {
     // instead update(mouseX,mouseY) by this way all Crope gui pointer is update with those pointers 
   // and can be change in one place.
   State.pointer(mouseX,mouseY); 
+  State.event(mousePressed);
   State.select_adj_is(mousePressed);
 
 	slider_adjustable_draw();
@@ -53,10 +54,7 @@ void slider_adjustable_setup(int x, int y) {
 
 
 void slider_adjustable_draw() {
-	// sladj.select(keyPressed); // by default select is mousePressed arg
-	// sladj.select(mousePressed, keyPressed);
-	sladj.select(true);
-	sladj.update(mouseX,mouseY);
+	sladj.update();
 	if(!sladj.inside_max() && !sladj.locked_max_is()) {
     sladj.inside_min();
     sladj.select_min(keyPressed);

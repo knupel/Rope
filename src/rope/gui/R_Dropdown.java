@@ -69,15 +69,17 @@ public class R_Dropdown extends Crope implements R_GUI {
   CONSTRUCTOR
   */  
   public R_Dropdown(vec2 pos, vec2 size) {
-    super("Dropdown");
+    super("Dropdown", pos,size);
+    // this.pos = pos.copy();
+    // this.size = size.copy(); // header size
+
     int size_header_text = (int)(size.y() * 0.6f);
     this.font = createFont("defaultFont",size_header_text);
     int size_content_text = (int)(size.y() * 0.6f);
     this.font_box = createFont("defaultFont",size_content_text);
-    this.pos = pos.copy();
+
     pos_ref_x = pos.x();
     pos_ref_y = pos.y();
-    this.size = size.copy(); // header size
     set_box_height(size.y);
     
     int offset_text_x = 2 ;
@@ -347,6 +349,10 @@ public class R_Dropdown extends Crope implements R_GUI {
     rect(pos(),size());
   }
 
+
+  /**
+   * Overwrite method Crope
+   */
   public void show_label(String name) {
     if(name != null) {
       if (inside(RECT)) {
@@ -359,6 +365,9 @@ public class R_Dropdown extends Crope implements R_GUI {
     }
   }
 
+  /**
+   * Overwrite method Crope
+   */
   public void show_label() {
     show_label(this.name);
   }

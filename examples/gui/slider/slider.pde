@@ -37,8 +37,6 @@ void slider_setup(int x, int y) {
   slider.set_molette(ELLIPSE);
   slider.set_rounded(20);
   slider.set_value(0.75);
-  // slider.set_pos_label(0,-5);
-  // slider.set_pos_value(slider.size.x(),-5);
 }
 
 
@@ -46,7 +44,7 @@ void slider_draw() {
   slider.update();
   slider.show_structure();
   slider.show_molette();
-  slider.show_label(); 
+  slider.show_label();
 
   if(keyPressed) {
     // add array value display under the label, useful when the slider value has mapped

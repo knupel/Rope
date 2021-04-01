@@ -1,6 +1,9 @@
 /**
 * R_Knob
-* v 1.0.0
+* Processing 3.5.4
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+* v 1.0.1
 * 2019-2021
 */
 package rope.gui.button;
@@ -21,11 +24,15 @@ public class R_Knob extends R_Button {
   private int drag_direction = HORIZONTAL;
   private float drag_force = 0.1f;
   private vec2 size_limit = new vec2(-3,3);
-
+  
   public R_Knob(vec2 pos, float size) {
-    super("Knob");
-    this.pos(pos);
-    this.size(size);
+    super("Knob", pos, new vec2(size));
+    this.molette = new R_Mol();
+    molette_update();
+  }
+  
+  public R_Knob(String type, vec2 pos, float size) {
+    super(type, pos, new vec2(size));
     this.molette = new R_Mol();
     molette_update();
   }
@@ -311,11 +318,6 @@ public class R_Knob extends R_Button {
     }
   }
   
-  // select
-  // private void select(boolean event) {
-  //   use_event_is = true;
-  //   this.event = event;
-  // }
   
   private void select(boolean event_1, boolean event_2) {
     use_event_is = true;
