@@ -80,6 +80,35 @@ public abstract class BigBang extends Rope {
 	  }
 	  return "Unknown";
 	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param print_info_is if it's false there is no information print in the console
+	 * @return
+	 */
+	public float [] getColorMode(boolean print_info_is) {
+		float colorMode = this.pa.g.colorMode ;
+		float x = this.pa.g.colorModeX;
+		float y = this.pa.g.colorModeY;
+		float z = this.pa.g.colorModeZ;
+		float a = this.pa.g.colorModeA;
+		float array[] = {colorMode,x,y,z,a};
+		if (print_info_is && this.pa.g.colorMode == HSB) {
+			String mess = "HSB: "+x+", "+y+", "+z+", "+a;
+			System.out.println(mess);
+		} else if(print_info_is && this.pa.g.colorMode == RGB) {
+			String mess = "RGB: "+x+", "+y+", "+z+", "+a;
+			System.out.println(mess);
+		}
+		return array;
+	}
+
+	public float [] getColorMode() {
+		return getColorMode(false);
+	}
   
 	 /**
 		* 

@@ -1,6 +1,6 @@
 /**
 * R_Graphic class
-* v 0.3.1
+* v 0.3.2
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -26,32 +26,6 @@ public class R_Graphic extends BigBang {
   private boolean render_checked_is = false ;
   private boolean render_p3d_is = false;
 
-
-	/**
-	 * 
-	 * @param print_info_is if it's false there is no onformation print in the consol
-	 * @return
-	 */
-	public float [] getColorMode(boolean print_info_is) {
-		float colorMode = this.pa.g.colorMode ;
-		float x = this.pa.g.colorModeX;
-		float y = this.pa.g.colorModeY;
-		float z = this.pa.g.colorModeZ;
-		float a = this.pa.g.colorModeA;
-		float array[] = {colorMode,x,y,z,a};
-		if (print_info_is && this.pa.g.colorMode == HSB) {
-			String mess = "HSB: "+x+", "+y+", "+z+", "+a;
-			System.out.println(mess);
-		} else if(print_info_is && this.pa.g.colorMode == RGB) {
-			String mess = "RGB: "+x+", "+y+", "+z+", "+a;
-			System.out.println(mess);
-		}
-		return array;
-	}
-
-	public float [] getColorMode() {
-		return getColorMode(false);
-	}
 
 
 	/**
@@ -110,8 +84,7 @@ public class R_Graphic extends BigBang {
 	  return "Unknown";
 	}
 	
-	
-	
+
 	
 	
 	/**
@@ -127,6 +100,62 @@ public class R_Graphic extends BigBang {
   		this.other = other;	
   	}
   }
+  
+  
+	/**
+	 * 
+	 * @param mode
+	 * @param max_x
+	 * @param max_y
+	 * @param max_z
+	 * @param max_a
+	 */
+	public void colorMode(int mode,  float max_x, float max_y, float max_z, float max_a){
+		if(other != null) {
+			other.colorMode(mode, max_x, max_y, max_z, max_a);
+		} else {
+			this.pa.g.colorMode(mode, max_x, max_y, max_z, max_a);
+		}	
+	}
+  
+	public void colorMode(int mode, vec3 arg) {
+		colorMode(mode,arg.x(),arg.y(),arg.z());
+	}
+
+	public void colorMode(int mode, vec2 arg) {
+	  colorMode(mode, arg.x(), arg.x(), arg.x(), arg.y());
+	}
+	
+	public void colorMode(int mode, vec4 arg) {
+	  colorMode(mode,arg.x(),arg.y(),arg.z(),arg.w());
+	}
+	
+	public void colorMode(int mode) {
+		if(other != null) {
+			other.colorMode(mode);
+		} else {
+			this.pa.g.colorMode(mode);
+		}
+	}
+	public void colorMode(int mode, float max){
+		if(other != null) {
+			other.colorMode(mode, max);
+		} else {
+			this.pa.g.colorMode(mode, max);
+		}	
+	}
+	
+	public void colorMode(int mode, float max_x, float max_y, float max_z){
+		if(other != null) {
+			other.colorMode(mode, max_x, max_y, max_z);
+		} else {
+			this.pa.g.colorMode(mode, max_x, max_y, max_z);
+		}	
+	}
+	
+
+	
+	
   
   
   void image(PImage img) {
@@ -163,6 +192,18 @@ public class R_Graphic extends BigBang {
 		}
   }
   
+  
+  public int get(int x, int y) {
+  	if(other != null) {
+  		int index =  index_pixel_array(x,y, other.width);
+  		other.loadPixels();
+			return other.pixels[index];
+		} else {
+			int index =  index_pixel_array(x,y, this.pa.g.width);
+			this.pa.g.loadPixels();
+			return this.pa.g.pixels[index];
+		}
+  }
   
   /**
    * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -207,7 +248,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.point(x,y);
 		} else {
-			this.pa.point(x,y);
+			this.pa.g.point(x,y);
 		}
   }
   
@@ -221,7 +262,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.point(x,y,z);
 		} else {
-			this.pa.point(x,y,z);
+			this.pa.g.point(x,y,z);
 		}
   }
 
@@ -259,7 +300,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.line(x1,y1, x2,y2);
 		} else {
-			this.pa.line(x1,y1, x2,y2);
+			this.pa.g.line(x1,y1, x2,y2);
 		}
   }
 
@@ -274,7 +315,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.line(x1,y1,z1, x2,y2,z2);
 		} else {
-			this.pa.line(x1,y1,z1, x2,y2,z2);
+			this.pa.g.line(x1,y1,z1, x2,y2,z2);
 		}
   }
   
@@ -361,7 +402,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.triangle(x1,y1, x2,y2, x3,y3);
 		} else {
-			this.pa.triangle(x1,y1, x2,y2, x3,y3);
+			this.pa.g.triangle(x1,y1, x2,y2, x3,y3);
 		}
   }
   
@@ -379,7 +420,15 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.rectMode(mode);
 		} else {
-			this.pa.rectMode(mode);
+			this.pa.g.rectMode(mode);
+		}
+  }
+  
+  public int rectMode() {
+  	if(other != null) {
+			return other.rectMode;
+		} else {
+			return this.pa.g.rectMode;
 		}
   }
 
@@ -396,7 +445,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.ellipse(px,py,sx,sy);
 		} else {
-			this.pa.ellipse(px,py,sx,sy);
+			this.pa.g.ellipse(px,py,sx,sy);
 		}
 	}
 
@@ -418,6 +467,22 @@ public class R_Graphic extends BigBang {
 			ellipse(p.x(),p.y(),s.x(),s.y());
 		}
 	}
+	
+	public void ellipseMode(int mode) {
+		if(other != null) {
+			other.ellipseMode(mode);
+		} else {
+			this.pa.g.ellipseMode(mode);
+		}
+	}
+	
+  public int ellipseMode() {
+  	if(other != null) {
+			return other.ellipseMode;
+		} else {
+			return this.pa.g.ellipseMode;
+		}
+  }
 
 
 
@@ -433,7 +498,7 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
 			other.square(x,y,extent);
 		} else {
-			pa.square(x,y,extent);
+			pa.g.square(x,y,extent);
 		}
   }
 
@@ -468,7 +533,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rect(px,py,sx,sy);
 		} else {
-			this.pa.rect(px,py,sx,sy);
+			this.pa.g.rect(px,py,sx,sy);
 		}
 	}
 	
@@ -476,7 +541,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rect(px,py,sx,sy,r);
 		} else {
-			this.pa.rect(px,py,sx,sy,r);
+			this.pa.g.rect(px,py,sx,sy,r);
 		}
 	}
 	
@@ -484,7 +549,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rect(px,py,sx,sy,tl, tr, br, bl);
 		} else {
-			this.pa.rect(px,py,sx,sy,tl, tr, br, bl);
+			this.pa.g.rect(px,py,sx,sy,tl, tr, br, bl);
 		}
 	}
 
@@ -510,7 +575,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.box(x,y,z);
 		} else {
-			this.pa.box(x,y,z);
+			this.pa.g.box(x,y,z);
 		}
 	}
 
@@ -533,7 +598,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.sphere(radius);
 		} else {
-			this.pa.sphere(radius);
+			this.pa.g.sphere(radius);
 		}
 	}
 
@@ -545,7 +610,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.sphereDetail(res);
 		} else {
-			this.pa.sphereDetail(res);
+			this.pa.g.sphereDetail(res);
 		}
 	}
 
@@ -558,7 +623,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.sphereDetail(ures, vres);
 		} else {
-			this.pa.sphereDetail(ures, vres);
+			this.pa.g.sphereDetail(ures, vres);
 		}
 	}
 
@@ -585,7 +650,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.fill(rgb);
 		} else {
-			pa.fill(rgb);
+			pa.g.fill(rgb);
 		}
 	}
 
@@ -593,7 +658,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.fill(rgb, alpha);
 		} else {
-			pa.fill(rgb, alpha);
+			pa.g.fill(rgb, alpha);
 		}
   }
 
@@ -601,7 +666,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.fill(gray);
 		} else {
-			pa.fill(gray);
+			pa.g.fill(gray);
 		}
   }
 
@@ -609,7 +674,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.fill(gray, alpha);
 		} else {
-			pa.fill(gray, alpha);
+			pa.g.fill(gray, alpha);
 		}
   }
 
@@ -617,7 +682,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.fill(x, y, z);
 		} else {
-			pa.fill(x, y, z);
+			pa.g.fill(x, y, z);
 		}
   }
 
@@ -625,7 +690,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.fill(x, y, z, a);
 		} else {
-			pa.fill(x, y, z, a);
+			pa.g.fill(x, y, z, a);
 		}
   }
 
@@ -636,7 +701,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.noFill();
 		} else {
-			pa.noFill();
+			pa.g.noFill();
 		}
 	}
 
@@ -648,7 +713,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.stroke(arg);
 		} else {
-			pa.stroke(arg);
+			pa.g.stroke(arg);
 		}
 	}
 
@@ -656,7 +721,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.stroke(rgb, alpha);
 		} else {
-			pa.stroke(rgb, alpha);
+			pa.g.stroke(rgb, alpha);
 		}
   }
 
@@ -664,7 +729,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.stroke(gray);
 		} else {
-			pa.stroke(gray);
+			pa.g.stroke(gray);
 		}
   }
 
@@ -672,7 +737,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.stroke(gray, alpha);
 		} else {
-			pa.stroke(gray, alpha);
+			pa.g.stroke(gray, alpha);
 		}
   }
 
@@ -680,7 +745,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.stroke(x, y, z);
 		} else {
-			pa.stroke(x, y, z);
+			pa.g.stroke(x, y, z);
 		}
   }
 
@@ -688,7 +753,7 @@ public class R_Graphic extends BigBang {
     if(other != null) {
 			other.stroke(x, y, z, a);
 		} else {
-			pa.stroke(x, y, z, a);
+			pa.g.stroke(x, y, z, a);
 		}
   }
 
@@ -699,7 +764,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.noStroke();
 		} else {
-			pa.noStroke();
+			pa.g.noStroke();
 		}
 	}
 
@@ -711,7 +776,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.strokeWeight(thickness);
 		} else {
-			pa.strokeWeight(thickness);
+			pa.g.strokeWeight(thickness);
 		}
 	}
 
@@ -723,7 +788,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.strokeWeight(thickness);
 		} else {
-			pa.strokeWeight(thickness);
+			pa.g.strokeWeight(thickness);
 		}
 	}
 
@@ -771,7 +836,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.push();
 		} else {
-			pa.push();
+			pa.g.push();
 		}
   }
 
@@ -782,7 +847,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.pushMatrix();
 		} else {
-			pa.pushMatrix();
+			pa.g.pushMatrix();
 		}
   }
 
@@ -794,7 +859,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.pop();
 		} else {
-			pa.pop();
+			pa.g.pop();
 		}
   }
 
@@ -805,7 +870,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.popMatrix();
 		} else {
-			pa.popMatrix();
+			pa.g.popMatrix();
 		}
   }
 	
@@ -820,7 +885,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.translate(x,y,z);
 		} else {
-			pa.translate(x,y,z);
+			pa.g.translate(x,y,z);
 		}
   }
 	
@@ -833,7 +898,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.translate(x,y);
 		} else {
-			pa.translate(x,y);
+			pa.g.translate(x,y);
 		}
   }
 	
@@ -858,7 +923,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rotate(angle);
 		} else {
-			pa.rotate(angle);
+			pa.g.rotate(angle);
 		}
   }
 	
@@ -870,7 +935,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rotateX(angle);
 		} else {
-			pa.rotateX(angle);
+			pa.g.rotateX(angle);
 		}
   }
 	
@@ -882,7 +947,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rotateY(angle);
 		} else {
-			pa.rotateY(angle);
+			pa.g.rotateY(angle);
 		}
   }
 	
@@ -894,7 +959,7 @@ public class R_Graphic extends BigBang {
 		if(other != null) {
 			other.rotateZ(angle);
 		} else {
-			pa.rotateZ(angle);
+			pa.g.rotateZ(angle);
 		}
   }
 
@@ -928,13 +993,6 @@ public class R_Graphic extends BigBang {
   	rotateZ(rot.y);
 	}
 
-	/**
-	 * 
-	 * @param rot
-	 */
-	// public void rotateXYZ(vec3 rot) {
-  // 	rotateXYZ(rot,null);
-	// }
 
 	/**
 	 * 
