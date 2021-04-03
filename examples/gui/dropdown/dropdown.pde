@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.1
+* v 1.0.2
 * dropdown
 */
 
@@ -17,7 +17,7 @@ int x = 20 ;
 int y = 20 ;
 void setup() {
   size(400,200);
-  State.papplet(this);
+  State.init(this);
   dropdown_setup(x,y);
   
 }

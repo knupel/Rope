@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.0
+* v 1.0.1
 */
 
 import rope.gui.button.R_Button;
@@ -22,15 +22,15 @@ int y = 60 ;
 void setup() {
 	r = new Rope();
   size(160,160);
-  State.papplet(this);
+  State.init(this);
   button_simple_setup(x,y);
 }
 
 void draw() {
 	background(125);
-	State.pointer(mouseX,mouseY);
-	State.event(mousePressed);
-	button_simple_draw();
+	// State.pointer(mouseX,mouseY);
+	// State.event(mousePressed);
+	// button_simple_draw();
 }
 
 R_Button button ;

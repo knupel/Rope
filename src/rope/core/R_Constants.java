@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.0
+	* v 1.0.1
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -17,7 +17,7 @@ package rope.core;
 import java.awt.event.KeyEvent;
 
 public interface R_Constants {
-	static final String VERSION = "0.12.2.42";
+	static final String VERSION = "Rope 0.12.2.42";
 
 	static final String P2D = "processing.opengl.PGraphics2D";
 	static final String P3D = "processing.opengl.PGraphics3D";

@@ -1,7 +1,7 @@
 /**
 * R_Crope_Bar
 * Control ROmanesco Processing Environment
-* v 1.0.0
+* v 1.0.2
 * Copyleft (c) 2019-2021
 * *
 * dependencies
@@ -26,12 +26,9 @@ import processing.data.JSONObject;
 
 import javax.swing.JCheckBoxMenuItem;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// import rope.R_State;
 import rope.core.BigBang;
 
 
@@ -48,12 +45,17 @@ public class R_Apple_Bar extends BigBang {
 			you_can_build = true;
 		} else {
 			print_err("Use class Crope_Bar with",get_renderer(),"is not possible. change your renderer to JAVA2D");
+			System.exit(0);
 		}
 
 		if(you_can_build) {
 			if(get_os_family().equals("mac")) {
 				System.setProperty("apple.laf.useScreenMenuBar","true");
 			}
+      // https://jogamp.org/wiki/index.php?title=Using_JOGL_in_AWT_SWT_and_Swing
+      // frame = new JFrame();
+      // Cannot cast from GLWindow to JFrame
+      // frame = (JFrame) ((com.jogamp.newt.opengl.GLWindow)this.pa.getSurface().getNative());
 			frame = (JFrame) ((processing.awt.PSurfaceAWT.SmoothCanvas)this.pa.getSurface().getNative()).getFrame();
 			menu_bar = new JMenuBar();
 			frame.setJMenuBar(menu_bar);

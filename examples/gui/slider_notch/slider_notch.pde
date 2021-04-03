@@ -5,7 +5,7 @@
 *
 * slider notch
 * 2021-2021
-* v 1.0.0
+* v 1.0.1
 */
 
 import rope.gui.slider.R_Slotch;
@@ -15,7 +15,7 @@ int x = 30;
 int y = 40 ;
 void setup() {
   size(800,200);
-  State.papplet(this);
+  State.init(this);
   slotch_setup(x,y); 
 }
 

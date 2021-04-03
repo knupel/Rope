@@ -6,7 +6,7 @@
 * 2016-2021
 *
 * Knob example
-* v 1.0.0
+* v 1.0.1
 */
 
 import rope.gui.button.R_Knob;
@@ -20,7 +20,7 @@ int y = 100;
 Rope r = new Rope();
 void setup() {
   size(200,200);
-  State.papplet(this);
+  State.init(this);
   set_knob(x,y); 
 }
 

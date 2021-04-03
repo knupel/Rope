@@ -1,8 +1,9 @@
 /**
  * Rope
+ * collection of function can be use with out Processing.
  * @author stan
  * 2018-2021
- * v 0.2.1
+ * v 0.2.2
  * 
  */
 
@@ -1988,6 +1989,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * 
 	 * @param obj
 	 */
+	public void print_out(Object... obj) {
+		System.out.println(write_message(obj));
+		System.out.flush();
+	}
+	
 	public void print_err(Object... obj) {
 		System.err.println(write_message(obj));
 		System.err.flush();

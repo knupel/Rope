@@ -12,7 +12,7 @@
 * Crope Palette exemple
 * Processing 3.5.4
 * Rope library 0.12.1.41
-* v 0.1.0
+* v 0.1.1
 * 2021-2021
 */
 import rope.gui.palette.R_Palette;
@@ -32,10 +32,11 @@ int y = 40 ;
 void setup() {
 	size(600,600);
 	// colorMode (HSB, 255 );
-	State.papplet(this);
+	State.init(this);
 	slider_setup(x, y);
 	palette_setup(x, y +40, width/2, height/2);
 	selector_setup(x, palette.bottom() + y, width/4, 50);
+	println("renderer:",State.get_renderer());
 }
 
 
@@ -56,6 +57,7 @@ void palette_setup(int px, int py, int sx, int sy) {
 	palette.set_label("ma belle palette");
   palette.set_stroke(r.BLANC);
 	palette.set_radius_picker(50);
+	palette.set_mode(3);
 }
 
 void palette_draw(float hue) {

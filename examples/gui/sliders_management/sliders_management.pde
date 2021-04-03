@@ -1,11 +1,11 @@
 /**
 * GUI CROPE EXAMPLE 
 * Processing 3.5.4
-* Rope Library 0.12.1.41
+* Rope Library 0.12.2.42
 *
 * Multiple slider
 * 2021-2021
-* v 0.2.0
+* v 1.0.3
 */
 import rope.gui.slider.R_Slider;
 import rope.vector.vec2;
@@ -15,7 +15,7 @@ int x = 20;
 int y = 50;
 void setup() {
   size(400,270);
-  State.papplet(this);
+  State.init(this);
   slider_setup(x,y);
 }
 

@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * Rope Library 0.12.1.41
 * 2016-2021
-* v 1.0.0
+* v 1.0.1
 * slider adjustable
 */
 
@@ -16,7 +16,7 @@ int x = 20 ;
 int y = 20 ;
 void setup() {
   size(400,200);
-  State.papplet(this);
+  State.init(this);
   
   slider_adjustable_setup(x,y);
 

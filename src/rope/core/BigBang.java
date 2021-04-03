@@ -21,7 +21,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
-
+import rope.R_State.State;
 
 import java.awt.Font; 
 import java.awt.image.BufferedImage ;
@@ -37,10 +37,11 @@ public abstract class BigBang extends Rope {
 
 	public BigBang(PApplet pa) {
 		if(pa == null) {
-			print_err("Papplet pa is null, maybe your forget to use function State.papplet(PApplet pa)");
+			print_err("Papplet pa is null, maybe your forget to use function State.init(PApplet pa)");
 			System.exit(0);
 		}
 		this.pa = pa;
+		State.init(pa);
 	}
 
 

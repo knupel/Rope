@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.1
+* v 1.0.2
 * slider classic
 */
 import rope.gui.slider.R_Slider;
@@ -15,7 +15,7 @@ int x = 50;
 int y = 50;
 void setup() {
   size(400,200);
-  State.papplet(this);
+  State.init(this);
   slider_setup(x,y);
 }
 

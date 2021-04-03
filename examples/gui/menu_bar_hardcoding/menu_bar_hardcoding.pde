@@ -1,7 +1,7 @@
 /**
 * R_APPLE_BAR
-* Processing 3.5.4
-* Rope Library 0.12.0.40
+* Processing 4.0a3
+* Rope Library 0.12.2.42
 * 2019-2021
 * v 1.0.0
 * 
@@ -102,8 +102,3 @@ public class Child extends R_Happen {
 		// etc for each element
 	}
 }
-
-
-
-
-

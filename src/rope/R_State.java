@@ -1,6 +1,6 @@
 /**
  * R_State is use to manage all the state of Rope like in React in lesser :)
- * v 0.0.2
+ * v 0.0.3
  * 2021-2021
  * @author stanlepunk
  *
@@ -9,29 +9,42 @@
 package rope;
 
 import processing.core.PApplet;
+// import processing.core.PGraphics;
 import processing.event.MouseEvent;
 import rope.vector.vec3;
+import rope.core.R_Constants;
 import rope.vector.bvec2;
 import rope.vector.bvec6;
 import rope.vector.ivec2;
 
-public class R_State {
+public class R_State implements R_Constants {
 	public static class State {
 		private static PApplet pa;
 		private static R_Env env;
 		
-		public static void papplet(PApplet papplet) {
+		public static void init(PApplet papplet) {
 			pa = papplet;
 			if(env == null) {
+				version();
 				env = new R_Env();
 			}
+			update();
+		}
+		
+		public static void update() {
 			env.cx(pa.g.colorModeX);
 			env.cy(pa.g.colorModeY);
 			env.cz(pa.g.colorModeZ);
 			env.ca(pa.g.colorModeA);
 			env.cm(pa.g.colorMode);
 			env.width(pa.g.width);
-			env.height(pa.g.width);		
+			env.height(pa.g.width);
+			env.set_renderer(pa.g);
+			
+		}
+		
+		public static void version() {
+			System.out.println(VERSION);
 		}
 		
 		public static PApplet pa() {
@@ -40,6 +53,10 @@ public class R_State {
 		
 		public static R_Env env() {
 			return env;
+		}
+		
+		public static String get_renderer() {
+			return env.get_renderer();
 		}
 		
 		public static void molette_is(boolean is) {

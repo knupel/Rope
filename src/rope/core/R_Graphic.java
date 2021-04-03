@@ -1,6 +1,6 @@
 /**
 * R_Graphic class
-* v 0.3.2
+* v 0.4.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -9,6 +9,8 @@
 package rope.core;
 
 import processing.core.*;
+import processing.opengl.PShader;
+import rope.R_State.State;
 import rope.vector.*;
 
 public class R_Graphic extends BigBang {
@@ -23,8 +25,8 @@ public class R_Graphic extends BigBang {
 		this.other = other;
 	}
 	
-  private boolean render_checked_is = false ;
-  private boolean render_p3d_is = false;
+  // private boolean render_checked_is = false;
+  // private boolean render_p3d_is = false;
 
 
 
@@ -44,23 +46,25 @@ public class R_Graphic extends BigBang {
    * @return true if the graphic constext is is P3D, else return fase
    */
 	public boolean renderer_P3D() {
-    if(!render_checked_is) {
-      render_checked_is = true;
-      if(get_renderer(pa.g).equals(processing.core.PConstants.P3D)) {
-        render_p3d_is = true ; 
-      } else {
-        render_p3d_is = false ;
-      }
-    }
-    return render_p3d_is;  
+		if(State.get_renderer().equals(P3D)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean renderer_P2D() {
+		if(State.get_renderer().equals(P2D)) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
 	 * 
-	 * @return String of the the graphic context
+	 * @return String of the the graphic contexts
 	 */
 	public String get_renderer() {
-	  return get_renderer(pa.g);
+	  return State.get_renderer();
 	}
   
 	/**
@@ -99,6 +103,11 @@ public class R_Graphic extends BigBang {
   	if(other != null) {
   		this.other = other;	
   	}
+  }
+  
+  
+  public PGraphics createGraphics(float x, float y, String type) {
+  	return pa.createGraphics((int)x,(int)y,type);
   }
   
   
@@ -153,17 +162,39 @@ public class R_Graphic extends BigBang {
 		}	
 	}
 	
+	
+	/**
+	 * SHADER
+	 */
+  public void shader(PShader shader) {
+  	if(other != null) {
+			other.shader(shader);
+		} else {
+			this.pa.g.shader(shader);
+		}
+  }
+  
+  public PShader loadShader(String path) {
+  	return this.pa.loadShader(path);
+  }
+	
+	
+  
+  /**
+   * 
+   * IMAGE
+   */
 
-	
-	
-  
-  
   void image(PImage img) {
     if(img != null) {
     	image(img, 0, 0);
     } else {
     	print_err_tempo(100,"void image(PImage img): PImage img pass to method image() is null");
     }
+  }
+  
+  public void image(PImage img, vec pos) {
+  	image(img,pos.x(),pos.y());
   }
   
   public void image(PImage img, float a, float b) {
