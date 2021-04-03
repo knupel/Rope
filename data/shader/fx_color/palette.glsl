@@ -1,9 +1,17 @@
+/**
+* Palette shader
+* 2021-2021
+* v 0.0.1
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
+
 #ifdef GL_ES
 precision mediump float;
 #endif
 
 uniform float time;
-uniform float hue;
+uniform float value;
 uniform vec2 resolution;
 uniform int mode;
 
@@ -40,12 +48,19 @@ float map(float value, float min_0, float max_0, float min_1, float max_1) {
 
 void main(void) {
 	vec2 uv = gl_FragCoord.xy/resolution.xy;
-	vec3 color = vec3(hue,1.0,1.0);
-	color = hsb_to_rgb(color);    
-
-	if(mode == 0) color = hsb_to_rgb(vec3(uv.x,1.0,uv.y)); // from black
-	else if(mode == 1) color = hsb_to_rgb(vec3(uv.x,uv.y,1.0)); // from white
-	else if(mode == 2) {
+	vec3 color = vec3(value,1.0,1.0);
+	color = hsb_to_rgb(color);
+	// HSB
+	if(mode == 0) color = hsb_to_rgb(vec3(value,uv.x,uv.y)); // from white with hue change
+	// RGB
+	else if(mode == 3) color = vec3(value,uv.x,uv.y); // from white with red
+	else if(mode == 4) color = vec3(uv.x, value,uv.y); // from white with green
+	else if(mode == 5) color = vec3(uv.x, uv.y, value); // from white with blue
+	// GLOBAL HSB
+	else if(mode == 10) color = hsb_to_rgb(vec3(uv.x,1.0,1.0)); // normal
+	else if(mode == 11) color = hsb_to_rgb(vec3(uv.x,1.0,uv.y)); // from black
+	else if(mode == 12) color = hsb_to_rgb(vec3(uv.x,uv.y,1.0)); // from white
+	else if(mode == 13) {
 		float sat = 1.0;
 		float bri = 1.0;
 		if(uv.y < 0.5) {
@@ -54,6 +69,8 @@ void main(void) {
 			sat = map(uv.y, 0.5, 1.0, 1.0, 0);
 		}
 		color = hsb_to_rgb(vec3(uv.x,sat,bri)); // from white to color to black
-	} else if(mode == 3) color = hsb_to_rgb(vec3(hue,uv.x,uv.y)); // from white with hue change
+	} else {
+		color = hsb_to_rgb(vec3(value,uv.x,uv.y)); // from white with hue change
+	}
 	gl_FragColor = vec4(color,1.0);
 }

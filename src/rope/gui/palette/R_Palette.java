@@ -1,7 +1,7 @@
 /**
 * PALETTE
 * Processing 3.5.4
-* v 1.0.0
+* v 1.0.1
 * 2021-2021
 */
 package rope.gui.palette;
@@ -20,14 +20,14 @@ public class R_Palette extends Crope implements R_GUI {
   private int radius_picker = 10;
 	private int new_nolor;
 	boolean opengl_is = false;
-	PShader palette_shader;
+	PShader shader;
 	PGraphics pg;
-	int mode = 3;
+	int mode = 0;
 	
 	public R_Palette(vec2 pos, vec2 size) {
 		super("Palette", pos, size);		
 		if(any(renderer_P3D(), renderer_P2D())) {
-			palette_shader = loadShader("shader/fx_palette/palette.glsl");
+			shader = loadShader("shader/fx_color/palette.glsl");
 			pg = createGraphics(size.x(),size.y(),get_renderer());
 			opengl_is = true;
 		}
@@ -40,13 +40,17 @@ public class R_Palette extends Crope implements R_GUI {
   }
   
   /**
-   * You can select different palette mode, with Processing classic renderer only mode 3 is available.
-   * @param mode
+   * You can select different palette mode, with Processing classic renderer only mode 0 is available.
+   * mode 0 : hue range
+   * mode 3,4,5 RGB range
+   * mode 10, 11,12, 13 all color hsb range.
+   * @param mode give the opportunity to change the color randering
    * @return
    */
   public R_Palette set_mode(int mode) {
-  	if(!opengl_is && mode != 3) {
-  		print_err("R_Palette set_mode(",mode,") is only available in P2D or P3D renderer");
+  	if(!opengl_is && mode != 0 && mode != 10) {
+  		print_err("R_Palette set_mode(",mode,") is only available in P2D or P3D renderer\n"
+  				+ "for the classic renderer only mode 0 and 10 is available");
   		System.exit(0);
   		return this;
   	}
@@ -73,11 +77,7 @@ public class R_Palette extends Crope implements R_GUI {
 	
 	public void show_structure() {	 	
 	 	if(!opengl_is) {
-			int ref_colorMode = State.env().cm();
-			vec4 ref_colorMode_xyza = State.env().cxyza();
-	 		colorMode(HSB,1);
 	 		render_palette_pixel();
-	 		colorMode(ref_colorMode,ref_colorMode_xyza);
 	 	} else {
 	 		render_palette_opengl();
 	 	}	
@@ -85,41 +85,59 @@ public class R_Palette extends Crope implements R_GUI {
 	}
 	
 	public void render_palette_opengl() {
-		palette_shader.set("hue",root);
-	  palette_shader.set("mode",mode);
+		// print_err("palette_shader",shader);
+		shader.set("hue",root);
+		shader.set("mode",mode);
 	  
 		int sx = round(this.size.x());
 		int sy = round(this.size.y());
-	  this.pg.shader(palette_shader);
+	  this.pg.shader(shader);
 	  this.pg.beginDraw();
-	  this.pg.beginShape();
-
-	  this.pg.beginShape();
-	  this.pg.vertex(0,0); // top left
-	  this.pg.vertex(sx, 0); // top right
-	  this.pg.vertex(sx, sy); // bottom left
-	  this.pg.vertex(0, sy); // bottom right
-	  this.pg.endShape();
+	  this.pg.rect(0,0,sx,sy,this.rounded);
 	  this.pg.endDraw();
 	  image(this.pg,this.pos);
 	}
 	
 	
 	public void render_palette_pixel() {
-		int px = round(this.pos.x());
-		int py = round(this.pos.y());
-		int sx = round(this.size.x());
-		int sy = round(this.size.y());
-
-		float step_x = 1.0f / this.size.x();
+		if(mode == 0) palette_hue(this.root, pos,size);
+		else if(mode == 10) palette_spectrum(pos, size, false);
+	}
+	
+	private void palette_spectrum(vec2 pos, vec2 size, boolean vert_is) {
+		int ref_colorMode = State.env().cm();
+		vec4 ref_colorMode_xyza = State.env().cxyza();
+ 		colorMode(HSB,1);
+ 		print_err("je suis là");
+ 		float step_x = 1.0f / this.size.x();
+		float step_y = 1.0f / this.size.y();
+ 		for (float x = 0 ; x < 1.0 ; x += step_x) {
+			for (float y = 0 ; y < 1.0 ; y += step_y) {
+				int c = 0;
+				if(!vert_is) {
+					c = color(x, 1.0f , 1.0f);
+				} else {
+					c = color(y, 1.0f , 1.0f);
+				}
+				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
+			}
+		}
+ 		colorMode(ref_colorMode,ref_colorMode_xyza);	
+	}
+	
+	private void palette_hue(float hue, vec2 pos, vec2 size) {
+		int ref_colorMode = State.env().cm();
+		vec4 ref_colorMode_xyza = State.env().cxyza();
+ 		colorMode(HSB,1);
+ 		float step_x = 1.0f / this.size.x();
 		float step_y = 1.0f / this.size.y();
 		for (float x = 0 ; x < 1.0 ; x += step_x) {
 			for (float y = 0 ; y < 1.0 ; y += step_y) {
-				int c = color(this.root, x ,y);
-				set((int)(x * size.x() + px), (int)(y * size.y() + py), c);
+				int c = color(hue, x ,y);
+				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
 			}
 		}	
-		
+ 		colorMode(ref_colorMode,ref_colorMode_xyza);
 	}
 	
 	// Pipette

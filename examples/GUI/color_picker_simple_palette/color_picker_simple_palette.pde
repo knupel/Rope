@@ -30,7 +30,7 @@ Rope r = new Rope();
 int x = 30;
 int y = 40 ;
 void setup() {
-	size(600,600);
+	size(600,600,P2D);
 	// colorMode (HSB, 255 );
 	State.init(this);
 	slider_setup(x, y);
@@ -56,8 +56,9 @@ void palette_setup(int px, int py, int sx, int sy) {
   palette = new R_Palette(new vec2(px,py), new vec2(sx, sy));
 	palette.set_label("ma belle palette");
   palette.set_stroke(r.BLANC);
+  palette.set_rounded(30); // only in P2D and P3D mode
 	palette.set_radius_picker(50);
-	palette.set_mode(3);
+	palette.set_mode(10);
 }
 
 void palette_draw(float hue) {
