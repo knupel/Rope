@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.1.2
+* v 1.2.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -392,8 +392,8 @@ public class R_Slider extends Crope implements R_GUI {
 	  this.pg.rect(0,0,sx,sy,this.rounded);
 	  this.pg.endDraw();
 	  image(this.pg,this.pos);
-		render_solid_color();
-		fill(0,0,0,0);
+		render_solid_stroke();
+		noFill();
 		rect(pos,size,rounded);
 	}
 
@@ -412,13 +412,11 @@ public class R_Slider extends Crope implements R_GUI {
 
 	private void render_solid_color() {
 		render_solid_stroke();
-		// manage fill
 		if(inside(RECT)) {
 			fill(fill_in);
 		} else {
 			fill(fill_out);
 		}
-		// manage shape
 		rect(pos,size,rounded);
 	}
 

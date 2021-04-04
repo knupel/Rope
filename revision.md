@@ -1,3 +1,11 @@
+*version 0.12.3.43
+
+>add function to manage the opengl Crope rendering to make palette and gradient slider.
+>add other function to manage rounded rect with vec parameter.
+>improve placement for label and return value
+
+
+
 *version 0.12.0.41
 >add pack gui
 >add class R_Slider, R_Palette, R_Dropdown, R_Button...
