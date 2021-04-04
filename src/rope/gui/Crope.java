@@ -19,6 +19,7 @@ import processing.opengl.PShader;
 import rope.core.R_Graphic;
 import rope.vector.vec;
 import rope.vector.vec2;
+import rope.vector.vec4;
 import rope.R_State.State;
 
 abstract public class Crope extends R_Graphic  {
@@ -211,6 +212,42 @@ abstract public class Crope extends R_Graphic  {
     set_thickness(thickness);
     return this;
   }
+  
+  
+	protected void gradient_spectrum(vec2 pos, vec2 size, boolean vert_is) {
+		int ref_colorMode = State.env().cm();
+		vec4 ref_colorMode_xyza = State.env().cxyza();
+ 		colorMode(HSB,1);
+ 		float step_x = 1.0f / this.size.x();
+		float step_y = 1.0f / this.size.y();
+ 		for (float x = 0 ; x < 1.0 ; x += step_x) {
+			for (float y = 0 ; y < 1.0 ; y += step_y) {
+				int c = 0;
+				if(!vert_is) {
+					c = color(x, 1.0f , 1.0f);
+				} else {
+					c = color(y, 1.0f , 1.0f);
+				}
+				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
+			}
+		}
+ 		colorMode(ref_colorMode,ref_colorMode_xyza);	
+	}
+	
+	protected void gradient_hue(float hue, vec2 pos, vec2 size) {
+		int ref_colorMode = State.env().cm();
+		vec4 ref_colorMode_xyza = State.env().cxyza();
+ 		colorMode(HSB,1);
+ 		float step_x = 1.0f / this.size.x();
+		float step_y = 1.0f / this.size.y();
+		for (float x = 0 ; x < 1.0 ; x += step_x) {
+			for (float y = 0 ; y < 1.0 ; y += step_y) {
+				int c = color(hue, x ,y);
+				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
+			}
+		}	
+ 		colorMode(ref_colorMode,ref_colorMode_xyza);
+	}
 
 
 

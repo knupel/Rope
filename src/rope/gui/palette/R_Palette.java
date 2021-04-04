@@ -92,44 +92,10 @@ public class R_Palette extends Crope implements R_GUI {
 	
 	
 	public void render_palette_pixel() {
-		if(mode == 0) palette_hue(this.root, pos,size);
-		else if(mode == 10) palette_spectrum(pos, size, false);
+		if(mode == 0) gradient_hue(this.root, pos,size);
+		else if(mode == 10) gradient_spectrum(pos, size, false);
 	}
-	
-	private void palette_spectrum(vec2 pos, vec2 size, boolean vert_is) {
-		int ref_colorMode = State.env().cm();
-		vec4 ref_colorMode_xyza = State.env().cxyza();
- 		colorMode(HSB,1);
- 		float step_x = 1.0f / this.size.x();
-		float step_y = 1.0f / this.size.y();
- 		for (float x = 0 ; x < 1.0 ; x += step_x) {
-			for (float y = 0 ; y < 1.0 ; y += step_y) {
-				int c = 0;
-				if(!vert_is) {
-					c = color(x, 1.0f , 1.0f);
-				} else {
-					c = color(y, 1.0f , 1.0f);
-				}
-				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
-			}
-		}
- 		colorMode(ref_colorMode,ref_colorMode_xyza);	
-	}
-	
-	private void palette_hue(float hue, vec2 pos, vec2 size) {
-		int ref_colorMode = State.env().cm();
-		vec4 ref_colorMode_xyza = State.env().cxyza();
- 		colorMode(HSB,1);
- 		float step_x = 1.0f / this.size.x();
-		float step_y = 1.0f / this.size.y();
-		for (float x = 0 ; x < 1.0 ; x += step_x) {
-			for (float y = 0 ; y < 1.0 ; y += step_y) {
-				int c = color(hue, x ,y);
-				set((int)(x * size.x() + pos.x()), (int)(y * size.y() + pos.y()), c);
-			}
-		}	
- 		colorMode(ref_colorMode,ref_colorMode_xyza);
-	}
+
 	
 	// Pipette
 	private void picker(int radius) {
