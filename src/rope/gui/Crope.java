@@ -29,9 +29,11 @@ abstract public class Crope extends R_Graphic  {
   protected vec2 cursor = new vec2();
   
   // var use to create the background of gui in opengl
+  protected float root;
   protected boolean opengl_is = false;
   protected PShader shader;
   protected PGraphics pg;
+  protected int mode = 0;
   // event
   protected boolean event;
   protected boolean use_event_is = false;
@@ -171,6 +173,27 @@ abstract public class Crope extends R_Graphic  {
   	return this;
   }
   
+
+    /**
+   * You can select different palette mode, with Processing classic renderer only mode 0 is available.
+   * mode 0 : hue range
+   * mode 3,4,5 RGB range
+   * mode 10, 11,12, 13 all color hsb range.
+   * @param mode give the opportunity to change the color randering
+   * @return
+   */
+  public Crope set_mode(int mode) {
+  	if(!opengl_is && mode != 0 && mode != 10) {
+  		print_err("R_Palette set_mode(",mode,") is only available in P2D or P3D renderer\n"
+  				+ "for the classic renderer only mode 0 and 10 is available");
+  		System.exit(0);
+  		return this;
+  	}
+  	this.mode = mode;
+  	return this;
+  }
+
+
   public Crope set_fill(int c) {
     set_fill(c,c);
     return this;

@@ -375,30 +375,59 @@ public class R_Slider extends Crope implements R_GUI {
 
 	// SHOW
 	public void show_structure() {
-		if(thickness > 0 && alpha(stroke_in) > 0 && alpha(stroke_out) > 0) {
-			strokeWeight(thickness);
-			if(inside(RECT)) {
-				fill(fill_in);
-				stroke(stroke_in);
-			} else {
-				fill(fill_out);
-				stroke(stroke_out);
-			}    
+		if(!opengl_is) {
+			render_solid_color();
 		} else {
-			noStroke();
-			if(inside(RECT)) {
-				fill(fill_in);
-			} else {
-				fill(fill_out);
-			}
-		}
-
-		if(rounded > 0) {
-			rect(pos.x(),pos.y(),size.x(),size.y(),rounded);
-		} else {
-			rect(new vec2(pos), new vec2(size));
+			render_gradient_color();
 		}
 	}
+	private void render_gradient_color() {
+		shader.set("value",this.root);
+		shader.set("mode",mode);
+	  
+		int sx = round(this.size.x());
+		int sy = round(this.size.y());
+	  this.pg.shader(shader);
+	  this.pg.beginDraw();
+	  this.pg.rect(0,0,sx,sy,this.rounded);
+	  this.pg.endDraw();
+	  image(this.pg,this.pos);
+		render_solid_color();
+		fill(0,0,0,0);
+		rect(pos,size,rounded);
+	}
+
+	private void render_solid_stroke() {
+		if(all(thickness > 0,alpha(stroke_in) > 0, alpha(stroke_out) > 0)) {
+			strokeWeight(thickness);
+			if(inside(RECT)) {
+				stroke(stroke_in);
+			} else {
+				stroke(stroke_out);
+			}
+		} else {
+			noStroke();
+		}
+	}
+
+	private void render_solid_color() {
+		render_solid_stroke();
+		// manage fill
+		if(inside(RECT)) {
+			fill(fill_in);
+		} else {
+			fill(fill_out);
+		}
+		// manage shape
+		rect(pos,size,rounded);
+	}
+
+
+
+
+
+
+
 
 
 	public void show_molette() {

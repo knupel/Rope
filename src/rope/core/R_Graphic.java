@@ -1,6 +1,6 @@
 /**
 * R_Graphic class
-* v 0.4.0
+* v 0.5.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -592,6 +592,28 @@ public class R_Graphic extends BigBang {
 			pop();
 		} else {
 			rect(p.x(),p.y(),s.x(),s.y());
+		}
+	}
+
+	public void rect(vec p, vec s, float rounded) {
+		if(renderer_P3D() && p instanceof vec3) {
+			push();
+			translate(p.x(),p.y(),p.z());
+			rect(0,0,s.x(),s.y(),rounded);
+			pop();
+		} else {
+			rect(p.x(),p.y(),s.x(),s.y(),rounded);
+		}
+	}
+
+	public void rect(vec p, vec s, vec4 rounded) {
+		if(renderer_P3D() && p instanceof vec3) {
+			push();
+			translate(p.x(),p.y(),p.z());
+			rect(0,0,s.x(),s.y(), rounded.x(), rounded.y(), rounded.z(), rounded.w());
+			pop();
+		} else {
+			rect(p.x(),p.y(),s.x(),s.y(), rounded.x(), rounded.y(), rounded.z(), rounded.w());
 		}
 	}
 

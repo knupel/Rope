@@ -10,11 +10,14 @@
 import rope.gui.slider.R_Slider;
 import rope.vector.vec2;
 import rope.R_State.State;
+import rope.core.Rope;
 
 int x = 50;
 int y = 50;
+Rope r;
 void setup() {
-  size(400,200);
+  size(400,200, P2D);
+  r = new Rope();
   State.init(this);
   slider_setup(x,y);
 }
@@ -35,8 +38,12 @@ void slider_setup(int x, int y) {
   slider = new R_Slider(new vec2(x,y), new vec2(200,20));
   slider.set_label("Paye ton slide");
   slider.set_molette(ELLIPSE);
+  slider.set_stroke(r.BLACK);
+  slider.set_thickness(2);
   slider.set_rounded(20);
   slider.set_value(0.75);
+  slider.opengl(true);
+  slider.set_mode(10); // spectrum
 }
 
 

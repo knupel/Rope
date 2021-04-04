@@ -16,10 +16,9 @@ import processing.opengl.PShader;
 
 public class R_Palette extends Crope implements R_GUI {
 	private vec2 target_pos;
-  private float root;
   private int radius_picker = 10;
 	private int new_nolor;
-	int mode = 0;
+	
 	
 	public R_Palette(vec2 pos, vec2 size) {
 		super("Palette", pos, size);		
@@ -32,24 +31,7 @@ public class R_Palette extends Crope implements R_GUI {
     return this;
   }
   
-  /**
-   * You can select different palette mode, with Processing classic renderer only mode 0 is available.
-   * mode 0 : hue range
-   * mode 3,4,5 RGB range
-   * mode 10, 11,12, 13 all color hsb range.
-   * @param mode give the opportunity to change the color randering
-   * @return
-   */
-  public R_Palette set_mode(int mode) {
-  	if(!opengl_is && mode != 0 && mode != 10) {
-  		print_err("R_Palette set_mode(",mode,") is only available in P2D or P3D renderer\n"
-  				+ "for the classic renderer only mode 0 and 10 is available");
-  		System.exit(0);
-  		return this;
-  	}
-  	this.mode = mode;
-  	return this;
-  }
+
 
   public R_Palette set_radius_picker(int radius) {
     this.radius_picker = radius;
