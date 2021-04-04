@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.0.2
+* v 1.1.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -14,6 +14,8 @@ package rope.gui;
 
 
 import processing.core.PFont;
+import processing.core.PGraphics;
+import processing.opengl.PShader;
 import rope.core.R_Graphic;
 import rope.vector.vec;
 import rope.vector.vec2;
@@ -23,12 +25,16 @@ abstract public class Crope extends R_Graphic  {
   protected vec2 pos;
   protected vec2 size;
   protected vec2 pos_ref;
-
   protected vec2 cursor = new vec2();
-
+  
+  // var use to create the background of gui in opengl
+  protected boolean opengl_is = false;
+  protected PShader shader;
+  protected PGraphics pg;
+  // event
   protected boolean event;
   protected boolean use_event_is = false;
-
+  // color
   protected int fill_in = GRAY[4];
   protected int fill_out = GRAY[10];
   protected int stroke_in = fill_in;
@@ -39,20 +45,18 @@ abstract public class Crope extends R_Graphic  {
   protected int color_label_out = fill_out;
 
   protected float rounded = 0;
-  // label
+  // label + info
   protected int align_label_name = LEFT;
   protected int align_label_value = LEFT;
   protected String name = null;
-  
   protected vec2 pos_label;
   protected vec2 pos_value;
-
+  // font
   protected PFont font;
   protected int font_size;
-
+  // id + dna
   protected int midi_value;
   protected int id_midi = -2 ;
-
   protected int id = -1;
   protected int dna = Integer.MIN_VALUE;
 
@@ -68,9 +72,20 @@ abstract public class Crope extends R_Graphic  {
     this.type = type;
     this.pos(pos);
 		this.size(size);
+		// opengl
+		/*
+		if(any(renderer_P3D(), renderer_P2D())) {
+			shader = loadShader("shader/fx_color/palette.glsl");
+			pg = createGraphics(size.x(),size.y(),get_renderer());
+			opengl_is = true;
+		}
+		*/
+		// font
 		font_size = (int)State.pa().g.textSize;
+		// id + dna
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
     if(dna == 0) dna = 1;
+    // info label + info
     pos_label = new vec2(pos.x(),bottom() + font_size);
     pos_value = pos_label.copy().add_y(font_size);
   }
@@ -143,6 +158,18 @@ abstract public class Crope extends R_Graphic  {
   /**
   set colour
   */
+  public Crope opengl(boolean is) {
+  	opengl_is = is;
+  	if(all(any(renderer_P3D(), renderer_P2D()),is)) {
+			shader = loadShader("shader/fx_color/palette.glsl");
+			pg = createGraphics(size.x(),size.y(),get_renderer());
+			opengl_is = true;
+		} else {
+			opengl_is = false;
+		}
+  	return this;
+  }
+  
   public Crope set_fill(int c) {
     set_fill(c,c);
     return this;

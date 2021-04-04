@@ -9,7 +9,7 @@
 
 
 /**
-* Crope Palette exemple
+* Color Picker without openGL
 * Processing 3.5.4
 * Rope library 0.12.1.41
 * v 0.1.1
@@ -30,8 +30,7 @@ Rope r = new Rope();
 int x = 30;
 int y = 40 ;
 void setup() {
-	size(600,600,P2D);
-	// colorMode (HSB, 255 );
+	size(600,600);
 	State.init(this);
 	slider_setup(x, y);
 	palette_setup(x, y +40, width/2, height/2);

@@ -1,7 +1,7 @@
 /**
 * PALETTE
 * Processing 3.5.4
-* v 1.0.1
+* v 1.1.0
 * 2021-2021
 */
 package rope.gui.palette;
@@ -19,18 +19,11 @@ public class R_Palette extends Crope implements R_GUI {
   private float root;
   private int radius_picker = 10;
 	private int new_nolor;
-	boolean opengl_is = false;
-	PShader shader;
-	PGraphics pg;
 	int mode = 0;
 	
 	public R_Palette(vec2 pos, vec2 size) {
 		super("Palette", pos, size);		
-		if(any(renderer_P3D(), renderer_P2D())) {
-			shader = loadShader("shader/fx_color/palette.glsl");
-			pg = createGraphics(size.x(),size.y(),get_renderer());
-			opengl_is = true;
-		}
+
 		this.target_pos = new vec2(size.x() * 0.5f + pos.x(), size.y() * 0.5f + pos.y());
 	}
 
@@ -85,7 +78,6 @@ public class R_Palette extends Crope implements R_GUI {
 	}
 	
 	public void render_palette_opengl() {
-		// print_err("palette_shader",shader);
 		shader.set("hue",root);
 		shader.set("mode",mode);
 	  
@@ -108,7 +100,6 @@ public class R_Palette extends Crope implements R_GUI {
 		int ref_colorMode = State.env().cm();
 		vec4 ref_colorMode_xyza = State.env().cxyza();
  		colorMode(HSB,1);
- 		print_err("je suis là");
  		float step_x = 1.0f / this.size.x();
 		float step_y = 1.0f / this.size.y();
  		for (float x = 0 ; x < 1.0 ; x += step_x) {
