@@ -78,7 +78,7 @@ public class R_Palette extends Crope implements R_GUI {
 	}
 	
 	public void render_palette_opengl() {
-		shader.set("hue",root);
+		shader.set("value",this.root);
 		shader.set("mode",mode);
 	  
 		int sx = round(this.size.x());
