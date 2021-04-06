@@ -84,6 +84,7 @@ void selector_draw() {
   selector.show_structure();
 	selector.show_label();
 	selector.show_value();
+	slider.set_mode(10); // spectrum
 }
 
 

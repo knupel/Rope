@@ -30,7 +30,7 @@ void draw() {
   State.event(mousePressed);
 
   // slider
-    fill(r.BLOOD);
+  fill(r.BLOOD);
   stroke(r.BLACK);
   strokeWeight(2);
   ellipse(mouseX,mouseY, 50,50);

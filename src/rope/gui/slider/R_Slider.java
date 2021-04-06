@@ -376,12 +376,26 @@ public class R_Slider extends Crope implements R_GUI {
 	// SHOW
 	public void show_structure() {
 		if(!opengl_is) {
-			render_solid_color();
+			if(this.mode == -1) {
+				render_solid_color();
+			} else if(any(this.mode == 10)) {
+				gradient_spectrum(this.pos, this.size, false);
+			} else if(any(this.mode == 0)) {
+				gradient_hue(get(0), this.pos, this.size);
+			} else {
+				render_solid_color();
+			}
 		} else {
-			render_gradient_color();
+			render_gradient_color_opengl();
 		}
 	}
-	private void render_gradient_color() {
+
+	// private void render_gradient_color() {
+	// 	if(this.mode == )
+
+	// }
+
+	private void render_gradient_color_opengl() {
 		shader.set("value",this.root);
 		shader.set("mode",mode);
 	  
@@ -412,7 +426,7 @@ public class R_Slider extends Crope implements R_GUI {
 
 	private void render_solid_color() {
 		render_solid_stroke();
-		if(inside(RECT)) {
+			if(inside(RECT)) {
 			fill(fill_in);
 		} else {
 			fill(fill_out);

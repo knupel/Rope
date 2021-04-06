@@ -33,7 +33,7 @@ abstract public class Crope extends R_Graphic  {
   protected boolean opengl_is = false;
   protected PShader shader;
   protected PGraphics pg;
-  protected int mode = 0;
+  protected int mode = -1;
   // event
   protected boolean event;
   protected boolean use_event_is = false;
