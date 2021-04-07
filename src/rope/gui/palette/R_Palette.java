@@ -1,7 +1,7 @@
 /**
 * PALETTE
 * Processing 3.5.4
-* v 1.1.0
+* v 1.1.1
 * 2021-2021
 */
 package rope.gui.palette;
@@ -26,10 +26,6 @@ public class R_Palette extends Crope implements R_GUI {
 		this.target_pos = new vec2(size.x() * 0.5f + pos.x(), size.y() * 0.5f + pos.y());
 	}
 
-  public R_Palette set_root(float root) {
-    this.root = root;
-    return this;
-  }
   
 
 

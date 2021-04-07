@@ -3,10 +3,9 @@
 	* Copyleft (c) 2014-2019
 	* Variable shared throughout rope.core.
 	* Rope Constants Colour
-	* v 0.0.2
-	* Processing 3.5.3
+	* v 0.0.3
+	* Processing 3.5.4
 	* @author @stanlepunk
-	* @see http://stanlepunk.xyz/
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://fr.wikipedia.org/wiki/Liste_de_noms_de_couleur
 	*/
@@ -15,6 +14,23 @@ package rope.core;
 
 public interface R_Constants_Colour {
 
+	static final int RGB   = 1;  // image & color // processing value
+	static final int ARGB  = 2;  // image // processing value
+	static final int RGBA  = 2;  // image // processing value
+	static final int HSB   = 3;  // color // processing value
+	static final int ALPHA = 4;  // image // processing value
+
+	
+	static final int HUE = 50;
+	static final int SATURATION = 51;
+	static final int BRIGHTNESS = 52;
+	
+	static final int GRADIENT = 60;
+	static final int RAINBOW = 61;
+	static final int SPECTRUM = 62;
+	
+	
+	
 
 	static final String ANSI_RESET = "\u001B[0m";
 	static final String ANSI_BLACK = "\u001B[30m";

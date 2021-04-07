@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.1.0
+* v 1.2.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -17,6 +17,7 @@ import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 import rope.core.R_Graphic;
+import rope.gui.palette.R_Palette;
 import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec4;
@@ -75,14 +76,6 @@ abstract public class Crope extends R_Graphic  {
     this.type = type;
     this.pos(pos);
 		this.size(size);
-		// opengl
-		/*
-		if(any(renderer_P3D(), renderer_P2D())) {
-			shader = loadShader("shader/fx_color/palette.glsl");
-			pg = createGraphics(size.x(),size.y(),get_renderer());
-			opengl_is = true;
-		}
-		*/
 		// font
 		font_size = (int)State.pa().g.textSize;
 		// id + dna
@@ -161,6 +154,11 @@ abstract public class Crope extends R_Graphic  {
   /**
   set colour
   */
+  public Crope set_root(float root) {
+    this.root = root;
+    return this;
+  }
+  
   public Crope opengl(boolean is) {
   	opengl_is = is;
   	if(all(any(renderer_P3D(), renderer_P2D()),is)) {
@@ -176,20 +174,34 @@ abstract public class Crope extends R_Graphic  {
 
     /**
    * You can select different palette mode, with Processing classic renderer only mode 0 is available.
-   * mode 0 : hue range
+   * mode 0, GRADIENT : hue range
    * mode 3,4,5 RGB range
+   * mode 10, RAINDOW, HUE, SPECTRUM;
    * mode 10, 11,12, 13 all color hsb range.
    * @param mode give the opportunity to change the color randering
    * @return
    */
   public Crope set_mode(int mode) {
-  	if(!opengl_is && mode != 0 && mode != 10) {
-  		print_err("R_Palette set_mode(",mode,") is only available in P2D or P3D renderer\n"
+  	
+  	if(any(mode == RAINBOW, mode == HUE, mode == SPECTRUM)) {
+  		this.mode = 10;
+  	} else if(mode == GRADIENT) {
+  		this.mode = 0;
+  	} else if(mode == BRIGHTNESS) {
+  		this.mode = 11;
+  	} else if(mode == SATURATION) {
+  		this.mode = 12;
+  	} else {
+  		this.mode = mode;
+  	}
+  	
+  	// NEED TO USE THE MODEL 13 but it's veru sophisticated...so nned to sllep before do that !!!!
+  	if(all(!opengl_is, this.mode != 0, this.mode != 10, this.mode != 11, this.mode != 12)) {
+  		print_err("R_Palette set_mode(",this.mode,") is only available in P2D or P3D renderer\n"
   				+ "for the classic renderer only mode 0 and 10 is available");
   		System.exit(0);
   		return this;
   	}
-  	this.mode = mode;
   	return this;
   }
 

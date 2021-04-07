@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.1
+	* v 1.0.2
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -181,15 +181,7 @@ public interface R_Constants {
 	
 
 
-	static final int RGB   = 1;  // image & color // processing value
-	static final int ARGB  = 2;  // image // processing value
-	static final int RGBA  = 2;  // image // processing value
-	static final int HSB   = 3;  // color // processing value
-	static final int ALPHA = 4;  // image // processing value
 
-	static final int HUE = 50;
-	static final int SATURATION = 51;
-	static final int BRIGHTNESS = 52;
 
 
 	static final int FLUID = 200;
