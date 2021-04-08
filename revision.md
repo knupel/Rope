@@ -7,6 +7,7 @@
 > add example to use sliders to set hsb color
 > add to R_Face: Overide toString
 > change R_Face: accept all vec and translate to vec3
+> change R_Face: fill(), stroke() becme set_fill(), set_stroke()
 
 \*version 0.12.0.41
 

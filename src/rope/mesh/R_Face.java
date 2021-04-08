@@ -1,6 +1,6 @@
 /**
 * R_Face
-* v 0.2.0
+* v 0.2.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -54,7 +54,7 @@ public class R_Face extends R_Graphic {
 	public void set(vec a, vec b, vec c) {
 		this.pts[0].set(a.x(), a.y(), a.z());
 		this.pts[1].set(b.x(), b.y(), b.z());
-		this.pts[2].set(b.x(), b.y(), b.z());
+		this.pts[2].set(c.x(), c.y(), c.z());
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class R_Face extends R_Graphic {
 	 * 
 	 * @param fill set the fill value
 	 */
-	public void fill(int fill) {
+	public void set_fill(int fill) {
 		this.fill = fill;
 	}
 
@@ -97,7 +97,7 @@ public class R_Face extends R_Graphic {
 	 * 
 	 * @param stroke set the stroke value
 	 */
-	public void stroke(int stroke) {
+	public void set_stroke(int stroke) {
 		this.stroke = stroke;
 	}
 

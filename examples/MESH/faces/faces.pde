@@ -32,6 +32,11 @@ void setup() {
 		vec3 b = new vec3().rand(-1,1).mult(random(20,width/2));
 		vec3 c = new vec3().rand(-1,1).mult(random(20,width/2));
 		faces[i] = new R_Face(this,a,b,c);
+		if(i%2 == 0) {
+			faces[i].set_fill(r.BLOOD);
+		} else {
+			faces[i].set_fill(r.YELLOW);
+		}
 	}
 	
 }
@@ -39,9 +44,8 @@ void setup() {
 
 void draw() {
 	background(r.NOIR);
-	fill(r.BLOOD);
 	for(R_Face f : faces) {
-		f.fill(r.BLOOD);
+		fill(f.get_fill());
 		f.offset(new vec2(mouseX,mouseY));
 		f.show();
 	}	
