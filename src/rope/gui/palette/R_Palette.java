@@ -33,9 +33,7 @@ public class R_Palette extends Crope implements R_GUI {
     this.radius_picker = radius;
     return this;
   }
-	/**
-	* show palette and set the picker size
-	*/
+
   public void update() {
     cursor(State.env().pointer);
   }
@@ -54,6 +52,9 @@ public class R_Palette extends Crope implements R_GUI {
 	 	}	
 		picker(this.radius_picker);
 	}
+
+
+
 	
 	public void render_palette_opengl() {
 		shader.set("value",this.root);

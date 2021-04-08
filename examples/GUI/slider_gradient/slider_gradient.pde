@@ -48,7 +48,7 @@ void slider_setup(int x, int y) {
   slider.set_rounded(20);
   slider.set_value(0.75);
   slider.opengl(true);
-  slider.set_mode(10); // spectrum
+  slider.set_mode(0); // spectrum
 }
 
 

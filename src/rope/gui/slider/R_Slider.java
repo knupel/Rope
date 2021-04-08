@@ -51,6 +51,11 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
+	// public R_Slider opengl(boolean is) {
+	// 	opengl(is, GRADIENT);
+	// 	return this;
+	// }
+
 	protected void set_value_calc(float... pos_norm) {
 		Arrays.sort(pos_norm);
 		init_molette(pos_norm.length);
@@ -380,7 +385,7 @@ public class R_Slider extends Crope implements R_GUI {
 				render_solid_color();
 			} else if(any(this.mode == 10)) {
 				gradient_spectrum(this.pos, this.size, false);
-			} else if(any(this.mode == 0)) {
+			} else if(any(this.mode == GRADIENT)) {
 				gradient_hue(get(0), this.pos, this.size);
 			} else {
 				render_solid_color();
@@ -390,15 +395,26 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 
-	// private void render_gradient_color() {
-	// 	if(this.mode == )
-
-	// }
-
 	private void render_gradient_color_opengl() {
 		shader.set("value",this.root);
-		shader.set("mode",mode);
-	  
+		// gradient case
+		if(any(this.mode == GRADIENT, this.mode == GRADIENT_SATURATION, this.mode == GRADIENT_BRIGHTNESS)) {
+			shader.set("mode",20);
+			if(this.mode == GRADIENT_SATURATION) {
+				shader.set("start_bri",0.0f); 
+				shader.set("start_sat",0.0f); 
+			} else if(this.mode == GRADIENT_BRIGHTNESS) {
+				shader.set("start_sat",1.0f);
+			}
+		} else if(any(this.mode == SPECTRUM, this.mode == RAINBOW)) {
+			shader.set("mode",19);
+			shader.set("start_sat",this.sat);
+			shader.set("start_bri",this.bri);
+		} else {
+			shader.set("mode",this.mode);
+		}
+		
+
 		int sx = round(this.size.x());
 		int sy = round(this.size.y());
 	  this.pg.shader(shader);

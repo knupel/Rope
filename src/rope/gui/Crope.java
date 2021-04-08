@@ -31,6 +31,7 @@ abstract public class Crope extends R_Graphic  {
   
   // var use to create the background of gui in opengl
   protected float root;
+  protected float hue, sat, bri;
   protected boolean opengl_is = false;
   protected PShader shader;
   protected PGraphics pg;
@@ -158,17 +159,32 @@ abstract public class Crope extends R_Graphic  {
     this.root = root;
     return this;
   }
+
+  public Crope set_hue(float hue) {
+    this.hue = hue;
+    return this;
+  }
+
+  public Crope set_sat(float sat) {
+    this.sat = sat;
+    return this;
+  }
+
+  public Crope set_bri(float bri) {
+    this.bri = bri;
+    return this;
+  }
   
   public Crope opengl(boolean is) {
   	opengl_is = is;
   	if(all(any(renderer_P3D(), renderer_P2D()),is)) {
-			shader = loadShader("shader/fx_color/palette.glsl");
+      shader = loadShader("shader/fx_color/palette_gui.glsl");	
 			pg = createGraphics(size.x(),size.y(),get_renderer());
 			opengl_is = true;
 		} else {
 			opengl_is = false;
 		}
-  	return this;
+    return this;
   }
   
 
@@ -183,21 +199,38 @@ abstract public class Crope extends R_Graphic  {
    */
   public Crope set_mode(int mode) {
   	
-  	if(any(mode == RAINBOW, mode == HUE, mode == SPECTRUM)) {
+  	if(any(mode == HUE)) {
   		this.mode = 10;
-  	} else if(mode == GRADIENT) {
-  		this.mode = 0;
   	} else if(mode == BRIGHTNESS) {
   		this.mode = 11;
   	} else if(mode == SATURATION) {
   		this.mode = 12;
+  	} else if(mode == PALETTE) {
+  		this.mode = 0;
+  	} else if(mode == RAINBOW) {
+  		this.mode = RAINBOW;
+  	} else if(mode == SPECTRUM) {
+  		this.mode = SPECTRUM;
+  	} else if(mode == GRADIENT_SATURATION) {
+  		this.mode = GRADIENT_SATURATION;
+  	} else if(mode == GRADIENT_BRIGHTNESS) {
+  		this.mode = GRADIENT_BRIGHTNESS;
   	} else {
   		this.mode = mode;
   	}
   	
   	// NEED TO USE THE MODEL 13 but it's veru sophisticated...so nned to sllep before do that !!!!
-  	if(all(!opengl_is, this.mode != 0, this.mode != 10, this.mode != 11, this.mode != 12)) {
-  		print_err("R_Palette set_mode(",this.mode,") is only available in P2D or P3D renderer\n"
+  	if(all( !opengl_is, 
+            this.mode != 0, 
+            this.mode != 10, 
+            this.mode != 11, 
+            this.mode != 12,
+            this.mode != RAINBOW,
+            this.mode != SPECTRUM,
+            this.mode != GRADIENT,
+            this.mode != GRADIENT_SATURATION,
+            this.mode != GRADIENT_BRIGHTNESS)) {
+  		print_err("Crope set_mode(",this.mode,") is only available in P2D or P3D renderer\n"
   				+ "for the classic renderer only mode 0 and 10 is available");
   		System.exit(0);
   		return this;

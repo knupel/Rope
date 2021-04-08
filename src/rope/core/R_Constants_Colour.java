@@ -24,10 +24,15 @@ public interface R_Constants_Colour {
 	static final int HUE = 50;
 	static final int SATURATION = 51;
 	static final int BRIGHTNESS = 52;
-	
-	static final int GRADIENT = 60;
+		
 	static final int RAINBOW = 61;
 	static final int SPECTRUM = 62;
+	static final int PALETTE = 63;
+
+	static final int GRADIENT = 70;
+	static final int GRADIENT_HUE = 71;
+	static final int GRADIENT_SATURATION = 72;
+	static final int GRADIENT_BRIGHTNESS = 73;
 	
 	
 	
