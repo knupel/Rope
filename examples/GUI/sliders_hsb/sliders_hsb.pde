@@ -8,7 +8,7 @@
 */
 
 /**
-* slider HSB
+* sliders HSB
 * Processing 3.5.4
 * v 0.1.0
 * 2021-2021

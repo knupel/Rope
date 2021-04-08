@@ -29,7 +29,6 @@ import rope.vector.vec4;
 public class Rope implements R_Constants, R_Constants_Colour {
 	public Rope() {}
 	
-	
 	/**
 	 * OPERATION
 	 */
