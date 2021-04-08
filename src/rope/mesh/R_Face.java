@@ -1,6 +1,6 @@
 /**
 * R_Face
-* v 0.1.0
+* v 0.2.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -8,7 +8,9 @@
 package rope.mesh;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import rope.core.R_Graphic;
+import rope.vector.vec;
 import rope.vector.vec3;
 
 public class R_Face extends R_Graphic {
@@ -24,7 +26,7 @@ public class R_Face extends R_Graphic {
 	public R_Face(PApplet pa) {
 		super(pa);
 		for(int i = 0 ; i < 3 ; i++) {
-			this.pts[i] = new vec3();
+			this.pts[i] = new vec3().rand(-1,1);
 		}
 	}
 
@@ -35,12 +37,12 @@ public class R_Face extends R_Graphic {
 	 * @param b is summit vec3 point of the triangle face
 	 * @param c is summit vec3 point of the triangle face
 	 */
-	public R_Face(PApplet pa, vec3 a, vec3 b, vec3 c) {
+	public R_Face(PApplet pa, vec a, vec b, vec c) {
 		super(pa);
 		pts = new vec3[3];
-		this.pts[0] = new vec3(a);
-		this.pts[1] = new vec3(b);
-		this.pts[2] = new vec3(c);
+		this.pts[0] = new vec3(a.x(), a.y(), a.z());
+		this.pts[1] = new vec3(b.x(), b.y(), b.z());
+		this.pts[2] = new vec3(c.x(), c.y(), c.z());
 	}
 
 	/**
@@ -49,10 +51,10 @@ public class R_Face extends R_Graphic {
 	 * @param b is summit vec3 point of the triangle face
 	 * @param c is summit vec3 point of the triangle face
 	 */
-	public void set(vec3 a, vec3 b, vec3 c) {
-		this.pts[0].set(a);
-		this.pts[1].set(b);
-		this.pts[2].set(c);
+	public void set(vec a, vec b, vec c) {
+		this.pts[0].set(a.x(), a.y(), a.z());
+		this.pts[1].set(b.x(), b.y(), b.z());
+		this.pts[2].set(b.x(), b.y(), b.z());
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class R_Face extends R_Graphic {
 	/**
 	 * @param value is vec3 type use to create the displacement
 	 */
-	public void offset(vec3 value) {
+	public void offset(vec value) {
 		transform_is = true;
 		for(int i = 0 ; i < 3 ; i++) {
 			set_ref(i);
@@ -151,11 +153,10 @@ public class R_Face extends R_Graphic {
 	 */
 	public void show() {
 		beginShape();
-		// here we don't use the shorcut vertex(vec3) to avoid the test for the render 3D
-		vertex(pts[0].x(),pts[0].y(),pts[0].z());
-		vertex(pts[1].x(),pts[1].y(),pts[1].z());
-		vertex(pts[2].x(),pts[2].y(),pts[2].z());
-		vertex(pts[0].x(),pts[0].y(),pts[0].z()); // close
+		vertex(pts[0]);
+		vertex(pts[1]);
+		vertex(pts[2]);
+		vertex(pts[0]); // close
 		endShape();
 		if(transform_is) {
 			transform_is = false;
@@ -163,5 +164,16 @@ public class R_Face extends R_Graphic {
 				pts[i].set(ref[i]);
 			}
 		}
+	}
+
+
+
+
+	@Override 
+	public String toString() {
+		String a = "[ " + truncate(pts[0].x(),2) + ", " + truncate(pts[0].y(),2) + ", " + truncate(pts[0].z(),2) + " ]";
+		String b = "[ " + truncate(pts[1].x(),2) + ", " + truncate(pts[1].y(),2) + ", " + truncate(pts[1].z(),2) + " ]";
+		String c = "[ " + truncate(pts[2].x(),2) + ", " + truncate(pts[2].y(),2) + ", " + truncate(pts[2].z(),2) + " ]";
+		return a + " " + b + " " + c;
 	}
 }

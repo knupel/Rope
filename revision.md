@@ -5,6 +5,8 @@
 > improve placement for label and return value
 > improve Crope gradient and change the glsl file
 > add example to use sliders to set hsb color
+> add to R_Face: Overide toString
+> change R_Face: accept all vec and translate to vec3
 
 \*version 0.12.0.41
 
