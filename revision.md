@@ -8,6 +8,8 @@
 > add to R_Face: Overide toString
 > change R_Face: accept all vec and translate to vec3
 > change R_Face: fill(), stroke() becme set_fill(), set_stroke()
+> change R_Button.update() to add exit in case the event or pointer is null.
+> add Constructor to Crope, R_Button and R_Slider to accept a single argument int for size and pos.
 
 \*version 0.12.0.41
 

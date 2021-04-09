@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.1.0
+* v 2.1.1
 * 2013-2021
 */
 package rope.gui.button;
@@ -38,6 +38,15 @@ public class R_Button extends Crope {
 
   public R_Button(vec2 pos, vec2 size) {
     super("Button", pos, size);
+  }
+
+  public R_Button(String type, float x, float y, float sx, float sy) {
+    super(type, x, y, sx, sy);
+  }
+
+
+  public R_Button(float x, float y, float sx, float sy) {
+    super("Button", x, y, sx, sy);
   }
 
 
@@ -85,6 +94,14 @@ public class R_Button extends Crope {
   
   // misc
   public void update() {
+    if(State.env().pointer == null) {
+			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
+			System.exit(0);
+		}
+    if(State.env().event_mut == null) {
+			print_err("Static State.env().event_mut is null, maybe you forget to use: State.event(boolean... event)");
+			System.exit(0);
+		}
     update(State.pointer().x(),State.pointer().y(),State.env().event_mut.a());
   }
   

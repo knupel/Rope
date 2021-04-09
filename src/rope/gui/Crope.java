@@ -75,15 +75,45 @@ abstract public class Crope extends R_Graphic  {
   public Crope(String type, vec2 pos, vec2 size) {
   	super(State.pa());
     this.type = type;
-    this.pos(pos);
-		this.size(size);
+    init(pos.x(), pos.y(), size.x(), size.y());
+    // this.pos(pos);
+		// this.size(size);
+		// // font
+		// font_size = (int)State.pa().g.textSize;
+		// // id + dna
+    // dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
+    // if(dna == 0) dna = 1;
+    // // info label + info
+    // pos_label = new vec2(pos.x(),bottom() + font_size);
+    // pos_value = pos_label.copy().add_y(font_size);
+  }
+
+  public Crope(String type, float x, float y, float sx, float sy) {
+  	super(State.pa());
+    this.type = type;
+    init(x, y, sx, sy);
+    // this.pos(x,y);
+		// this.size(sx,sy);
+		// // font
+		// font_size = (int)State.pa().g.textSize;
+		// // id + dna
+    // dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
+    // if(dna == 0) dna = 1;
+    // // info label + info
+    // pos_label = new vec2(this.pos.x(),bottom() + font_size);
+    // pos_value = pos_label.copy().add_y(font_size);
+  }
+
+  private void init(float x, float y, float sx, float sy) {
+    this.pos(x,y);
+		this.size(sx,sy);
 		// font
 		font_size = (int)State.pa().g.textSize;
 		// id + dna
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
     if(dna == 0) dna = 1;
     // info label + info
-    pos_label = new vec2(pos.x(),bottom() + font_size);
+    pos_label = new vec2(this.pos.x(),bottom() + font_size);
     pos_value = pos_label.copy().add_y(font_size);
   }
 
@@ -562,14 +592,19 @@ abstract public class Crope extends R_Graphic  {
     return font;
   }
 
+  public int get_font_size() {
+    return this.font_size;
+  }
+
   public int get_rank() {
     return rank;
   }
 
-
   public String get_type() {
     return type;
   }
+
+
 
 
 

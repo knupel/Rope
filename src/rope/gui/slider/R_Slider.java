@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.2.0
+* v 1.2.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -43,6 +43,14 @@ public class R_Slider extends Crope implements R_GUI {
 
 	public R_Slider(String type, vec2 pos, vec2 size) {
 		super(type, pos, size);
+	}
+
+	public R_Slider(float x, float y, float sx, float sy) {
+		super("Slider", x, y, sx, sy);
+	}
+
+	public R_Slider(String type, float x, float y, float sx, float sy) {
+		super(type, x, y, sx, sy);
 	}
 
 	// SET
