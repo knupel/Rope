@@ -36,13 +36,15 @@ public class R_Env {
 	public boolean mouse_pressed;
 	public boolean key_pressed;
 	
+	//Control Rope
 	public ivec2 scroll;
 	public bvec6 event;
+	public bvec6 bang;
 	public bvec6 event_mut;
 	public bvec6 event_ref;
 	public vec3 pointer;
 	
-	//Control Rope
+
 	public boolean select;
 	public boolean molette;
 	public int dna_current_slider;
@@ -50,6 +52,9 @@ public class R_Env {
 	public bvec2 auth_select_mol;
 	public boolean auth_select_keep;
 	
+
+
+	// MISC
 	public String get_renderer() {
 		return this.renderer;
 	}

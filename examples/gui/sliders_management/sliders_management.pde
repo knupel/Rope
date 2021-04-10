@@ -5,7 +5,7 @@
 *
 * Multiple slider
 * 2021-2021
-* v 1.0.3
+* v 1.2.0
 */
 import rope.gui.slider.R_Slider;
 import rope.vector.vec2;
@@ -34,6 +34,7 @@ void draw() {
 
   // slider
   slider_draw();
+  State.reset_bang();
 }
 
 R_Slider [] slider = new R_Slider[5];

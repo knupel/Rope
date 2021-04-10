@@ -90,6 +90,7 @@ public class R_State implements R_Constants {
 		public static void event(boolean... event) {
 			if(env.event == null) {
 				env.event = new bvec6(true);
+				env.bang = new bvec6(false);
 				env.event_mut = new bvec6(true);
 				env.event_ref = new bvec6(true);
 			}
@@ -124,6 +125,13 @@ public class R_State implements R_Constants {
 			}
 
 			for(int i = 0 ; i < event.length && i < 6 ; i++) {
+			// if(env.event.array()[i] != event[i]) {
+			// 		env.bang.set_to(i,true);
+			// 	}
+				if(env.event_ref.array()[i] != event[i]) {
+					env.bang.set_to(i,true);
+				}
+
 				if(r.all(event)) {
 					if(env.event_ref.array()[i] != event[i]) {
 						env.event_mut.swap(i);
@@ -133,8 +141,14 @@ public class R_State implements R_Constants {
 					env.event_ref.set_to(i,false);
 				}
 			}
-			
-			
+		}
+
+		public static void reset_bang() {
+			env.bang.set(false);
+		}
+
+		public static bvec6 bang() {
+			return env.bang;
 		}
 		
 		public static bvec6 event() {

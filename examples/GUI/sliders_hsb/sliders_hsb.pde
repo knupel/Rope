@@ -71,6 +71,8 @@ void draw() {
   sl_rainbow.set_bri(sl_bri.get(0));
   sl_rainbow.show_structure();
   sl_rainbow.show_molette();
+
+  State.reset_bang();
 }
 
 

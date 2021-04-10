@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.2
+* v 1.2.0
 * multi slider multi molette
 *
 */
@@ -26,6 +26,7 @@ void draw() {
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed);
   multi_slider_draw();
+  State.reset_bang();
 }
 
 

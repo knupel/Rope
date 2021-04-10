@@ -29,8 +29,9 @@ void setup() {
 void draw() {
 	background(125);
 	State.pointer(mouseX,mouseY);
-	State.event(mousePressed,keyPressed);
+	State.event(mousePressed);
 	button_simple_draw();
+	State.reset_bang();
 }
 
 R_Button button ;

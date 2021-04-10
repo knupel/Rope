@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * Rope Library 0.12.1.41
 * 2016-2021
-* v 1.0.1
+* v 1.2.0
 * slider adjustable
 */
 
@@ -35,6 +35,7 @@ void draw() {
   State.select_adj_is(mousePressed);
 
 	slider_adjustable_draw();
+  State.reset_bang();
 }
 
 

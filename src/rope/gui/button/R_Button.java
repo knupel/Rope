@@ -105,13 +105,21 @@ public class R_Button extends Crope {
     update(State.pointer().x(),State.pointer().y(),event_mut);
   }
   
-  
-  private void update(float x, float y, boolean event_mut) {
+
+    private void update(float x, float y, boolean event_mut) {
     cursor(x,y);
-    if(all(inside(), event_mut != is())) {
+    if(button_used_is(event_mut)) {
       switch_is();
     }
   }
+
+
+  public boolean button_used_is(boolean event_mut) {
+		boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+		boolean inside_is = inside();
+		boolean used_is = all(inside_is,bang_is, event_mut == is());
+    return used_is;
+	}
 
   /**
   * offset

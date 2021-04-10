@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.2
+* v 1.2.0
 * slider wheel
 */
 import rope.gui.slider.R_Slider;
@@ -24,6 +24,7 @@ void draw() {
   State.pointer(mouseX,mouseY);
   State.event(mousePressed);
   slider_draw();
+  State.reset_bang();
 }
 
 R_Slider slider ;

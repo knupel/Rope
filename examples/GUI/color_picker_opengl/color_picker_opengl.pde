@@ -12,7 +12,7 @@
 * Color Picker without openGL
 * Processing 3.5.4
 * Rope library 0.12.1.41
-* v 0.1.1
+* v 0.2.0
 * 2021-2021
 */
 import rope.gui.palette.R_Palette;
@@ -46,6 +46,7 @@ void draw() {
 	float hue = slider_draw();
 	palette_draw(hue);
 	selector_draw();
+	State.reset_bang();
 }
 
 

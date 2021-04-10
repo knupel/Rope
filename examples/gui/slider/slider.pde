@@ -10,9 +10,11 @@
 import rope.gui.slider.R_Slider;
 import rope.vector.vec2;
 import rope.R_State.State;
+import rope.core.Rope;
 
 int x = 50;
 int y = 50;
+Rope r = new Rope();
 void setup() {
   size(400,200);
   State.init(this);
@@ -28,6 +30,15 @@ void draw() {
 
   // slider
   slider_draw();
+  // if(r.any(State.event().array())) {
+  //   println("any event", frameCount);
+  // }
+  if(r.any(State.bang().array())) {
+    println("any BANG BANG", frameCount);
+  }
+  // println(State.event());
+  // println(State.bang());
+  State.reset_bang();
 }
 
 R_Slider slider ;

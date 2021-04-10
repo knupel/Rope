@@ -266,214 +266,7 @@ public class R_Slider extends Crope implements R_GUI {
 	}
 
 
-	/**
-	 * 
-	 * MOLETTE
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 
-
-	public vec2 [] get_molette_pos() {
-		vec2 [] pos = new vec2[molette.length] ;
-		for(int i = 0 ; i < molette.length ;i++) {
-			pos[i] = molette[i].pos().copy();
-		}
-		return pos;
-	}
-
-	public vec2 get_molette_pos(int index) {
-		if(index < molette.length && index >= 0) {
-			return molette[index].pos();
-		} else {
-			print_err("method get_molette_pos(",index,") is out of the range");
-			return null;
-		}
-	}
-
-	public vec2 get_molette_size(int index) {
-		return molette[index].size();
-	}
-
-
-
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * C4EST LA QUE JE PEUX RESOUDRE LE PROBLEME
-	 * 
-	 * 
-	 * 
-	 * @param index
-	 * @return
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	public boolean molette_used_is(int index) {
-		boolean inside = inside_molette(index);
-
-		if (inside && event) {
-			return true ; 
-		} 
-		return false ;
-	}
-
-	public boolean molette_used_is() {
-		boolean state = false;
-		for(int i = 0 ; i < molette.length; i++) {
-			if(molette_used_is(i)){
-				state = true;
-				break;
-			}
-		}
-		return state;
-	}
-
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public boolean inside_molette(int index) {
-		if(molette_type == ELLIPSE) {
-			return inside_molette_ellipse(index);
-		} 
-		return inside_molette_rect(index);
-	}
-
-	public boolean inside_molette() {
-		if(molette_type == ELLIPSE) {
-			return inside_molette_ellipse();
-		} 
-		return inside_molette_rect();
-	}
-
-
-
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	private boolean inside_molette_rect(int index) {
-		if(inside(molette[index].pos,molette[index].size,RECT)) {
-			molette[index].inside_is(true); 
-		} else {
-			molette[index].inside_is(false);
-		}
-		return molette[index].inside_is();
-	}
-
-	private boolean inside_molette_rect() {
-		boolean state = false;
-		for(int i = 0 ; i < molette.length; i++) {
-			if(inside_molette_rect(i)) {
-				state = true;
-				break;
-			}
-		}
-		return state;
-	}
-	
-
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	private boolean inside_molette_ellipse(int index) {
-		if(cursor == null) {
-			cursor = new vec2();
-		}
-		float radius = molette[index].size.x();
-		int pos_x = (int)(radius * 0.5f + molette[index].pos.x()); 
-		int pos_y = (int)(size.y() * 0.5f + molette[index].pos.y());
-		if(pow((pos_x -cursor.x()),2) + pow((pos_y -cursor.y()),2) < pow(radius,sqrt(3))) {
-			molette[index].inside_is = true; 
-		} else {
-			molette[index].inside_is = false;
-		}
-		return molette[index].inside_is;
-	}
-
-
-	private boolean inside_molette_ellipse() {
-		boolean state = false;
-		for(int i = 0 ; i < molette.length; i++) {
-			state = true;
-			break;
-		}
-		return state;
-	}
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public boolean select_is() {
-		boolean is = false; 
-		for(int i = 0 ; i < molette.length ; i++) {
-			if(molette[i].select_is()) {
-				is = true ;
-				break;
-			}
-		}
-		return is;
-	}
-
-	public boolean select_is(int index) {
-		boolean is = false; 
-		if(index >= 0 && index < molette.length) {
-			is = molette[index].select_is();
-		}
-		return is;
-	}
-
-	public boolean used_is() {
-		boolean is = false; 
-		for(int i = 0 ; i < molette.length ; i++) {
-			if(molette[i].used_is()) {
-				is = true ;
-				break;
-			}
-		}
-		return is;
-	}
-
-	public boolean used_is(int index) {
-		boolean is = false; 
-		if(index >= 0 && index < molette.length) {
-			is = molette[index].used_is();
-		}
-		return is;
-	}
 
 
 
@@ -624,19 +417,20 @@ public class R_Slider extends Crope implements R_GUI {
 			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
 			System.exit(0);
 		}
-
-		boolean event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-		update(State.env().pointer.x(),State.env().pointer.y(),event);
+		boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+		update(State.env().pointer.x(),State.env().pointer.y(),new_event);
 	}
 	
-	@Deprecated
-	public void update(float x, float y) {
+
+
+
+	@Deprecated public void update(float x, float y) {
 		if(State.env().event == null) {
 			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
 			System.exit(0);
 		}
-		boolean event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-		update(x,y,event);
+		boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+		update(x,y,new_event);
 	}
 	/**
 	 * 
@@ -652,9 +446,7 @@ public class R_Slider extends Crope implements R_GUI {
 	}
 	
 	
-	/**
-	 * It's the main method to move the molette the slider.
-	 */
+
 	protected void molette_update(boolean event) {
 		this.event = event;
 		if(!this.event) {
@@ -726,6 +518,198 @@ public class R_Slider extends Crope implements R_GUI {
 			}   
 		}
 	}
+
+
+
+
+
+	public vec2 [] get_molette_pos() {
+		vec2 [] pos = new vec2[molette.length] ;
+		for(int i = 0 ; i < molette.length ;i++) {
+			pos[i] = molette[i].pos().copy();
+		}
+		return pos;
+	}
+
+	public vec2 get_molette_pos(int index) {
+		if(index < molette.length && index >= 0) {
+			return molette[index].pos();
+		} else {
+			print_err("method get_molette_pos(",index,") is out of the range");
+			return null;
+		}
+	}
+
+	public vec2 get_molette_size(int index) {
+		return molette[index].size();
+	}
+
+
+
+	/**
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public boolean molette_used_is(int index) {
+		boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+		boolean inside_is = inside_molette(index);
+		boolean keep_is = State.keep_selection_is();
+		boolean used_is = all(inside_is,any(bang_is,keep_is));
+		if (used_is && this.event) {
+			return true; 
+		} 
+		return false;
+	}
+
+	public boolean molette_used_is() {
+		boolean state = false;
+		for(int i = 0 ; i < molette.length; i++) {
+			if(molette_used_is(i)){
+				state = true;
+				break;
+			}
+		}
+		return state;
+	}
+
+
+	/**
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public boolean inside_molette(int index) {
+		if(molette_type == ELLIPSE) {
+			return inside_molette_ellipse(index);
+		} 
+		return inside_molette_rect(index);
+	}
+
+	public boolean inside_molette() {
+		if(molette_type == ELLIPSE) {
+			return inside_molette_ellipse();
+		} 
+		return inside_molette_rect();
+	}
+
+
+
+
+	/**
+	 * 
+	 * @param index
+	 * @return
+	 */
+	private boolean inside_molette_rect(int index) {
+		if(inside(molette[index].pos,molette[index].size,RECT)) {
+			molette[index].inside_is(true); 
+		} else {
+			molette[index].inside_is(false);
+		}
+		return molette[index].inside_is();
+	}
+
+	private boolean inside_molette_rect() {
+		boolean state = false;
+		for(int i = 0 ; i < molette.length; i++) {
+			if(inside_molette_rect(i)) {
+				state = true;
+				break;
+			}
+		}
+		return state;
+	}
+	
+
+
+	/**
+	 * 
+	 * @param index
+	 * @return
+	 */
+	private boolean inside_molette_ellipse(int index) {
+		if(cursor == null) {
+			cursor = new vec2();
+		}
+		float radius = molette[index].size.x();
+		int pos_x = (int)(radius * 0.5f + molette[index].pos.x()); 
+		int pos_y = (int)(size.y() * 0.5f + molette[index].pos.y());
+		if(pow((pos_x -cursor.x()),2) + pow((pos_y -cursor.y()),2) < pow(radius,sqrt(3))) {
+			molette[index].inside_is = true; 
+		} else {
+			molette[index].inside_is = false;
+		}
+		return molette[index].inside_is;
+	}
+
+
+	private boolean inside_molette_ellipse() {
+		boolean state = false;
+		for(int i = 0 ; i < molette.length; i++) {
+			state = true;
+			break;
+		}
+		return state;
+	}
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public boolean select_is() {
+		boolean is = false; 
+		for(int i = 0 ; i < molette.length ; i++) {
+			if(molette[i].select_is()) {
+				is = true ;
+				break;
+			}
+		}
+		return is;
+	}
+
+	public boolean select_is(int index) {
+		boolean is = false; 
+		if(index >= 0 && index < molette.length) {
+			is = molette[index].select_is();
+		}
+		return is;
+	}
+
+	public boolean used_is() {
+		boolean is = false; 
+		for(int i = 0 ; i < molette.length ; i++) {
+			if(molette[i].used_is()) {
+				is = true ;
+				break;
+			}
+		}
+		return is;
+	}
+
+	public boolean used_is(int index) {
+		boolean is = false; 
+		if(index >= 0 && index < molette.length) {
+			is = molette[index].used_is();
+		}
+		return is;
+	}
+
+
+
+
+
+
 	
 	
 	

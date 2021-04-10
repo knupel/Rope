@@ -5,7 +5,7 @@
 *
 * slider notch
 * 2021-2021
-* v 1.0.1
+* v 1.2.0
 */
 
 import rope.gui.slider.R_Slotch;
@@ -28,7 +28,7 @@ void draw() {
   State.event(mousePressed);
 
   slotch_draw();
-
+  State.reset_bang();
 }
 
 R_Slotch slotch;
