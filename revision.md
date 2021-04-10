@@ -10,6 +10,7 @@
 > change R_Face: fill(), stroke() becme set_fill(), set_stroke()
 > change R_Button.update() to add exit in case the event or pointer is null.
 > add Constructor to Crope, R_Button and R_Slider to accept a single argument int for size and pos.
+> add triple auth event for R_Slider, R_Button, R_Button... by default the three event are true, the first three are considerated in State.event(boolean... arg);
 
 \*version 0.12.0.41
 

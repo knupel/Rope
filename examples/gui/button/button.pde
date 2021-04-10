@@ -29,7 +29,7 @@ void setup() {
 void draw() {
 	background(125);
 	State.pointer(mouseX,mouseY);
-	State.event(mousePressed);
+	State.event(mousePressed,keyPressed);
 	button_simple_draw();
 }
 

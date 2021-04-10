@@ -1,6 +1,6 @@
 /**
 * R_DROPDOWN 
-* v 1.1.0
+* v 1.2.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -417,9 +417,22 @@ public class R_Dropdown extends Crope implements R_GUI {
   // misc
   
   public void update() {
-    update(State.env().pointer.x(),State.env().pointer.y());
+    if(State.env().pointer == null) {
+			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
+			System.exit(0);
+		}
+
+		boolean event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+		update(State.env().pointer.x(),State.env().pointer.y(),event);
   }
   
+  public void update(float x, float y, boolean event) {
+    cursor(x,y);
+    this.event = event;
+    open_dropdown();
+  }
+
+  @Deprecated
   public void update(float x, float y) {
     cursor(x,y);
     if(State.env().event == null) {

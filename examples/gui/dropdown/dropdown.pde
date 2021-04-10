@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.2
+* v 1.0.3
 * dropdown
 */
 
@@ -26,7 +26,7 @@ void setup() {
 void draw() {
 	background(30);
   State.pointer(mouseX,mouseY);
-  State.event(mousePressed);
+  State.event(mousePressed, keyPressed);
 	dropdown_draw();
 }
 

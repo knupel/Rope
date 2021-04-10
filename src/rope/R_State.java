@@ -1,6 +1,6 @@
 /**
  * R_State is use to manage all the state of Rope like in React in lesser :)
- * v 0.0.3
+ * v 0.1.0
  * 2021-2021
  * @author stanlepunk
  *
@@ -13,6 +13,7 @@ import processing.core.PApplet;
 import processing.event.MouseEvent;
 import rope.vector.vec3;
 import rope.core.R_Constants;
+import rope.core.Rope;
 import rope.vector.bvec2;
 import rope.vector.bvec6;
 import rope.vector.ivec2;
@@ -21,12 +22,14 @@ public class R_State implements R_Constants {
 	public static class State {
 		private static PApplet pa;
 		private static R_Env env;
+		private static Rope r;
 		
 		public static void init(PApplet papplet) {
 			pa = papplet;
 			if(env == null) {
 				version();
 				env = new R_Env();
+				r = new Rope();
 			}
 			update();
 		}
@@ -86,9 +89,9 @@ public class R_State implements R_Constants {
 		
 		public static void event(boolean... event) {
 			if(env.event == null) {
-				env.event = new bvec6();
-				env.event_mut = new bvec6();
-				env.event_ref = new bvec6();
+				env.event = new bvec6(true);
+				env.event_mut = new bvec6(true);
+				env.event_ref = new bvec6(true);
 			}
 			
 			if(event.length == 1) {
@@ -120,9 +123,8 @@ public class R_State implements R_Constants {
 				env.event.f(event[5]);
 			}
 
-			
 			for(int i = 0 ; i < event.length && i < 6 ; i++) {
-				if(event[i]) {
+				if(r.all(event)) {
 					if(env.event_ref.array()[i] != event[i]) {
 						env.event_mut.swap(i);
 					}
@@ -131,6 +133,7 @@ public class R_State implements R_Constants {
 					env.event_ref.set_to(i,false);
 				}
 			}
+			
 			
 		}
 		

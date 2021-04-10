@@ -34,7 +34,7 @@ SLIDER MULTI
 */
 R_Slider multi_slider ;
 void multi_slider_setup(int x, int y) {
-	multi_slider = new R_Slider(new vec2(x,y), new vec2(400,20));
+	multi_slider = new R_Slider(new vec2(x,y), new vec2(350,20));
 	multi_slider.set_molette_num(3);
 	multi_slider.set_size_molette(5,40);
   multi_slider.set_rounded(20);

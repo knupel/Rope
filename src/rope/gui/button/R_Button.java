@@ -91,8 +91,7 @@ public class R_Button extends Crope {
     else return 0;
   }
 
-  
-  // misc
+
   public void update() {
     if(State.env().pointer == null) {
 			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
@@ -102,13 +101,14 @@ public class R_Button extends Crope {
 			print_err("Static State.env().event_mut is null, maybe you forget to use: State.event(boolean... event)");
 			System.exit(0);
 		}
-    update(State.pointer().x(),State.pointer().y(),State.env().event_mut.a());
+    boolean event_mut = State.env().event_mut.a();
+    update(State.pointer().x(),State.pointer().y(),event_mut);
   }
   
   
-  private void update(float x, float y, boolean event) {
+  private void update(float x, float y, boolean event_mut) {
     cursor(x,y);
-    if(all(inside(),event != is())) {
+    if(all(inside(), event_mut != is())) {
       switch_is();
     }
   }
