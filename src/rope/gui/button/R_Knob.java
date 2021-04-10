@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 1.0.1
+* v 1.1.0
 * 2019-2021
 */
 package rope.gui.button;
@@ -28,13 +28,11 @@ public class R_Knob extends R_Button {
   public R_Knob(vec2 pos, float size) {
     super("Knob", pos, new vec2(size));
     this.molette = new R_Mol();
-    molette_update();
   }
   
   public R_Knob(String type, vec2 pos, float size) {
     super(type, pos, new vec2(size));
     this.molette = new R_Mol();
-    molette_update();
   }
 
 
@@ -200,28 +198,37 @@ public class R_Knob extends R_Button {
 
   // misc
   public void update() {
-  	// print_err("event",this.event);
-    update(State.env().pointer.x(),State.env().pointer.y(),State.env().event.x(),true);
+    boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+    update(State.env().pointer.x(),State.env().pointer.y(),new_event);
   }
   
-  public void update(float x, float y) {
-    update(x,y,State.env().event.x(),true);
+  @Deprecated public void update(float x, float y) {
+    boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+    update(x,y,new_event);
   }
 
-  public void update(float x, float y, boolean event_1) {
-    update(x,y,event_1,true);
-  }
 
-  public void update(float x, float y, boolean event_1, boolean event_2) {
-    if(!use_event_is) {
-      select(event_1,event_2);
-    }
+  public void update(float x, float y, boolean event) {
     cursor(x,y);
-    // molette part
+    molette_update(event);
+    use_event_is = false;
+  }
+  
+
+  // molette
+  void molette_update(boolean event) {
+    if(!use_event_is) {
+      use_event_is = true;
+      this.event = event;
+    }
+
     molette.set_offset(pos.copy().add(size.copy().mult(0.5f)));
-    boolean inside_mol = molette.inside(cursor);
-    molette.inside_is(inside_mol);
-    if(inside_mol && this.event) {
+    boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+    boolean inside_is = molette.inside(cursor);
+    boolean used_is = all(inside_is,bang_is);
+
+    molette.inside_is(inside_is);
+    if(used_is && this.event) {
       molette.used(true);
     }
     if(!this.event) {
@@ -231,17 +238,17 @@ public class R_Knob extends R_Button {
       out_is = false;
     }
     if(molette.used_is()) {
-      molette_update();
+      molette_update_position();
     }
-    use_event_is = false;
-  }
-  
 
-  // molette
+  }
+
+
+
   float previous_angle_ref;
   float next_angle_ref;
   boolean ref_angle_is = false;
-  private void molette_update() {
+  private void molette_update_position() {
     float angle = 0;
     // calc angle
     angle = calc_angle(angle);
@@ -317,14 +324,5 @@ public class R_Knob extends R_Button {
       return a;
     }
   }
-  
-  
-  private void select(boolean event_1, boolean event_2) {
-    use_event_is = true;
-    if(event_1 && event_2) {
-      this.event = true;
-    } else {
-      this.event = false;
-    }
-  }
+
 }
