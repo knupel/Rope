@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.7
+ * v 1.3.8
 * 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
@@ -521,14 +521,16 @@ public class vec3 extends vec {
 	
 	
 	
-	/**
-	 * Constrains a value to not exceed a maximum and minimum value. 
-	 * @param min
-	 * @param max
-	 * @return
-	 */
 	public vec3 constrain(float min, float max) {
 		return constrain(new vec3(min), new vec3(max));
+	}
+
+	public vec3 constrain(float max) {
+		return constrain(new vec3(0), new vec3(max));
+	}
+
+	public vec3 constrain(vec3 max) {
+		return constrain(new vec3(0), max);
 	}
 	
 	/**

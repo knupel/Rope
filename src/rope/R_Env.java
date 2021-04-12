@@ -30,7 +30,7 @@ public class R_Env {
 	private int w;
 	private int h;
 	private String renderer = null;
-	// private boolean renderer_is = false;
+	private boolean size_change = false;
 	
 	
 	public boolean mouse_pressed;
@@ -140,6 +140,14 @@ public class R_Env {
 	
 	public void height(int h) {
 		this.h = h;
+	}
+
+	public void size_change(boolean is) {
+		this.size_change = is;
+	}
+
+	public boolean size_change() {
+		return this.size_change;
 	}
 	
 	

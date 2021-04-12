@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.2.7
+* v 1.2.8
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -518,16 +518,18 @@ public class vec4 extends vec {
 	}
 	
 	
-	/**
-	 * Constrains a value to not exceed a maximum and minimum value. 
-	 * @param min
-	 * @param max
-	 * @return
-	 */
 	public vec4 constrain(float min, float max) {
 		return constrain(new vec4(min), new vec4(max));
 	}
-	
+
+	public vec4 constrain(float max) {
+		return constrain(new vec4(0), new vec4(max));
+	}
+
+	public vec4 constrain(vec4 max) {
+		return constrain(new vec4(0), max);
+	}
+
 	/**
 	 * Constrains a value to not exceed a maximum and minimum value. 
 	 * @param min

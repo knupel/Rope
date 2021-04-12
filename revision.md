@@ -13,6 +13,8 @@
 > add triple auth event for R_Slider, R_Button, R_Button... by default the three event are true, the first three are considerated in State.event(boolean... arg);
 > improve R_Slider, R_Button behavior for the time where the event is selected outside the molette and given the possibility to select it... and that's not good. Now it's fix.
 > improve R_Kob for the event detection
+> add function boolean size_change() to return if there is any changment of size of window
+> add function constrain who can receive vec arg and with zero min by default
 
 \*version 0.12.0.41
 

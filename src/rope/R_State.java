@@ -1,6 +1,6 @@
 /**
  * R_State is use to manage all the state of Rope like in React in lesser :)
- * v 0.1.0
+ * v 0.1.1
  * 2021-2021
  * @author stanlepunk
  *
@@ -12,6 +12,7 @@ import processing.core.PApplet;
 // import processing.core.PGraphics;
 import processing.event.MouseEvent;
 import rope.vector.vec3;
+import rope.vector.vec4;
 import rope.core.R_Constants;
 import rope.core.Rope;
 import rope.vector.bvec2;
@@ -40,10 +41,14 @@ public class R_State implements R_Constants {
 			env.cz(pa.g.colorModeZ);
 			env.ca(pa.g.colorModeA);
 			env.cm(pa.g.colorMode);
+			if(r.all(pa.g.width == env.width(), pa.g.height == env.height())) {
+				env.size_change(false);
+			} else {
+				env.size_change(true);
+			}
 			env.width(pa.g.width);
-			env.height(pa.g.width);
-			env.set_renderer(pa.g);
-			
+			env.height(pa.g.height);
+			env.set_renderer(pa.g);		
 		}
 		
 		public static void version() {
@@ -54,6 +59,12 @@ public class R_State implements R_Constants {
 			return pa;
 		}
 		
+		/**
+		 * 
+		 * 
+		 * ENVIRONMENT
+		 */
+
 		public static R_Env env() {
 			return env;
 		}
@@ -61,7 +72,34 @@ public class R_State implements R_Constants {
 		public static String get_renderer() {
 			return env.get_renderer();
 		}
+
+		/**
+		 * 
+		 * @return the curent data value of the color environment x, y, z and alpha of your sketch
+		 */
+		public static vec4 cxyza() {
+			return env.cxyza();
+		}
+
+		/**
+		 * 
+		 * @return the curent data value of the color environment x, y, z of your sketch
+		 */
+		public static vec3 cxyz() {
+			return env.cxyz();
+		}
+
+		public static boolean size_change() {
+			return env.size_change();
+		}
 		
+
+
+		/**
+		 * 
+		 * GUI, CONTROL, EVENT
+		 */
+
 		public static void molette_is(boolean is) {
 			env.molette = is;
 		}
@@ -125,9 +163,6 @@ public class R_State implements R_Constants {
 			}
 
 			for(int i = 0 ; i < event.length && i < 6 ; i++) {
-			// if(env.event.array()[i] != event[i]) {
-			// 		env.bang.set_to(i,true);
-			// 	}
 				if(env.event_ref.array()[i] != event[i]) {
 					env.bang.set_to(i,true);
 				}

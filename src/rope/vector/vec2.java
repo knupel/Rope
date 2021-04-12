@@ -1,10 +1,9 @@
 /**
  * vec2 class 
- * v 1.3.8
+ * v 1.3.9
  * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
- * @see http://stanlepunk.xyz/
  * @see https://github.com/StanLepunK/Rope
  */
 package rope.vector;
@@ -495,14 +494,17 @@ public class vec2 extends vec {
 
 
 
-  /**
-   * Constrains a value to not exceed a maximum and minimum value. 
-   * @param min
-   * @param max
-   * @return
-   */
+
 	public vec2 constrain(float min, float max) {
 		return constrain(new vec2(min), new vec2(max));
+	}
+
+	public vec2 constrain(float max) {
+		return constrain(new vec2(0), new vec2(max));
+	}
+
+	public vec2 constrain(vec2 max) {
+		return constrain(new vec2(0), max);
 	}
   
 	/**

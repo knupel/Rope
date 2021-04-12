@@ -1,6 +1,6 @@
 /**
 * ivec2 class
-* v 1.4.1
+* v 1.4.2
 * 2015-2021
 * Vector class with a int precision
 * @author @stanlepunk
@@ -284,14 +284,17 @@ public class ivec2 extends ivec {
 	}
 	
 	
-	/**
-	 * Constrains a value to not exceed a maximum and minimum value. 
-	 * @param min
-	 * @param max
-	 * @return
-	 */
+
 	public ivec2 constrain(int min, int max) {
 		return constrain(new ivec2(min), new ivec2(max));
+	}
+
+	public ivec2 constrain(int max) {
+		return constrain(new ivec2(0), new ivec2(max));
+	}
+
+	public ivec2 constrain(ivec2 max) {
+		return constrain(new ivec2(0), max);
 	}
 	
 	/**

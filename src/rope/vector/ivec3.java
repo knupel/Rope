@@ -1,6 +1,6 @@
 /**
 * ivec3 class
-* v 1.3.1
+* v 1.3.2
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a int precision
@@ -316,14 +316,17 @@ public class ivec3 extends ivec {
   
   
   
-  /**
-   * Constrains a value to not exceed a maximum and minimum value. 
-   * @param min
-   * @param max
-   * @return
-   */
+
 	public ivec3 constrain(int min, int max) {
 		return constrain(new ivec3(min), new ivec3(max));
+	}
+
+  public ivec3 constrain(int max) {
+		return constrain(new ivec3(0), new ivec3(max));
+	}
+
+	public ivec3 constrain(ivec3 max) {
+		return constrain(new ivec3(0), max);
 	}
   
 	/**
