@@ -146,9 +146,9 @@ public class R_Knob extends R_Button {
 
   
   // show
-  public void show_structure() {
-    show();
-  }
+  // public void show_structure() {
+  //   show();
+  // }
 
   public void show_limit() {
     boolean on_off_is = true;

@@ -17,13 +17,12 @@ import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 import rope.core.R_Graphic;
-import rope.gui.palette.R_Palette;
 import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec4;
 import rope.R_State.State;
 
-abstract public class Crope extends R_Graphic  {
+abstract public class Crope extends R_Graphic {
   protected vec2 pos;
   protected vec2 size;
   protected vec2 pos_ref;
@@ -76,32 +75,12 @@ abstract public class Crope extends R_Graphic  {
   	super(State.pa());
     this.type = type;
     init(pos.x(), pos.y(), size.x(), size.y());
-    // this.pos(pos);
-		// this.size(size);
-		// // font
-		// font_size = (int)State.pa().g.textSize;
-		// // id + dna
-    // dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
-    // if(dna == 0) dna = 1;
-    // // info label + info
-    // pos_label = new vec2(pos.x(),bottom() + font_size);
-    // pos_value = pos_label.copy().add_y(font_size);
   }
 
   public Crope(String type, float x, float y, float sx, float sy) {
   	super(State.pa());
     this.type = type;
     init(x, y, sx, sy);
-    // this.pos(x,y);
-		// this.size(sx,sy);
-		// // font
-		// font_size = (int)State.pa().g.textSize;
-		// // id + dna
-    // dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
-    // if(dna == 0) dna = 1;
-    // // info label + info
-    // pos_label = new vec2(this.pos.x(),bottom() + font_size);
-    // pos_value = pos_label.copy().add_y(font_size);
   }
 
   private void init(float x, float y, float sx, float sy) {
@@ -116,6 +95,14 @@ abstract public class Crope extends R_Graphic  {
     pos_label = new vec2(this.pos.x(),bottom() + font_size);
     pos_value = pos_label.copy().add_y(font_size);
   }
+
+
+  // method ghost who must be overide by the child
+  // need to do that that for the future class R_Board
+  public void update() {}
+  public void show_structure() {}
+  // public void show_value() {}
+  // public void show_label() {}
 
 
 

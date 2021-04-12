@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.1.1
+* v 2.1.2
 * 2013-2021
 */
 package rope.gui.button;
@@ -26,13 +26,15 @@ public class R_Button extends Crope {
 
   protected PImage [] pic;
 
+  protected int kind = ELLIPSE;
+
   protected boolean auth_rollover;
   protected boolean is = false;  
 
   public vec2 offset;
 
   public R_Button(String type, vec2 pos, vec2 size) {
-    super(type, pos, size);
+    super(type, pos, size); 
   }
 
 
@@ -47,6 +49,10 @@ public class R_Button extends Crope {
 
   public R_Button(float x, float y, float sx, float sy) {
     super("Button", x, y, sx, sy);
+  }
+
+  public void set_kind(int kind) {
+    this.kind = kind;
   }
 
 
@@ -147,15 +153,33 @@ public class R_Button extends Crope {
   }
   
   // SHOW
-  public void show() {
+  public void show_structure() {
+    show(true);
+  }
+
+  public void show(boolean on_off_is) {
+    if(this.kind == RECT) {
+      aspect(on_off_is);
+      rect(new vec2(pos), new vec2(size));
+    } else if(this.kind == ELLIPSE) {
+      aspect(on_off_is);
+      vec2 final_size = new vec2(size);
+      vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
+      ellipse(final_pos,final_size);
+    }
+  }
+
+  
+  @Deprecated public void show() {
     show(ELLIPSE,true);
   }
 
-  public void show(int kind, boolean on_off_is) {
-    if(kind == RECT) {
+  @Deprecated public void show(int kind, boolean on_off_is) {
+    this.kind = kind;
+    if(this.kind == RECT) {
       aspect(on_off_is);
       rect(new vec2(pos), new vec2(size));
-    } else if(kind == ELLIPSE) {
+    } else if(this.kind == ELLIPSE) {
       aspect(on_off_is);
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
