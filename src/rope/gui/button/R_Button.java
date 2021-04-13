@@ -123,15 +123,14 @@ public class R_Button extends Crope {
 
   
   protected boolean button_event_is() {
+    boolean event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
     boolean event_bang = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
     if(all(bangbang.x(),!bangbang.y(),event_bang, inside())) {
       bangbang.y(event_bang);
     }
-
-    if(all(!bangbang.x(),event_bang,inside())) {
+    if(all(!bangbang.x(),event, event_bang,inside())) {
       bangbang.x(event_bang);
     }
-
     return all(inside(),all(bangbang));
 	}
 

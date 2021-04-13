@@ -16,6 +16,7 @@
 > add function boolean size_change() to return if there is any changment of size of window
 > add function constrain who can receive vec arg and with zero min by default
 > fix bug of the R_Button behavior
+> improve class R_Rank
 
 \*version 0.12.0.41
 

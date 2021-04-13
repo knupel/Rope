@@ -29,7 +29,7 @@ void setup() {
 void draw() {
 	background(125);
 	State.pointer(mouseX,mouseY);
-	State.event(mousePressed);
+	State.event(mousePressed, !keyPressed);
 	button_simple_draw();
 	State.reset_bang();
 }
@@ -56,7 +56,7 @@ void button_simple_draw() {
 	button.show(ELLIPSE,true);
 	//button.show(RECT,true);
 
-	println("button is",button.is());
-	println("button get",button.get());
+	r.print_tempo(60,"button is",button.is());
+	r.print_tempo(60,"button get",button.get());
 }
 
