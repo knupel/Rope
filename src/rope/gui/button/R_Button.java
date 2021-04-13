@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.1.2
+* v 2.2.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -11,6 +11,7 @@ package rope.gui.button;
 import rope.R_State.State;
 import processing.core.PImage;
 import rope.gui.Crope;
+import rope.vector.bvec2;
 import rope.vector.vec2;
 
 public class R_Button extends Crope {
@@ -27,7 +28,7 @@ public class R_Button extends Crope {
   protected PImage [] pic;
 
   protected int kind = ELLIPSE;
-
+  protected bvec2 bangbang = new bvec2(false);
   protected boolean auth_rollover;
   protected boolean is = false;  
 
@@ -107,24 +108,31 @@ public class R_Button extends Crope {
 			print_err("Static State.env().event_mut is null, maybe you forget to use: State.event(boolean... event)");
 			System.exit(0);
 		}
-    boolean event_mut = State.env().event_mut.a();
-    update(State.pointer().x(),State.pointer().y(),event_mut);
+    boolean event = button_event_is();
+    update(State.pointer().x(),State.pointer().y(),event);
   }
   
 
-    private void update(float x, float y, boolean event_mut) {
+  private void update(float x, float y, boolean event) {
     cursor(x,y);
-    if(button_used_is(event_mut)) {
+    if(event) {
       switch_is();
+      bangbang.set(false);
     }
   }
 
+  
+  protected boolean button_event_is() {
+    boolean event_bang = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+    if(all(bangbang.x(),!bangbang.y(),event_bang, inside())) {
+      bangbang.y(event_bang);
+    }
 
-  public boolean button_used_is(boolean event_mut) {
-		boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
-		boolean inside_is = inside();
-		boolean used_is = all(inside_is,bang_is, event_mut == is());
-    return used_is;
+    if(all(!bangbang.x(),event_bang,inside())) {
+      bangbang.x(event_bang);
+    }
+
+    return all(inside(),all(bangbang));
 	}
 
   /**
@@ -169,7 +177,44 @@ public class R_Button extends Crope {
     }
   }
 
-  
+  public void show_structure(PImage [] pic) {
+    int offset_x = -1 ;
+    if(pic.length == 4) {
+      if (is) {
+        if (inside() && auth_rollover) {
+          image(pic[0],pos.x() +offset_x, pos.y()); 
+        } else {
+          image(pic[1],pos.x() +offset_x, pos.y());
+        }
+      } else {
+        if (inside() && auth_rollover) {
+          image(pic[2],pos.x() +offset_x, pos.y()); 
+        } else {
+          image(pic[3],pos.x() +offset_x, pos.y());
+        }
+      }
+    }
+  }
+
+  @Deprecated public void show(PImage [] pic) {
+    int offset_x = -1 ;
+    if(pic.length == 4) {
+      if (is) {
+        if (inside() && auth_rollover) {
+          image(pic[0],pos.x() +offset_x, pos.y()); 
+        } else {
+          image(pic[1],pos.x() +offset_x, pos.y());
+        }
+      } else {
+        if (inside() && auth_rollover) {
+          image(pic[2],pos.x() +offset_x, pos.y()); 
+        } else {
+          image(pic[3],pos.x() +offset_x, pos.y());
+        }
+      }
+    }
+  }
+
   @Deprecated public void show() {
     show(ELLIPSE,true);
   }
@@ -184,30 +229,6 @@ public class R_Button extends Crope {
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
       ellipse(final_pos,final_size);
-    }
-  }
-
-
-  public void show(PImage [] pic) {
-    int offset_x = -1 ;
-    if(pic.length == 4) {
-      if (is) {
-        if (inside() && auth_rollover) {
-          // inside
-          image(pic[0],pos.x() +offset_x, pos.y()); 
-        } else {
-          // outside
-          image(pic[1],pos.x() +offset_x, pos.y());
-        }
-      } else {
-        if (inside() && auth_rollover) {
-          // inside
-          image(pic[2],pos.x() +offset_x, pos.y()); 
-        } else {
-          // outside
-          image(pic[3],pos.x() +offset_x, pos.y());
-        }
-      }
     }
   }
 

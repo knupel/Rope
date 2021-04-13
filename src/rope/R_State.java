@@ -97,17 +97,52 @@ public class R_State implements R_Constants {
 
 		/**
 		 * 
-		 * GUI, CONTROL, EVENT
+		 * STATE EVENT
 		 */
 
-		public static void molette_is(boolean is) {
-			env.molette = is;
+		 // pointer
+		public static void pointer(float x, float y) {
+			if(env.pointer == null) {
+				env.pointer = new vec3();
+			}
+			env.pointer.x(x);
+			env.pointer.y(y);
 		}
 		
-		public static boolean molette_is() {
-			return env.molette;
+		public static void pointer(float x, float y, float z) {
+			if(env.pointer == null) {
+				env.pointer = new vec3();
+			}
+			env.pointer.x(x);
+			env.pointer.y(y);
+			env.pointer.z(z);
 		}
 		
+		public static vec3 pointer() {
+			return env.pointer;
+		}
+		
+		public static void scroll(MouseEvent e) {
+			if(env.scroll == null) {
+				env.scroll = new ivec2(e.getCount());
+			} else {
+				env.scroll.set(e.getCount());
+			}
+		}
+		
+		public static ivec2 scroll() {
+			return env.scroll;
+		}
+
+		public static void mouse_pressed_is(boolean is) {
+			env.mouse_pressed = is;
+		}
+		
+		public static boolean mouse_pressed_is() {
+			return env.mouse_pressed;
+		}
+
+
 		public static void key_pressed_is(boolean is) {
 			env.key_pressed = is;
 		}
@@ -116,15 +151,8 @@ public class R_State implements R_Constants {
 			return env.key_pressed;
 		}
 		
-		public static void mouse_pressed_is(boolean is) {
-			env.mouse_pressed = is;
-		}
-		
-		public static boolean mouse_pressed_is() {
-			return env.mouse_pressed;
-		}
-		
-		
+
+
 		public static void event(boolean... event) {
 			if(env.event == null) {
 				env.event = new bvec6(true);
@@ -193,8 +221,23 @@ public class R_State implements R_Constants {
 		public static bvec6 event_mut() {
 			return env.event_mut;
 		}
+
+
+
+
+		 		/**
+		 * 
+		 * STATE GUI, CONTROL
+		 */
+
+		public static void molette_is(boolean is) {
+			env.molette = is;
+		}
 		
-	
+		public static boolean molette_is() {
+			return env.molette;
+		}
+
 		
 		// selector adjustable molette
 		public static void select_adj_is(boolean is) {
@@ -228,41 +271,6 @@ public class R_State implements R_Constants {
 		
 		public static bvec2 select_mol_is() {
 			return env.auth_select_mol;
-		}
-		
-		// pointer
-		public static void pointer(float x, float y) {
-			if(env.pointer == null) {
-				env.pointer = new vec3();
-			}
-			env.pointer.x(x);
-			env.pointer.y(y);
-		}
-		
-		public static void pointer(float x, float y, float z) {
-			if(env.pointer == null) {
-				env.pointer = new vec3();
-			}
-			env.pointer.x(x);
-			env.pointer.y(y);
-			env.pointer.z(z);
-		}
-		
-		public static vec3 pointer() {
-			return env.pointer;
-		}
-		
-		
-		public static void scroll(MouseEvent e) {
-			if(env.scroll == null) {
-				env.scroll = new ivec2(e.getCount());
-			} else {
-				env.scroll.set(e.getCount());
-			}
-		}
-		
-		public static ivec2 scroll() {
-			return env.scroll;
 		}
 		
 		// dna current slider
