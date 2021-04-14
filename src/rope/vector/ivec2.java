@@ -1,6 +1,6 @@
 /**
 * ivec2 class
-* v 1.4.2
+* v 1.5.0
 * 2015-2021
 * Vector class with a int precision
 * @author @stanlepunk
@@ -40,8 +40,8 @@ public class ivec2 extends ivec {
 	 * @return
 	 */
 	public ivec2 set(int x, int y) {
-		this.x = this.s = this.u = x;
-		this.y = this.t = this.v = y;
+		this.x = x;
+		this.y = y;
 		return this;
 	}
 	

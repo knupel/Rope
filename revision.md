@@ -17,6 +17,9 @@
 > add function constrain who can receive vec arg and with zero min by default
 > fix bug of the R_Button behavior
 > improve class R_Rank
+> add get function for vector
+> remove component stsq and uv, now the acces of this value pass by function
+> add to vector function size and deprecated get_size()
 
 \*version 0.12.0.41
 

@@ -36,7 +36,7 @@ void draw() {
   ellipse(mouseX,mouseY, 50,50);
   
   slider_draw();
-  State.reset_bang();
+  State.reset_event();
 }
 
 R_Slider slider ;

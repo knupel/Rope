@@ -1,6 +1,6 @@
 /**
 * vec class
-* v 2.1.0
+* v 2.1.1
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a float precision
@@ -13,8 +13,6 @@ public abstract class vec extends Rope {
 	public int size;
 	public float x,y,z,w = Float.NaN;
 	public float e,f = Float.NaN; // for vec5 and vec6 
-	public float s,t,p,q = Float.NaN;
-	public float u,v = Float.NaN;
 	
   public vec(int size) {
   	super();
@@ -24,8 +22,30 @@ public abstract class vec extends Rope {
   /**
   * @return the number of components
   */
-  public int get_size() {
+  @Deprecated public int get_size() {
     return size;
+  }
+
+  public int size() {
+    return size;
+  }
+
+  public vec get() {
+    return this;
+  }
+
+  public float get(int index) {
+    if(index >= size)
+      return Float.NaN;
+    switch(index) {
+      case 0: return x;
+      case 1: return y;
+      case 2: return z;
+      case 3: return w;
+      case 4: return e;
+      case 5: return f;
+      default : return Float.NaN;
+    }
   }
   
 
@@ -173,27 +193,27 @@ public abstract class vec extends Rope {
   }
 
   public float s() {
-    return s;
+    return x;
   }
 
   public float t() {
-    return t;
+    return y;
   }
 
   public float p() {
-    return p;
+    return z;
   }
 
   public float q() {
-    return q;
+    return w;
   }
 
   public float u() {
-    return u;
+    return x;
   }
 
   public float v() {
-    return v;
+    return y;
   }
   
   // rgb

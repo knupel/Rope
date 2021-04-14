@@ -10,7 +10,7 @@
 /**
 * sliders HSB
 * Processing 3.5.4
-* v 0.1.0
+* v 0.1.1
 * 2021-2021
 */
 
@@ -72,7 +72,7 @@ void draw() {
   sl_rainbow.show_structure();
   sl_rainbow.show_molette();
 
-  State.reset_bang();
+  State.reset_event();
 }
 
 

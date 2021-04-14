@@ -28,7 +28,7 @@ void draw() {
   State.event(mousePressed);
 
   slotch_draw();
-  State.reset_bang();
+  State.reset_event();
 }
 
 R_Slotch slotch;

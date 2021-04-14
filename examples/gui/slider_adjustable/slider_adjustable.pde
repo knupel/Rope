@@ -35,7 +35,7 @@ void draw() {
   State.select_adj_is(mousePressed);
 
 	slider_adjustable_draw();
-  State.reset_bang();
+  State.reset_event();
 }
 
 

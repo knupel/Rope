@@ -155,12 +155,13 @@ public class R_State implements R_Constants {
 
 		public static void event(boolean... event) {
 			if(env.event == null) {
-				env.event = new bvec6(true);
-				env.bang = new bvec6(false);
-				env.event_mut = new bvec6(true);
-				env.event_ref = new bvec6(true);
+				init_event();
 			}
-			
+			dispatch_event(event);
+			set_event(event);
+		}
+
+		private static void dispatch_event(boolean... event) {
 			if(event.length == 1) {
 				env.event.a(event[0]);
 			} else if(event.length == 2) {
@@ -189,29 +190,82 @@ public class R_State implements R_Constants {
 				env.event.e(event[4]);
 				env.event.f(event[5]);
 			}
+		}
 
+		private static void init_event() {
+			env.event_ref = new bvec6(true);
+			env.event = new bvec6(true);
+			env.bang = new bvec6(false);
+			env.bangbang = new bvec6(false);
+			env.event_mut = new bvec6(true);
+
+			for(int i = 0 ; i < env.bangbang_arr.length ; i++) {
+				env.bangbang_arr[i] = new bvec2(false);
+			}
+		}
+
+		private static void set_event(boolean... event) {
 			for(int i = 0 ; i < event.length && i < 6 ; i++) {
-				if(env.event_ref.array()[i] != event[i]) {
-					env.bang.set_to(i,true);
-				}
+				set_event_bang(i, event);
+				set_event_bangbang(i, event);
+				set_event_mut(i, event);
+				set_event_ref(i, event);
+			}
+		}
 
-				if(r.all(event)) {
-					if(env.event_ref.array()[i] != event[i]) {
-						env.event_mut.swap(i);
+		private static void set_event_bang(int i, boolean... event) {
+			if(env.event_ref.array()[i] != event[i]) {
+				env.bang.set_to(i,true);
+			}
+		}
+
+		private static void set_event_bangbang(int i, boolean... event) {
+			if(r.all(env.bangbang_arr[i].x(),!env.bangbang_arr[i].y(),!env.bang.get(i))) {
+				env.bangbang_arr[i].y(true);
+			}
+
+			if(r.all(!env.bangbang_arr[i].x(),event[i], env.bang.get(i))) {
+				env.bangbang_arr[i].x(env.bang.get(i));
+			}
+
+			if(r.all(env.bangbang_arr[i])) {
+				env.bangbang.set_to(i,true);
+			} else {
+				env.bangbang.set_to(i,false);
+			}
+		}
+
+		private static void set_event_mut(int i, boolean... event) {
+			if(env.bangbang.get(i)) {
+				env.event_mut.swap(i);
+			}
+		}
+
+
+		private static void set_event_ref(int i, boolean... event) {
+			if(env.event_ref.array()[i] != event[i]) {
+				env.event_ref.set_to(i,event[i]);
+			}
+		}
+
+		public static void reset_event() {
+			env.bang.set(false);
+			for(int i = 0 ; i < env.bangbang.size() ; i++) {
+				if(env.bangbang.get(i)) {
+					env.bangbang.set_to(i, false);
+					if(r.all(env.bangbang_arr[i])) {
+						env.bangbang_arr[i].set(false);
 					}
-					env.event_ref.set_to(i,true);
-				} else {
-					env.event_ref.set_to(i,false);
 				}
 			}
 		}
 
-		public static void reset_bang() {
-			env.bang.set(false);
-		}
-
 		public static bvec6 bang() {
 			return env.bang;
+		}
+
+		public static bvec6 bangbang() {
+			return env.bangbang;
 		}
 		
 		public static bvec6 event() {

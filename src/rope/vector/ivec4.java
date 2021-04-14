@@ -1,6 +1,6 @@
 /**
 * ivec4 class
-* v 1.2.1
+* v 1.3.0
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a int precision
@@ -44,10 +44,10 @@ public class ivec4 extends ivec {
    * @return
    */
   public ivec4 set(int x, int y, int z, int w) {
-  	this.x = this.s = x;
-  	this.y = this.t = y;
-  	this.z = this.p = z;
-  	this.w = this.q = w;
+  	this.x = x;
+  	this.y = y;
+  	this.z = z;
+  	this.w = w;
   	return this;
   }
   

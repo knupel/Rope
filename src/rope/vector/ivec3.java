@@ -1,6 +1,6 @@
 /**
 * ivec3 class
-* v 1.3.2
+* v 1.4.0
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a int precision
@@ -42,9 +42,9 @@ public class ivec3 extends ivec {
    * @return
    */
   public ivec3 set(int x, int y, int z) {
-  	this.x = this.s = x;
-  	this.y = this.t = y;
-  	this.z = this.p = z;
+  	this.x = x;
+  	this.y = y;
+  	this.z = z;
   	return this;
   }
   

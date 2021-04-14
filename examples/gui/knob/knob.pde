@@ -6,7 +6,7 @@
 * 2016-2021
 *
 * Knob example
-* v 1.2.0
+* v 1.2.1
 */
 
 import rope.gui.button.R_Knob;
@@ -30,7 +30,7 @@ void draw() {
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed);
 	draw_knob();
-	State.reset_bang();
+	State.reset_event();
 }
 
 R_Knob knob ;

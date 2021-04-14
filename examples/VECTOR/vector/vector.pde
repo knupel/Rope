@@ -43,17 +43,7 @@ void setup() {
   println(v5.max(),v5.min());
   
 
-  // get arguments > problem
-  println("");
-  println("v3 classic",v3);
-  println("v3 abc",v3.abc());
-  println("v3 xyz",v3.xyz());
-  println("v3 xxx",v3.xxx());
-  println(" ");
-  println("v5 classic",v5);
-  println("v5 abc",v5.abc());
-  println("v5 xxx",v5.xxx());
-  println("v5 zzw",v5.zzw());
+
 
   
 

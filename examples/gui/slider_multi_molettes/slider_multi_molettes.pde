@@ -26,7 +26,7 @@ void draw() {
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed);
   multi_slider_draw();
-  State.reset_bang();
+  State.reset_event();
 }
 
 

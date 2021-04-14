@@ -1,7 +1,7 @@
 /**
 * R_Env
 * Control ROmanesco Processing Environment
-* v 0.0.2
+* v 0.0.3
 * Copyleft (c) 2021-2021
 
 * dependencies
@@ -19,9 +19,6 @@ import rope.vector.vec3;
 import rope.vector.vec4;
 
 public class R_Env {
-	
-	R_Env() {}
-	
 	private float x;
 	private float y;
 	private float z;
@@ -38,12 +35,15 @@ public class R_Env {
 	
 	//Control Rope
 	public ivec2 scroll;
+	public vec3 pointer;
+
 	public bvec6 event;
 	public bvec6 bang;
+	public bvec2 [] bangbang_arr;
+	public bvec6 bangbang;
 	public bvec6 event_mut;
 	public bvec6 event_ref;
-	public vec3 pointer;
-	
+
 
 	public boolean select;
 	public boolean molette;
@@ -51,6 +51,13 @@ public class R_Env {
 	public boolean auth_select_adj;
 	public bvec2 auth_select_mol;
 	public boolean auth_select_keep;
+
+
+	R_Env() {
+		bangbang_arr = new bvec2[6];
+	}
+	
+
 	
 
 

@@ -1,6 +1,6 @@
 /**
 * bvec class
-* v 2.1.0
+* v 2.1.1
 * 2015-2021
 * Vector with a boolean precision
 * @author @stanlepunk
@@ -20,9 +20,34 @@ public abstract class bvec extends Rope {
   /**
   * @return the number of components
   */
-	public int get_size() {
+	@Deprecated public int get_size() {
 		return this.size;
 	}
+
+  /**
+  * @return the number of components
+  */
+  public int size() {
+		return this.size;
+	}
+
+  public bvec get() {
+    return this;
+  }
+
+  public Boolean get(int index) {
+    if(index >= size)
+      return null;
+    switch(index) {
+      case 0: return x;
+      case 1: return y;
+      case 2: return z;
+      case 3: return w;
+      case 4: return e;
+      case 5: return f;
+      default : return null;
+    }
+  }
 
   /**
    * return single boolean component

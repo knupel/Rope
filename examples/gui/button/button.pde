@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.1
+* v 1.0.2
 */
 
 import rope.gui.button.R_Button;
@@ -31,7 +31,7 @@ void draw() {
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed, !keyPressed);
 	button_simple_draw();
-	State.reset_bang();
+	State.reset_event();
 }
 
 R_Button button ;

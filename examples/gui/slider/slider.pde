@@ -38,7 +38,7 @@ void draw() {
   }
   // println(State.event());
   // println(State.bang());
-  State.reset_bang();
+  State.reset_event();
 }
 
 R_Slider slider ;

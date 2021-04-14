@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.2.8
+* v 1.3.0
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -53,10 +53,14 @@ public class vec4 extends vec {
 	 * @return
 	 */
 	public vec4 set(float x, float y, float z, float w) {
-		this.x = this.s = x ;
-		this.y = this.t = y ;
-		this.z = this.p = z ;
-		this.w = this.q = w ;
+		this.x = x ;
+		this.y = y ;
+		this.z = z ;
+		this.w = w ;
+		// this.x = this.s = x ;
+		// this.y = this.t = y ;
+		// this.z = this.p = z ;
+		// this.w = this.q = w ;
 		return this ;
 	}
 	

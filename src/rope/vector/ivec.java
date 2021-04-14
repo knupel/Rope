@@ -11,21 +11,41 @@ import rope.core.Rope;
 public abstract class ivec extends Rope {
 	private int size;
 	public int x,y,z,w;
-	public int e,f; // for ivec5 and ivec6
-	public int s,t,p,q;
-	public int u,v;
-	
+	public int e,f; // for ivec5 and ivec6	
 
 	public ivec(int size) {
 		this.size = size;
 	}
 	
-	/**
-	 * @return the number of component
-	 */
-	public int get_size() {
+
+	@Deprecated public int get_size() {
 		return size;
 	}
+
+  /**
+	 * @return the number of component
+	 */
+  public int size() {
+		return size;
+	}
+
+  public ivec get() {
+    return this;
+  }
+
+  public Long get(int index) {
+    if(index >= size)
+      return null;
+    switch(index) {
+      case 0: return (long)x;
+      case 1: return (long)y;
+      case 2: return (long)z;
+      case 3: return (long)w;
+      case 4: return (long)e;
+      case 5: return (long)f;
+      default : return null;
+    }
+  }
 
 
     /**
@@ -169,27 +189,27 @@ public abstract class ivec extends Rope {
 	}
 
 	public int s() {
-		return s;
+		return x;
 	}
 
 	public int t() {
-		return t;
+		return y;
 	}
 
 	public int p() {
-		return p;
+		return z;
 	}
 
 	public int q() {
-		return q;
+		return w;
 	}
 
 	public int u() {
-		return u;
+		return x;
 	}
 
 	public int v() {
-		return v;
+		return y;
 	}
 
   // rgb

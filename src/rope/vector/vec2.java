@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.3.9
+ * v 1.4.0
  * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
@@ -51,8 +51,10 @@ public class vec2 extends vec {
 	 * @return
 	 */
 	public vec2 set(float x, float y) {
-		this.x = this.s = this.u = x;
-		this.y = this.t = this.v = y;
+		this.x = x;
+		this.y = y;
+		// this.x = this.s = this.u = x;
+		// this.y = this.t = this.v = y;
 		return this;
 	}
 

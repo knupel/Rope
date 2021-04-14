@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.3.8
+ * v 1.4.0
 * 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
@@ -54,9 +54,9 @@ public class vec3 extends vec {
 	 * @return
 	 */
 	public vec3 set(float x, float y, float z) {
-		this.x = this.s = x;
-		this.y = this.t = y;
-		this.z = this.p = z;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		return this;
 	}
 	
