@@ -1,19 +1,21 @@
 /**
 * GUI CROPE EXAMPLE 
 * Processing 3.5.4
-* Rope Library 0.12.1.41
 *
 * slider notch
 * 2021-2021
-* v 1.2.0
+* v 1.2.1
 */
 
 import rope.gui.slider.R_Slotch;
 import rope.R_State.State;
+import rope.core.Rope;
 
 int x = 30;
 int y = 40 ;
+Rope r = new Rope();
 void setup() {
+  println(r.VERSION);
   size(800,200);
   State.init(this);
   slotch_setup(x,y); 
@@ -67,5 +69,5 @@ void slotch_draw() {
   
   // notch is separator
   slotch.show_notch(-5,10);
-  println("value",slotch.get(0));
+  println("value",slotch.get());
 }

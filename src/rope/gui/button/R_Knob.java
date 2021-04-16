@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 1.1.0
+* v 1.1.1
 * 2019-2021
 */
 package rope.gui.button;
@@ -158,15 +158,15 @@ public class R_Knob extends R_Button {
       if(on_off_is) {
         if (is) {
           if (inside() && auth_rollover) {
-            c = color_out_ON; 
+            c = stroke_out_ON; 
           } else {
-            c = color_in_ON;
+            c = stroke_in_ON;
           }
         } else {
           if (inside() && auth_rollover) {
-            c = color_out_OFF; 
+            c = stroke_out_OFF; 
           } else {
-            c = color_in_OFF;
+            c = stroke_in_OFF;
           }
         }
         stroke(c);

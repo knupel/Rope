@@ -46,6 +46,10 @@ void multi_slider_draw() {
 	multi_slider.show_structure();
 	multi_slider.show_molette();
 	
+	println("get()", multi_slider.get());
+	println("get(int index)", multi_slider.get(0), multi_slider.get(1), multi_slider.get(2));
+	println("array values");
+	printArray(multi_slider.get_all());
 }
 
 

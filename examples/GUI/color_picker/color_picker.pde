@@ -103,5 +103,5 @@ float slider_draw() {
 	slider.show_structure();
 	slider.show_molette();
 	slider.show_label();
-	return slider.get(0);
+	return slider.get();
 }

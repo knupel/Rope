@@ -15,8 +15,10 @@ import rope.core.Rope;
 
 int x = 20 ;
 int y = 20 ;
+Rope r = new Rope();
 void setup() {
   size(400,200);
+  println(r.VERSION);
   State.init(this);
   dropdown_setup(x,y);
   
@@ -24,16 +26,17 @@ void setup() {
 
 
 void draw() {
-	background(30);
+	background(r.BLOOD);
   State.pointer(mouseX,mouseY);
-  State.event(mousePressed, keyPressed);
+  State.event(mousePressed);
+  // State.event(mousePressed, keyPressed);
 	dropdown_draw();
   State.reset_event();
 }
 
 
 
-
+ 
 /**
 dropdown
 */

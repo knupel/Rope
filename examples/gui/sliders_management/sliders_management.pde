@@ -4,15 +4,18 @@
 *
 * Multiple slider
 * 2021-2021
-* v 1.2.1
+* v 1.3.0
 */
 import rope.gui.slider.R_Slider;
 import rope.vector.vec2;
 import rope.R_State.State;
+import rope.core.Rope;
 
 int x = 20;
 int y = 50;
+Rope r = new Rope();
 void setup() {
+  println(r.VERSION);
   size(400,270);
   State.init(this);
   slider_setup(x,y);
@@ -29,6 +32,7 @@ void draw() {
   println("current crope dna", State.get_dna_current_crope());
   for(int i = 0 ; i < slider.length ; i++) {
     println("slider[i].get_rank()",slider[i].get_rank());
+     println("slider[i].get()",slider[i].get());
   }
 
   // slider
@@ -51,6 +55,7 @@ void slider_draw() {
     slider[i].update();
     slider[i].show_structure();
     slider[i].show_molette();
+    
   }
 }
   

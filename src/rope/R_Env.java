@@ -1,7 +1,7 @@
 /**
 * R_Env
 * Control ROmanesco Processing Environment
-* v 0.0.3
+* v 0.1.0
 * Copyleft (c) 2021-2021
 
 * dependencies
@@ -12,13 +12,15 @@
 package rope;
 
 import processing.core.PGraphics;
+import rope.core.R_Constants_Colour;
 import rope.vector.bvec2;
 import rope.vector.bvec6;
 import rope.vector.ivec2;
+import rope.vector.ivec4;
 import rope.vector.vec3;
 import rope.vector.vec4;
 
-public class R_Env {
+public class R_Env implements R_Constants_Colour {
 	private float x;
 	private float y;
 	private float z;
@@ -33,7 +35,7 @@ public class R_Env {
 	public boolean mouse_pressed;
 	public boolean key_pressed;
 	
-	//Control Rope
+	//Control Rope GUI
 	public ivec2 scroll;
 	public vec3 pointer;
 
@@ -43,6 +45,58 @@ public class R_Env {
 	public bvec6 bangbang;
 	public bvec6 event_mut;
 	public bvec6 event_ref;
+
+	// crope
+	public int gui_fill_in = GRAY[9];
+	public int gui_fill_out = GRAY[12];
+	public int gui_stroke_in = GRAY[9];
+	public int gui_stroke_out = GRAY[12];
+	public float gui_thickness = 0;
+	public ivec4 gui_rounded = new ivec4();
+	// label
+	public int gui_color_label_in = GRAY[6];
+  public int gui_color_label_out = GRAY[9];
+
+	// molette
+	public int gui_mol_fill_in = GRAY[3];
+	public int gui_mol_fill_out = GRAY[6];
+	public int gui_mol_stroke_in = GRAY[3];
+	public int gui_mol_stroke_out = GRAY[6];
+	public float gui_mol_thickness = 0;
+	// public ivec4 gui_mol_rounded = new ivec4();
+
+	//button
+	public int gui_but_fill_in_on = GREEN;
+	public int gui_but_fill_out_on = SAPIN;
+	public int gui_but_fill_in_off = RED;
+	public int gui_but_fill_out_off = BLOOD;
+
+	public int gui_but_stroke_in_on = GREEN;
+	public int gui_but_stroke_out_on = SAPIN;
+	public int gui_but_stroke_in_off = RED;
+	public int gui_but_stroke_out_off = BLOOD;
+	public float gui_but_thickness = 0;
+	// public ivec4 gui_but_rounded = new ivec4();
+
+	// dropdonw
+	public int gui_db_fill_struct = GRAY[4];
+  public int gui_db_fill_box_in = GRAY[12];
+  public int gui_db_fill_box_out = GRAY[18];
+  public int gui_db_fill_header_in = GRAY[12];
+  public int gui_db_fill_header_out = GRAY[18]; 
+  public int gui_db_fill_header_text_in = GRAY[4];
+  public int gui_db_fill_header_text_out = GRAY[8];
+  public int gui_db_fill_box_text_in = GRAY[4];
+  public int gui_db_fill_box_text_out = GRAY[8];
+
+		// board
+	public int gui_board_fill_in = GRAY[2];
+	public int gui_board_fill_out = GRAY[4];
+	public int gui_board_stroke_in = GRAY[2];
+	public int gui_board_stroke_out = GRAY[4];
+	public float gui_board_thickness = 0;
+	public ivec4 gui_board_rounded = new ivec4();
+
 
 
 	public boolean select;

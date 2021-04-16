@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 0.2.0
+* v 0.2.1
 * 2021-2021
 */
 
@@ -52,6 +52,10 @@ public class R_Rank {
 			return true;
 		}
 		return false;	
+	}
+
+	public int size() {
+		return list.size();
 	}
 
 	public float get() {

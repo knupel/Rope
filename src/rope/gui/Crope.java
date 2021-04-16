@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.2.0
+* v 1.3.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -39,16 +39,17 @@ abstract public class Crope extends R_Graphic {
   protected boolean event;
   protected boolean use_event_is = false;
   // color
-  protected int fill_in = GRAY[4];
-  protected int fill_out = GRAY[10];
-  protected int stroke_in = fill_in;
-  protected int stroke_out = fill_out;
-  protected float thickness = 0;
+  protected int fill_in = State.env().gui_fill_in;
+  protected int fill_out = State.env().gui_fill_out;
+  protected int stroke_in = State.env().gui_stroke_in;
+  protected int stroke_out = State.env().gui_stroke_out;
+  protected float thickness = State.env().gui_thickness;
   
-  protected int color_label_in = fill_in;
-  protected int color_label_out = fill_out;
+  protected int color_label_in = State.env().gui_color_label_in;
+  protected int color_label_out = State.env().gui_color_label_out;
 
-  protected float rounded = 0;
+  protected float rounded = State.env().gui_rounded.x();
+
   // label + info
   protected int align_label_name = LEFT;
   protected int align_label_value = LEFT;
@@ -101,6 +102,22 @@ abstract public class Crope extends R_Graphic {
   // need to do that that for the future class R_Board
   public void update() {}
   public void show_structure() {}
+
+  public float get() {
+    return Float.NaN;
+  }
+
+  public float get(int index) {
+    return Float.NaN;
+  }
+
+  public float [] get_all() {
+    return null;
+  }
+
+  // public float [] get_values() {
+  //   return null;
+  // }
   // public void show_value() {}
   // public void show_label() {}
 
@@ -255,6 +272,10 @@ abstract public class Crope extends R_Graphic {
   	return this;
   }
 
+  /**
+   * FILL
+   * 
+   * */
 
   public Crope set_fill(int c) {
     set_fill(c,c);
@@ -266,7 +287,25 @@ abstract public class Crope extends R_Graphic {
     this.fill_out = c_out;
     return this;
   }
+
+
+
+	protected void render_solid_color() {
+		render_solid_stroke();
+		if(inside(RECT)) {
+			fill(fill_in);
+		} else {
+			fill(fill_out);
+		}
+		rect(pos,size,rounded);
+	}
   
+
+  /**
+   * STROKE
+   * 
+   * */
+
   public Crope set_stroke(int c) {
     set_stroke(c,c);
     return this;
@@ -280,6 +319,30 @@ abstract public class Crope extends R_Graphic {
 
   public Crope set_thickness(float thickness) {
     this.thickness = thickness;
+    return this;
+  }
+
+
+  protected void render_solid_stroke() {
+		if(all(thickness > 0,alpha(stroke_in) > 0, alpha(stroke_out) > 0)) {
+			strokeWeight(thickness);
+			if(inside(RECT)) {
+				stroke(stroke_in);
+			} else {
+				stroke(stroke_out);
+			}
+		} else {
+			noStroke();
+		}
+	}
+
+  /**
+   * 
+   * ASPECT
+   */
+
+  public Crope set_rounded(float rounded) {
+    this.rounded = rounded;
     return this;
   }
 
@@ -298,7 +361,12 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
   
-  
+
+    /**
+   * 
+   * GRADIENT
+   */
+
 	protected void gradient_spectrum(vec2 pos, vec2 size, boolean vert_is) {
 		int ref_colorMode = State.env().cm();
 		vec4 ref_colorMode_xyza = State.env().cxyza();
@@ -340,10 +408,7 @@ abstract public class Crope extends R_Graphic {
 
 
 
-  public Crope set_rounded(float rounded) {
-    this.rounded = rounded;
-    return this;
-  }
+
 
   /**
    * 

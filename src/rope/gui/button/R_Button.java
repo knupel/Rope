@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.2.1
+* v 2.3.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -15,15 +15,21 @@ import rope.vector.bvec2;
 import rope.vector.vec2;
 
 public class R_Button extends Crope {
-  protected int color_bg = GRAY[2];
+  // protected int color_on_off = State.env().gui_but_fill_in_on;
 
-  protected int color_on_off = GRAY[10];
+  protected int fill_in_ON = State.env().gui_but_fill_in_on;
+  protected int fill_out_ON = State.env().gui_but_fill_out_on;
 
-  protected int color_in_ON = GRAY[10];
-  protected int color_out_ON = GRAY[18];
+  protected int fill_in_OFF = State.env().gui_but_fill_in_off;
+  protected int fill_out_OFF = State.env().gui_but_fill_out_off;
 
-  protected int color_in_OFF = fill_in;
-  protected int color_out_OFF = fill_out;
+  protected int stroke_in_ON = State.env().gui_but_stroke_in_on;
+  protected int stroke_out_ON = State.env().gui_but_stroke_out_on;
+
+  protected int stroke_in_OFF = State.env().gui_but_stroke_in_off;
+  protected int stroke_out_OFF = State.env().gui_but_stroke_out_off;
+
+
 
   protected PImage [] pic;
 
@@ -41,15 +47,18 @@ public class R_Button extends Crope {
 
   public R_Button(vec2 pos, vec2 size) {
     super("Button", pos, size);
+    set_thickness(State.env().gui_but_thickness);
   }
 
   public R_Button(String type, float x, float y, float sx, float sy) {
     super(type, x, y, sx, sy);
+    set_thickness(State.env().gui_but_thickness);
   }
 
 
   public R_Button(float x, float y, float sx, float sy) {
     super("Button", x, y, sx, sy);
+    set_thickness(State.env().gui_but_thickness);
   }
 
   public void set_kind(int kind) {
@@ -70,27 +79,48 @@ public class R_Button extends Crope {
   }
   
 
-  public R_Button set_colour_in_on(int c) {
-    this.color_in_ON = c;
+  public R_Button set_fill_in_on(int c) {
+    this.fill_in_ON = c;
     return this;
   }
 
-  public R_Button set_colour_out_on(int c) {
-    this.color_out_ON = c;
+  public R_Button set_fill_out_on(int c) {
+    this.fill_out_ON = c;
+    return this;
+  }
+
+  public R_Button set_fill_in_off(int c) {
+    this.fill_in_OFF = c;
     return this;
   }
 
 
-  public R_Button set_colour_in_off(int c) {
-    this.color_in_OFF = c;
+  public R_Button set_fill_out_off(int c) {
+    this.fill_out_OFF = c;
+    return this;
+  }
+
+    public R_Button set_stroke_in_on(int c) {
+    this.stroke_in_ON = c;
+    return this;
+  }
+
+  public R_Button set_stroke_out_on(int c) {
+    this.stroke_out_ON = c;
+    return this;
+  }
+
+  public R_Button set_stroke_in_off(int c) {
+    this.stroke_in_OFF = c;
     return this;
   }
 
 
-  public R_Button set_colour_out_off(int c) {
-    this.color_out_OFF = c;
+  public R_Button set_stroke_out_off(int c) {
+    this.stroke_out_OFF = c;
     return this;
   }
+
   
 
   public float get() {
@@ -155,15 +185,15 @@ public class R_Button extends Crope {
   
   // SHOW
   public void show_structure() {
-    show(true);
+    show();
   }
 
-  public void show(boolean on_off_is) {
+  public void show() {
     if(this.kind == RECT) {
-      aspect(on_off_is);
+      aspect();
       rect(new vec2(pos), new vec2(size));
     } else if(this.kind == ELLIPSE) {
-      aspect(on_off_is);
+      aspect();
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
       ellipse(final_pos,final_size);
@@ -208,17 +238,13 @@ public class R_Button extends Crope {
     }
   }
 
-  @Deprecated public void show() {
-    show(ELLIPSE,true);
-  }
-
   @Deprecated public void show(int kind, boolean on_off_is) {
     this.kind = kind;
     if(this.kind == RECT) {
-      aspect(on_off_is);
+      aspect();
       rect(new vec2(pos), new vec2(size));
     } else if(this.kind == ELLIPSE) {
-      aspect(on_off_is);
+      aspect();
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
       ellipse(final_pos,final_size);
@@ -238,26 +264,41 @@ public class R_Button extends Crope {
     show_value(get());
   }
 
-  private void aspect(boolean on_off_is) {
-    noStroke();
-    if(on_off_is) {
+  private void aspect() {
+    if(thickness <= 0) {
+      noStroke();
       if (is) {
         if (inside() && auth_rollover) {
-          color_on_off = color_in_ON; 
+          fill(fill_in_ON); 
         } else {
-          color_on_off = color_out_ON;
+          fill(fill_out_ON);
         }
       } else {
         if (inside() && auth_rollover) {
-          color_on_off = color_in_OFF; 
+          fill(fill_in_OFF); 
         } else {
-          color_on_off = color_out_OFF;
+          fill(fill_out_OFF);
         }
       }
-      fill(color_on_off);
     } else {
-      fill(color_bg);
-    }  
+      if (is) {
+        if (inside() && auth_rollover) {
+          fill(fill_in_ON);
+          stroke(stroke_in_ON); 
+        } else {
+          fill(fill_out_ON);
+          stroke(stroke_out_ON); 
+        }
+      } else {
+        if (inside() && auth_rollover) {
+          fill(fill_in_OFF);
+          stroke(stroke_in_OFF); 
+        } else {
+          fill(fill_out_OFF);
+          stroke(stroke_out_OFF);
+        }
+      }
+    }
   }
 }
 

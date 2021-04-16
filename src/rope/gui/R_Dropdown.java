@@ -30,19 +30,19 @@ public class R_Dropdown extends Crope implements R_GUI {
   private boolean slider;
   // private boolean inside_box;
   // color
-  private int colour_structure =GRAY[4];
+  private int colour_structure = State.env().gui_db_fill_struct;
 
-  private int colour_box_in = GRAY[12];
-  private int colour_box_out = GRAY[18];
+  private int colour_box_in = State.env().gui_db_fill_box_in;
+  private int colour_box_out = State.env().gui_db_fill_box_out;
 
-  private int colour_header_in = GRAY[12];
-  private int colour_header_out = GRAY[18]; 
+  private int colour_header_in = State.env().gui_db_fill_header_in;
+  private int colour_header_out = State.env().gui_db_fill_header_out; 
 
-  private int colour_header_text_in = GRAY[4];
-  private int colour_header_text_out = GRAY[8];
+  private int colour_header_text_in = State.env().gui_db_fill_header_text_in;
+  private int colour_header_text_out = State.env().gui_db_fill_header_text_out;
 
-  private int colour_box_text_in = GRAY[4];
-  private int colour_box_text_out = GRAY[8];
+  private int colour_box_text_in = State.env().gui_db_fill_box_text_in;
+  private int colour_box_text_out = State.env().gui_db_fill_box_text_out;
 
 
   private vec2 pos_header_text;
@@ -189,9 +189,9 @@ public class R_Dropdown extends Crope implements R_GUI {
   // content
   public R_Dropdown set_content(String... content) {
   	set_box(content.length);
-    boolean new_slider = false ;
+    boolean new_slider = false;
     if(this.content == null || this.content.length != content.length) {
-      new_slider = true ;
+      new_slider = true;
     }
    
     this.content = content;
@@ -383,13 +383,8 @@ public class R_Dropdown extends Crope implements R_GUI {
       set_box_width(longest_String_pixel(font_box,this.content));
  
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {  
-        if(i < 0) {
-          i = 0;
-        }
-
-        if(i >= content.length) {
-          i = content.length -1;
-        }
+        if(i < 0) i = 0;
+        if(i >= content.length) i = content.length -1;
         
         float pos_temp_y = pos.y() + (size_box.y() *step);
         vec2 temp_pos = new vec2(pos.x(), pos_temp_y);

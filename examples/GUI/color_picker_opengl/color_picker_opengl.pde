@@ -12,7 +12,7 @@
 * Color Picker without openGL
 * Processing 3.5.4
 * Rope library 0.12.1.41
-* v 0.2.1
+* v 0.2.2
 * 2021-2021
 */
 import rope.gui.palette.R_Palette;
@@ -105,5 +105,5 @@ float slider_draw() {
 	slider.show_structure();
 	slider.show_molette();
 	slider.show_label();
-	return slider.get(0);
+	return slider.get();
 }

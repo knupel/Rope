@@ -73,6 +73,10 @@ public class R_Slotch extends R_Slider {
 		return notches_num;
 	}
 
+	public float get() {
+		return get(0);
+	}
+
 	public float get(int index) {
 		float value = 0;
 		if(molette != null && index < molette.length 
@@ -93,7 +97,7 @@ public class R_Slotch extends R_Slider {
 		return value;
 	}
 
-	public float [] get() {
+	public float [] get_all() {
 		int num = 1;
 		if(molette != null) {
 			num = molette.length;

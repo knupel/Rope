@@ -1,10 +1,9 @@
 /**
 * GUI CROPE EXAMPLE
 * Processing 3.5.4
-* Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.2
+* v 1.0.3
 */
 
 import rope.gui.button.R_Button;
@@ -16,11 +15,11 @@ import rope.core.Rope;
 /**
 * Simple button
 */
-Rope r;
+Rope r = new Rope();
 int x = 60;
 int y = 60 ;
 void setup() {
-	r = new Rope();
+	r.print_out(r.VERSION);
   size(160,160);
   State.init(this);
   button_simple_setup(x,y);
@@ -38,10 +37,10 @@ R_Button button ;
 void button_simple_setup(int x, int y) {
 	button = new R_Button(new vec2(x,y), new vec2(50));
 	button.is(true);
-	button.set_colour_in_on(r.GREEN);
-	button.set_colour_out_on(r.SAPIN);
-	button.set_colour_in_off(r.RED);
-	button.set_colour_out_off(r.BLOOD);
+	// button.set_colour_in_on(r.GREEN);
+	// button.set_colour_out_on(r.SAPIN);
+	// button.set_colour_in_off(r.RED);
+	// button.set_colour_out_off(r.BLOOD);
 	button.set_label("Hello World");
 }
 

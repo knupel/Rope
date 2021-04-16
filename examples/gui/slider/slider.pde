@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.0.2
+* v 1.2.0
 * slider classic
 */
 import rope.gui.slider.R_Slider;
@@ -30,14 +30,7 @@ void draw() {
 
   // slider
   slider_draw();
-  // if(r.any(State.event().array())) {
-  //   println("any event", frameCount);
-  // }
-  if(r.any(State.bang().array())) {
-    println("any BANG BANG", frameCount);
-  }
-  // println(State.event());
-  // println(State.bang());
+
   State.reset_event();
 }
 
@@ -65,5 +58,8 @@ void slider_draw() {
     // display the normal array value return by the slider
     slider.show_value(); 
   }
+
+  // for the simple slider the index is "zero"
+  r.print_tempo(30,"get():", slider.get());
 }
   

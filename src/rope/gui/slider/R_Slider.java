@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.3.0
+* v 1.4.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -25,14 +25,14 @@ public class R_Slider extends Crope implements R_GUI {
 	protected vec2 pos_min;
 	protected vec2 pos_max;
 
-	protected int fill_molette_in = color(State.env().cx() * 0.4f);
-	protected int fill_molette_out = color(State.env().cx() * 0.2f);
-	protected int stroke_molette_in = fill_molette_in;
-	protected int stroke_molette_out = fill_molette_out;
-	protected float thickness_molette = 0;
+	protected int fill_molette_in = State.env().gui_mol_fill_in;
+	protected int fill_molette_out = State.env().gui_mol_fill_out;
+	protected int stroke_molette_in = State.env().gui_mol_stroke_in;
+	protected int stroke_molette_out = State.env().gui_mol_stroke_out;
+	protected float thickness_molette = State.env().gui_mol_thickness;
 
-	protected float min_norm = 0 ;
-	protected float max_norm = 1 ;
+	protected float min_norm = 0;
+	protected float max_norm = 1;
 
 	protected int molette_type = RECT;
 
@@ -218,16 +218,8 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 	// GET
-	public float [] get() {
-		int num = 1;
-		if(molette != null) {
-			num = molette.length;
-		}
-		float [] value_array = new float[num];
-		for(int i = 0 ; i < value_array.length ; i++) {
-			value_array[i] = get(i);
-		}
-		return value_array;
+	public float get() {
+		return get(0);
 	}
 
 	public float get(int index) {
@@ -245,8 +237,16 @@ public class R_Slider extends Crope implements R_GUI {
 		return value;
 	}
 
-	private boolean wheel_is() {
-		return wheel_is;
+		public float [] get_all() {
+		int num = 1;
+		if(molette != null) {
+			num = molette.length;
+		}
+		float [] value_array = new float[num];
+		for(int i = 0 ; i < value_array.length ; i++) {
+			value_array[i] = get(i);
+		}
+		return value_array;
 	}
 
 	public float get_min_norm() {
@@ -273,7 +273,9 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 
-
+	private boolean wheel_is() {
+		return wheel_is;
+	}
 
 
 
@@ -334,28 +336,28 @@ public class R_Slider extends Crope implements R_GUI {
 		rect(pos,size,rounded);
 	}
 
-	private void render_solid_stroke() {
-		if(all(thickness > 0,alpha(stroke_in) > 0, alpha(stroke_out) > 0)) {
-			strokeWeight(thickness);
-			if(inside(RECT)) {
-				stroke(stroke_in);
-			} else {
-				stroke(stroke_out);
-			}
-		} else {
-			noStroke();
-		}
-	}
+	// private void render_solid_stroke() {
+	// 	if(all(thickness > 0,alpha(stroke_in) > 0, alpha(stroke_out) > 0)) {
+	// 		strokeWeight(thickness);
+	// 		if(inside(RECT)) {
+	// 			stroke(stroke_in);
+	// 		} else {
+	// 			stroke(stroke_out);
+	// 		}
+	// 	} else {
+	// 		noStroke();
+	// 	}
+	// }
 
-	private void render_solid_color() {
-		render_solid_stroke();
-			if(inside(RECT)) {
-			fill(fill_in);
-		} else {
-			fill(fill_out);
-		}
-		rect(pos,size,rounded);
-	}
+	// private void render_solid_color() {
+	// 	render_solid_stroke();
+	// 	if(inside(RECT)) {
+	// 		fill(fill_in);
+	// 	} else {
+	// 		fill(fill_out);
+	// 	}
+	// 	rect(pos,size,rounded);
+	// }
 
 
 

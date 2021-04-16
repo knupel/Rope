@@ -1,4 +1,6 @@
-\*version 0.12.3.43
+\*version 45
+
+\*version 44
 
 > add function to manage the opengl Crope rendering to make palette and gradient slider.
 > add other function to manage rounded rect with vec parameter.
@@ -20,6 +22,8 @@
 > add get function for vector
 > remove component stsq and uv, now the acces of this value pass by function
 > add to vector function size and deprecated get_size()
+> add function size() to class R_Rank
+> add class R_Board to gui package
 
 \*version 0.12.0.41
 
