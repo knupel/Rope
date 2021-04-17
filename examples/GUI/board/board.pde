@@ -19,24 +19,27 @@ void setup() {
   r.print_out(r.VERSION);
   size(800,800);
   State.init(this);
-  vec2 pos = new vec2(10);
-  vec2 size = new vec2(200,200);
+  vec2 pos = new vec2(10,10);
+  vec2 size = new vec2(200,400);
   int marge = 20;
   boolean vert_is = true;
   b1 = new R_Board(pos, size, vert_is);
   b1.set_marge(marge);
   b1.set_rounded(20);
-
-  b2 = new R_Board(pos.add_x(size.x() + marge), size, vert_is);
-  b2.set_marge(marge);
-
-  
   float step = 3;
   vec2 size_button = new vec2(20);
   b1.add_button(size_button, step, "machin", "truc", "bidule", "bidule");
+  b1.set_value(0, "machin", 1);
   vec2 size_slider = new vec2(100,10);
   step = 5;
   b1.add_slider(size_slider, step,  "surf", "ski", "planche");
+  b1.set_value(5, "ski", 0.5);
+
+
+  pos.set(250,300);
+  size.set(200,200);
+  b2 = new R_Board(pos, size, vert_is);
+  b2.set_marge(marge);
   b2.add_slider(size_slider, step,  "choucroute", "moule frite", "paëla");
 
   b1.print_pairs();
@@ -63,22 +66,51 @@ void draw() {
   b2.show_molette();
   b2.show_value();
   
-  get_values();
+  // get_values();
   
   State.reset_event();
 
 }
 
 /**
+*
+* set value of your controller
+* 
+* R_Board set_value(String name, float... pos_norm);
+* R_Board set_value(int index_crope, String name, float... pos_norm); // faster, no loop checking
+*/
+
+/**
 * get values function
 *
-* float get(int index_crope);
+* float get(int index_crope); // faster, no loop checking, return the fist value of your targeting controller
 * float get(String name);
 * float get(String name, int index_value);
-* float get(int index_crope, String name, int index_value);
-* float get(int index_crope, String name);
-* float float [] get_all(int index_crope);
-* float [] get_all(int index, String name);
+* float get(int index_crope, String name, int index_value); // faster, no loop checking
+* float get(int index_crope, String name); // faster, no loop checking
+*
+* float [] get_all(String name); // stop to the first occurence match with this name
+* float float [] get_all(int index_crope); // faster, no loop checking
+* float [] get_all(int index_crope, String name); // faster, no loop checking
+*
+* boolean is(int index_crope); // faster, no loop checking
+* boolean is(String name);
+* boolean is(int index_crope, String name); // faster, no loop checking
+*/
+
+  /**
+  * returns the first occurrence that matches
+  */
+  public boolean is(String name) {
+    for(Crope c : list) {
+      if(c instanceof R_Button && c.get_name() == name) {
+        return ((R_Button)c).is();
+      }
+    }
+    return false;
+  }
+
+  public boolean is(int index_crope, String name)
 */
 void get_values() {
   // loop in the list until find the first occurrence that matches with the string wish

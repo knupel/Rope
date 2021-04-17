@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 0.1.0
+* v 0.2.0
 * 2021-2021
 */
 
@@ -29,6 +29,7 @@ public class R_Board extends Crope {
 
   public R_Board (vec2 pos, vec2 size, boolean vert_is) {
     super("Board", pos, size);
+    print_out("Board position", pos);
     list = new ArrayList<Crope>();
     list_key = new HashMap<Integer, String>();
     rank[0] = new R_Rank();
@@ -38,9 +39,14 @@ public class R_Board extends Crope {
     this.vert_is = vert_is;
   }
 
+
+  public R_Board set_marge(int marge) {
+    this.marge = marge;
+    return this;
+  }
+
   private vec2 rank_pos(vec2 size_elem, float step) {
     vec2 buf = this.pos.copy();
-    // vec2 buf = this.pos.copy().add(marge).add_y(100);
     vec2 offset = new vec2(marge).sub_y(size_elem.y());
     float temp_step = step;
     if(rank[0].size() == 1) {
@@ -50,8 +56,9 @@ public class R_Board extends Crope {
       buf.x((size_elem.x() * temp_step) + rank[0].get());
       rank[0].add(buf.x());
     } else {
-      buf.y((size_elem.y() * temp_step) + rank[0].get());
-      rank[0].add(buf.y());
+      float relative_pos_y = (size_elem.y() * temp_step) + rank[0].get();
+      buf.add_y(relative_pos_y);
+      rank[0].add(relative_pos_y);
     }
     return buf.add(offset);
   }
@@ -76,14 +83,9 @@ public class R_Board extends Crope {
 
 
 
-  public void print_pairs() {
-    Iterator iter = list_key.keySet().iterator();
-    while(iter.hasNext()) {
-      int id = (int)iter.next();
-      String name = list_key.get(id);
-      print_out("key:", id, "| value:", name);
-    }
-  }
+
+
+
 
   public void update() {
     for(Crope c : list) {
@@ -94,10 +96,11 @@ public class R_Board extends Crope {
     }
   }
 
-  public R_Board set_marge(int marge) {
-    this.marge = marge;
-    return this;
-  }
+
+
+  /**
+   *  SHOW
+   */
 
   public void show_board() {
     render_solid_color();
@@ -131,6 +134,10 @@ public class R_Board extends Crope {
   }
 
 
+  /**
+   * INFO
+   */
+
   private void to_list_key() {
     int index = 0;
     list_key.clear();
@@ -147,8 +154,52 @@ public class R_Board extends Crope {
     return null;
   }
 
+
+  public void print_pairs() {
+    Iterator iter = list_key.keySet().iterator();
+    while(iter.hasNext()) {
+      int id = (int)iter.next();
+      String name = list_key.get(id);
+      print_out("key:", id, "| value:", name);
+    }
+  }
+
+
+
+
   /**
-  * GET VALUES
+   * SET VALUE
+   */
+
+  public R_Board set_value(String name, float... pos_norm) {
+    for(Crope c : list) {
+      set_value_impl(c, pos_norm);
+    }
+		return this;
+	}
+
+  public R_Board set_value(int index_crope, String name, float... pos_norm) {
+    if(all(index_crope >= 0, index_crope < list.size())) {
+      Crope c = list.get(index_crope);
+      if(c.get_name() == name) {
+        set_value_impl(c, pos_norm);
+      }
+    }
+    return this;
+  }
+
+  private void set_value_impl(Crope c, float... pos_norm) {
+    if(c instanceof R_Slider) {
+      ((R_Slider)c).set_value(pos_norm);
+    }
+    if(c instanceof R_Button) {
+      ((R_Button)c).set_value(pos_norm[0]);
+    }
+  }
+
+
+  /**
+  * GET VALUES FLOAT
   */
 
   public float get(int index_crope) {
@@ -189,6 +240,18 @@ public class R_Board extends Crope {
     return get(index_crope, name, 0);
   }
 
+  /**
+  * GET ALL VALUES FLOAT
+  */
+  public float [] get_all(String name) {
+    for(Crope c : list) {
+      if(c.get_name() == name) {
+        return c.get_all();
+      }
+    }
+    return null;
+  }
+
   public  float [] get_all(int index_crope) {
     if(index_crope >= 0 && index_crope < list.size()) {
       return list.get(index_crope).get_all();
@@ -196,13 +259,50 @@ public class R_Board extends Crope {
     return null;
   }
 
-  public float [] get_all(int index, String name) {
-    if(all(index >= 0, index < list.size())) {
-      if(list.get(index).get_name() == name) {
-        return list.get(index).get_all();
+  public float [] get_all(int index_crope, String name) {
+    if(all(index_crope >= 0, index_crope < list.size())) {
+      if(list.get(index_crope).get_name() == name) {
+        return list.get(index_crope).get_all();
       }
       return null;
     }
     return null;
+  }
+
+
+  /**
+  * GET VALUES BOOLEAN
+  */
+
+  public boolean is(int index_crope) {
+    if(index_crope >= 0 && index_crope < list.size()) {
+      Crope c = list.get(index_crope);
+      if(c instanceof R_Button) {
+        return ((R_Button)c).is();
+      }  
+    }
+    return false;
+  }
+
+  /**
+  * returns the first occurrence that matches
+  */
+  public boolean is(String name) {
+    for(Crope c : list) {
+      if(c instanceof R_Button && c.get_name() == name) {
+        return ((R_Button)c).is();
+      }
+    }
+    return false;
+  }
+
+  public boolean is(int index_crope, String name) {
+    if(all(index_crope >= 0, index_crope < list.size())) {
+      Crope c = list.get(index_crope);
+      if(c instanceof R_Button && c.get_name() == name ) {
+        return ((R_Button)c).is();
+      }
+    }
+    return false;
   }
 } 

@@ -43,7 +43,7 @@ public class R_Knob extends R_Button {
 
 
   // set size
-    public R_Knob set_value(float pos_norm) {
+  public R_Knob set_value(float pos_norm) {
     float v = map(pos_norm,0,1,0,TAU);
     v = constrain_value(v);
     molette.angle(v);

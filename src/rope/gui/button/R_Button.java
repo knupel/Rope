@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.3.0
+* v 2.4.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -37,6 +37,7 @@ public class R_Button extends Crope {
   protected bvec2 bangbang = new bvec2(false);
   protected boolean auth_rollover;
   protected boolean is = false;  
+  protected float value;
 
   public vec2 offset;
 
@@ -65,17 +66,61 @@ public class R_Button extends Crope {
     this.kind = kind;
   }
 
+  /**
+   * SET VALUE
+   */
+
+  /**
+   * 
+   * @param is
+   * @return
+   */
+  public R_Button set_value(boolean is) {
+    this.value = is ? 1 : 0;
+    this.is = is;
+    return this;
+  }
+
+  public R_Button set_value(float value) {
+    this.value = value;
+    if(value == 0) {
+      this.is = false;
+    } else {
+      this.is = true;
+    }
+    return this;
+  }
+
 
   public void is(boolean is) {
+    if(is) {
+      this.value = 1;
+    } else {
+      this.value = 0;
+    }
     this.is = is;
   }
 
   public void switch_is() {
     this.is = !this.is;
+    if(this.is) {
+      this.value = 1;
+    } else {
+      this.value = 0;
+    }
   }
   
+  /**
+   * GET VALUE
+   * 
+   */
+
   public boolean is() {
     return this.is;
+  }
+
+  public float get() {
+    return this.value;
   }
   
 
@@ -123,10 +168,7 @@ public class R_Button extends Crope {
 
   
 
-  public float get() {
-    if(is) return 1;
-    else return 0;
-  }
+
 
 
   public void update() {
