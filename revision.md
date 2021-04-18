@@ -3,6 +3,7 @@
 > function boolean is() to R_Board
 > fix bug R_Board for vertical position
 > add to R_Button a float value, not just a boolean is, that's can be boog for the future to modulate by a conitunues click on it.
+> add to R_Board, function add_slotch(), add_knob()
 
 \*version 44
 

@@ -37,19 +37,22 @@ void setup() {
 
 
   pos.set(250,300);
-  size.set(200,200);
+  size.set(200,250);
   b2 = new R_Board(pos, size, vert_is);
   b2.set_marge(marge);
   b2.add_slider(size_slider, step,  "choucroute", "moule frite", "paëla");
+  step = 1.3;
+  b2.add_knob(size_button.x()*3, step,  "potar");
 
-  b1.print_pairs();
+  b2.print();
   println("board.get_name(3)",b1.get_name(3));
   
 }
 
 
 void draw() {
-  background(255);
+  colorMode(HSB,TAU,1,1,1);
+  background(b2.get(3,"potar"),1,1);
   State.pointer(mouseX,mouseY);
   State.event(mousePressed, !keyPressed);
   b1.update();
@@ -67,6 +70,7 @@ void draw() {
   b2.show_value();
   
   // get_values();
+
   
   State.reset_event();
 
@@ -98,20 +102,6 @@ void draw() {
 * boolean is(int index_crope, String name); // faster, no loop checking
 */
 
-  /**
-  * returns the first occurrence that matches
-  */
-  public boolean is(String name) {
-    for(Crope c : list) {
-      if(c instanceof R_Button && c.get_name() == name) {
-        return ((R_Button)c).is();
-      }
-    }
-    return false;
-  }
-
-  public boolean is(int index_crope, String name)
-*/
 void get_values() {
   // loop in the list until find the first occurrence that matches with the string wish
   int index_value = 0;

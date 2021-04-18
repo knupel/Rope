@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 1.1.1
+* v 1.1.2
 * 2019-2021
 */
 package rope.gui.button;
@@ -21,7 +21,7 @@ public class R_Knob extends R_Button {
 
   private float angle_min = PI -(PI/4);
   private float angle_max = PI/4;
-  private int drag_direction = HORIZONTAL;
+  private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
   private vec2 size_limit = new vec2(-3,3);
   
@@ -137,6 +137,13 @@ public class R_Knob extends R_Button {
 
 
   // get
+  /**
+   * for the future when there is more molette
+   */
+  public float get(int index) {
+    return molette.angle();
+  }
+
   public float get() {
     return molette.angle();
   }

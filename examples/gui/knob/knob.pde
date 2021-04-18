@@ -39,6 +39,11 @@ void set_knob(int x, int y) {
 	knob.set_rollover_type(RECT);
 	knob.set_molette(RECT);
 	knob.set_size_molette(20,10);
+	knob.set_distance_molette(knob.size().x()*.5);
+	// knob.set_drag(r.CIRCULAR); // by default
+	//knob.set_drag(r.VERTICAL);
+	// knob.set_drag(r.HORIZONTAL); 
+
 	// knob.set_size_limit(-10,5);
 	knob.set_value(0.5);
 
@@ -46,11 +51,6 @@ void set_knob(int x, int y) {
 	// knob.limit(); // use default value range
 	knob.set_range(PI,HALF_PI);
 
-	// colour button
-	knob.set_colour_in_on(r.GREEN);
-	knob.set_colour_out_on(r.SAPIN);
-	knob.set_colour_in_off(r.RED);
-	knob.set_colour_out_off(r.BLOOD);
 	// colour molette
 	knob.set_align_label_name(LEFT);
 	knob.set_align_label_value(RIGHT);
@@ -58,10 +58,8 @@ void set_knob(int x, int y) {
 	float pos_info = 25;
 	// knob.set_pos_label(pos_info-5,20);
 	// knob.set_pos_value(pos_info+5,20);
-	knob.set_distance_molette(knob.size().x()*.5);
-	knob.set_drag(r.CIRCULAR); // by default
-	//knob.set_drag(r.VERTICAL);
-	// knob.set_drag(r.HORIZONTAL);
+	
+
 	knob.set_drag_force(0.05);
 
 }

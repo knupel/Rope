@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 0.2.0
+* v 0.3.0
 * 2021-2021
 */
 
@@ -17,7 +17,9 @@ import rope.R_State.State;
 import rope.tool.R_Rank;
 import rope.vector.vec2;
 import rope.gui.button.R_Button;
+import rope.gui.button.R_Knob;
 import rope.gui.slider.R_Slider;
+import rope.gui.slider.R_Slotch;
 
 public class R_Board extends Crope {
   private HashMap<Integer, String> list_key;
@@ -27,7 +29,7 @@ public class R_Board extends Crope {
   private int marge = 12; // like in indesign default marge :)
   
 
-  public R_Board (vec2 pos, vec2 size, boolean vert_is) {
+  public R_Board(vec2 pos, vec2 size, boolean vert_is) {
     super("Board", pos, size);
     print_out("Board position", pos);
     list = new ArrayList<Crope>();
@@ -43,6 +45,10 @@ public class R_Board extends Crope {
   public R_Board set_marge(int marge) {
     this.marge = marge;
     return this;
+  }
+
+  private vec2 rank_pos(float size_elem, float step) {
+    return rank_pos(new vec2( size_elem), step);
   }
 
   private vec2 rank_pos(vec2 size_elem, float step) {
@@ -63,6 +69,12 @@ public class R_Board extends Crope {
     return buf.add(offset);
   }
 
+  /**
+   * 
+   * @param size_elem
+   * @param step
+   * @param label
+   */
   public void add_button(vec2 size_elem, float step, String... label) {
     for(int i = 0 ; i < label.length ; i++) {
       R_Button b = new R_Button(rank_pos(size_elem, step), size_elem);
@@ -72,6 +84,31 @@ public class R_Board extends Crope {
     to_list_key();
   }
 
+  /**
+   * 
+   * @param radius
+   * @param step
+   * @param label
+   */
+  public void add_knob(float size, float step, String... label) {
+    for(int i = 0 ; i < label.length ; i++) {
+      R_Knob k = new R_Knob(rank_pos(size, step), size);
+      k.set_label(label[i]);
+	    k.set_size_molette(size *0.33f, size *0.33f);
+	    k.set_distance_molette(k.size().x() *0.5f);
+      k.set_fill_molette(GRAY[11],GRAY[8]);
+      k.set_fill_molette(GRAY[11],GRAY[8]);
+      list.add(k);
+    }
+    to_list_key();
+  }
+
+  /**
+   * 
+   * @param size_elem
+   * @param step
+   * @param label
+   */
   public void add_slider(vec2 size_elem, float step, String... label) {
     for(int i = 0 ; i < label.length ; i++) {
       R_Slider s = new R_Slider(rank_pos(size_elem, step), size_elem);
@@ -80,6 +117,24 @@ public class R_Board extends Crope {
     }
     to_list_key();
   }
+
+  /**
+   * 
+   * @param size_elem
+   * @param num
+   * @param step
+   * @param label
+   */
+  public void add_slotch(vec2 size_elem, int num, float step, String... label) {
+    for(int i = 0 ; i < label.length ; i++) {
+      R_Slotch s = new R_Slotch(rank_pos(size_elem, step), size_elem, num);
+      s.set_label(label[i]);
+      list.add(s);
+    }
+    to_list_key();
+  }
+
+
 
 
 
@@ -118,6 +173,12 @@ public class R_Board extends Crope {
       if(c instanceof R_Slider) {
         ((R_Slider)c).show_molette();
       }
+      if(c instanceof R_Knob) {
+        ((R_Knob)c).show_molette();
+      }
+      if(c instanceof R_Slotch) {
+        ((R_Slotch)c).show_molette();
+      }
     }
   }
 
@@ -155,7 +216,7 @@ public class R_Board extends Crope {
   }
 
 
-  public void print_pairs() {
+  public void print() {
     Iterator iter = list_key.keySet().iterator();
     while(iter.hasNext()) {
       int id = (int)iter.next();
@@ -209,6 +270,10 @@ public class R_Board extends Crope {
     return Float.NaN;
   }
 
+  public float get(int index_crope, String name) {
+    return get(index_crope, name, 0);
+  }
+
   public float get(String name) {
     return get(name, 0);
   }
@@ -228,17 +293,17 @@ public class R_Board extends Crope {
 
   public float get(int index_crope, String name, int index_value) {
     if(all(index_crope >= 0, index_crope < list.size())) {
-      if(list.get(index_crope).get_name() == name) {
-        return list.get(index_crope).get(index_value);
+       Crope c = list.get(index_crope);
+      if(c.get_name() == name) {
+        return c.get(index_value);
       }
+      print_err_tempo(30,"R_Board.is() ",index_crope , "don't match with", name, "the function find", c.get_name() );
       return Float.NaN;
     }
     return Float.NaN;
   }
 
-  public float get(int index_crope, String name) {
-    return get(index_crope, name, 0);
-  }
+
 
   /**
   * GET ALL VALUES FLOAT
@@ -261,9 +326,11 @@ public class R_Board extends Crope {
 
   public float [] get_all(int index_crope, String name) {
     if(all(index_crope >= 0, index_crope < list.size())) {
-      if(list.get(index_crope).get_name() == name) {
-        return list.get(index_crope).get_all();
+      Crope c = list.get(index_crope);
+      if(c.get_name() == name) {
+        return c.get_all();
       }
+      print_err_tempo(30,"R_Board.get_all() ",index_crope , "don't match with", name, "the function find", c.get_name() );
       return null;
     }
     return null;
@@ -302,6 +369,9 @@ public class R_Board extends Crope {
       if(c instanceof R_Button && c.get_name() == name ) {
         return ((R_Button)c).is();
       }
+      print_err_tempo(30,"R_Board.is() ",index_crope , "don't match with", name, "the function find", c.get_name() );
+      return false;
+
     }
     return false;
   }
