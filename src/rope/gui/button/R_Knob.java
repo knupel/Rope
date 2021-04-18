@@ -201,6 +201,13 @@ public class R_Knob extends R_Button {
     molette.show();
   }
 
+  public void show_struct_pie() {
+    aspect_impl(true);
+    vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
+    arc(buf_pos,size,0,molette.angle(),PIE);
+  }
+
+
 
 
   // misc

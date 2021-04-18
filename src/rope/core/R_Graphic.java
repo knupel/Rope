@@ -1,6 +1,6 @@
 /**
 * R_Graphic class
-* v 0.5.0
+* v 0.6.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -464,7 +464,33 @@ public class R_Graphic extends BigBang {
   }
 
 
+	/** anc
+	 * 
+	 */
 
+	public void arc(vec2 pos, vec2 size, float start, float stop) {
+		arc(pos.x(), pos.y(), size.x(), size.y(), start, stop);
+	}
+
+	public void arc(vec2 pos, vec2 size, float start, float stop, int mode) {
+		arc(pos.x(), pos.y(), size.x(), size.y(), start, stop, mode);
+	}
+
+	public void arc(float px, float py, float sx, float sy, float start, float stop) {
+		if(other != null) {
+			other.arc(px,py, sx,sy, start,stop);
+		} else {
+			this.pa.g.arc(px,py, sx,sy, start,stop);
+		}
+	}
+
+	public void arc(float px, float py, float sx, float sy, float start, float stop, int mode) {
+		if(other != null) {
+			other.arc(px,py, sx,sy, start,stop, mode);
+		} else {
+			this.pa.g.arc(px,py, sx,sy, start,stop, mode);
+		}
+	}
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param px

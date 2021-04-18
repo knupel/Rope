@@ -9,7 +9,6 @@
 package rope;
 
 import processing.core.PApplet;
-// import processing.core.PGraphics;
 import processing.event.MouseEvent;
 import rope.vector.vec3;
 import rope.vector.vec4;

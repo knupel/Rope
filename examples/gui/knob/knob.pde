@@ -6,7 +6,7 @@
 * 2016-2021
 *
 * Knob example
-* v 1.2.1
+* v 1.3.0
 */
 
 import rope.gui.button.R_Knob;
@@ -15,13 +15,11 @@ import rope.vector.vec2;
 import rope.core.Rope;
 
 
-int x = 100;
-int y = 100;
 Rope r = new Rope();
 void setup() {
   size(200,200);
   State.init(this);
-  set_knob(x,y); 
+  set_knob(); 
 }
 
 
@@ -34,8 +32,8 @@ void draw() {
 }
 
 R_Knob knob ;
-void set_knob(int x, int y) {
-	knob = new R_Knob(new vec2(x,y),50);
+void set_knob() {
+	knob = new R_Knob(new vec2(20),100);
 	knob.set_rollover_type(RECT);
 	knob.set_molette(RECT);
 	knob.set_size_molette(20,10);
@@ -53,7 +51,7 @@ void set_knob(int x, int y) {
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
-	knob.set_align_label_value(RIGHT);
+	knob.set_align_label_value(LEFT);
 	knob.set_label("Turn me please");
 	float pos_info = 25;
 	// knob.set_pos_label(pos_info-5,20);
@@ -77,6 +75,7 @@ void draw_knob() {
 
 	knob.show_label();
 	knob.show_structure();
+	knob.show_struct_pie();
 	knob.show_molette();
 	knob.show_value();
 	knob.show_limit();

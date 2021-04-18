@@ -55,6 +55,8 @@ public interface R_Constants {
   static final int ELLIPSE = 31; // processing value
   static final int ARC = 32;  // processing value
 
+
+
   static final int SPHERE = 40; // processing value
   static final int BOX = 41; // processing value
 
@@ -83,12 +85,13 @@ public interface R_Constants {
   static final int HOUSE = 2000;
 
   static final int VIRUS = 88_888_888;
-	/**
-	 * 
-	 * Processing CONSTANTS
-	 */
+	
+
   static final int OPEN = 1; // processing value
   static final int CLOSE = 2; // processing value
+	
+	static final int CHORD = 2; // processing value
+	static final int PIE = 3; // processing value
 
 
 

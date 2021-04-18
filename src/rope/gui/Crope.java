@@ -115,9 +115,6 @@ abstract public class Crope extends R_Graphic {
     return null;
   }
 
-  // public float [] get_values() {
-  //   return null;
-  // }
   // public void show_value() {}
   // public void show_label() {}
 

@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.4.0
+* v 2.4.1
 * 2013-2021
 */
 package rope.gui.button;
@@ -232,10 +232,10 @@ public class R_Button extends Crope {
 
   public void show() {
     if(this.kind == RECT) {
-      aspect();
+      aspect_impl(false);
       rect(new vec2(pos), new vec2(size));
     } else if(this.kind == ELLIPSE) {
-      aspect();
+      aspect_impl(false);
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
       ellipse(final_pos,final_size);
@@ -283,10 +283,10 @@ public class R_Button extends Crope {
   @Deprecated public void show(int kind, boolean on_off_is) {
     this.kind = kind;
     if(this.kind == RECT) {
-      aspect();
+      aspect_impl(false);
       rect(new vec2(pos), new vec2(size));
     } else if(this.kind == ELLIPSE) {
-      aspect();
+      aspect_impl(false);
       vec2 final_size = new vec2(size);
       vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
       ellipse(final_pos,final_size);
@@ -306,38 +306,61 @@ public class R_Button extends Crope {
     show_value(get());
   }
 
-  private void aspect() {
+
+  protected void aspect_impl(boolean reverse_is) {
+    int f_in_on = fill_in_ON;
+    int f_out_on =fill_out_ON;
+    int s_in_on = stroke_in_ON;
+    int s_out_on =stroke_out_ON;
+
+    int f_in_off = fill_in_OFF;
+    int f_out_off = fill_out_OFF;
+    int s_in_off = stroke_in_OFF;
+    int s_out_off = stroke_out_OFF;
+
+    if(reverse_is) {
+      f_in_off = fill_in_ON;
+      f_out_off = fill_out_ON;
+      s_in_off = stroke_in_ON;
+      s_out_off =stroke_out_ON;
+
+      f_in_on = fill_in_OFF;
+      f_out_on = fill_out_OFF;
+      s_in_on = stroke_in_OFF;
+      s_out_on = stroke_out_OFF;
+    }
+
     if(thickness <= 0) {
       noStroke();
       if (is) {
         if (inside() && auth_rollover) {
-          fill(fill_in_ON); 
+          fill(f_in_on); 
         } else {
-          fill(fill_out_ON);
+          fill(f_out_on);
         }
       } else {
         if (inside() && auth_rollover) {
-          fill(fill_in_OFF); 
+          fill(f_in_off); 
         } else {
-          fill(fill_out_OFF);
+          fill(f_out_off);
         }
       }
     } else {
       if (is) {
         if (inside() && auth_rollover) {
-          fill(fill_in_ON);
-          stroke(stroke_in_ON); 
+          fill(f_in_on);
+          stroke(s_in_on); 
         } else {
-          fill(fill_out_ON);
-          stroke(stroke_out_ON); 
+          fill(f_out_on);
+          stroke(s_out_on); 
         }
       } else {
         if (inside() && auth_rollover) {
-          fill(fill_in_OFF);
-          stroke(stroke_in_OFF); 
+          fill(f_in_off);
+          stroke(s_in_off); 
         } else {
-          fill(fill_out_OFF);
-          stroke(stroke_out_OFF);
+          fill(f_out_off);
+          stroke(s_out_off);
         }
       }
     }
