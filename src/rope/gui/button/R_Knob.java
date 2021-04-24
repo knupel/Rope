@@ -3,17 +3,19 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 1.1.2
+* v 1.3.0
 * 2019-2021
 */
 package rope.gui.button;
+
+import java.util.Arrays;
 
 import rope.R_State.State;
 import rope.gui.R_Mol;
 import rope.vector.vec2;
 
 public class R_Knob extends R_Button {
-  private R_Mol molette;
+  protected R_Mol [] molette;
   private boolean init_molette_is = false;
 
   private boolean open_knob = true;
@@ -26,30 +28,61 @@ public class R_Knob extends R_Button {
   private vec2 size_limit = new vec2(-3,3);
   
   public R_Knob(vec2 pos, float size) {
+    
     super("Knob", pos, new vec2(size));
-    this.molette = new R_Mol();
+    set_value(0.5f); // default > one molette > half position
   }
   
   public R_Knob(String type, vec2 pos, float size) {
     super(type, pos, new vec2(size));
-    this.molette = new R_Mol();
+    set_value(0.5f); // default > one molette > half position
   }
 
 
   public R_Knob set_molette(int molette_type) {
-    this.molette.set_shape_type(molette_type);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_shape_type(molette_type);
+    }
     return this;
   }
 
 
   // set size
+
   public R_Knob set_value(float pos_norm) {
-    float v = map(pos_norm,0,1,0,TAU);
-    v = constrain_value(v);
-    molette.angle(v);
+    float [] arr = {pos_norm};
+    set_value(arr);
+    return this;
+  }
+  
+  public R_Knob set_value(float... pos_norm) {
+    set_value_calc(pos_norm);
     init_molette_is = false;
     return this;
   }
+
+  protected void set_value_calc(float... pos_norm) {
+    Arrays.sort(pos_norm);
+		init_molette(pos_norm.length);
+    for(int i = 0 ; i < molette.length ; i++) {
+      float v = map(pos_norm[i],0,1,0,TAU);
+      v = constrain_value(v);
+      molette[i].angle(v);
+    }
+  }
+
+  protected void init_molette(int len) {
+		if(molette == null || len != molette.length) {
+			molette = new R_Mol[len];
+      for(int i = 0 ; i < len ; i++) {
+        molette[i] = new R_Mol();
+        this.molette[i].size(this.size.x()/4);
+        molette[i].id = 0;
+        molette[i].used_is = false;
+        molette[i].inside_is = false;
+      }
+		}
+	}
 
   public R_Knob set_size_limit(float min, float max) {
     this.size_limit.set(min,max);
@@ -58,23 +91,25 @@ public class R_Knob extends R_Button {
 
   
   public R_Knob set_size_molette(vec2 size) {
-    set_size_molette(size.x(),size.y());
-    return this;
+    return set_size_molette(size.x(),size.y());
   }
 
   public R_Knob set_size_molette(float s) {
-    set_size_molette(s,s);
-    return this;
+    return set_size_molette(s,s);
   }
 
   public R_Knob set_size_molette(float w, float h) {
-    molette.size(w,h);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].size(w,h);
+    }
     return this;
   }
 
 
   public R_Knob set_distance_molette(float dist) {
-    molette.set_distance(dist);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_distance(dist);
+    }
     return this;
   }
 
@@ -102,8 +137,10 @@ public class R_Knob extends R_Button {
   }
 
   public R_Knob set_fill_molette(int c_in, int c_out) {
-    this.molette.set_fill_in(c_in);
-    this.molette.set_fill_out(c_out);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_fill_in(c_in);
+      this.molette[i].set_fill_out(c_out);
+    }
     return this;
   }
   
@@ -113,13 +150,17 @@ public class R_Knob extends R_Button {
   }
 
   public R_Knob set_stroke_molette(int c_in, int c_out) {
-    this.molette.set_stroke_in(c_in);
-    this.molette.set_stroke_out(c_out);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_stroke_in(c_in);
+      this.molette[i].set_stroke_out(c_out);
+    }
     return this;
   }
 
   public R_Knob set_thickness_molette(float thickness) {
-    this.molette.set_thickness(thickness);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_thickness(thickness);
+    }
     return this;
   }
 
@@ -141,21 +182,27 @@ public class R_Knob extends R_Button {
    * for the future when there is more molette
    */
   public float get(int index) {
-    return molette.angle();
+    if(index >= 0 && index < molette.length)
+      return this.molette[index].angle();
+    return Float.NaN;
   }
 
   public float get() {
-    return molette.angle();
+    return get(0);
   }
 
+  public float [] get_all() {
+    float [] value_array = new float[this.molette.length];
+    for(int i = 0 ; i < value_array.length ; i++) {
+			value_array[i] = get(i);
+		}
+    return value_array;
+  }
 
 
 
   
   // show
-  // public void show_structure() {
-  //   show();
-  // }
 
   public void show_limit() {
     boolean on_off_is = true;
@@ -194,17 +241,22 @@ public class R_Knob extends R_Button {
 
 
   public void show_molette() {
-    if(!init_molette_is) {
-      molette.pos(projection(molette.angle(),molette.get_distance()));
-      init_molette_is = true;
+    for(int i = 0 ; i < molette.length ; i++) {
+      if(!init_molette_is) {
+        this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_distance()));
+      }
+      this.molette[i].show();
     }
-    molette.show();
+    init_molette_is = true;
+    
   }
 
   public void show_struct_pie() {
     aspect_impl(true);
     vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
-    arc(buf_pos,size,0,molette.angle(),PIE);
+    for(int i = 0 ; i < molette.length ; i++) {
+      arc(buf_pos,size,0, this.molette[i].angle(),PIE);
+    }
   }
 
 
@@ -236,25 +288,26 @@ public class R_Knob extends R_Button {
       this.event = event;
     }
 
-    molette.set_offset(pos.copy().add(size.copy().mult(0.5f)));
-    boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
-    boolean inside_is = molette.inside(cursor);
-    boolean used_is = all(inside_is,bang_is);
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_offset(pos.copy().add(size.copy().mult(0.5f)));
+      boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+      boolean inside_is = this.molette[i].inside(cursor);
+      boolean used_is = all(inside_is,bang_is);
 
-    molette.inside_is(inside_is);
-    if(used_is && this.event) {
-      molette.used(true);
+      this.molette[i].inside_is(inside_is);
+      if(used_is && this.event) {
+        this.molette[i].used(true);
+      }
+      if(!this.event) {
+        this.molette[i].used(false);
+        previous_angle_ref = this.molette[i].angle();
+        ref_angle_is = false;
+        out_is = false;
+      }
+      if(this.molette[i].used_is()) {
+        molette_update_position(i);
+      }
     }
-    if(!this.event) {
-      molette.used(false);
-      previous_angle_ref = molette.angle();
-      ref_angle_is = false;
-      out_is = false;
-    }
-    if(molette.used_is()) {
-      molette_update_position();
-    }
-
   }
 
 
@@ -262,11 +315,13 @@ public class R_Knob extends R_Button {
   float previous_angle_ref;
   float next_angle_ref;
   boolean ref_angle_is = false;
-  private void molette_update_position() {
+  private void molette_update_position(int index) {
     float angle = 0;
     // calc angle
     angle = calc_angle(angle);
-    if(!out_is) render_molette(angle);
+    if(!out_is) {
+      render_molette(index, angle);
+    }
   }
 
   private float calc_angle(float angle) {
@@ -284,7 +339,7 @@ public class R_Knob extends R_Button {
     return angle;
   }
 
-  private void render_molette(float angle) {
+  private void render_molette(int index, float angle) {
     if(drag_direction != CIRCULAR) {
       if(!ref_angle_is) {
         next_angle_ref = angle;
@@ -292,12 +347,12 @@ public class R_Knob extends R_Button {
       }
       float new_angle = previous_angle_ref + (angle -next_angle_ref);
       new_angle = constrain_value(new_angle);
-      molette.angle(new_angle);
-      molette.pos(projection(new_angle,molette.get_distance()));
+      this.molette[index].angle(new_angle);
+      this.molette[index].pos(projection(new_angle, this.molette[index].get_distance()));
     } else if(drag_direction == CIRCULAR) {
       angle = constrain_value(angle);
-      molette.angle(angle);
-      molette.pos(projection(angle,molette.get_distance()));
+      this.molette[index].angle(angle);
+      this.molette[index].pos(projection(angle, this.molette[index].get_distance()));
     }
   }
 

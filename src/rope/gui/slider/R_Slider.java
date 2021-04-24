@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.4.0
+* v 1.4.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -21,7 +21,7 @@ import rope.vector.vec2;
 
 public class R_Slider extends Crope implements R_GUI {
 	protected R_Mol [] molette;
-	
+
 	protected vec2 pos_min;
 	protected vec2 pos_max;
 
@@ -43,14 +43,17 @@ public class R_Slider extends Crope implements R_GUI {
 
 	public R_Slider(String type, vec2 pos, vec2 size) {
 		super(type, pos, size);
+		set_value(0.5f); // default > one molette > half position
 	}
 
 	public R_Slider(float x, float y, float sx, float sy) {
 		super("Slider", x, y, sx, sy);
+		set_value(0.5f); // default > one molette > half position
 	}
 
 	public R_Slider(String type, float x, float y, float sx, float sy) {
 		super(type, x, y, sx, sy);
+		set_value(0.5f); // default > one molette > half position
 	}
 
 	// SET
@@ -59,10 +62,6 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
-	// public R_Slider opengl(boolean is) {
-	// 	opengl(is, GRADIENT);
-	// 	return this;
-	// }
 
 	protected void set_value_calc(float... pos_norm) {
 		Arrays.sort(pos_norm);
@@ -99,24 +98,11 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
-	private R_Slider set_molette_min_max_pos() {
-		for(int i = 0 ; i < molette.length ; i++) {
-			if(size.x() > size.y()) {
-				pos_min = pos.copy();
-				pos_max = new vec2(pos.x() +size.x() -molette[i].size.x(), pos.y()) ;
-			} else {
-				pos_min = pos.copy();
-				pos_max = new vec2(pos.x(), pos.y() +size.y() -molette[i].size.y()) ;
-			}
-		}  
-		return this;
-	}
-
 	public R_Slider set_molette(int type) {
 		this.molette_type = type;
-		if(molette == null) {
-			init_molette(1);
-		}
+		// if(molette == null) {
+		// 	init_molette(1);
+		// }
 		return this;
 	}
 
@@ -335,29 +321,6 @@ public class R_Slider extends Crope implements R_GUI {
 		noFill();
 		rect(pos,size,rounded);
 	}
-
-	// private void render_solid_stroke() {
-	// 	if(all(thickness > 0,alpha(stroke_in) > 0, alpha(stroke_out) > 0)) {
-	// 		strokeWeight(thickness);
-	// 		if(inside(RECT)) {
-	// 			stroke(stroke_in);
-	// 		} else {
-	// 			stroke(stroke_out);
-	// 		}
-	// 	} else {
-	// 		noStroke();
-	// 	}
-	// }
-
-	// private void render_solid_color() {
-	// 	render_solid_stroke();
-	// 	if(inside(RECT)) {
-	// 		fill(fill_in);
-	// 	} else {
-	// 		fill(fill_out);
-	// 	}
-	// 	rect(pos,size,rounded);
-	// }
 
 
 
@@ -750,9 +713,9 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 
-	private void molette_builder(int num) {
-		molette = new R_Mol[num];
-		for(int i = 0 ; i < num ; i++) {
+	private void molette_builder(int len) {
+		molette = new R_Mol[len];
+		for(int i = 0 ; i < len ; i++) {
 			molette[i] = new R_Mol();
 			this.set_pos_molette(i);
 			set_size_molette(i);
@@ -762,7 +725,21 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 		set_molette_min_max_pos();
 		crope_build_is = true;
-	} 
+	}
+
+
+	private R_Slider set_molette_min_max_pos() {
+		for(int i = 0 ; i < molette.length ; i++) {
+			if(size.x() > size.y()) {
+				pos_min = pos.copy();
+				pos_max = new vec2(pos.x() +size.x() -molette[i].size.x(), pos.y()) ;
+			} else {
+				pos_min = pos.copy();
+				pos_max = new vec2(pos.x(), pos.y() +size.y() -molette[i].size.y()) ;
+			}
+		}  
+		return this;
+	}
 
 	private void molette_shape(int index) {
 		if(molette_type == ELLIPSE) {

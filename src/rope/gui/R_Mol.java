@@ -1,7 +1,7 @@
 /**
 * R_Mol
 * Control ROmanesco Processing Environment
-* v 1.0.1
+* v 1.0.2
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -55,6 +55,10 @@ public class R_Mol extends R_Graphic {
   public R_Mol set(float value) {
     this.value = value;
     return this;
+  }
+
+  public R_Mol size(float size) {
+    return size(size, size);
   }
 
   public R_Mol size(float w, float h) {
