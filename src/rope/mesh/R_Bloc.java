@@ -425,21 +425,21 @@ public class R_Bloc extends R_Graphic {
 		}
 	}
 
-	public void show_struct() {
-		calc_show_struct(false,this.pa.g);
+	public void show_struc() {
+		calc_show_struc(false,this.pa.g);
 	}
 
-	public void show_struct(PGraphics other) {
+	public void show_struc(PGraphics other) {
 		if(other != null) {
 			other.beginDraw();
 		}
-		calc_show_struct(true,other);
+		calc_show_struc(true,other);
 		if(other != null) {
 			other.endDraw();
 		}
 	}
 
-	private void calc_show_struct(boolean draw_is, PGraphics other) {
+	private void calc_show_struc(boolean draw_is, PGraphics other) {
 		other.strokeWeight(1);
 		other.noFill();
 		other.stroke(colour_build);

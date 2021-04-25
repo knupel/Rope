@@ -11,7 +11,7 @@
  */
 package rope.gui;
 public interface R_GUI {
-	void show_structure();
+	void show_struc();
 	void show_value();
 	void update();
 

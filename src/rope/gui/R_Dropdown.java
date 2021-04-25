@@ -314,7 +314,7 @@ public class R_Dropdown extends Crope implements R_GUI {
 
 
   // show
-  public void show_structure() {
+  public void show_struc() {
     show_header();
     show_label();
     show_box();
@@ -398,8 +398,8 @@ public class R_Dropdown extends Crope implements R_GUI {
           float y = pos.y() +(height_box *box_starting_rank_position);
           slider_dd.pos(x,y);
           slider_dd.update(cursor.x(),cursor.y());
-          slider_dd.show_structure();
-          slider_dd.show_molette();
+          slider_dd.show_struc();
+          slider_dd.show_mol();
         }
       }
     }
@@ -523,7 +523,7 @@ public class R_Dropdown extends Crope implements R_GUI {
     int index = 0 ; // so catch the first molette of the index ;
     float pos_mol_y = 0;
     if(slider_dd != null) {
-      pos_mol_y = slider_dd.get_molette_pos(index).y();
+      pos_mol_y = slider_dd.get_mol_pos(index).y();
       keep_pos_mol_is = true ;
     }
 
@@ -532,16 +532,16 @@ public class R_Dropdown extends Crope implements R_GUI {
     } else {
       slider_dd.pos(pos_slider);
       slider_dd.size(size_slider);
-      slider_dd.set_pos_molette();
+      slider_dd.set_pos_mol();
     }
-    slider_dd.set_size_molette(size_molette);
+    slider_dd.set_size_mol(size_molette);
     if(keep_pos_mol_is) {
-      float pos_mol_x = slider_dd.get_molette_pos(index).x();
-      slider_dd.set_pos_molette(index,pos_mol_x,pos_mol_y);
+      float pos_mol_x = slider_dd.get_mol_pos(index).x();
+      slider_dd.set_pos_mol(index,pos_mol_x,pos_mol_y);
     }
-    slider_dd.set_molette(RECT);
+    slider_dd.set_mol(RECT);
     slider_dd.set_fill(colour_structure);
-    slider_dd.set_fill_molette(colour_box_in,colour_box_out);
+    slider_dd.set_fill_mol(colour_box_in,colour_box_out);
     slider_dd.wheel(wheel_is);
   }
 

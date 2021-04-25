@@ -39,8 +39,8 @@ void set_knob() {
 	
 
 	knob.set_value(0.33, 0.6);
-	knob.set_distance_molette(knob.size().x()*.5);
-	knob.set_molette(RECT);
+	knob.set_dist_mol(knob.size().x()*.5);
+	knob.set_mol(RECT);
 
 	// limit the range knob
 	// knob.limit(); // use default value range
@@ -68,11 +68,11 @@ void draw_knob() {
 
 
 	knob.show_label();
-	knob.show_structure();
-	knob.show_struct_pie();
-	knob.show_molette();
+	knob.show_struc();
+	knob.show_struc_pie();
+	knob.show_mol();
 	knob.show_value();
-	knob.show_limit();
+	// knob.show_limit();
   
   // println("knob value", knob.get());
 	// println("knob value", knob.get()%TAU);

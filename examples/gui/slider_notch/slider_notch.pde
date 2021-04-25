@@ -4,7 +4,7 @@
 *
 * slider notch
 * 2021-2021
-* v 1.2.1
+* v 1.2.2
 */
 
 import rope.gui.slider.R_Slotch;
@@ -49,7 +49,7 @@ void slotch_setup(int x, int y) {
   // other setting
   // slotch.set_value(0.5); // use normal position from [0.0, 1.0]
   slotch.set_value(2); // use position from [0, int num_of_notch]
-  slotch.set_molette(ELLIPSE);
+  slotch.set_mol(ELLIPSE);
   slotch.set_rounded(20);
   println("slotch.get_type():", slotch.get_type());
 }
@@ -59,8 +59,8 @@ void slotch_draw() {
   slotch.update();
   // slotch.update(mouseX,mouseY);
 
-  slotch.show_structure();
-  slotch.show_molette();
+  slotch.show_struc();
+  slotch.show_mol();
   // stroke(255);
   // slotch.show_notch();
   // slotch.set_colour_notch(230);

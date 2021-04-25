@@ -12,7 +12,7 @@
 * Color Picker without openGL
 * Processing 3.5.4
 * Rope library 0.12.1.41
-* v 0.2.1
+* v 0.2.2
 * 2021-2021
 */
 import rope.gui.palette.R_Palette;
@@ -66,7 +66,7 @@ void palette_draw(float hue) {
 	palette.set_root(hue);
 	palette.show_label();
 	palette.update();
-	palette.show_structure();
+	palette.show_struc();
 }
 
 // selector
@@ -82,7 +82,7 @@ void selector_setup(int px, int py, int sx, int sy) {
 void selector_draw() {
 	selector.set_color_picker(palette.get_color());
   selector.update();
-  selector.show_structure();
+  selector.show_struc();
 	selector.show_label();
 	selector.show_value();
 	slider.set_mode(10); // spectrum
@@ -93,15 +93,15 @@ void selector_draw() {
 void slider_setup(int x, int y) {
 	slider = new R_Slider(new vec2(x,y), new vec2(200,20));
 	slider.set_label("choisis ta couleur de racine");
-	slider.set_molette(ELLIPSE);
+	slider.set_mol(ELLIPSE);
 	slider.set_rounded(20);
 	slider.set_value(0.75);
 }
 
 float slider_draw() {
 	slider.update();
-	slider.show_structure();
-	slider.show_molette();
+	slider.show_struc();
+	slider.show_mol();
 	slider.show_label();
 	return slider.get();
 }

@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.2.1
+* v 1.2.2
 * slider wheel
 */
 import rope.gui.slider.R_Slider;
@@ -36,8 +36,8 @@ void slider_setup(int x, int y) {
 
 void slider_draw() {
   slider.update();
-  slider.show_structure();
-  slider.show_molette();
+  slider.show_struc();
+  slider.show_mol();
   slider.show_label();
   slider.show_value();
 }

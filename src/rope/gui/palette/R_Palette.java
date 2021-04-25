@@ -44,7 +44,7 @@ public class R_Palette extends Crope implements R_GUI {
 
 
 	
-	public void show_structure() {	 	
+	public void show_struc() {	 	
 	 	if(!opengl_is) {
 	 		render_palette_pixel();
 	 	} else {

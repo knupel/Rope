@@ -3,7 +3,7 @@
 * Processing 3.5.4
 
 * 2021-2021
-* v 0.01
+* v 0.0.2
 */
 
 import rope.gui.slider.R_Slider;
@@ -57,16 +57,16 @@ void draw() {
   State.event(mousePressed, !keyPressed);
   b1.update();
   b1.show_board();
-  b1.show_structure();
+  b1.show_struc();
   b1.show_label();
-  b1.show_molette();
+  b1.show_mol();
   b1.show_value();
 
   b2.update();
   b2.show_board();
-  b2.show_structure();
+  b2.show_struc();
   b2.show_label();
-  b2.show_molette();
+  b2.show_mol();
   b2.show_value();
   
   // get_values();

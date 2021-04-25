@@ -60,7 +60,7 @@ public class R_Palette_Selector extends Crope {
 		text(this.name, this.pos.x() +5, this.pos.y() +5 +(this.size.y() /2.0f));
 	}
 
-	public void show_structure() {
+	public void show_struc() {
 		box_current_color();
 		box_new_color();
 	}

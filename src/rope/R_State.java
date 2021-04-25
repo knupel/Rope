@@ -283,11 +283,11 @@ public class R_State implements R_Constants {
 		 * STATE GUI, CONTROL
 		 */
 
-		public static void molette_is(boolean is) {
+		public static void mol_is(boolean is) {
 			env.molette = is;
 		}
 		
-		public static boolean molette_is() {
+		public static boolean mol_is() {
 			return env.molette;
 		}
 

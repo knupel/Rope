@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.2.0
+* v 1.2.1
 * multi slider multi molette
 *
 */
@@ -36,15 +36,15 @@ SLIDER MULTI
 R_Slider multi_slider ;
 void multi_slider_setup(int x, int y) {
 	multi_slider = new R_Slider(new vec2(x,y), new vec2(350,20));
-	multi_slider.set_molette_num(3);
-	multi_slider.set_size_molette(5,40);
+	multi_slider.set_mol_num(3);
+	multi_slider.set_size_mol(5,40);
   multi_slider.set_rounded(20);
 }
 
 void multi_slider_draw() {
 	multi_slider.update();
-	multi_slider.show_structure();
-	multi_slider.show_molette();
+	multi_slider.show_struc();
+	multi_slider.show_mol();
 	
 	println("get()", multi_slider.get());
 	println("get(int index)", multi_slider.get(0), multi_slider.get(1), multi_slider.get(2));

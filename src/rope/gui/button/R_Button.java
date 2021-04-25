@@ -226,7 +226,7 @@ public class R_Button extends Crope {
   }
   
   // SHOW
-  public void show_structure() {
+  public void show_struc() {
     show();
   }
 
@@ -242,7 +242,7 @@ public class R_Button extends Crope {
     }
   }
 
-  public void show_structure(PImage [] pic) {
+  public void show_struc(PImage [] pic) {
     int offset_x = -1 ;
     if(pic.length == 4) {
       if (is) {

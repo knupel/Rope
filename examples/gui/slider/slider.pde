@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.2.0
+* v 1.2.1
 * slider classic
 */
 import rope.gui.slider.R_Slider;
@@ -38,7 +38,7 @@ R_Slider slider ;
 void slider_setup(int x, int y) {
   slider = new R_Slider(new vec2(x,y), new vec2(200,20));
   slider.set_label("Paye ton slide");
-  slider.set_molette(ELLIPSE);
+  slider.set_mol(ELLIPSE);
   slider.set_rounded(20);
   slider.set_value(0.75);
 }
@@ -46,8 +46,8 @@ void slider_setup(int x, int y) {
 
 void slider_draw() {
   slider.update();
-  slider.show_structure();
-  slider.show_molette();
+  slider.show_struc();
+  slider.show_mol();
   slider.show_label();
 
   if(keyPressed) {

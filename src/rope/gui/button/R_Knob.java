@@ -39,7 +39,7 @@ public class R_Knob extends R_Button {
   }
 
 
-  public R_Knob set_molette(int molette_type) {
+  public R_Knob set_mol(int molette_type) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_shape_type(molette_type);
     }
@@ -90,15 +90,15 @@ public class R_Knob extends R_Button {
   }
 
   
-  public R_Knob set_size_molette(vec2 size) {
-    return set_size_molette(size.x(),size.y());
+  public R_Knob set_size_mol(vec2 size) {
+    return set_size_mol(size.x(),size.y());
   }
 
-  public R_Knob set_size_molette(float s) {
-    return set_size_molette(s,s);
+  public R_Knob set_size_mol(float s) {
+    return set_size_mol(s,s);
   }
 
-  public R_Knob set_size_molette(float w, float h) {
+  public R_Knob set_size_mol(float w, float h) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].size(w,h);
     }
@@ -106,7 +106,7 @@ public class R_Knob extends R_Button {
   }
 
 
-  public R_Knob set_distance_molette(float dist) {
+  public R_Knob set_dist_mol(float dist) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_distance(dist);
     }
@@ -131,12 +131,12 @@ public class R_Knob extends R_Button {
 
 
 
-  public R_Knob set_fill_molette(int c) {
-    set_fill_molette(c,c);
+  public R_Knob set_fill_mol(int c) {
+    set_fill_mol(c,c);
     return this;
   }
 
-  public R_Knob set_fill_molette(int c_in, int c_out) {
+  public R_Knob set_fill_mol(int c_in, int c_out) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_fill_in(c_in);
       this.molette[i].set_fill_out(c_out);
@@ -144,12 +144,12 @@ public class R_Knob extends R_Button {
     return this;
   }
   
-  public R_Knob set_stroke_molette(int c) {
-    set_stroke_molette(c,c);
+  public R_Knob set_stroke_mol(int c) {
+    set_stroke_mol(c,c);
     return this;
   }
 
-  public R_Knob set_stroke_molette(int c_in, int c_out) {
+  public R_Knob set_stroke_mol(int c_in, int c_out) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_stroke_in(c_in);
       this.molette[i].set_stroke_out(c_out);
@@ -157,7 +157,7 @@ public class R_Knob extends R_Button {
     return this;
   }
 
-  public R_Knob set_thickness_molette(float thickness) {
+  public R_Knob set_thickness_mol(float thickness) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_thickness(thickness);
     }
@@ -240,7 +240,7 @@ public class R_Knob extends R_Button {
   }
 
 
-  public void show_molette() {
+  public void show_mol() {
     for(int i = 0 ; i < molette.length ; i++) {
       if(!init_molette_is) {
         this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_distance()));
@@ -251,11 +251,13 @@ public class R_Knob extends R_Button {
     
   }
 
-  public void show_struct_pie() {
+  public void show_struc_pie() {
     aspect_impl(true);
     vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
-    for(int i = 0 ; i < molette.length ; i++) {
-      arc(buf_pos,size,0, this.molette[i].angle(),PIE);
+    if(molette.length > 1) {
+      arc(buf_pos,size,this.molette[0].angle(), this.molette[molette.length -1].angle(),PIE);
+    } else {
+      arc(buf_pos,size,0,this.molette[0].angle(),PIE);      
     }
   }
 
@@ -276,13 +278,13 @@ public class R_Knob extends R_Button {
 
   public void update(float x, float y, boolean event) {
     cursor(x,y);
-    molette_update(event);
+    mol_update(event);
     use_event_is = false;
   }
   
 
   // molette
-  void molette_update(boolean event) {
+  private void mol_update(boolean event) {
     if(!use_event_is) {
       use_event_is = true;
       this.event = event;
@@ -305,7 +307,7 @@ public class R_Knob extends R_Button {
         out_is = false;
       }
       if(this.molette[i].used_is()) {
-        molette_update_position(i);
+        mol_update_position(i);
       }
     }
   }
@@ -315,7 +317,7 @@ public class R_Knob extends R_Button {
   float previous_angle_ref;
   float next_angle_ref;
   boolean ref_angle_is = false;
-  private void molette_update_position(int index) {
+  private void mol_update_position(int index) {
     float angle = 0;
     // calc angle
     angle = calc_angle(angle);

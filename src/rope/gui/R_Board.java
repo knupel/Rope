@@ -94,10 +94,10 @@ public class R_Board extends Crope {
     for(int i = 0 ; i < label.length ; i++) {
       R_Knob k = new R_Knob(rank_pos(size, step), size);
       k.set_label(label[i]);
-	    k.set_size_molette(size *0.33f, size *0.33f);
-	    k.set_distance_molette(k.size().x() *0.5f);
-      k.set_fill_molette(GRAY[11],GRAY[8]);
-      k.set_fill_molette(GRAY[11],GRAY[8]);
+	    k.set_size_mol(size *0.33f, size *0.33f);
+	    k.set_dist_mol(k.size().x() *0.5f);
+      k.set_fill_mol(GRAY[11],GRAY[8]);
+      k.set_fill_mol(GRAY[11],GRAY[8]);
       list.add(k);
     }
     to_list_key();
@@ -162,22 +162,22 @@ public class R_Board extends Crope {
     render_solid_stroke();
   }
 
-  public void show_structure() {
+  public void show_struc() {
     for(Crope c : list) {
-      c.show_structure();
+      c.show_struc();
     }
   }
 
-  public void show_molette() {
+  public void show_mol() {
     for(Crope c : list) {
       if(c instanceof R_Slider) {
-        ((R_Slider)c).show_molette();
+        ((R_Slider)c).show_mol();
       }
       if(c instanceof R_Knob) {
-        ((R_Knob)c).show_molette();
+        ((R_Knob)c).show_mol();
       }
       if(c instanceof R_Slotch) {
-        ((R_Slotch)c).show_molette();
+        ((R_Slotch)c).show_mol();
       }
     }
   }

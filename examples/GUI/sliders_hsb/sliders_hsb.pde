@@ -53,24 +53,24 @@ void draw() {
   State.event(mousePressed);
 
   sl_hue.update();
-  sl_hue.show_structure();
-  sl_hue.show_molette();
+  sl_hue.show_struc();
+  sl_hue.show_mol();
   
   sl_sat.update();
   sl_sat.set_root(sl_hue.get(0));
-  sl_sat.show_structure();
-  sl_sat.show_molette();
+  sl_sat.show_struc();
+  sl_sat.show_mol();
   
   sl_bri.update();
   sl_bri.set_root(sl_hue.get(0));
-  sl_bri.show_structure();
-  sl_bri.show_molette();
+  sl_bri.show_struc();
+  sl_bri.show_mol();
 
   sl_rainbow.update();
   sl_rainbow.set_sat(sl_sat.get(0));
   sl_rainbow.set_bri(sl_bri.get(0));
-  sl_rainbow.show_structure();
-  sl_rainbow.show_molette();
+  sl_rainbow.show_struc();
+  sl_rainbow.show_mol();
 
   State.reset_event();
 }

@@ -87,7 +87,7 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 
-	public R_Slider set_molette_num(int num) {
+	public R_Slider set_mol_num(int num) {
 		init_molette(num);
 		float [] pos_norm = new float[num];
 		float step = 1.0f / (num+1) ;
@@ -98,7 +98,7 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
-	public R_Slider set_molette(int type) {
+	public R_Slider set_mol(int type) {
 		this.molette_type = type;
 		// if(molette == null) {
 		// 	init_molette(1);
@@ -108,7 +108,7 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 	// set size
-	private void set_size_molette(int index) {
+	private void set_size_mol(int index) {
 		if (size.x() >= size.y()) {
 			molette[index].size = new vec2(size.y()); 
 		} else {
@@ -116,48 +116,48 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 
-	public R_Slider set_size_molette(vec2 size) {
-		set_size_molette(size.x(), size.y());
+	public R_Slider set_size_mol(vec2 size) {
+		set_size_mol(size.x(), size.y());
 		return this;
 	}
 
-	public R_Slider set_size_molette(float x, float y) {
+	public R_Slider set_size_mol(float x, float y) {
 		if(molette == null) {
 			init_molette(1);
 		}
 		for(int i = 0 ; i < molette.length ; i++) {
 			molette[i].size.set(x,y);
 		}
-		set_molette_min_max_pos();
+		set_mol_min_max_pos();
 		return this;
 	}
 
 	// set pos
-	public R_Slider set_pos_molette() {
+	public R_Slider set_pos_mol() {
 		for(int i = 0 ; i < molette.length ; i++) {
-			set_pos_molette(i);
+			set_pos_mol(i);
 		}   
 		return this;
 	}
 
-	public R_Slider set_pos_molette(int index) {
+	public R_Slider set_pos_mol(int index) {
 		this.molette[index].pos.set(pos);
 		return this;
 	}
 
-	public R_Slider set_pos_molette(vec2... pos_mol) {
+	public R_Slider set_pos_mol(vec2... pos_mol) {
 		init_molette(pos_mol.length);
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(i < pos_mol.length) {
-				set_pos_molette(i,pos_mol[i].x(), pos_mol[i].y());
+				set_pos_mol(i,pos_mol[i].x(), pos_mol[i].y());
 			} else {
-				set_pos_molette(i,pos.x(),pos.y());
+				set_pos_mol(i,pos.x(),pos.y());
 			}
 		}
 		return this;
 	}
 
-	public R_Slider set_pos_molette(int index, float x, float y) {
+	public R_Slider set_pos_mol(int index, float x, float y) {
 		if(index < molette.length) {
 			if(molette[index].pos == null) {
 				molette[index].pos = new vec2(x,y);
@@ -171,29 +171,29 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 	// aspect
-	public R_Slider set_fill_molette(int c) {
-		set_fill_molette(c,c);
+	public R_Slider set_fill_mol(int c) {
+		set_fill_mol(c,c);
 		return this;
 	}
 
-	public R_Slider set_fill_molette(int c_in, int c_out) {
+	public R_Slider set_fill_mol(int c_in, int c_out) {
 		this.fill_molette_in = c_in;
 		this.fill_molette_out = c_out;
 		return this;
 	}
 	
-	public R_Slider set_stroke_molette(int c) {
-		set_stroke_molette(c,c);
+	public R_Slider set_stroke_mol(int c) {
+		set_stroke_mol(c,c);
 		return this;
 	}
 
-	public R_Slider set_stroke_molette(int c_in, int c_out) {
+	public R_Slider set_stroke_mol(int c_in, int c_out) {
 		this.stroke_molette_in = c_in;
 		this.stroke_molette_out = c_out;
 		return this;
 	}
 
-	public R_Slider set_thickness_molette(float thickness) {
+	public R_Slider set_thickness_mol(float thickness) {
 		this.thickness_molette = thickness;
 		return this;
 	}
@@ -223,7 +223,7 @@ public class R_Slider extends Crope implements R_GUI {
 		return value;
 	}
 
-		public float [] get_all() {
+	public float [] get_all() {
 		int num = 1;
 		if(molette != null) {
 			num = molette.length;
@@ -274,7 +274,7 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 	// SHOW
-	public void show_structure() {
+	public void show_struc() {
 		if(!opengl_is) {
 			if(this.mode == -1) {
 				render_solid_color();
@@ -330,14 +330,14 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 
-	public void show_molette() {
+	public void show_mol() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(molette[i].inside_is()) {
 				aspect(fill_molette_in,stroke_molette_in,thickness_molette);
-				molette_shape(i);
+				mol_shape(i);
 			} else {
 				aspect(fill_molette_out,stroke_molette_out,thickness_molette);
-				molette_shape(i);
+				mol_shape(i);
 			}   
 		}
 	}
@@ -407,12 +407,12 @@ public class R_Slider extends Crope implements R_GUI {
 			molette_builder(1);
 		}
 		cursor(x,y);
-		molette_update(event);
+		mol_update(event);
 	}
 	
 	
 
-	protected void molette_update(boolean event) {
+	protected void mol_update(boolean event) {
 		this.event = event;
 		if(!this.event) {
 			State.set_dna_current_crope(0); 
@@ -420,13 +420,13 @@ public class R_Slider extends Crope implements R_GUI {
 		if(molette == null) {
 			init_molette(1);
 		}
-		molette_update_calc();
-		molette_update_wheel();
+		mol_update_calc();
+		mol_update_wheel();
 	}
 
 	
 	
-	private void molette_update_calc() {
+	private void mol_update_calc() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(!molette[i].select_is()) {
 				if(molette_used_is(i) && any(State.get_dna_current_crope() == 0, State.keep_selection_is())) {
@@ -456,7 +456,7 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 	}
 	
-	private void molette_update_wheel() {
+	private void mol_update_wheel() {
 		if(wheel_is()) {
 			if(State.env().scroll == null) {
 				print_err_tempo(500,"Static State.env().scroll is null, maybe you forget to use: State.scroll(MouseEvent e) in the function void mouseWheel(MouseEvent e) {}");
@@ -488,7 +488,7 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 
-	public vec2 [] get_molette_pos() {
+	public vec2 [] get_mol_pos() {
 		vec2 [] pos = new vec2[molette.length] ;
 		for(int i = 0 ; i < molette.length ;i++) {
 			pos[i] = molette[i].pos().copy();
@@ -496,11 +496,11 @@ public class R_Slider extends Crope implements R_GUI {
 		return pos;
 	}
 
-	public vec2 get_molette_pos(int index) {
+	public vec2 get_mol_pos(int index) {
 		if(index < molette.length && index >= 0) {
 			return molette[index].pos();
 		} else {
-			print_err("method get_molette_pos(",index,") is out of the range");
+			print_err("method get_mol_pos(",index,") is out of the range");
 			return null;
 		}
 	}
@@ -717,18 +717,18 @@ public class R_Slider extends Crope implements R_GUI {
 		molette = new R_Mol[len];
 		for(int i = 0 ; i < len ; i++) {
 			molette[i] = new R_Mol();
-			this.set_pos_molette(i);
-			set_size_molette(i);
+			this.set_pos_mol(i);
+			set_size_mol(i);
 			molette[i].id = 0;
 			molette[i].used_is = false;
 			molette[i].inside_is = false;
 		}
-		set_molette_min_max_pos();
+		set_mol_min_max_pos();
 		crope_build_is = true;
 	}
 
 
-	private R_Slider set_molette_min_max_pos() {
+	private R_Slider set_mol_min_max_pos() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(size.x() > size.y()) {
 				pos_min = pos.copy();
@@ -741,7 +741,7 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
-	private void molette_shape(int index) {
+	private void mol_shape(int index) {
 		if(molette_type == ELLIPSE) {
 			vec2 temp = new vec2(round(mult(molette[index].size,0.5f)));
 			vec2 pos = add(new vec2(molette[index].pos),temp);
@@ -951,9 +951,9 @@ public class R_Slider extends Crope implements R_GUI {
 	 */
 	protected boolean select(int index, boolean locked_method, boolean result, boolean auth) {
 		if(auth) {
-			if(!State.molette_is()) {
+			if(!State.mol_is()) {
 				if (locked_method) {
-					State.molette_is(true);
+					State.mol_is(true);
 					result = true;
 				}
 			} else if(locked_method) {
@@ -969,7 +969,7 @@ public class R_Slider extends Crope implements R_GUI {
 
 			if(!event) { 
 				result = false ; 
-				State.molette_is(false);
+				State.mol_is(false);
 			}
 			return result;
 		} else {

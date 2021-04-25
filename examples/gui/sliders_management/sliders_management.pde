@@ -44,7 +44,7 @@ R_Slider [] slider = new R_Slider[5];
 void slider_setup(int x, int y) {
   for(int i = 0 ; i < slider.length ; i++) {
     slider[i] = new R_Slider(new vec2(x , y*i + (y / 2)), new vec2(width -(x *2),20));
-    slider[i].set_molette(ELLIPSE);
+    slider[i].set_mol(ELLIPSE);
     slider[i].set_value(0.75);
     slider[i].set_rank(i);
   }
@@ -53,8 +53,8 @@ void slider_setup(int x, int y) {
 void slider_draw() {
   for(int i = 0 ; i < slider.length ; i++) {
     slider[i].update();
-    slider[i].show_structure();
-    slider[i].show_molette();
+    slider[i].show_struc();
+    slider[i].show_mol();
     
   }
 }

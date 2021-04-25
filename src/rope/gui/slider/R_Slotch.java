@@ -114,10 +114,10 @@ public class R_Slotch extends R_Slider {
 	// MISC
 	// public void update(float x, float y) {
 	// cursor(x,y);
-	// molette_update();
+	// mol_update();
 	public void update(float x, float y, boolean event) {
 		cursor(x,y);
-		molette_update(event);
+		mol_update(event);
 		if (size.x() >= size.y()) { 
 			if(notch_is) {
 				for(int i = 0 ; i < molette.length ; i++) {

@@ -101,7 +101,7 @@ abstract public class Crope extends R_Graphic {
   // method ghost who must be overide by the child
   // need to do that that for the future class R_Board
   public void update() {}
-  public void show_structure() {}
+  public void show_struc() {}
 
   public float get() {
     return Float.NaN;

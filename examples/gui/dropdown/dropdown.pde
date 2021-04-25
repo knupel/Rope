@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.2.1
+* v 1.2.2
 * dropdown
 */
 
@@ -77,11 +77,11 @@ void dropdown_setup(int x, int y) {
 
 void dropdown_draw() {
   dropdown[0].update();
-  dropdown[0].show_structure();
+  dropdown[0].show_struc();
   // dropdown[0].show_value();
   
   dropdown[1].update();
-  dropdown[1].show_structure();
+  dropdown[1].show_struc();
   dropdown[1].show_value();
 }
 

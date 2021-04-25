@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * Rope Library 0.12.1.41
 * 2016-2021
-* v 1.2.0
+* v 1.2.1
 * slider adjustable
 */
 
@@ -47,7 +47,7 @@ ADJUTABLE
 R_Sladj sladj ;
 void slider_adjustable_setup(int x, int y) {
 	sladj = new R_Sladj(new vec2(x,y), new vec2(200,20));
-  sladj.set_molette(ELLIPSE);
+  sladj.set_mol(ELLIPSE);
   sladj.set_rounded(20);
   sladj.set_value(.25);
   // slider.wheel(true);
@@ -69,7 +69,7 @@ void slider_adjustable_draw() {
   }
   sladj.update_min_max();
 
-	sladj.show_structure();
+	sladj.show_struc();
 	sladj.show_adj();
-	sladj.show_molette();
+	sladj.show_mol();
 }

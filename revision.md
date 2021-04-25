@@ -5,6 +5,9 @@
 > add to R_Button a float value, not just a boolean is, that's can be boog for the future to modulate by a conitunues click on it.
 > add to R_Board, function add_slotch(), add_knob()
 > add to R_Knob a pie display
+> add multi molette for knob
+> change all methods name show_structure() to show_stru()
+> change all methods contain molette() to mol()
 
 \*version 44
 
