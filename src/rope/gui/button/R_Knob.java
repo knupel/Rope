@@ -12,18 +12,24 @@ import java.util.Arrays;
 
 import rope.R_State.State;
 import rope.gui.R_Mol;
+import rope.vector.bvec2;
 import rope.vector.vec2;
 
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
   private boolean init_molette_is = false;
-  private boolean mol_limit_is = false;
+  private bvec2 mol_limit_is;
+  private float previous_angle_ref;
+  private float next_angle_ref;
+
+  private float angle_min = PI -(PI/4);
+  private float angle_max = PI/4;
 
   private boolean open_knob = true;
   private boolean out_is = false;
 
-  private float angle_min = PI -(PI/4);
-  private float angle_max = PI/4;
+
+
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
   private vec2 size_limit = new vec2(-3,3);
@@ -51,13 +57,14 @@ public class R_Knob extends R_Button {
   // set size
 
   public R_Knob set_value(float pos_norm) {
-    float [] arr = {pos_norm};
+    float [] arr = { pos_norm };
     set_value(arr);
     return this;
   }
   
   public R_Knob set_value(float... pos_norm) {
     set_value_calc(pos_norm);
+    mol_limit_is = new bvec2(false);
     init_molette_is = false;
     return this;
   }
@@ -306,8 +313,7 @@ public class R_Knob extends R_Button {
 
 
   public void update(float x, float y, boolean event) {
-    if(!mol_limit_is)
-      cursor(x,y);
+    cursor(x,y);
     mol_update(event);
   }
   
@@ -336,7 +342,7 @@ public class R_Knob extends R_Button {
       if(this.molette[i].used_is()) {
         mol_update_position(i);
       } else {
-        mol_limit_is = false;
+        mol_limit_is.set(false);
       }
 
       if(this.molette[i].angle() < angle_min) {
@@ -351,13 +357,19 @@ public class R_Knob extends R_Button {
 
 
 
-  private float previous_angle_ref;
-  private float next_angle_ref;
+
   private boolean ref_angle_is = false;
 
   private void mol_update_position(int index) {
-    float angle = 0;
-    angle = calc_angle(angle);
+    float angle = this.molette[index].angle();
+    float buf_angle = calc_angle(angle);
+    float dif = abs(angle-buf_angle);
+    if(any(mol_limit_is) && dif < 0.1) {
+      angle = buf_angle;
+    } else if(!all(mol_limit_is)) {
+      angle = buf_angle;
+    }
+    
     if(!out_is) {
       render_molette(index, angle);
     }
@@ -377,13 +389,12 @@ public class R_Knob extends R_Button {
     }
 
     if(!this.open_knob) {
-      print_err("angle limited", angle);
       if(angle < angle_min) {
-        mol_limit_is = true;
+        mol_limit_is.x(true);
         return angle_min;
       }
       if(angle > angle_max) {
-        mol_limit_is = true;
+        mol_limit_is.y(true);
         return angle_max;
       }
     }

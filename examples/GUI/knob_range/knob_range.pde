@@ -38,7 +38,7 @@ void set_knob() {
 	
 	
 
-	knob.set_value(0.33, 0.6);
+	knob.set_value(0.1, 0.6);
 	knob.set_dist_mol(knob.size().x()*.5);
 	knob.set_mol(RECT);
 
