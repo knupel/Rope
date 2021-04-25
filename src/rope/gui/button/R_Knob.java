@@ -17,7 +17,8 @@ import rope.vector.vec2;
 
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
-    private bvec2 [] mol_limit_is;
+  protected R_Mol guide;
+  private bvec2 [] mol_limit_is;
   private boolean init_molette_is;
   private boolean mol_used_is;
 
@@ -40,11 +41,13 @@ public class R_Knob extends R_Button {
     
     super("Knob", pos, new vec2(size));
     set_value(0.5f); // default > one molette > half position
+    init_guide();
   }
   
   public R_Knob(String type, vec2 pos, float size) {
     super(type, pos, new vec2(size));
     set_value(0.5f); // default > one molette > half position
+    init_guide();
   }
 
 
@@ -80,30 +83,41 @@ public class R_Knob extends R_Button {
     }
   }
 
+  protected void init_guide() {
+    if(this.guide == null) {
+      this.guide = new R_Mol();
+      this.guide.inside_is = false;
+      this.guide.size(this.size.x()/4);
+      this.guide.used_is = false;
+    }
+  }
+
   protected void init_molette(int len) {
 		if(molette == null || len != molette.length) {
 			molette = new R_Mol[len];
       mol_limit_is = new bvec2[len];
       for(int i = 0 ; i < len ; i++) {
-        mol_limit_is[i] = new bvec2(false);
-        molette[i] = new R_Mol();
+        this.mol_limit_is[i] = new bvec2(false);
+        this.molette[i] = new R_Mol();
         this.molette[i].size(this.size.x()/4);
-        molette[i].id = 0;
-        molette[i].used_is = false;
-        molette[i].inside_is = false;
+        this.molette[i].id = 0;
+        this.molette[i].used_is = false;
+        this.molette[i].inside_is = false;
       }
 		}
 	}
 
 
-
+  /**
+   * MOLETTE
+   */
   
   public R_Knob set_size_mol(vec2 size) {
     return set_size_mol(size.x(),size.y());
   }
 
-  public R_Knob set_size_mol(float s) {
-    return set_size_mol(s,s);
+  public R_Knob set_size_mol(float size) {
+    return set_size_mol(size,size);
   }
 
   public R_Knob set_size_mol(float w, float h) {
@@ -113,11 +127,29 @@ public class R_Knob extends R_Button {
     return this;
   }
 
-
   public R_Knob set_dist_mol(float dist) {
     for(int i = 0 ; i < molette.length ; i++) {
-      this.molette[i].set_distance(dist);
+      this.molette[i].set_dist(dist);
     }
+    return this;
+  }
+
+
+  /**
+   * GUIDE
+   */
+
+  public R_Knob set_dist_guide(float dist) {
+    this.guide.set_dist(dist);
+    return this;
+  }
+
+  public R_Knob set_size_guide(float size) {
+    return set_size_guide(size,size);
+  }
+
+  public R_Knob set_size_guide(float w, float h) {
+    this.guide.size(w,h);
     return this;
   }
 
@@ -286,11 +318,25 @@ public class R_Knob extends R_Button {
   public void show_mol() {
     for(int i = 0 ; i < molette.length ; i++) {
       if(!init_molette_is) {
-        this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_distance()));
+        this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_dist()));
       }
       this.molette[i].show();
     }
     init_molette_is = true;
+  }
+
+  public void show_guide() {
+    if(molette.length > 1) {
+      float angle = 0;
+      for(int i = 0 ; i < molette.length ; i++) {
+        angle += this.molette[i].angle();
+      }
+      angle /= molette.length;
+      vec2 offset = add(this.pos, this.size().copy().div(2));
+      this.guide.pos(projection(angle,this.guide.get_dist()).add(offset));
+      this.guide.show();
+
+    }
   }
 
   public void show_struc_pie() {
@@ -326,14 +372,40 @@ public class R_Knob extends R_Button {
 
   public void update(float x, float y, boolean event) {
     cursor(x,y);
-    mol_update(event);
+    this.event = event;
+    molette_update();
+    guide_update();
   }
   
 
   // molette
-  private void mol_update(boolean event) {
-    this.event = event;
+  private void guide_update() {
+    boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+    boolean inside_is = this.guide.inside(cursor);
+    boolean used_is = all(inside_is,bang_is, !mol_used_is);
+    print_out("inside_is",inside_is);
+    print_out("used_is",used_is);
 
+    if(this.event) {
+      if(used_is) {
+        this.guide.used(true);
+        mol_used_is = true;
+      }
+    } else {
+      this.guide.used(false);
+    }
+
+    if(this.guide.used_is()) {
+      print_out("je suis en cours d'utilisation");
+      float angle = calc_angle_imp(this.guide.angle());
+      render_mol(this.guide, angle);
+    } else {
+      mol_used_is = false;
+    }
+  }
+
+
+  private void molette_update() {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_offset(pos.copy().add(size.copy().mult(0.5f)));
       boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
@@ -353,7 +425,7 @@ public class R_Knob extends R_Button {
       }
 
       if(this.molette[i].used_is()) {
-        mol_update_position(i);
+        molette_update_position(i);
       } else {
         mol_limit_is[i].set(false);
         mol_used_is = false;
@@ -369,12 +441,8 @@ public class R_Knob extends R_Button {
     }
   }
 
-
-
-
   private boolean ref_angle_is = false;
-
-  private void mol_update_position(int index) {
+  private void molette_update_position(int index) {
     float angle = this.molette[index].angle();
     float buf_angle = calc_angle(index, angle);
     float dif = abs(angle-buf_angle);
@@ -385,22 +453,18 @@ public class R_Knob extends R_Button {
     }
     
     if(!out_is) {
-      render_molette(index, angle);
+      render_mol(this.molette[index], angle);
     }
   }
 
+
+
+
+
+
+
   private float calc_angle(int index, float angle) {
-    if(drag_direction == HORIZONTAL) {
-      angle = cursor.x() * drag_force;
-    } else if(drag_direction == CIRCULAR) {
-      vec2 temp = pos.copy().add(size.copy().mult(0.5f));
-      angle = temp.angle(cursor);
-      if(angle < 0) {
-        angle+= TAU;
-      }
-    } else if(drag_direction == VERTICAL) {
-      angle = cursor.y() * drag_force;
-    }
+    angle = calc_angle_imp(angle);
 
     if(!this.open_knob) {
       if(angle < angle_min) {
@@ -415,7 +479,23 @@ public class R_Knob extends R_Button {
     return angle;
   }
 
-  private void render_molette(int index, float angle) {
+  private float calc_angle_imp(float angle) {
+    if(drag_direction == HORIZONTAL) {
+      angle = cursor.x() * drag_force;
+    } else if(drag_direction == CIRCULAR) {
+      vec2 temp = pos.copy().add(size.copy().mult(0.5f));
+      angle = temp.angle(cursor);
+      if(angle < 0) {
+        angle+= TAU;
+      }
+    } else if(drag_direction == VERTICAL) {
+      angle = cursor.y() * drag_force;
+    }
+    return angle;
+  }
+
+
+  private void render_mol(R_Mol mol, float angle) {
     if(drag_direction != CIRCULAR) {
       if(!ref_angle_is) {
         next_angle_ref = angle;
@@ -423,12 +503,12 @@ public class R_Knob extends R_Button {
       }
       float new_angle = previous_angle_ref + (angle -next_angle_ref);
       new_angle = constrain_value(new_angle);
-      this.molette[index].angle(new_angle);
-      this.molette[index].pos(projection(new_angle, this.molette[index].get_distance()));
+      mol.angle(new_angle);
+      mol.pos(projection(new_angle, mol.get_distance()));
     } else if(drag_direction == CIRCULAR) {
       angle = constrain_value(angle);
-      this.molette[index].angle(angle);
-      this.molette[index].pos(projection(angle, this.molette[index].get_distance()));
+      mol.angle(angle);
+      mol.pos(projection(angle, mol.get_distance()));
     }
   }
 

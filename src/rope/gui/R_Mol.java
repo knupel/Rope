@@ -1,7 +1,7 @@
 /**
 * R_Mol
 * Control ROmanesco Processing Environment
-* v 1.0.2
+* v 1.0.3
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -78,6 +78,11 @@ public class R_Mol extends R_Graphic {
 
   public R_Mol angle(float angle) {
     this.angle = angle;
+    return this;
+  }
+
+  public R_Mol set_dist(float dist) {
+    this.dist = dist;
     return this;
   }
 
@@ -211,6 +216,11 @@ public class R_Mol extends R_Graphic {
   public float angle() {
     return this.angle;
   }
+
+  public float get_dist() {
+    return dist;
+  }
+
 
   public float get_distance() {
     return dist;

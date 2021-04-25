@@ -35,16 +35,17 @@ void set_knob() {
 	knob = new R_Knob(new vec2(20),100);
 	knob.set_rollover_type(RECT);
 	
-	
-	
-
 	knob.set_value(0.45, 0.3);
-	knob.set_dist_mol(knob.size().x()*.5);
+
+	knob.set_size_mol(10);
+	knob.set_dist_mol(knob.size().x() * 0.5);
 	knob.set_mol(RECT);
+
+	knob.set_dist_guide(knob.size().x() * 0.65);
 
 	// limit the range knob
 	knob.limit(true); // use default value range
-	knob.set_limit(PI,HALF_PI);
+	knob.set_limit(PI,0);
 	// knob.set_limit(HALF_PI,PI);
 
 	// colour molette
@@ -74,6 +75,7 @@ void draw_knob() {
 	knob.show_mol();
 	knob.show_value();
 	knob.show_limit();
+	knob.show_guide();
   
   // println("knob value", knob.get());
 	// println("knob value", knob.get()%TAU);
