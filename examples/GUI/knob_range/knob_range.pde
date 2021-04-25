@@ -38,13 +38,14 @@ void set_knob() {
 	
 	
 
-	knob.set_value(0.1, 0.6);
+	knob.set_value(0.45, 0.3);
 	knob.set_dist_mol(knob.size().x()*.5);
 	knob.set_mol(RECT);
 
 	// limit the range knob
 	knob.limit(true); // use default value range
-	knob.set_range(PI,HALF_PI);
+	knob.set_limit(PI,HALF_PI);
+	// knob.set_limit(HALF_PI,PI);
 
 	// colour molette
 	knob.set_align_label_name(LEFT);

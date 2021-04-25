@@ -47,7 +47,8 @@ void set_knob() {
 
 	// limit the range knob
 	knob.set_size_limit(-20,20); // use to show limit
-	knob.set_limit(0.4,TAU - 0.9); // use to set the angle range of limit
+	// knob.set_limit(0.4,TAU - 0.9); // use to set the angle range of limit
+	knob.set_limit(PI,HALF_PI);
 	// knob.set_limit(0.4,HALF_PI); // use to set the angle range of limit
 	knob.limit(true); // use default value lilit angle
 	

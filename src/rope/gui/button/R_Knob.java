@@ -17,8 +17,10 @@ import rope.vector.vec2;
 
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
-  private boolean init_molette_is = false;
-  private bvec2 mol_limit_is;
+    private bvec2 [] mol_limit_is;
+  private boolean init_molette_is;
+  private boolean mol_used_is;
+
   private float previous_angle_ref;
   private float next_angle_ref;
 
@@ -26,7 +28,7 @@ public class R_Knob extends R_Button {
   private float angle_max = PI/4;
 
   private boolean open_knob = true;
-  private boolean out_is = false;
+  private boolean out_is;
 
 
 
@@ -64,7 +66,6 @@ public class R_Knob extends R_Button {
   
   public R_Knob set_value(float... pos_norm) {
     set_value_calc(pos_norm);
-    mol_limit_is = new bvec2(false);
     init_molette_is = false;
     return this;
   }
@@ -82,7 +83,9 @@ public class R_Knob extends R_Button {
   protected void init_molette(int len) {
 		if(molette == null || len != molette.length) {
 			molette = new R_Mol[len];
+      mol_limit_is = new bvec2[len];
       for(int i = 0 ; i < len ; i++) {
+        mol_limit_is[i] = new bvec2(false);
         molette[i] = new R_Mol();
         this.molette[i].size(this.size.x()/4);
         molette[i].id = 0;
@@ -92,10 +95,7 @@ public class R_Knob extends R_Button {
 		}
 	}
 
-  public R_Knob set_size_limit(float min, float max) {
-    this.size_limit.set(min,max);
-    return this;
-  }
+
 
   
   public R_Knob set_size_mol(vec2 size) {
@@ -187,6 +187,15 @@ public class R_Knob extends R_Button {
     return this;
   }
 
+  public R_Knob set_size_limit(float min, float max) {
+    if(min > max) {
+      this.size_limit.set(max,min);
+      return this;
+    }
+    this.size_limit.set(min,max);
+    return this;
+  }
+
 
   /**
    * 
@@ -195,15 +204,18 @@ public class R_Knob extends R_Button {
    * @return
    */
   public R_Knob set_limit(float angle_min, float angle_max) {
+    if(angle_min > angle_max) {
+      this.angle_min = angle_max;
+      this.angle_max = angle_min;
+      return this;
+    }
     this.angle_min = angle_min;
     this.angle_max = angle_max;
     return this;
   }
 
   @Deprecated public R_Knob set_range(float min, float max) {
-    this.angle_min = min;
-    this.angle_max = max;
-    return this;
+    return set_limit(min, max);
   }
 
 
@@ -326,11 +338,12 @@ public class R_Knob extends R_Button {
       this.molette[i].set_offset(pos.copy().add(size.copy().mult(0.5f)));
       boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
       boolean inside_is = this.molette[i].inside(cursor);
-      boolean used_is = all(inside_is,bang_is);
+      boolean used_is = all(inside_is,bang_is, !mol_used_is);
 
       this.molette[i].inside_is(inside_is);
       if(used_is && this.event) {
         this.molette[i].used(true);
+        mol_used_is = true;
       }
       if(!this.event) {
         this.molette[i].used(false);
@@ -342,7 +355,8 @@ public class R_Knob extends R_Button {
       if(this.molette[i].used_is()) {
         mol_update_position(i);
       } else {
-        mol_limit_is.set(false);
+        mol_limit_is[i].set(false);
+        mol_used_is = false;
       }
 
       if(this.molette[i].angle() < angle_min) {
@@ -362,11 +376,11 @@ public class R_Knob extends R_Button {
 
   private void mol_update_position(int index) {
     float angle = this.molette[index].angle();
-    float buf_angle = calc_angle(angle);
+    float buf_angle = calc_angle(index, angle);
     float dif = abs(angle-buf_angle);
-    if(any(mol_limit_is) && dif < 0.1) {
+    if(any(mol_limit_is[index]) && dif < 0.1) {
       angle = buf_angle;
-    } else if(!all(mol_limit_is)) {
+    } else if(!all(mol_limit_is[index])) {
       angle = buf_angle;
     }
     
@@ -375,7 +389,7 @@ public class R_Knob extends R_Button {
     }
   }
 
-  private float calc_angle(float angle) {
+  private float calc_angle(int index, float angle) {
     if(drag_direction == HORIZONTAL) {
       angle = cursor.x() * drag_force;
     } else if(drag_direction == CIRCULAR) {
@@ -390,11 +404,11 @@ public class R_Knob extends R_Button {
 
     if(!this.open_knob) {
       if(angle < angle_min) {
-        mol_limit_is.x(true);
+        mol_limit_is[index].x(true);
         return angle_min;
       }
       if(angle > angle_max) {
-        mol_limit_is.y(true);
+        mol_limit_is[index].y(true);
         return angle_max;
       }
     }
