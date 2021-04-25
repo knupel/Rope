@@ -17,6 +17,7 @@ import rope.vector.vec2;
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
   private boolean init_molette_is = false;
+  private boolean mol_limit_is = false;
 
   private boolean open_knob = true;
   private boolean out_is = false;
@@ -165,16 +166,40 @@ public class R_Knob extends R_Button {
   }
 
 
-  public R_Knob set_range(float min, float max) {
+
+
+
+
+  /**
+   * 
+   * @param open_knob
+   * @return
+   */
+  public R_Knob limit(boolean open_knob) {
+    this.open_knob = !open_knob;
+    return this;
+  }
+
+
+  /**
+   * 
+   * @param angle_min
+   * @param angle_max
+   * @return
+   */
+  public R_Knob set_limit(float angle_min, float angle_max) {
+    this.angle_min = angle_min;
+    this.angle_max = angle_max;
+    return this;
+  }
+
+  @Deprecated public R_Knob set_range(float min, float max) {
     this.angle_min = min;
     this.angle_max = max;
     return this;
   }
 
-  public R_Knob limit(boolean open_knob) {
-    this.open_knob = !open_knob;
-    return this;
-  }
+
 
 
   // get
@@ -203,7 +228,6 @@ public class R_Knob extends R_Button {
 
   
   // show
-
   public void show_limit() {
     boolean on_off_is = true;
     if(!open_knob) {
@@ -248,16 +272,21 @@ public class R_Knob extends R_Button {
       this.molette[i].show();
     }
     init_molette_is = true;
-    
   }
 
   public void show_struc_pie() {
     aspect_impl(true);
     vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
+    float ang_a = this.molette[0].angle();
     if(molette.length > 1) {
-      arc(buf_pos,size,this.molette[0].angle(), this.molette[molette.length -1].angle(),PIE);
+      float ang_b = this.molette[molette.length -1].angle();
+      if(ang_a < ang_b) {
+        arc(buf_pos,size,ang_a, ang_b, PIE);
+      } else {
+        arc(buf_pos,size,ang_b, ang_a, PIE);
+      }
     } else {
-      arc(buf_pos,size,0,this.molette[0].angle(),PIE);      
+      arc(buf_pos,size,0,ang_a,PIE);      
     }
   }
 
@@ -277,18 +306,15 @@ public class R_Knob extends R_Button {
 
 
   public void update(float x, float y, boolean event) {
-    cursor(x,y);
+    if(!mol_limit_is)
+      cursor(x,y);
     mol_update(event);
-    use_event_is = false;
   }
   
 
   // molette
   private void mol_update(boolean event) {
-    if(!use_event_is) {
-      use_event_is = true;
-      this.event = event;
-    }
+    this.event = event;
 
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_offset(pos.copy().add(size.copy().mult(0.5f)));
@@ -306,20 +332,31 @@ public class R_Knob extends R_Button {
         ref_angle_is = false;
         out_is = false;
       }
+
       if(this.molette[i].used_is()) {
         mol_update_position(i);
+      } else {
+        mol_limit_is = false;
+      }
+
+      if(this.molette[i].angle() < angle_min) {
+        this.molette[i].angle(angle_min);
+      }
+
+      if(this.molette[i].angle() > angle_max) {
+        this.molette[i].angle(angle_max);
       }
     }
   }
 
 
 
-  float previous_angle_ref;
-  float next_angle_ref;
-  boolean ref_angle_is = false;
+  private float previous_angle_ref;
+  private float next_angle_ref;
+  private boolean ref_angle_is = false;
+
   private void mol_update_position(int index) {
     float angle = 0;
-    // calc angle
     angle = calc_angle(angle);
     if(!out_is) {
       render_molette(index, angle);
@@ -337,6 +374,18 @@ public class R_Knob extends R_Button {
       }
     } else if(drag_direction == VERTICAL) {
       angle = cursor.y() * drag_force;
+    }
+
+    if(!this.open_knob) {
+      print_err("angle limited", angle);
+      if(angle < angle_min) {
+        mol_limit_is = true;
+        return angle_min;
+      }
+      if(angle > angle_max) {
+        mol_limit_is = true;
+        return angle_max;
+      }
     }
     return angle;
   }

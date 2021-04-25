@@ -39,15 +39,18 @@ void set_knob() {
 	//knob.set_drag(r.VERTICAL);
 	// knob.set_drag(r.HORIZONTAL); 
 
-	// knob.set_size_limit(-10,5);
+	
 	knob.set_value(0.5);
 	knob.set_mol(RECT);
 	knob.set_size_mol(20,10);
 	knob.set_dist_mol(knob.size().x()*.5);
 
 	// limit the range knob
-	// knob.limit(); // use default value range
-	knob.set_range(PI,HALF_PI);
+	knob.set_size_limit(-20,20); // use to show limit
+	knob.set_limit(0.4,TAU - 0.4); // use to set the angle range of limit
+	// knob.set_limit(0.4,HALF_PI); // use to set the angle range of limit
+	knob.limit(true); // use default value lilit angle
+	
 
 	// colour molette
 	knob.set_align_label_name(LEFT);

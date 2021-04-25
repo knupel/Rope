@@ -43,7 +43,7 @@ void set_knob() {
 	knob.set_mol(RECT);
 
 	// limit the range knob
-	// knob.limit(); // use default value range
+	knob.limit(true); // use default value range
 	knob.set_range(PI,HALF_PI);
 
 	// colour molette
@@ -72,7 +72,7 @@ void draw_knob() {
 	knob.show_struc_pie();
 	knob.show_mol();
 	knob.show_value();
-	// knob.show_limit();
+	knob.show_limit();
   
   // println("knob value", knob.get());
 	// println("knob value", knob.get()%TAU);

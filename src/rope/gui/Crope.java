@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.3.0
+* v 1.3.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -37,7 +37,6 @@ abstract public class Crope extends R_Graphic {
   protected int mode = -1;
   // event
   protected boolean event;
-  protected boolean use_event_is = false;
   // color
   protected int fill_in = State.env().gui_fill_in;
   protected int fill_out = State.env().gui_fill_out;
