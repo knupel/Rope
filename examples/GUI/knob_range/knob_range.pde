@@ -12,6 +12,7 @@ import rope.gui.button.R_Knob;
 import rope.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
+import rope.gui.R_Mol;
 
 
 Rope r = new Rope();
@@ -39,7 +40,7 @@ void set_knob() {
 
 	knob.set_size_mol(10);
 	knob.set_dist_mol(knob.size().x() * 0.5);
-	knob.set_mol(RECT);
+	knob.set_type_mol(RECT);
 
 	knob.set_dist_guide(knob.size().x() * 0.65);
 
@@ -55,6 +56,11 @@ void set_knob() {
 	float pos_info = 25;
 
 	knob.set_drag_force(0.05);
+
+	R_Mol [] list = knob.get_mol();
+	for(int i = 0 ; i < list.length ; i++) {
+		println("mol pos",list[i].pos());
+	}
 
 }
 

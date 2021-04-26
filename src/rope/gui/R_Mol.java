@@ -1,7 +1,7 @@
 /**
 * R_Mol
 * Control ROmanesco Processing Environment
-* v 1.0.3
+* v 1.1.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -141,46 +141,6 @@ public class R_Mol extends R_Graphic {
     return this;
   }
 
-  // public R_Mol set_fill_in_OFF(int c) {
-  // 	set_fill_in(c);
-  //   return this;
-  // }
-
-  // public R_Mol set_fill_out_OFF(int c) {
-  // 	set_fill_out(c);
-  //   return this;   
-  // }
-
-  // public R_Mol set_stroke_in_OFF(int c) {
-  // 	set_stroke_in(c);
-  //   return this;   
-  // }
-
-  // public R_Mol set_stroke_out_OFF(int c) {
-  // 	set_stroke_out(c);
-  //   return this; 
-  // }
-
-  // public R_Mol set_fill_in_ON(int c) {
-  //   this.fill_in = c;
-  //   return this;
-  // }
-
-  // public R_Mol set_fill_out_ON(int c) {
-  //   this.fill_out_ON = c;
-  //   return this;   
-  // }
-
-  // public R_Mol set_stroke_in_ON(int c) {
-  //   this.stroke_in_ON = c;
-  //   return this;   
-  // }
-
-  // public R_Mol set_stroke_out_ON(int c) {
-  //   this.stroke_out_ON = c;
-  //   return this; 
-  // }
-
 
   
 
@@ -263,7 +223,6 @@ public class R_Mol extends R_Graphic {
     if(shape_type == ELLIPSE) {
       ellipse(new vec2(),size);
     } else if(shape_type == RECT) {
-      // vec2 temp_pos = pos.copy().sub(size.copy().mult(0.5f));
       rotate(angle);
       rect(size.copy().mult(0.5f).mult(-1),size);
     } else {
@@ -271,8 +230,17 @@ public class R_Mol extends R_Graphic {
     }
     pop();
   }
+  private void aspect(boolean on_off) {
+    if(thickness <= 0) {
+      aspect_fill(on_off);
+      noStroke();
+    } else {
+      aspect_stroke(on_off);
+      aspect_fill(on_off);
+    }
+  }
 
-  private void aspect(boolean on_off) { 
+  private void aspect_fill(boolean on_off) {
     if(on_off) {
       if(inside_is()) {
         if(select_is()) {
@@ -289,8 +257,27 @@ public class R_Mol extends R_Graphic {
       }
     } else {
       fill(fill_in);
+    }
+  }
+
+  private void aspect_stroke(boolean on_off) {
+    strokeWeight(thickness);
+    if(on_off) {
+      if(inside_is()) {
+        if(select_is()) {
+          stroke(stroke_in_ON);
+        } else {
+          stroke(stroke_in);
+        }
+      } else {
+        if(select_is()) {
+          stroke(stroke_out_ON);
+        } else {
+          stroke(stroke_out);
+        }
+      }
+    } else {
       stroke(stroke_in);
-      strokeWeight(thickness);
     }
   }
 

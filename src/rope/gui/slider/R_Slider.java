@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.4.1
+* v 1.4.2
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -100,9 +100,6 @@ public class R_Slider extends Crope implements R_GUI {
 
 	public R_Slider set_mol(int type) {
 		this.molette_type = type;
-		// if(molette == null) {
-		// 	init_molette(1);
-		// }
 		return this;
 	}
 
@@ -234,6 +231,26 @@ public class R_Slider extends Crope implements R_GUI {
 		}
 		return value_array;
 	}
+
+
+	public R_Mol [] get_mol() {
+    R_Mol [] arr_mol = new R_Mol[this.molette.length + 1];
+    int index = 0;
+    while(index < this.molette.length) {
+      arr_mol[index] = this.molette[index];
+      index++;
+    }
+    return arr_mol;
+  }
+
+  public R_Mol get_mol(int index) {
+    R_Mol [] arr = get_mol();
+    if(index > 0 && index < arr.length) {
+      return arr[index];
+    }
+    return null;
+  }
+
 
 	public float get_min_norm() {
 		return min_norm ;

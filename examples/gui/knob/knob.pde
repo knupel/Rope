@@ -41,7 +41,7 @@ void set_knob() {
 
 	
 	knob.set_value(0.5);
-	knob.set_mol(RECT);
+	knob.set_type_mol(RECT);
 	knob.set_size_mol(20,10);
 	knob.set_dist_mol(knob.size().x()*.5);
 
@@ -83,6 +83,7 @@ void draw_knob() {
 	knob.show_mol();
 	knob.show_value();
 	knob.show_limit();
+
   
   // println("knob value", knob.get());
 	// println("knob value", knob.get()%TAU);

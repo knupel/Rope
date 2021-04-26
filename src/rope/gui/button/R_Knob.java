@@ -31,8 +31,6 @@ public class R_Knob extends R_Button {
   private boolean open_knob = true;
   private boolean out_is;
 
-
-
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
   private vec2 size_limit = new vec2(-3,3);
@@ -51,12 +49,7 @@ public class R_Knob extends R_Button {
   }
 
 
-  public R_Knob set_mol(int molette_type) {
-    for(int i = 0 ; i < molette.length ; i++) {
-      this.molette[i].set_shape_type(molette_type);
-    }
-    return this;
-  }
+
 
 
   // set size
@@ -111,6 +104,13 @@ public class R_Knob extends R_Button {
   /**
    * MOLETTE
    */
+
+  public R_Knob set_type_mol(int molette_type) {
+    for(int i = 0 ; i < molette.length ; i++) {
+      this.molette[i].set_shape_type(molette_type);
+    }
+    return this;
+  }
   
   public R_Knob set_size_mol(vec2 size) {
     return set_size_mol(size.x(),size.y());
@@ -171,6 +171,9 @@ public class R_Knob extends R_Button {
 
 
 
+
+  // ASPECT MOLETTE and GUIDE
+
   public R_Knob set_fill_mol(int c) {
     set_fill_mol(c,c);
     return this;
@@ -181,6 +184,8 @@ public class R_Knob extends R_Button {
       this.molette[i].set_fill_in(c_in);
       this.molette[i].set_fill_out(c_out);
     }
+    this.guide.set_fill_in(c_in);
+    this.guide.set_fill_out(c_out);
     return this;
   }
   
@@ -194,6 +199,8 @@ public class R_Knob extends R_Button {
       this.molette[i].set_stroke_in(c_in);
       this.molette[i].set_stroke_out(c_out);
     }
+    this.guide.set_stroke_in(c_in);
+    this.guide.set_stroke_out(c_out);
     return this;
   }
 
@@ -201,6 +208,7 @@ public class R_Knob extends R_Button {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_thickness(thickness);
     }
+    this.guide.set_thickness(thickness);
     return this;
   }
 
@@ -275,6 +283,25 @@ public class R_Knob extends R_Button {
     return value_array;
   }
 
+  public R_Mol [] get_mol() {
+    R_Mol [] arr_mol = new R_Mol[this.molette.length + 1];
+    int index = 0;
+    while(index < this.molette.length) {
+      arr_mol[index] = this.molette[index];
+      index++;
+    }
+    arr_mol[index] = this.guide;
+    return arr_mol;
+  }
+
+  public R_Mol get_mol(int index) {
+    R_Mol [] arr = get_mol();
+    if(index > 0 && index < arr.length) {
+      return arr[index];
+    }
+    return null;
+  }
+
 
 
   
@@ -318,7 +345,7 @@ public class R_Knob extends R_Button {
   public void show_mol() {
     for(int i = 0 ; i < molette.length ; i++) {
       if(!init_molette_is) {
-        this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_dist()));
+       this.molette[i].pos(projection(this.molette[i].angle(), this.molette[i].get_dist()));
       }
       this.molette[i].show();
     }
@@ -373,19 +400,17 @@ public class R_Knob extends R_Button {
   public void update(float x, float y, boolean event) {
     cursor(x,y);
     this.event = event;
-    molette_update();
-    guide_update();
+    boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+    guide_update(bang_is);
+    molette_update(bang_is);
   }
   
 
-  // molette
-  private void guide_update() {
-    boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+  // molette guide update
+  private void guide_update(boolean bang_is) {
     boolean inside_is = this.guide.inside(cursor);
-    boolean used_is = all(inside_is,bang_is, !mol_used_is);
-    print_out("inside_is",inside_is);
-    print_out("used_is",used_is);
-
+    boolean used_is = all(inside_is, bang_is, !mol_used_is);
+    this.guide.inside_is(inside_is);
     if(this.event) {
       if(used_is) {
         this.guide.used(true);
@@ -396,7 +421,6 @@ public class R_Knob extends R_Button {
     }
 
     if(this.guide.used_is()) {
-      print_out("je suis en cours d'utilisation");
       float angle = calc_angle_imp(this.guide.angle());
       render_mol(this.guide, angle);
     } else {
@@ -404,13 +428,12 @@ public class R_Knob extends R_Button {
     }
   }
 
-
-  private void molette_update() {
+  // molette update
+  private void molette_update(boolean bang_is) {
     for(int i = 0 ; i < molette.length ; i++) {
       this.molette[i].set_offset(pos.copy().add(size.copy().mult(0.5f)));
-      boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
       boolean inside_is = this.molette[i].inside(cursor);
-      boolean used_is = all(inside_is,bang_is, !mol_used_is);
+      boolean used_is = all(inside_is, bang_is, !mol_used_is);
 
       this.molette[i].inside_is(inside_is);
       if(used_is && this.event) {
