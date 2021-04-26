@@ -8,6 +8,8 @@
 > add multi molette for knob
 > change all methods name show_structure() to show_stru()
 > change all methods contain molette() to mol()
+> add guide to knob to move all molette in a same time
+> add guide value this value return the barycenter of all molette
 
 \*version 44
 

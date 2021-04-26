@@ -46,7 +46,7 @@ void set_knob() {
 
 	// limit the range knob
 	knob.limit(true); // use default value range
-	knob.set_limit(PI,0);
+	knob.set_limit(TAU - PI/2,0);
 	// knob.set_limit(HALF_PI,PI);
 
 	// colour molette

@@ -354,13 +354,8 @@ public class R_Knob extends R_Button {
 
   public void show_guide() {
     if(molette.length > 1) {
-      float angle = 0;
-      for(int i = 0 ; i < molette.length ; i++) {
-        angle += this.molette[i].angle();
-      }
-      angle /= molette.length;
       vec2 offset = add(this.pos, this.size().copy().div(2));
-      this.guide.pos(projection(angle,this.guide.get_dist()).add(offset));
+      this.guide.pos(projection( this.guide.angle(),this.guide.get_dist()).add(offset));
       this.guide.show();
 
     }
@@ -385,7 +380,11 @@ public class R_Knob extends R_Button {
 
 
 
-  // misc
+  // update
+
+  /**
+   * 
+   */
   public void update() {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
@@ -396,7 +395,12 @@ public class R_Knob extends R_Button {
     update(x,y,new_event);
   }
 
-
+  /**
+   * 
+   * @param x
+   * @param y
+   * @param event
+   */
   public void update(float x, float y, boolean event) {
     cursor(x,y);
     this.event = event;
@@ -404,7 +408,9 @@ public class R_Knob extends R_Button {
     guide_update(bang_is);
     molette_update(bang_is);
   }
-  
+
+
+
 
   // molette guide update
   private void guide_update(boolean bang_is) {
@@ -422,11 +428,35 @@ public class R_Knob extends R_Button {
 
     if(this.guide.used_is()) {
       float angle = calc_angle_imp(this.guide.angle());
+      float dif = angle - this.guide.angle();
+      molette_update_from_guide(dif);
       render_mol(this.guide, angle);
     } else {
+      guide_update_from_molette();
       mol_used_is = false;
     }
   }
+
+  private void guide_update_from_molette() {
+    float angle = 0;
+    for(int i = 0 ; i < molette.length ; i++) {
+      angle += this.molette[i].angle();
+    }
+    angle /= molette.length;
+    this.guide.angle(angle);
+  }
+
+  private void molette_update_from_guide(float dif_angle) {
+    for(R_Mol m : molette) {
+      render_mol(m, m.angle() + dif_angle);
+    }
+  }
+
+
+
+
+
+
 
   // molette update
   private void molette_update(boolean bang_is) {
@@ -466,10 +496,11 @@ public class R_Knob extends R_Button {
 
   private boolean ref_angle_is = false;
   private void molette_update_position(int index) {
+    float threshold = 0.1f;
     float angle = this.molette[index].angle();
-    float buf_angle = calc_angle(index, angle);
+    float buf_angle = calc_angle(index, angle, threshold);
     float dif = abs(angle-buf_angle);
-    if(any(mol_limit_is[index]) && dif < 0.1) {
+    if(any(mol_limit_is[index]) && dif < threshold) {
       angle = buf_angle;
     } else if(!all(mol_limit_is[index])) {
       angle = buf_angle;
@@ -482,15 +513,16 @@ public class R_Knob extends R_Button {
 
 
 
-
-
-
-
-  private float calc_angle(int index, float angle) {
+  private float calc_angle(int index, float angle, float threshold) {
+    float current_angle = molette[index].angle();
     angle = calc_angle_imp(angle);
-
     if(!this.open_knob) {
       if(angle < angle_min) {
+        mol_limit_is[index].x(true);
+        return angle_min;
+      }
+      // special case where the angle restart just after min value on big value
+      if(angle > angle_max && abs(current_angle - angle_min) < threshold) {
         mol_limit_is[index].x(true);
         return angle_min;
       }
@@ -546,7 +578,7 @@ public class R_Knob extends R_Button {
           out_is = false;
         }
       } else {
-        if(angle < angle_min) {
+        if(angle <= angle_min) {
           out_is = true;
           angle = angle_min;
         } else {
