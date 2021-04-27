@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.2
+	* v 1.0.1
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -124,14 +124,14 @@ public interface R_Constants {
 	
 	
   //for the unicity value we note the angle between -PI to PI from atan2
-	static final float NORTH = (float)(-(PI *0.5));
-	static final float NORTH_EAST = (float)(-PI *0.25);
+	static final float NORTH = -(PI *0.5f);
+	static final float NORTH_EAST = -(PI *0.25f);
 	static final float EAST = 0;
-	static final float SOUTH_EAST = (float)(PI *0.25);
-	static final float SOUTH = (float)(PI *0.5);
-	static final float SOUTH_WEST = (float)((3*PI)*0.25);
+	static final float SOUTH_EAST = PI *0.25f;
+	static final float SOUTH = PI *0.5f;
+	static final float SOUTH_WEST = (3*PI)*0.25f;
 	static final float WEST = PI;
-	static final float NORTH_WEST = (float)(-(3*PI)*0.25);
+	static final float NORTH_WEST = (-(3*PI)*0.25f);
 	// classic angle notation
   // float north = HALF_PI;
   // float north_east = QUARTER_PI;

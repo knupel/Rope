@@ -46,8 +46,12 @@ void set_knob() {
 
 	// limit the range knob
 	knob.limit(true); // use default value range
-	knob.set_limit(TAU - PI/2,0);
-	// knob.set_limit(HALF_PI,PI);
+
+	// knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST);
+	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
+
+	// knob.set_limit(0, PI);
+	knob.set_limit(PI, 0);
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
