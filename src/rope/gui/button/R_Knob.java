@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 1.3.0
+* v 1.4.0
 * 2019-2021
 */
 package rope.gui.button;
@@ -30,9 +30,7 @@ public class R_Knob extends R_Button {
   private float previous_angle_ref;
   private float next_angle_ref;
 
-
   private boolean open_knob = true;
-  private boolean out_is;
 
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
@@ -76,7 +74,9 @@ public class R_Knob extends R_Button {
 		init_molette(pos_norm.length);
     for(int i = 0 ; i < molette.length ; i++) {
       float v = map(pos_norm[i],0,1,0,TAU);
-      v = constrain_value(v, this.limit);
+      if(!open_knob) {
+        v = constrain_value(v, this.limit);
+      }
       molette[i].angle(v);
     }
   }
@@ -495,30 +495,22 @@ public class R_Knob extends R_Button {
         this.molette[i].used(false);
         previous_angle_ref = this.molette[i].angle();
         ref_angle_is = false;
-        out_is = false;
       }
 
       if(this.molette[i].used_is()) {
         float buf_angle = calc_angle(i, this.molette[i].angle(), ang_limit);
+        print_out("buf_angle", buf_angle);
         molette_update_position(i, this.molette[i].angle(), buf_angle, ang_limit);
       } else {
         mol_limit_is[i].set(false);
         mol_used_is = false;
       }
-      molette_finalize(i, ang_limit);
+      // finalize
+      float angle = constrain_value(molette[i].angle(), this.limit);
+      molette[i].angle(angle);
     }
   }
 
-
-  private void molette_finalize(int index, vec2 ang_limit) {
-    if(this.molette[index].angle() < ang_limit.a()) {
-      this.molette[index].angle(ang_limit.a());
-    }
-
-    if(this.molette[index].angle() > ang_limit.b()) {
-      this.molette[index].angle(ang_limit.b());
-    }
-  }
 
   private boolean ref_angle_is = false;
   private void molette_update_position(int index, float ref_angle, float new_angle, vec2 ang_limit) {
@@ -536,10 +528,8 @@ public class R_Knob extends R_Button {
     } else if(!all(mol_limit_is[index])) {
       ref_angle = new_angle;
     }
-    
-    if(!out_is) {
-      render_mol(this.molette[index], ref_angle);
-    }
+    print_out("ref angle", ref_angle);
+    render_mol(this.molette[index], ref_angle);
   }
 
 
@@ -551,35 +541,7 @@ public class R_Knob extends R_Button {
     return angle;
   }
 
-  private float calc_constrain_angle(int index, float angle, vec2 ang_limit ) {
-    print_out("frameCount", pa.frameCount);
-    print_out("ang_limit.a()", ang_limit.a());
-    print_out("ang_limit.b()", ang_limit.b());
-    print_out("angle", angle);
-    float current_angle = molette[index].angle();
-    // special case where the angle restart just after min value on big value
-    if(all(!clockwise, angle <= ang_limit.a(), abs(current_angle - ang_limit.b()) < threshold)) {
-      mol_limit_is[index].y(true);
-      return ang_limit.b();
-    }
 
-    if(angle < ang_limit.a()) {
-      mol_limit_is[index].x(true);
-      return ang_limit.a();
-    }
-
-    // special case where the angle restart just after min value on big value
-    if(all(clockwise, angle > ang_limit.b(), abs(current_angle - ang_limit.a()) < threshold)) {
-      mol_limit_is[index].x(true);
-      return ang_limit.a();
-    }
-
-    if(angle > ang_limit.b()) {
-      mol_limit_is[index].y(true);
-      return ang_limit.b();
-    }
-    return angle;
-  }
 
 
 
@@ -607,39 +569,74 @@ public class R_Knob extends R_Button {
         ref_angle_is = true;
       }
       float new_angle = previous_angle_ref + (angle -next_angle_ref);
-      new_angle = constrain_value(new_angle, this.limit);
       mol.angle(new_angle);
       mol.pos(projection(new_angle, mol.get_distance()));
     } else if(drag_direction == CIRCULAR) {
-      angle = constrain_value(angle, this.limit);
       mol.angle(angle);
       mol.pos(projection(angle, mol.get_distance()));
     }
   }
 
+
+
+
+  /**
+   * 
+   * CONSTRAIN PART
+   */
+
+   private float calc_constrain_angle(int index, float angle, vec2 ang_limit ) {
+    // print_out("frameCount", pa.frameCount);
+    // print_out("ang_limit.a()", ang_limit.a());
+    // print_out("ang_limit.b()", ang_limit.b());
+    // print_out("angle", angle);
+    float current_angle = molette[index].angle();
+
+    boolean inf_a_is = angle < ang_limit.a();
+    boolean sup_b_is = angle > ang_limit.b();
+
+    boolean inf_a_b_is = all(angle < ang_limit.b()%TAU, inf_a_is);
+    boolean inf_b_is = angle < ang_limit.b()%TAU;
+
+
+    // special case where the angle restart just after min value on big value
+    if(all(!clockwise, inf_a_is, abs(current_angle - ang_limit.b()) < threshold)) {
+      mol_limit_is[index].y(true);
+      return ang_limit.b();
+    }
+
+    if(inf_a_is && !inf_a_b_is) {
+      mol_limit_is[index].x(true);
+      return ang_limit.a();
+    }
+
+    // special case where the angle restart just after min value on big value
+    if(all(clockwise, sup_b_is, abs(current_angle - ang_limit.a()) < threshold)) {
+      mol_limit_is[index].x(true);
+      return ang_limit.a();
+    }
+
+    if(sup_b_is) {
+      mol_limit_is[index].y(true);
+      return ang_limit.b();
+    }
+    return angle;
+  }
+
+
+
   private float constrain_value(float angle, vec2 ang_limit) {
-    if(!open_knob) {
-      angle = abs(angle)%TAU;
-      if(ang_limit.a() > ang_limit.b()) {
-        if(angle < ang_limit.a() && angle > ang_limit.b()) {
-          out_is = true;
-          angle = closer(angle, ang_limit.a(), ang_limit.b());
-        } else {
-          out_is = false;
-        }
-      } else {
-        if(angle <= ang_limit.a()) {
-          out_is = true;
-          angle = ang_limit.a();
-        } else {
-          out_is = false;
-        }
-        if(angle > ang_limit.b()) {
-          out_is = true;
-          angle = ang_limit.b();
-        } else {
-          out_is = false;
-        }
+    angle = abs(angle)%TAU;
+    if(ang_limit.a() > ang_limit.b()) {
+      if(angle < ang_limit.a() && angle > ang_limit.b()) {
+        return closer(angle, ang_limit.a(), ang_limit.b());
+      } 
+    } else {
+      if(angle <= ang_limit.a()) {
+        return ang_limit.a();
+      }
+      if(angle > ang_limit.b()) {
+        return ang_limit.b();
       }
     }
     return angle;
