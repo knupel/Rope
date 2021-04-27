@@ -21,7 +21,8 @@ public class R_Knob extends R_Button {
   private bvec2 [] mol_limit_is;
   // angle start and end for the limit knob
   protected vec2 limit;
-  protected int clockwise = 1;
+  protected boolean clockwise = true;
+  private float threshold = 0.1f;
 
   private boolean init_molette_is;
   private boolean mol_used_is;
@@ -249,11 +250,9 @@ public class R_Knob extends R_Button {
    */
   public R_Knob set_limit(float angle_a, float angle_b) {
     if(angle_a > angle_b) {
-      clockwise = -1;
-      print_out("counter-clockwise");
+      clockwise = false;
     } else {
-      clockwise = 1;
-      print_out("clockwise");
+      clockwise = true;
     }
     if(this.limit == null) {
       this.limit = new vec2(angle_a, angle_b);
@@ -414,14 +413,14 @@ public class R_Knob extends R_Button {
     cursor(x,y);
     this.event = event;
     boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
-    guide_update(bang_is);
 
-    // molette_update(bang_is, this.limit);
-    // print_out("direction", clock_direction);
-    if(clockwise == -1) {
+    if(!clockwise) {
       // in this case add full clockwise tour to the max component????
-      molette_update(bang_is, this.limit.copy().add_y(TAU));
+      vec2 temp_limit = this.limit.copy().add_y(TAU);
+      guide_update(bang_is, temp_limit);
+      molette_update(bang_is, temp_limit);
     } else {
+      guide_update(bang_is, this.limit);
       molette_update(bang_is, this.limit);
     }
   }
@@ -430,7 +429,7 @@ public class R_Knob extends R_Button {
 
 
   // molette guide update
-  private void guide_update(boolean bang_is) {
+  private void guide_update(boolean bang_is, vec2 ang_limit) {
     boolean inside_is = this.guide.inside(cursor);
     boolean used_is = all(inside_is, bang_is, !mol_used_is);
     this.guide.inside_is(inside_is);
@@ -446,7 +445,7 @@ public class R_Knob extends R_Button {
     if(this.guide.used_is()) {
       float angle = calc_angle_imp(this.guide.angle());
       float dif = angle - this.guide.angle();
-      molette_update_from_guide(dif);
+      molette_update_from_guide(dif, ang_limit);
       render_mol(this.guide, angle);
     } else {
       guide_update_from_molette();
@@ -463,9 +462,14 @@ public class R_Knob extends R_Button {
     this.guide.angle(angle);
   }
 
-  private void molette_update_from_guide(float dif_angle) {
-    for(R_Mol m : molette) {
-      render_mol(m, m.angle() + dif_angle);
+  private void molette_update_from_guide(float dif_angle, vec2 ang_limit) {
+    for(int i = 0; i < molette.length ; i++) {
+      float ref_angle = molette[i].angle();
+      float new_angle = ref_angle + dif_angle;
+      if(!this.open_knob) {
+        new_angle = calc_constrain_angle(i, new_angle, ang_limit);
+      }
+      molette_update_position(i, ref_angle, new_angle, ang_limit);
     }
   }
 
@@ -495,60 +499,88 @@ public class R_Knob extends R_Button {
       }
 
       if(this.molette[i].used_is()) {
-        molette_update_position(i, ang_limit);
+        float buf_angle = calc_angle(i, this.molette[i].angle(), ang_limit);
+        molette_update_position(i, this.molette[i].angle(), buf_angle, ang_limit);
       } else {
         mol_limit_is[i].set(false);
         mol_used_is = false;
       }
+      molette_finalize(i, ang_limit);
+    }
+  }
 
-      if(this.molette[i].angle() < ang_limit.a()) {
-        this.molette[i].angle(ang_limit.a());
-      }
 
-      if(this.molette[i].angle() > ang_limit.b()) {
-        this.molette[i].angle(ang_limit.b());
-      }
+  private void molette_finalize(int index, vec2 ang_limit) {
+    if(this.molette[index].angle() < ang_limit.a()) {
+      this.molette[index].angle(ang_limit.a());
+    }
+
+    if(this.molette[index].angle() > ang_limit.b()) {
+      this.molette[index].angle(ang_limit.b());
     }
   }
 
   private boolean ref_angle_is = false;
-  private void molette_update_position(int index, vec2 ang_limit) {
-    float threshold = 0.1f;
-    float angle = this.molette[index].angle();
-    float buf_angle = calc_angle(index, angle, ang_limit, threshold);
-    float dif = abs(angle-buf_angle);
+  private void molette_update_position(int index, float ref_angle, float new_angle, vec2 ang_limit) {
+    if(all(clockwise, mol_limit_is[index].x()) ) {
+      new_angle = ref_angle;
+    }
+
+    if(all(!clockwise, mol_limit_is[index].y())) {
+      new_angle = ref_angle;
+    }
+    
+    float dif = abs(ref_angle - new_angle);
     if(any(mol_limit_is[index]) && dif < threshold) {
-      angle = buf_angle;
+      ref_angle = new_angle;
     } else if(!all(mol_limit_is[index])) {
-      angle = buf_angle;
+      ref_angle = new_angle;
     }
     
     if(!out_is) {
-      render_mol(this.molette[index], angle);
+      render_mol(this.molette[index], ref_angle);
     }
   }
 
 
-  private float calc_angle(int index, float angle, vec2 ang_limit, float threshold) {
-    float current_angle = molette[index].angle();
+  private float calc_angle(int index, float angle, vec2 ang_limit) {
     angle = calc_angle_imp(angle);
     if(!this.open_knob) {
-      if(angle < ang_limit.a()) {
-        mol_limit_is[index].x(true);
-        return ang_limit.a();
-      }
-      // special case where the angle restart just after min value on big value
-      if(angle > ang_limit.b() && abs(current_angle - ang_limit.a()) < threshold) {
-        mol_limit_is[index].x(true);
-        return limit.a();
-      }
-      if(angle > ang_limit.b()) {
-        mol_limit_is[index].y(true);
-        return ang_limit.b();
-      }
+      angle = calc_constrain_angle(index, angle, ang_limit);
     }
     return angle;
   }
+
+  private float calc_constrain_angle(int index, float angle, vec2 ang_limit ) {
+    print_out("frameCount", pa.frameCount);
+    print_out("ang_limit.a()", ang_limit.a());
+    print_out("ang_limit.b()", ang_limit.b());
+    print_out("angle", angle);
+    float current_angle = molette[index].angle();
+    // special case where the angle restart just after min value on big value
+    if(all(!clockwise, angle <= ang_limit.a(), abs(current_angle - ang_limit.b()) < threshold)) {
+      mol_limit_is[index].y(true);
+      return ang_limit.b();
+    }
+
+    if(angle < ang_limit.a()) {
+      mol_limit_is[index].x(true);
+      return ang_limit.a();
+    }
+
+    // special case where the angle restart just after min value on big value
+    if(all(clockwise, angle > ang_limit.b(), abs(current_angle - ang_limit.a()) < threshold)) {
+      mol_limit_is[index].x(true);
+      return ang_limit.a();
+    }
+
+    if(angle > ang_limit.b()) {
+      mol_limit_is[index].y(true);
+      return ang_limit.b();
+    }
+    return angle;
+  }
+
 
 
   private float calc_angle_imp(float angle) {
@@ -565,6 +597,7 @@ public class R_Knob extends R_Button {
     }
     return angle;
   }
+
 
 
   private void render_mol(R_Mol mol, float angle) {

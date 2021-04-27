@@ -51,7 +51,7 @@ void set_knob() {
 	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
 
 	// knob.set_limit(0, PI);
-	knob.set_limit(PI, 0);
+	// knob.set_limit(PI, 0);
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
