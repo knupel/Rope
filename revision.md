@@ -10,6 +10,7 @@
 > change all methods contain molette() to mol()
 > add guide to knob to move all molette in a same time
 > add guide value this value return the barycenter of all molette
+> add method only to glsl method
 
 \*version 44
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import rope.vector.bvec;
 import rope.vector.bvec2;
 import rope.vector.bvec3;
 import rope.vector.bvec4;
@@ -1488,88 +1489,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 	/**
-	all
-	v 0.0.2
+	* all
 	*/
-	public boolean all(bvec2 b) {
+	public boolean all(bvec b) {
 		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = true;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == false) {
-					result = false;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method all(bvec2 b) return false bvec2 b is null");
-			return false;
-		}
-	}
-
-	public boolean all(bvec3 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = true;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == false) {
-					result = false;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method all(bvec3 b) return false because bvec3 b is null");
-			return false;
-		}
-	}
-
-	public boolean all(bvec4 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = true;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == false) {
-					result = false;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method all(bvec4 b) return false because bvec4 b is null");
-			return false;
-		}
-	}
-
-	public boolean all(bvec5 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = true;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == false) {
-					result = false;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method all(bvec5 b) return false because bvec5 b is null");
-			return false;
-		}
-	}
-
-	public boolean all(bvec6 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = true;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == false) {
-					result = false;
-					break;
-				}
-			}
-			return result;
+			return all(b.array());
 		} else {
 			System.err.println("method all(bvec6 b) return false because bvec6 b is null");
 			return false;
@@ -1593,89 +1517,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	any
+	* any
 	*/
-	public boolean any(bvec2 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = false;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == true) {
-					result = true;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method any() return false because argument bvec2 b is null");
-			return false;
-		}
-	}
 
-	public boolean any(bvec3 b) {
+	public boolean any(bvec b) {
 		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = false;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == true) {
-					result = true;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method any() return false because argument bvec3 b is null");
-			return false;
-		}
-	}
-
-	public boolean any(bvec4 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = false;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == true) {
-					result = true;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method any() return false because argument bvec4 b is null");
-			return false;
-		}
-	}
-
-	public boolean any(bvec5 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = false;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == true) {
-					result = true;
-					break;
-				}
-			}
-			return result;
+			return any(b.array());
 		} else {
 			System.err.println("method any() return false because argument bvec5 b is null");
-			return false;
-		}
-	}
-
-	public boolean any(bvec6 b) {
-		if(b != null) {
-			boolean [] list = b.array();
-			boolean result = false;
-			for(int i = 0 ; i < list.length ; i++) {
-				if(list[i] == true) {
-					result = true;
-					break;
-				}
-			}
-			return result;
-		} else {
-			System.err.println("method any() return false because argument bvec6 b is null");
 			return false;
 		}
 	}
@@ -1694,6 +1543,32 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * @param list
+	 * @return true is only one elements of the list is true
+	 */
+	 public boolean only(bvec b) {
+		if(b != null) {
+			return only(b.array());
+		} else {
+			System.err.println("method any() return false because argument bvec6 b is null");
+			return false;
+		}
+	}
+
+
+	public boolean only(boolean ...list) {
+		int count = 0;
+		for(int i = 0 ; i < list.length ; i++) {
+			if(list[i] == true) {
+				count++;
+			}
+		}
+		if(count == 1)
+			return true;
+		return false;
 	}
 	
 	

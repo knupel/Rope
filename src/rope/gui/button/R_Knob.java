@@ -7,7 +7,6 @@
 * 2019-2021
 */
 package rope.gui.button;
-
 import java.util.Arrays;
 
 import rope.R_State.State;
@@ -374,16 +373,56 @@ public class R_Knob extends R_Button {
     vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
     float ang_a = this.molette[0].angle();
     if(molette.length > 1) {
+      // clockwise
       float ang_b = this.molette[molette.length -1].angle();
-      if(ang_a < ang_b) {
-        arc(buf_pos,size,ang_a, ang_b, PIE);
+      if(clockwise) {
+        if(show_struc_pie_clockwise(buf_pos, ang_a, ang_b))
+          return;
       } else {
-        arc(buf_pos,size,ang_b, ang_a, PIE);
+        if(show_struc_pie_counter_clockwise(buf_pos, ang_a, ang_b))
+          return;
       }
-    } else {
-      arc(buf_pos,size,0,ang_a,PIE);      
     }
+    arc(buf_pos,size,0,ang_a,PIE);
+    return; 
   }
+
+  private boolean show_struc_pie_clockwise(vec2 buf_pos, float ang_a, float ang_b) {
+    arc(buf_pos, this.size, ang_a, ang_b, PIE);
+    return true;
+  }
+
+
+  private boolean show_struc_pie_counter_clockwise(vec2 buf_pos, float ang_a, float ang_b) {
+    // counter clockwise
+    print_out("clockwise false b a", ang_b, ang_a);
+    print_out("limit b a", limit.b(), limit.a());
+    boolean upper_is = ang_b < ang_a;
+    boolean zero_a_is = all(ang_a > 0, ang_a < limit.b());
+    boolean zero_b_is = all(ang_b > 0, ang_b < limit.b());
+    boolean zero_is = only(zero_a_is, zero_b_is);
+
+    if(upper_is && !zero_is && !zero_is) {
+      print_out("upper_is", ang_b, ang_a);
+      arc(buf_pos,size,ang_b, ang_a, PIE);
+      return true;
+    }
+
+    if(zero_is) {
+      if(zero_a_is) {
+        arc(buf_pos,size, ang_b, ang_a + TAU, PIE);
+        return true;
+      }
+      if(zero_b_is) {
+        arc(buf_pos,size, ang_a, ang_b + TAU, PIE);
+        return true;
+      }
+    } 
+    arc(buf_pos,size,ang_a, ang_b, PIE);
+    return true;
+  }
+  
+  
 
 
 
@@ -428,7 +467,7 @@ public class R_Knob extends R_Button {
 
 
 
-  // molette guide update
+  // guide molette update
   private void guide_update(boolean bang_is, vec2 ang_limit) {
     boolean inside_is = this.guide.inside(cursor);
     boolean used_is = all(inside_is, bang_is, !mol_used_is);
@@ -499,7 +538,6 @@ public class R_Knob extends R_Button {
 
       if(this.molette[i].used_is()) {
         float buf_angle = calc_angle(i, this.molette[i].angle(), ang_limit);
-        print_out("buf_angle", buf_angle);
         molette_update_position(i, this.molette[i].angle(), buf_angle, ang_limit);
       } else {
         mol_limit_is[i].set(false);
@@ -528,7 +566,6 @@ public class R_Knob extends R_Button {
     } else if(!all(mol_limit_is[index])) {
       ref_angle = new_angle;
     }
-    print_out("ref angle", ref_angle);
     render_mol(this.molette[index], ref_angle);
   }
 
