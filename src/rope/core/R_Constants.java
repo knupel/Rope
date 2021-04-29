@@ -128,10 +128,10 @@ public interface R_Constants {
 	static final float NORTH_EAST = -(PI *0.25f);
 	static final float EAST = 0;
 	static final float SOUTH_EAST = PI *0.25f;
-	static final float SOUTH = PI *0.5f;
-	static final float SOUTH_WEST = (3*PI)*0.25f;
+	static final float SOUTH = PI * 0.5f;
+	static final float SOUTH_WEST = PI * 0.75f;
 	static final float WEST = PI;
-	static final float NORTH_WEST = (-(3*PI)*0.25f);
+	static final float NORTH_WEST = -(PI * 0.75f);
 	// classic angle notation
   // float north = HALF_PI;
   // float north_east = QUARTER_PI;
