@@ -7,8 +7,9 @@
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.Rope;
-public abstract class bvec extends Rope {
+import rope.core.R_Constants;
+
+public abstract class bvec implements R_Constants  {
 	private int size;
 	public boolean x,y,z,w;
 	public boolean e,f; // for bvec5 and bvec6

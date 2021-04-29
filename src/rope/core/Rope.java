@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import rope.R_Utils.Ru;
+
 import rope.vector.bvec;
 import rope.vector.bvec2;
 import rope.vector.bvec3;
@@ -290,22 +292,23 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param stop2
 	 * @return Processing map() method
 	 */
-	protected float map(float value, float start1, float stop1, float start2, float stop2) {
-		// return PApplet.map(value, start1, stop1, start2, stop2); // don't do that cause crash
-		float output = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-		String badness = null;
-		if (output != output) {
-			badness = "NaN (not a number)";
+	public float map(float value, float start1, float stop1, float start2, float stop2) {
+		return Ru.map(value, start1, stop1, start2, stop2);
+		// // return PApplet.map(value, start1, stop1, start2, stop2); // don't do that cause crash
+		// float output = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+		// String badness = null;
+		// if (output != output) {
+		// 	badness = "NaN (not a number)";
 
-		} else if (output == Float.NEGATIVE_INFINITY || output == Float.POSITIVE_INFINITY) {
-			badness = "infinity";
-		}
-		if (badness != null) {
-			final String msg = String.format("map(%s, %s, %s, %s, %s) called, which returns %s", value, start1, stop1, start2,
-					stop2, badness);
-			System.out.println(msg);
-		}
-		return output;
+		// } else if (output == Float.NEGATIVE_INFINITY || output == Float.POSITIVE_INFINITY) {
+		// 	badness = "infinity";
+		// }
+		// if (badness != null) {
+		// 	final String msg = String.format("map(%s, %s, %s, %s, %s) called, which returns %s", value, start1, stop1, start2,
+		// 			stop2, badness);
+		// 	System.out.println(msg);
+		// }
+		// return output;
 	}
 	
 	
@@ -671,26 +674,27 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
-	private Random internalRandom;
+	// private Random internalRandom;
 	protected float random(float high) {	
-		// return pa.random(high); // don't do that because that's create a Processing dependency and need to pass this: PApplet in the sketch
-		// avoid an infinite loop when 0 or NaN are passed in
-		if (high == 0 || high != high) {
-			return 0;
-		}
+		return Ru.random(high);
+		// // return pa.random(high); // don't do that because that's create a Processing dependency and need to pass this: PApplet in the sketch
+		// // avoid an infinite loop when 0 or NaN are passed in
+		// if (high == 0 || high != high) {
+		// 	return 0;
+		// }
 
-		if (internalRandom == null) {
-			internalRandom = new Random();
-		}
+		// if (internalRandom == null) {
+		// 	internalRandom = new Random();
+		// }
 
-		// for some reason (rounding error?) Math.random() * 3
-		// can sometimes return '3' (once in ~30 million tries)
-		// so a check was added to avoid the inclusion of 'howbig'
-		float value = 0;
-		do {
-			value = internalRandom.nextFloat() * high;
-		} while (value == high);
-		return value;
+		// // for some reason (rounding error?) Math.random() * 3
+		// // can sometimes return '3' (once in ~30 million tries)
+		// // so a check was added to avoid the inclusion of 'howbig'
+		// float value = 0;
+		// do {
+		// 	value = internalRandom.nextFloat() * high;
+		// } while (value == high);
+		// return value;
 	}
 
 	/**
@@ -699,18 +703,19 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param high
 	 * @return random number, this method is a copy of Processing one
 	 */
-	protected float random(float low, float high) {
-		// return pa.random(low,high); // don't do that because that's create a Processing dependency and need to pass this: PApplet in the sketch
-		if (low >= high)
-			return low;
-		float diff = high - low;
-		float value = 0;
-		// because of rounding error, can't just add low, otherwise it may hit high
-		// https://github.com/processing/processing/issues/4551
-		do {
-			value = random(diff) + low;
-		} while (value == high);
-		return value;
+	public float random(float low, float high) {
+		return Ru.random(low, high);
+		// // return pa.random(low,high); // don't do that because that's create a Processing dependency and need to pass this: PApplet in the sketch
+		// if (low >= high)
+		// 	return low;
+		// float diff = high - low;
+		// float value = 0;
+		// // because of rounding error, can't just add low, otherwise it may hit high
+		// // https://github.com/processing/processing/issues/4551
+		// do {
+		// 	value = random(diff) + low;
+		// } while (value == high);
+		// return value;
 	}
 
 		/**
@@ -721,10 +726,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * 
 	 * @return float
 	 */
-	private Random random = new Random();
-	public float random_next_gaussian() {
-		return random_next_gaussian(1, 1);
-	}
+	// private Random random = new Random();
+	// public float random_next_gaussian() {
+	// 	return random_next_gaussian(1, 1);
+	// }
   
 	/**
 	 * 
@@ -751,18 +756,19 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return
 	 */
 	public float random_next_gaussian(float range, int n) {
-		float roots = (float) random.nextGaussian();
-		float var = map(roots, -2.5f, 2.5f, -1, 1);
-		if (n > 1) {
-			if (n % 2 == 0 && var < 0) {
-				var = -1 * (float) Math.pow(var, n);
-			} else {
-				var = (float) Math.pow(var, n);
-			}
-			return var * range;
-		} else {
-			return var * range;
-		}
+		return Ru.random_next_gaussian(range, n);
+		// float roots = (float) random.nextGaussian();
+		// float var = map(roots, -2.5f, 2.5f, -1, 1);
+		// if (n > 1) {
+		// 	if (n % 2 == 0 && var < 0) {
+		// 		var = -1 * (float) Math.pow(var, n);
+		// 	} else {
+		// 		var = (float) Math.pow(var, n);
+		// 	}
+		// 	return var * range;
+		// } else {
+		// 	return var * range;
+		// }
 	}
 
 	
@@ -770,36 +776,38 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * MIN MAX method
 	 */
-	private String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
+	// private String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
 	/**
 	 * 
 	 * @param arg
 	 * @return from Processing max() method
 	 */
-	protected float max(float... list) {
-		// return PApplet.max(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		float max = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] > max)
-				max = list[i];
-		}
-		return max;
+	public float max(float... list) {
+		return Ru.max(list);
+		// // return PApplet.max(list); // don't do that cause crash
+		// if (list.length == 0) {
+		// 	throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		// }
+		// float max = list[0];
+		// for (int i = 1; i < list.length; i++) {
+		// 	if (list[i] > max)
+		// 		max = list[i];
+		// }
+		// return max;
 	}
 
 	protected int max(int... list) {
-		// return PApplet.max(list); // don't do that cause crash
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		int max = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] > max)
-				max = list[i];
-		}
-		return max;
+		return Ru.max(list);
+		// // return PApplet.max(list); // don't do that cause crash
+		// if (list.length == 0) {
+		// 	throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		// }
+		// int max = list[0];
+		// for (int i = 1; i < list.length; i++) {
+		// 	if (list[i] > max)
+		// 		max = list[i];
+		// }
+		// return max;
 	}
 
 	protected vec2 max(vec2 a, vec2 b) {
@@ -835,27 +843,29 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param arg
 	 * @return Processing min() method
 	 */
-	protected float min(float... list) {
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		float min = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] < min)
-				min = list[i];
-		}
-		return min;
+	public float min(float... list) {
+		return Ru.min(list);
+		// if (list.length == 0) {
+		// 	throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		// }
+		// float min = list[0];
+		// for (int i = 1; i < list.length; i++) {
+		// 	if (list[i] < min)
+		// 		min = list[i];
+		// }
+		// return min;
 	}
 	protected int min(int... list) {
-		if (list.length == 0) {
-			throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
-		}
-		int min = list[0];
-		for (int i = 1; i < list.length; i++) {
-			if (list[i] < min)
-				min = list[i];
-		}
-		return min;
+		return Ru.min(list);
+		// if (list.length == 0) {
+		// 	throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
+		// }
+		// int min = list[0];
+		// for (int i = 1; i < list.length; i++) {
+		// 	if (list[i] < min)
+		// 		min = list[i];
+		// }
+		// return min;
 	}
 
 	protected vec2 min(vec2 a, vec2 b) {

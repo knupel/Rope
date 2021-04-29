@@ -1,6 +1,6 @@
 /**
 * vec class
-* v 2.1.1
+* v 2.2.0
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a float precision
@@ -8,8 +8,12 @@
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.Rope;
-public abstract class vec extends Rope {
+import rope.core.R_Constants;
+
+import rope.R_Utils.Ru;
+
+// public abstract class vec extends Rope {
+public abstract class vec implements R_Constants {
 	public int size;
 	public float x,y,z,w = Float.NaN;
 	public float e,f = Float.NaN; // for vec5 and vec6 
@@ -110,7 +114,7 @@ public abstract class vec extends Rope {
       list[4] = e;
       list[5] = e;
     } 
-    return max(list);
+    return Ru.max(list);
   }
   /**
   * min
@@ -145,8 +149,36 @@ public abstract class vec extends Rope {
       list[4] = e;
       list[5] = f;
     } 
-    return min(list);
+    return Ru.min(list);
   }
+
+  public float random(float high) {	
+    return Ru.random(high);
+  }
+
+  public float random(float low, float high) {
+    return Ru.random(low, high);
+  }
+
+  public float random_next_gaussian(int n) {
+    return Ru.random_next_gaussian(n);
+  }
+
+  public float random_next_gaussian(float range) {
+    return Ru.random_next_gaussian(range);
+  }
+
+  public float random_next_gaussian(float range, int n) {
+    return Ru.random_next_gaussian(range,n);
+  }
+
+  public float map(float value, float start1, float stop1, float start2, float stop2) {
+    return Ru.map(value, start1, stop1, start2, stop2);
+  }
+
+
+
+
   
   /**
    * return single float component

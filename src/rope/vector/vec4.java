@@ -1,12 +1,14 @@
 /**
 * vec4 class
-* v 1.3.0
+* v 1.4.0
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
+
+
 public class vec4 extends vec {
 	public vec4() {
 		super(4);
@@ -57,10 +59,6 @@ public class vec4 extends vec {
 		this.y = y ;
 		this.z = z ;
 		this.w = w ;
-		// this.x = this.s = x ;
-		// this.y = this.t = y ;
-		// this.z = this.p = z ;
-		// this.w = this.q = w ;
 		return this ;
 	}
 	

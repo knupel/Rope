@@ -11,6 +11,8 @@
 > add guide to knob to move all molette in a same time
 > add guide value this value return the barycenter of all molette
 > add method only to glsl method
+> create statuic class Ru, because in french the Ru is the origin of all rivers ans because Romanesco is Utils to all my stuff :)
+> remove the fom vec, ivec, bvec the link with the class Rope instead use static class Ru
 
 \*version 44
 

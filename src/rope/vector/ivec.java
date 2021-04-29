@@ -7,8 +7,10 @@
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
-import rope.core.Rope;
-public abstract class ivec extends Rope {
+import rope.core.R_Constants;
+import rope.R_Utils.Ru;
+
+public abstract class ivec implements R_Constants {
 	private int size;
 	public int x,y,z,w;
 	public int e,f; // for ivec5 and ivec6	
@@ -104,7 +106,7 @@ public abstract class ivec extends Rope {
       list[4] = e;
       list[5] = f;
     } 
-    return max(list);
+    return  Ru.max(list);
   }
   /**
   * min
@@ -139,7 +141,15 @@ public abstract class ivec extends Rope {
       list[4] = e;
       list[5] = e;
     } 
-    return min(list);
+    return  Ru.min(list);
+  }
+
+  public int random(float high) {	
+    return (int)Ru.random(high);
+  }
+
+  public int random(float low, float high) {
+    return (int)Ru.random(low, high);
   }
 
 

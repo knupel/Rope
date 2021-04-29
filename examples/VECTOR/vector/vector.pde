@@ -28,7 +28,7 @@ void setup() {
   println("simple rand",v3);
   v3.rand(10,11);
   println("doubre rand",v3);
-  v3.rand(new vec2(0,1),new vec2(10,12),new vec2(-1,-3));
+  v3.rand(new vec3(1,1,1),new vec3(10,12,-10));
   println("doubre rand",v3);
 
   
@@ -69,7 +69,7 @@ void setup() {
   println(bv2);
   
 
-  println(r.version());
+  println(r.VERSION);
   println("MAGENTA constant",r.MAGENTA);
   println("Fluid constant",r.FLUID);
   println("Euler constant",r.EULER);

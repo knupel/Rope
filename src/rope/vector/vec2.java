@@ -1,12 +1,13 @@
 /**
  * vec2 class 
- * v 1.4.0
+ * v 1.5.0
  * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
  */
 package rope.vector;
+
 public class vec2 extends vec {
 	public vec2() {
 		super(2);
@@ -53,8 +54,6 @@ public class vec2 extends vec {
 	public vec2 set(float x, float y) {
 		this.x = x;
 		this.y = y;
-		// this.x = this.s = this.u = x;
-		// this.y = this.t = this.v = y;
 		return this;
 	}
 
@@ -560,7 +559,6 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * WAVE COSINUS
 	 * 
 	 * @param timeline int
 	 * @param s     float speed for all vec arg
@@ -584,7 +582,6 @@ public class vec2 extends vec {
 	}
 
 	/**
-	 * WAVE SINUS
 	 * 
 	 * @param timeline int
 	 * @param s     float speed for all vec arg
@@ -599,6 +596,27 @@ public class vec2 extends vec {
 		float y = (float) Math.sin(timeline * sy);
 		set(x, y);
 		return this;
+	}
+	
+	/**
+	 * 
+	 * @param mod_x
+	 * @param mod_y
+	 * @return return the modulo of each element in the same order
+	 */
+	public vec2 mod(float mod_x, float mod_y) {
+		x = x%mod_x;
+		y = x%mod_y;
+		set(x,y);
+		return this;
+	}
+
+	public vec2 mod(float mod) {
+		return mod(mod,mod);
+	}
+
+	public vec2 mod(vec2 mod) {
+		return mod(mod.x(), mod.y());
 	}
 
 
@@ -642,8 +660,6 @@ public class vec2 extends vec {
   /**
   * GET STUF
   */
-
-
 
 	/**
 	 * sum of all components

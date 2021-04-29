@@ -22,7 +22,7 @@ public class R_State implements R_Constants {
 	public static class State {
 		private static PApplet pa;
 		private static R_Env env;
-		private static Rope r;
+		public static Rope r;
 		
 		public static void init(PApplet papplet) {
 			pa = papplet;

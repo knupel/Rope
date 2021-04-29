@@ -1,12 +1,13 @@
 /**
  * vec3 class
- * v 1.4.0
+ * v 1.5.1
 * 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
+
 public class vec3 extends vec {
 	// CONSTRUCTOR
 	public vec3() {

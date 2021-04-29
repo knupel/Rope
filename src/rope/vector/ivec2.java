@@ -1,6 +1,6 @@
 /**
 * ivec2 class
-* v 1.5.0
+* v 1.5.1
 * 2015-2021
 * Vector class with a int precision
 * @author @stanlepunk
@@ -342,8 +342,8 @@ public class ivec2 extends ivec {
 	 * @return
 	 */
 	public ivec2 rand(int min, int max) {
-		x = (int)random(min,max);
-		y = (int)random(min,max);
+		x = random(min,max);
+		y = random(min,max);
 		set(x,y);
 		return this;
 	}
@@ -355,8 +355,8 @@ public class ivec2 extends ivec {
 	 * @return
 	 */
 	public ivec2 rand(ivec2 min, ivec2 max) {
-		x = (int)random(min.x(),max.x());
-		y = (int)random(min.y(),max.y());
+		x = random(min.x(),max.x());
+		y = random(min.y(),max.y());
 		set(x,y);
 		return this;
 	}
