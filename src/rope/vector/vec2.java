@@ -606,7 +606,7 @@ public class vec2 extends vec {
 	 */
 	public vec2 mod(float mod_x, float mod_y) {
 		x = x%mod_x;
-		y = x%mod_y;
+		y = y%mod_y;
 		set(x,y);
 		return this;
 	}

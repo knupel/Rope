@@ -12,7 +12,6 @@ import rope.core.R_Constants;
 
 import rope.R_Utils.Ru;
 
-// public abstract class vec extends Rope {
 public abstract class vec implements R_Constants {
 	public int size;
 	public float x,y,z,w = Float.NaN;

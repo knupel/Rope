@@ -723,6 +723,33 @@ public class vec4 extends vec {
 		set(x,y,z,w);
 		return this;
 	}
+
+
+	
+	/**
+	 * 
+	 * @param mod_x
+	 * @param mod_y
+	 * @param mod_z
+	 * @param mod_w
+	 * @return return the modulo of each element in the same order
+	 */
+	public vec4 mod(float mod_x, float mod_y, float mod_z, float mod_w) {
+		x = x%mod_x;
+		y = y%mod_y;
+		z = z%mod_z;
+		w = w%mod_w;
+		set(x,y,z,w);
+		return this;
+	}
+
+	public vec4 mod(float mod) {
+		return mod(mod, mod, mod, mod);
+	}
+
+	public vec4 mod(vec3 mod) {
+		return mod(mod.x(), mod.y(), mod.z(), mod.w());
+	}
 	
 	
 	

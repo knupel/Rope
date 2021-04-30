@@ -709,6 +709,30 @@ public class vec3 extends vec {
 		set(x,y,z);
 		return this;
 	}
+
+
+		/**
+	 * 
+	 * @param mod_x
+	 * @param mod_y
+	 * @param mod_z
+	 * @return return the modulo of each element in the same order
+	 */
+	public vec3 mod(float mod_x, float mod_y, float mod_z) {
+		x = x%mod_x;
+		y = y%mod_y;
+		z = z%mod_z;
+		set(x,y,z);
+		return this;
+	}
+
+	public vec3 mod(float mod) {
+		return mod(mod, mod, mod);
+	}
+
+	public vec3 mod(vec3 mod) {
+		return mod(mod.x(), mod.y(), mod.z());
+	}
 	
 	
 	
