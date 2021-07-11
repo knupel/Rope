@@ -8,6 +8,11 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
+
+* Ref for the future :
+* https://github.com/processing/processing4/issues/221
+* https://developer.apple.com/documentation/appkit/nsapplication/1428664-presentationoptions
+* https://developer.apple.com/documentation/appkit/nsapplication/presentationoptions/1428487-hidemenubar
 */
 package rope.gui.bar;
 

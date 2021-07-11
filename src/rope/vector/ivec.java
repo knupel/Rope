@@ -1,6 +1,6 @@
 /**
 * ivec class
-* v 2.0.1
+* v 2.1.0
 * 2015-2021
 * Vector with a integer precision
 * @author @stanlepunk
@@ -47,6 +47,20 @@ public abstract class ivec implements R_Constants {
       case 5: return (long)f;
       default : return null;
     }
+  }
+
+
+  protected void inv_impl() {
+    x *= -1;
+    y *= -1;
+    if(this.size == 2) return;
+    z *= -1;
+    if(this.size == 3) return;
+    w *= -1;
+    if(this.size == 4) return;
+    e *= -1;
+    if(this.size == 5) return;
+    f *= -1;
   }
 
 

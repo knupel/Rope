@@ -84,6 +84,17 @@ public class ivec2 extends ivec {
   	if(index == 1) y(arg);
   	return this;
   }
+
+
+
+	/**
+	 * 
+	 * @return inverse all argument
+	 */
+	public ivec2 inv() {
+		inv_impl();
+		return this;
+	}
 	
 	// xy
 	public ivec2 x(int x) {

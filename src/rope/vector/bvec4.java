@@ -1,6 +1,6 @@
 /**
 * bvec4 class
-* v 1.3.1
+* v 1.4.0
 * 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
@@ -106,10 +106,19 @@ public class bvec4 extends bvec {
     return set(this.x,this.y,this.z,w);
   }
   
-  /*
-   * change the state of the target argument
-   */
+  /**
+	 * 
+	 * @return inverse all argument like swap()
+	 */
+	public bvec4 inv() {
+		inv_impl();
+		return this;
+	}
   
+  /**
+	 * 
+	 * @return inverse all argument like inv()
+	 */
   public bvec4 swap() {
 		this.x = !this.x;
 		this.y = !this.y;
@@ -148,6 +157,23 @@ public class bvec4 extends bvec {
   	this.w = !this.w;
     return set(this.x,this.y,this.z,this.w);
   }
+
+
+  /**
+	 * 
+	 * @return true if all arguments in the range of the concerned bvec is same
+	 */
+	public boolean equals(bvec4 bv) {
+		return equals_impl(bv);
+	}
+
+  /**
+	 * copy
+	 * @return
+	 */
+	public bvec4 copy() {
+		return new bvec4(x,y,z,w) ;
+	}
 
 	
 	@Override 

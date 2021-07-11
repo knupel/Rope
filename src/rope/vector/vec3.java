@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.5.1
+ * v 1.5.2
 * 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
@@ -118,6 +118,16 @@ public class vec3 extends vec {
   	if(index == 2) z(arg);
   	return this;
   }
+
+
+	/**
+	 * 
+	 * @return inverse all argument
+	 */
+	public vec3 inv() {
+		inv_impl();
+		return this;
+	}
 	
 	
 	// x

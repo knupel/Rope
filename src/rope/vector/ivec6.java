@@ -1,6 +1,6 @@
 /**
 * ivec6 class
-* v 1.1.1
+* v 1.1.2
 * 2015-2021
 * Vector class with a int precision
 * @author @stanlepunk
@@ -108,6 +108,15 @@ public class ivec6 extends ivec {
   	if(index == 5) f(arg);
   	return this;
   }
+
+  /**
+	 * 
+	 * @return inverse all argument
+	 */
+	public ivec6 inv() {
+		inv_impl();
+		return this;
+	}
   
 
   // abcdef

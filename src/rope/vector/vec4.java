@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.4.0
+* v 1.4.1
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -123,6 +123,17 @@ public class vec4 extends vec {
   	if(index == 3) w(arg);
   	return this;
   }
+
+
+
+	/**
+	 * 
+	 * @return inverse all argument
+	 */
+	public vec4 inv() {
+		inv_impl();
+		return this;
+	}
 	
 	// x
 	public vec4 x(float x) {

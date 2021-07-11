@@ -92,6 +92,16 @@ public class ivec3 extends ivec {
   }
 
 
+  	/**
+	 * 
+	 * @return inverse all argument
+	 */
+	public ivec3 inv() {
+		inv_impl();
+		return this;
+	}
+
+
   // xyz
   public ivec3 x(int x) {
     return set(x,this.y,this.z);

@@ -1,6 +1,6 @@
 /**
 * ivec5 class
-* v 1.2.1
+* v 1.2.2
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -103,6 +103,15 @@ public class ivec5 extends ivec {
   	if(index == 4) e(arg);
   	return this;
   }
+
+  /**
+	 * 
+	 * @return inverse all argument
+	 */
+	public ivec5 inv() {
+		inv_impl();
+		return this;
+	}
 
 
   // abcde

@@ -1,6 +1,6 @@
 /**
 * Vec6 class
-* v 1.2.1
+* v 1.2.2
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a float precision
@@ -142,6 +142,17 @@ public class vec6 extends vec {
   	if(index == 5) f(arg);
   	return this;
   }
+
+
+
+  /**
+	 * 
+	 * @return inverse all argument
+	 */
+	public vec6 inv() {
+		inv_impl();
+		return this;
+	}
   
   
   

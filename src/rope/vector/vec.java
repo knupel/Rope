@@ -50,6 +50,21 @@ public abstract class vec implements R_Constants {
       default : return Float.NaN;
     }
   }
+
+
+  protected void inv_impl() {
+    x *= -1;
+    y *= -1;
+    if(this.size == 2) return;
+    z *= -1;
+    if(this.size == 3) return;
+    w *= -1;
+    if(this.size == 4) return;
+    e *= -1;
+    if(this.size == 5) return;
+    f *= -1;
+  }
+
   
 
 

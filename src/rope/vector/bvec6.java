@@ -1,6 +1,6 @@
 /**
 * bvec6 class
-* v 1.2.1
+* v 1.3.0
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -124,10 +124,19 @@ public class bvec6 extends bvec {
     return set(this.x,this.y,this.z,this.w,this.e,f);
   }
   
-  /*
-   * change the state of the target argument
-   */
+  /**
+	 * 
+	 * @return inverse all argument like swap()
+	 */
+	public bvec6 inv() {
+		inv_impl();
+		return this;
+	}
   
+  /**
+	 * 
+	 * @return inverse all argument like inv()
+	 */
   public bvec6 swap() {
 		this.x = !this.x;
 		this.y = !this.y;
@@ -180,6 +189,24 @@ public class bvec6 extends bvec {
   	this.f = !this.f;
     return set(this.x,this.y,this.z,this.w,this.e,this.f);
   }
+
+    /**
+	 * 
+	 * @return true if all arguments in the range of the concerned bvec is same
+	 */
+	public boolean equals(bvec6 bv) {
+		return equals_impl(bv);
+	}
+
+
+  /**
+	 * copy
+	 * @return
+	 */
+	public bvec6 copy() {
+		return new bvec6(x,y,z,w,e,f) ;
+	}
+
 	
 	@Override 
 	public String toString() {

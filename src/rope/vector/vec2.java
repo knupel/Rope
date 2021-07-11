@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.5.0
+ * v 1.5.1
  * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
@@ -31,7 +31,7 @@ public class vec2 extends vec {
 
   public vec2(ivec v) {
     super(2);
-    set(v.x,v.y);
+    set(v.x(),v.y());
   }
 
 
@@ -66,7 +66,7 @@ public class vec2 extends vec {
 		if (v == null) {
 			set(0,0);
 		} else {
-			set(v.x, v.y);
+			set(v.x(), v.y());
 		}
 		return this;
 	}
@@ -75,7 +75,7 @@ public class vec2 extends vec {
 		if (v == null) {
 			set(0,0);
 		} else {
-			set(v.x, v.y);	
+			set(v.x(), v.y());	
 		}
 		return this;
 	}
@@ -83,7 +83,7 @@ public class vec2 extends vec {
 	
 	public vec2 set(float[] source) {
     if(source.length == 1) {
-      set(source[0],this.y);
+      set(source[0],this.y());
     } else if(source.length == 2) {
       set(source[0],source[1]);
     } else if(source.length > 2) {
@@ -94,7 +94,7 @@ public class vec2 extends vec {
 
   public vec2 set(int[] source) {
     if(source.length == 1) {
-      set(source[0],this.y);
+      set(source[0],this.y());
     } else if(source.length == 2) {
       set(source[0],source[1]);
     } else if(source.length > 2) {
@@ -108,74 +108,83 @@ public class vec2 extends vec {
   	if(index == 1) y(arg);
   	return this;
   }
+
+	/**
+	 * 
+	 * @return inverse all argument
+	 */
+	public vec2 inv() {
+		inv_impl();
+		return this;
+	}
   
   // operation on simplest argument
 	// x
 	public vec2 x(float x) {
-		return set(x, this.y);
+		return set(x, this.y());
 	}
 	
 	public vec2 add_x(float x) {
   	this.x += x;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 sub_x(float x) {
   	this.x -= x;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 mult_x(float x) {
   	this.x *= x;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 div_x(float x) {
   	this.x /= x;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
 	// y
 	public vec2 y(float y) {
-		return set(this.x, y);
+		return set(this.x(), y);
 	}
 	
 	public vec2 add_y(float y) {
   	this.y += y;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 sub_y(float y) {
   	this.y -= y;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 mult_y(float y) {
   	this.y *= y;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
   
   public vec2 div_y(float y) {
   	this.y /= y;
-  	return set(this.x,this.y);
+  	return set(this.x(),this.y());
   }
 
 	// st
 	public vec2 s(float x) {
-		return set(x, this.y);
+		return set(x, this.y());
 	}
 	
 	public vec2 t(float y) {
-		return set(this.x, y);
+		return set(this.x(), y);
 	}
 
 	// uv
 	public vec2 u(float x) {
-		return set(x, this.y);
+		return set(x, this.y());
 	}
 	
 	public vec2 v(float y) {
-		return set(this.x, y);
+		return set(this.x(), y);
 	}
 
 	
@@ -200,14 +209,14 @@ public class vec2 extends vec {
 
 	public vec2 mult(vec v) {
 		if (v != null) {
-			return mult(v.x,v.y);
+			return mult(v.x(),v.y());
 		} else
 			return null;
 	}
 
 	public vec2 mult(ivec v) {
 		if (v != null) {
-			return mult(v.x,v.y);
+			return mult(v.x(),v.y());
 		} else
 			return null;
 	}
@@ -234,14 +243,14 @@ public class vec2 extends vec {
 
 	public vec2 div(vec v) {
 		if (v != null) {
-			return div(v.x, v.y);
+			return div(v.x(), v.y());
 		} else
 			return null;
 	}
 
 	public vec2 div(ivec v) {
 		if (v != null) {
-			return div(v.x, v.y);
+			return div(v.x(), v.y());
 		} else
 			return null;
 	}
@@ -265,14 +274,14 @@ public class vec2 extends vec {
 
 	public vec2 add(vec v) {
 		if (v != null) {
-			return add(v.x, v.y);
+			return add(v.x(), v.y());
 		} else
 			return null;
 	}
 
 	public vec2 add(ivec v) {
 		if (v != null) {
-			return add(v.x, v.y);
+			return add(v.x(), v.y());
 		} else
 			return null;
 	}
@@ -296,14 +305,14 @@ public class vec2 extends vec {
 
 	public vec2 sub(vec v) {
 		if (v != null) {
-			return sub(v.x, v.y);
+			return sub(v.x(), v.y());
 		} else
 			return null;
 	}
 
 	public vec2 sub(ivec v) {
 		if (v != null) {
-			return sub(v.x, v.y);
+			return sub(v.x(), v.y());
 		} else
 			return null;
 	}
@@ -317,7 +326,7 @@ public class vec2 extends vec {
 	 */
 	public float dot(vec v) {
 		if (v != null) {
-			return x * v.x + y * v.y;
+			return x * v.x() + y * v.y();
 		} else {
 			System.out.println("Your Vec arg is " + null);
 			return x * 0 + y * 0;
@@ -325,7 +334,7 @@ public class vec2 extends vec {
 	}
 
 	public float dot(float x, float y) {
-		return this.x * x + this.y * y;
+		return this.x() * x + this.y() * y;
 	}
 
 /**
@@ -402,8 +411,8 @@ public class vec2 extends vec {
   * @return
   */
 	public vec2 map(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut) {
-		x = map(x, minIn.x, maxIn.x, minOut.x, maxOut.x);
-		y = map(y, minIn.y, maxIn.y, minOut.y, maxOut.y);
+		x = map(x, minIn.x(), maxIn.x(), minOut.x(), maxOut.x());
+		y = map(y, minIn.y(), maxIn.y(), minOut.y(), maxOut.y());
 		set(x, y);
 		return this;
 	}
@@ -421,7 +430,7 @@ public class vec2 extends vec {
 
 	public vec2 jitter(vec2 range) {
 		if (range != null) {
-			return jitter((int) range.x, (int) range.y);
+			return jitter((int) range.x(), (int) range.y());
 		} else {
 			return jitter(0, 0);
 		}
@@ -676,7 +685,7 @@ public class vec2 extends vec {
 	 * @return float
 	 */
 	public float average() {
-		return (this.x+this.y)*(float)0.5;
+		return (this.x()+this.y())*(float)0.5f;
 	}
 
 
@@ -697,8 +706,8 @@ public class vec2 extends vec {
  */
 	public float dist(vec target) {
 		if (target != null) {
-			float dx = x - target.x;
-			float dy = y - target.y;
+			float dx = x - target.x();
+			float dy = y - target.y();
 			return (float) Math.sqrt(dx * dx + dy * dy);
 		} else {
 			System.out.println("Your vec arg is " + null);
@@ -774,8 +783,8 @@ public class vec2 extends vec {
 		if (target != null) {
 			float mag = mag();
 			target.div(mag);
-			temp.x = -target.y;
-			temp.y = target.x;
+			temp.x = -target.y();
+			temp.y = target.x();
 		}
 		return temp;
 	}
@@ -799,7 +808,7 @@ public class vec2 extends vec {
 	 * @return the float angle between this and the target vector
 	 */
 	public float angle(vec2 target) {
-		double temp = Math.atan2(target.y-this.y,target.x-this.x);
+		double temp = Math.atan2(target.y()-this.y(),target.x()-this.x());
 		return (float)temp;
 	}
 
@@ -843,8 +852,8 @@ public class vec2 extends vec {
 	 */
 	public float mag(vec target) {
 		if (target != null) {
-			float new_x = (target.x - x) * (target.x - x);
-			float new_y = (target.y - y) * (target.y - y);
+			float new_x = (target.x() - x) * (target.x() - x);
+			float new_y = (target.y() - y) * (target.y() - y);
 			return (float) Math.sqrt(new_x + new_y);
 		} else {
 			System.out.println("Your vec arg is " + null);
@@ -867,7 +876,7 @@ public class vec2 extends vec {
 	 */
 	public boolean equals(vec2 target) {
 		if (target != null) {
-			if ((x == target.x) && (y == target.y)) {
+			if ((x == target.x()) && (y == target.y())) {
 				return true;
 			} else
 				return false;

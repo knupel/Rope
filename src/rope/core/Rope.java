@@ -1443,7 +1443,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param list
 	 * @return true is only one elements of the list is true
 	 */
-	 public boolean only(bvec b) {
+	public boolean only(bvec b) {
 		if(b != null) {
 			return only(b.array());
 		} else {

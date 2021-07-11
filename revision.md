@@ -13,6 +13,10 @@
 > add method only to glsl method
 > create statuic class Ru, because in french the Ru is the origin of all rivers ans because Romanesco is Utils to all my stuff :)
 > remove the fom vec, ivec, bvec the link with the class Rope instead use static class Ru
+> add method inverse to vec, ivec and bvec for bvec is like swap
+> add function copy to bvec
+> add constant HALF_PI or HPI, QUARTER_PI or QPI
+> add equals function to bvec
 
 \*version 44
 

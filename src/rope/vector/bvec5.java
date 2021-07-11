@@ -1,6 +1,6 @@
 /**
 * bvec5 class
-* v 1.2.1
+* v 1.3.0
 * 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
@@ -118,17 +118,26 @@ public class bvec5 extends bvec {
   }
   
   
-  /*
-   * change the state of the target argument
-   */
+  /**
+	 * 
+	 * @return inverse all argument like swap()
+	 */
+	public bvec5 inv() {
+		inv_impl();
+		return set(this.x,this.y, this.z, this.w, this.e);
+	}
   
+  /**
+	 * 
+	 * @return inverse all argument like inv()
+	 */
   public bvec5 swap() {
 		this.x = !this.x;
 		this.y = !this.y;
 		this.z = !this.z;
 		this.w = !this.w;
 		this.e = !this.e;
-  	return set(this.x,this.y,this.z,this.w,this.e);
+  	return this;
   }
   
   
@@ -168,6 +177,23 @@ public class bvec5 extends bvec {
   	this.e = !this.e;
     return set(this.x,this.y,this.z,this.w,this.e);
   }
+
+
+  /**
+	 * 
+	 * @return true if all arguments in the range of the concerned bvec is same
+	 */
+	public boolean equals(bvec5 bv) {
+		return equals_impl(bv);
+	}
+
+  /**
+	 * copy
+	 * @return
+	 */
+	public bvec5 copy() {
+		return new bvec5(x,y,z,w,e) ;
+	}
 
 	
 	@Override 

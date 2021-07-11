@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.1
+	* v 1.0.2
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -104,6 +104,10 @@ public interface R_Constants {
   static final int MAX_INT = Integer.MAX_VALUE;
   static final int MIN_INT = Integer.MIN_VALUE;
   
+	static final float HPI = (float)(Math.PI * 0.5);
+	static final float HALF_PI = (float)(Math.PI * 0.5);
+	static final float QPI = (float)(Math.PI * 0.25);
+	static final float QUARTER_PI = (float)(Math.PI * 0.25);
 	static final float PI = (float) Math.PI;
 	static final float TWO_PI = (float) (2.0 * Math.PI);
 	static final float TAU = (float) (2.0 * Math.PI);

@@ -1,6 +1,6 @@
 /**
 * bvec3 class
-* v 1.2.1
+* v 1.4.0
 * 2015-2021
 * Vector class with a boolean precision
 * @author @stanlepunk
@@ -83,6 +83,8 @@ public class bvec3 extends bvec {
   	return this;
   }
 
+
+
   // xyz
   public bvec3 x(boolean x) {
     return set(x,this.y,this.z);
@@ -96,10 +98,19 @@ public class bvec3 extends bvec {
     return set(this.x,this.y,z);
   }
 	
-  /*
-   * change the state of the target argument
-   */
+  /**
+	 * 
+	 * @return inverse all argument like swap()
+	 */
+	public bvec3 inv() {
+		inv_impl();
+		return this;
+	}
   
+  /**
+	 * 
+	 * @return inverse all argument like inv()
+	 */
   public bvec3 swap() {
 		this.x = !this.x;
 		this.y = !this.y;
@@ -132,7 +143,25 @@ public class bvec3 extends bvec {
   	this.z = !this.z;
     return set(this.x,this.y,this.z);
   }
+
+
+  /**
+	 * 
+	 * @return true if all arguments in the range of the concerned bvec is same
+	 */
+	public boolean equals(bvec3 bv) {
+		return equals_impl(bv);
+	}
   
+  /**
+	 * copy
+	 * @return
+	 */
+	public bvec3 copy() {
+		return new bvec3(x,y,z) ;
+	}
+
+
 	@Override 
 	public String toString() {
 		return "[ " + x + ", " + y + ", " + z + " ]";

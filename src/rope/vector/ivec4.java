@@ -1,6 +1,6 @@
 /**
 * ivec4 class
-* v 1.3.1
+* v 1.3.2
 * 2015-2021
 * Processing 3.5.4
 * Vector class with a int precision
@@ -96,6 +96,15 @@ public class ivec4 extends ivec {
   	if(index == 3) w(arg);
   	return this;
   }
+
+  /**
+	 * 
+	 * @return inverse all argument
+	 */
+	public ivec4 inv() {
+		inv_impl();
+		return this;
+	}
 
   // xyzw
   public ivec4 x(int x) {

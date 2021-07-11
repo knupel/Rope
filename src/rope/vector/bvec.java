@@ -50,6 +50,35 @@ public abstract class bvec implements R_Constants  {
     }
   }
 
+
+  protected void inv_impl() {
+    x = !x;
+    y = !y;
+    if(this.size == 2) return;
+    z = !z;
+    if(this.size == 3) return;
+    w = !w;
+    if(this.size == 4) return;
+    e = !e;
+    if(this.size == 5) return;
+    f = !f;
+  }
+
+
+	protected boolean equals_impl(bvec bv) {
+    if(x != bv.x()) return false;
+    if(y != bv.y()) return false;
+    if(this.size == 2) return true;
+    if(z != bv.z()) return false;
+    if(this.size == 3) return true;
+    if(w != bv.w()) return false;
+    if(this.size == 4) return true;
+    if(e != bv.e()) return false;
+    if(this.size == 5) return true;
+    if(f != bv.f()) return false;
+    return true;
+	}
+
   /**
    * return single boolean component
    * @return boolean
