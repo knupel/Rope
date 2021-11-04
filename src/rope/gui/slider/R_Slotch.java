@@ -1,7 +1,7 @@
 /**
 * R_Slotch
 * Control ROmanesco Processing Environment
-* v 1.0.2
+* v 1.1.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -24,12 +24,12 @@ public class R_Slotch extends R_Slider {
 	protected int notch;
 
 	public R_Slotch() {
-		super("Slotch", new vec2(-1), new vec2(-1));
+		super("Slotch", -1, -1, -1, -1);
 		set_notch(2);
 	}
 
 	public R_Slotch(vec2 pos, vec2 size, int num) {
-		super("Slotch",pos, size);
+		super("Slotch", pos, size);
 		set_notch(num);
 	}
 
@@ -59,7 +59,7 @@ public class R_Slotch extends R_Slider {
 
 	public R_Slotch set_value(int pos_molette) {
 		float pos_norm = (float)(pos_molette +1) / this.notches_num;
-		set_value_calc(pos_norm);
+		set_value_calc(true, pos_norm);
 		return this;
 	}
 
@@ -82,7 +82,7 @@ public class R_Slotch extends R_Slider {
 		if(molette != null && index < molette.length 
 			&& pos_min.x() > 0 && pos_min.y() > 0 
 			&& pos_max.x() > 0 && pos_max.y() > 0) {
-			if (size.x >= size.y) {  
+			if (size.x() >= size.y()) {  
 				value = map(molette[index].get(),
 										pos_min.x(),pos_max.x(),
 										min_norm,max_norm); 

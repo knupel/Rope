@@ -10,6 +10,7 @@
 import rope.gui.slider.R_Slotch;
 import rope.R_State.State;
 import rope.core.Rope;
+import rope.vector.vec2;
 
 int x = 30;
 int y = 40 ;
@@ -39,8 +40,8 @@ void slotch_setup(int x, int y) {
   int size_y = 20;
   // bbasic setting via construor or via method
   int len = size_y *num_notch + size_y;
-  // slotch = new Slotch(vec2(x,y),vec2(len,size_y),num_notch);
-  // slotch = new Slotch("Bad slotch", vec2(x,y),vec2(len,size_y),num_notch);
+  // slotch = new R_Slotch(new vec2(x,y),new vec2(len,size_y),num_notch);
+
   slotch = new R_Slotch();
   slotch.pos(x,y);
   slotch.size(len,size_y);
@@ -48,7 +49,7 @@ void slotch_setup(int x, int y) {
 
   // other setting
   // slotch.set_value(0.5); // use normal position from [0.0, 1.0]
-  slotch.set_value(2); // use position from [0, int num_of_notch]
+  slotch.set_value(5); // use position from [0, int num_of_notch]
   slotch.set_mol(ELLIPSE);
   slotch.set_rounded(20);
   println("slotch.get_type():", slotch.get_type());
@@ -57,7 +58,6 @@ void slotch_setup(int x, int y) {
 
 void slotch_draw() {
   slotch.update();
-  // slotch.update(mouseX,mouseY);
 
   slotch.show_struc();
   slotch.show_mol();
@@ -69,5 +69,5 @@ void slotch_draw() {
   
   // notch is separator
   slotch.show_notch(-5,10);
-  println("value",slotch.get());
+  // println("truc value",slotch.get());
 }
