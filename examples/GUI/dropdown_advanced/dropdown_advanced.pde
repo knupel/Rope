@@ -1,10 +1,9 @@
 /**
 * GUI CROPE EXAMPLE
 * Processing 3.5.4
-* Rope Library 0.12.1.41
 *
 * 2016-2021
-* v 1.2.2
+* v 1.3.1
 * dropdown
 */
 
@@ -51,7 +50,7 @@ void dropdown_setup(int x, int y) {
 	int num = 2;
 	dropdown = new R_Dropdown[num];
 	dropdown[0] = new R_Dropdown(new vec2(x,y), new vec2(60,20));
-	dropdown[1] = new R_Dropdown(new vec2(x*8,y), new vec2(60,20));
+	dropdown[1] = new R_Dropdown(new vec2(x*8,y), new vec2(100,20));
 	int num_box_display = 7;
 	int rank_box_position = 1;
 

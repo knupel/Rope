@@ -1,3 +1,10 @@
+\*version 46
+
+> fix constructor bug for class gui.R_Slotch when this one is empty
+> remove deprecated function R_Slider.update(float x, float y) in R_Dropdown class
+> add Empty constructor for R_Dropdown
+> change default value of the R_Dropdown to displey header text and selected content
+
 \*version 45
 
 > function boolean is() to R_Board

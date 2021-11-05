@@ -24,7 +24,7 @@ public class R_Slotch extends R_Slider {
 	protected int notch;
 
 	public R_Slotch() {
-		super("Slotch", -1, -1, -1, -1);
+		super("Slotch");
 		set_notch(2);
 	}
 

@@ -1,6 +1,6 @@
 /**
 * R_DROPDOWN 
-* v 1.2.0
+* v 1.3.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -67,12 +67,20 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   /**
   CONSTRUCTOR
-  */  
-  public R_Dropdown(vec2 pos, vec2 size) {
-    super("Dropdown", pos,size);
-    // this.pos = pos.copy();
-    // this.size = size.copy(); // header size
+  */
+  public R_Dropdown() {
+    super("Dropdown", 5, 5, 120, 20);
+    init();
+    set_pos_value(this.pos.x() + this.size.x() +this.font_size , this.pos.y() +this.font_size);
+  }
 
+
+  public R_Dropdown(vec2 pos, vec2 size) {
+    super("Dropdown", pos, size);
+    init(); 
+  }
+
+  private void init() {
     int size_header_text = (int)(size.y() * 0.6f);
     this.font = createFont("defaultFont",size_header_text);
     int size_content_text = (int)(size.y() * 0.6f);
@@ -80,13 +88,13 @@ public class R_Dropdown extends Crope implements R_GUI {
 
     pos_ref_x = pos.x();
     pos_ref_y = pos.y();
-    set_box_height(size.y);
+    set_box_height(size.y());
     
-    int offset_text_x = 2 ;
-    float offset_text_header_y = (size.y() - size_header_text)/2;
-    set_header_text_pos(offset_text_x,size.y() -offset_text_header_y);
-    float offset_text_content_y = (size_box.y() - size_content_text)/2;
-    set_box_text_pos(offset_text_x,size_box.y() - offset_text_content_y); 
+    int offset_text_x = 5;
+    set_header_text_pos(offset_text_x, this.font_size);
+    float offset_text_content_y = (this.size_box.y() -size_content_text)/2;
+    set_box_text_pos(offset_text_x, this.size_box.y() -offset_text_content_y); 
+
   }
 
 
@@ -170,7 +178,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   }
 
   public R_Dropdown set_box_width(int w) {
-    size_box.set(w,size_box.y);
+    size_box.set(w,size_box.y());
     return this;
   }
 
@@ -397,7 +405,7 @@ public class R_Dropdown extends Crope implements R_GUI {
           float x = pos.x() -slider_dd.size().x();
           float y = pos.y() +(height_box *box_starting_rank_position);
           slider_dd.pos(x,y);
-          slider_dd.update(cursor.x(),cursor.y());
+          slider_dd.update();
           slider_dd.show_struc();
           slider_dd.show_mol();
         }

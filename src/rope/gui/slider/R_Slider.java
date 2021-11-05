@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.5.0
+* v 1.5.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -37,7 +37,11 @@ public class R_Slider extends Crope implements R_GUI {
 	protected int molette_type = RECT;
 
 	public R_Slider() {
-		super("Slider", -1, -1, -1, -1);
+		super("Slider");
+	}
+
+	public R_Slider(String type) {
+		super(type);
 	}
 
 	public R_Slider(vec2 pos, vec2 size) {
