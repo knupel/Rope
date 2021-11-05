@@ -259,7 +259,11 @@ public class R_Dropdown extends Crope implements R_GUI {
     }
   }
 
-  //return which line of dropdown is selected
+
+  /**
+    * return which line of dropdown is selected
+    * @return int
+    */
   int current_line ;
   public int get_selection() {
     float size_temp_y = size_box.y *num_box;
@@ -279,6 +283,31 @@ public class R_Dropdown extends Crope implements R_GUI {
     } 
     return current_line;
   }
+
+    /**
+    * return which line of dropdown is selected, is not like get_selection this return is a float.
+    * @return float
+    */
+  public float get() {
+    return get_selection();
+  }
+
+
+  /**
+    * return the String content of the line if it's possible, return null in the other case
+    * @return String
+    */
+  public String get_value() {
+    int index = get_selection();
+    if(get_selection() >= get_content().length) {
+      index = 0;
+    }
+    if(get_content().length > 0 && get_content()[index] != null) {
+      return get_content()[index];
+    }
+    return null;
+  }
+
 
   //return which line of dropdown is highlighted
   public int get_highlight() {
@@ -313,14 +342,6 @@ public class R_Dropdown extends Crope implements R_GUI {
 
 
 
-
-
-
-
-
-
-
-
   // show
   public void show_struc() {
     show_header();
@@ -335,16 +356,7 @@ public class R_Dropdown extends Crope implements R_GUI {
       fill(colour_header_text_out);
     }
     textFont(font);
-    int index = get_selection();
-    if(get_selection() >= get_content().length) {
-      index = 0;
-    }
-    if(get_content().length > 0 && get_content()[index] != null) {
-      text(get_content()[index],pos_value);
-    } else {
-      text("empty",pos_value);
-    }
-  	
+    text(get_value(),pos_value);
   }
   
   public void show_header() {
@@ -361,15 +373,15 @@ public class R_Dropdown extends Crope implements R_GUI {
   /**
    * Overwrite method Crope
    */
-  public void show_label(String name) {
-    if(name != null) {
+  public void show_label(String label) {
+    if(label != null) {
       if (inside(RECT)) {
         fill(colour_header_text_in); 
       } else {
         fill(colour_header_text_out);
       }
       textFont(font);
-      text(name, pos.x() +pos_header_text.x(), pos.y() +pos_header_text.y());
+      text(label, pos.x() +pos_header_text.x(), pos.y() + pos_header_text.y());
     }
   }
 
@@ -377,7 +389,7 @@ public class R_Dropdown extends Crope implements R_GUI {
    * Overwrite method Crope
    */
   public void show_label() {
-    show_label(this.name);
+    show_label(this.label);
   }
 
 

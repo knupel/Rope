@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.4.0
+* v 1.5.0
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -53,6 +53,8 @@ abstract public class Crope extends R_Graphic {
   protected int align_label_name = LEFT;
   protected int align_label_value = LEFT;
   protected String name = null;
+  protected String label = null;
+
   protected vec2 pos_label;
   protected vec2 pos_value;
   // font
@@ -447,13 +449,13 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
-  public Crope set_label(String name) {
-    this.name = name;
+  public Crope set_label(String label) {
+    this.label = label;
     return this;
   }
 
-  public Crope set_label(String name, float x, float y) {
-    this.name = name;
+  public Crope set_label(String label, float x, float y) {
+    this.label = label;
     if(this.pos_label == null) {
       this.pos_label = new vec2(x,y);
     } else {
@@ -462,8 +464,8 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
   
-  public Crope set_label(String name, vec2 pos_label) {
-    set_label(name, pos_label.x(), pos_label.y());
+  public Crope set_label(String label, vec2 pos_label) {
+    set_label(label, pos_label.x(), pos_label.y());
     return this;
   }
 
@@ -476,18 +478,18 @@ abstract public class Crope extends R_Graphic {
     if(this.pos_label == null) {
       this.pos_label = new vec2(x,y);
     } else {
-       this.pos_label.set(x,y);
+      this.pos_label.set(x,y);
     }
     return this;
   }
   
   public void show_label() {
-  	 show_label_impl();
+    show_label_impl();
   }
   
   
   protected void show_label_impl() {
-		if(this.name != null) {
+		if(this.label != null) {
 			textAlign(align_label_name);
 			if(font != null) textFont(font);
 			if(font_size > 0) textSize(font_size);
@@ -496,7 +498,7 @@ abstract public class Crope extends R_Graphic {
 			} else {
 				fill(color_label_out);
 			}
-			text(this.name, pos_label);
+			text(this.label, pos_label);
 		}  
 	}
 
@@ -514,7 +516,7 @@ abstract public class Crope extends R_Graphic {
     if(this.pos_value == null) {
       this.pos_value = new vec2(x,y);
     } else {
-       this.pos_value.set(x,y);
+      this.pos_value.set(x,y);
     }
     return this;
   }
@@ -625,11 +627,11 @@ abstract public class Crope extends R_Graphic {
   }
 
   public String get_name() {
-    return name;
+    return this.name;
   }
 
   public String get_label() {
-    return get_name();
+    return this.label;
   }
 
   //give the IDmidi 
@@ -691,5 +693,4 @@ abstract public class Crope extends R_Graphic {
       	}
     	}
     }
-  	//
   }

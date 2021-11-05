@@ -21,6 +21,7 @@ void setup() {
   State.init(this);
   dropdown = new R_Dropdown();
   dropdown.wheel(true);
+  dropdown.set_name("Animal");
   dropdown.set_label("Animal");
   dropdown.set_content("chat", "chien", "souris");
 
@@ -36,7 +37,11 @@ void draw() {
 
   dropdown.update();
   dropdown.show_struc();
+  dropdown.set_label(dropdown.get_name() + " " + dropdown.get_value());
   dropdown.show_value();
+  println("int get_selection()", dropdown.get_selection());
+  println("float get()", dropdown.get());
+  println("String get_value()", dropdown.get_value());
   
   State.reset_event();
 }

@@ -4,6 +4,10 @@
 > remove deprecated function R_Slider.update(float x, float y) in R_Dropdown class
 > add Empty constructor for R_Dropdown
 > change default value of the R_Dropdown to displey header text and selected content
+> add get() function to return get_selection() to make a correspondance with other class of Crope Gui
+> add function get_value() to R_Dropdown, the function return the String content of the selection
+> split String name and String label property for Crope element, now the both is independant.
+> improve and fi bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
 
 \*version 45
 
@@ -50,19 +54,19 @@
 > add function size() to class R_Rank
 > add class R_Board to gui package
 
-\*version 0.12.0.41
+\*version 41
 
 > add pack gui
 > add class R_Slider, R_Palette, R_Dropdown, R_Button...
 > add function to core Rope, like hex(), binary()
 > add function to core BigBang : like colorMode(), ellipseMode()...
 
-\*version 0.11.1.40
+\*version 40
 
 > remove waring build
 > add class R_Moxo to split method from R_Pixo, Moxo name is a contraxion of Pixo and Motion
 
-\*version 0.11.0.39 < 0.8.5.30
+\*version 39 < 30
 A lot of work between those version, too much to describe it with precision
 
 > add package colour, begin of class to manage colour and palette.
@@ -75,7 +79,7 @@ A lot of work between those version, too much to describe it with precision
 > Modify and rich Rope class with all the proper function who dont need dependencies.
 > add item icosahedron to class Costume
 
-\*version 0.8.5.30
+\*version 30
 
 > R_Line2D : fix toString() bug
 > R_Line2D: add method to catch coordinate from a normal position or distance on the line
@@ -84,7 +88,7 @@ A lot of work between those version, too much to describe it with precision
 > R_COnstants: add const for the cardinal and sub cardinal points
 > R_Chose: add method to return the radius list and a specific radius too.
 
-\*version 0.8.4.29
+\*version 29
 
 > vec2, vec3, vec4, ivec2, ivec3, ivec4 : add method constrain(arg min arg max)
 > vec2 : fix bug for method angle(vec2 dst);
@@ -93,19 +97,19 @@ A lot of work between those version, too much to describe it with precision
 > R_Line2D: add new class R_Line2D to manage line, node between 2D line and few more helpful stuff
 > R_Shape and R_Image : mode a lot of method from R_Shape to R_Image, now R_Image manage the drawing system inherited from Processing and R_Shape manage only the shapes.
 
-\*version 0.8.3.28
+\*version 28
 
 > change : method dir() and tan() now the behavior is get not a setting behavior, change for vec2, vec3 and vec4
 > vec2: add method angle(vec2 target);
 > clean class R_Shape
 > fix checking P3D mode by add a boolean to save and store the last check to avoid new checking who cause a big big system slowdown when there is a lot particles.
 
-\*version 0.8.2.27
+\*version 27
 
 > clean code
 > add javadoc
 
-\*version 0.8.1.26
+\*version 26
 
 > R_Shape: remove pushMatrix() and popMatrix()
 > R_Shape: add push() and pop() methods
@@ -115,7 +119,7 @@ A lot of work between those version, too much to describe it with precision
 > R_Shape: change method(int... arg) to method(float... arg)
 > R_Shape: add method vertex, bezierVertex, quadraticVertex, curveVertex with arg PGraphics
 
-\*version 0.8.0.25
+\*version 25
 
 > R_Polygon and R_Chose: fix bug for void calc()
 > R_Chose: add security for the where radius target is negative
@@ -129,11 +133,11 @@ A lot of work between those version, too much to describe it with precision
 > R_Shape: change get_angle() to angle() angle_x(), angle_y(), angle_z()
 > R_Shape: change set_angle(arg) to angle(float x, float y, float z), angle(vec angle) angle_x(float value), angle_y(float value), angle_z(float value)
 
-\*version 0.7.0.24
+\*version 24
 
 > create Interface for Constants Colour
 
-\*version 0.6.2.23
+\*version 023
 
 > mod: class R_Shape: method get_final_points(int target) > get_final_point(int target)
 > add: class R_Chose method calc() to compute without use method show();
@@ -143,11 +147,11 @@ A lot of work between those version, too much to describe it with precision
 > clean: R_Star
 > clean: R_Virus
 
-\*version 0.6.1.22
+\*version 22
 
 > change constant GRAY_1 to GRAY_9 by array constant from 0 to 19
 
-\*version 0.6.0.21
+\*version 21
 
 \*Package Costume
 

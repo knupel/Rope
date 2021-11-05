@@ -128,21 +128,46 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * return the list of normal points
+	 * @return array
 	 */
 	public vec3[] get_normals() {
 		return ref_pts;
 	}
 
-	@Deprecated
-	public vec3[] get_normal() {
+	public vec3 get_normal(int target) {
+		if(ref_pts != null && target >= 0 && target < ref_pts.length) {
+			return ref_pts[target];
+  	} else {
+  		return null;
+  	}
+	}
+
+
+
+		/**
+	 * return the list of normal points
+	 * @return array
+	 */
+	public vec3[] get_ref_points() {
 		return ref_pts;
 	}
 	
 	/**
-	 * 
-	 * @return
+   * 
+   * @param target
+   * @return
+   */
+  public vec3 get_ref_point(int target) {
+  	return get_normal(target);
+  }
+
+
+
+	
+	/**
+	 * return the list of real points position
+	 * @return array
 	 */
 	public vec3[] get() {
 		vec3[] temp = new vec3[ref_pts.length];
@@ -157,6 +182,38 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		}
 		return temp;
 	}
+
+		/**
+	 * return the list of real points position
+	 * @return vec3
+	 */
+	public vec3 get(int target) {
+  	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
+			vec3 temp = ref_pts[target].copy();
+			vec3 radius = size.mult((float).5);
+  		return temp.mult(radius).add(pos);
+  	} else {
+  		return null;
+  	}  
+  }
+
+	/**
+	 * return the list of real points position
+	 * @return array
+	 */
+	public vec3 [] get_points() {
+    return get();
+  }
+
+			/**
+	 * return the list of real points position
+	 * @return vec3
+	 */
+	public vec3 get_point(int target) {
+  	return get(target);  
+  }
+
+
 
 	/**
 	 * 
