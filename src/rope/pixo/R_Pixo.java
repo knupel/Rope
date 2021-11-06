@@ -1,6 +1,6 @@
 /**
 * R_Pixo class
-* v 0.2.0
+* v 0.3.0
 * 2021-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -17,6 +17,7 @@ public class R_Pixo extends R_Pix {
 
 	private vec3 canvas;
 	private vec3 size;
+	private float angle;
 
 	private float alpha = 255.0f;
 
@@ -24,6 +25,7 @@ public class R_Pixo extends R_Pix {
 	public R_Pixo() {
     super();
 		this.size = new vec3(1);
+		this.angle = 0;
 	}
 
 
@@ -61,6 +63,14 @@ public class R_Pixo extends R_Pix {
 
 	public vec3 size() {
 		return this.size;
+	}
+
+	public float angle() {
+		return this.angle;
+	}
+
+	public void angle(float angle) {
+		this.angle = angle;
 	}
 
 

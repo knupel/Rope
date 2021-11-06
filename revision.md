@@ -8,6 +8,7 @@
 > add function get_value() to R_Dropdown, the function return the String content of the selection
 > split String name and String label property for Crope element, now the both is independant.
 > improve and fi bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
+> add variable float angle to class R_Pixo
 
 \*version 45
 
