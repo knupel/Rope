@@ -1,6 +1,6 @@
 /**
 * R_Primitive class
-* v 0.3.2
+* v 0.4.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -32,8 +32,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param summits
 	 */
 	public R_Primitive(PApplet pa, int summits) {
-		super(pa);
-		this.summits = summits;
+		super(pa, summits);
+		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -46,9 +46,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param angle
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle) {
-		super(pa);
+		super(pa, summits);
 		angle_x(angle);
-		this.summits = summits;
+		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -62,9 +62,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param dir
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir) {
-		super(pa);
+		super(pa, summits);
 		angle_x(angle);
-		this.summits = summits;
+		// this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
@@ -82,8 +82,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, PGraphics other) {
-		super(pa, other);
-		this.summits = summits;
+		super(pa, summits, other);
+		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -97,9 +97,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, PGraphics other) {
-		super(pa, other);
+		super(pa, summits, other);
 		angle_x(angle);
-		this.summits = summits;
+		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -114,9 +114,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir, PGraphics other) {
-		super(pa, other);
+		super(pa, summits, other);
 		angle_x(angle);
-		this.summits = summits;
+		// this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
@@ -190,8 +190,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public vec3 get(int target) {
   	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
 			vec3 temp = ref_pts[target].copy();
-			vec3 radius = size.mult((float).5);
-  		return temp.mult(radius).add(pos);
+			return temp.mult(size).add(pos);
   	} else {
   		return null;
   	}  

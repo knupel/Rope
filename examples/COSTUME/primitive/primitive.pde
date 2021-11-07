@@ -1,5 +1,5 @@
 /**
-* Rope Polygon
+* Rope Primitive Polygon
 * v 0.0.2
 * 2019-2021
 * @author @stanlepunk
@@ -15,7 +15,7 @@ void setup() {
   size(300,300,P2D);
   int num_prim = 10000; 
   int num_summit = 3; // stay faster with 3 and 4 summits, after it's a classic rendering is very slow :)
-  int diameter = 10;
+  int diameter = width/4;
   set_primitive(num_prim,num_summit,diameter);
   for(int i = 0 ; i < prim.length ; i++) {
     prim[i].show(); // need to init the final position

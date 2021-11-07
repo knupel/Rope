@@ -9,6 +9,8 @@
 > split String name and String label property for Crope element, now the both is independant.
 > improve and fi bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
 > add variable float angle to class R_Pixo
+> fix bug size in R_Primitive and increase the fps rendering by the way :)
+> clean R_Primitive constructor, by remove the summits lines, by passing arg to super Constructor
 
 \*version 45
 
