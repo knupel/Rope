@@ -11,6 +11,8 @@
 > add variable float angle to class R_Pixo
 > fix bug size in R_Primitive and increase the fps rendering by the way :)
 > clean R_Primitive constructor, by remove the summits lines, by passing arg to super Constructor
+> add function get_content(it index) to R_Dropdown class
+> add function set_value(int index) to R_Dropdown to set the which line is a current menu selection
 
 \*version 45
 

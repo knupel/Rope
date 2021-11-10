@@ -44,6 +44,8 @@ public class R_Dropdown extends Crope implements R_GUI {
   private int colour_box_text_in = State.env().gui_db_fill_box_text_in;
   private int colour_box_text_out = State.env().gui_db_fill_box_text_out;
 
+  private int current_line;
+
 
   private vec2 pos_header_text;
   private vec2 pos_box_text;
@@ -207,6 +209,16 @@ public class R_Dropdown extends Crope implements R_GUI {
     return this;
   }
 
+  private void set_current_line(int current_line) {
+    this.current_line = current_line;
+  }
+
+
+  public R_Dropdown set_value(int current_line) {
+    set_current_line(current_line);
+    return this;
+  }
+
 
   public R_Dropdown set_name(String name) {
     this.name = name;
@@ -264,7 +276,7 @@ public class R_Dropdown extends Crope implements R_GUI {
     * return which line of dropdown is selected
     * @return int
     */
-  int current_line ;
+
   public int get_selection() {
     float size_temp_y = size_box.y *num_box;
     vec2 temp_size = new vec2(size_box.x, (int)size_temp_y);
@@ -314,9 +326,23 @@ public class R_Dropdown extends Crope implements R_GUI {
     return line ;
   }
 
-
+    /**
+    * return all the content of the dropdown
+    * @return String array
+    */
   public String [] get_content() {
     return content;
+  }
+
+    /**
+    * return the String content of the index asking if it's possible. If it's not return the first element of the array content
+    * @return String
+    */
+  public String get_content(int index) {
+    if(index < content.length && index >= 0 ) {
+      return content[index];
+    }
+    return content[0];
   }
 
   public int get_num_box() {
