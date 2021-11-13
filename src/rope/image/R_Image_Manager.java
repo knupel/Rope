@@ -44,10 +44,21 @@ public class R_Image_Manager extends BigBang {
     library.add(rop_img);
   }
 
+  public void add(PImage img_src, int index) {
+    R_Image rop_img = new R_Image(this.pa, img_src, "unknow" ,library.size());
+    library.add(index, rop_img);
+  }
+
   public void add(PImage img_src, String name) {
     build();
     R_Image rop_img = new R_Image(this.pa, img_src, name, library.size());
     library.add(rop_img);
+  }
+
+  public void add(PImage img_src, String name, int index) {
+    build();
+    R_Image rop_img = new R_Image(this.pa, img_src, name, library.size());
+    library.add(index, rop_img);
   }
 
   public void clear() {
@@ -73,6 +84,12 @@ public class R_Image_Manager extends BigBang {
     } else {
       String mess = ANSI_RED+"The String target name don't match with any name of image library"+ANSI_WHITE+" target name:"+target_name;
       System.err.println(mess) ;
+    }
+  }
+
+  public void remove(int index) {
+    if(library != null) {
+      library.remove(index);
     }
   }
 

@@ -13,6 +13,9 @@
 > clean R_Primitive constructor, by remove the summits lines, by passing arg to super Constructor
 > add function get_content(it index) to R_Dropdown class
 > add function set_value(int index) to R_Dropdown to set the which line is a current menu selection
+> add funtion remove(int index) and add(T... int index) to class R_Image_Manager to make mirror with ArrayList method.
+> change the content management for the R_Dropdown class fron a simple String array to ArrayList String
+> add function add_content(String... content) to add element in the content
 
 \*version 45
 

@@ -281,14 +281,14 @@ abstract public class Crope extends R_Graphic {
    * 
    * */
 
-  public Crope set_fill(int c) {
-    set_fill(c,c);
+  public Crope set_fill(int colour) {
+    set_fill(colour,colour);
     return this;
   }
 
-  public Crope set_fill(int c_in, int c_out) {
-    this.fill_in = c_in;
-    this.fill_out = c_out;
+  public Crope set_fill(int colour_in, int colour_out) {
+    this.fill_in = colour_in;
+    this.fill_out = colour_out;
     return this;
   }
 
@@ -315,9 +315,9 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
-  public Crope set_stroke(int c_in, int c_out) {
-    this.stroke_in = c_in;
-    this.stroke_out = c_out;
+  public Crope set_stroke(int colour_in, int colour_out) {
+    this.stroke_in = colour_in;
+    this.stroke_out = colour_out;
     return this;
   }
 
@@ -351,16 +351,16 @@ abstract public class Crope extends R_Graphic {
   }
 
 
-  public Crope set_aspect(int f_c, int s_c, float thickness) {
-    set_fill(f_c,f_c);
-    set_stroke(s_c,s_c);
+  public Crope set_aspect(int fill_colour, int stroke_colour, float thickness) {
+    set_fill(fill_colour,fill_colour);
+    set_stroke(stroke_colour,stroke_colour);
     set_thickness(thickness);
     return this;
   }
 
-  public Crope set_aspect(int f_c_in, int f_c_out, int s_c_in,  int s_c_out, float thickness) {
-    set_fill(f_c_in,f_c_out);
-    set_stroke(s_c_in,s_c_out);
+  public Crope set_aspect(int fill_colour_in, int fill_colour_out, int stroke_colour_in,  int stroke_colour_out, float thickness) {
+    set_fill(fill_colour_in,fill_colour_out);
+    set_stroke(stroke_colour_in,stroke_colour_out);
     set_thickness(thickness);
     return this;
   }
@@ -422,14 +422,14 @@ abstract public class Crope extends R_Graphic {
    */
   
   
-   public Crope set_fill_label(int c) {
-    set_fill_label(c,c);
+   public Crope set_fill_label(int colour) {
+    set_fill_label(colour,colour);
     return this;
   }
 
-  public Crope set_fill_label(int c_in, int c_out) {
-    this.color_label_in = c_in;
-    this.color_label_out = c_out;
+  public Crope set_fill_label(int colour_in, int colour_out) {
+    this.color_label_in = colour_in;
+    this.color_label_out = colour_out;
     return this;
   }
 

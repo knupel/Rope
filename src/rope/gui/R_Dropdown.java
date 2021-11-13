@@ -1,18 +1,19 @@
 /**
 * R_DROPDOWN 
-* v 1.3.0
+* v 1.4.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
 */
 package rope.gui;
 
+import java.util.ArrayList;
+
 import processing.core.PFont;
 import rope.colour.R_Colour;
 import rope.gui.slider.R_Slider;
 import rope.vector.ivec2;
 import rope.vector.vec2;
-
 import rope.R_State.State;
 
 public class R_Dropdown extends Crope implements R_GUI {
@@ -24,11 +25,10 @@ public class R_Dropdown extends Crope implements R_GUI {
   private PFont font_box;
   //dropdown
   private int line = 0;
-  private String content[];
+  private ArrayList<String> content;
 
   private boolean locked;
   private boolean slider;
-  // private boolean inside_box;
   // color
   private int colour_structure = State.env().gui_db_fill_struct;
 
@@ -52,8 +52,7 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private float pos_ref_x;
   private float pos_ref_y ;
-  // private vec2 change_pos;
-  // private float factorPos; // use to calculate the margin between the box
+
   // box
   private float height_box;
   private int num_box = 9;
@@ -73,7 +72,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   public R_Dropdown() {
     super("Dropdown", 5, 5, 120, 20);
     init();
-    set_pos_value(this.pos.x() + this.size.x() +this.font_size , this.pos.y() +this.font_size);
+    set_pos_value(this.pos.x() + this.size.x() +this.font_size, this.pos.y() +this.font_size);
   }
 
 
@@ -83,10 +82,11 @@ public class R_Dropdown extends Crope implements R_GUI {
   }
 
   private void init() {
+    this.content = new ArrayList<String>();
     int size_header_text = (int)(size.y() * 0.6f);
-    this.font = createFont("defaultFont",size_header_text);
+    this.font = createFont("defaultFont", size_header_text);
     int size_content_text = (int)(size.y() * 0.6f);
-    this.font_box = createFont("defaultFont",size_content_text);
+    this.font_box = createFont("defaultFont", size_content_text);
 
     pos_ref_x = pos.x();
     pos_ref_y = pos.y();
@@ -95,8 +95,7 @@ public class R_Dropdown extends Crope implements R_GUI {
     int offset_text_x = 5;
     set_header_text_pos(offset_text_x, this.font_size);
     float offset_text_content_y = (this.size_box.y() -size_content_text)/2;
-    set_box_text_pos(offset_text_x, this.size_box.y() -offset_text_content_y); 
-
+    set_box_text_pos(offset_text_x, this.size_box.y() -offset_text_content_y);
   }
 
 
@@ -158,7 +157,8 @@ public class R_Dropdown extends Crope implements R_GUI {
   public R_Dropdown set_box(int num_box, int rank) {
     this.num_box = num_box;
     this.box_starting_rank_position = rank;
-    if(content != null && num_box != content.length) {
+
+    if(num_box != this.content.size()) {
       set_num_box_rendering(true);
     }
     return this;
@@ -172,9 +172,9 @@ public class R_Dropdown extends Crope implements R_GUI {
   public R_Dropdown set_box_height(float h) {
     this.height_box = h;
     if(size_box == null) {
-      size_box = new vec2(longest_String_pixel(font_box,this.content), this.height_box);
+      size_box = new vec2(longest_String_pixel(font_box,this.content.toArray(new String[this.content.size()])), this.height_box);
     } else {
-      size_box.set(new vec2(longest_String_pixel(font_box,this.content), this.height_box));
+      size_box.set(new vec2(longest_String_pixel(font_box,this.content.toArray(new String[this.content.size()])), this.height_box));
     }
     return this;
   }
@@ -198,15 +198,32 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   // content
   public R_Dropdown set_content(String... content) {
-  	set_box(content.length);
-    boolean new_slider = false;
-    if(this.content == null || this.content.length != content.length) {
+    this.content.clear();
+    content_impl(content.length, content);
+    return this;
+  }
+
+
+
+  public void add_content(String... content) {
+    int len = this.content.size() + content.length;
+    content_impl(len, content);
+  }
+
+  private void content_impl(int len, String content[]) {
+    set_box(len);
+    for(String str : content) {
+      this.content.add(str);
+    }
+    update_slider(len);
+  }
+
+  private void update_slider(int len) {
+     boolean new_slider = false;
+    if(this.content.size() != len) {
       new_slider = true;
     }
-   
-    this.content = content;
     set_num_box_rendering(new_slider);
-    return this;
   }
 
   private void set_current_line(int current_line) {
@@ -228,12 +245,12 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private R_Dropdown set_num_box_rendering(boolean new_slider_is) {
     end = num_box;
-    if (content != null) {
-      if (end > content.length) {
-        end = content.length;
+    if (this.content != null) {
+      if (end > this.content.size()) {
+        end = this.content.size();
       }
-      missing = content.length -end;
-      if (content.length > end) {
+      missing = this.content.size() -end;
+      if (this.content.size() > end) {
         slider = true; 
       } else {
         slider = false;
@@ -254,10 +271,10 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   // get
   private int get_select_line() {
-    float content_size_y = ((content.length+1) *size.y()) +pos.y();
+    float content_size_y = ((content.size()+1) *size.y()) +pos.y();
     // very quick bug fix, for the case there is only two item in thelist
-    if(content.length == 2) {
-      content_size_y = ((content.length+2) *size.y()) +pos.y();
+    if(content.size() == 2) {
+      content_size_y = ((content.size()+2) *size.y()) +pos.y();
     }
     if(cursor.x() >= pos.x() 
       && cursor.x() <= pos.x() +size_box.x() 
@@ -287,7 +304,8 @@ public class R_Dropdown extends Crope implements R_GUI {
       line = current_line;
     }
     if(!locked && inside_open_box) {
-      if(line >= 0 && line < content.length) {
+      if(line >= 0 && line < content.size()) {
+      // if(line >= 0 && line < content.length) {
         current_line = line ;     
       } else {
         print_err("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
@@ -331,7 +349,9 @@ public class R_Dropdown extends Crope implements R_GUI {
     * @return String array
     */
   public String [] get_content() {
-    return content;
+    // return content;
+    String [] buf = this.content.toArray(new String[this.content.size()]);
+    return buf;
   }
 
     /**
@@ -339,10 +359,10 @@ public class R_Dropdown extends Crope implements R_GUI {
     * @return String
     */
   public String get_content(int index) {
-    if(index < content.length && index >= 0 ) {
-      return content[index];
+    if(index < content.size() && index >= 0 ) {
+      return this.content.get(index);
     }
-    return content[0];
+    return this.content.get(0);
   }
 
   public int get_num_box() {
@@ -426,16 +446,16 @@ public class R_Dropdown extends Crope implements R_GUI {
       if (slider) {
         offset_slider = round(map(slider_dd.get(0),0,1,0,missing));
       }
-      set_box_width(longest_String_pixel(font_box,this.content));
+      set_box_width(longest_String_pixel(font_box,get_content()));
  
       for (int i = start +offset_slider ; i < end +offset_slider ; i++) {  
         if(i < 0) i = 0;
-        if(i >= content.length) i = content.length -1;
+        if(i >= this.content.size()) i = this.content.size() -1;
         
         float pos_temp_y = pos.y() + (size_box.y() *step);
         vec2 temp_pos = new vec2(pos.x(), pos_temp_y);
         boolean inside = inside(temp_pos,size,RECT);
-        render_box(temp_pos,content[i],step,inside);
+        render_box(temp_pos,this.content.get(i),step,inside);
         step++;
 
         // slider, if necessary show slider
@@ -541,8 +561,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     this.wheel_is = wheel_is;
   }
 
-
-
   public void offset(int x, int y) {
     pos.set(pos_ref_x, pos_ref_y);
     ivec2 temp = new ivec2(x,y);
@@ -561,7 +579,7 @@ public class R_Dropdown extends Crope implements R_GUI {
     float y = pos.y() +(height_box * box_starting_rank_position);
     vec2 pos_slider = new vec2(x,y);
   
-    float ratio = (float)(content.length) / (float)(end -1);
+    float ratio = (float)(this.content.size()) / (float)(end -1);
     
     vec2 size_molette = new vec2(size_slider.x(), round(size_slider.y() /ratio));
     
