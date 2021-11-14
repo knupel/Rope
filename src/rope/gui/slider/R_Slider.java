@@ -33,34 +33,46 @@ public class R_Slider extends Crope implements R_GUI {
 
 	protected float min_norm = 0;
 	protected float max_norm = 1;
+	protected vec2 min_max_final;
 
 	protected int molette_type = RECT;
 
 	public R_Slider() {
 		super("Slider");
+		init_slider();
 	}
 
 	public R_Slider(String type) {
 		super(type);
+		init_slider();
 	}
 
 	public R_Slider(vec2 pos, vec2 size) {
 		super("Slider", pos, size);
+		init_slider();
 	}
 
 	public R_Slider(String type, vec2 pos, vec2 size) {
 		super(type, pos, size);
+		init_slider();
 		set_value(0.5f); // default > one molette > half position
 	}
 
 	public R_Slider(float x, float y, float sx, float sy) {
 		super("Slider", x, y, sx, sy);
+		init_slider();
 		set_value(0.5f); // default > one molette > half position
 	}
 
 	public R_Slider(String type, float x, float y, float sx, float sy) {
 		super(type, x, y, sx, sy);
+		init_slider();
 		set_value(0.5f); // default > one molette > half position
+	}
+
+	// INIT
+	private void init_slider() {
+		min_max_final = new vec2(0,1);
 	}
 
 	// SET
@@ -68,6 +80,13 @@ public class R_Slider extends Crope implements R_GUI {
 		set_value_calc(false, pos_norm);
 		return this;
 	}
+
+	public R_Slider set_min_max(float min, float max) {
+		min_max_final.set(min,max);
+		return this;
+	}
+
+
 
 
 	protected void set_value_calc(boolean force_is, float... pos_norm) {
@@ -209,10 +228,45 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 	// GET
+	/**
+	 * Return the value for the the index (targret) molette, the value is mapped with the min max value
+	 * @param index
+	 * @return float
+	 */
+	public float get_final(int index) {
+		return map(get(index),0,1,get_min(),get_max());
+	}
+
+	/**
+	 * Return the value for the the main molette, the value is mapped with the min max value
+	 * @return float
+	 */
+	public float get_final() {
+		return map(get(0),0,1,get_min(),get_max());
+	}
+
+	public float get_min() {
+		return this.min_max_final.min();
+	}
+
+	public float get_max() {
+		return this.min_max_final.max();
+	}
+
+
+	/**
+	 * Return the normal value for the first molette
+	 * @return float
+	 */
 	public float get() {
 		return get(0);
 	}
 
+	/**
+	 * Return the normal value for the the index (targret) molette
+	 * @param index
+	 * @return float
+	 */
 	public float get(int index) {
 		float value = molette[index].get();
 		if(molette != null && index < molette.length 
@@ -228,6 +282,8 @@ public class R_Slider extends Crope implements R_GUI {
 		if(value < 0 || value > 1) value = molette[index].get();
 		return value;
 	}
+
+
 
 	public float [] get_all() {
 		int num = 1;

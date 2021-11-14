@@ -1,6 +1,6 @@
 /**
 * R_Image_MAnager
-* v 0.2.0
+* v 0.2.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -15,7 +15,7 @@ import processing.core.PImage;
 import rope.core.BigBang;
 
 public class R_Image_Manager extends BigBang {
-  ArrayList<R_Image> library ;
+  ArrayList<R_Image> library;
   int which_img;
 
   public R_Image_Manager(PApplet pa) {
@@ -36,6 +36,12 @@ public class R_Image_Manager extends BigBang {
       R_Image rop_img = new R_Image(this.pa, img,temp[temp.length-1],i);
       library.add(rop_img);
     }  
+  }
+
+  // ADD
+  public void add(R_Image r_img) {
+    build();
+    library.add(r_img);
   }
 
   public void add(PImage img_src) {
@@ -60,6 +66,11 @@ public class R_Image_Manager extends BigBang {
     R_Image rop_img = new R_Image(this.pa, img_src, name, library.size());
     library.add(index, rop_img);
   }
+
+
+
+
+
 
   public void clear() {
     if(library != null) {
@@ -100,19 +111,28 @@ public class R_Image_Manager extends BigBang {
     } else return -1 ;  
   }
 
-  public void set(PImage src_img, int target) {
+  // SET
+  public void set(R_Image r_img, int index) {
+    if(index < library.size() && index >= 0) {
+      set(r_img.get_PImage(), index);
+      library.get(index).set_name(r_img.get_name());
+      library.get(index).set_id(r_img.get_id());
+    }
+  }
+
+  public void set(PImage src_img, int index) {
     build();
-    if(target < library.size()) {
-      if(src_img.width == get(target).width && src_img.height == get(target).height){
-        get(target).pixels = src_img.pixels ;
-        get(target).updatePixels();
+    if(index < library.size() && index >= 0) {
+      if(src_img.width == get(index).width && src_img.height == get(index).height){
+        get(index).pixels = src_img.pixels ;
+        get(index).updatePixels();
       } else {
-        get(target).resize(src_img.width, src_img.height);
-        get(target).pixels = src_img.pixels ;
-        get(target).updatePixels();
+        get(index).resize(src_img.width, src_img.height);
+        get(index).pixels = src_img.pixels ;
+        get(index).updatePixels();
       }
     } else {
-      String mess = ANSI_RED+"Neither target image match with your request"+ANSI_WHITE+" target: "+target;
+      String mess = ANSI_RED+"Neither target image match with your request"+ANSI_WHITE+" target: "+index;
       System.err.println(mess);
     }
   }
@@ -134,6 +154,12 @@ public class R_Image_Manager extends BigBang {
     }
   }
 
+  // LIST
+  public ArrayList<R_Image> list() {
+    return library;
+  }
+
+  // GET
   public String get_current_name() {
     return get_name(which_img);
   }
@@ -145,8 +171,6 @@ public class R_Image_Manager extends BigBang {
       } else return null ;
     } else return null ;
   }
-
-
 
   public int get_rank(String target_name) {
     if(library != null && library.size() > 0) {
@@ -161,11 +185,7 @@ public class R_Image_Manager extends BigBang {
       return rank;
     } else return -1;
   }
-  
 
-  public ArrayList<R_Image> list() {
-    return library;
-  }
 
   R_Image [] get() {
     if(library != null && library.size() > 0) {
@@ -176,15 +196,15 @@ public class R_Image_Manager extends BigBang {
  
   public PImage get_current() {
     if(library != null && library.size() > 0 ) {
-      if(which_img < library.size()) return library.get(which_img).get_pimage(); 
-      else return library.get(0).get_pimage(); 
+      if(which_img < library.size()) return library.get(which_img).get_PImage(); 
+      else return library.get(0).get_PImage(); 
     } else return null ;
   }
   
 
   public PImage get(int target){
     if(library != null && target >= 0 && target < library.size()) {
-      return library.get(target).get_pimage();
+      return library.get(target).get_PImage();
     } else return null;
   }
 

@@ -7,7 +7,7 @@
 > add get() function to return get_selection() to make a correspondance with other class of Crope Gui
 > add function get_value() to R_Dropdown, the function return the String content of the selection
 > split String name and String label property for Crope element, now the both is independant.
-> improve and fi bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
+> improve and fix bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
 > add variable float angle to class R_Pixo
 > fix bug size in R_Primitive and increase the fps rendering by the way :)
 > clean R_Primitive constructor, by remove the summits lines, by passing arg to super Constructor
@@ -16,6 +16,9 @@
 > add funtion remove(int index) and add(T... int index) to class R_Image_Manager to make mirror with ArrayList method.
 > change the content management for the R_Dropdown class fron a simple String array to ArrayList String
 > add function add_content(String... content) to add element in the content
+> improve class R_Image, add method set_name(String name), set_id(int id), set(R_Image, int index) and add random id generator
+> add function float get_final() and float get_final(int index) return value from min to max
+> add function set_min_max(), get_min(), get_max() to set the range of the slider, that can be useful when you lizzy to use the normal value from function get()
 
 \*version 45
 

@@ -1,6 +1,6 @@
 /**
 * R_Image
-* v 0.2.0
+* v 0.3.0
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -14,7 +14,7 @@ import rope.core.BigBang;
 
 public class R_Image extends BigBang {
   private PImage img ;
-  private String name = "no name" ;
+  private String name = "my name is nobody";
   private int id = -1;
 
   /**
@@ -26,6 +26,7 @@ public class R_Image extends BigBang {
   	super(pa);
     this.name = path.split("/")[path.split("/").length -1].split("\\.")[0];
     this.img = loadImage(path);
+    this.id = (int)random(MAX_INT);
   }
 
   /**
@@ -36,6 +37,20 @@ public class R_Image extends BigBang {
   public R_Image(PApplet pa, PImage img) {
   	super(pa);
     this.img = img;
+    this.id = (int)random(MAX_INT);
+  }
+
+  /**
+   * 
+   * @param pa
+   * @param img
+   * @param name
+   */
+  public R_Image(PApplet pa, PImage img, String name) {
+  	super(pa);
+    this.img = img;
+    this.name = name;
+    this.id = (int)random(MAX_INT);
   }
 
   /**
@@ -53,19 +68,37 @@ public class R_Image extends BigBang {
   }
   
 
+  // get
   public R_Image get() {
     return this;
   }
 
+  @Deprecated
+  public PImage get_pimage() {
+    return img ;
+  }
+
+  public PImage get_PImage() {
+    return img ;
+  }
+
+  // id
   public int get_id() {
     return id;
   }
 
+  public R_Image set_id(int id) {
+    this.id = id;
+    return this;
+  }
+
+  // name
   public String get_name() {
     return name ;
   }
 
-  public PImage get_pimage() {
-    return img ;
+  public R_Image set_name(String name) {
+    this.name = name;
+    return this;
   }
 }
