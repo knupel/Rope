@@ -1,6 +1,6 @@
 /**
 * R_Image_MAnager
-* v 0.2.1
+* v 0.2.2
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -46,24 +46,24 @@ public class R_Image_Manager extends BigBang {
 
   public void add(PImage img_src) {
     build();
-    R_Image rop_img = new R_Image(this.pa, img_src, "unknow" ,library.size());
+    R_Image rop_img = new R_Image(this.pa, img_src, "unknow");
     library.add(rop_img);
   }
 
   public void add(PImage img_src, int index) {
-    R_Image rop_img = new R_Image(this.pa, img_src, "unknow" ,library.size());
+    R_Image rop_img = new R_Image(this.pa, img_src, "unknow");
     library.add(index, rop_img);
   }
 
   public void add(PImage img_src, String name) {
     build();
-    R_Image rop_img = new R_Image(this.pa, img_src, name, library.size());
+    R_Image rop_img = new R_Image(this.pa, img_src, name);
     library.add(rop_img);
   }
 
   public void add(PImage img_src, String name, int index) {
     build();
-    R_Image rop_img = new R_Image(this.pa, img_src, name, library.size());
+    R_Image rop_img = new R_Image(this.pa, img_src, name);
     library.add(index, rop_img);
   }
 
@@ -164,12 +164,20 @@ public class R_Image_Manager extends BigBang {
     return get_name(which_img);
   }
 
-  public String get_name(int target) {
+  public String get_name(int index) {
     if(library != null && library.size() > 0) {
-      if(target < library.size()) {
-        return library.get(target).get_name() ;
+      if(index < library.size()) {
+        return library.get(index).get_name() ;
       } else return null ;
     } else return null ;
+  }
+
+  public Long get_id(int index) {
+    if(library != null && library.size() > 0) {
+      if(index < library.size()) {
+        return Long.valueOf(library.get(index).get_id());
+      } else return null;
+    } else return null;
   }
 
   public int get_rank(String target_name) {

@@ -19,6 +19,7 @@
 > improve class R_Image, add method set_name(String name), set_id(int id), set(R_Image, int index) and add random id generator
 > add function float get_final() and float get_final(int index) return value from min to max
 > add function set_min_max(), get_min(), get_max() to set the range of the slider, that can be useful when you lizzy to use the normal value from function get()
+> add function Long get_id(int index) to catch the id Image for the R_Image_Manager
 
 \*version 45
 
