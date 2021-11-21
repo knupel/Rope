@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.2
+	* v 1.0.3
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -37,6 +37,7 @@ public interface R_Constants {
   static final int POINT = 2; // processing value
 
   static final int LINE = 4; // processing value
+	static final int SHAPE = 5; // processing value
 
   static final int TRIANGLE = 8; // processing value
   static final int SQUARE = 14;
@@ -49,7 +50,7 @@ public interface R_Constants {
   static final int HENDECAGON = 21;
   static final int DODECAGON = 22;
 
-	static final int TEXT = 26;
+
 
   static final int RECT = 30; // processing value
   static final int ELLIPSE = 31; // processing value
@@ -68,6 +69,14 @@ public interface R_Constants {
   static final int SPHERE_MEDIUM = 101;
   static final int SPHERE_HIGH = 102;
   static final int TETRAHEDRON = 103;
+
+	static final int TEXT = 200;
+
+	static final int IMAGE = 210; // *** ACHTUNG *** Processing use 2
+	static final int PORTRAIT = 211; // *** ACHTUNG *** Processing use 1
+	static final int LANDSCAPE = 212; // *** ACHTUNG *** Processing use 2
+	static final int SPAN = 213; // *** ACHTUNG *** Processing use 2
+
 
   static final int PIXEL = 800;
 
@@ -95,6 +104,8 @@ public interface R_Constants {
 
 
 
+
+
   
   
   static final int RAND = 2456417;
@@ -118,6 +129,9 @@ public interface R_Constants {
 	static final int  NOTHING = 0;
 	static final int  NONE = 0;
 	static final int  NULL = 0;
+
+	static final int NORMAL = 1; // processing value
+	static final int REPEAT = 999; // *** ACHTUNG *** Processing use 1
 	
 	static final float PHI = (1 + (float)Math.sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
 	static final float GOLD_NUMBER = PHI;
