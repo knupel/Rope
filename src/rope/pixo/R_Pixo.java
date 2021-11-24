@@ -1,6 +1,6 @@
 /**
 * R_Pixo class
-* v 0.3.0
+* v 0.3.1
 * 2021-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -78,7 +78,7 @@ public class R_Pixo extends R_Pix {
 
 
 	// alpha
-	public void set_alpha(int alpha) {
+	public void set_alpha(float alpha) {
 		this.alpha = alpha;
 	}
 

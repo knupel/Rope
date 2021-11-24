@@ -3,7 +3,7 @@
 * Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.4.1
+* v 2.4.2
 * 2013-2021
 */
 package rope.gui.button;
@@ -40,6 +40,10 @@ public class R_Button extends Crope {
   protected float value;
 
   public vec2 offset;
+
+  public R_Button() {
+    super("Button");
+  }
 
   public R_Button(String type, vec2 pos, vec2 size) {
     super(type, pos, size); 
@@ -182,6 +186,10 @@ public class R_Button extends Crope {
 		}
     boolean event = button_event_is();
     update(State.pointer().x(),State.pointer().y(),event);
+    if(!label_is) {
+      init_pos_label();
+      label_is = true;
+    }
   }
   
 

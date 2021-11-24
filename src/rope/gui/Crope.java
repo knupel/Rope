@@ -1,7 +1,7 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.5.0
+* v 1.5.1
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -72,36 +72,46 @@ abstract public class Crope extends R_Graphic {
   protected int rollover_type = RECT;
 
   protected boolean crope_build_is = false;
+  protected boolean label_is = false;
 
   public Crope(String type) {
   	super(State.pa());
     this.type = type;
     init(-1, -1, -1, -1);
+    
   }
 
   public Crope(String type, vec2 pos, vec2 size) {
   	super(State.pa());
     this.type = type;
     init(pos.x(), pos.y(), size.x(), size.y());
+    label_is = true;
   }
 
   public Crope(String type, float x, float y, float sx, float sy) {
   	super(State.pa());
     this.type = type;
     init(x, y, sx, sy);
+    label_is = true;
   }
 
   private void init(float x, float y, float sx, float sy) {
+    this.font_size = (int)State.pa().g.textSize;
     this.pos(x,y);
 		this.size(sx,sy);
-		// font
-		this.font_size = (int)State.pa().g.textSize;
-		// id + dna
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
     if(dna == 0) dna = 1;
-    // info label + info
-    pos_label = new vec2(this.pos.x(),bottom() + this.font_size);
-    pos_value = pos_label.copy().add_y(this.font_size);
+    init_pos_label();
+  }
+
+  protected void init_pos_label() {
+    if(pos_label == null) {
+      pos_label = new vec2(this.pos.x(),bottom() + this.font_size);
+      pos_value = pos_label.copy().add_y(this.font_size);
+    } else if(!label_is) {
+      pos_label.set(this.pos.x(),bottom() + this.font_size);
+      pos_value = pos_label.copy().add_y(this.font_size);
+    }
   }
 
 

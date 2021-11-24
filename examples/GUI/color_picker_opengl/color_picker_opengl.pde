@@ -10,20 +10,22 @@
 
 /**
 * Color Picker without openGL
-* Processing 3.5.4
-* Rope library 0.12.1.41
-* v 0.2.3
+* Processing 4
+* v 0.3.0
 * 2021-2021
 */
 import rope.gui.palette.R_Palette;
 import rope.gui.palette.R_Palette_Selector;
 import rope.gui.slider.R_Slider;
+import rope.gui.button.R_Button;
 import rope.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
 // IN PROGRESS
+R_Button button_new_bg;
 R_Palette palette;
 R_Palette_Selector selector;
+R_Button button_ok; 
 R_Slider slider;
 Rope r = new Rope();
 
@@ -32,9 +34,13 @@ int y = 40 ;
 void setup() {
 	size(600,600,P2D);
 	State.init(this);
+	button_new();
+	button_setup(button_new_bg, "click to open palette and select new color", false, x, y, 100, 25);
+	// palette
 	slider_setup(x, y);
 	palette_setup(x, y +40, width/2, height/2);
 	selector_setup(x, palette.bottom() + y, width/4, 50);
+	button_setup(button_ok, "ok", false, x, selector.bottom() + y, 100, 25);
 	println("renderer:",State.get_renderer());
 }
 
@@ -43,11 +49,46 @@ void draw() {
 	background(0);
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed);
-	float hue = slider_draw();
-	palette_draw(hue);
-	selector_draw();
+	if(button_new_bg.is()) {
+		float hue = slider_draw();
+		palette_draw(hue);
+		selector_draw();
+		button_draw(button_ok);
+		if(button_ok.is()) {
+			button_new_bg.is(false);
+			button_ok.is(false);
+		}
+	} else {
+		background(selector.get_new_color());
+		button_draw(button_new_bg);
+	}
+
 	State.reset_event();
+
 }
+
+// button
+void button_new() {
+	button_new_bg = new R_Button();
+	button_ok = new R_Button();
+
+}
+void button_setup(R_Button button, String name, boolean is, int x, int y, int sx, int sy) {
+	button.pos(x,y);
+	button.size(sx,sy);
+	button.is(is);
+	button.set_label(name);
+}
+
+
+void button_draw(R_Button button) {
+	button.update();
+	button.show_label();
+	button.show(RECT,true);
+}
+
+
+
 
 
 
@@ -73,7 +114,7 @@ void palette_draw(float hue) {
 // selector
 void selector_setup(int px, int py, int sx, int sy) {
 	selector = new R_Palette_Selector(new vec2(px,py), new vec2(sx, sy));
-	selector.set_label("couleur");
+	selector.set_label("colour");
 
 	selector.set_fill(r.NOIR);
 	selector.set_stroke(r.BLANC);

@@ -1,7 +1,7 @@
 /**
 * PALETTE SELECTOR
 * * Processing 3.5.4
-* v 1.0.0
+* v 1.1.0
 * 2021-2021
 */
 package rope.gui.palette;
@@ -11,16 +11,17 @@ import rope.gui.Crope;
 import rope.vector.vec2;
 
 public class R_Palette_Selector extends Crope {
-	boolean inside;
-	boolean locked;
-	boolean validate;
-	int current_color;
-	int new_color;
-	vec2 pos_next;
+	private boolean inside;
+	private boolean locked;
+	// private boolean validate;
+	private int current_color;
+	private int new_color;
+	private vec2 pos_next;
 	
 
 	public R_Palette_Selector(vec2 pos, vec2 size) {
 		super("Palette Selector", pos, size);
+		set_name(get_type());
 		pos_next = this.pos.copy().add_x(size.x());
     current_color = color(State.env().cx() * 0.5f, State.env().cy() * 0.5f, State.env().cz() * 0.5f);
 	}
@@ -43,7 +44,6 @@ public class R_Palette_Selector extends Crope {
 			stroke(this.stroke_in);
 		}
 		strokeWeight(this.thickness);
-
     event = State.env().event.a();
     if(event && this.inside) {
 			this.locked = true ;
@@ -55,7 +55,6 @@ public class R_Palette_Selector extends Crope {
 		if(this.locked) {
 			this.current_color = this.new_color;
 		}
-		
 		rect(this.pos, this.size);
 		text(this.name, this.pos.x() +5, this.pos.y() +5 +(this.size.y() /2.0f));
 	}
@@ -102,7 +101,14 @@ public class R_Palette_Selector extends Crope {
 
 	public void set_color_picker(int new_color) {
 		this.new_color = new_color;
+	}
 
+	public int get_new_color() {
+		return new_color;
+	}
+
+	public int get_current_color() {
+		return current_color;
 	}
 
 }

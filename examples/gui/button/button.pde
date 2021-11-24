@@ -33,9 +33,12 @@ void draw() {
 	State.reset_event();
 }
 
-R_Button button ;
+R_Button button;
 void button_simple_setup(int x, int y) {
-	button = new R_Button(new vec2(x,y), new vec2(50));
+	// button = new R_Button(new vec2(x,y), new vec2(50));
+	button = new R_Button();
+	button.pos(x,y);
+	button.size(50);
 	button.is(true);
 	// button.set_colour_in_on(r.GREEN);
 	// button.set_colour_out_on(r.SAPIN);
