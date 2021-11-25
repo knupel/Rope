@@ -860,7 +860,7 @@ public class R_Graphic extends BigBang {
 	}
 
 	/**
-	 * Check if any PGraphics is active, and if it's a case work ont it
+	 * This method is like strokeWeight of Processing
 	 * @param thickness
 	 */
 	public void thickness(float thickness) {

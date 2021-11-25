@@ -23,6 +23,7 @@
 > fix bug name in class R_Palette_Selector
 > class R_Button add an empty Constructor
 > add function get_current_color() and get_new_color() to class R_Palette_Selector
+> add set_fill() set_stroke() to class R_Button to have setting more generic.
 
 \*version 45
 

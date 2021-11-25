@@ -71,8 +71,9 @@ void draw() {
 void button_new() {
 	button_new_bg = new R_Button();
 	button_ok = new R_Button();
-
 }
+
+
 void button_setup(R_Button button, String name, boolean is, int x, int y, int sx, int sy) {
 	button.pos(x,y);
 	button.size(sx,sy);

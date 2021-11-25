@@ -1,9 +1,9 @@
 /**
 * CLASS BUTTON 
-* Processing 3.5.4
+* Processing 4.0.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.4.2
+* v 2.5.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -127,6 +127,35 @@ public class R_Button extends Crope {
     return this.value;
   }
   
+  // fill
+    /**
+   * set fill color of your gui
+   * @param colour
+   * @return
+   */
+  public R_Button set_fill(int colour) {
+    set_fill_in_on(colour);
+    set_fill_out_on(colour);
+    set_fill_in_off(colour);
+    set_fill_out_off(colour);
+    return this;
+  }
+
+  /**
+   * set fill color of your gui
+   * @param colour_in
+   * @param colour_out
+   * @return
+   */
+  public R_Button set_fill(int colour_in, int colour_out) {
+    set_fill_in_on(colour_in);
+    set_fill_out_on(colour_out);
+    set_fill_in_off(colour_in);
+    set_fill_out_off(colour_out);
+    return this;
+  }
+
+  // fill on
 
   public R_Button set_fill_in_on(int c) {
     this.fill_in_ON = c;
@@ -137,6 +166,8 @@ public class R_Button extends Crope {
     this.fill_out_ON = c;
     return this;
   }
+
+  // fill off
 
   public R_Button set_fill_in_off(int c) {
     this.fill_in_OFF = c;
@@ -149,7 +180,37 @@ public class R_Button extends Crope {
     return this;
   }
 
-    public R_Button set_stroke_in_on(int c) {
+  // STROKE
+    /**
+   * set stroke color of your gui
+   * @param colour
+   * @return
+   */
+  public R_Button set_stroke(int colour) {
+    set_stroke_in_on(colour);
+    set_stroke_out_on(colour);
+    set_stroke_in_off(colour);
+    set_stroke_out_off(colour);
+    return this;
+  }
+
+  /**
+   * set fill color of your gui
+   * @param colour_in
+   * @param colour_out
+   * @return
+   */
+  public R_Button set_stroke(int colour_in, int colour_out) {
+    set_stroke_in_on(colour_in);
+    set_stroke_out_on(colour_out);
+    set_stroke_in_off(colour_in);
+    set_stroke_out_off(colour_out);
+    return this;
+  }
+
+  // stroke on
+
+  public R_Button set_stroke_in_on(int c) {
     this.stroke_in_ON = c;
     return this;
   }
@@ -158,6 +219,8 @@ public class R_Button extends Crope {
     this.stroke_out_ON = c;
     return this;
   }
+
+  // stroke off
 
   public R_Button set_stroke_in_off(int c) {
     this.stroke_in_OFF = c;

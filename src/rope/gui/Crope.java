@@ -95,6 +95,9 @@ abstract public class Crope extends R_Graphic {
     label_is = true;
   }
 
+  /**
+   * INIT
+   */
   private void init(float x, float y, float sx, float sy) {
     this.font_size = (int)State.pa().g.textSize;
     this.pos(x,y);
@@ -141,14 +144,22 @@ abstract public class Crope extends R_Graphic {
 
 
 
-  /**
-  set structure
-  */
+/**
+ * 
+ * @param x
+ * @param y
+ * @return
+ */
   public Crope pos(float x, float y) {
     pos(new vec2(x,y));
     return this;
   }
 
+  /**
+   * 
+   * @param pos
+   * @return
+   */
   public Crope pos(vec2 pos) {
     if(this.pos == null || !this.pos.equals(pos)) {
       if(this.pos == null) {
@@ -162,16 +173,32 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
+  /**
+   * 
+   * @param size
+   * @return
+   */
   public Crope size(float size) {
     size(new vec2(size));
     return this;
   }
   
+  /**
+   * 
+   * @param w
+   * @param h
+   * @return
+   */
   public Crope size(float w, float h) {
     size(new vec2(w,h));
     return this;
   }
 
+  /**
+   * 
+   * @param size
+   * @return
+   */
   public Crope size(vec2 size) {
     if(this.size == null || !this.size.equals(size)) {
       if(this.size == null) {
@@ -203,6 +230,12 @@ abstract public class Crope extends R_Graphic {
   /**
   set colour
   */
+
+  /**
+   * this function is used when you want create a gui color to set it at the specific start, to use with a color wheel
+   * @param root
+   * @return
+   */
   public Crope set_root(float root) {
     this.root = root;
     return this;
@@ -223,6 +256,12 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
   
+  /**
+   * Use this option when you create a faster color slider, very usefull with big GUI or with gradient one.
+   * ACHTUNG: This option can be only use in P2D or P3D Processing context.
+   * @param is
+   * @return
+   */
   public Crope opengl(boolean is) {
   	opengl_is = is;
   	if(all(any(renderer_P3D(), renderer_P2D()),is)) {
@@ -286,16 +325,23 @@ abstract public class Crope extends R_Graphic {
   	return this;
   }
 
-  /**
-   * FILL
-   * 
-   * */
 
+  /**
+   * set fill color of your gui
+   * @param colour
+   * @return
+   */
   public Crope set_fill(int colour) {
     set_fill(colour,colour);
     return this;
   }
 
+  /**
+   * set fill color of your gui
+   * @param colour_in
+   * @param colour_out
+   * @return
+   */
   public Crope set_fill(int colour_in, int colour_out) {
     this.fill_in = colour_in;
     this.fill_out = colour_out;
@@ -316,21 +362,33 @@ abstract public class Crope extends R_Graphic {
   
 
   /**
-   * STROKE
-   * 
-   * */
-
-  public Crope set_stroke(int c) {
-    set_stroke(c,c);
+    * set stroke color of your gui
+   * @param colour
+   * @return
+   */
+  public Crope set_stroke(int colour) {
+    set_stroke(colour,colour);
     return this;
   }
 
+  /**
+    * set stroke color in and out of your gui
+   * @param colour_in
+   * @param colour_out
+   * @return
+   */
   public Crope set_stroke(int colour_in, int colour_out) {
     this.stroke_in = colour_in;
     this.stroke_out = colour_out;
     return this;
   }
 
+
+  /**
+   * set_thickness() is like strokeWeight
+   * @param thickness
+   * @return
+   */
   public Crope set_thickness(float thickness) {
     this.thickness = thickness;
     return this;
@@ -471,6 +529,7 @@ abstract public class Crope extends R_Graphic {
     } else {
       this.pos_label.set(x,y);
     }
+    label_is = true;
     return this;
   }
   
@@ -490,6 +549,7 @@ abstract public class Crope extends R_Graphic {
     } else {
       this.pos_label.set(x,y);
     }
+    label_is = true;
     return this;
   }
   
