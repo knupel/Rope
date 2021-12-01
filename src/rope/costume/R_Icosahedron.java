@@ -180,7 +180,7 @@ public class R_Icosahedron extends R_Shape {
 
 	/**
 	 * 
-	 * @return an ArrayList<vec3> of the normal direction of each faces of the shape
+	 * @return an ArrayList of type vec3 of the normal direction of each faces of the shape
 	 */
 	public ArrayList<vec3> get_normals() {
 		ArrayList<vec3> list = new ArrayList<vec3>();
@@ -194,7 +194,7 @@ public class R_Icosahedron extends R_Shape {
 
 	/**
 	 * 
-	 * @return an ArrayList<R_Face> of the shape
+	 * @return an ArrayList of type R_Face of the shape
 	 */
 	public ArrayList<R_Face> get_faces() {
 		return get_faces(false);
@@ -202,7 +202,7 @@ public class R_Icosahedron extends R_Shape {
 
 	/**
 	 * 
-	 * @return an ArrayList<R_Face> of the shape with normalize size aounr -1,1
+	 * @return an ArrayList of type R_Face of the shape with normalize size between -1,1
 	 */
 	public ArrayList<R_Face> get_faces_normal() {
 		return get_faces(true);

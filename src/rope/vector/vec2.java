@@ -476,8 +476,8 @@ public class vec2 extends vec {
 	/**
 	 * random
 	 * 
-	 * @param mx vec2
-	 * @param my vec2
+	 * @param min
+	 * @param max
 	 * @return
 	 */
 	public vec2 rand(vec2 min, vec2 max) {

@@ -185,7 +185,7 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param v1
+	 * @param v1 float argument for X component
 	 * @param v2
 	 * @param v3
 	 * @return
@@ -196,10 +196,10 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param v1
-	 * @param v2
-	 * @param v3
-	 * @param alpha
+	 * @param v1 float argument for X component
+	 * @param v2 float argument for Y component
+	 * @param v3 float argument for Z component
+	 * @param alpha float argument for Alpha component
 	 * @return
 	 */
 	public int color(float v1, float v2, float v3, float alpha) {

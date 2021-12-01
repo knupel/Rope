@@ -701,7 +701,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param arg
+	 * @param list
 	 * @return from Processing max() method
 	 */
 	public float max(float... list) {
@@ -742,7 +742,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param arg
+	 * @param list
 	 * @return Processing min() method
 	 */
 	public float min(float... list) {
@@ -780,9 +780,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 
-	/**
-	abs
-	*/
+/**
+ * 
+ * @param arg
+ * @return float
+ */
 	protected float abs(float arg) {
 		return Math.abs(arg);
 	}
@@ -946,9 +948,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 *
 	 */
 
+	// MIX
 	/**
-	mix
-	*/
+	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param y
+	 * @param a
+	 * @return
+	 */
 	public float mix(float x, float y, float a) {
 		return x*(1-a)+y*a;
 	}
@@ -965,9 +972,12 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return new vec4(mix(x.x,y.x,a.x),mix(x.y,y.y,a.y),mix(x.z,y.z,a.z),mix(x.w,y.w,a.w));
 	}
 
+	// FRACT
 	/**
-	fract
-	*/
+	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @return
+	 */
 	public float fract(float x) {
 		return x - (float)Math.floor(x);
 	}
@@ -984,9 +994,12 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return new vec4(fract(v.x),fract(v.y),fract(v.z),fract(v.w));
 	}
 
+	// SIGN
 	/**
-	sign
-	*/
+	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @return
+	 */
 	public float sign(float x) {
 		if(x < 0 ) {
 			return -1.0f;
@@ -1025,9 +1038,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 
+	// STEP
 	/**
-	step
-	*/
+	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param edge
+	 * @return
+	 */
 	public float step(float edge, float x) {
 		if(x < edge) return 0; else return 1;
 	}
@@ -1045,9 +1062,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 
+	// SMOOTH STEP
 	/**
-	smoothstep
-	*/
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param edge0
+	 * @param edge1
+	 * @return
+	 */
 	public float smoothstep(float edge0, float edge1, float x) {
 		if(x <= edge0) {
 			return 0; 
@@ -1073,9 +1095,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 
-	/*
-	mod
-	*/
+	// MOD
+	/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public float mod(float x, float y) {
 		return x-y*(float)Math.floor(x/y);
 	}
@@ -1104,9 +1130,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return new ivec4((int)mod(x.x(),y.x()),(int)mod(x.y(),y.y()),(int)mod(x.z(),y.z()),(int)mod(x.w(),y.w()));
 	}
 
+	// CLAMP
 	/**
-	clamp
-	*/
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	public float clamp(float x, float min, float max) {
 		return Math.min(Math.max(x,min),max);
 	}
@@ -1126,9 +1157,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 
+	// EQUAL
 	/**
-	equal
-	*/
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean equal(float x, float y) {
 		return x==y?true:false;
 	}
@@ -1178,9 +1213,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 
+	// LESS THAN
 	/**
-	lessThan
-	*/
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean lessThan(float x, float y) {
 		return x<y?true:false;
 	}
@@ -1230,10 +1269,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 
-
+	// GREATER THAN
 	/**
-	greaterThan
-	*/
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean greaterThan(float x, float y) {
 		return x>y?true:false;
 	}
@@ -1280,9 +1322,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		} else return null; 
 	}
 
-
+	// GREATER THAN EQUAL
 	/**
-	greaterThanEqual
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return boolean the component-wise compare of x ≤ y.
 	*/
 	public boolean greaterThanEqual(float x, float y) {
 		return x>=y?true:false;
@@ -1331,8 +1374,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 
+	// LESS THAN EQUAL
 	/**
-	lessThanEqual
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	*/
 	public boolean lessThanEqual(float x, float y) {
 		return x<=y?true:false;
@@ -1343,6 +1387,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// with vec
+	
 	public bvec2 lessThanEqual(vec2 x, vec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()));
@@ -1381,9 +1426,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 
-
+	// ALL
 	/**
-	* all
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return true only if all components of x are true.
 	*/
 	public boolean all(bvec b) {
 		if(b != null) {
@@ -1410,10 +1456,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return result;
 	}
 
+	// ANY
 	/**
-	* any
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return true if any component of x is true. 
 	*/
-
 	public boolean any(bvec b) {
 		if(b != null) {
 			return any(b.array());
@@ -1427,6 +1474,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * 
 	 * @param list
 	 * @return return true if any element of the list is true
+	 * @return true if any component of x is true. 
 	 */
 	public boolean any(boolean ...list) {
 		boolean result = false;
@@ -1439,8 +1487,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return result;
 	}
 
+		// ONLY
 	/**
-	 * @param list
+	 * only is an inspiration of opengl function, is not a part of it
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return true if only one component of x is true. 
+	*/
+	/**
+	 * @param b
 	 * @return true is only one elements of the list is true
 	 */
 	public boolean only(bvec b) {
@@ -1585,26 +1639,20 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
  /**
   *
-  * Converts an <b>int</b>, <b>byte</b>, <b>char</b>, or <b>color</b> to a
-  * <b>String</b> containing the equivalent binary notation. For example, the
-  * <b>color</b> value produced by <b>color(0, 102, 153, 255)</b> will convert
-  * to the <b>String</b> value <b>"11111111000000000110011010011001"</b>. This
-  * function can help make your geeky debugging sessions much happier.<br />
-  * <br />
-  * Note that the maximum number of digits is 32, because an <b>int</b> value
+  * Converts an int, byte, char, or color to a
+  * String containing the equivalent binary notation. For example, the
+  * color value produced by color(0, 102, 153, 255) will convert
+  * to the String value "11111111000000000110011010011001". This
+  * function can help make your geeky debugging sessions much happier.
+  * Note that the maximum number of digits is 32, because an int value
   * can only represent up to 32 bits. Specifying more than 32 digits will have
   * no effect.
-  *
-  * @webref data:conversion
-  * @webBrief Converts a byte, char, int, or color to a String containing the
-  *           equivalent binary notation.
+  *.
   * @param value
   *          value to convert
   * @param digits
   *          number of digits to return
-  * @see PApplet#unbinary(String)
-  * @see PApplet#hex(int,int)
-  * @see PApplet#unhex(String)
+  * @return
   */
   public String binary(int value, int digits) {
     String stuff = Integer.toBinaryString(value);
@@ -1675,9 +1723,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @param delim
-	 * @return
+	 * @param value is the sentence must be spited
+	 * @param delim is a separator
+	 * @return array String of the String argument sentence
 	 */
 	public String[] split(String value, String delim) {
     List<String> items = new ArrayList<>();
@@ -1787,6 +1835,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	* Check OS
 	* v 0.0.2
+	* @return
 	*/
 	public String get_os() {
 		return System.getProperty("os.name").toLowerCase();

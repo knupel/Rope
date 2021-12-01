@@ -86,7 +86,7 @@ public class R_Board extends Crope {
 
   /**
    * 
-   * @param radius
+   * @param size
    * @param step
    * @param label
    */

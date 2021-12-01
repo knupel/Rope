@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.0.3
+	* v 1.1.0
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -50,13 +50,9 @@ public interface R_Constants {
   static final int HENDECAGON = 21;
   static final int DODECAGON = 22;
 
-
-
   static final int RECT = 30; // processing value
   static final int ELLIPSE = 31; // processing value
   static final int ARC = 32;  // processing value
-
-
 
   static final int SPHERE = 40; // processing value
   static final int BOX = 41; // processing value
@@ -64,6 +60,8 @@ public interface R_Constants {
   static final int CROSS_RECT = 52;
   static final int CROSS_BOX_2 = 53;
   static final int CROSS_BOX_3 = 54;
+
+	static final int SPIRAL = 60;
 
   static final int SPHERE_LOW = 100;
   static final int SPHERE_MEDIUM = 101;
@@ -77,13 +75,10 @@ public interface R_Constants {
 	static final int LANDSCAPE = 212; // *** ACHTUNG *** Processing use 2
 	static final int SPAN = 213; // *** ACHTUNG *** Processing use 2
 
-
   static final int PIXEL = 800;
 
-  static final int STAR = 805;
-  static final int STAR_3D = 806;
 
-  static final int FLOWER = 900;
+
 
   static final int TETRAHEDRON_LINE = 1001;
   static final int CUBE_LINE = 1002;
@@ -91,9 +86,8 @@ public interface R_Constants {
   static final int RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE = 1004;
   static final int ICOSI_DODECAHEDRON_LINE = 1005;
 
-  static final int HOUSE = 2000;
 
-  static final int VIRUS = 88_888_888;
+
 	
 
   static final int OPEN = 1; // processing value
@@ -103,13 +97,6 @@ public interface R_Constants {
 	static final int PIE = 3; // processing value
 
 
-
-
-
-  
-  
-  static final int RAND = 2456417;
-	
   static final float MAX_FLOAT = Float.MAX_VALUE;
   static final float MIN_FLOAT = -Float.MAX_VALUE;
   static final int MAX_INT = Integer.MAX_VALUE;
@@ -140,7 +127,6 @@ public interface R_Constants {
 	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
 	static final double G = 0.00000000006693; // last gravity constant
 	
-	
   //for the unicity value we note the angle between -PI to PI from atan2
 	static final float NORTH = -(PI *0.5f);
 	static final float NORTH_EAST = -(PI *0.25f);
@@ -160,8 +146,7 @@ public interface R_Constants {
   // float west = 0;
   // float north_west = (3*PI)*0.25;
 	
-
-	  // shape drawing modes
+	// shape drawing modes
   static final int CORNER   = 0; // processing value
   static final int CORNERS  = 1; // processing value
   static final int RADIUS   = 2; // processing value
@@ -188,7 +173,7 @@ public interface R_Constants {
 	 * pg_down:   34
 	 * pg_up:     33
 	 * a:         65
-	 * >>>
+	 * 
 	 * z:         90
 	 * space:     32
 	 * tab:       9
@@ -198,8 +183,26 @@ public interface R_Constants {
   static final int LEFT	= KeyEvent.VK_LEFT; // 37
   static final int RIGHT = KeyEvent.VK_RIGHT; // 39
 
+	static final int STAR = 805;
+  static final int STAR_3D = 806;
 
-	
+	static final int FLOWER = 900;
+	static final int TREE = 901;
+	static final int LEAF = 902;
+	static final int SEED = 903;
+	static final int ROOT = 904;
+
+	static final int CLOUD = 1500;
+	static final int SKY = 1501;
+
+	static final int HOUSE = 2000;
+
+	static final int WALK = 3000;
+	static final int RUN = 3001;
+
+	static final int MAD = 314_159_265;
+	static final int VIRUS = 88_888_888;
+
 
 
 
@@ -212,6 +215,7 @@ public interface R_Constants {
 	static final int BLANK = 300;
 	static final int PERLIN = 301;
 	static final int CHAOS = 302;
+	static final int RAND = 2456417;
 	static final int ORDER = 303;
 	static final int EQUATION = 304;
 
@@ -233,18 +237,13 @@ public interface R_Constants {
 	static final int DYNAMIC = 1001;
 
 
-	
-
-
-
-
-	static final String SIN = "SIN" ;
-	static final String COS = "COS" ;
-	static final String TAN = "TAN" ;
-	static final String TRIG_0 = "SIN_TAN" ;
-	static final String TRIG_1 = "SIN_TAN_COS" ;
-	static final String TRIG_2 = "SIN_POW_SIN" ;
-	static final String TRIG_3 = "POW_SIN_PI" ;
-	static final String TRIG_4 = "SIN_TAN_POW_SIN" ;
+	// static final String SIN = "SIN" ;
+	// static final String COS = "COS" ;
+	// static final String TAN = "TAN" ;
+	// static final String TRIG_0 = "SIN_TAN" ;
+	// static final String TRIG_1 = "SIN_TAN_COS" ;
+	// static final String TRIG_2 = "SIN_POW_SIN" ;
+	// static final String TRIG_3 = "POW_SIN_PI" ;
+	// static final String TRIG_4 = "SIN_TAN_POW_SIN" ;
 }
 

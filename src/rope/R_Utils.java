@@ -200,7 +200,7 @@ public class R_Utils {
 
 		/**
 		 * 
-		 * @param arg
+		 * @param list
 		 * @return Processing min() method
 		 */
 		public static float min(float... list) {

@@ -32,8 +32,8 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x int coordinate of your targeting pixel
+	 * @param y int coordinate of your targeting pixel
 	 * @param width is the width of your image
 	 * @return the rank of your pixel coordonate in the array pixel
 	 */
@@ -97,7 +97,7 @@ public class R_Graphic extends BigBang {
 	
   /**
    * 
-   * @param other
+   * @param other PGraphics rendering art work
    */
   public void pass_graphic(PGraphics other) {
   	if(other != null) {
@@ -113,13 +113,13 @@ public class R_Graphic extends BigBang {
   
 	/**
 	 * 
-	 * @param mode
-	 * @param max_x
-	 * @param max_y
-	 * @param max_z
-	 * @param max_a
+	 * @param mode type color environment RGB or HSB
+	 * @param max_x float max value for X component
+	 * @param max_y float max value for Y component
+	 * @param max_z float max value for Z component
+	 * @param max_a float max value for alpha component
 	 */
-	public void colorMode(int mode,  float max_x, float max_y, float max_z, float max_a){
+	public void colorMode(int mode, float max_x, float max_y, float max_z, float max_a){
 		if(other != null) {
 			other.colorMode(mode, max_x, max_y, max_z, max_a);
 		} else {
@@ -238,9 +238,9 @@ public class R_Graphic extends BigBang {
   
   /**
    * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-   * @param x
-   * @param y
-   * @param c
+   * @param x position to set pixel
+   * @param y position to set pixel
+   * @param c int color pixel
    */
 	  public void set(int x, int y, int c) {
 			if(other != null) {
@@ -252,8 +252,8 @@ public class R_Graphic extends BigBang {
 
 		  /**
    * 
-   * @param pos
-   * @param c
+   * @param pos vec2 position to set pixel
+   * @param c int color pixel
    */
   public void set(vec2 pos, int c) {
   	set((int)pos.x(),(int)pos.y(),c);
@@ -261,8 +261,8 @@ public class R_Graphic extends BigBang {
   
   /**
    * 
-   * @param pos
-   * @param c
+   * @param pos ivec2 position to set pixel
+   * @param c int color pixel
    */
   public void set(ivec2 pos, int c) {
   	set(pos.x(),pos.y(),c);
@@ -352,8 +352,8 @@ public class R_Graphic extends BigBang {
   
   /**
    * 
-   * @param a
-   * @param b
+   * @param a vec position of a point
+   * @param b vec position of b point
    */
   public void line(vec a, vec b){
     if(renderer_P3D() && a instanceof vec3 && b instanceof vec3) {
@@ -365,8 +365,8 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param a
-   * @param b
+   * @param a ivec position of a point
+   * @param b ivec position of b point
    */
   public void line(ivec a, ivec b) {
     if(renderer_P3D() && a instanceof ivec3 && b instanceof ivec3) {
@@ -382,18 +382,18 @@ public class R_Graphic extends BigBang {
    */
 	
   /**
-   * @param a
-   * @param b
-   * @param c
+   * @param a ivec position of a summit
+   * @param b ivec position of b summit
+   * @param c ivec position of c summit
    */
   public void triangle(ivec a, ivec b, ivec c) {
     triangle(new vec3(a.x(),a.y(),a.z()), new vec3(b.x(),b.y(),b.z()), new vec3(c.x(),c.y(),c.z()));
   }
   
   /**
-   * @param a
-   * @param b
-   * @param c
+   * @param a vec position of a summit
+   * @param b vec position of b summit
+   * @param c vec position of c summit
    */
   public void triangle(vec a, vec b, vec c) {
     if(a.z == 0 && b.z == 0 && c.z == 0) {
@@ -464,10 +464,6 @@ public class R_Graphic extends BigBang {
   }
 
 
-	/** anc
-	 * 
-	 */
-
 	public void arc(vec2 pos, vec2 size, float start, float stop) {
 		arc(pos.x(), pos.y(), size.x(), size.y(), start, stop);
 	}
@@ -493,10 +489,10 @@ public class R_Graphic extends BigBang {
 	}
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param px
-	 * @param py
-	 * @param sx
-	 * @param sy
+	 * @param px float value for the ellipse position
+	 * @param py float value for the ellipse position
+	 * @param sx float value for the ellipse size
+	 * @param sy float value for the ellipse size
 	 */
 	public void ellipse(float px, float py, float sx, float sy) {
 		if(other != null) {
@@ -561,17 +557,17 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param p
-	 * @param extent
+	 * @param pos vec value for position, vec2 or vec3 is accepted for x,y and z coordinate
+	 * @param extent float value for side size of the rect / square
 	 */
-	public void square(vec p, float extent) {
-		if(renderer_P3D() && p instanceof vec3) {
+	public void square(vec pos, float extent) {
+		if(renderer_P3D() && pos instanceof vec3) {
 			push();
-			translate(p.x(),p.y(),p.z());
+			translate(pos.x(),pos.y(),pos.z());
 			square(0,0,extent);
 			pop();
 		} else {
-			square(p.x(),p.y(),extent);
+			square(pos.x(),pos.y(),extent);
 		}
 	}
 
@@ -581,10 +577,10 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param px
-	 * @param py
-	 * @param sx
-	 * @param sy
+	 * @param px float value for position
+	 * @param py float value for position
+	 * @param sx float value for size
+	 * @param sy float value for size
 	 */
 	public void rect(float px, float py, float sx, float sy) {
 		if(other != null) {
@@ -646,9 +642,9 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param x float value for size
+	 * @param y float value for size
+	 * @param z float value for size
 	 */
 	public void box(float x, float y, float z) {
 		if(other != null) {
@@ -671,7 +667,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param radius
+	 * @param radius float value for sphere radius
 	 */
 	public void sphere(float radius) {
 		if(other != null) {
@@ -683,7 +679,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param res
+	 * @param res int value for details sphere rendering
 	 */
 	public void sphereDetail(int res) {
 		if(other != null) {
@@ -695,8 +691,8 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param ures
-	 * @param vres
+	 * @param ures int value for sphere details  rendering
+	 * @param vres int value for sphere details  rendering
 	 */
 	public void sphereDetail(int ures, int vres) {
 		if(other != null) {
@@ -723,7 +719,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param arg
+	 * @param rgb in value for the stroke color
 	 */
 	public void fill(int rgb) {
 		if(other != null) {
@@ -785,14 +781,14 @@ public class R_Graphic extends BigBang {
 	}
 
 	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param arg
+	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work on it
+	 * @param rgb in value for the stroke color
 	 */
-	public void stroke(int arg) {
+	public void stroke(int rgb) {
 		if(other != null) {
-			other.stroke(arg);
+			other.stroke(rgb);
 		} else {
-			pa.g.stroke(arg);
+			pa.g.stroke(rgb);
 		}
 	}
 
@@ -849,7 +845,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param thickness
+	 * @param thickness float value for the strokeWeight
 	 */
 	public void strokeWeight(float thickness) {
 		if(other != null) {
@@ -861,7 +857,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This method is like strokeWeight of Processing
-	 * @param thickness
+	 * @param thickness float value for the strokeWeight
 	 */
 	public void thickness(float thickness) {
 		if(other != null) {
@@ -878,10 +874,10 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * check if any PGraphics is active, and if it's a case work ont it
-	 * @param fill
-	 * @param stroke
-	 * @param thickness
-	 * @param other
+	 * @param fill int value for color fill
+	 * @param stroke int value for color stroke
+	 * @param thickness float value for the strokeWeight
+	 * @param other is your PGRaphics to render your art work
 	 */
 	public void aspect(int fill, int stroke, float thickness, PGraphics other) {
 		if(other.alpha(fill) <= 0) {
@@ -956,9 +952,9 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param x float value to translate in x
+	 * @param y float value to translate in y
+	 * @param z float value to translate in z
 	 */
 	public void translate(float x, float y, float z) {
 		if(other != null) {
@@ -970,8 +966,8 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param x
-	 * @param y
+	 * @param x float value to translate in x
+	 * @param y float value to translate in y
 	 */
 	public void translate(float x, float y) {
 		if(other != null) {
@@ -983,7 +979,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 *
-	 * @param v
+	 * @param v vec value for translation in x,y or x,y, z
 	 */
 	public void translate(vec v) {
 		if(renderer_P3D() && v instanceof vec3) {
@@ -996,7 +992,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param angle
+	 * @param angle float value in radiant for rotation
 	 */
 	public void rotate(float angle) {
 		if(other != null) {
@@ -1008,7 +1004,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param angle
+	 * @param angle float value in radiant for rotation
 	 */
 	public void rotateX(float angle) {
 		if(other != null) {
@@ -1020,7 +1016,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param angle
+	 * @param angle float value in radiant for rotation
 	 */
 	public void rotateY(float angle) {
 		if(other != null) {
@@ -1032,7 +1028,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param angle
+	 * @param angle float value in radiant for rotation
 	 */
 	public void rotateZ(float angle) {
 		if(other != null) {
@@ -1044,8 +1040,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param rot
-	 * @param other
+	 * @param rot vec2 radiant value for the rotation
 	 */
 	public void rotateXY(vec2 rot) {
   	rotateX(rot.x);
@@ -1054,8 +1049,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param rot
-	 * @param other
+	 * @param rot vec2 radiant value for the rotation
 	 */
 	public void rotateXZ(vec2 rot) {
   	rotateX(rot.x);
@@ -1064,8 +1058,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param rot
-	 * @param other
+	 * @param rot vec2 radiant value for the rotation
 	 */
 	public void rotateYZ(vec2 rot) {
   	rotateY(rot.x);
@@ -1075,8 +1068,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * 
-	 * @param rot
-	 * @param other
+	 * @param rot vec3 radiant value for the rotation
 	 */
 	public void rotateXYZ(vec3 rot) {
   	rotateX(rot.x);
@@ -1089,18 +1081,17 @@ public class R_Graphic extends BigBang {
    * Increases or decreases the size of a shape by expanding and contracting
    * vertices. Objects always scale from their relative origin to the coordinate
    * system. Scale values are specified as decimal percentages. For example, the
-   * function call <b>scale(2.0)</b> increases the dimension of a shape by
-   * 200%.<br />
-   * <br />
+   * function call scale(2.0) increases the dimension of a shape by
+   * 200%.
    * Transformations apply to everything that happens after and subsequent calls
-   * to the function multiply the effect. For example, calling <b>scale(2.0)</b>
-   * and then <b>scale(1.5)</b> is the same as <b>scale(3.0)</b>. If
-   * <b>scale()</b> is called within <b>draw()</b>, the transformation is reset
-   * when the loop begins again. Using this function with the <b>z</b> parameter
-   * requires using P3D as a parameter for <b>size()</b>, as shown in the third
+   * to the function multiply the effect. For example, calling scale(2.0)
+   * and then scale(1.5) is the same as scale(3.0). If
+   * scale() is called within draw(), the transformation is reset
+   * when the loop begins again. Using this function with the z parameter
+   * requires using P3D as a parameter for size(), as shown in the third
    * example above. This function can be further controlled with
-	* <b>pushMatrix()</b> and <b>popMatrix()</b>.
-	 * @param s
+   * pushMatrix( and popMatrix(.
+	 * @param s float value to scale
 	 */
 	public void scale(float s) {
     if(other != null) {
@@ -1128,6 +1119,8 @@ public class R_Graphic extends BigBang {
 
 
   /**
+   * @param x percentage to scale the object in the x-axis
+   * @param y percentage to scale the object in the y-axis
    * @param z percentage to scale the object in the z-axis
    */
   public void scale(float x, float y, float z) {
@@ -1141,8 +1134,8 @@ public class R_Graphic extends BigBang {
 
   /**
    *
-   * see Processing documention
-	 * @param angle
+   * see Processing information
+	 * @param angle float radiant value for shear
    */
 	public void shearX(float angle) {
     if(other != null) {
@@ -1153,8 +1146,8 @@ public class R_Graphic extends BigBang {
   }
 
 	/**
-	 * see Processing documention
-	 * @param angle
+	 * see Processing information
+	 * @param angle float radiant value for shear
 	 */
 	public void shearY(float angle) {
     if(other != null) {
@@ -1202,7 +1195,7 @@ public class R_Graphic extends BigBang {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param kind
+	 * @param kind type of rendering
 	 */
 	public void beginShape(int kind) {
 		if(other != null) {
@@ -1230,7 +1223,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * 
-	 * @param mode
+	 * @param mode type of rendering
 	 */
 	public void endShape(int mode) {
 		if(other != null) {
@@ -1251,9 +1244,9 @@ public class R_Graphic extends BigBang {
   
   /**
    * 
-   * @param x
-   * @param y
-   * @param other
+   * @param x float value for coordinate
+   * @param y float value for coordinate
+   * @param other PGraphics rendering
    */
   public void vertex(float x, float y, PGraphics other) {
   	this.other = other;
@@ -1262,10 +1255,10 @@ public class R_Graphic extends BigBang {
   
   /**
    * 
-   * @param x
-   * @param y
-   * @param z
-   * @param other
+   * @param x float value for coordinate
+   * @param y float value for coordinate
+   * @param z float value for coordinate
+   * @param other PGraphics rendering
    */
   public void vertex(float x, float y, float z, PGraphics other) {
   	this.other = other;
@@ -1274,8 +1267,8 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param v
-   * @param other
+   * @param v array value for coordinate
+   * @param other PGraphics rendering
    */
   public void vertex(float [] v, PGraphics other) {
   	this.other = other;
@@ -1284,11 +1277,11 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param x
-   * @param y
-   * @param u
-   * @param v
-   * @param other
+   * @param x float value for coordinate
+   * @param y float value for coordinate
+   * @param u float value for uv
+   * @param v float value for uv
+   * @param other PGraphics rendering
    */
   public void vertex(float x, float y, float u, float v, PGraphics other) {
   	this.other = other;
@@ -1297,12 +1290,12 @@ public class R_Graphic extends BigBang {
   
   /**
    * 
-   * @param x
-   * @param y
-   * @param z
-   * @param u
-   * @param v
-   * @param other
+   * @param x float value for coordinate
+   * @param y float value for coordinate
+   * @param z float value for coordinate
+   * @param u float value for uv
+   * @param v float value for uv
+   * @param other PGraphics rendering
    */
   public void vertex(float x, float y, float z, float u, float v, PGraphics other) {
   	this.other = other;
@@ -1311,8 +1304,8 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param coord
-   * @param other
+   * @param coord vec position for the vertex
+   * @param other PGraphics rendering
    */
   public void vertex(vec coord, PGraphics other) {
   	this.other = other;
@@ -1321,9 +1314,9 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param coord
-   * @param uv
-   * @param other
+   * @param coord vec2 position for the vertex
+   * @param uv vec uv for the vertex
+   * @param other PGraphics rendering
    */
   public void vertex(vec2 coord, vec2 uv, PGraphics other) {
   	this.other = other;
@@ -1332,9 +1325,9 @@ public class R_Graphic extends BigBang {
 
   /**
    * 
-   * @param coord
-   * @param uv
-   * @param other
+   * @param coord vec3 position for the vertex
+   * @param uv vec uv for the vertex
+   * @param other PGraphics rendering
    */
   public void vertex(vec3 coord, vec2 uv, PGraphics other) {
   	this.other = other;
@@ -1344,7 +1337,7 @@ public class R_Graphic extends BigBang {
   
 	/**
 	 * 
-	 * @param v 
+	 * @param v vec position for the vertex
 	 */
 	public void vertex(vec v) {
 		if(other == null) {
@@ -1438,7 +1431,7 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * 
-	 * @param v
+	 * @param v array value for coordinate
 	 */
 	public void vertex(float [] v) {
 		if(other == null) {
@@ -1452,10 +1445,10 @@ public class R_Graphic extends BigBang {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
-	 * @param u
-	 * @param v
+	 * @param x float value for coordinate
+	 * @param y float value for coordinate
+	 * @param u float value for uv
+	 * @param v float value for uv
 	 */
 	public void vertex(float x, float y, float u, float v) {
 		if(other == null) {
@@ -1467,11 +1460,11 @@ public class R_Graphic extends BigBang {
 	
 /**
  * 
- * @param x
- * @param y
- * @param z
- * @param u
- * @param v
+ * @param x float value for coordinate
+ * @param y float value for coordinate
+ * @param z float value for coordinate
+ * @param u float value for uv
+ * @param v float value for uv
  */
 	public void vertex(float x, float y, float z, float u, float v) {	
 		if(other == null) {
@@ -1495,6 +1488,7 @@ public class R_Graphic extends BigBang {
 	/**
 	 * BEZIER VERTEX
 	 */
+	
 	public void bezierVertex(float x2, float y2, float x3, float y3,  float x4, float y4, PGraphics other) {
 		this.other = other;
 		bezierVertex(x2,y2, x3,y3, x4,y4);
@@ -1709,8 +1703,6 @@ public class R_Graphic extends BigBang {
 
 
   /**
-   * @webref typography:attributes
-   * @webBrief Sets the current alignment for drawing text.
    * @param alignX horizontal alignment, either LEFT, CENTER, or RIGHT
    * @param alignY vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE
    */

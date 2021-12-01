@@ -628,9 +628,8 @@ public class vec3 extends vec {
 	}
 		/**
 	 * random
-	 * @param mx vec2
-	 * @param my vec2
-	 * @param mz vec2
+	 * @param min
+	 * @param max
 	 * @return
 	 */
 	public vec3 rand(vec3 min, vec3 max) {

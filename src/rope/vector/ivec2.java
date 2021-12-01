@@ -361,8 +361,8 @@ public class ivec2 extends ivec {
 	
 	/**
 	 * random
-	 * @param mx vec2
-	 * @param my vec2
+	 * @param min
+	 * @param max
 	 * @return
 	 */
 	public ivec2 rand(ivec2 min, ivec2 max) {
