@@ -944,7 +944,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	
 	/*
-	 * GLSL METHOD TO COMPARE
+	 * GLSL METHOD and derivative method on a same spirit !
 	 *
 	 */
 
@@ -1153,7 +1153,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public vec4 clamp(vec4 x, vec4 min, vec4 max) {
 		return min(max(x,min),max);
 	}
-
 
 
 
@@ -1855,10 +1854,5 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 		return family;
 	}
-	
-	
-
-	
-	
 	
 }

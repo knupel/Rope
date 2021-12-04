@@ -30,7 +30,7 @@ r.print_out("fract()", r.fract(x));
 r.print_out("sign()", r.sign(-1.2));
 r.print_out("sign()", r.sign(z));
 
-r.print_out("step()", r.step(0.75, 1.2));
+r.print_out("step()", r.step(0.75, 3.2));
 r.print_out("step()", r.step(edge_a, x));
 
 r.print_out("smoothstep()", r.smoothstep(0.75, 1.33, 1.2));

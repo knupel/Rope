@@ -65,7 +65,7 @@ public abstract class BigBang extends Rope {
 	/**
 	 * Return the current render in your processing Sketch
 	 * @param graph
-	 * @return
+	 * @return String name of your renderer.
 	 */
 	public String get_renderer(final PGraphics graph) {
 	  try {
@@ -88,7 +88,7 @@ public abstract class BigBang extends Rope {
 	/**
 	 * 
 	 * @param print_info_is if it's false there is no information print in the console
-	 * @return
+	 * @return array float data color set
 	 */
 	public float [] getColorMode(boolean print_info_is) {
 		float colorMode = this.pa.g.colorMode ;
@@ -113,8 +113,8 @@ public abstract class BigBang extends Rope {
   
 	 /**
 		* 
-		* @param filename
-		* @return
+		* @param filename, it's String path of your image, by default the app search in in data folder at the root of your code.
+		* @return PImage result
 	  */
 	public PImage loadImage(String filename) {
     return this.pa.loadImage(filename, null);
@@ -138,7 +138,7 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * 
-	 * @param value
+	 * @param value int to set seed noise
 	 */
 	public void noiseSeed(int value) {
 		this.pa.noiseSeed(value);
@@ -146,9 +146,9 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 * @param x float argument
+	 * @param y float argument
+	 * @return float noise value
 	 */
 	public float noise(float x, float y) {
 		return this.pa.noise(x,y);
@@ -166,8 +166,8 @@ public abstract class BigBang extends Rope {
 
 	 /**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param gray
-	 * @return
+	 * @param gray argument for X, Y, Z component
+	 * @return int color argument
 	 */
 	public int color(float gray) {
 		return this.pa.color(gray);
@@ -175,9 +175,9 @@ public abstract class BigBang extends Rope {
 	
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param gray
-	 * @param alpha
-	 * @return
+	 * @param gray argument for X, Y, Z component
+	 * @param alpha argument for A component
+	 * @return int color argument
 	 */
 	public int color(float gray, float alpha) {
 		return this.pa.color(gray, alpha);	
@@ -186,9 +186,9 @@ public abstract class BigBang extends Rope {
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param v1 float argument for X component
-	 * @param v2
-	 * @param v3
-	 * @return
+	 * @param v2 float argument for Y component
+	 * @param v3 float argument for Z component
+	 * @return int color argument
 	 */
 	public int color(float v1, float v2, float v3) {
 		return this.pa.color(v1, v2, v3);
@@ -200,7 +200,7 @@ public abstract class BigBang extends Rope {
 	 * @param v2 float argument for Y component
 	 * @param v3 float argument for Z component
 	 * @param alpha float argument for Alpha component
-	 * @return
+	 * @return int color argument
 	 */
 	public int color(float v1, float v2, float v3, float alpha) {
 		return this.pa.color(v1, v2, v3, alpha);
@@ -208,8 +208,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return int value of alpha
 	 */
 	public float alpha(int value) {
 		return this.pa.alpha(value);
@@ -217,8 +217,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float hue(int value) {
 		return this.pa.hue(value);
@@ -226,8 +226,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float saturation(int value) {
 		return this.pa.saturation(value);
@@ -235,8 +235,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float brightness(int value) {
 		return this.pa.brightness(value);
@@ -244,8 +244,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float red(int value) {
 		return this.pa.red(value);
@@ -253,8 +253,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float green(int value) {
 		return this.pa.green(value);
@@ -262,8 +262,8 @@ public abstract class BigBang extends Rope {
 
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
-	 * @param value
-	 * @return
+	 * @param value to set component
+	 * @return float value of component color
 	 */
 	public float blue(int value) {
 		return this.pa.blue(value);
@@ -280,7 +280,8 @@ public abstract class BigBang extends Rope {
 		return longest_String(string_list, 0, finish);
 	}
 
-	//with starting and end keypoint in the String must be sort
+	//with starting and end key point in the String must be sort
+	
 	public int longest_String(String[] string_list, int start, int finish) {
 		int length = 0;
 		if(string_list != null) {
@@ -292,8 +293,9 @@ public abstract class BigBang extends Rope {
 	}
 
 	/**
-	Longuest String with PFont
+	* Longest String with PFont
 	*/
+	
 	public int longest_String_pixel(PFont font, String[] string_list) {
 		int [] size_font = new int[1];
 		size_font[0] = font.getSize();
@@ -313,15 +315,17 @@ public abstract class BigBang extends Rope {
 	}
 
 	/**
-	Longuest String with String name Font
+	* Longest String with String name Font
 	*/
+	
 	public int longest_String_pixel(String font_name, String[] string_list, int... size_font) {
 		int finish = 0;
 		if(string_list != null) finish = string_list.length;
 		return longest_String_pixel(font_name, string_list, size_font, 0, finish);
 	}
 
-	// diferrent size by line
+	// different size by line
+	
 	public int longest_String_pixel(String font_name, String[] string_list, int size_font, int start, int finish) {
 		int [] s_font = new int[1];
 		s_font[0] = size_font;
@@ -347,8 +351,9 @@ public abstract class BigBang extends Rope {
 
 
 	/**
-	width String
+	* width String
 	*/
+	
 	public int width_String(String target, int size) {
 		return width_String("defaultFont", target, size) ;
 	}
@@ -384,7 +389,4 @@ public abstract class BigBang extends Rope {
 		FontMetrics fm = img.getGraphics().getFontMetrics(font);
 		return fm.charWidth(target);
 	}
-
-	
-	
 }

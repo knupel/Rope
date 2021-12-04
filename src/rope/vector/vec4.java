@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.4.1
+* v 1.4.2
 * 2015-2021
 * Vector class with a float precision
 * @author @stanlepunk
@@ -446,12 +446,12 @@ public class vec4 extends vec {
 	 * @param pow
 	 * @return Vec4 component powering by each value
 	 */
-	public vec4 pow(int pow) {
+	public vec4 pow(float pow) {
 		this.pow(pow,pow,pow,pow);
 		return this;
 	}
 	
-	public vec4 pow(int pow_x, int pow_y, int pow_z, int pow_w) {
+	public vec4 pow(float pow_x, float pow_y, float pow_z, float pow_w) {
 		x = (float)Math.pow(x,pow_x);
 		y = (float)Math.pow(y,pow_y);
 		z = (float)Math.pow(z,pow_z);

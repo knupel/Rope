@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.5.2
+ * v 1.5.3
 * 2015-2021
 * Vector class with a float precision
  * @author @stanlepunk
@@ -405,7 +405,7 @@ public class vec3 extends vec {
 	 * @param pow
 	 * @return vec3 
 	 */
-	public vec3 pow(int pow) {
+	public vec3 pow(float pow) {
 		this.pow(pow,pow,pow);
 		return this;
 	}
@@ -418,7 +418,7 @@ public class vec3 extends vec {
 	 * @param pow_z
 	 * @return
 	 */
-	public vec3 pow(int pow_x, int pow_y, int pow_z) {
+	public vec3 pow(float pow_x, float pow_y, float pow_z) {
 		x = (float)Math.pow(x,pow_x);
 		y = (float)Math.pow(y,pow_y);
 		z = (float)Math.pow(z,pow_z);

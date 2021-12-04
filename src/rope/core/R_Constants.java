@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.0
+	* v 1.1.1
 	* Processing 3.5.4
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -38,6 +38,8 @@ public interface R_Constants {
 
   static final int LINE = 4; // processing value
 	static final int SHAPE = 5; // processing value
+	
+	static final int POLYGON = 7;
 
   static final int TRIANGLE = 8; // processing value
   static final int SQUARE = 14;
@@ -57,6 +59,7 @@ public interface R_Constants {
   static final int SPHERE = 40; // processing value
   static final int BOX = 41; // processing value
 
+	static final int CROSS = 51;
   static final int CROSS_RECT = 52;
   static final int CROSS_BOX_2 = 53;
   static final int CROSS_BOX_3 = 54;

@@ -1,12 +1,14 @@
 /**
  * vec2 class 
- * v 1.5.1
+ * v 1.6.0
  * 2015-2021
  * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
  */
 package rope.vector;
+
+import rope.core.Rope;
 
 public class vec2 extends vec {
 	public vec2() {
@@ -49,7 +51,7 @@ public class vec2 extends vec {
 	 * 
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return this
 	 */
 	public vec2 set(float x, float y) {
 		this.x = x;
@@ -120,6 +122,7 @@ public class vec2 extends vec {
   
   // operation on simplest argument
 	// x
+
 	public vec2 x(float x) {
 		return set(x, this.y());
 	}
@@ -145,6 +148,7 @@ public class vec2 extends vec {
   }
   
 	// y
+
 	public vec2 y(float y) {
 		return set(this.x(), y);
 	}
@@ -170,6 +174,7 @@ public class vec2 extends vec {
   }
 
 	// st
+
 	public vec2 s(float x) {
 		return set(x, this.y());
 	}
@@ -179,6 +184,7 @@ public class vec2 extends vec {
 	}
 
 	// uv
+
 	public vec2 u(float x) {
 		return set(x, this.y());
 	}
@@ -192,13 +198,13 @@ public class vec2 extends vec {
 
 	/**
  * multiply Vector by different float value
- * @param m_x
- * @param m_y
- * @return
+ * @param mx
+ * @param my
+ * @return this vec2 mult by the arguments
  */
-	public vec2 mult(float m_x, float m_y) {
-		x *= m_x;
-		y *= m_y;
+	public vec2 mult(float mx, float my) {
+		x *= mx;
+		y *= my;
 		set(x, y);
 		return this;
 	}
@@ -224,15 +230,15 @@ public class vec2 extends vec {
 
 	/**
 	 * divide Vector by a float value
-	 * @param d_x
-	 * @param d_y
-	 * @return
+	 * @param dx
+	 * @param dy
+	 * @return this vec2 divide by the argument 
 	 */
-	public vec2 div(float d_x, float d_y) {
-		if (d_x != 0)
-			x /= d_x;
-		if (d_y != 0)
-			y /= d_y;
+	public vec2 div(float dx, float dy) {
+		if (dx != 0)
+			x /= dx;
+		if (dy != 0)
+			y /= dy;
 		set(x, y);
 		return this;
 	}
@@ -257,13 +263,13 @@ public class vec2 extends vec {
 
 	/**
   * add float value
-  * @param a_a
-  * @param a_b
-  * @return
+  * @param ax float
+  * @param ay float
+  * @return this vec2 result of addition
   */
-	public vec2 add(float a_a, float a_b) {
-		x += a_a;
-		y += a_b;
+	public vec2 add(float ax, float ay) {
+		x += ax;
+		y += ay;
 		set(x, y);
 		return this;
 	}
@@ -288,13 +294,13 @@ public class vec2 extends vec {
 
 	/**
 	 * sub float value
-	 * @param s_a
-	 * @param s_b
-	 * @return
+	 * @param sx float
+	 * @param sy float
+	 * @return this vec2 result of substration
 	 */
-	public vec2 sub(float s_a, float s_b) {
-		x -= s_a;
-		y -= s_b;
+	public vec2 sub(float sx, float sy) {
+		x -= sx;
+		y -= sy;
 		set(x, y);
 		return this;
 	}
@@ -321,8 +327,8 @@ public class vec2 extends vec {
 
 	/**
 	 * 
-	 * @param v
-	 * @return
+	 * @param v vec
+	 * @return the dot product between this and the target vec
 	 */
 	public float dot(vec v) {
 		if (v != null) {
@@ -339,10 +345,10 @@ public class vec2 extends vec {
 
 /**
  * 
- * @param pow
- * @return
+ * @param pow 
+ * @return this vec2 by the power of argument.
  */
-	public vec2 pow(int pow) {
+	public vec2 pow(float pow) {
 		this.pow(pow, pow);
 		return this;
 	}
@@ -352,7 +358,7 @@ public class vec2 extends vec {
    * @param pow_y
    * @return
    */
-	public vec2 pow(int pow_x, int pow_y) {
+	public vec2 pow(float pow_x, float pow_y) {
 		x = (float) Math.pow(x, pow_x);
 		y = (float) Math.pow(y, pow_y);
 		set(x, y);
@@ -929,6 +935,58 @@ public class vec2 extends vec {
       return false ;
     }
   }
+
+	// detection
+	/**
+
+	*/
+
+	/**
+	* https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html
+	* http://paulbourke.net/geometry/
+	* thks to Moggach and Paul Brook
+	 * @param points array of point who define the polygon.
+	 * @return true if the vec2 is in the polygon, false in the other case
+	 */
+	public boolean in_polygon(vec [] points) {
+		int i, j;
+		boolean is = false;
+		int sides = points.length;
+		for(i = 0, j = sides - 1 ; i < sides ; j = i++) {
+			if (( ((points[i].y() <= this.y()) && (this.y() < points[j].y())) || ((points[j].y() <= this.y()) && (this.y() < points[i].y()))) &&
+						(this.x() < (points[j].x() - points[i].x()) * (this.y() - points[i].y()) / (points[j].y() - points[i].y()) + points[i].x())) {
+				is = !is;
+			}
+		}
+		return is;
+	}
+
+	/**
+	* https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
+	* refactoring from Quark Algorithm
+	*/
+	public boolean in_line(vec2 start, vec2 end, float range) {
+		vec2 vp = new vec2();
+		vec2 line = end.copy().sub(start);
+		// vec2 line = sub(end,start);
+		float l2 = line.magSq();
+		if (l2 == 0.0) {
+			vp.set(start);
+			return false;
+		}
+		vec2 pv0_line = this.copy().sub(start);
+		float t = pv0_line.dot(line)/l2;
+		pv0_line.normalize();
+		vp.set(line);
+		vp.mult(t);
+		vp.add(start);
+		float d = this.dist(vp);
+		if (t >= 0 && t <= 1 && d <= range) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * copy() return all the component of vec
