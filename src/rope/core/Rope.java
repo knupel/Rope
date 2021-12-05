@@ -673,7 +673,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * 
 	 * @param n
-	 * @return
+	 * @return random value
 	 */
 	public float random_next_gaussian(int n) {
 		return random_next_gaussian(1, n);
@@ -682,7 +682,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * 
 	 * @param range
-	 * @return
+	 * @return random value
 	 */
 	public float random_next_gaussian(float range) {
 		return random_next_gaussian(range, 1);
@@ -692,7 +692,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * 
 	 * @param range
 	 * @param n
-	 * @return
+	 * @return random value
 	 */
 	public float random_next_gaussian(float range, int n) {
 		return Ru.random_next_gaussian(range, n);
@@ -783,7 +783,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 /**
  * 
  * @param arg
- * @return float
+ * @return absolute value
  */
 	protected float abs(float arg) {
 		return Math.abs(arg);

@@ -6,8 +6,8 @@
 * @see https://github.com/StanLepunK/Rope
 * 
 * dependancies
-* Processing 3.5.3
-* Rope library 0.8.5.30
+* Processing 4.02b
+* Rope library 0.12.6.46
 */
 
 import rope.costume.R_Line2D;

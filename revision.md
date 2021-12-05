@@ -25,6 +25,7 @@
 > add function get_current_color() and get_new_color() to class R_Palette_Selector
 > add set_fill() set_stroke() to class R_Button to have setting more generic.
 > add function detection in_line() and in_polygon() to detect if the vec2 is on a line or in area polygon
+> fix bug iteration in class R_Line2D for function interesction()
 
 \*version 45
 

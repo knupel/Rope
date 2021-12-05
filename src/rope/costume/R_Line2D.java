@@ -173,7 +173,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public vec2 intersection(R_Line2D target) {
-    return intersection(target);
+    vec2 [] arr = null; 
+    return intersection(target, arr);
   }
 
   /**
@@ -199,25 +200,18 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     float dy = y4 - y3;
    
     float b_dot_d_perp = bx*dy - by*dx;
-   
-    if(b_dot_d_perp == 0) {
-      return null;
-    }
+    if(b_dot_d_perp == 0) return null;
    
     float cx = x3 -x1;
     float cy = y3 -y1;
     
     // with dx and dy
     float t = (cx*dy - cy*dx) /b_dot_d_perp;
-    if(t < 0 || t > 1) {
-      return null;
-    }
+    if(t < 0 || t > 1) return null;
    
    // with bx and by
     float u = (cx*by - cy*bx) /b_dot_d_perp;
-    if(u < 0 || u > 1) {
-      return null;
-    }
+    if(u < 0 || u > 1) return null;
 
     vec2 result = new vec2(x1 +t *bx, y1 +t *by);
 
@@ -228,7 +222,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         }
       }
     }
-   
     return result;
   }
 
