@@ -1,15 +1,15 @@
+package rope.core;
+import processing.core.*;
+import processing.opengl.PShader;
 /**
 * R_Graphic class
-* v 0.6.0
+* v 0.6.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class with Image utilities for Rope Library
 */
-package rope.core;
 
-import processing.core.*;
-import processing.opengl.PShader;
 import rope.R_State.State;
 import rope.vector.*;
 

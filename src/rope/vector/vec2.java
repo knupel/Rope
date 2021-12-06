@@ -8,8 +8,6 @@
  */
 package rope.vector;
 
-import rope.core.Rope;
-
 public class vec2 extends vec {
 	public vec2() {
 		super(2);

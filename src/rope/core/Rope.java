@@ -548,14 +548,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param v
-	 * @return
+	 * @param vector array coordinates to calculate the barycenter
+	 * @return vec4 result
 	 */
-	protected vec4 barycenter(vec4... v) {
-		int div_num = v.length;
+	protected vec4 barycenter(vec4... vector) {
+		int div_num = vector.length;
 		vec4 sum = new vec4();
 		for (int i = 0; i < div_num; i++) {
-			sum.add(v[i]);
+			sum.add(vector[i]);
 		}
 		return sum.div(div_num);
 	}
@@ -566,17 +566,17 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * Projection
-	 * @param direction
-	 * @return
+	 * @param direction vec2 radiant direction
+	 * @return coordinate of the point
 	 */
 	protected vec2 projection(vec2 direction) {
 	  return projection(direction, new vec2(), (float)1.) ;
 	}
   /**
    * 
-   * @param direction
-   * @param radius
-   * @return
+   * @param direction vec2 radiant direction
+   * @param radius distance for the projection
+   * @return coordinate of the point
    */
 	protected vec2 projection(vec2 direction, float radius) {
 	  return projection(direction, new vec2(), radius) ;
@@ -584,10 +584,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param direction
-	 * @param origin
-	 * @param radius
-	 * @return
+	 * @param direction vec2 radiant direction
+	 * @param origin position
+	 * @param radius distance for the projection
+	 * @return coordinate of the point
 	 */
 	protected vec2 projection(vec2 direction, vec2 origin, float radius) {
 	  vec2 ref = direction.copy() ;
@@ -599,8 +599,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * polar projection 2D
-	 * @param angle
-	 * @return
+	 * @param angle float radiant direction
+	 * @return coordinate of the point
 	 */
 	protected vec2 projection(float angle) {
 	  return projection(angle, 1) ;
@@ -608,17 +608,17 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param angle
-	 * @param radius
-	 * @return
+	 * @param angle float radiant direction
+	 * @param radius distance for the projection
+	 * @return coordinate of the point
 	 */
 	protected vec2 projection(float angle, float radius) {
 	  return new vec2((float)Math.cos(angle) *radius, (float)Math.sin(angle) *radius) ;
 	}
 	/**
-	 * cartesian projection 3D
-	 * @param direction
-	 * @return
+	 * Cartesian projection 3D
+	 * @param direction vec2 radiant direction
+	 * @return coordinate of the point
 	 */
 	protected vec3 projection(vec3 direction) {
 	  return projection(direction, new vec3(), (float)1.) ;
@@ -626,9 +626,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param direction
-	 * @param radius
-	 * @return
+	 * @param direction vec2 radiant direction
+	 * @param radius distance for the projection
+	 * @return coordinate of the point
 	 */
 	protected vec3 projection(vec3 direction, float radius) {
 	  return projection(direction, new vec3(), radius) ;
@@ -636,10 +636,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param direction
-	 * @param origin
-	 * @param radius
-	 * @return
+	 * @param direction vec2 radiant direction
+	 * @param origin position
+	 * @param radius distance for the projection
+	 * @return coordinate of the point
 	 */
 	protected vec3 projection(vec3 direction, vec3 origin, float radius) {
 	  vec3 ref = direction.copy() ;
@@ -652,7 +652,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param high
+	 * @param high define value max for the random
 	 * @return random number, this method is a copy of Processing one
 	 */
 	protected float random(float high) {	
@@ -661,8 +661,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param low
-	 * @param high
+	 * @param low define value min for the random
+	 * @param high define value max for the random
 	 * @return random number, this method is a copy of Processing one
 	 */
 	public float random(float low, float high) {
@@ -672,7 +672,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param n
+	 * @param n define value max for the random
 	 * @return random value
 	 */
 	public float random_next_gaussian(int n) {
@@ -681,7 +681,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param range
+	 * @param range define value max for the random
 	 * @return random value
 	 */
 	public float random_next_gaussian(float range) {
@@ -742,7 +742,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param list
+	 * @param list of arguments must be sorted
 	 * @return Processing min() method
 	 */
 	public float min(float... list) {
@@ -782,7 +782,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 /**
  * 
- * @param arg
+ * @param arg passed to be transform
  * @return absolute value
  */
 	protected float abs(float arg) {
@@ -820,8 +820,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value must be transform
+	 * @return return int rounded to down
 	 */
 	protected int floor(float value) {
 		return (int)Math.floor(value);
@@ -841,8 +841,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value must be transform
+	 * @return int rounded to up
 	 */
 	protected int ceil(float value) {
 		return (int)Math.ceil(value);
@@ -862,8 +862,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value must be transform
+	 * @return value average rounded value to int.
 	 */
 	protected int round(float value) {
 		return Math.round(value);
@@ -883,8 +883,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value must be squared
+	 * @return value powered by 2
 	 */
 	protected float sq(float value) {
 		return value * value;
@@ -901,12 +901,12 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param n
-	 * @param e
-	 * @return
+	 * @param arg value must be transform by the exp
+	 * @param exp it's the exponent value to powered
+	 * @return value powered by n
 	 */
-	protected float pow(float n, float e) {
-    return (float)Math.pow(n, e);
+	protected float pow(float arg, float exp) {
+    return (float)Math.pow(arg, exp);
   }
 
 	/**
@@ -951,10 +951,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	// MIX
 	/**
 	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param y
-	 * @param a
-	 * @return
+	 * @param x elem to mix
+	 * @param y elem to mix
+	 * @param a mixer element
+	 * @return the mix result
 	 */
 	public float mix(float x, float y, float a) {
 		return x*(1-a)+y*a;
@@ -975,8 +975,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	// FRACT
 	/**
 	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @return
+	 * @param x value to fract
+	 * @return fract result
 	 */
 	public float fract(float x) {
 		return x - (float)Math.floor(x);
@@ -997,8 +997,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	// SIGN
 	/**
 	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @return
+	 * @param x value who find sign
+	 * @return value -1, 0 or 1
 	 */
 	public float sign(float x) {
 		if(x < 0 ) {

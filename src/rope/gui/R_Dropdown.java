@@ -1,6 +1,6 @@
 /**
 * R_DROPDOWN 
-* v 1.4.0
+* v 1.5.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -8,6 +8,7 @@
 package rope.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import processing.core.PFont;
 import rope.colour.R_Colour;
@@ -25,7 +26,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   private PFont font_box;
   //dropdown
   private int line = 0;
-  private ArrayList<String> content;
+  private HashMap<Integer,String> content;
 
   private boolean locked;
   private boolean slider;
@@ -82,7 +83,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   }
 
   private void init() {
-    this.content = new ArrayList<String>();
+    this.content = new HashMap<Integer,String>();
     int size_header_text = (int)(size.y() * 0.6f);
     this.font = createFont("defaultFont", size_header_text);
     int size_content_text = (int)(size.y() * 0.6f);
@@ -172,9 +173,9 @@ public class R_Dropdown extends Crope implements R_GUI {
   public R_Dropdown set_box_height(float h) {
     this.height_box = h;
     if(size_box == null) {
-      size_box = new vec2(longest_String_pixel(font_box,this.content.toArray(new String[this.content.size()])), this.height_box);
+      size_box = new vec2(longest_String_pixel(font_box,this.content.values().toArray(new String[this.content.size()])), this.height_box);
     } else {
-      size_box.set(new vec2(longest_String_pixel(font_box,this.content.toArray(new String[this.content.size()])), this.height_box));
+      size_box.set(new vec2(longest_String_pixel(font_box,this.content.values().toArray(new String[this.content.size()])), this.height_box));
     }
     return this;
   }
@@ -212,8 +213,8 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private void content_impl(int len, String content[]) {
     set_box(len);
-    for(String str : content) {
-      this.content.add(str);
+    for(int i = 0 ; i < content.length ; i++) {
+      this.content.put(i, content[i]);
     }
     update_slider(len);
   }
@@ -305,7 +306,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     }
     if(!locked && inside_open_box) {
       if(line >= 0 && line < content.size()) {
-      // if(line >= 0 && line < content.length) {
         current_line = line ;     
       } else {
         print_err("class Dropdown - method get_selected()\nthe line", line, "don't match with any content, the method keep the last content");
@@ -350,7 +350,7 @@ public class R_Dropdown extends Crope implements R_GUI {
     */
   public String [] get_content() {
     // return content;
-    String [] buf = this.content.toArray(new String[this.content.size()]);
+    String [] buf = this.content.values().toArray(new String[this.content.size()]);
     return buf;
   }
 
@@ -360,9 +360,9 @@ public class R_Dropdown extends Crope implements R_GUI {
     */
   public String get_content(int index) {
     if(index < content.size() && index >= 0 ) {
-      return this.content.get(index);
+      return this.get_content()[index];
     }
-    return this.content.get(0);
+    return this.get_content()[0];
   }
 
   public int get_num_box() {

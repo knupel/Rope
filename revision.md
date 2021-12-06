@@ -26,6 +26,8 @@
 > add set_fill() set_stroke() to class R_Button to have setting more generic.
 > add function detection in_line() and in_polygon() to detect if the vec2 is on a line or in area polygon
 > fix bug iteration in class R_Line2D for function interesction()
+> add class R_Nubo to create pixel cloud
+> change Array content for R_Dropdown from ArrayList to HashMap. To give the opputinity to add key to content.
 
 \*version 45
 
