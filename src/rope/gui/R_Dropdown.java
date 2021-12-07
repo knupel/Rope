@@ -1,14 +1,14 @@
 /**
 * R_DROPDOWN 
-* v 1.5.0
+* v 1.5.1
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
 */
 package rope.gui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import processing.core.PFont;
 import rope.colour.R_Colour;
@@ -18,8 +18,7 @@ import rope.vector.vec2;
 import rope.R_State.State;
 
 public class R_Dropdown extends Crope implements R_GUI {
-  // protected boolean selected_type;
-  //Slider dropdown
+  // slider dropdown
   private R_Slider slider_dd;
   private vec2 size_box;
   // font
@@ -47,7 +46,6 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private int current_line;
 
-
   private vec2 pos_header_text;
   private vec2 pos_box_text;
 
@@ -68,8 +66,9 @@ public class R_Dropdown extends Crope implements R_GUI {
   private boolean wheel_is;
 
   /**
-  CONSTRUCTOR
+  * CONSTRUCTOR
   */
+
   public R_Dropdown() {
     super("Dropdown", 5, 5, 120, 20);
     init();
@@ -172,10 +171,11 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   public R_Dropdown set_box_height(float h) {
     this.height_box = h;
+    int w = longest_String_pixel(font_box,this.content.values().toArray(new String[this.content.size()]));
     if(size_box == null) {
-      size_box = new vec2(longest_String_pixel(font_box,this.content.values().toArray(new String[this.content.size()])), this.height_box);
+      size_box = new vec2(w, this.height_box);
     } else {
-      size_box.set(new vec2(longest_String_pixel(font_box,this.content.values().toArray(new String[this.content.size()])), this.height_box));
+      size_box.set(w, this.height_box);
     }
     return this;
   }
@@ -184,8 +184,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     size_box.set(w,size_box.y());
     return this;
   }
-
-
 
   public R_Dropdown set_box_font(String font_name, int size) {
     this.font_box = createFont(font_name,size);
@@ -197,52 +195,32 @@ public class R_Dropdown extends Crope implements R_GUI {
     return this;
   }
 
-  // content
-  public R_Dropdown set_content(String... content) {
-    this.content.clear();
-    content_impl(content.length, content);
+
+
+
+
+
+  private void set_current_line(int index) {
+    this.current_line = index;
+  }
+
+  /** @deprecated the function set_value(int index) is replaced by select_value(int index)
+  */
+  @Deprecated 
+  public R_Dropdown set_value(int index) {
+    set_current_line(index);
     return this;
   }
 
-
-
-  public void add_content(String... content) {
-    int len = this.content.size() + content.length;
-    content_impl(len, content);
-  }
-
-  private void content_impl(int len, String content[]) {
-    set_box(len);
-    for(int i = 0 ; i < content.length ; i++) {
-      this.content.put(i, content[i]);
-    }
-    update_slider(len);
-  }
-
-  private void update_slider(int len) {
-     boolean new_slider = false;
-    if(this.content.size() != len) {
-      new_slider = true;
-    }
-    set_num_box_rendering(new_slider);
-  }
-
-  private void set_current_line(int current_line) {
-    this.current_line = current_line;
-  }
-
-
-  public R_Dropdown set_value(int current_line) {
-    set_current_line(current_line);
+  public R_Dropdown select_value(int index) {
+    set_current_line(index);
     return this;
   }
-
 
   public R_Dropdown set_name(String name) {
     this.name = name;
     return this;
   }
-
 
   private R_Dropdown set_num_box_rendering(boolean new_slider_is) {
     end = num_box;
@@ -322,6 +300,16 @@ public class R_Dropdown extends Crope implements R_GUI {
     return get_selection();
   }
 
+  //return which line of dropdown is highlighted
+  public int get_highlight() {
+    return line ;
+  }
+
+
+
+  /** 
+   *  CONTENT
+   */
 
   /**
     * return the String content of the line if it's possible, return null in the other case
@@ -338,10 +326,15 @@ public class R_Dropdown extends Crope implements R_GUI {
     return null;
   }
 
-
-  //return which line of dropdown is highlighted
-  public int get_highlight() {
-    return line ;
+  public int get_key() {
+    int index = get_selection();
+    if(get_selection() >= get_key_set().length) {
+      index = 0;
+    }
+    if(get_key_set().length > 0) {
+      return get_key_set()[index];
+    }
+    return -1;
   }
 
     /**
@@ -349,12 +342,20 @@ public class R_Dropdown extends Crope implements R_GUI {
     * @return String array
     */
   public String [] get_content() {
-    // return content;
     String [] buf = this.content.values().toArray(new String[this.content.size()]);
     return buf;
   }
 
-    /**
+  public int [] get_key_set() {
+    Object [] buf = this.content.keySet().toArray();
+    int [] res = new int[buf.length];
+    for(int i = 0 ; i < buf.length ; i++) {
+      res[i] = (int)buf[i];
+    }
+    return res;
+  }
+
+      /**
     * return the String content of the index asking if it's possible. If it's not return the first element of the array content
     * @return String
     */
@@ -365,24 +366,72 @@ public class R_Dropdown extends Crope implements R_GUI {
     return this.get_content()[0];
   }
 
-  public int get_num_box() {
-    return num_box;
-  }
-
-  public PFont get_font_box() {
-    return font_box;
-  }
-
-  public vec2 get_header_text_pos() {
-    return pos_header_text;
+  public int get_content_size() {
+    return this.content.size();
   }
 
   public vec2 get_content_text_pos() {
     return pos_box_text;
   }
 
+
+
+  public R_Dropdown set_content(String... content) {
+    this.content.clear();
+    content_impl(content.length, content);
+    return this;
+  }
+
+  public R_Dropdown set_content(HashMap<Integer, String> content) {
+    this.content.clear();
+    content_impl(content.size(), content);
+    return this;
+  }
+
+  public void add_content(String... content) {
+    int len = this.content.size() + content.length;
+    content_impl(len, content);
+  }
+
+  private void content_impl(int len, String content[]) {
+    set_box(len);
+    for(int i = 0 ; i < content.length ; i++) {
+      this.content.put(i, content[i]);
+    }
+    update_slider(len);
+  }
+
+  private void content_impl(int len, HashMap<Integer, String> hash_map) {
+    set_box(len);
+    for(Map.Entry<Integer, String> elem : hash_map.entrySet()) {
+      this.content.put(elem.getKey(), elem.getValue());
+    }
+    update_slider(len);
+  }
+
+
+
+
+
+
+
+
+
+
+  public int get_num_box() {
+    return this.num_box;
+  }
+
+  public PFont get_font_box() {
+    return this.font_box;
+  }
+
+  public vec2 get_header_text_pos() {
+    return this.pos_header_text;
+  }
+
   public boolean locked_is() {
-    return locked;
+    return this.locked;
   }
 
 
@@ -438,7 +487,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     show_label(this.label);
   }
 
-
   public void show_box() {
     if(locked) {
       int step = box_starting_rank_position;
@@ -455,9 +503,10 @@ public class R_Dropdown extends Crope implements R_GUI {
         float pos_temp_y = pos.y() + (size_box.y() *step);
         vec2 temp_pos = new vec2(pos.x(), pos_temp_y);
         boolean inside = inside(temp_pos,size,RECT);
-        render_box(temp_pos,this.content.get(i),step,inside);
+        // the problem is here, we cannot acces in the hashMap by iterationg method
+        // render_box(temp_pos,this.content.get(i),step,inside);
+        render_box(temp_pos,this.get_content(i),step,inside);
         step++;
-
         // slider, if necessary show slider
         if(slider) {
           float x = pos.x() -slider_dd.size().x();
@@ -475,8 +524,17 @@ public class R_Dropdown extends Crope implements R_GUI {
 
 
 
-  // misc
+  // update
   
+  private void update_slider(int len) {
+     boolean new_slider = false;
+    if(this.content.size() != len) {
+      new_slider = true;
+    }
+    set_num_box_rendering(new_slider);
+  }
+
+
   public void update() {
     if(State.env().pointer == null) {
 			print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
@@ -526,9 +584,9 @@ public class R_Dropdown extends Crope implements R_GUI {
   }
 
 
-  private void render_box(vec2 pos, String content, int step, boolean inside) {
-    if(content != null) {
-    // box part
+  private void render_box(vec2 pos, String str, int step, boolean inside) {
+    if(str != null) {
+      // box part
       noStroke() ;  
       if (inside) {
         fill(colour_box_in); 
@@ -552,7 +610,7 @@ public class R_Dropdown extends Crope implements R_GUI {
       textFont(font_box);
       float x = pos.x +pos_box_text.x;
       float y = pos.y +height_box -(ceil(height_box * 0.2f));
-      text(content,x,y);
+      text(str,x,y);
     }
   }
 
