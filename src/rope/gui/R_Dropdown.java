@@ -374,8 +374,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     return pos_box_text;
   }
 
-
-
   public R_Dropdown set_content(String... content) {
     this.content.clear();
     content_impl(content.length, content);
@@ -525,7 +523,7 @@ public class R_Dropdown extends Crope implements R_GUI {
 
 
   // update
-  
+
   private void update_slider(int len) {
      boolean new_slider = false;
     if(this.content.size() != len) {

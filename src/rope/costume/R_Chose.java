@@ -16,8 +16,8 @@ public class R_Chose extends R_Polygon {
   
   /**
    * 
-   * @param pa
-   * @param summits
+   * @param pa Processing App
+   * @param summits num of summits of the shape
    */
   public R_Chose(PApplet pa, int summits) {
     super(pa,summits);
@@ -26,9 +26,9 @@ public class R_Chose extends R_Polygon {
   
   /**
    * 
-   * @param pa
-   * @param summits
-   * @param other
+   * @param pa Processing App
+   * @param summits num of summits of the shape
+   * @param other PGraphics rendering target
    */
   public R_Chose(PApplet pa, int summits, PGraphics other) {
     super(pa,summits,other);
@@ -58,9 +58,8 @@ public class R_Chose extends R_Polygon {
   public void calc() {
     calc(false);
   }
-  /**
-   * 
-   */
+  
+
   private boolean ref_symmetria;
   protected void calc(boolean render) {
     boolean new_calc_is = false;
@@ -87,7 +86,7 @@ public class R_Chose extends R_Polygon {
   /**
    * set the reading radius list to set the summits, true reade from 0 to length and after from length to zero ;
    * if it's false read from 0 to length and after from 0 to length etc...
-   * @param is
+   * @param is set if the shape must be reflective and symetric
    */
   public void symmetric_is(boolean is) {
     symmetric_is = is;
@@ -95,7 +94,7 @@ public class R_Chose extends R_Polygon {
   
   /**
    * 
-   * @return
+   * @return true if it's symetric
    */
   public boolean symmetric_is() {
     return symmetric_is;
@@ -105,7 +104,7 @@ public class R_Chose extends R_Polygon {
   // set 
   /**
    * set the number of radius you want, this one cannot exceed the number of summits.
-   * @param radius
+   * @param radius list of the radisu of each summits
    */
   public void radius(float... radius) {
     if(radius.length  == 0) {
@@ -116,7 +115,7 @@ public class R_Chose extends R_Polygon {
 
   /**
    * return the radius list
-   * @return
+   * @return the radius value of each summit.
    */
   public float [] get_radius() {
     return radius;
@@ -124,8 +123,8 @@ public class R_Chose extends R_Polygon {
 
   /**
    * return the targeting radius, is this one is not in the list list return NaN
-   * @param index
-   * @return
+   * @param index of the summits
+   * @return radius of target summit
    */
   public float get_radius(int index) {
     if(index >= 0 && index < radius.length) {
@@ -137,8 +136,8 @@ public class R_Chose extends R_Polygon {
 
   /**
    * 
-   * @param render
-   * @return
+   * @param render set if the render must be renderer
+   * @returnlist of coordinate
    */
   private vec3 [] calc_final_points(boolean render) {
     if(pts == null || pts.length != ref_pts.length) {

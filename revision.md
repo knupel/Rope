@@ -1,33 +1,38 @@
 \*version 46
 
+> GUI
+> add function get_content(it index) to R_Dropdown class
+> add function set_value(int index) to R_Dropdown to set the which line is a current menu selection
+> add function Long get_id(int index) to catch the id Image for the R_Image_Manager
+> fix bug name in class R_Palette_Selector
 > fix constructor bug for class gui.R_Slotch when this one is empty
 > remove deprecated function R_Slider.update(float x, float y) in R_Dropdown class
 > add Empty constructor for R_Dropdown
 > change default value of the R_Dropdown to displey header text and selected content
+> class R_Button add an empty Constructor
 > add get() function to return get_selection() to make a correspondance with other class of Crope Gui
 > add function get_value() to R_Dropdown, the function return the String content of the selection
 > split String name and String label property for Crope element, now the both is independant.
+> change Array content for R_Dropdown from ArrayList to HashMap. To give the opputinity to add key to content.
+> add function get_current_color() and get_new_color() to class R_Palette_Selector
+> add set_fill() set_stroke() to class R_Button to have setting more generic.
+> change the content management for the R_Dropdown class fron a simple String array to ArrayList String
+
+> MISC
 > improve and fix bug for R_Primitive, when we try to catch normal and real points list, and add equal conversion with the mother class for getting points too.
-> add variable float angle to class R_Pixo
 > fix bug size in R_Primitive and increase the fps rendering by the way :)
 > clean R_Primitive constructor, by remove the summits lines, by passing arg to super Constructor
-> add function get_content(it index) to R_Dropdown class
-> add function set_value(int index) to R_Dropdown to set the which line is a current menu selection
 > add funtion remove(int index) and add(T... int index) to class R_Image_Manager to make mirror with ArrayList method.
-> change the content management for the R_Dropdown class fron a simple String array to ArrayList String
 > add function add_content(String... content) to add element in the content
 > improve class R_Image, add method set_name(String name), set_id(int id), set(R_Image, int index) and add random id generator
 > add function float get_final() and float get_final(int index) return value from min to max
 > add function set_min_max(), get_min(), get_max() to set the range of the slider, that can be useful when you lizzy to use the normal value from function get()
-> add function Long get_id(int index) to catch the id Image for the R_Image_Manager
-> fix bug name in class R_Palette_Selector
-> class R_Button add an empty Constructor
-> add function get_current_color() and get_new_color() to class R_Palette_Selector
-> add set_fill() set_stroke() to class R_Button to have setting more generic.
 > add function detection in_line() and in_polygon() to detect if the vec2 is on a line or in area polygon
 > fix bug iteration in class R_Line2D for function interesction()
+
+> PIXO
+> add variable float angle to class R_Pixo
 > add class R_Nubo to create pixel cloud
-> change Array content for R_Dropdown from ArrayList to HashMap. To give the opputinity to add key to content.
 
 \*version 45
 

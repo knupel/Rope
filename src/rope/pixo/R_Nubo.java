@@ -21,6 +21,8 @@ import rope.core.Rope;
 public class R_Nubo extends Rope {
 	private vec2 ref_pos;
 	private vec2 pos;
+  private vec2 offset_pos;
+  private vec2 buffer_pos;
 
   private R_Focus focus;
 
@@ -54,6 +56,8 @@ public class R_Nubo extends Rope {
     this.range_angle = new vec2(-PI, PI);
     this.fov = calc_fov(this.range_angle.x(),this.range_angle.y());
     this.range_dist = new vec2(0,1);
+    this.buffer_pos = new vec2();
+    this.offset_pos = new vec2();
     set_ref();
   }
 
@@ -74,10 +78,9 @@ public class R_Nubo extends Rope {
    * @param index target which particle of cloud is affected, must be between 0 and and the size of cloud
    * @return this to give the opportunity to make train of function on the same line
    */
-  public R_Nubo set_index(int index) {
-  	this.index = index;
-    return this;
-  }
+  // private void set_index(int index) {
+  // 	this.index = index;
+  // }
 
   // reference
   private void set_ref() {
@@ -203,6 +206,17 @@ public class R_Nubo extends Rope {
     return this;
   }
 
+  public R_Nubo offset_pos(vec offset_pos) {
+    offset_pos(offset_pos.x(), offset_pos.y());
+    return this;
+  }
+
+
+  public R_Nubo offset_pos(float x, float y) {
+    this.offset_pos.set(x,y);
+    return this;
+  }
+
   public float get_start_fov() {
     return this.range_angle.x();
   }
@@ -280,15 +294,16 @@ public class R_Nubo extends Rope {
   // pos
 
   public float x() {
-  	return pos.x();
+  	return pos.x() + offset_pos.x();
   }
 
   public float y() {
-  	return pos.y();
+  	return pos.y() + offset_pos.y();
   }
 
   public vec2 pos() {
-  	return pos;
+    buffer_pos.set(this.x(), this.y());
+  	return buffer_pos;
   }
 
   // set pos
@@ -485,6 +500,27 @@ public class R_Nubo extends Rope {
   	}
   }
 
+  public void update_grid() {
+    if(this.grid != null && !this.grid.equals(1) && use_grid_is) {
+      int x = (int)x();
+      int y = (int)y();
+      if(x%this.grid.x() == 0 && y%this.grid.y() == 0) {
+        pixel_is = true;
+      } else {
+        pixel_is = false;
+      }
+    } else {
+      pixel_is = true;
+    }
+  }
+
+  public void update(int index) {
+    this.index = index;
+    update_focus();  
+    update_pattern();
+    update_grid(); 
+  }
+
   public void info() {
     print_out("MAD: mode : 0 > 0");
     print_out("CIRCULAR: mode : 0 > 0");
@@ -551,25 +587,7 @@ public class R_Nubo extends Rope {
     return segment_fov;
   }
 
-  public void update_grid() {
-    if(this.grid != null && !this.grid.equals(1) && use_grid_is) {
-      int x = (int)x();
-      int y = (int)y();
-      if(x%this.grid.x() == 0 && y%this.grid.y() == 0) {
-        pixel_is = true;
-      } else {
-        pixel_is = false;
-      }
-    } else {
-      pixel_is = true;
-    }
-  }
 
-  public void update() {
-    update_focus();  
-    update_pattern();
-    update_grid(); 
-  }
 
   private float dist_impl() {
     float dist = this.focus.get_dist();

@@ -3,7 +3,7 @@
  * collection of function can be use with out Processing.
  * @author stanlepunk
  * 2018-2021
- * v 0.3.0
+ * v 0.3.1
  * 
  */
 
@@ -34,10 +34,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 */
 	
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * each element add of each vector mult each one in the order
+	 * @param a vector be added
+	 * @param b vector added
+	 * @return result of the operation
 	 */
 	protected vec2 add(vec2 a, vec2 b) {
 	  if(a == null || b == null) {
@@ -85,10 +85,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 	
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * each element substract of each vector mult each one in the order
+	 * @param a vector target
+	 * @param b vector must be sub
+	 * @return result of the operation
 	 */
 	protected vec2 sub(vec2 a, vec2 b) {
 		if (a == null || b == null) {
@@ -136,10 +136,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * each element multipry of each vector mult each one in the order
+	 * @param a vector multiplicator
+	 * @param b vector multiplicator
+	 * @return result of the operation
 	 */
 	protected vec2 mult(vec2 a, vec2 b) {
 		if(a == null || b == null) {
@@ -189,9 +189,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a vector must be divide by b
+	 * @param b vector must divide a
+	 * @return result of the operation
 	 */
 	protected vec2 div(vec2 a, vec2 b) {
 	  if(a == null || b == null) {
@@ -241,9 +241,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * Cross product of vec3
 	 * 
-	 * @param v1
-	 * @param v2
-	 * @return
+	 * @param v1 coordinate
+	 * @param v2 coordinate
+	 * @return result of the croos operation
 	 */
 	protected vec3 cross(vec3 v1, vec3 v2) {
 		if (v1 == null || v2 == null) {
@@ -261,13 +261,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
   *
   * Constrains a value to not exceed a maximum and minimum value.
   *
-  * @webref math:calculation
-  * @webBrief Constrains a value to not exceed a maximum and minimum value.
+  * math:calculation
+  * Constrains a value to not exceed a maximum and minimum value.
   * @param amt the value to constrain
   * @param low minimum limit
   * @param high maximum limit
-  * @see PApplet#max(float, float, float)
-  * @see PApplet#min(float, float, float)
   */
 	protected int constrain(int amt, int low, int high) {
     return (amt < low) ? low : ((amt > high) ? high : amt);
@@ -282,12 +280,12 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * map method
 	 * 
-	 * @param value
-	 * @param start1
-	 * @param stop1
-	 * @param start2
-	 * @param stop2
-	 * @return Processing map() method
+	 * @param value value must be compute
+	 * @param start1 min range value of the starting field
+	 * @param stop1 max range value of the starting field
+	 * @param start2 min range value of the final field
+	 * @param stop2 max range value of the final field
+	 * @return result of the scale map operation
 	 */
 	public float map(float value, float start1, float stop1, float start2, float stop2) {
 		return Ru.map(value, start1, stop1, start2, stop2);
@@ -302,11 +300,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @return
+	 * @param x1 value x of the first point
+	 * @param y1 value y of the first point
+	 * @param x2 value x of the second point
+	 * @param y2 value y of the second point
+	 * @return float distance beween the two points
 	 */
 	protected float dist(float x1, float y1, float x2, float y2) {
 		float dx = x1 - x2;
@@ -315,14 +313,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
-	 * @param x1
-	 * @param y1
-	 * @param z1
-	 * @param x2
-	 * @param y2
-	 * @param z2
-	 * @return
+	 * @param x1 value x of the first point
+	 * @param y1 value y of the first point
+	 * @param z1 value z of the first point
+	 * @param x2 value x of the second point
+	 * @param y2 value y of the second point
+	 * @param z2 value z of the second point
+	 * @return float distance beween the two points
 	 */
 	protected float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
 		float dx = x1 - x2;
@@ -332,10 +329,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a coordinate of the first point
+	 * @param b coordinate of the second point
+	 * @return float distance beween the two points
 	 */
 	protected float dist(vec2 a, vec2 b) {
 		if(a != null && b != null) {
@@ -346,10 +342,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a coordinate of the first point
+	 * @param b coordinate of the second point
+	 * @return float distance beween the two points
 	 */
 	protected float dist(vec3 a, vec3 b) {
 		if(a != null && b != null) {
@@ -361,10 +356,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a coordinate of the first point
+	 * @param b coordinate of the second point
+	 * @return float distance beween the two points
 	 */
 	protected float dist(vec4 a, vec4 b) {
 		if(a != null && b != null) {
@@ -378,6 +372,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	
 	/**
+	 * @deprecated use in_line(vec2 start, vec2 end, vec2 point, float range) instead
+	 */
+	@Deprecated
+	protected boolean is_on_line(vec2 start, vec2 end, vec2 point, float range) {
+		return in_line(start, end, point, range);
+	}
+
+		/**
 	 * @link https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
 	* refactoring from Quark Algorithm
 	 * 
@@ -387,7 +389,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param range
 	 * @return
 	 */
-	protected boolean is_on_line(vec2 start, vec2 end, vec2 point, float range) {
+	protected boolean in_line(vec2 start, vec2 end, vec2 point, float range) {
 		vec2 vp = new vec2();
 		vec2 line = sub(end,start);
 		float l2 = line.magSq();
@@ -409,13 +411,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
+
+
 	/**
 	* @link https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html
 	* @link http://paulbourke.net/geometry/
 	* thks to Moggach and Paul Brook
-	 * @param points
-	 * @param pos
-	 * @return
+	 * @param points list of coordinate of the shape
+	 * @param pos coordinate of value must be tested
+	 * @return true is the position is in the shape
 	 */
 	protected boolean in_polygon(vec [] points, vec2 pos) {
 		int i, j;
@@ -434,10 +438,13 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 	/**
+	 * *** ACHTUNG ***
+	 * It's not clear must find time to work on explanation of this function
+	 * If I remember is to compare to vec but not sure...
 	 * 
-	 * @param pos
-	 * @param range
-	 * @param size
+	 * @param pos ??? may be the angle
+	 * @param range ??? may be be the range of the vec ????
+	 * @param size ??? may be the distance to center ???
 	 * @return
 	 */
 	protected vec3 to_cartesian_3D(vec2 pos, vec2 range, float size) {
@@ -455,9 +462,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @return
+	 * @param latitude latitude in radiant
+	 * @param longitude longitude in radiant
+	 * @return the cartesian angle coordinate
 	 */
 	protected vec3 to_cartesian_3D(float latitude, float longitude) {
 		float radius_normal = 1;
@@ -466,10 +473,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * main method to_cartesian_3D
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 * @return
+	 * @param latitude latitude in radiant
+	 * @param longitude longitude in radiant
+	 * @param radius distance to center
+	 * @return the cartesian angle coordinate
 	 */
 	protected vec3 to_cartesian_3D(float latitude, float longitude, float radius) {
 		float theta = longitude % TAU;
@@ -482,12 +489,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
   
 	/**
+	 * *** ACHTUNG ***
+	 * It's not clear must find time to work on explanation of this function
+	 * If I remember is to compare to vec but not sure...
 	 * 
-	 * @param pos
-	 * @param range
-	 * @param target_rad
-	 * @param distance
-	 * @return
+	 * @param pos ??? may be the angle
+	 * @param range ??? may be be the range of the first vec ????
+	 * @param target_rad ??? may be be the range of the last vec ????
+	 * @param distance distance to center
+	 * @return the cartesian angle coordinate
 	 */
 	protected vec2 to_cartesian_2D(float pos, vec2 range, vec2 target_rad, float distance) {
 		float rotation_plan = map(pos, range.x, range.y, target_rad.x, target_rad.y);
@@ -496,9 +506,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param angle
-	 * @param radius
-	 * @return
+	 * @param angle radiant value
+	 * @param radius distance to center
+	 * @return the cartesian angle coordinate
 	 */
 	protected vec2 to_cartesian_2D(float angle, float radius) {
 		return to_cartesian_2D(angle).mult(radius);
@@ -506,8 +516,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * main method to_cartesian_2D
-	 * @param angle
-	 * @return
+	 * @param angle radiant value
+	 * @return the cartesian angle coordinate
 	 */
 	protected vec2 to_cartesian_2D(float angle) {
 		float x = (float) Math.cos(angle);
@@ -520,8 +530,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param v
-	 * @return
+	 * @param v list coordinate to compute the barycenter
+	 * @return coordinate of the barycenter
 	 */
 	protected vec2 barycenter(vec2... v) {
 		int div_num = v.length;
@@ -534,8 +544,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 	/**
 	 * 
-	 * @param v
-	 * @return
+	 * @param v list coordinate to compute the barycenter
+	 * @return coordinate of the barycenter
 	 */
 	protected vec3 barycenter(vec3... v) {
 		int div_num = v.length;
@@ -672,7 +682,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param n define value max for the random
+	 * @param n the num of operation must iterate each operation is mult by the previous result
 	 * @return random value
 	 */
 	public float random_next_gaussian(int n) {
@@ -690,8 +700,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param range
-	 * @param n
+	 * @param range represente the max value possible from 0 to this value.
+	 * @param n the num of operation must iterate each operation is mult by the previous result
 	 * @return random value
 	 */
 	public float random_next_gaussian(float range, int n) {
@@ -701,8 +711,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param list
-	 * @return from Processing max() method
+	 * @param list list of arguments must be sorted
+	 * @return the max value of the list
 	 */
 	public float max(float... list) {
 		return Ru.max(list);
@@ -742,8 +752,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param list of arguments must be sorted
-	 * @return Processing min() method
+	 * @param list list of arguments must be sorted
+	 * @return the min value of the list
 	 */
 	public float min(float... list) {
 		return Ru.min(list);
@@ -884,7 +894,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	 * 
 	 * @param value must be squared
-	 * @return value powered by 2
+	 * @return the result of the operation
 	 */
 	protected float sq(float value) {
 		return value * value;
@@ -892,8 +902,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value value to compute the squareroot
+	 * @return the result of the operation
 	 */
 	protected float sqrt(float value) {
 		return (float)Math.sqrt(value);
@@ -911,8 +921,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value value to compute
+	 * @return the result of the operation
 	 */
 	protected float atan(float value) {
 		return (float)Math.atan(value);
@@ -920,8 +930,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value to compute
+	 * @return the result of the operation
 	 */
 	protected float cos(float value) {
 		return (float)Math.cos(value);
@@ -929,8 +939,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param value to compute
+	 * @return the result of the operation
 	 */
 	protected float sin(float value) {
 		return (float)Math.sin(value);
@@ -950,7 +960,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// MIX
 	/**
-	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	 * @param x elem to mix
 	 * @param y elem to mix
 	 * @param a mixer element
@@ -974,7 +984,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// FRACT
 	/**
-	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	 * @param x value to fract
 	 * @return fract result
 	 */
@@ -996,7 +1006,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// SIGN
 	/**
-	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	 * @param x value who find sign
 	 * @return value -1, 0 or 1
 	 */
@@ -1040,10 +1050,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// STEP
 	/**
-	 * <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param edge
-	 * @return
+	 * @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x value to smooth
+	 * @param edge the smooth edge 
+	 * @return the result of the operation
 	 */
 	public float step(float edge, float x) {
 		if(x < edge) return 0; else return 1;
@@ -1064,11 +1074,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// SMOOTH STEP
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param edge0
-	 * @param edge1
-	 * @return
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x value to smooth
+	 * @param edge0 the smooth first edge 
+	 * @param edge1 the smooth second edge 
+	 * @return the result of the operation
 	 */
 	public float smoothstep(float edge0, float edge1, float x) {
 		if(x <= edge0) {
@@ -1097,10 +1107,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// MOD
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param y
-	 * @return
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x value to mod
+	 * @param y value to mod
+	 * @return result of operation
 	 */
 	public float mod(float x, float y) {
 		return x-y*(float)Math.floor(x/y);
@@ -1132,11 +1142,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// CLAMP
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param min
-	 * @param max
-	 * @return
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param x value to clamp
+	 * @param min the min value available
+	 * @param max the max value available
+	 * @return reslut of operation
 	 */
 	public float clamp(float x, float min, float max) {
 		return Math.min(Math.max(x,min),max);
@@ -1158,10 +1168,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// EQUAL
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param y
-	 * @return
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x float value to test
+	* @param y float value to test
+	* @return true if x equal to y
 	 */
 	public boolean equal(float x, float y) {
 		return x==y?true:false;
@@ -1172,6 +1182,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// with vec
+	
 	public bvec2 equal(vec2 x, vec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(equal(x.x(),y.x()),equal(x.y(),y.y()));
@@ -1191,6 +1202,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// width ivec
+	
 	public bvec2 equal(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(equal(x.x(),y.x()),equal(x.y(),y.y()));
@@ -1214,10 +1226,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// LESS THAN
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param y
-	 * @return
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x float value to test
+	* @param y float value to test
+	* @return true if x inferior to y
 	 */
 	public boolean lessThan(float x, float y) {
 		return x<y?true:false;
@@ -1228,6 +1240,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// with vec
+	
 	public bvec2 lessThan(vec2 x, vec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()));
@@ -1247,6 +1260,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// width ivec
+	
 	public bvec2 lessThan(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(lessThan(x.x(),y.x()),lessThan(x.y(),y.y()));
@@ -1271,9 +1285,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	// GREATER THAN
 	/**
 	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	 * @param x
-	 * @param y
-	 * @return
+	* @param x float value to test
+	* @param y float value to test
+	* @return true if x superior to y
 	 */
 	public boolean greaterThan(float x, float y) {
 		return x>y?true:false;
@@ -1284,6 +1298,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// with vec
+	
 	public bvec2 greaterThan(vec2 x, vec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
@@ -1303,6 +1318,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// width ivec
+	
 	public bvec2 greaterThan(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
@@ -1323,8 +1339,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// GREATER THAN EQUAL
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
-	* @return boolean the component-wise compare of x ≤ y.
+	* @param x float value to test
+	* @param y float value to test
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return true if x superior or equal to y
 	*/
 	public boolean greaterThanEqual(float x, float y) {
 		return x>=y?true:false;
@@ -1354,6 +1372,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// width ivec
+
 	public bvec2 greaterThanEqual(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(greaterThanEqual(x.x(),y.x()),greaterThanEqual(x.y(),y.y()));
@@ -1375,7 +1394,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// LESS THAN EQUAL
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x float value to test
+	* @param y float value to test
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @return true if x inferior or equal to y
 	*/
 	public boolean lessThanEqual(float x, float y) {
 		return x<=y?true:false;
@@ -1406,6 +1428,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	// width ivec
+
 	public bvec2 lessThanEqual(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(lessThanEqual(x.x(),y.x()),lessThanEqual(x.y(),y.y()));
@@ -1427,7 +1450,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// ALL
 	/**
-	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	 * @param b bvec value to test
+	* @see <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	* @return true only if all components of x are true.
 	*/
 	public boolean all(bvec b) {
@@ -1457,6 +1481,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	// ANY
 	/**
+	* @param b bvec value to test
 	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
 	* @return true if any component of x is true. 
 	*/
@@ -1471,7 +1496,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param list
+	 * @param list boolean list value to test
 	 * @return return true if any element of the list is true
 	 * @return true if any component of x is true. 
 	 */
@@ -1493,7 +1518,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	* @return true if only one component of x is true. 
 	*/
 	/**
-	 * @param b
+	 * @param b bvec value to test
 	 * @return true is only one elements of the list is true
 	 */
 	public boolean only(bvec b) {
@@ -1524,8 +1549,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x coordinate x 
+	 * @param y coordinate y 
 	 * @param width the width of you 2D array pixel
 	 * @return a linear position from a 2D array tab
 	 */
@@ -1544,8 +1569,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param num
+	 * @param x value to work
+	 * @param num after coma to display
 	 * @return a float number with a number after comma equal to the num arg
 	 */
 	public float truncate(float x, int num) {
@@ -1589,7 +1614,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
     return hex(value, 8);
   }
 /**
+ * @param value value to convert
  * @param digits the number of digits (maximum 8)
+ * @return String hexadecimal value
  */
 	public String hex(int value, int digits) {
     String stuff = Integer.toHexString(value).toUpperCase();
@@ -1608,10 +1635,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
   }
 	 /**
   *
-  * Converts a <b>String</b> representation of a hexadecimal number to its
+  * Converts a Stringrepresentation of a hexadecimal number to its
   * equivalent integer value.
-  *
-  *
+  * @param value value to convert
+  * @return unhexadecimal int value
 	*/
 	public int unhex(String value) {
     // has to parse as a Long so that it'll work for numbers bigger than 2^31
@@ -1647,11 +1674,9 @@ public class Rope implements R_Constants, R_Constants_Colour {
   * can only represent up to 32 bits. Specifying more than 32 digits will have
   * no effect.
   *.
-  * @param value
-  *          value to convert
-  * @param digits
-  *          number of digits to return
-  * @return
+  * @param value value to convert
+  * @param digits number of digits to return
+  * @return String binary
   */
   public String binary(int value, int digits) {
     String stuff = Integer.toBinaryString(value);
@@ -1681,42 +1706,31 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return
 	 */
 	public String[] split(String value, char delim) {
-    // do this so that the exception occurs inside the user's
-    // program, rather than appearing to be a bug inside split()
     if (value == null) return null;
-    //return split(what, String.valueOf(delim));  // huh
 
     char[] chars = value.toCharArray();
-    int splitCount = 0; //1;
+    int split_count = 0; //1;
     for (char ch : chars) {
-      if (ch == delim) splitCount++;
+      if (ch == delim) split_count++;
     }
-    // make sure that there is something in the input string
-    //if (chars.length > 0) {
-      // if the last char is a delimeter, get rid of it..
-      //if (chars[chars.length-1] == delim) splitCount--;
-      // on second thought, i don't agree with this, will disable
-    //}
-    if (splitCount == 0) {
+
+    if (split_count == 0) {
       String[] splits = new String[1];
       splits[0] = value;
       return splits;
     }
-    //int pieceCount = splitCount + 1;
-    String[] splits = new String[splitCount + 1];
-    int splitIndex = 0;
-    int startIndex = 0;
+    String[] splits = new String[split_count + 1];
+    int split_index = 0;
+    int start_index = 0;
     for (int i = 0; i < chars.length; i++) {
       if (chars[i] == delim) {
-        splits[splitIndex++] =
-          new String(chars, startIndex, i-startIndex);
-        startIndex = i + 1;
+        splits[split_index++] =
+          new String(chars, start_index, i -start_index);
+        start_index = i + 1;
       }
     }
-    //if (startIndex != chars.length) {
-      splits[splitIndex] =
-        new String(chars, startIndex, chars.length-startIndex);
-    //}
+		splits[split_index] = new String(chars, start_index, chars.length -start_index);
+
     return splits;
   }
 
