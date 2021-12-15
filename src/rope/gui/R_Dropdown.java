@@ -1,6 +1,6 @@
 /**
 * R_DROPDOWN 
-* v 1.5.1
+* v 1.5.2
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -393,8 +393,9 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private void content_impl(int len, String content[]) {
     set_box(len);
+    int start = len - content.length;
     for(int i = 0 ; i < content.length ; i++) {
-      this.content.put(i, content[i]);
+      this.content.put(start + i, content[i]);
     }
     update_slider(len);
   }

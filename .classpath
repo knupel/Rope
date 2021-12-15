@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="bin" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/stan/En_cours/code/eclipse-workspace/libs/core_processing_3_5_3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/stanislasmarcais/EN_COURS/CODE/eclipse-workspace/libs/core_processing_4_0b2.jar"/>
 	<classpathentry kind="output" path="resources/code"/>
 </classpath>

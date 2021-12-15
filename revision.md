@@ -1,3 +1,10 @@
+\*version 47
+> Update to Processing 4
+
+> GUI
+> fix function add_content() from R_Dropdown
+
+
 \*version 46
 
 > GUI
