@@ -22,10 +22,10 @@ This library is a logic way of Rope framework used to [Romanesco software](https
 ### State
 `R_State` is a static class to store differents environment variables from PApplet and events. It's inspired from `React` state.
 
-### CORE package core
+### Core
 Collection Constants set, and Processing clone and improve functions, and glsl function and more useful feature.
 
-### VECTOR package
+### Vector
 A collection of vector class, inspired from `PVector` and `vec` function from `GLSL`
 float precision:
 `vec2` `vec3` and `vec4` with all operation from `PVector` and few more possibilities.
@@ -40,28 +40,28 @@ and `ivec5` and `ivec6` to store data.
 boolean precision:
 `bvec2` `bvec3` `bvec4` `bvec5` `bvec6`.
 
-### GUI package gui
+### Gui
 you can find class do build `R_Slider`, `R_Knob`, `R_Dropdown`, `R_Button`, `R_Apple_Bar`, `R_Palette`, `R_Board`
 
-### MESH package rope
+### Mesh
 you can find in this package différents classes to create triangle `R_Face`, `R_Node`, `R_Bloc` and Bloc manager `R_Megabloc`, also `R_Plane`...
 
-### PIXO package rope
+### Pixo
 Work around the pixel to add it few useful functions and variables, to change, store colour, manage motion, manage pixel cloud. 
 
 Can be help when you want create a particles world.
 The main classes are `R_Pixo`, `R_Moxo`, `R_Nubo`
 
-### R_Image package rope
+### Image
 `R_Image` is an extends of `PImage` to store a little more infos, like name or path. You find also `R_Image_Manger` to use a list of `R_Image`. `R_Pattern` can help to create a differents random `PGraphics` with noise or marble pattern.
 
-### SVG
+### Svg
 classes to create svg rendering like the last `Illustrator` protocol.
 
 ### Colour
 classes to create and manage colour palette.
 
-### COSTUME package costume
+### Costume
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
 Collection of shape classes in the costume package : 
 `R_Star`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`, `R_Icosahedron`, `R_House`
