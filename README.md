@@ -19,8 +19,8 @@ This library is a logic way of Rope framework used to [Romanesco software](https
 
 ## Available in the Library
 
-### R_State class
-a static class to store differents environment variables from PApplet and events. It's inspired from `React` state.
+### State
+`R_State` is a static class to store differents environment variables from PApplet and events. It's inspired from `React` state.
 
 ### CORE package core
 Collection Constants set, and Processing clone and improve functions, and glsl function and more useful feature.
@@ -55,16 +55,16 @@ The main classes are `R_Pixo`, `R_Moxo`, `R_Nubo`
 ### R_Image package rope
 `R_Image` is an extends of `PImage` to store a little more infos, like name or path. You find also `R_Image_Manger` to use a list of `R_Image`. `R_Pattern` can help to create a differents random `PGraphics` with noise or marble pattern.
 
-### R_SVG
+### SVG
 classes to create svg rendering like the last `Illustrator` protocol.
 
-### R_Colour
+### Colour
 classes to create and manage colour palette.
 
 ### COSTUME package costume
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
 Collection of shape classes in the costume package : 
-`R_STAR`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`, `R_Icosahedron`, `R_House`
+`R_Star`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`, `R_Icosahedron`, `R_House`
 
 
 
