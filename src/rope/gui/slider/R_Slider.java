@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.5.1
+* v 1.5.2
 * Copyleft (c) 2018-2021
 
 * dependencies
@@ -268,18 +268,21 @@ public class R_Slider extends Crope implements R_GUI {
 	 * @return float
 	 */
 	public float get(int index) {
-		float value = molette[index].get();
-		if(molette != null && index < molette.length 
-			&& pos_min.x() > 0 && pos_min.y() > 0 
-			&& pos_max.x() > 0 && pos_max.y() > 0) {
+		float value = 0;
+		if(molette != null && index < molette.length) {
+			value = molette[index].get();
+			if( pos_min.x() > 0 && pos_min.y() > 0 && pos_max.x() > 0 && pos_max.y() > 0) {
 				if (size.x() >= size.y()) {  
-				value = map(value, pos_min.x(),pos_max.x(), min_norm,max_norm); 
-			} else {
-				value = map(value, pos_min.y(),pos_max.y(), min_norm,max_norm);
+					value = map(value, pos_min.x(),pos_max.x(), min_norm,max_norm); 
+				} else {
+					value = map(value, pos_min.y(),pos_max.y(), min_norm,max_norm);
+				}
+			}
+			
+			if(value < 0 || value > 1) {
+				value = molette[index].get();
 			}
 		}
-		
-		if(value < 0 || value > 1) value = molette[index].get();
 		return value;
 	}
 

@@ -3,6 +3,7 @@
 
 > GUI
 > fix function add_content() from R_Dropdown
+> fix outbound array for the slider molette for the function get(int index);
 
 
 \*version 46
