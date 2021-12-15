@@ -10,11 +10,11 @@ This library is a logic way of Rope framework used to [Romanesco software](https
 
 [ROPE page](https://stanlepunk.github.io/Rope/)
 
-[Rope sketch exemple](https://github.com/StanLepunK/Rope/tree/master/examples)
+[Rope sketches examples](https://github.com/StanLepunK/Rope/tree/master/examples)
 
-[Rope framework source repository](https://github.com/StanLepunK/Rope_framework)
+[Rope framework repository](https://github.com/StanLepunK/Rope_framework) that use Rope library
 
-[Romanesco software source repository](https://github.com/StanLepunK/ROMANESCO-Processing)
+[Romanesco software repository](https://github.com/StanLepunK/ROMANESCO-Processing) that use Rope library and Rope framework
 
 
 ## Available in the Library
