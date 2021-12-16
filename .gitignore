@@ -3,6 +3,9 @@ tmp
 distribution
 CONCEPT
 
+# sublimtext
+build-tmp
+
 # vscode
 out
 .class
