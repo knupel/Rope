@@ -4,7 +4,7 @@
 * Rope Library 0.12.1.41
 *
 * 2021-2021
-* v 0.0.1
+* v 0.0.2
 * slider classic with setting
 */
 import rope.gui.slider.R_Slider;
@@ -41,7 +41,7 @@ void slider_setup(int x, int y) {
   slider.set_fill_label(color_label);
   int lab_x = 5;
   int lab_y = 30;
-  slider.set_label("position et couleur du label et de sa valeur", lab_x, lab_y);
+  slider.set_label("label, value position and color", lab_x, lab_y);
   slider.set_pos_value(lab_x, lab_y + 20);
 
   slider.set_mol(ELLIPSE);

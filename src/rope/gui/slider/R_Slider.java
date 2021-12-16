@@ -37,6 +37,9 @@ public class R_Slider extends Crope implements R_GUI {
 
 	protected int molette_type = RECT;
 
+	protected int curve_type = LINEAR;
+	protected float curve_power = 1.0f;
+
 	public R_Slider() {
 		super("Slider");
 		init_slider();
@@ -81,7 +84,31 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
+	public R_Slider set_curve(int type, float power) {
+		this.curve_type = type;
+		this.curve_power = power;
+		return this;
+	}
+
+	/**
+	 * @deprecated insteand use set_range(float min, float max);
+	 * @param min define the minimum final value of the slider
+	 * @param max define the maximum final value of the slider
+	 * @return void
+	 */
+	@Deprecated
 	public R_Slider set_min_max(float min, float max) {
+		min_max_final.set(min,max);
+		return this;
+	}
+
+	/**
+	 * this function is used to set the final value of the slider
+	 * @param min define the minimum final value of the slider
+	 * @param max define the maximum final value of the slider
+	 * @return void
+	 */
+	public R_Slider set_range(float min, float max) {
 		min_max_final.set(min,max);
 		return this;
 	}
@@ -283,7 +310,21 @@ public class R_Slider extends Crope implements R_GUI {
 				value = molette[index].get();
 			}
 		}
+		if(this.curve_type != LINEAR) {
+			return curve_impl(value);
+		}
 		return value;
+	}
+
+	private float curve_impl(float value) {
+		switch(this.curve_type) {
+			case POW:
+			return pow(value,this.curve_power);
+			default:
+			return value;
+
+		}
+		// return pow(value,this.curve_power);
 	}
 
 

@@ -4,6 +4,8 @@
 > GUI
 > fix function add_content() from R_Dropdown
 > fix outbound array for the slider molette for the function get(int index);
+> add function set_curve(int type, float power) this function change the curve of the value result
+> add funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
 
 
 \*version 46

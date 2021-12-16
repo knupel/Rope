@@ -6,8 +6,8 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.1
-	* Processing 3.5.4
+	* v 1.1.2
+	* Processing 4.0.2b
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
@@ -207,20 +207,25 @@ public interface R_Constants {
 	static final int VIRUS = 88_888_888;
 
 
-
-
-
-
 	static final int FLUID = 200;
 	static final int GRAVITY = 201;
 	static final int MAGNETIC = 202;
 
 	static final int BLANK = 300;
+	
 	static final int PERLIN = 301;
 	static final int CHAOS = 302;
 	static final int RAND = 2456417;
 	static final int ORDER = 303;
 	static final int EQUATION = 304;
+
+	static final int LINEAR = 1; // same value than NORMAL
+
+	static final int SIN = 350;
+	static final int COS = 351;
+	static final int TAN = 352;
+
+	static final int POW = 375;
 
 	static final int DRAW = 400;
 	static final int FIT = 450;
@@ -238,15 +243,5 @@ public interface R_Constants {
 
 	static final int STATIC = 1000;
 	static final int DYNAMIC = 1001;
-
-
-	// static final String SIN = "SIN" ;
-	// static final String COS = "COS" ;
-	// static final String TAN = "TAN" ;
-	// static final String TRIG_0 = "SIN_TAN" ;
-	// static final String TRIG_1 = "SIN_TAN_COS" ;
-	// static final String TRIG_2 = "SIN_POW_SIN" ;
-	// static final String TRIG_3 = "POW_SIN_PI" ;
-	// static final String TRIG_4 = "SIN_TAN_POW_SIN" ;
 }
 
