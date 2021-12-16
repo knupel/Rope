@@ -322,9 +322,7 @@ public class R_Slider extends Crope implements R_GUI {
 			return pow(value,this.curve_power);
 			default:
 			return value;
-
 		}
-		// return pow(value,this.curve_power);
 	}
 
 
