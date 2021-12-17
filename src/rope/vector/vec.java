@@ -23,7 +23,8 @@ public abstract class vec implements R_Constants {
   }
   
   /**
-  * @return the number of components
+   * @deprecated instead use size()
+   * @return the number of components
   */
   @Deprecated public int get_size() {
     return size;
@@ -38,7 +39,7 @@ public abstract class vec implements R_Constants {
   }
 
   public float get(int index) {
-    if(index >= size)
+    if(index >= size || index < 0)
       return Float.NaN;
     switch(index) {
       case 0: return x;
@@ -130,6 +131,7 @@ public abstract class vec implements R_Constants {
     } 
     return Ru.max(list);
   }
+  
   /**
   * min
   * find the min and the max value in the vector list
@@ -295,11 +297,11 @@ public abstract class vec implements R_Constants {
 
 
   /**
-   * return multi float component
-   * @return float
+   * return multi vec2, vec3, vec4 component
    */
 
   // special
+
   public vec2 uv() {
     return new vec2(x,y);
   }

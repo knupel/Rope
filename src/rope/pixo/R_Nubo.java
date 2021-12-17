@@ -440,8 +440,13 @@ public class R_Nubo extends Rope {
       for(int i = 0; i < len ; i++) {
         float ang_start = summits_ang[i];
         int i2 = i + 1;
-        if(i2 != len) ang_stop = summits_ang[i2];
-        else ang_stop = TAU + this.offset_angle;
+        if(i2 != len) {
+          ang_stop = summits_ang[i2];
+        } else { 
+          ang_stop = TAU + this.offset_angle;
+        }
+        ang_start += get_start_fov();
+        ang_stop += get_start_fov();
         if(ang >= ang_start && ang < ang_stop) {
           polygon_point(dx, dy, dist, ang_start, ang_stop);
           break;

@@ -37,10 +37,10 @@ public class bvec3 extends bvec {
 
 	/**
    * set
-   * @param x
-   * @param y
-   * @param z
-   * @return
+   * @param x boolean value
+   * @param y boolean value
+   * @param z boolean value
+   * @return this
    */
   public bvec3 set(boolean x, boolean y, boolean z) {
   	this.x = x;
@@ -145,17 +145,19 @@ public class bvec3 extends bvec {
   }
 
 
+
   /**
-	 * 
-	 * @return true if all arguments in the range of the concerned bvec is same
-	 */
+   * 
+   * @param bv boolean vector must be compare to this
+   * @return true if all arguments in the range of the concerned bvec is same
+   */
 	public boolean equals(bvec3 bv) {
 		return equals_impl(bv);
 	}
   
   /**
 	 * copy
-	 * @return
+	 * @return bvec3
 	 */
 	public bvec3 copy() {
 		return new bvec3(x,y,z) ;

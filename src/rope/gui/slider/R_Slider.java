@@ -78,12 +78,22 @@ public class R_Slider extends Crope implements R_GUI {
 		min_max_final = new vec2(0,1);
 	}
 
-	// SET
+	/**
+	 * 
+	 * @param pos_norm normal 0 to 1 array value to define the position of each molette on the slider
+	 * @return this
+	 */
 	public R_Slider set_value(float... pos_norm) {
 		set_value_calc(false, pos_norm);
 		return this;
 	}
 
+	/**
+	 * Set curve is used to set a non linear value between the minimum and the maximum value of the slider.
+	 * @param type set the type of curve you want, for now only r.POW is available
+	 * @param power set the power of the curve
+	 * @return this
+	 */
 	public R_Slider set_curve(int type, float power) {
 		this.curve_type = type;
 		this.curve_power = power;
@@ -106,14 +116,22 @@ public class R_Slider extends Crope implements R_GUI {
 	 * this function is used to set the final value of the slider
 	 * @param min define the minimum final value of the slider
 	 * @param max define the maximum final value of the slider
-	 * @return void
+	 * @return this
 	 */
 	public R_Slider set_range(float min, float max) {
 		min_max_final.set(min,max);
 		return this;
 	}
 
-
+	/**
+	 * this function is used to set the final value of the slider
+	 * @param range vec2 who define the minimum and the maximum final value of the slider
+	 * @return this
+	 */
+	public R_Slider set_range(vec2 range) {
+		min_max_final.set(range.x(),range.y());
+		return this;
+	}
 
 
 	protected void set_value_calc(boolean force_is, float... pos_norm) {
@@ -157,8 +175,8 @@ public class R_Slider extends Crope implements R_GUI {
 		return this;
 	}
 
-
 	// set size
+
 	private void set_size_mol(int index) {
 		if (size.x() >= size.y()) {
 			molette[index].size = new vec2(size.y()); 
@@ -184,6 +202,7 @@ public class R_Slider extends Crope implements R_GUI {
 	}
 
 	// set pos
+
 	public R_Slider set_pos_mol() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			set_pos_mol(i);
