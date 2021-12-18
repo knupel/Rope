@@ -2,7 +2,7 @@ package rope.pixo;
 import processing.core.PApplet;
 /**
 * R_Nubo
-* v 0.2.3
+* v 0.3.0
 * 2021-2021
 *
 * R_Nubo is a collection of 2D algorithms to distribute point from center with an opening angle.
@@ -15,6 +15,7 @@ import rope.vector.ivec2;
 import rope.vector.bvec2;
 import rope.costume.R_Line2D;
 import rope.tool.R_Focus;
+import rope.tool.R_Fov;
 import rope.core.Rope;
 
 
@@ -26,8 +27,7 @@ public class R_Nubo extends Rope {
 
   private R_Focus focus;
 
-  private vec2 range_angle;
-  private float fov = 0;
+  private R_Fov fov;
   private float bissector = 0;
   private float offset_angle = 0;
 
@@ -53,8 +53,7 @@ public class R_Nubo extends Rope {
     this.pa = pa;
     this.focus = new R_Focus();
   	this.pos = new vec2(0);
-    this.range_angle = new vec2(-PI, PI);
-    this.fov = calc_fov(this.range_angle.x(),this.range_angle.y());
+    this.fov = new R_Fov(-PI, PI);
     this.range_dist = new vec2(0,1);
     this.buffer_pos = new vec2();
     this.offset_pos = new vec2();
@@ -73,14 +72,6 @@ public class R_Nubo extends Rope {
     return this;
   }
 
-  /**
-   * 
-   * @param index target which particle of cloud is affected, must be between 0 and and the size of cloud
-   * @return this to give the opportunity to make train of function on the same line
-   */
-  // private void set_index(int index) {
-  // 	this.index = index;
-  // }
 
   // reference
   private void set_ref() {
@@ -89,7 +80,7 @@ public class R_Nubo extends Rope {
   	} else {
   		this.ref_pos.set(this.pos);
   	}
-    bissector = (this.range_angle.x() + this.range_angle.y()) * 0.5f;
+    bissector = (this.fov.get_start() + this.fov.get_stop()) * 0.5f;
   }
 
   // type
@@ -196,8 +187,7 @@ public class R_Nubo extends Rope {
   }
 
 	public R_Nubo set_fov(float ang_min, float ang_max) {
-  	this.range_angle.set(ang_min, ang_max);
-    this.fov = calc_fov(ang_min, ang_max);
+  	this.fov.set(ang_min, ang_max);
   	return this;
   }
 
@@ -218,15 +208,15 @@ public class R_Nubo extends Rope {
   }
 
   public float get_start_fov() {
-    return this.range_angle.x();
+    return this.fov.get_start();
   }
 
   public float get_stop_fov() {
-    return this.range_angle.y();
+    return this.fov.get_stop();
   }
 
   public float get_fov() {
-    return this.fov;
+    return this.fov.get_fov();
   }
 
   public float get_angle() {
@@ -235,21 +225,6 @@ public class R_Nubo extends Rope {
 
   public float get_bissector() {
     return this.bissector;
-  }
-
-  private float calc_fov(float min, float max) {
-    if(max <= min) {
-      print_err("WARNING: calc_fov(",min,max,") float calc_fov( float min, float max) 'min' must be < to 'max'");
-      pa.exit();
-    }
-    if(min < 0 && max >= 0) {
-      return abs(min) + abs(max);
-    }
-
-    if(min < 0 && max < 0) {
-      return abs(min) - abs(max);
-    }
-    return max - min;
   }
 
   // range & dist
@@ -468,7 +443,7 @@ public class R_Nubo extends Rope {
 
       case SPIRAL:
       float variance = random(this.iter/this.step, this.iter);
-      float segment_fov = this.fov / variance;
+      float segment_fov = get_fov() / variance;
       segment_fov *= (this.index * this.step);
       
       switch(this.mode) {
@@ -563,35 +538,34 @@ public class R_Nubo extends Rope {
   }
 
   private float spiral_z(float segment_fov) {
-    int count = floor(segment_fov/this.fov);
-    float div = TAU / this.fov + 0.001f;
+    int count = floor(segment_fov/get_fov());
+    float div = TAU / get_fov() + 0.001f;
     float mod = count%div;
     if(mod == 0) {
       in = true; 
     } else in = false;
     if(!in) {
       if(count%2 != 0) {
-        segment_fov = this.fov - (segment_fov%this.fov);
+        segment_fov = get_fov() - (segment_fov%get_fov());
       } else {
-        segment_fov = segment_fov%this.fov;
+        segment_fov = segment_fov%get_fov();
       }
     }
     return segment_fov;
   }
 
   private float spiral_regular(float segment_fov) {
-    int count = floor(segment_fov/this.fov);
-    float div = TAU / this.fov;
+    int count = floor(segment_fov/get_fov());
+    float div = TAU / get_fov();
     float mod = count%div;
     if(mod == 0) {
       in = true; 
     } else in = false;
     if(!in) {
-      segment_fov = segment_fov%this.fov;
+      segment_fov = segment_fov%get_fov();
     }
     return segment_fov;
   }
-
 
 
   private float dist_impl() {

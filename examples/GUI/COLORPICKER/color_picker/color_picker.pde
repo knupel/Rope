@@ -1,20 +1,13 @@
 /**
-* Rope framework
-* Copyleft (c) 2014-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
-* @see https://github.com/StanLepunK/Rope/tree/master/Guide
-*
-*/
-
-
-/**
-* Color Picker without openGL
-* Processing 3.5.4
-* Rope library 0.12.1.41
-* v 0.2.2
-* 2021-2021
-*/
+ * ROPE Library
+ * Copyleft (c) 2014-2021
+ * @see https://github.com/StanLepunK/Rope
+ * 
+ * Color Picker without openGL
+ * v 0.2.2
+ * 2021-2021
+ */
+ 
 import rope.gui.palette.R_Palette;
 import rope.gui.palette.R_Palette_Selector;
 import rope.gui.slider.R_Slider;

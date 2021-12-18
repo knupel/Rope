@@ -6,6 +6,9 @@
 > fix outbound array for the slider molette for the function get(int index);
 > add function set_curve(int type, float power) this function change the curve of the value result
 > add funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
+> add simple Contructor to K_Nnob
+> add class R_Fov in Util package
+> fix a part of bug multimolette position for R_Knob
 
 > PIXO
 > fix bug R_Nubo when polygon start from another value than 0

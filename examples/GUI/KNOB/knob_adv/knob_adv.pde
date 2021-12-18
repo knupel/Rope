@@ -1,17 +1,16 @@
 /**
-* GUI CROPE EXAMPLE
-* dependancies
-* 2021-2021
-*
-* Knob example
-* v 0.2.0
-*/
+ * ROPE Library
+ * Copyleft (c) 2014-2021
+ * @see https://github.com/StanLepunK/Rope
+ * Knob example
+ * 2020-2021
+ * v 1.4.0
+ */
 
 import rope.gui.button.R_Knob;
 import rope.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
-import rope.gui.R_Mol;
 
 
 Rope r = new Rope();
@@ -21,6 +20,7 @@ void setup() {
   set_knob(); 
 }
 
+
 void draw() {
 	background(255);
 	State.pointer(mouseX,mouseY);
@@ -29,48 +29,39 @@ void draw() {
 	State.reset_event();
 }
 
-R_Knob knob;
+R_Knob knob ;
 void set_knob() {
-	knob = new R_Knob();
-	knob.pos(50,50);
-	knob.size(100);
-	// work when the sum of the offset + get_stop() is upper to TAU
-	knob.set_fov(0, PI *1.05);
-	// knob.set_fov(0, TAU*0.90);
-	knob.set_offset(PI);
-	// knob.set_direction(PI/2);
+	knob = new R_Knob(new vec2(20),100);
 	knob.set_rollover_type(RECT);
+
+	// knob.set_drag(r.CIRCULAR); // by default
+	//knob.set_drag(r.VERTICAL);
+	// knob.set_drag(r.HORIZONTAL); 
+
 	
-	// must be set with normal value from 0 to 1
-	knob.set_value(0, 0.5);
-
-	knob.set_size_mol(10);
-	knob.set_dist_mol(knob.size().x() * 0.5);
+	knob.set_value(0.5);
 	knob.set_type_mol(RECT);
-
-	knob.set_dist_guide(knob.size().x() * 0.65);
+	knob.set_size_mol(20,10);
+	knob.set_dist_mol(knob.size().x()*.5);
 
 	// limit the range knob
-	knob.limit(true); // use default value range
-
-	// knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST);
-	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
-
-	// knob.set_limit(0, PI);
-	// knob.set_limit(PI, 0);
+	knob.set_size_limit(-20,20); // use to show limit
+	// knob.set_limit(0.4,TAU - 0.9); // use to set the angle range of limit
+	// knob.set_limit(PI,HALF_PI);
+	// knob.set_limit(0.4,HALF_PI); // use to set the angle range of limit
+	// knob.limit(false); // use default value lilit angle
+	
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
 	knob.set_align_label_value(LEFT);
 	knob.set_label("Turn me please");
 	float pos_info = 25;
+	// knob.set_pos_label(pos_info-5,20);
+	// knob.set_pos_value(pos_info+5,20);
+	
 
 	knob.set_drag_force(0.05);
-
-	R_Mol [] list = knob.get_mol();
-	for(int i = 0 ; i < list.length ; i++) {
-		println("mol pos",list[i].pos());
-	}
 
 }
 
@@ -87,11 +78,11 @@ void draw_knob() {
 
 	knob.show_label();
 	knob.show_struc();
-	knob.show_struc_pie();
+	// knob.show_struc_pie();
 	knob.show_mol();
 	knob.show_value();
 	knob.show_limit();
-	knob.show_guide();
+
   
   // println("knob value", knob.get());
 	// println("knob value", knob.get()%TAU);

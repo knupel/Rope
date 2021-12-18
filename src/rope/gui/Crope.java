@@ -5,7 +5,6 @@
 * Copyleft (c) 2018-2021
 
 * dependencies
-* Processing 3.5.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */

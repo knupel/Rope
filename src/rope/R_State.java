@@ -1,6 +1,6 @@
 /**
  * R_State is use to manage all the state of Rope like in React in lesser :)
- * v 0.1.1
+ * v 0.1.2
  * 2021-2021
  * @author stanlepunk
  *

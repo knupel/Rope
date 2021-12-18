@@ -3,7 +3,7 @@
 * Processing 4.0.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.5.0
+* v 2.6.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -43,6 +43,10 @@ public class R_Button extends Crope {
 
   public R_Button() {
     super("Button");
+  }
+
+  public R_Button(String type) {
+    super(type);
   }
 
   public R_Button(String type, vec2 pos, vec2 size) {
