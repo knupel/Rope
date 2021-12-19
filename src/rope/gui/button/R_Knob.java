@@ -1,6 +1,6 @@
 /**
 * R_Knob
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 * v 2.0.0
 * 2019-2021
@@ -29,7 +29,7 @@ public class R_Knob extends R_Button {
   private float previous_angle_ref;
   private float next_angle_ref;
 
-
+  private boolean cross_border = false;
 
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
@@ -492,6 +492,11 @@ public class R_Knob extends R_Button {
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
   }
   
+  /**
+   * @deprecated instead use void updae()
+   * @param x pos x
+   * @param y pos y
+   */
   @Deprecated public void update(float x, float y) {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
     update(x,y,new_event);
@@ -503,7 +508,7 @@ public class R_Knob extends R_Button {
    * @param y
    * @param event
    */
-  public void update(float x, float y, boolean event) {
+  private void update(float x, float y, boolean event) {
     cursor(x,y);
     this.event = event;
     boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
@@ -653,14 +658,23 @@ public class R_Knob extends R_Button {
   }
 
   // PROBLEM when the sum of the Offset and the get_stop() is inferior to TAU
+
+
+
   private float constrain_angle(int index, float angle) {
     float buf = angle + this.get_offset();
+    check_cross_border(this.molette[index].prev_angle(), angle, 0.5f);
+
+    if(cross_border_is()) {
+      print_out("BANG BANG BANG BANG BANG");
+      cross_border_is(false);
+    }
+
+
     if(buf < this.get_start() || buf > this.get_stop() ) {
       return this.molette[index].prev_angle();
-      // return this.constrain_angle;
     } else {
       this.molette[index].prev_angle(angle);
-      // this.constrain_angle = angle;
       return angle;
     }
     
@@ -679,6 +693,21 @@ public class R_Knob extends R_Button {
   }
 
   // utils
+  private void check_cross_border(float ang_prev, float ang, float threshold) {
+    if(abs(ang - ang_prev) > threshold) {
+      cross_border_is(true);
+    }
+  }
+
+  private void cross_border_is(boolean cross_border) {
+    this.cross_border = cross_border;
+  }
+
+  private boolean cross_border_is() {
+    return this.cross_border;
+  }
+
+
   private float to_2pi(float angle) {
     if(angle < 0) angle += TAU;  
 		if(angle > TAU) angle -= TAU;

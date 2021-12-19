@@ -9,6 +9,7 @@
 > add simple Constructor to K_Nnob
 > fix a part of bug multimolette position for R_Knob
 > add variable and function previous_angle to class R_Mol
+> R_Mol make private vec2 pos and vec2 size
 
 > PIXO
 > fix bug R_Nubo when polygon start from another value than 0

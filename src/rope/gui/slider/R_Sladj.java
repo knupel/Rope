@@ -1,12 +1,9 @@
 /**
 * R_Sladj
 * Control ROmanesco Processing Environment
-* v 1.0.1
+* v 1.0.2
 * Copyleft (c) 2018-2021
-
-* dependencies
-* Processing 3.5.4
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.gui.slider;
@@ -94,7 +91,7 @@ public class R_Sladj extends R_Slider {
 		pos_min = new vec2(round(pos.x() +(size.x() * min_norm)), pos.y()) ;
 		// in this case the detection is translate on to and left of the size of molette
 		// we use the molette[0] to set the max. there is at least one molette by slider :)
-		pos_max = new vec2(round(pos.x() -molette[0].size.x() +(size.x * max_norm)), pos.y()); 
+		pos_max = new vec2(round(pos.x() -molette[0].size().x() +(size.x * max_norm)), pos.y()); 
 	}
 	
 
@@ -114,7 +111,7 @@ public class R_Sladj extends R_Slider {
 	public void update_min() {
 		// we use the molette[0] to set the max. there is at least one molette by slider :)
 		float arbitrary_value = 1.5f;
-		float range = molette[0].size.x() * arbitrary_value;
+		float range = molette[0].size().x() * arbitrary_value;
 		
 		if (locked_min) {
 			if (size.x() >= size.y()) {
@@ -141,7 +138,7 @@ public class R_Sladj extends R_Slider {
 	// update maxvalue
 	public void update_max() {
 		float arbitrary_value = 1.5f;
-		float range = molette[0].size.x() * arbitrary_value;
+		float range = molette[0].size().x() * arbitrary_value;
 		
 		if (locked_max) {  // this line is not reworking for the vertical slider
 			if (size.x() >= size.y()) {
@@ -153,7 +150,7 @@ public class R_Sladj extends R_Slider {
 				}
 				new_pos_max.x(round(constrain(cursor.x() -(size.y() * 0.5f) , pos.x() +range, pos.x() +size.x() -(size.y() *0.5f)))); 
 				 // norm the value to return to method minMaxSliderUpdate
-				pos_max = new vec2(round(pos.x() -molette[0].size.x() +(size.x() *max_norm)), pos.y());
+				pos_max = new vec2(round(pos.x() -molette[0].size().x() +(size.x() *max_norm)), pos.y());
 				// we use a temporary position for a good display of the max slider 
 				vec2 temp_pos_max = new vec2(pos.x() -(size.y() * 0.5f) +(size.x() *max_norm), pos_max.y());
 				max_norm = map(new_pos_max.x(), pos_min.x(), temp_pos_max.x(), min_norm, max_norm) ;

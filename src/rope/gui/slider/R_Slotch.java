@@ -1,12 +1,9 @@
 /**
 * R_Slotch
 * Control ROmanesco Processing Environment
-* v 1.1.0
+* v 1.1.1
 * Copyleft (c) 2018-2021
-
-* dependencies
-* Processing 3.5.4
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.gui.slider;
@@ -112,24 +109,21 @@ public class R_Slotch extends R_Slider {
 
 
 	// MISC
-	// public void update(float x, float y) {
-	// cursor(x,y);
-	// mol_update();
 	public void update(float x, float y, boolean event) {
 		cursor(x,y);
 		mol_update(event);
 		if (size.x() >= size.y()) { 
 			if(notch_is) {
 				for(int i = 0 ; i < molette.length ; i++) {
-					molette[i].pos.x(floor(pos_notch(size.x(), molette[i].pos.x())));
-					molette[i].set(molette[i].pos.x());
+					molette[i].pos().x(floor(pos_notch(size.x(), molette[i].pos().x())));
+					molette[i].set(molette[i].pos().x());
 				}    
 			}
 		} else { 
 			if(notch_is) {
 				for(int i = 0 ; i < molette.length ; i++) {
-					molette[i].pos.y((int)pos_notch(size.y(), molette[i].pos.y()));
-					molette[i].set(molette[i].pos.y());
+					molette[i].pos().y((int)pos_notch(size.y(), molette[i].pos().y()));
+					molette[i].set(molette[i].pos().y());
 				}
 			}
 		}
@@ -161,7 +155,7 @@ public class R_Slotch extends R_Slider {
 		// here it's buggy, need to find a good ratio for the diffente size of slotch
 		// actully that's work well only when the step is equal to the mollete size in x and in y
 		float offset = 0;
-		float size_mol = molette[0].size.x();
+		float size_mol = molette[0].size().x();
 		float ratio = (size_mol / step) * 0.5f;
 		offset = step * 0.5f -(size_mol *ratio);
 		return abs_pos - offset + offset_slider_pos_x;

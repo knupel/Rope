@@ -17,8 +17,8 @@ import rope.vector.vec2;
 import rope.R_State.State;
 
 public class R_Mol extends R_Graphic {
-  public vec2 size = new vec2();
-  public vec2 pos = new vec2();
+  private vec2 size = new vec2();
+  private vec2 pos = new vec2();
   private vec2 offset;
 
   private float prev_angle = 0;
@@ -63,6 +63,26 @@ public class R_Mol extends R_Graphic {
     return value;
   }
 
+  // angle
+  public float angle() {
+    return this.angle;
+  }
+
+  public R_Mol angle(float angle) {
+    this.angle = angle;
+    return this;
+  }
+
+  // previous angle
+  public float prev_angle() {
+    return this.prev_angle;
+  }
+
+  public R_Mol prev_angle(float prev_angle) {
+    this.prev_angle = prev_angle;
+    return this;
+  }
+
   // pos
   public vec2 pos() {
     return this.pos;
@@ -92,26 +112,6 @@ public class R_Mol extends R_Graphic {
     return this.size;
   }
 
-
-  // angle
-  public float angle() {
-    return this.angle;
-  }
-
-  public R_Mol angle(float angle) {
-    this.angle = angle;
-    return this;
-  }
-
-  // previous angle
-  public float prev_angle() {
-    return this.prev_angle;
-  }
-
-  public R_Mol prev_angle(float prev_angle) {
-    this.prev_angle = prev_angle;
-    return this;
-  }
 
   // distance
   public float get_dist() {

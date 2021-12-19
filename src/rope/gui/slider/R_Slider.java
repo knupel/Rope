@@ -3,10 +3,7 @@
 * Control ROmanesco Processing Environment
 * v 1.5.2
 * Copyleft (c) 2018-2021
-
-* dependencies
-* Processing 3.5.4
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.gui.slider;
@@ -140,20 +137,20 @@ public class R_Slider extends Crope implements R_GUI {
 		
 
 		for(int i = 0 ; i < molette.length ; i++) {
-			molette[i].pos = new vec2();
+			molette[i].pos(0,0);
 			molette[i].id = i;
 			// security to constrain the value in normalizing range.
 			if(pos_norm[i] > 1.0f) pos_norm[i] = 1.0f;
 			if(pos_norm[i] < 0.0f) pos_norm[i] = 0.0f;
 			// check if it's horizontal or vertical slider      
 			if(size.x() >= size.y()) {;
-				float x = round(size.x() *pos_norm[i] +pos_min.x() -(molette[i].size.y() *pos_norm[i])); 
+				float x = round(size.x() *pos_norm[i] +pos_min.x() -(molette[i].size().y() *pos_norm[i])); 
 				float y = pos.y();
-				molette[i].pos.set(x,y);
+				molette[i].pos().set(x,y);
 			} else {
 				float x = pos.x();
-				float y = round(size.y() *pos_norm[i] +pos_min.y() -(molette[i].size.x() *pos_norm[i]));
-				molette[i].pos.set(x,y);
+				float y = round(size.y() *pos_norm[i] +pos_min.y() -(molette[i].size().x() *pos_norm[i]));
+				molette[i].pos(x,y);
 			}
 			molette[i].set(pos_norm[i]);
 		}
@@ -179,9 +176,9 @@ public class R_Slider extends Crope implements R_GUI {
 
 	private void set_size_mol(int index) {
 		if (size.x() >= size.y()) {
-			molette[index].size = new vec2(size.y()); 
+			molette[index].size(size.y()); 
 		} else {
-			molette[index].size = new vec2(size.x());
+			molette[index].size(size.x());
 		}
 	}
 
@@ -195,7 +192,7 @@ public class R_Slider extends Crope implements R_GUI {
 			init_molette(false, 1);
 		}
 		for(int i = 0 ; i < molette.length ; i++) {
-			molette[i].size.set(x,y);
+			molette[i].size(x,y);
 		}
 		set_mol_min_max_pos();
 		return this;
@@ -211,7 +208,7 @@ public class R_Slider extends Crope implements R_GUI {
 	}
 
 	public R_Slider set_pos_mol(int index) {
-		this.molette[index].pos.set(pos);
+		this.molette[index].pos(pos);
 		return this;
 	}
 
@@ -229,10 +226,10 @@ public class R_Slider extends Crope implements R_GUI {
 
 	public R_Slider set_pos_mol(int index, float x, float y) {
 		if(index < molette.length) {
-			if(molette[index].pos == null) {
-				molette[index].pos = new vec2(x,y);
+			if(molette[index].pos() == null) {
+				molette[index].pos(x,y);
 			} else {
-				molette[index].pos.set(x,y);
+				molette[index].pos(x,y);
 			}
 		} 
 		return this;
@@ -606,15 +603,15 @@ public class R_Slider extends Crope implements R_GUI {
 			} else {
 				float val = 0;
 				if(size.x() >= size.y()) {
-					float temp = molette[0].pos.x();
+					float temp = molette[0].pos().x();
 					temp += State.env().scroll.x();
-					molette[0].pos.x(temp);
-					val = molette[0].pos.x();
+					molette[0].pos().x(temp);
+					val = molette[0].pos().x();
 				} else {
-					float temp = molette[0].pos.y();
+					float temp = molette[0].pos().y();
 					temp += State.env().scroll.y();
-					molette[0].pos.y(temp);
-					val = molette[0].pos.y();
+					molette[0].pos().y(temp);
+					val = molette[0].pos().y();
 				}
 				mol_update_pos(0,temp_min(0),temp_max(0));
 				if(size.x() >= size.y()) {
@@ -710,7 +707,7 @@ public class R_Slider extends Crope implements R_GUI {
 	 * @return
 	 */
 	private boolean inside_molette_rect(int index) {
-		if(inside(molette[index].pos,molette[index].size,RECT)) {
+		if(inside(molette[index].pos(), molette[index].size(),RECT)) {
 			molette[index].inside_is(true); 
 		} else {
 			molette[index].inside_is(false);
@@ -740,9 +737,9 @@ public class R_Slider extends Crope implements R_GUI {
 		if(cursor == null) {
 			cursor = new vec2();
 		}
-		float radius = molette[index].size.x();
-		int pos_x = (int)(radius * 0.5f + molette[index].pos.x()); 
-		int pos_y = (int)(size.y() * 0.5f + molette[index].pos.y());
+		float radius = molette[index].size().x();
+		int pos_x = (int)(radius * 0.5f + molette[index].pos().x()); 
+		int pos_y = (int)(size.y() * 0.5f + molette[index].pos().y());
 		if(pow((pos_x -cursor.x()),2) + pow((pos_y -cursor.y()),2) < pow(radius,sqrt(3))) {
 			molette[index].inside_is = true; 
 		} else {
@@ -873,12 +870,12 @@ public class R_Slider extends Crope implements R_GUI {
 
 	private R_Slider set_mol_min_max_pos() {
 		for(int i = 0 ; i < molette.length ; i++) {
-			if(size.x() > size.y()) {
+			if(size().x() > size().y()) {
 				pos_min = pos.copy();
-				pos_max = new vec2(pos.x() +size.x() -molette[i].size.x(), pos.y()) ;
+				pos_max = new vec2(pos.x() +size().x() -molette[i].size().x(), pos().y()) ;
 			} else {
 				pos_min = pos.copy();
-				pos_max = new vec2(pos.x(), pos.y() +size.y() -molette[i].size.y()) ;
+				pos_max = new vec2(pos().x(), pos().y() +size().y() -molette[i].size().y()) ;
 			}
 		}
 		return this;
@@ -886,9 +883,9 @@ public class R_Slider extends Crope implements R_GUI {
 
 	private void mol_shape(int index) {
 		if(molette_type == ELLIPSE) {
-			vec2 temp = new vec2(round(mult(molette[index].size,0.5f)));
-			vec2 pos = add(new vec2(molette[index].pos),temp);
-			ellipse(pos, new vec2(molette[index].size));
+			vec2 temp = new vec2(round(mult(molette[index].size(),0.5f)));
+			vec2 pos = add(new vec2(molette[index].pos()),temp);
+			ellipse(pos, new vec2(molette[index].size()));
 		} else if(molette_type == RECT) {
 			molette_rect(index);
 		} else {
@@ -898,13 +895,13 @@ public class R_Slider extends Crope implements R_GUI {
 	
 	private void molette_rect(int index) {
 		if(size.x() > size.y()) {
-			vec2 pos = new vec2(molette[index].pos);
-			pos.y = pos.y -((molette[index].size.y() -size.y())/2);
-			rect(pos, new vec2(molette[index].size));
+			vec2 pos = new vec2(molette[index].pos());
+			pos.y = pos.y -((molette[index].size().y() -size().y())/2);
+			rect(pos, new vec2(molette[index].size()));
 		} else {
-			vec2 pos = new vec2(molette[index].pos);
-			pos.x = pos.x() -((molette[index].size.x() -size.x())/2);
-			rect(pos, new vec2(molette[index].size));
+			vec2 pos = new vec2(molette[index].pos());
+			pos.x = pos.x() -((molette[index].size().x() -size().x())/2);
+			rect(pos, new vec2(molette[index].size()));
 		}
 	}
 
@@ -914,11 +911,11 @@ public class R_Slider extends Crope implements R_GUI {
 		if (molette[index].used_is) {
 			float val = 0;
 			if (size.x() >= size.y()) {
-				val = round(constrain(cursor.x() -(molette[index].size.x() * 0.5f), min.x(), max.x()));
-				molette[index].pos.x(val);
+				val = round(constrain(cursor.x() -(molette[index].size().x() * 0.5f), min.x(), max.x()));
+				molette[index].pos().x(val);
 			} else { 
-				val = round(constrain(cursor.y() -(molette[index].size.y() * 0.5f), min.y(), max.y()));
-				molette[index].pos.y(val);
+				val = round(constrain(cursor.y() -(molette[index].size().y() * 0.5f), min.y(), max.y()));
+				molette[index].pos().y(val);
 			}
 			molette[index].set(val);
 		}
@@ -928,18 +925,18 @@ public class R_Slider extends Crope implements R_GUI {
 	private void mol_update_pos(int index, vec2 min, vec2 max) {
 		// check for horizontal or vertical slider
 		if(size.x() >= size.y()) {
-			if (molette[index].pos.x() < min.x()) {
-				molette[index].pos.x(min.x());
+			if (molette[index].pos().x() < min.x()) {
+				molette[index].pos().x(min.x());
 			}
-			if (molette[index].pos.x() > max.x()) {
-				molette[index].pos.x(max.x());
+			if (molette[index].pos().x() > max.x()) {
+				molette[index].pos().x(max.x());
 			}
 		} else {
-			if (molette[index].pos.y() < min.y()) {
-				molette[index].pos.y(min.y());
+			if (molette[index].pos().y() < min.y()) {
+				molette[index].pos().y(min.y());
 			}
-			if (molette[index].pos.y() > max.y()) {
-				molette[index].pos.y(max.y());
+			if (molette[index].pos().y() > max.y()) {
+				molette[index].pos().y(max.y());
 			}
 		}
 	}
@@ -948,7 +945,7 @@ public class R_Slider extends Crope implements R_GUI {
 	private vec2 temp_min(int index) {
 		vec2 min = pos_min.copy();
 		if(molette.length > 1 && index > 0) {
-			min.set(molette[index-1].pos);
+			min.set(molette[index-1].pos());
 			if(molette_type == ELLIPSE) {
 			 if(size.x() >= size.y()) {
 					min.add_x(size.y() /2);
@@ -969,7 +966,7 @@ public class R_Slider extends Crope implements R_GUI {
 	private vec2 temp_max(int index) {
 		vec2 max = pos_max.copy();
 		 if(molette.length > 1 && index < molette.length -1) {
-			max.set(molette[index+1].pos) ;
+			max.set(molette[index+1].pos()) ;
 			if(molette_type == ELLIPSE) {
 			 if(size.x() >= size.y()) {
 					max.sub_x(size.y());
@@ -1014,12 +1011,12 @@ public class R_Slider extends Crope implements R_GUI {
 		if (midi_value != value) { 
 			if(size.x() >= size.y()) {
 				float temp = map(value, 1, 127, pos_min.x(), pos_max.x());
-				molette[index].pos.x(temp);
+				molette[index].pos().x(temp);
 				molette[index].set(temp); 
 				
 			} else {
 				float temp = map(value, 1, 127, pos_min.y(), pos_max.y());
-				molette[index].pos.y(temp);
+				molette[index].pos().y(temp);
 				molette[index].set(temp);
 
 			}
