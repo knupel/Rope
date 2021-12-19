@@ -9,7 +9,6 @@
 
 import rope.gui.button.R_Knob;
 import rope.R_State.State;
-import rope.vector.vec2;
 import rope.core.Rope;
 import rope.gui.R_Mol;
 
@@ -38,7 +37,6 @@ void set_knob() {
 	knob.set_fov(0, PI *1.05);
 	// knob.set_fov(0, TAU*0.90);
 	knob.set_offset(PI);
-	// knob.set_direction(PI/2);
 	knob.set_rollover_type(RECT);
 	
 	// must be set with normal value from 0 to 1
@@ -51,13 +49,12 @@ void set_knob() {
 	knob.set_dist_guide(knob.size().x() * 0.65);
 
 	// limit the range knob
-	knob.limit(true); // use default value range
+	// knob.use_limit(true); // use default value range
 
-	// knob.set_limit(r.SOUTH_WEST, r.SOUTH_EAST);
-	// knob.set_limit( r.SOUTH_EAST, r.SOUTH_WEST);
+	// knob.set_fov(r.SOUTH_WEST, r.SOUTH_EAST);
+	// knob.set_fov( r.SOUTH_EAST, r.SOUTH_WEST);
 
-	// knob.set_limit(0, PI);
-	// knob.set_limit(PI, 0);
+	// knob.set_fov(0, PI);
 
 	// colour molette
 	knob.set_align_label_name(LEFT);
@@ -81,7 +78,7 @@ void draw_knob() {
 	// knob.select(mousePressed);
 	// knob.select(keyPressed); // by default is mousePressed
 	// knob.update(mouseX,mouseY,keyPressed);
-	//knob.update(mouseX,mouseY,mousePressed,keyPressed);
+	// knob.update(mouseX,mouseY,mousePressed,keyPressed);
 	knob.rollover(true);
 
 

@@ -6,12 +6,15 @@
 > fix outbound array for the slider molette for the function get(int index);
 > add function set_curve(int type, float power) this function change the curve of the value result
 > add funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
-> add simple Contructor to K_Nnob
-> add class R_Fov in Util package
+> add simple Constructor to K_Nnob
 > fix a part of bug multimolette position for R_Knob
+> add variable and function previous_angle to class R_Mol
 
 > PIXO
 > fix bug R_Nubo when polygon start from another value than 0
+
+> UTILS
+> add class R_Fov
 
 
 \*version 46
@@ -178,7 +181,7 @@ A lot of work between those version, too much to describe it with precision
 
 > create Interface for Constants Colour
 
-\*version 023
+\*version 23
 
 > mod: class R_Shape: method get_final_points(int target) > get_final_point(int target)
 > add: class R_Chose method calc() to compute without use method show();
@@ -194,8 +197,7 @@ A lot of work between those version, too much to describe it with precision
 
 \*version 21
 
-\*Package Costume
-
+> COSTUME
 > class C_Circle: method void set_summit() > void set_summits();
 > class R_Virus: method void set_num() > void set_summits();
 > class R_Virus: method int get_num() > int set_summits();
@@ -203,8 +205,7 @@ A lot of work between those version, too much to describe it with precision
 > add class R_Chose
 > fix R_Primitive bug
 
-\*class R_Shape
-
+> R_Shape
 > move the common method and variable to the class R_Shape:
 > move get_points(), get_point(int target)
 > add get_final_points(), get_final_point(int target);
@@ -213,8 +214,7 @@ A lot of work between those version, too much to describe it with precision
 > add use_pos_is(boolean state);
 > add boolean use_pos_is();
 
-\*Add examples
-
+> EXAMPLES
 > R_Primitive
 > R_Polygon
 > R_Chose

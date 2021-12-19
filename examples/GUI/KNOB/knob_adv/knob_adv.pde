@@ -46,10 +46,11 @@ void set_knob() {
 
 	// limit the range knob
 	knob.set_size_limit(-20,20); // use to show limit
-	// knob.set_limit(0.4,TAU - 0.9); // use to set the angle range of limit
-	// knob.set_limit(PI,HALF_PI);
-	// knob.set_limit(0.4,HALF_PI); // use to set the angle range of limit
-	// knob.limit(false); // use default value lilit angle
+	// knob.set_fov(0.4,TAU - 0.9); // use to set the angle range of limit
+	knob.set_fov(HALF_PI,PI);
+	// knob.set_fov(0,HALF_PI);
+	// knob.set_fov(0.4,HALF_PI); // use to set the angle range of limit
+	// knob.use_limit(false); // use default value lilit angle
 	
 
 	// colour molette

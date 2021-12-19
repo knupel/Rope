@@ -19,15 +19,17 @@ public class R_Knob extends R_Button {
   // angle start and end for the limit knob
   protected R_Fov limit;
   protected float limit_offset_ang = 0;
+  private boolean use_limit_is = true;
   // private float threshold = 0.1f;
 
   private boolean init_molette_is;
   private boolean mol_used_is;
 
+  // private float constrain_angle;
   private float previous_angle_ref;
   private float next_angle_ref;
 
-  private boolean open_knob = true;
+
 
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
@@ -97,8 +99,8 @@ public class R_Knob extends R_Button {
 		init_molette(pos_norm.length);
     for(int i = 0 ; i < molette.length ; i++) {
       float ang = map(pos_norm[i],0,1,0,TAU);
-      if(!open_knob) {
-        ang = constrain_angle(ang);
+      if(!use_limit_is) {
+        ang = constrain_angle(i, ang);
       }
       molette[i].angle(ang);
     }
@@ -172,11 +174,21 @@ public class R_Knob extends R_Button {
 
     /**
    * 
+   * @param use_limit_is
+   * @return
+   */
+  public R_Knob use_limit(boolean use_limit_is) {
+    this.use_limit_is = !use_limit_is;
+    return this;
+  }
+
+  /**
+   * @deprecated instead use use_limit(boolean is)
    * @param open_knob
    * @return
    */
-  public R_Knob limit(boolean open_knob) {
-    this.open_knob = !open_knob;
+  @Deprecated public R_Knob limit(boolean open_knob) {
+    use_limit(open_knob);
     return this;
   }
 
@@ -383,7 +395,7 @@ public class R_Knob extends R_Button {
   // show
   public void show_limit() {
     boolean on_off_is = true;
-    if(!open_knob) {
+    if(use_limit_is) {
       strokeWeight(1);
       int c = 0;
       if(on_off_is) {
@@ -547,10 +559,10 @@ public class R_Knob extends R_Button {
     for(int i = 0; i < molette.length ; i++) {
       float ref_angle = molette[i].angle();
       float new_angle = ref_angle + dif_angle;
-      if(!this.open_knob) {
-        new_angle = constrain_angle(new_angle);
+      if(this.use_limit_is) {
+        new_angle = constrain_angle(i, new_angle);
       }
-      render_mol(this.molette[i], new_angle);
+      this.render_mol(this.molette[i], new_angle);
     }
   }
 
@@ -574,13 +586,13 @@ public class R_Knob extends R_Button {
       }
 
       if(this.molette[i].used_is()) {
-        float buf_angle = calc_angle(this.molette[i].angle());
+        float buf_angle = calc_angle(i, this.molette[i].angle());
         render_mol(this.molette[i], buf_angle);
       } else {
         mol_used_is = false;
       }
       // finalize
-      float angle = constrain_angle(molette[i].angle());
+      float angle = constrain_angle(i, molette[i].angle());
       molette[i].angle(angle);
     }
   }
@@ -615,10 +627,10 @@ public class R_Knob extends R_Button {
 
 
 
-  private float calc_angle(float angle) {
+  private float calc_angle(int index, float angle) {
     angle = calc_angle_imp(angle);
-    if(!this.open_knob) {
-      angle = constrain_angle(angle);
+    if(this.use_limit_is) {
+      angle = constrain_angle(index, angle);
     }
     return angle;
   }
@@ -640,19 +652,30 @@ public class R_Knob extends R_Button {
     return angle;
   }
 
-  private float constrain_angle(float angle) {
+  // PROBLEM when the sum of the Offset and the get_stop() is inferior to TAU
+  private float constrain_angle(int index, float angle) {
     float buf = angle + this.get_offset();
-    if(buf < this.get_start()) {
-      return this.get_start();
+    if(buf < this.get_start() || buf > this.get_stop() ) {
+      return this.molette[index].prev_angle();
+      // return this.constrain_angle;
+    } else {
+      this.molette[index].prev_angle(angle);
+      // this.constrain_angle = angle;
+      return angle;
     }
-    if(after_zero_after_stop(angle)) {
-      return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
-    }
+    
+    // float buf = angle + this.get_offset();
+    // if(buf < this.get_start()) {
+    //   return this.get_start();
+    // }
+    // if(after_zero_after_stop(angle)) {
+    //   return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
+    // }
 
-    if(buf > this.get_stop() && this.get_offset() <= 0) {
-      return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
-    }
-    return angle;
+    // if(buf > this.get_stop() && this.get_offset() <= 0) {
+    //   return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
+    // }
+    // return angle;
   }
 
   // utils
@@ -668,10 +691,27 @@ public class R_Knob extends R_Button {
   }
 
 
-  private float closer_value(float value, float a, float b) {
-    float dif_a = abs(value - a);
-    float dif_b = abs(value - b);
-    return dif_b > dif_a ? a : b;
+  private float closer_value(float angle, float a, float b) {
+    float res = 0;
+    float dif_a = abs(angle - a);
+    float dif_b = abs(angle - b);
+
+    if(dif_b > dif_a) {
+      res = a;
+    } else {
+      res = b;
+    }
+
+    print_out("--------ANGLE",angle);
+    print_out("AAAAA",a);
+    print_out("DIF A",dif_a);
+    print_out("BBBBB",b);
+    print_out("DIF B",dif_b);
+    print_out("-----RESULTAT",res,"\n");
+    return res;
+
+
+    // return dif_b > dif_a ? a : b;
   }
 
 }
