@@ -25,11 +25,10 @@ public class R_Knob extends R_Button {
   private boolean init_molette_is;
   private boolean mol_used_is;
 
-  // private float constrain_angle;
   private float previous_angle_ref;
   private float next_angle_ref;
 
-  private boolean cross_border = false;
+  private boolean clockwise_is = true;
 
   private int drag_direction = CIRCULAR;
   private float drag_force = 0.1f;
@@ -103,6 +102,7 @@ public class R_Knob extends R_Button {
         ang = constrain_angle(i, ang);
       }
       molette[i].angle(ang);
+      molette[i].prev_angle(ang);
     }
   }
 
@@ -464,36 +464,54 @@ public class R_Knob extends R_Button {
     float ang_b = this.molette[index_b].angle();
     float comp_a = ang_a - get_offset();
     float comp_b = ang_b - get_offset();
+
     if(comp_a < 0) comp_a += TAU;
     if(comp_b < 0) comp_b += TAU;
     // compute
     if(comp_a > comp_b) {
-      if(ang_a > ang_b) {
-        arc(buf_pos, this.size, ang_b, ang_a, PIE);
+      if(clockwise_is) {
+        if(ang_a > ang_b) {
+          arc(buf_pos, this.size, ang_b, ang_a, PIE);
+        } else {
+          arc(buf_pos, this.size, ang_b, ang_a + TAU, PIE);
+        }
       } else {
-        arc(buf_pos, this.size, ang_b, ang_a + TAU, PIE);
+        if(ang_a > ang_b) {
+          arc(buf_pos, this.size, ang_a, ang_b + TAU, PIE);
+        } else {
+          arc(buf_pos, this.size, ang_a + TAU, ang_b + TAU, PIE);
+        }
       }
     } else {
-      if(ang_a > ang_b) {
-        arc(buf_pos, this.size, ang_a, ang_b + TAU, PIE);
+      if(clockwise_is) {
+        if(ang_a > ang_b) {
+          arc(buf_pos, this.size, ang_a, ang_b + TAU, PIE);
+        } else {
+          arc(buf_pos, this.size, ang_a, ang_b, PIE);
+        }
       } else {
-        arc(buf_pos, this.size, ang_a, ang_b, PIE);
+        if(ang_a > ang_b) {
+          arc(buf_pos, this.size, ang_b + TAU, ang_a + TAU, PIE);
+        } else {
+          arc(buf_pos, this.size, ang_b, ang_a + TAU, PIE);
+        }
       }
     }
     return true;
   }
-  
+
 
 
 
   // update
   public void update() {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
+
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
   }
   
   /**
-   * @deprecated instead use void updae()
+   * @deprecated instead use void update()
    * @param x pos x
    * @param y pos y
    */
@@ -512,6 +530,7 @@ public class R_Knob extends R_Button {
     cursor(x,y);
     this.event = event;
     boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
+    // cross_border_is(false);
     guide_update(bang_is);
     molette_update(bang_is);
   }
@@ -557,7 +576,11 @@ public class R_Knob extends R_Button {
       angle += ang_mol;
     }
     angle /= molette.length;
-    this.guide.angle(angle);
+    if(clockwise_is) {
+      this.guide.angle(angle);
+    } else {
+      this.guide.angle(angle + PI);
+    }
   }
 
   private void molette_update_from_guide(float dif_angle) {
@@ -565,9 +588,18 @@ public class R_Knob extends R_Button {
       float ref_angle = molette[i].angle();
       float new_angle = ref_angle + dif_angle;
       if(this.use_limit_is) {
+        print_out("0 new_angle", new_angle);
+        if(new_angle < 0) {
+          new_angle += TAU;
+        }
+        print_out("1 new_angle", new_angle);
+        new_angle = new_angle%TAU;
+        // new_angle = new_angle%TAU;
+        print_out("2 new_angle", new_angle);
         new_angle = constrain_angle(i, new_angle);
+        print_out("3 new_angle", new_angle);
       }
-      this.render_mol(this.molette[i], new_angle);
+      this.render_mol(i, new_angle);
     }
   }
 
@@ -592,19 +624,20 @@ public class R_Knob extends R_Button {
 
       if(this.molette[i].used_is()) {
         float buf_angle = calc_angle(i, this.molette[i].angle());
-        render_mol(this.molette[i], buf_angle);
+        render_mol(i, buf_angle);
       } else {
         mol_used_is = false;
       }
       // finalize
-      float angle = constrain_angle(i, molette[i].angle());
-      molette[i].angle(angle);
+      float angle = constrain_angle(i, this.molette[i].angle());
+      this.molette[i].angle(angle);
     }
   }
 
 
-
-
+  private void render_mol(int index, float angle) {
+    render_mol(this.molette[index], angle);
+  }
 
   private void render_mol(R_Mol mol, float angle) {
     if(drag_direction != CIRCULAR) {
@@ -619,18 +652,15 @@ public class R_Knob extends R_Button {
 
 
 
+
+
   /**
-  * MISC
-  */
-  private boolean [] beyond_limit(float limit) {
-    boolean [] beyond_limit_is = new boolean[molette.length];
-    for(int i = 0 ; i < molette.length ; i++) {
-      beyond_limit_is[i] = molette[i].angle() >= limit;
-    }
-    return beyond_limit_is;
-  }
-
-
+   * 
+   * 
+   * ANGLE COMPUTING
+   * 
+   * 
+   */
 
   private float calc_angle(int index, float angle) {
     angle = calc_angle_imp(angle);
@@ -657,90 +687,47 @@ public class R_Knob extends R_Button {
     return angle;
   }
 
-  // PROBLEM when the sum of the Offset and the get_stop() is inferior to TAU
-
-
-
   private float constrain_angle(int index, float angle) {
     float buf = angle + this.get_offset();
-    check_cross_border(this.molette[index].prev_angle(), angle, 0.5f);
-
-    if(cross_border_is()) {
-      print_out("BANG BANG BANG BANG BANG");
-      cross_border_is(false);
-    }
-
-
+    float threshold_sensibility = 0.2f;
+    check_cross_border(this.molette[index].prev_angle(), angle, this.get_offset(), threshold_sensibility);
+    
     if(buf < this.get_start() || buf > this.get_stop() ) {
       return this.molette[index].prev_angle();
     } else {
       this.molette[index].prev_angle(angle);
       return angle;
     }
-    
-    // float buf = angle + this.get_offset();
-    // if(buf < this.get_start()) {
-    //   return this.get_start();
-    // }
-    // if(after_zero_after_stop(angle)) {
-    //   return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
-    // }
-
-    // if(buf > this.get_stop() && this.get_offset() <= 0) {
-    //   return closer_value(angle, to_2pi(this.get_stop()), this.get_start());
-    // }
-    // return angle;
   }
 
-  // utils
-  private void check_cross_border(float ang_prev, float ang, float threshold) {
-    if(abs(ang - ang_prev) > threshold) {
-      cross_border_is(true);
+
+
+
+
+  /**
+   * 
+   * UTILS
+   * 
+   * */
+
+  private boolean [] beyond_limit(float limit) {
+    boolean [] beyond_limit_is = new boolean[molette.length];
+    for(int i = 0 ; i < molette.length ; i++) {
+      beyond_limit_is[i] = molette[i].angle() >= limit;
+    }
+    return beyond_limit_is;
+  }
+
+  private void check_cross_border(float ang_prev, float raw_ang, float offset, float threshold) {
+    if(this.limit.get_fov() >= TAU && abs(raw_ang - ang_prev) > threshold) {
+      clockwise_is = clockwise_is ? false : true;
     }
   }
-
-  private void cross_border_is(boolean cross_border) {
-    this.cross_border = cross_border;
-  }
-
-  private boolean cross_border_is() {
-    return this.cross_border;
-  }
-
 
   private float to_2pi(float angle) {
     if(angle < 0) angle += TAU;  
 		if(angle > TAU) angle -= TAU;
 		return angle;
-  }
-
-
-  private boolean after_zero_after_stop(float angle) {
-    return (angle >= to_2pi(this.get_stop()) && angle < this.get_offset());
-  }
-
-
-  private float closer_value(float angle, float a, float b) {
-    float res = 0;
-    float dif_a = abs(angle - a);
-    float dif_b = abs(angle - b);
-
-    if(dif_b > dif_a) {
-      res = a;
-    } else {
-      res = b;
-    }
-
-    print_out("--------ANGLE",angle);
-    print_out("AAAAA",a);
-    print_out("DIF A",dif_a);
-    print_out("BBBBB",b);
-    print_out("DIF B",dif_b);
-    print_out("-----RESULTAT",res,"\n");
-    return res;
-
-
-    // return dif_b > dif_a ? a : b;
   }
 
 }

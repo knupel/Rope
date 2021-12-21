@@ -2,20 +2,20 @@
 > Update to Processing 4
 
 > GUI
-> fix function add_content() from R_Dropdown
-> fix outbound array for the slider molette for the function get(int index);
-> add function set_curve(int type, float power) this function change the curve of the value result
-> add funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
-> add simple Constructor to K_Nnob
-> fix a part of bug multimolette position for R_Knob
-> add variable and function previous_angle to class R_Mol
+> fixed function add_content() from R_Dropdown
+> fixed outbound array for the slider molette for the function get(int index);
+> added function set_curve(int type, float power) this function change the curve of the value result
+> added funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
+> added simple Constructor to K_Nnob
+> fixed bug multimolette position for R_Knob
+> added variable and function previous_angle to class R_Mol
 > R_Mol make private vec2 pos and vec2 size
 
 > PIXO
-> fix bug R_Nubo when polygon start from another value than 0
+> fixed bug R_Nubo when polygon start from another value than 0
 
 > UTILS
-> add class R_Fov
+> added class R_Fov
 
 
 \*version 46
