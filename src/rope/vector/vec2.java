@@ -689,7 +689,7 @@ public class vec2 extends vec {
 	 * @return float
 	 */
 	public float average() {
-		return (this.x()+this.y())*(float)0.5f;
+		return (this.x()+this.y())*0.5f;
 	}
 
 

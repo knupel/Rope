@@ -1,6 +1,6 @@
 /**
 * R_Bloc
-* v 0.1.0
+* v 0.1.1
 * 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -139,7 +139,7 @@ public class R_Bloc extends R_Graphic {
 		for(int i = 1 ; i < list.size() ; i++) {
 			vec2 a = new vec2(list.get(i-1));
 			vec2 b = new vec2(list.get(i));
-			if(is_on_line(a,b,point,magnetism)) {
+			if(in_line(a,b,point,magnetism)) {
 				index = i; 
 				return true;
 			}
@@ -369,7 +369,7 @@ public class R_Bloc extends R_Graphic {
 				if(list.size() > 1 && index > 0) {
 					vec2 a = new vec2(list.get(index-1));
 					vec2 b = new vec2(list.get(index));
-					if(is_on_line(a,b,coord,magnetism)) {
+					if(in_line(a,b,coord,magnetism)) {
 						vec2 pos = sub(coord, new vec2(size).mult(0.5f));
 						other.square(pos.x(),pos.y(),size);
             vec2 buf_a = pos.copy().add(0,size/2);

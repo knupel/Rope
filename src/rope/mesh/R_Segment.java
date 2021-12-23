@@ -1,8 +1,8 @@
 /**
 * R_Segment
-* v 0.1.0
+* v 0.1.1
 * 2019-2021
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 
@@ -14,30 +14,81 @@ import rope.vector.vec3;
 
 public class R_Segment {
 	private vec3 start;
-	private vec3 end;
+	private vec3 stop;
 	private int capacity;
 	private boolean direction;
-	public R_Segment(vec start, vec end) {
-		this.start = new vec3(start.x,start.y,start.z);
-		this.end = new vec3(end.x,end.y,end.z);
+
+	public R_Segment() {
+		this.start = new vec3();
+		this.stop = new vec3();
+	}
+
+
+	public R_Segment(vec start, vec stop) {
+		this.start = new vec3(start.x(),start.y(),start.z());
+		this.stop = new vec3(stop.x(),stop.y(),stop.z());
+	}
+
+	// start
+	public vec3 set_start(float x, float y, float z) {
+		return this.start.set(x,y,z);
+	}
+
+	public vec3 set_start(float x, float y) {
+		return this.start.set(x,y,0);
+	}
+
+	public vec3 set_start(float x) {
+		return this.start.set(x,0,0);
+	}
+
+	public vec3 set_start(vec start) {
+		return this.start.set(start.x(),start.y(),start.z());
 	}
 
 	public vec3 get_start() {
-		return start;
+		return this.start;
 	}
 
-	public vec3 get_end() {
-		return end;
+	// stop
+	public vec3 set_stop(float x, float y, float z) {
+		return this.stop.set(x,y,z);
 	}
 
+	public vec3 set_stop(float x, float y) {
+		return this.stop.set(x,y,0);
+	}
+
+	public vec3 set_stop(float x) {
+		return this.stop.set(x,0,0);
+	}
+
+	public vec3 set_stop(vec stop) {
+		return this.stop.set(stop.x(),stop.y(),stop.z());
+	}
+
+	public vec3 get_stop() {
+		return this.stop;
+	}
+
+	/**
+	 * @deprecated instead use get_stop()
+	 * @return vec3 coord
+	 */
+	@Deprecated vec3 get_end() {
+		return this.stop;
+	}
+
+	// angle
 	public float get_angle() {
-		return new vec2(start).angle( new vec2(end));
+		return start.xy().angle(stop.xy());
 	}
 
 	public float get_length() {
-		return start.dist(end);
+		return start.dist(stop);
 	}
 
+	// capacity
 	public void set_capacity(int capacity) {
 		this.capacity = capacity;
 	}
@@ -46,11 +97,12 @@ public class R_Segment {
 		return this.capacity;
 	}
 
+	// direction
 	public void set_direction(boolean direction) {
 		this.direction = direction;
 	}
 
-	public boolean set_direction() {
+	public boolean get_direction() {
 		return this.direction;
 	}
 
@@ -102,5 +154,24 @@ public class R_Segment {
 		} else {
 			return true;
 		}
+	}
+
+
+		/**
+	 * copy() return all the component of vec
+	 * 
+	 * @return Vec2
+	 */
+	public R_Segment copy() {
+		R_Segment segment = new R_Segment();
+		segment.set_start(get_start());
+		segment.set_stop(get_stop());
+		segment.set_direction(get_direction());
+		return segment;
+	}
+
+	@Override
+	public String toString() {
+		return "start: " + get_start() + ", stop:" + get_start() + ", direction:" + get_direction() + ", capacity:" + get_capacity();
 	}
 }

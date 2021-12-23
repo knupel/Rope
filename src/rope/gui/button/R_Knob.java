@@ -12,6 +12,7 @@ import rope.R_State.State;
 import rope.gui.R_Mol;
 import rope.vector.vec2;
 import rope.tool.R_Fov;
+import rope.mesh.R_Segment;
 
 public class R_Knob extends R_Button {
   protected R_Mol [] molette;
@@ -21,6 +22,8 @@ public class R_Knob extends R_Button {
   protected float limit_offset_ang = 0;
   private boolean use_limit_is = true;
   // private float threshold = 0.1f;
+
+  private R_Segment seg_pie [];
 
   private boolean init_molette_is;
   private boolean mol_used_is;
@@ -98,9 +101,11 @@ public class R_Knob extends R_Button {
 		init_molette(pos_norm.length);
     for(int i = 0 ; i < molette.length ; i++) {
       float ang = map(pos_norm[i],0,1,0,TAU);
-      if(!use_limit_is) {
-        ang = constrain_angle(i, ang);
+      if(this.limit != null) {
+        if(ang < this.limit.get_start()) ang = this.limit.get_start();
+        if(ang > this.limit.get_stop()) ang = this.limit.get_stop();
       }
+      if(!use_limit_is) ang = constrain_angle(i, ang);
       molette[i].angle(ang);
       molette[i].prev_angle(ang);
     }
@@ -113,6 +118,7 @@ public class R_Knob extends R_Button {
    */
   public R_Knob set_offset(float offset_angle) {
     this.limit_offset_ang = offset_angle;
+    set_segment_pie(this.limit.get_start(), this.limit.get_stop());
     return this;
   }
 
@@ -121,14 +127,12 @@ public class R_Knob extends R_Button {
   }
 
 
-
-
   private float get_start() {
-    return this.limit.get_start() + get_offset();
+    return seg_pie[1].get_start().x();
   }
 
   private float get_stop() {
-    return this.limit.get_stop() + get_offset();
+    return seg_pie[1].get_stop().x();
   }
 
     /**
@@ -140,13 +144,52 @@ public class R_Knob extends R_Button {
   public R_Knob set_fov(float min, float max) {
     min = to_2pi(min);
     max = to_2pi(max);
-
+    set_segment_pie(min, max);
     if(this.limit == null) {
       this.limit = new R_Fov(min, max);
       return this;
     }
     this.limit.set(min, max);
     return this;
+  }
+
+  private void set_segment_pie(float start, float stop) {
+    start += get_offset();
+    stop += get_offset();
+    start %= TAU;
+    stop %= TAU;
+    if(start == 0 &&  stop == 0) {
+      stop = TAU;
+    }
+    boolean direction_is = true;
+    if(start > stop) {
+      direction_is = false;
+      float swap = start;
+      start = stop;
+      stop = swap;
+    }
+
+    if(seg_pie == null) {
+      seg_pie = new R_Segment[3];
+      seg_pie[0] = new R_Segment();
+      seg_pie[1] = new R_Segment();
+      seg_pie[2] = new R_Segment();
+    }
+
+    seg_pie[0].set_start(0);
+    seg_pie[0].set_stop(start);
+    if(direction_is) seg_pie[0].set_direction(false);
+    else seg_pie[0].set_direction(true);
+
+    seg_pie[1].set_start(start);
+    seg_pie[1].set_stop(stop);
+    if(direction_is) seg_pie[1].set_direction(true);
+    else seg_pie[1].set_direction(false);
+
+    seg_pie[2].set_start(stop);
+    seg_pie[2].set_stop(TAU);
+    if(direction_is) seg_pie[2].set_direction(false);
+    else seg_pie[2].set_direction(true);
   }
 
 
@@ -506,7 +549,6 @@ public class R_Knob extends R_Button {
   // update
   public void update() {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
   }
   
@@ -530,7 +572,6 @@ public class R_Knob extends R_Button {
     cursor(x,y);
     this.event = event;
     boolean bang_is = any(State.env().bang.a(), State.env().bang.b(), State.env().bang.c());
-    // cross_border_is(false);
     guide_update(bang_is);
     molette_update(bang_is);
   }
@@ -588,16 +629,11 @@ public class R_Knob extends R_Button {
       float ref_angle = molette[i].angle();
       float new_angle = ref_angle + dif_angle;
       if(this.use_limit_is) {
-        print_out("0 new_angle", new_angle);
         if(new_angle < 0) {
           new_angle += TAU;
         }
-        print_out("1 new_angle", new_angle);
         new_angle = new_angle%TAU;
-        // new_angle = new_angle%TAU;
-        print_out("2 new_angle", new_angle);
         new_angle = constrain_angle(i, new_angle);
-        print_out("3 new_angle", new_angle);
       }
       this.render_mol(i, new_angle);
     }
@@ -688,16 +724,20 @@ public class R_Knob extends R_Button {
   }
 
   private float constrain_angle(int index, float angle) {
-    float buf = angle + this.get_offset();
     float threshold_sensibility = 0.2f;
     check_cross_border(this.molette[index].prev_angle(), angle, this.get_offset(), threshold_sensibility);
-    
-    if(buf < this.get_start() || buf > this.get_stop() ) {
-      return this.molette[index].prev_angle();
-    } else {
-      this.molette[index].prev_angle(angle);
-      return angle;
+
+    for(R_Segment seg : seg_pie) {
+      if(angle >= seg.get_start().x() && angle <= seg.get_stop().x()) {
+        if(seg.get_direction()) {
+          this.molette[index].prev_angle(angle);
+          return angle;
+        } else {
+          return this.molette[index].prev_angle();
+        }
+      }
     }
+    return angle;
   }
 
 

@@ -34,9 +34,34 @@ void set_knob() {
 	knob.pos(50,50);
 	knob.size(100);
 	// work when the sum of the offset + get_stop() is upper to TAU
-  knob.set_fov(0, PI *1.05);
-	// knob.set_fov(0, TAU*0.90);
-	knob.set_offset(PI/2);
+	// case 0 // little bug
+	// knob.set_fov(0, TAU); 
+
+	// case 1 // og
+  // knob.set_fov(0, PI/2);
+
+	// case 2  // ok
+  // knob.set_fov(0, PI/2);
+  // knob.set_offset(PI/2);
+
+	// case 3 // little bug
+  // knob.set_fov(0, PI);
+  // knob.set_offset(PI);
+
+  // case 4 // little bug if the start is not good
+	// knob.set_fov(0, PI);
+ //  knob.set_offset(PI/2);
+
+	// case 5 // ok
+	// knob.set_fov(0, PI + (PI/2));
+
+
+	// case 10 // ok
+	knob.set_fov(0, PI + (PI/2));
+	knob.set_offset(PI);
+
+
+
 	knob.set_rollover_type(RECT);
 	
 	// must be set with normal value from 0 to 1

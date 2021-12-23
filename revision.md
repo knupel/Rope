@@ -11,6 +11,12 @@
 > added variable and function previous_angle to class R_Mol
 > R_Mol make private vec2 pos and vec2 size
 
+>MESH
+> fixed get_direction() from R_Segment
+> deprecated get_end() to get_stop() from R_Segment
+> added function to set start and stop value from R_Segment
+
+
 > PIXO
 > fixed bug R_Nubo when polygon start from another value than 0
 
