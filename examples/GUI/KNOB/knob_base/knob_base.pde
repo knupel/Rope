@@ -29,7 +29,12 @@ void draw() {
 
 R_Knob knob ;
 void set_knob() {
-	knob = new R_Knob(new vec2(20),100);
+	// knob = new R_Knob(new vec2(20),100);
+	knob = new R_Knob();
+	knob.size(100);
+	knob.pos(new vec2(20));
+	knob.set_label("Turn me please");
+
 	knob.set_rollover_type(RECT);
 	knob.set_value(0.5);
 	knob.set_type_mol(RECT);
@@ -38,19 +43,18 @@ void set_knob() {
 	knob.set_size_limit(-20,20); // use to show limit
 	knob.set_align_label_name(LEFT);
 	knob.set_align_label_value(LEFT);
-	knob.set_label("Turn me please");
 	knob.set_drag_force(0.05);
-
 }
 
 void draw_knob() {
 	knob.update();
 	knob.rollover(true);
-	knob.show_label();
 	knob.show_struc();
 	knob.show_mol();
-	knob.show_value();
 	knob.show_limit();
+
+	knob.show_label();
+	knob.show_value();
 }
 
 void keyPressed() {

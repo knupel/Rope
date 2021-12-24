@@ -1,9 +1,9 @@
 /**
 * GUI CROPE EXAMPLE
-* Processing 3.5.4
 *
+* Simple button
 * 2016-2021
-* v 1.0.3
+* v 1.0.4
 */
 
 import rope.gui.button.R_Button;
@@ -11,44 +11,38 @@ import rope.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
 
-
-/**
-* Simple button
-*/
 Rope r = new Rope();
-int x = 60;
-int y = 60 ;
+R_Button button;
+
 void setup() {
-	r.print_out(r.VERSION);
   size(160,160);
   State.init(this);
-  button_simple_setup(x,y);
+  button_setup();
 }
 
 void draw() {
-	background(125);
+	background(r.BLANC);
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed, !keyPressed);
-	button_simple_draw();
+	button_draw();
 	State.reset_event();
 }
 
-R_Button button;
-void button_simple_setup(int x, int y) {
+void button_setup() {
 	// button = new R_Button(new vec2(x,y), new vec2(50));
 	button = new R_Button();
-	button.pos(x,y);
+	button.pos(60,60);
 	button.size(50);
+	button.set_label("Hello World");
 	button.is(true);
 	// button.set_colour_in_on(r.GREEN);
 	// button.set_colour_out_on(r.SAPIN);
 	// button.set_colour_in_off(r.RED);
 	// button.set_colour_out_off(r.BLOOD);
-	button.set_label("Hello World");
 }
 
 
-void button_simple_draw() {
+void button_draw() {
 	button.update();
 	button.rollover(true);
 

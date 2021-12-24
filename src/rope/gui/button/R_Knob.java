@@ -2,7 +2,7 @@
 * R_Knob
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
-* v 2.0.0
+* v 2.0.1
 * 2019-2021
 */
 package rope.gui.button;
@@ -39,26 +39,26 @@ public class R_Knob extends R_Button {
 
   public R_Knob() {
     super("Knob");
-    init();
+    init_knob();
   }
 
   public R_Knob(String type) {
     super(type);
-    init();
+    init_knob();
   }
   
   public R_Knob(vec2 pos, float size) {  
     super("Knob", pos, new vec2(size));
-    init();
+    init_knob();
   }
   
   public R_Knob(String type, vec2 pos, float size) {
     super(type, pos, new vec2(size));
-    init();
+    init_knob();
   }
 
 
-  private void init() {
+  private void init_knob() {
     set_value(0.5f); // default > one molette > half position
     set_limit(0,TAU);
     init_guide();
@@ -413,6 +413,10 @@ public class R_Knob extends R_Button {
     return value_array;
   }
 
+  public float get_guide() {
+    return this.guide.angle()%TAU;
+  }
+
   public R_Mol [] get_mol() {
     R_Mol [] arr_mol = new R_Mol[this.molette.length + 1];
     int index = 0;
@@ -543,6 +547,10 @@ public class R_Knob extends R_Button {
     return true;
   }
 
+  public void show_value() {
+    show_value(this.get_all());
+  }
+
 
 
 
@@ -550,6 +558,10 @@ public class R_Knob extends R_Button {
   public void update() {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
+    if(!label_is) {
+      init_pos_label();
+      label_is = true;
+    }
   }
   
   /**

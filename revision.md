@@ -10,6 +10,9 @@
 > fixed bug multimolette position for R_Knob
 > added variable and function previous_angle to class R_Mol
 > R_Mol make private vec2 pos and vec2 size
+> added function get_guide() to R_Knob
+> fixed default label position for R_Knob
+> added overwrite method show_value() to R_Knob, to show all value of knob in case where there is few molettes
 
 >MESH
 > fixed get_direction() from R_Segment

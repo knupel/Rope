@@ -3,7 +3,7 @@
 * Processing 4.0.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* v 2.6.0
+* v 2.6.1
 * 2013-2021
 */
 package rope.gui.button;
@@ -369,11 +369,16 @@ public class R_Button extends Crope {
   }
 
 
-  public void show_value(float value) {
+  public void show_value(float... value) {
     String message = "[ ";
-    float f = truncate(value,2);
-    message += f;
-    message += " ]";
+    for(int i = 0 ; i < value.length ; i++) {
+      float f = truncate(value[i],2);
+      if(i == value.length -1) {
+        message += (f + " ]");
+      } else {
+        message += (f + ", ");
+      }
+    }
     show_value_impl(message);
   }
 

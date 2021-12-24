@@ -149,13 +149,22 @@ public class R_Nubo extends Rope {
      boolean is = false;
     if(angle >= get_start_fov() && angle <= get_stop_fov()) {
       is = true;
+    } else {
+      
+      if(angle < get_start_fov()) {
+        print_err_tempo(60,"(float angle)", angle, "is lower to", get_start_fov(), "fov_start() insteand the start value is used");
+        angle = get_start_fov();
+      }
+      if(angle > get_stop_fov()) {
+        print_err_tempo(60,"(float angle)", angle, "is upper to", get_stop_fov(), "fov_stop() insteand the stop value is used");
+        angle = get_stop_fov();
+      }
     }
     if(is) {
       this.focus.set_angle(angle);
       return this;
     }
-    print_err("public R_Nubo set_focus_angle(float angle)", angle, "is out of the range fov", get_start_fov(), get_stop_fov());
-    pa.exit();
+
     return this;
   }
 
