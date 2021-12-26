@@ -301,6 +301,7 @@ public class R_Knob extends R_Button {
         this.molette[i].inside_is = false;
       }
 		}
+    pie = new vec2(this.molette[0].angle(), this.molette[len-1].angle());
 	}
 
 
@@ -540,9 +541,6 @@ public class R_Knob extends R_Button {
     float ang_b = this.molette[index_b].angle();
     float comp_a = ang_a - get_offset();
     float comp_b = ang_b - get_offset();
-    if(pie == null) {
-      pie = new vec2();
-    }
 
     if(comp_a < 0) comp_a += TAU;
     if(comp_b < 0) comp_b += TAU;
