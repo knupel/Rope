@@ -1,9 +1,8 @@
 /**
 * GUI CROPE EXAMPLE
-* Processing 3.5.4
 *
 * 2016-2021
-* v 1.3.1
+* v 1.3.2
 * dropdown
 */
 
@@ -15,14 +14,12 @@ import rope.core.Rope;
 int x = 20 ;
 int y = 20 ;
 Rope r = new Rope();
+
 void setup() {
   size(400,200);
-  println(r.VERSION);
   State.init(this);
   dropdown_setup(x,y);
-  
 }
-
 
 void draw() {
 	background(r.BLOOD);
@@ -65,6 +62,7 @@ void dropdown_setup(int x, int y) {
   rank_box_position = 2;
   dropdown[1].set_label("Menu de chien");
   dropdown[1].set_content(content_1);
+  dropdown[1].select_value(4);
   dropdown[1].wheel(true);
   dropdown[1].set_box(num_box_display, rank_box_position);
   pos_val_x = dropdown[1].pos().x() + dropdown[1].get_header_text_pos().x();

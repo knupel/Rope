@@ -212,6 +212,11 @@ public class R_Dropdown extends Crope implements R_GUI {
     return this;
   }
 
+  /**
+   * Set value for the menu. Useful to set a starting value or to set from an external method.
+   * @param index select element from content
+   * @return
+   */
   public R_Dropdown select_value(int index) {
     set_current_line(index);
     return this;

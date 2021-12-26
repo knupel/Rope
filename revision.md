@@ -13,6 +13,7 @@
 > added function get_guide() to R_Knob
 > fixed default label position for R_Knob
 > added overwrite method show_value() to R_Knob, to show all value of knob in case where there is few molettes
+> added function get_start() and get_stop() to show the pie limit of the R_Knob
 
 >MESH
 > fixed get_direction() from R_Segment

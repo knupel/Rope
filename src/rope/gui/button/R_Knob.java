@@ -2,7 +2,7 @@
 * R_Knob
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
-* v 2.0.1
+* v 2.1.0
 * 2019-2021
 */
 package rope.gui.button;
@@ -24,6 +24,7 @@ public class R_Knob extends R_Button {
   // private float threshold = 0.1f;
 
   private R_Segment seg_pie [];
+  private vec2 pie;
 
   private boolean init_molette_is;
   private boolean mol_used_is;
@@ -126,12 +127,35 @@ public class R_Knob extends R_Button {
     return this.limit_offset_ang;
   }
 
+  /**
+   * 
+   * @return value of the current start angle pie knob
+   */
+  public float get_start() {
+    return this.pie.x();
+  }
 
-  private float get_start() {
+  /**
+   * 
+   * @return value of the current stop angle pie knob
+   */
+  public float get_stop() {
+    return this.pie.y();
+  }
+
+  /**
+   * 
+   * @return value of start limit value knob, corrected
+   */
+  public float get_start_limit() {
     return seg_pie[1].get_start().x();
   }
 
-  private float get_stop() {
+  /**
+   * 
+   * @return value of stop limit value knob, corrected
+   */
+  public float get_stop_limit() {
     return seg_pie[1].get_stop().x();
   }
 
@@ -347,7 +371,9 @@ public class R_Knob extends R_Button {
 
 
 
-  // ASPECT MOLETTE and GUIDE
+  /**
+   * ASPECT MOLETTE and GUIDE
+   * */
 
   public R_Knob set_fill_mol(int c) {
     set_fill_mol(c,c);
@@ -465,11 +491,11 @@ public class R_Knob extends R_Button {
       }
       vec2 final_pos = pos.copy().add(size.copy().mult(0.5f));
       float radius = size.x()*0.5f;
-      vec2 a_min = projection(this.get_start(),radius+size_limit.min()).add(final_pos);
-      vec2 b_min = projection(this.get_start(),radius+size_limit.max()).add(final_pos);
+      vec2 a_min = projection(this.get_start_limit(),radius+size_limit.min()).add(final_pos);
+      vec2 b_min = projection(this.get_start_limit(),radius+size_limit.max()).add(final_pos);
       line(a_min,b_min);
-      vec2 a_max = projection(this.get_stop(),radius+size_limit.min()).add(final_pos);
-      vec2 b_max = projection(this.get_stop(),radius+size_limit.max()).add(final_pos);    
+      vec2 a_max = projection(this.get_stop_limit(),radius+size_limit.min()).add(final_pos);
+      vec2 b_max = projection(this.get_stop_limit(),radius+size_limit.max()).add(final_pos);    
       line(a_max,b_max);
     }
   }
@@ -493,24 +519,30 @@ public class R_Knob extends R_Button {
     }
   }
 
-    public void show_struc_pie() {
+  public void show_struc_pie() {
     aspect_impl(true);
     vec2 buf_pos = pos.copy().add(size.x() /2, size.y() / 2);
-    int index_a = 0;
-    int index_b = molette.length -1;
     
-    if(molette.length > 1 && show_struc_pie_impl(buf_pos, index_a, index_b)) {
+    if(molette.length > 1) {
+      show_pie(buf_pos);
       return;
     }
-    arc(buf_pos,size,0,this.molette[index_a].angle(),PIE);
+    arc(buf_pos,size,0,TAU,PIE);
     return; 
   }
 
-  private boolean show_struc_pie_impl(vec2 buf_pos, int index_a, int index_b) {
+  private void show_pie(vec2 buf_pos) {
+    arc(buf_pos, this.size, pie.x(), pie.y(), PIE);
+  }
+
+  private boolean pie_impl(int index_a, int index_b) {
     float ang_a = this.molette[index_a].angle();
     float ang_b = this.molette[index_b].angle();
     float comp_a = ang_a - get_offset();
     float comp_b = ang_b - get_offset();
+    if(pie == null) {
+      pie = new vec2();
+    }
 
     if(comp_a < 0) comp_a += TAU;
     if(comp_b < 0) comp_b += TAU;
@@ -518,34 +550,35 @@ public class R_Knob extends R_Button {
     if(comp_a > comp_b) {
       if(clockwise_is) {
         if(ang_a > ang_b) {
-          arc(buf_pos, this.size, ang_b, ang_a, PIE);
+          pie.set(ang_b, ang_a);
         } else {
-          arc(buf_pos, this.size, ang_b, ang_a + TAU, PIE);
+          pie.set(ang_b, ang_a + TAU);
         }
       } else {
         if(ang_a > ang_b) {
-          arc(buf_pos, this.size, ang_a, ang_b + TAU, PIE);
+          pie.set(ang_a, ang_b + TAU);
         } else {
-          arc(buf_pos, this.size, ang_a + TAU, ang_b + TAU, PIE);
+          pie.set(ang_a + TAU, ang_b + TAU);
         }
       }
     } else {
       if(clockwise_is) {
         if(ang_a > ang_b) {
-          arc(buf_pos, this.size, ang_a, ang_b + TAU, PIE);
+          pie.set(ang_a, ang_b + TAU);
         } else {
-          arc(buf_pos, this.size, ang_a, ang_b, PIE);
+          pie.set(ang_a, ang_b);
         }
       } else {
         if(ang_a > ang_b) {
-          arc(buf_pos, this.size, ang_b + TAU, ang_a + TAU, PIE);
+          pie.set(ang_b + TAU, ang_a + TAU);
         } else {
-          arc(buf_pos, this.size, ang_b, ang_a + TAU, PIE);
+          pie.set(ang_b, ang_a + TAU);
         }
       }
     }
     return true;
   }
+
 
   public void show_value() {
     show_value(this.get_all());
@@ -558,20 +591,15 @@ public class R_Knob extends R_Button {
   public void update() {
     boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
     update(State.env().pointer.x(),State.env().pointer.y(),new_event);
+    if(molette.length > 1) {
+      int index_a = 0;
+      int index_b = molette.length -1;
+      pie_impl(index_a, index_b);
+    }
     if(!label_is) {
       init_pos_label();
       label_is = true;
     }
-  }
-  
-  /**
-   * @deprecated instead use void update()
-   * @param x pos x
-   * @param y pos y
-   */
-  @Deprecated public void update(float x, float y) {
-    boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-    update(x,y,new_event);
   }
 
   /**
@@ -618,7 +646,7 @@ public class R_Knob extends R_Button {
 
   private void guide_update_from_molette() {
     float angle = 0;
-    boolean [] beyond_list = beyond_limit(this.get_start());
+    boolean [] beyond_list = beyond_limit(this.get_start_limit());
     boolean beyond = only(beyond_list);
     
     for(int i = 0 ; i < molette.length ; i++) {

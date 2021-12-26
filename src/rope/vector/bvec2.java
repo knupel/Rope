@@ -37,9 +37,9 @@ public class bvec2 extends bvec {
 
 	/**
    * set
-   * @param x
-   * @param y
-   * @return
+   * @param x value
+   * @param y value
+   * @return this
    */
   public bvec2 set(boolean x, boolean y) {
   	this.x = x;
@@ -121,11 +121,11 @@ public class bvec2 extends bvec {
     return set(this.x,this.y);
   }
 
-
   /**
-	 * 
-	 * @return true if all arguments in the range of the concerned bvec is same
-	 */
+   * 
+   * @param bv bvec2 value
+   * @return true if all arguments in the range of the concerned bvec is same
+   */
 	public boolean equals(bvec2 bv) {
 		return equals_impl(bv);
 	}
@@ -143,8 +143,8 @@ public class bvec2 extends bvec {
 
 
   /**
-	 * copy
-	 * @return
+	 * make a copy of this bvec2
+	 * @return bvec2
 	 */
 	public bvec2 copy() {
 		return new bvec2(x,y) ;

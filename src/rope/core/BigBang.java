@@ -243,7 +243,7 @@ public abstract class BigBang extends Rope {
 	}
 
 	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work on it
 	 * @param value to set component
 	 * @return float value of component color
 	 */
@@ -252,7 +252,7 @@ public abstract class BigBang extends Rope {
 	}
 
 	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work on it
 	 * @param value to set component
 	 * @return float value of component color
 	 */
@@ -261,7 +261,7 @@ public abstract class BigBang extends Rope {
 	}
 
 	/**
-	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work on it
 	 * @param value to set component
 	 * @return float value of component color
 	 */
@@ -354,14 +354,34 @@ public abstract class BigBang extends Rope {
 	* width String
 	*/
 	
+	/**
+	 * 
+	 * @param target String must be compute
+	 * @param size of font to make the approximation;
+	 * @return
+	 */
 	public int width_String(String target, int size) {
 		return width_String("defaultFont", target, size) ;
 	}
-
+	
+	/**
+	 * 
+	 * @param pfont font to make the approximation computing
+	 * @param target String must be compute
+	 * @param size of font to make the approximation;
+	 * @return
+	 */
 	public int width_String(PFont pfont, String target, int size) {
 		return width_String(pfont.getName(), target, size);
 	}
 
+	/**
+	 * 
+	 * @param font_name font to make the approximation computing
+	 * @param target String must be compute
+	 * @param size of font to make the approximation;
+	 * @return
+	 */
 	public int width_String(String font_name, String target, int size) {
 		Font font = new Font(font_name, Font.BOLD, size) ;
 		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
