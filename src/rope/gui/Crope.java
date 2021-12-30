@@ -1,16 +1,13 @@
 /**
 * CROPE
 * Control ROmanesco Processing Environment
-* v 1.5.1
+* v 1.6.0
 * Copyleft (c) 2018-2021
-
-* dependencies
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 
 package rope.gui;
-
 
 import processing.core.PFont;
 import processing.core.PGraphics;
@@ -25,7 +22,7 @@ abstract public class Crope extends R_Graphic {
   protected vec2 pos;
   protected vec2 size;
   protected vec2 pos_ref;
-  protected vec2 cursor = new vec2();
+  protected vec2 cursor;
   
   // var use to create the background of gui in opengl
   protected float root;
@@ -36,6 +33,7 @@ abstract public class Crope extends R_Graphic {
   protected int mode = -1;
   // event
   protected boolean event;
+  private boolean event_is_done;
   // color
   protected int fill_in = State.env().gui_fill_in;
   protected int fill_out = State.env().gui_fill_out;
@@ -99,6 +97,7 @@ abstract public class Crope extends R_Graphic {
    */
   private void init(float x, float y, float sx, float sy) {
     this.font_size = (int)State.pa().g.textSize;
+    this.cursor = new vec2();
     this.pos(x,y);
 		this.size(sx,sy);
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
@@ -134,8 +133,36 @@ abstract public class Crope extends R_Graphic {
     return null;
   }
 
-  // public void show_value() {}
-  // public void show_label() {}
+
+  // get misc
+  public int get_dna() {
+    return this.dna;
+  }
+
+  public String get_type() {
+    return this.type;
+  }
+
+  private boolean event_is() {
+    return this.event;
+  }
+
+  /**
+   * 
+   * @return true when the action gui is complete and return to false just after
+   */
+  public boolean is_done() {
+    if(this.event) {
+      this.event_is_done = false;
+      return false;
+    } else {
+      if(!this.event_is_done) {
+        this.event_is_done = true;
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 
@@ -171,6 +198,29 @@ abstract public class Crope extends R_Graphic {
     }
     return this;
   }
+
+
+  public vec2 pos() {
+    return pos;
+  }
+  
+  public int top() {
+  	return (int)pos.y();
+  }
+  
+  public int bottom() {
+  	return (int)(pos.y() + size.y());
+  }
+  
+  public int left() {
+  	return (int)pos.x();
+  }
+  
+  public int right() {
+  	return (int)(pos.x() + size.x());
+  }
+
+
 
   /**
    * 
@@ -209,25 +259,22 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
+  public vec2 size() {
+    return size;
+  }
 
-  /**
-  private
-  */
+  // cursor
   protected void cursor(vec cursor) {
     cursor(cursor.x(),cursor.y());
   }
 
   protected void cursor(float x, float y) {
-    if(cursor == null) {
-      cursor = new vec2(x,y);
-    } else {
-      cursor.set(x,y);
-    }
+    cursor.set(x,y);
   }
 
   
   /**
-  set colour
+  * set colour
   */
 
   /**
@@ -488,7 +535,10 @@ abstract public class Crope extends R_Graphic {
    * 
    */
   
-  
+  public String get_label() {
+    return this.label;
+  }
+
    public Crope set_fill_label(int colour) {
     set_fill_label(colour,colour);
     return this;
@@ -507,12 +557,6 @@ abstract public class Crope extends R_Graphic {
 
   public Crope set_align_label_value(int align) {
     this.align_label_value = align;
-    return this;
-  }
-
-
-  public Crope set_name(String name) {
-    this.name = name;
     return this;
   }
 
@@ -615,6 +659,10 @@ abstract public class Crope extends R_Graphic {
   /**
   font
   */
+  public PFont get_font() {
+    return font;
+  }
+
   public Crope set_font(PFont font) {
     this.font = font;
     return this;
@@ -625,87 +673,41 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
+  // font size
+  public int get_font_size() {
+    return this.font_size;
+  }
+
   public Crope set_font_size(int font_size) {
     this.font_size = font_size;
     return this; 
   }
-  
 
-
-
-
-
-  // set midi
-  public Crope set_id_midi(int id_midi) {
-    this.id_midi = id_midi;
-    return this;
-  }
-
-  public Crope set_id(int id) {
-    this.id = id;
-    return this;
-  }
-
-  public Crope set_rank(int rank) {
-    this.rank = rank;
-    return this;
-  }
-
-
-  // set misc
+  // set rollover type
   public Crope set_rollover_type(int rollover_type) {
     this.rollover_type = rollover_type;
     return this;
-  }
-
-
-
-  /**
-  get
-  */
-  public vec2 pos() {
-    return pos;
-  }
-  
-  public int top() {
-  	return (int)pos.y();
-  }
-  
-  public int bottom() {
-  	return (int)(pos.y() + size.y());
-  }
-  
-  public int left() {
-  	return (int)pos.x();
-  }
-  
-  public int right() {
-  	return (int)(pos.x() + size.x());
-  }
-
-  public vec2 size() {
-    return size;
   }
 
   public int get_rollover_type() {
     return this.rollover_type;
   }
 
-  public int get_dna() {
-    return dna;
+
+  // id midi
+  public Crope set_id_midi(int id_midi) {
+    this.id_midi = id_midi;
+    return this;
   }
 
-  public String get_name() {
-    return this.name;
-  }
-
-  public String get_label() {
-    return this.label;
-  }
-
-  //give the IDmidi 
   public int get_id_midi() { 
     return this.id_midi ; 
+  }
+
+  // id
+  public Crope set_id(int id) {
+    this.id = id;
+    return this;
   }
 
   public int get_id() {
@@ -713,21 +715,28 @@ abstract public class Crope extends R_Graphic {
   }
 
 
-  public PFont get_font() {
-    return font;
-  }
-
-  public int get_font_size() {
-    return this.font_size;
+  // rank
+  public Crope set_rank(int rank) {
+    this.rank = rank;
+    return this;
   }
 
   public int get_rank() {
     return rank;
   }
 
-  public String get_type() {
-    return type;
+
+  // name
+  public String get_name() {
+    return this.name;
   }
+
+  public Crope set_name(String name) {
+    this.name = name;
+    return this;
+  }
+
+
 
 
 

@@ -1,7 +1,6 @@
 /**
 * CLASS R_Board
-* Processing 3.5.4
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 * v 0.3.0
 * 2021-2021

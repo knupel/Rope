@@ -106,12 +106,21 @@ public class R_Slotch extends R_Slider {
 		return value;
 	}
 
+	/**
+	 *  UPDATE
+	 */
 
+	 /**
+		* This function overwrite the method from slider to call the private own function update(float x, float y)
+	  */
+	public void update() {
+		update_state();
+		update(State.env().pointer.x(),State.env().pointer.y());
+	}
 
-	// MISC
-	public void update(float x, float y, boolean event) {
+	private void update(float x, float y) {
 		cursor(x,y);
-		mol_update(event);
+		mol_update();
 		if (size.x() >= size.y()) { 
 			if(notch_is) {
 				for(int i = 0 ; i < molette.length ; i++) {

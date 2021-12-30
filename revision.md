@@ -15,10 +15,12 @@
 > added overwrite method show_value() to R_Knob, to show all value of knob in case where there is few molettes
 > added function get_start() and get_stop() to show the pie limit of the R_Knob
 
->MESH
+> MESH
 > fixed get_direction() from R_Segment
 > deprecated get_end() to get_stop() from R_Segment
 > added function to set start and stop value from R_Segment
+> remove @Deprecated update(int x, int y, boolean event) function from Dropdown
+> added function is_done() return true when the gui action is complete
 
 
 > PIXO

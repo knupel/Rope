@@ -1,7 +1,7 @@
 /**
 * CLASS BUTTON 
 * Processing 4.0.0
-* @author @stanlepunk
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 * v 2.6.1
 * 2013-2021
@@ -251,18 +251,17 @@ public class R_Button extends Crope {
 			print_err("Static State.env().event_mut is null, maybe you forget to use: State.event(boolean... event)");
 			System.exit(0);
 		}
-    boolean event = button_event_is();
-    update(State.pointer().x(),State.pointer().y(),event);
+    this.update(State.pointer().x(),State.pointer().y());
     if(!label_is) {
       init_pos_label();
       label_is = true;
     }
   }
-  
 
-  private void update(float x, float y, boolean event) {
+  private void update(float x, float y) {
     cursor(x,y);
-    if(event) {
+    this.event = button_event_is();
+    if(this.event) {
       switch_is();
       bangbang.set(false);
     }

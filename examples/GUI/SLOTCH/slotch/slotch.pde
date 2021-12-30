@@ -1,10 +1,9 @@
 /**
 * GUI CROPE EXAMPLE 
-* Processing 3.5.4
 *
 * slider notch
 * 2021-2021
-* v 1.2.2
+* v 1.3.0
 */
 
 import rope.gui.slider.R_Slotch;
@@ -69,5 +68,7 @@ void slotch_draw() {
   
   // notch is separator
   slotch.show_notch(-5,10);
-  // println("truc value",slotch.get());
+  if(slotch.is_done()) {
+    println("value",slotch.get(), frameCount);
+  }
 }

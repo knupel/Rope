@@ -60,6 +60,9 @@ void slider_draw() {
   }
 
   // for the simple slider the index is "zero"
-  r.print_tempo(30,"get():", slider.get());
+  // r.print_tempo(30,"get():", slider.get());
+    if(slider.is_done()) {
+    println("value",slider.get(), frameCount);
+  }
 }
   

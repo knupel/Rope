@@ -3,14 +3,11 @@
 * Control ROmanesco Processing Environment
 * v 1.2.0
 * Copyleft (c) 2018-2021
-
-* dependencies
-* @author @knupel
+* @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.gui;
 
-// import processing.core.PApplet;
 import rope.core.R_Graphic;
 import rope.vector.vec2;
 
