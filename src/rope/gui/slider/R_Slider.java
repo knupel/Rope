@@ -506,25 +506,8 @@ public class R_Slider extends Crope implements R_GUI {
 	/**
 	 * UPDATE
 	 */
-	
-
 	public void update() {
 		update_state();
-		// if(State.select_mol_is() != null) {
-		// 	select(State.select_mol_is().x(), State.select_mol_is().y());
-		// }
-
-		// if(State.env().pointer == null) {
-		// 	print_err("Static State.env().pointer is null, maybe you forget to use: State.pointer(float x, float y)");
-		// 	System.exit(0);
-		// }
-
-		// if(State.env().event == null) {
-		// 	print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
-		// 	System.exit(0);
-		// }
-		// boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-		// update(State.env().pointer.x(),State.env().pointer.y(),new_event);
 		update(State.env().pointer.x(),State.env().pointer.y());
 	}
 	
@@ -543,39 +526,24 @@ public class R_Slider extends Crope implements R_GUI {
 			print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
 			System.exit(0);
 		}
-
 	}
 
-
-
-	// @Deprecated public void update(float x, float y) {
-	// 	if(State.env().event == null) {
-	// 		print_err("Static State.env().event is null, maybe you forget to use: State.event(boolean... arg)");
-	// 		System.exit(0);
-	// 	}
-	// 	boolean new_event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-	// 	update(x,y,new_event);
-	// }
 	/**
 	 * 
 	 * @param x
 	 * @param y
 	 */
 	private void update(float x, float y) {
-	// private void update(float x, float y, boolean event) {
 		if(!crope_build_is) {
 			molette_builder(1);
 		}
 		cursor(x,y);
 		mol_update();
-		// mol_update(event);
 	}
 	
 	
 	protected void mol_update() {
-	// protected void mol_update(boolean event) {
 		this.event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-		// this.event = event;
 		if(!this.event) {
 			State.set_dna_current_crope(0); 
 		}
