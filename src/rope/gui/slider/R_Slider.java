@@ -1,7 +1,7 @@
 /**
 * R_SLider
 * Control ROmanesco Processing Environment
-* v 1.5.2
+* v 1.6.0
 * Copyleft (c) 2018-2021
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
@@ -42,20 +42,9 @@ public class R_Slider extends Crope implements R_GUI {
 		init_slider();
 	}
 
-	public R_Slider(String type) {
-		super(type);
-		init_slider();
-	}
-
 	public R_Slider(vec2 pos, vec2 size) {
 		super("Slider", pos, size);
 		init_slider();
-	}
-
-	public R_Slider(String type, vec2 pos, vec2 size) {
-		super(type, pos, size);
-		init_slider();
-		set_value(0.5f); // default > one molette > half position
 	}
 
 	public R_Slider(float x, float y, float sx, float sy) {
@@ -64,7 +53,18 @@ public class R_Slider extends Crope implements R_GUI {
 		set_value(0.5f); // default > one molette > half position
 	}
 
-	public R_Slider(String type, float x, float y, float sx, float sy) {
+	protected R_Slider(String type) {
+		super(type);
+		init_slider();
+	}
+	
+	protected R_Slider(String type, vec2 pos, vec2 size) {
+		super(type, pos, size);
+		init_slider();
+		set_value(0.5f); // default > one molette > half position
+	}
+
+	protected R_Slider(String type, float x, float y, float sx, float sy) {
 		super(type, x, y, sx, sy);
 		init_slider();
 		set_value(0.5f); // default > one molette > half position
@@ -538,15 +538,13 @@ public class R_Slider extends Crope implements R_GUI {
 			molette_builder(1);
 		}
 		cursor(x,y);
+		boolean other_event = true;
+		event_impl(other_event);
 		mol_update();
 	}
 	
 	
 	protected void mol_update() {
-		this.event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
-		if(!this.event) {
-			State.set_dna_current_crope(0); 
-		}
 		if(molette == null) {
 			init_molette(false, 1);
 		}
@@ -554,8 +552,13 @@ public class R_Slider extends Crope implements R_GUI {
 		mol_update_wheel();
 	}
 
-	
-	
+	/**
+	 * 
+	 * need to simplify mol_update_calc()
+	 * in the futur because The function event_impl() in Crope is more efficient
+	 * 
+	 */
+
 	private void mol_update_calc() {
 		for(int i = 0 ; i < molette.length ; i++) {
 			if(!molette[i].select_is()) {
@@ -574,7 +577,14 @@ public class R_Slider extends Crope implements R_GUI {
 					}
 				}
 				
-				boolean is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
+				// boolean is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
+				boolean is = false;
+				if(this.event && State.get_dna_current_crope() == 0 && !State.keep_selection_is()) {
+					is = true;
+				} else {
+					is = select(i, molette_used_is(i), molette[i].used_is(), auth_is);
+				}
+				
 				molette[i].used(is);
 				
 				if(molette[i].used_is()) {

@@ -1,7 +1,7 @@
 /**
 * R_DROPDOWN 
 * @author Knupel / Stanislas Marçais
-* v 1.6.0
+* v 1.6.1
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -558,12 +558,12 @@ public class R_Dropdown extends Crope implements R_GUI {
   private void open_dropdown() {
     boolean inside = inside(RECT);
     if (inside) {
-      if(event) {
+      if(this.event) {
         locked = true;
       }
-    } else if(!inside && event && slider_dd == null) {
+    } else if(!inside && this.event && slider_dd == null) {
       locked = false;
-    } else if(!inside && event && slider_dd != null && !slider_dd.inside(RECT)) {
+    } else if(!inside && this.event && slider_dd != null && !slider_dd.inside(RECT)) {
       locked = false;
     }
     if(locked) {
@@ -641,7 +641,9 @@ public class R_Dropdown extends Crope implements R_GUI {
     }
 
     if(slider_dd == null) {
-      slider_dd = new R_Slider("Slider Dropdown",pos_slider, size_slider);
+      slider_dd = new R_Slider();
+      slider_dd.pos(pos_slider).size(size_slider).set_type("Slider Dropdown");
+      // slider_dd = new R_Slider("Slider Dropdown",pos_slider, size_slider);
     } else {
       slider_dd.pos(pos_slider);
       slider_dd.size(size_slider);

@@ -37,7 +37,7 @@ public abstract class BigBang extends Rope {
 
 	public BigBang(PApplet pa) {
 		if(pa == null) {
-			print_err("Papplet pa is null, maybe your forget to use function State.init(PApplet pa)");
+			print_err("Papplet pa is null, maybe your forget to use function State.init(PApplet pa)\nor you try to try to create new Object() Crope outside the setup(), draw() or setting()");
 			System.exit(0);
 		}
 		this.pa = pa;

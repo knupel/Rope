@@ -1,10 +1,8 @@
 /**
 * Rope framework
 * Copyleft (c) 2014-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
-* @see https://github.com/StanLepunK/Rope/tree/master/Guide
-*
+* @author Knupel / Stanislas Marçais
+* @see https://github.com/StanLepunK/Rope
 */
 
 /**

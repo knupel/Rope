@@ -1,7 +1,7 @@
 /**
 * R_Slotch
 * Control ROmanesco Processing Environment
-* v 1.1.1
+* v 1.1.2
 * Copyleft (c) 2018-2021
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
@@ -30,7 +30,7 @@ public class R_Slotch extends R_Slider {
 		set_notch(num);
 	}
 
-	public R_Slotch(String type, vec2 pos, vec2 size, int num) {
+	protected R_Slotch(String type, vec2 pos, vec2 size, int num) {
 		super(type,pos, size);
 		set_notch(num);
 	}

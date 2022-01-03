@@ -1,7 +1,7 @@
 /**
 * GUI CROPE EXAMPLE
-* Processing 3.5.4
-* Rope Library 0.12.1.41
+* @author Knupel / Stanislas Marçais
+* @see https://github.com/StanLepunK/Rope
 *
 * 2016-2021
 * v 1.2.3

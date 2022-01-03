@@ -1,7 +1,9 @@
 /**
 * GUI CROPE EXAMPLE
-*
-* Simple button
+* @author Knupel / Stanislas Marçais
+* @see https://github.com/StanLepunK/Rope 
+* 
+* button
 * 2016-2021
 * v 1.0.4
 */

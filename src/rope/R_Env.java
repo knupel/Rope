@@ -36,6 +36,13 @@ public class R_Env implements R_Constants_Colour {
 	public boolean key_pressed;
 	
 	//Control Rope GUI
+	public boolean select;
+	public boolean molette;
+	public int dna_current_slider;
+	public boolean auth_select_adj;
+	public bvec2 auth_select_mol;
+	public boolean auth_select_keep;
+	
 	public ivec2 scroll;
 	public vec3 pointer;
 
@@ -99,12 +106,7 @@ public class R_Env implements R_Constants_Colour {
 
 
 
-	public boolean select;
-	public boolean molette;
-	public int dna_current_slider;
-	public boolean auth_select_adj;
-	public bvec2 auth_select_mol;
-	public boolean auth_select_keep;
+
 
 
 	R_Env() {

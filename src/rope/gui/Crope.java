@@ -1,6 +1,5 @@
 /**
-* CROPE
-* Control ROmanesco Processing Environment
+* CROPE / Control ROmanesco Processing Environment
 * v 1.6.0
 * Copyleft (c) 2018-2021
 * @author Knupel / Stanislas Marçais
@@ -33,6 +32,7 @@ abstract public class Crope extends R_Graphic {
   protected int mode = -1;
   // event
   protected boolean event;
+  private boolean event_ref;
   private boolean event_is_done;
   // color
   protected int fill_in = State.env().gui_fill_in;
@@ -139,23 +139,72 @@ abstract public class Crope extends R_Graphic {
     return this.dna;
   }
 
+  /**
+   * 
+   * @param type set the type, but that's can broken few routine function for event mangement. So use with precaution
+   * @return this.
+   */
+  public Crope set_type(String type) {
+    this.type = type;
+    return this;
+  }
+
   public String get_type() {
     return this.type;
   }
+
+
+  // event
 
   private boolean event_is() {
     return this.event;
   }
 
+  protected void event_impl(boolean other_event) {
+    boolean buf_event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
+    if(State.get_dna_current_crope() == 0) {
+      // standard case
+      if(!this.event && !this.event_ref) {
+        this.event = all(inside(),all(other_event, buf_event));
+        this.event_ref = this.event;
+        if(this.event) {
+          State.set_dna_current_crope(get_dna());
+        }
+        return;
+      }  
+    } else {
+      if(buf_event && any(this.event_ref, other_event)) {
+        if(get_type().equals("Button")) {
+          this.event = all(inside(),all(other_event, buf_event));
+          return;
+        }
+        this.event = all(true,all(other_event, buf_event));
+        return;
+      }
+      if(!buf_event) {
+        State.set_dna_current_crope(0);
+        this.event = false;
+        this.event_ref = this.event;
+        return;
+      }
+    }
+    //
+    this.event = false;
+    this.event_ref = this.event;
+  }
+
   /**
    * 
-   * @return true when the action gui is complete and return to false just after
+   * @return true when the action gui is completed and return to false just after
    */
   public boolean is_done() {
     if(this.event) {
       this.event_is_done = false;
+      this.event_ref = this.event;
       return false;
-    } else {
+    }
+    
+    if(!this.event && this.event_ref != this.event) {
       if(!this.event_is_done) {
         this.event_is_done = true;
         return true;
@@ -656,9 +705,10 @@ abstract public class Crope extends R_Graphic {
 
 
 
-  /**
-  font
-  */
+/**
+ * 
+ * @return the current font of crope
+ */
   public PFont get_font() {
     return font;
   }
@@ -673,7 +723,10 @@ abstract public class Crope extends R_Graphic {
     return this;
   }
 
-  // font size
+/**
+ * 
+ * @return size of crope label
+ */
   public int get_font_size() {
     return this.font_size;
   }
@@ -683,50 +736,67 @@ abstract public class Crope extends R_Graphic {
     return this; 
   }
 
-  // set rollover type
+  /**
+   * 
+   * @return the type of rollover
+   */
+  public int get_rollover_type() {
+    return this.rollover_type;
+  }
+
   public Crope set_rollover_type(int rollover_type) {
     this.rollover_type = rollover_type;
     return this;
   }
 
-  public int get_rollover_type() {
-    return this.rollover_type;
+  /**
+   * 
+   * @return int id_midi of crope
+   */
+  public int get_id_midi() { 
+    return this.id_midi ; 
   }
 
-
-  // id midi
   public Crope set_id_midi(int id_midi) {
     this.id_midi = id_midi;
     return this;
   }
 
-  public int get_id_midi() { 
-    return this.id_midi ; 
+
+  /**
+   * 
+   * @return int id of crope
+   */
+  public int get_id() {
+    return this.id;
   }
 
-  // id
   public Crope set_id(int id) {
     this.id = id;
     return this;
   }
 
-  public int get_id() {
-    return this.id;
+
+  /**
+   * 
+   * @return int rank of crope
+   */
+  public int get_rank() {
+    return rank;
   }
 
-
-  // rank
   public Crope set_rank(int rank) {
     this.rank = rank;
     return this;
   }
 
-  public int get_rank() {
-    return rank;
-  }
 
 
-  // name
+
+  /**
+   * 
+   * @return String name of crope
+   */
   public String get_name() {
     return this.name;
   }
@@ -742,16 +812,19 @@ abstract public class Crope extends R_Graphic {
 
 
 
-  // inside crope
+  /**
+   * 
+   * @return true if the cursor is inside the crope shape
+   */
   public boolean inside() {
     return inside(pos, size, rollover_type);
   }
 
-  public boolean inside(int shape_type) {
+  protected boolean inside(int shape_type) {
     return inside(pos,size,shape_type);
   }
 
-  public boolean inside(vec2 pos, vec2 size, int shape_type) {
+  protected boolean inside(vec2 pos, vec2 size, int shape_type) {
   	if(shape_type == ELLIPSE) {
   		// this part can be improve to check the 'x' and the 'y'
   		vec2 offset = pos.copy().add(size().copy().mult(0.5f));

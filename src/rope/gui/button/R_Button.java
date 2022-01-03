@@ -1,9 +1,8 @@
 /**
 * CLASS BUTTON 
-* Processing 4.0.0
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
-* v 2.6.1
+* v 2.7.0
 * 2013-2021
 */
 package rope.gui.button;
@@ -45,30 +44,29 @@ public class R_Button extends Crope {
     super("Button");
   }
 
-  public R_Button(String type) {
-    super(type);
-  }
-
-  public R_Button(String type, vec2 pos, vec2 size) {
-    super(type, pos, size); 
-  }
-
-
   public R_Button(vec2 pos, vec2 size) {
     super("Button", pos, size);
     set_thickness(State.env().gui_but_thickness);
   }
 
-  public R_Button(String type, float x, float y, float sx, float sy) {
-    super(type, x, y, sx, sy);
-    set_thickness(State.env().gui_but_thickness);
-  }
-
-
   public R_Button(float x, float y, float sx, float sy) {
     super("Button", x, y, sx, sy);
     set_thickness(State.env().gui_but_thickness);
   }
+
+  protected R_Button(String type) {
+    super(type);
+  }
+
+  protected R_Button(String type, vec2 pos, vec2 size) {
+    super(type, pos, size); 
+  }
+
+  protected R_Button(String type, float x, float y, float sx, float sy) {
+    super(type, x, y, sx, sy);
+    set_thickness(State.env().gui_but_thickness);
+  }
+
 
   public void set_kind(int kind) {
     this.kind = kind;
@@ -260,19 +258,22 @@ public class R_Button extends Crope {
 
   private void update(float x, float y) {
     cursor(x,y);
-    this.event = button_event_is();
+    boolean other_event = any(State.env().bangbang.a(), State.env().bangbang.b(), State.env().bangbang.c());
+    event_impl(other_event);
+    // this.event = button_event_is();
     if(this.event) {
+      // print_out("button this.event",State.get_dna_current_crope(), "bang", other_event, this.event, pa.frameCount);
       switch_is();
       bangbang.set(false);
     }
   }
 
   
-  protected boolean button_event_is() {
-    boolean event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
-    boolean event_bang = any(State.env().bangbang.a(), State.env().bangbang.b(), State.env().bangbang.c());
-    return all(inside(),all(event_bang,event));
-	}
+  // protected boolean button_event_is() {
+  //   boolean event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
+  //   boolean event_bang = any(State.env().bangbang.a(), State.env().bangbang.b(), State.env().bangbang.c());
+  //   return all(inside(),all(event_bang,event));
+	// }
 
   /**
   * offset

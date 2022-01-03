@@ -14,6 +14,7 @@
 > fixed default label position for R_Knob
 > added overwrite method show_value() to R_Knob, to show all value of knob in case where there is few molettes
 > added function get_start() and get_stop() to show the pie limit of the R_Knob
+> changed all children Contructors where the type is used, from public to protected
 
 > MESH
 > fixed get_direction() from R_Segment

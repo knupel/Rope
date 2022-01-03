@@ -2,7 +2,7 @@
 * R_Knob
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
-* v 2.1.0
+* v 2.1.1
 * 2019-2021
 */
 package rope.gui.button;
@@ -53,7 +53,7 @@ public class R_Knob extends R_Button {
     init_knob();
   }
   
-  public R_Knob(String type, vec2 pos, float size) {
+  protected R_Knob(String type, vec2 pos, float size) {
     super(type, pos, new vec2(size));
     init_knob();
   }
