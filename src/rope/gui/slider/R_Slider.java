@@ -538,8 +538,7 @@ public class R_Slider extends Crope implements R_GUI {
 			molette_builder(1);
 		}
 		cursor(x,y);
-		boolean other_event = true;
-		event_impl(other_event);
+		event_impl(true);
 		mol_update();
 	}
 	

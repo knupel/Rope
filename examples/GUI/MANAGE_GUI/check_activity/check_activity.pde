@@ -20,7 +20,8 @@ R_Slider slider_a;
 R_Slider slider_b;
 R_Button button;
 R_Dropdown dropdown;
-boolean slider_a_is, slider_b_is, button_is, dropdown_is;
+boolean slider_a_is_active, slider_b_is_active, button_is_active, dropdown_is_active;
+boolean slider_a_is_done, slider_b_is_done, button_is_done, dropdown_is_done;
 
 void setup() {
   size(400,270);
@@ -66,10 +67,6 @@ void setting() {
 
 
 void update() {
-
-  button.update();
-  button.show_struc();
-
   slider_a.update();
   slider_a.show_struc();
   slider_a.show_mol();
@@ -77,24 +74,42 @@ void update() {
   slider_b.update();
   slider_b.show_struc();
   slider_b.show_mol();
+
+  button.update();
+  button.show_struc();
+
+  dropdown.update();
+  dropdown.show_struc();
+  dropdown.set_label(dropdown.get_name() + " " + dropdown.get_value());
+  dropdown.show_value();
   
+  slider_a_is_active = slider_a.is_active();
+  slider_b_is_active = slider_b.is_active();
+  button_is_active = button.is_active();
+  dropdown_is_active = dropdown.is_active();
 
-  slider_a_is = slider_a.is_done();
-  slider_b_is = slider_b.is_done();
-  button_is = button.is_done();
+  slider_a_is_done = slider_a.is_done();
+  slider_b_is_done = slider_b.is_done();
+  button_is_done = button.is_done();
+  dropdown_is_done = dropdown.is_done();
 
-  // dropdown.update();
-  // dropdown.show_struc();
-  // dropdown.set_label(dropdown.get_name() + " " + dropdown.get_value());
-  // dropdown.show_value();
-  // dropdown_is = dropdown.is_done();
-
-  if(slider_a_is || slider_b_is || button_is || dropdown_is) {
+  if(slider_a_is_active || slider_b_is_active || button_is_active || dropdown_is_active) {
+    println("ACTIVE");
     println("frameCount", frameCount);
-    println("slider_a.is_done()",slider_a_is);
-    println("slider_b.is_done()",slider_b_is);
-    println("button.is_done()",button_is);
-    println("dropdown.is_done()",dropdown_is);
+    if(slider_a_is_active) println("slider_a.is_active()",slider_a_is_active);
+    if(slider_b_is_active) println("slider_b.is_active()",slider_b_is_active);
+    if(button_is_active) println("button.is_active()",button_is_active);
+    if(dropdown_is_active) println("dropdown.is_active()",dropdown_is_active);
   }
+
+  if(slider_a_is_done || slider_b_is_done || button_is_done || dropdown_is_done) {
+    println("DONE");
+    println("frameCount", frameCount);
+    if(slider_a_is_done) println("slider_a.is_done()",slider_a_is_done);
+    if(slider_b_is_done) println("slider_b.is_done()",slider_b_is_done);
+    if(button_is_done) println("button.is_done()",button_is_done);
+    if(dropdown_is_done) println("dropdown.is_done()",dropdown_is_done);
+  }
+
 }
   

@@ -1,7 +1,7 @@
 /**
 * R_DROPDOWN 
 * @author Knupel / Stanislas Marçais
-* v 1.6.1
+* v 1.7.0
 * 2018-2021
 * method to know is dropdown is active or not
 * Add dropdown must use when the dropdown is build.
@@ -29,6 +29,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   private HashMap<Integer,String> content;
 
   private boolean locked;
+  private boolean dropdown_done_is;
   private boolean slider;
   // color
   private int colour_structure = State.env().gui_db_fill_struct;
@@ -51,16 +52,16 @@ public class R_Dropdown extends Crope implements R_GUI {
   private vec2 pos_box_text;
 
   private float pos_ref_x;
-  private float pos_ref_y ;
+  private float pos_ref_y;
 
   // box
   private float height_box;
   private int num_box = 9;
 
   private int start = 0;
-  private int end = 1 ;
+  private int end = 1;
   private int offset_slider = 0; //for the slider update
-  private float missing ;
+  private float missing;
 
   private int box_starting_rank_position = 1;
 
@@ -524,6 +525,31 @@ public class R_Dropdown extends Crope implements R_GUI {
     }
   }
 
+  /**
+   * Overwrite the Crope function is_active()
+   * @return true when the gui is active
+   */
+  public boolean is_active() {
+    return locked;
+  }
+
+    /**
+   * Overwrite the Crope function is_done()
+   * @return true when the action gui is done
+   */
+  public boolean is_done() {
+    if(this.done_is) {
+      dropdown_done_is = true;
+      done_impl(false);
+      return false;
+    }
+    if(dropdown_done_is && !locked) {
+      dropdown_done_is = false;
+      return true;
+    }
+    return false;
+  }
+
 
 
 
@@ -549,6 +575,7 @@ public class R_Dropdown extends Crope implements R_GUI {
   
   public void update(float x, float y) {
     cursor(x,y);
+    event_impl(true);
     this.event = all(State.env().event.a(),State.env().event.b(), State.env().event.c());
     open_dropdown();
   }
@@ -557,7 +584,7 @@ public class R_Dropdown extends Crope implements R_GUI {
 
   private void open_dropdown() {
     boolean inside = inside(RECT);
-    if (inside) {
+    if(inside) {
       if(this.event) {
         locked = true;
       }
