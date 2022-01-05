@@ -163,12 +163,8 @@ abstract public class Crope extends R_Graphic {
 
   protected void event_impl(boolean other_event) {
     boolean buf_event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
-    // if(any(this.event,this.event_ref)) {
-    //   print_out("event",get_type(), get_dna(), this.event,this.event_ref, pa.frameCount);
-    // }
     if(this.event_ref && !buf_event) {
       done_impl(true);
-      // print_out("event",get_type(), get_dna(), this.event,this.event_ref, pa.frameCount);
     }
     if(State.get_dna_current_crope() == 0) {
       if(event_impl_normal_case(buf_event, other_event)) return;

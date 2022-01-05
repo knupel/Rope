@@ -17,6 +17,8 @@
 > changed all children Contructors where the type is used, from public to protected
 > added function is_done() return true when the gui action is complete
 > added function is_active() return true when a gui is active
+> improved display separation for R_Slotch
+> fixed bug for regular squaring display R_Slotch
 
 > MESH
 > fixed get_direction() from R_Segment

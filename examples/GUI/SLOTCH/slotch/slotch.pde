@@ -1,9 +1,9 @@
 /**
 * GUI CROPE EXAMPLE 
 *
-* slider notch
+* slider notch is slotch
 * 2021-2021
-* v 1.3.0
+* v 2.0.0
 */
 
 import rope.gui.slider.R_Slotch;
@@ -11,14 +11,10 @@ import rope.R_State.State;
 import rope.core.Rope;
 import rope.vector.vec2;
 
-int x = 30;
-int y = 40 ;
-Rope r = new Rope();
 void setup() {
-  println(r.VERSION);
   size(800,200);
   State.init(this);
-  slotch_setup(x,y); 
+  setting(); 
 }
 
 
@@ -29,45 +25,38 @@ void draw() {
   State.pointer(mouseX,mouseY);
   State.event(mousePressed);
 
-  slotch_draw();
+  update();
   State.reset_event();
 }
 
 R_Slotch slotch;
-void slotch_setup(int x, int y) {
-  int num_notch = 10;
-  int size_y = 20;
-  // bbasic setting via construor or via method
-  int len = size_y *num_notch + size_y;
-  // slotch = new R_Slotch(new vec2(x,y),new vec2(len,size_y),num_notch);
+void setting() {
+  int num_notch = 9;
+  int sy = 20;
+  // int sx = sy *num_notch + sy;
+  int sx = sy * num_notch;
 
   slotch = new R_Slotch();
-  slotch.pos(x,y);
-  slotch.size(len,size_y);
+  slotch.pos(20,20);
+  slotch.size(sx,sy);
   slotch.set_notch(num_notch);
 
   // other setting
-  // slotch.set_value(0.5); // use normal position from [0.0, 1.0]
-  slotch.set_value(5); // use position from [0, int num_of_notch]
+  // slotch.set_value(0.5f); // use normal position from [0.0, 1.0] with float value
+  slotch.set_value(5); // use position from [num_of_notch] with int-eger value
   slotch.set_mol(ELLIPSE);
   slotch.set_rounded(20);
   println("slotch.get_type():", slotch.get_type());
 }
 
 
-void slotch_draw() {
+void update() {
   slotch.update();
-
   slotch.show_struc();
   slotch.show_mol();
-  // stroke(255);
-  // slotch.show_notch();
-  // slotch.set_colour_notch(230);
-  
-  // slotch.set_aspect_notch(230,1); // What is it ????
   
   // notch is separator
-  slotch.show_notch(-5,10);
+  slotch.show_notch(5,5);
   if(slotch.is_done()) {
     println("value",slotch.get(), frameCount);
   }

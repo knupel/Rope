@@ -1,0 +1,7 @@
+Rope is a library for the Processing programming environment.
+
+Part of the Processing project - http://processing.org
+
+Copyleft 2018-2021 Stanislas Marçais
+
+licence MIT
