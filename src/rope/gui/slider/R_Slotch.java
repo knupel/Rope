@@ -167,8 +167,7 @@ public class R_Slotch extends R_Slider {
 				break;
 			}
 		}
-		float value = abs_pos + pos;
-		return value;
+		return abs_pos + pos;
 	}
 
 	private float [] notches_position() {
