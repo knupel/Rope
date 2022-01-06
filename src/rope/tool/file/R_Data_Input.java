@@ -2,6 +2,8 @@
 * R_Data_Input
 * 2017-2021
 * v 0.3.0
+* @author Knupel / Stanislas Marçais
+* @see https://github.com/StanLepunK/Rope
 */
 package rope.tool.file;
 

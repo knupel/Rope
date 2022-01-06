@@ -98,9 +98,9 @@ public class R_Input extends BigBang {
 	}
 
 	// get input
-	// private String [] get_input_type() {
-	// 	return input_type;
-	// }
+	public String [] get_input_type() {
+		return this.input_type;
+	}
 
 	public R_Data_Input get_input(String type) {
 		R_Data_Input input = null;
