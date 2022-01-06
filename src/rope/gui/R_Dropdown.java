@@ -343,15 +343,6 @@ public class R_Dropdown extends Crope implements R_GUI {
     return -1;
   }
 
-    /**
-    * return all the content of the dropdown
-    * @return String array
-    */
-  public String [] get_content() {
-    String [] buf = this.content.values().toArray(new String[this.content.size()]);
-    return buf;
-  }
-
   public int [] get_key_set() {
     Object [] buf = this.content.keySet().toArray();
     int [] res = new int[buf.length];
@@ -361,7 +352,19 @@ public class R_Dropdown extends Crope implements R_GUI {
     return res;
   }
 
-      /**
+
+
+    /**
+    * return all the content array of the dropdown
+    * @return String array
+    */
+  public String [] get_content() {
+    String [] buf = this.content.values().toArray(new String[this.content.size()]);
+    return buf;
+  }
+
+
+    /**
     * return the String content of the index asking if it's possible. If it's not return the first element of the array content
     * @return String
     */
@@ -372,6 +375,10 @@ public class R_Dropdown extends Crope implements R_GUI {
     return this.get_content()[0];
   }
 
+  /**
+   * the quantity of elements in the dropdown
+   * @return int number of elements
+   */
   public int get_content_size() {
     return this.content.size();
   }
@@ -380,18 +387,39 @@ public class R_Dropdown extends Crope implements R_GUI {
     return pos_box_text;
   }
 
+  /**
+   * clear content of dropdown menu
+   */
+  public void clear() {
+    this.content.clear();
+  }
+
+  /**
+   * Set a new content element for the dropdown, the list is clear before.
+   * @param content String array
+   * @return this
+   */
   public R_Dropdown set_content(String... content) {
     this.content.clear();
     content_impl(content.length, content);
     return this;
   }
 
+  /**
+   * Set a new content element for the dropdown, the list is clear before.
+   * @param content add an Hashmap where the first argument is an Integer and the second is a String.
+   * @return this
+   */
   public R_Dropdown set_content(HashMap<Integer, String> content) {
     this.content.clear();
     content_impl(content.size(), content);
     return this;
   }
 
+  /**
+   * add a String list of elements to the list
+   * @param content String array or list
+   */
   public void add_content(String... content) {
     int len = this.content.size() + content.length;
     content_impl(len, content);

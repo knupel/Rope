@@ -1846,14 +1846,17 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	
 	/**
-	* Check OS
-	* v 0.0.2
-	* @return
+	* 
+	* @return the current os
 	*/
 	public String get_os() {
 		return System.getProperty("os.name").toLowerCase();
 	}
 
+	/**
+	 * 
+	 * @return the current os family
+	 */
 	public String get_os_family() {
 		String os = System.getProperty("os.name").toLowerCase();
 		String family = "";
@@ -1867,6 +1870,52 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			family = "solaris";
 		}
 		return family;
+	}
+
+	/**
+	 * 
+	 * @param filename check the last part of String path to return the extension if there is one
+	 * @return the extension of the file
+	 */
+	public String extension(String filename) {
+		if(filename != null) {
+			filename = filename.toLowerCase();
+			if(filename.contains(".")) {
+				return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+			} else {
+				return null;
+			} 
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param filename check the last part of String path return true at the first extension who match
+	 * @param extension list of extension must be check;
+	 * @return
+	 */
+	public boolean extension_is(String filename, String... extension) {
+		boolean is = false;
+		if(extension.length >= 1) {
+			String extension_to_compare = extension(filename.toLowerCase());
+			if(extension_to_compare != null) {
+				for(int i = 0 ; i < extension.length ; i++) {
+					if(extension_to_compare.equals(extension[i].toLowerCase())) {
+						is = true;
+						break;
+					} else {
+						is = false;
+					}
+				}
+			} else {
+				print_err("method extension_is(): [",filename.toLowerCase(),"] this path don't have any extension");
+			}
+		} else {
+			print_err("method extension_is() need almost two components, the first is the path and the next is extension");
+		}
+		return is;
 	}
 	
 }

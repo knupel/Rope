@@ -32,6 +32,12 @@
 > UTILS
 > added class R_Fov
 
+> TOOL > FILE
+> added class to package toll R_Folder, R_Input and R_Data_Pinput to manage external file
+
+> CORE
+> added function to Rope to check extension file
+
 
 \*version 46
 
