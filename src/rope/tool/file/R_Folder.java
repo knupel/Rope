@@ -1,7 +1,7 @@
 /**
 * R_Folder
 * Control ROmanesco Processing Environment
-* v 2.0.0
+* v 2.0.1
 * Copyleft (c) 2018-2021
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope
@@ -95,6 +95,13 @@ public class R_Folder extends BigBang {
 
 	public ArrayList<File> get_files() {
 		return files ;
+	}
+
+	/**
+	 * clear list of files
+	 */
+	public void clear() {
+		files.clear();
 	}
 
 	public String [] get_files_sort() {
