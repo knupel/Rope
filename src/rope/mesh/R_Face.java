@@ -1,7 +1,7 @@
 /**
 * R_Face
-* v 0.2.1
-* 2019-2021
+* v 0.2.3
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -52,9 +52,25 @@ public class R_Face extends R_Graphic {
 	 * @param c is summit vec3 point of the triangle face
 	 */
 	public void set(vec a, vec b, vec c) {
-		this.pts[0].set(a.x(), a.y(), a.z());
-		this.pts[1].set(b.x(), b.y(), b.z());
-		this.pts[2].set(c.x(), c.y(), c.z());
+		set(a.x(), a.y(), a.z(), b.x(), b.y(), b.z(), c.x(), c.y(), c.z());
+	}
+
+		/**
+	 * 
+	 * @param ax is summit point of the triangle face
+	 * @param ay is summit point of the triangle face
+	 * @param az is summit point of the triangle face
+	 * @param bx is summit point of the triangle face
+	 * @param by is summit point of the triangle face
+	 * @param bz is summit point of the triangle face
+	 * @param cx is summit point of the triangle face
+	 * @param cy is summit point of the triangle face
+	 * @param cz is summit point of the triangle face
+	 */
+	public void set(float ax, float ay, float az, float bx, float by, float bz, float cx, float cy, float cz) {
+		this.pts[0].set(ax, ay, az);
+		this.pts[1].set(bx, by, bz);
+		this.pts[2].set(cx, cy, cz);
 	}
 
 	/**
@@ -135,6 +151,25 @@ public class R_Face extends R_Graphic {
 	 */
 	public void offset(float value) {
 		offset(new vec3(value));
+	}
+
+	/**
+	 * 
+	 * @param x is float type use to create the displacement
+	 * @param y is float type use to create the displacement
+	 */
+	public void offset(float x, float y) {
+		offset(new vec3(x,y, 0));
+	}
+
+	/**
+	 * 
+	 * @param x is float type use to create the displacement
+	 * @param y is float type use to create the displacement
+	 * @param z is float type use to create the displacement
+	 */
+	public void offset(float x, float y, float z) {
+		offset(new vec3(x,y,z));
 	}
 
 	/**

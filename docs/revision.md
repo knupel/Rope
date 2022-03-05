@@ -25,6 +25,7 @@
 > deprecated get_end() to get_stop() from R_Segment
 > added function to set start and stop value from R_Segment
 > remove @Deprecated update(int x, int y, boolean event) function from Dropdown
+> added more argument to function set() and offset()
 
 > PIXO
 > fixed bug R_Nubo when polygon start from another value than 0
