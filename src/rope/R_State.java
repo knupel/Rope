@@ -300,6 +300,7 @@ public class R_State implements R_Constants {
 		public static boolean select_adj_is() {
 			return env.auth_select_adj;
 		}
+		
 		// keep selection
 		public static void keep_selection_is(boolean is) {
 			env.auth_select_keep = is;

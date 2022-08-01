@@ -33,9 +33,7 @@ abstract public class Crope extends R_Graphic {
   // event
   protected boolean event;
   private boolean event_ref;
-
-  protected boolean done_is;
-  private boolean activity_is;
+  private boolean event_is_done;
   // color
   protected int fill_in = State.env().gui_fill_in;
   protected int fill_out = State.env().gui_fill_out;
@@ -77,6 +75,7 @@ abstract public class Crope extends R_Graphic {
   	super(State.pa());
     this.type = type;
     init(-1, -1, -1, -1);
+    
   }
 
   public Crope(String type, vec2 pos, vec2 size) {
@@ -97,16 +96,12 @@ abstract public class Crope extends R_Graphic {
    * INIT
    */
   private void init(float x, float y, float sx, float sy) {
-    // this.font_size = (int)State.pa().g.textSize;
-    this.font_size = (int)pa.g.textSize;
+    this.font_size = (int)State.pa().g.textSize;
     this.cursor = new vec2();
     this.pos(x,y);
 		this.size(sx,sy);
     dna = floor(random(Integer.MIN_VALUE,Integer.MAX_VALUE));
-    // to keep the zero value safe for the special use.
-    if(dna == 0) {
-      dna = 1;
-    }
+    if(dna == 0) dna = 1;
     init_pos_label();
   }
 
@@ -161,85 +156,54 @@ abstract public class Crope extends R_Graphic {
 
   // event
 
+  private boolean event_is() {
+    return this.event;
+  }
+
   protected void event_impl(boolean other_event) {
     boolean buf_event = all(State.env().event.a(), State.env().event.b(), State.env().event.c());
-    if(this.event_ref && !buf_event) {
-      done_impl(true);
-    }
     if(State.get_dna_current_crope() == 0) {
-      if(event_impl_normal_case(buf_event, other_event)) return;
+      // standard case
+      if(!this.event && !this.event_ref) {
+        this.event = all(inside(),all(other_event, buf_event));
+        this.event_ref = this.event;
+        if(this.event) {
+          State.set_dna_current_crope(get_dna());
+        }
+        return;
+      }  
     } else {
-      if(event_impl_other_case(buf_event, other_event)) return;
+      if(buf_event && any(this.event_ref, other_event)) {
+        if(get_type().equals("Button")) {
+          this.event = all(inside(),all(other_event, buf_event));
+          return;
+        }
+        this.event = all(true,all(other_event, buf_event));
+        return;
+      }
+      if(!buf_event) {
+        State.set_dna_current_crope(0);
+        this.event = false;
+        this.event_ref = this.event;
+        is_done_impl(true);
+        return;
+      }
     }
+    //
     this.event = false;
     this.event_ref = this.event;
   }
 
-  private boolean event_impl_normal_case(boolean buf_event, boolean other_event) {
-    if(!this.event && !this.event_ref) {
-      this.event = all(inside(),all(other_event, buf_event));
-      this.event_ref = this.event;
-      if(this.event) {
-        State.set_dna_current_crope(get_dna());
-      }
-      active_impl(this.event);
-      return true;
-    } 
-    return false; 
-  }
-
-  private boolean event_impl_other_case(boolean buf_event, boolean other_event) {
-    if(buf_event && any(this.event_ref, other_event)) {
-      if(get_type().equals("Button")) {
-        this.event = all(inside(),all(other_event, buf_event));
-        active_impl(this.event);
-        return true;
-      }
-      this.event = all(true,all(other_event, buf_event));
-      if(State.get_dna_current_crope() == get_dna()) {
-        active_impl(this.event);
-      } else {
-        active_impl(false);
-      }
-      return true;
-    }
-    if(!buf_event) {
-      State.set_dna_current_crope(0);
-      this.event = false;
-      this.event_ref = this.event;
-      active_impl(this.event);
-      return true;
-    }
-    return false; 
-  }
-  
-
   /**
    * 
-   * @return true when the gui is active
-   */
-  public boolean is_active() {
-    boolean is = this.activity_is;
-    active_impl(false);
-    return is;
-  }
-
-  private void active_impl(boolean is) {
-    this.activity_is = is;
-  }
-
-    /**
-   * 
-   * @return true when the action gui is done
+   * @return true when the action gui is completed and return to false just after
    */
   public boolean is_done() {
-    boolean is = this.done_is;
-    done_impl(false);
-    return is;
+    return this.event_is_done;
   }
 
-  protected void done_impl(boolean is) {
-    this.done_is = is;
+  public void is_done_impl(boolean is) {
+    this.event_is_done = is;
   }
 
 

@@ -566,9 +566,9 @@ public class R_Dropdown extends Crope implements R_GUI {
    * @return true when the action gui is done
    */
   public boolean is_done() {
-    if(this.done_is) {
+    if(this.is_done()) {
       dropdown_done_is = true;
-      done_impl(false);
+      is_done_impl(false);
       return false;
     }
     if(dropdown_done_is && !locked) {

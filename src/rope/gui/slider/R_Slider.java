@@ -395,18 +395,9 @@ public class R_Slider extends Crope implements R_GUI {
 
 
 
-
-
-
-
 	private boolean wheel_is() {
 		return wheel_is;
 	}
-
-
-
-
-
 
 
 
@@ -538,7 +529,8 @@ public class R_Slider extends Crope implements R_GUI {
 			molette_builder(1);
 		}
 		cursor(x,y);
-		event_impl(true);
+		boolean other_event = true;
+		event_impl(other_event);
 		mol_update();
 	}
 	

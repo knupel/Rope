@@ -75,11 +75,11 @@ public class R_Image extends BigBang {
 
   @Deprecated
   public PImage get_pimage() {
-    return img ;
+    return img;
   }
 
   public PImage get_PImage() {
-    return img ;
+    return img;
   }
 
   // id
@@ -94,7 +94,7 @@ public class R_Image extends BigBang {
 
   // name
   public String get_name() {
-    return name ;
+    return name;
   }
 
   public R_Image set_name(String name) {
