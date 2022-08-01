@@ -1,7 +1,7 @@
 /**
 * R_Image_MAnager
-* v 0.2.2
-* 2019-2021
+* v 0.3.0
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -71,7 +71,9 @@ public class R_Image_Manager extends BigBang {
 
 
 
-
+  /**
+   * clear the list to start a new collection or not !
+   */
   public void clear() {
     if(library != null) {
       library.clear();
@@ -79,11 +81,20 @@ public class R_Image_Manager extends BigBang {
   }
 
 
-
+  /**
+   * 
+   * @param which_one
+   * choice the current image for the future !
+   */
   public void select(int which_one) {
     which_img = which_one ;
   }
 
+  /**
+   * 
+   * @param target_name
+  * choice the current image for the future !
+   */
   public void select(String target_name) {
     if(library.size() > 0) {
       for(int i = 0 ; i < library.size() ; i++) {
@@ -98,13 +109,21 @@ public class R_Image_Manager extends BigBang {
     }
   }
 
+  /**
+   * 
+   * @param index
+   * remove image from the collection if this one is available.
+   */
   public void remove(int index) {
     if(library != null) {
       library.remove(index);
     }
   }
 
-
+  /**
+   * 
+   * @return the size of the image collection
+   */
   public int size() {
     if(library != null) {
       return library.size() ;
@@ -123,13 +142,13 @@ public class R_Image_Manager extends BigBang {
   public void set(PImage src_img, int index) {
     build();
     if(index < library.size() && index >= 0) {
-      if(src_img.width == get(index).width && src_img.height == get(index).height){
-        get(index).pixels = src_img.pixels ;
-        get(index).updatePixels();
+      if(src_img.width == get(index).width() && src_img.height == get(index).height()){
+        get_PImage(index).pixels = src_img.pixels ;
+        get_PImage(index).updatePixels();
       } else {
         get(index).resize(src_img.width, src_img.height);
-        get(index).pixels = src_img.pixels ;
-        get(index).updatePixels();
+        get_PImage(index).pixels = src_img.pixels ;
+        get_PImage(index).updatePixels();
       }
     } else {
       String mess = ANSI_RED+"Neither target image match with your request"+ANSI_WHITE+" target: "+index;
@@ -140,13 +159,13 @@ public class R_Image_Manager extends BigBang {
   public void set(PImage src_img, String target_name) {
     build();
     if(library.size() > 0) {
-      if(src_img.width == get(target_name).width && src_img.height == get(target_name).height){
-        get(target_name).pixels = src_img.pixels ;
-        get(target_name).updatePixels();
+      if(src_img.width == get(target_name).width() && src_img.height == get(target_name).height()){
+        get_PImage(target_name).pixels = src_img.pixels ;
+        get_PImage(target_name).updatePixels();
       } else {
-        get(target_name).resize(src_img.width, src_img.height);
-        get(target_name).pixels = src_img.pixels ;
-        get(target_name).updatePixels();
+        get_PImage(target_name).resize(src_img.width, src_img.height);
+        get_PImage(target_name).pixels = src_img.pixels ;
+        get_PImage(target_name).updatePixels();
       }
     } else {
       String mess = ANSI_RED+"Neither target name image match with your request"+ANSI_WHITE+" target name:"+target_name;
@@ -158,6 +177,18 @@ public class R_Image_Manager extends BigBang {
   public ArrayList<R_Image> list() {
     return library;
   }
+
+  /**
+   * 
+   * @return a random R_Image from the list
+   */
+  public R_Image rand() {
+    if(library != null && library.size() > 0) {
+      int target = floor(random(library.size()));
+      return library.get(target);
+    } else return null;
+  }
+
 
   // GET
   public String get_current_name() {
@@ -194,29 +225,45 @@ public class R_Image_Manager extends BigBang {
     } else return -1;
   }
 
-
+  /**
+   * 
+   * @return an array of RImage available
+   */
   R_Image [] get() {
     if(library != null && library.size() > 0) {
       return library.toArray(new R_Image[library.size()]);
     } else return null;
   }
 
- 
-  public PImage get_current() {
+    /**
+   * 
+   * @return the current R_Image
+   */
+  public R_Image get_current() {
     if(library != null && library.size() > 0 ) {
-      if(which_img < library.size()) return library.get(which_img).get_PImage(); 
-      else return library.get(0).get_PImage(); 
+      if(which_img < library.size()) return library.get(which_img); 
+      else return library.get(0); 
     } else return null ;
   }
   
 
-  public PImage get(int target){
+  /**
+   * 
+   * @param target
+   * @return return a specific R_Image from the list is this one exist
+   */
+  public R_Image get(int target){
     if(library != null && target >= 0 && target < library.size()) {
-      return library.get(target).get_PImage();
+      return library.get(target);
     } else return null;
   }
 
-  public PImage get(String target_name){
+  /**
+   * 
+   * @param target_name
+   * @return return a specific R_Image from the list is this one exist
+   */
+  public R_Image get(String target_name){
     if(library.size() > 0) {
       int target = 0 ;
       for(int i = 0 ; i < library.size() ; i++) {
@@ -230,11 +277,46 @@ public class R_Image_Manager extends BigBang {
     } else return null;
   }
 
+  // get PImage
 
-  public R_Image rand() {
-    if(library != null && library.size() > 0) {
-      int target = floor(random(library.size()));
-      return library.get(target);
+  /**
+   * 
+   * @return the current PImage
+   */
+  public PImage get_current_PImage() {
+    if(library != null && library.size() > 0 ) {
+      if(which_img < library.size()) return library.get(which_img).get_PImage(); 
+      else return library.get(0).get_PImage(); 
+    } else return null ;
+  }
+  
+  /**
+   * 
+   * @param target
+   * @return return a specific PImage from the list is this one exist
+   */
+  public PImage get_PImage(int target){
+    if(library != null && target >= 0 && target < library.size()) {
+      return library.get(target).get_PImage();
+    } else return null;
+  }
+
+  /**
+   * 
+   * @param target_name
+   * @return return a specific PImage from the list is this one exist
+   */
+  public PImage get_PImage(String target_name){
+    if(library.size() > 0) {
+      int target = 0 ;
+      for(int i = 0 ; i < library.size() ; i++) {
+        String final_name = target_name.split("/")[target_name.split("/").length -1].split("\\.")[0] ;
+        if(final_name.equals(library.get(i).get_name()) ) {
+          target = i ;
+          break;
+        } 
+      }
+      return get_PImage(target);
     } else return null;
   }
 }

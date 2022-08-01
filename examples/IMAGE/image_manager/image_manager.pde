@@ -1,8 +1,8 @@
 /**
  * Rope Framework
  * example to use R_Image_Manager and R_Image
- * v 0.0.1
- * 2021-2021
+ * v 0.0.2
+ * 2021-2022
  * 
  * 
  */
@@ -32,19 +32,25 @@ void setup() {
 	lib.add(r_img);
 }
 
+/**
+* there is two ways to acces to PImage from the collection.
+ */
 void draw() {
 	if(mousePressed) {
-		image(lib.get(1),0,0);
+		image(lib.get_PImage(1),0,0);
+		// image(lib.get(1).get_PImage(),0,0);
 		println(lib.get_name(1), lib.get_id(1));
 	} 
 
 	if(!mousePressed && !keyPressed){
-		image(lib.get(0),0,0);
+		image(lib.get_PImage(0),0,0);
+		// image(lib.get(0).get_PImage(),0,0);
 		println(lib.get_name(0), lib.get_id(0));
 	}
 
 	if(keyPressed) {
-		image(lib.get(2),0,0);
+		image(lib.get_PImage(2),0,0);
+		// image(lib.get(2).get_PImage(),0,0);
 		println(lib.get_name(2), lib.get_id(2));
 	}
 }
