@@ -1,3 +1,11 @@
+\* version 48
+> COLOR
+> class R_Color add function to create palette by name
+
+> GUI
+> 
+
+
 \*version 47
 > Update to Processing 4
 

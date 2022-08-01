@@ -1,7 +1,7 @@
 /**
 * R_COLOUR LIST class
 * v 0.5.0
-* 2017-2021
+* 2017-2022
 */
 
 package rope.colour;
@@ -31,7 +31,24 @@ public class R_Colour extends Rope {
 		list.add(p);
 	}
 
-	public void add(int group, int [] colour) {
+	public R_Colour(PApplet pa, String palette_name) {
+		this.pa = pa;
+		this.list = new ArrayList<Palette>();
+		Palette p = new Palette(palette_name);
+		list.add(p);
+	}
+
+	public R_Colour(PApplet pa, String palette_name, int... list_colour) {
+		this.pa = pa;
+		this.list = new ArrayList<Palette>();
+		Palette p = new Palette(palette_name, list_colour);
+		list.add(p);
+	}
+
+		/**
+	 * @deprecated instead public void add(String name, int... colour)
+	 * */
+	@Deprecated public void add(int group, int [] colour) {
 		if(group >= 0) {
 			if(group >= size_group()) {
 				String s = "class R_Colour method add(int group, int [] colour) the group: " + group + " don't exist yet, add group before use this method";
@@ -42,7 +59,10 @@ public class R_Colour extends Rope {
 		}
 	}
 
-	public void add(int group, int colour) {
+		/**
+	 * @deprecated instead public void add(String name, int... colour)
+	 * */
+	@Deprecated public void add(int group, int colour) {
 		if(group >= 0) {
 			if(group >= size_group()) {
 				String s = "class R_Colour method add(int group, int colour): the group " + group + " don't exist yet, add group before use this method";
@@ -53,16 +73,62 @@ public class R_Colour extends Rope {
 		}
 	}
 
-	public void add(int colour) {
-		list.get(0).add(colour);
+	public void add(String name, int... colour) {
+		String s = "class R_Colour method add(String name, int... colour) the palette: " + name + " don't exist yet, add palette before use this method";
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.name.equals(name)) {
+					p.add(colour);
+					return;
+				}
+			}
+			Palette p = new Palette(name, colour);
+			list.add(p);
+		} else {
+			Palette p = new Palette(name, colour);
+			list.add(p);
+		}
 	}
 
-	public void add_group() {
+	/**
+	 * Add list of colour to the first palette
+	 * @param colour
+	 */
+	public void add(int... colour) {
+		if(this.size_palette() > 0) {
+			list.get(0).add(colour);
+		} else {
+			Palette p = new Palette("palette", colour);
+			list.add(p);
+		}
+	}
+
+	public void add_palette(String name) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.name.equals(name)) {
+					print_err("this palette", name , "still exist, try an other name to generate palette");
+					// pa.exit();
+					return;
+				}
+			}
+		}
+		Palette p = new Palette(name);
+		list.add(p);
+	}
+
+	/**
+	 * @deprecated instead public void add_palette(String name)
+	 * */
+	@Deprecated public void add_group() {
 		Palette p = new Palette();
 		list.add(p);
 	}
 
-	public void add_group(int num) {
+		/**
+	 * @deprecated instead public void add_palette(String name)
+	 * */
+	@Deprecated public void add_group(int num) {
 		for(int i = 0 ; i < num ; i++) {
 			Palette p = new Palette();
 			list.add(p);
@@ -73,9 +139,26 @@ public class R_Colour extends Rope {
 		set(0, index, colour);
 	}
 
-	public void set(int group, int index, int colour) {
+	/**
+	 * @deprecated instead use public void set(String name, int index, int colour)
+	 * @param group
+	 * @param index
+	 * @param colour
+	 */
+	@Deprecated public void set(int group, int index, int colour) {
 		if(group >= 0 && group <= size_group() && index >= 0 && index < list.get(group).size()) {
 			list.get(group).set(index,colour);
+		}
+	}
+
+	public void set(String name, int index, int colour) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.name.equals(name)) {
+					p.set(index,colour);
+					return;
+				}
+			}
 		}
 	}
 
@@ -89,7 +172,10 @@ public class R_Colour extends Rope {
 		}
 	}
 
-	public void clear(int group) {
+			/**
+	 * @deprecated instead public void clear(String name)
+	 * */
+	@Deprecated public void clear(int group) {
 		if(group >= 0 && group < size_group()) {
 			list.get(group).clear();
 		} else {
@@ -97,27 +183,74 @@ public class R_Colour extends Rope {
 		}
 	}
 
+	public void clear(String name) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name)) {
+					p.clear();
+				}
+			}		
+		} else {
+			print_err("class R_Colour method clear(",name,") this palette don't match with any palette");
+		}
+	}
 
-	public void remove(int group, int index) {
+			/**
+	 * @deprecated instead public void remove(String name, int index)
+	 * */
+	@Deprecated public void remove(int group, int index) {
 		if(group >= 0 && group < size_group()) {
 			list.get(group).remove(index);
 		} else {
 			print_err("class R_Colour method remove(",group,") this group don't match with any group");
 		}
 	}
+
+	public void remove(String name, int index) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name)) {
+					p.remove(index);
+				}
+			}		
+		} else {
+			print_err("class R_Colour method remove(",name,") this name don't match with any palette");
+		}
+	}
 	
 
 	// GET
-	// get size
-	public int size_group() {
+	
+	/**
+	 * instead use public int size_palette()
+	 * @return
+	 */
+	@Deprecated public int size_group() {
 		return list.size();
+	}
+
+	/**
+	 * 
+	 * @return the num / quantity of palette vailable
+	 */
+	public int size_palette() {
+		return list.size();
+	}
+
+	public void print_palette() {
+		if(list != null && list.size() > 0) {
+			for(Palette p : list) {
+				print_out(p.get_name(), p.size());
+				print_out(p.array());
+			}
+		}
 	}
 
 	public int size() {
 		return size(0);
 	}
 
-	public int size(int group) {
+	@Deprecated public int size(int group) {
 		if(group >= 0 && group < size_group()) {
 			return list.get(group).size();
 		} else {
@@ -132,7 +265,12 @@ public class R_Colour extends Rope {
 		return get(0);
 	}
 
-	public int [] get(int group) {
+	/**
+	 * @deprecated instead use int [] get(String name)
+	 * @param group
+	 * @return
+	 */
+	@Deprecated public int [] get(int group) {
 		if(group >= 0 && group < size_group()) {
 			return list.get(group).array(); 
 		} else {
@@ -142,15 +280,42 @@ public class R_Colour extends Rope {
 		}
 	}
 
-
-	// get colour
-	int rand() {
-		int group = floor(random(size_group()));
-		int target = floor(random(list.get(group).array().length));
-		return get_colour(group,target);
+	public int [] get(String name) {
+		String s = "class R_Colour method get(String name) the palette: " + name + " don't exist yet, add palette before use this method";
+		if(list != null && list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name)) {
+					return p.array();
+				}
+			}
+			System.err.println(s);
+			return null;
+		} else {
+			System.err.println(s);
+			return null;
+		}
 	}
 
-	int rand(int group) {
+
+	// get colour
+
+	/**
+	 * 
+	 * @return a random color from random palette
+	 */
+	public int rand() {
+		int palette = floor(random(size_palette()));
+		String name = list.get(palette).get_name();
+		int target = floor(random(list.get(palette).array().length));	
+		return get_colour(name,target);
+	}
+
+	/**
+	 * @deprecated instead use public int rand(String name)
+	 * @param group
+	 * @return
+	 */
+	@Deprecated public int rand(int group) {
 		int target = 0;
 		if(group < list.size()) {
 			target = floor(random(list.get(group).array().length));
@@ -161,14 +326,45 @@ public class R_Colour extends Rope {
 		return get_colour(group,target);
 	}
 
+	public int rand(String name) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name)) {
+					int target = floor(random(p.array().length));
+					return get_colour(name,target);
+				}
+			}
+		}
+		print_err("class R_Colour method rand(String name) no target match with your demand, instead '0' is return");
+		return 0;
+	}
 
-	public int get_colour(int group, int target) {
+
+	/**
+	 * @depreacated instead use void public get_colour(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public int get_colour(int group, int target) {
 		if(target >= 0 && group >= 0 && group < size_group() && target < list.get(group).array().length) {
 			return list.get(group).array()[target];
 		} else {
 			print_err("class R_Colour method get_colour() no target match with your demand, instead '0' is return");
 			return 0;
 		}
+	}
+
+	public int get_colour(String name, int target) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name) && target < p.array().length) {
+					return p.array()[target];
+				}
+			}
+		}
+		print_err_tempo(60,"class R_Colour method get_colour() no target match with your demand, instead '0' is return");
+		return 0;
 	}
 
 
@@ -501,13 +697,18 @@ public class R_Colour extends Rope {
 
 	/**
 	* Palette
-	* v 0.2.1
-	* 2019-2019
+	* v 0.3.0
+	* 2019-2022
 	*/
 	private class Palette {
 		private ArrayList<Integer> list;
+		private String name = "";
+		private int id = -1;
+		// private int rank = 0;
+
 		private Palette() {
 			list = new ArrayList<Integer>();
+			id = (int)random(0, Integer.MAX_VALUE);
 		}
 
 		private Palette(int... colour) {
@@ -515,12 +716,34 @@ public class R_Colour extends Rope {
 			add(colour);
 		}
 
+
+		private Palette(String name) {
+			list = new ArrayList<Integer>();
+			id = (int)random(0, Integer.MAX_VALUE);
+			this.name = name;
+		}
+
+		private Palette(String name, int... colour) {
+			list = new ArrayList<Integer>();
+			add(colour);
+			this.name = name;
+		}
+
+		/**
+		 * 
+		 * @param colour list of color must be added
+		 */
 		private void add(int... colour) {
 			for(int i = 0 ; i < colour.length ; i++) {
 				list.add(colour[i]);
 			}
 		}
 
+		/**
+		 * 
+		 * @param index position of the color in the palette from 0 to max
+		 * @param colour the new colour that must use instead the oldest.
+		 */
 		private void set(int index, int colour) {
 			if(index >= 0 && index < list.size()) {
 				list.set(index,colour);
@@ -531,14 +754,26 @@ public class R_Colour extends Rope {
 			list.clear();
 		}
 
+		/**
+		 * 
+		 * @param target remove target colour in the palette at a specific index
+		 */
 		private void remove(int target) {
 			if(target >=0 && target < list.size()) {
 				list.remove(target);
 			}
 		}
 
+		/**
+		 * 
+		 * @return the quantity of colour in the palette
+		 */
 		private int size() {
 			return list.size();
+		}
+
+		private String get_name() {
+			return this.name;
 		}
 
 		private int get(int target) {
