@@ -1,6 +1,6 @@
 /**
 * R_COLOUR LIST class
-* v 0.5.0
+* v 0.5.1
 * 2017-2022
 */
 
@@ -14,8 +14,9 @@ import rope.vector.vec3;
 import rope.vector.vec4;
 
 public class R_Colour extends Rope {
-	ArrayList<Palette> list;
+	private ArrayList<Palette> list;
 	PApplet pa;
+	private int current_colour = 0;
 	
 	public R_Colour(PApplet pa) {
 		this.pa = pa;
@@ -45,33 +46,7 @@ public class R_Colour extends Rope {
 		list.add(p);
 	}
 
-		/**
-	 * @deprecated instead public void add(String name, int... colour)
-	 * */
-	@Deprecated public void add(int group, int [] colour) {
-		if(group >= 0) {
-			if(group >= size_group()) {
-				String s = "class R_Colour method add(int group, int [] colour) the group: " + group + " don't exist yet, add group before use this method";
-				System.err.println(s);
-			} else {
-				list.get(group).add(colour);
-			}
-		}
-	}
 
-		/**
-	 * @deprecated instead public void add(String name, int... colour)
-	 * */
-	@Deprecated public void add(int group, int colour) {
-		if(group >= 0) {
-			if(group >= size_group()) {
-				String s = "class R_Colour method add(int group, int colour): the group " + group + " don't exist yet, add group before use this method";
-				System.err.println(s);
-			} else {
-				list.get(group).add(colour);
-			}   
-		}
-	}
 
 	public void add(String name, int... colour) {
 		String s = "class R_Colour method add(String name, int... colour) the palette: " + name + " don't exist yet, add palette before use this method";
@@ -117,39 +92,9 @@ public class R_Colour extends Rope {
 		list.add(p);
 	}
 
-	/**
-	 * @deprecated instead public void add_palette(String name)
-	 * */
-	@Deprecated public void add_group() {
-		Palette p = new Palette();
-		list.add(p);
-	}
 
-		/**
-	 * @deprecated instead public void add_palette(String name)
-	 * */
-	@Deprecated public void add_group(int num) {
-		for(int i = 0 ; i < num ; i++) {
-			Palette p = new Palette();
-			list.add(p);
-		}
-	}
 
-	public void set(int index, int colour) {
-		set(0, index, colour);
-	}
 
-	/**
-	 * @deprecated instead use public void set(String name, int index, int colour)
-	 * @param group
-	 * @param index
-	 * @param colour
-	 */
-	@Deprecated public void set(int group, int index, int colour) {
-		if(group >= 0 && group <= size_group() && index >= 0 && index < list.get(group).size()) {
-			list.get(group).set(index,colour);
-		}
-	}
 
 	public void set(String name, int index, int colour) {
 		if(list.size() > 0) {
@@ -221,13 +166,7 @@ public class R_Colour extends Rope {
 
 	// GET
 	
-	/**
-	 * instead use public int size_palette()
-	 * @return
-	 */
-	@Deprecated public int size_group() {
-		return list.size();
-	}
+
 
 	/**
 	 * 
@@ -250,35 +189,76 @@ public class R_Colour extends Rope {
 		return size(0);
 	}
 
-	@Deprecated public int size(int group) {
-		if(group >= 0 && group < size_group()) {
-			return list.get(group).size();
-		} else {
-			String s = "class R_Colour method size(int group) the group: " + group + " don't exist yet, add group before use this method, instead '-1' is return";
-			System.err.println(s);
-			return -1;
-		}
-	}
+
 	
-	// get content
-	public int [] get() {
-		return get(0);
+
+
+
+
+
+	
+	/**
+	 * 
+	 * CHOOSE COLOUR
+	 * 
+	 */
+
+	/**
+	 * 
+	 * @param name
+	 * @param target
+	 * @return the selected color and add this one like a current colour
+	 */
+	public int select(String name, int target) {
+		current_colour = get_colour(name,target);
+		return current_colour;
 	}
 
 	/**
-	 * @deprecated instead use int [] get(String name)
-	 * @param group
-	 * @return
+	 * 
+	 * @return a random color from random palette and add this one like a current colour
 	 */
-	@Deprecated public int [] get(int group) {
-		if(group >= 0 && group < size_group()) {
-			return list.get(group).array(); 
-		} else {
-			String s = "class R_Colour method get(int group) the group: " + group + " don't exist yet, add group before use this method";
-			System.err.println(s);
-			return null;
-		}
+	public int rand() {
+		int palette = floor(random(size_palette()));
+		String name = list.get(palette).get_name();
+		int target = floor(random(list.get(palette).array().length));
+		current_colour = get_colour(name,target);
+		return get_colour(name,target);
 	}
+
+	/**
+	 * 
+	 * @param name
+	 * @return a random color from the named palette and add this one like a current colour
+	 */
+	public int rand(String name) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.get_name().equals(name)) {
+					int target = floor(random(p.array().length));
+					current_colour = get_colour(name,target);
+					return current_colour;
+				}
+			}
+		}
+		print_err("class R_Colour method rand(String name) no target match with your demand, instead '0' is return");
+		return 0;
+	}
+
+
+
+  /**
+	 * 
+	 * GET
+	 * 
+	 */
+
+	 	// get content
+	public int get_current() {
+		return current_colour;
+	}
+
+
 
 	public int [] get(String name) {
 		String s = "class R_Colour method get(String name) the palette: " + name + " don't exist yet, add palette before use this method";
@@ -295,51 +275,6 @@ public class R_Colour extends Rope {
 			return null;
 		}
 	}
-
-
-	// get colour
-
-	/**
-	 * 
-	 * @return a random color from random palette
-	 */
-	public int rand() {
-		int palette = floor(random(size_palette()));
-		String name = list.get(palette).get_name();
-		int target = floor(random(list.get(palette).array().length));	
-		return get_colour(name,target);
-	}
-
-	/**
-	 * @deprecated instead use public int rand(String name)
-	 * @param group
-	 * @return
-	 */
-	@Deprecated public int rand(int group) {
-		int target = 0;
-		if(group < list.size()) {
-			target = floor(random(list.get(group).array().length));
-		} else {
-			group = 0;
-			target = floor(random(list.get(group).array().length));
-		}
-		return get_colour(group,target);
-	}
-
-	public int rand(String name) {
-		if(list.size() > 0) {
-			for(Palette p : list) {
-				if(p.get_name().equals(name)) {
-					int target = floor(random(p.array().length));
-					return get_colour(name,target);
-				}
-			}
-		}
-		print_err("class R_Colour method rand(String name) no target match with your demand, instead '0' is return");
-		return 0;
-	}
-
-
 
 
 	/**
@@ -421,194 +356,128 @@ public class R_Colour extends Rope {
 	}
 
 
-		/**
-	 * @depreacated instead use void public get_colour(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public int get_colour(int group, int target) {
-		if(target >= 0 && group >= 0 && group < size_group() && target < list.get(group).array().length) {
-			return list.get(group).array()[target];
-		} else {
-			print_err("class R_Colour method get_colour() no target match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
+	// get all colour
 
-		/**
-	 * @depreacated instead use void public get_hue(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
+	/**
+	 * 
+	 * @return all argument color of all the lists
 	 */
-	@Deprecated public float get_hue(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return pa.hue(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_hue(",group,") no group match with your demand, instead '0' is return");
-			return 0;
+	public int [] get() {
+		int len = 0;
+		for(Palette p : list) {
+			len += p.size();
 		}
-	}
-
-		/**
-	 * @depreacated instead use void public get_saturation(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_saturation(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return this.pa.saturation(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_saturation(",group,") no group match with your demand, instead '0' is return");
-			return 0;
+		int [] arr = new int[len];
+		int index = 0;
+		for(Palette p : list) {
+			for(int i = 0 ; i < p.size() ; i++) {
+				arr[index++] = p.get(i);
+			}
 		}
+		return arr;
 	}
-	
-		/**
-	 * @depreacated instead use void public get_brightness(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_brightness(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return this.pa.brightness(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_brightness(",group,") no group match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
-
-			/**
-	 * @depreacated instead use void public get_red(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_red(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return this.pa.red(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_red(",group,") no group match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
-	
-		/**
-	 * @depreacated instead use void public get_green(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_green(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return this.pa.green(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_green(",group,") no group match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
-
-			/**
-	 * @depreacated instead use void public get_blue(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_blue(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-		 return this.pa.blue(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_blue(",group,") no group match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
-
-		/**
-	 * @depreacated instead use void public get_alpha(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public float get_alpha(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			return this.pa.alpha(list.get(group).get(target));
-		} else {
-			print_err("class R_Color method get_alpha(",group,") no group match with your demand, instead '0' is return");
-			return 0;
-		}
-	}
-
-		/**
-	 * @depreacated instead use void public get_hsb(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public vec3 get_hsb(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			int c = list.get(group).get(target);
-			return new vec3(this.pa.hue(c),this.pa.saturation(c),this.pa.brightness(c));
-		} else {
-			print_err("class R_Color method get_hsb(",group,") no group match with your demand, instead 'null' is return");
-			return null;
-		}
-	}
-
-		/**
-	 * @depreacated instead use void public get_hsba(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public vec4 get_hsba(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			int c = list.get(group).get(target);
-			return new vec4(this.pa.hue(c),this.pa.saturation(c),this.pa.brightness(c),this.pa.alpha(c));
-		} else {
-			print_err("class R_Color method get_hsba(",group,") no group match with your demand, instead 'null' is return");
-			return null;
-		}
-	}
-
-		/**
-	 * @depreacated instead use void public get_rgb(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public vec3 get_rgb(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			int c = list.get(group).get(target);
-			return new vec3(pa.red(c),pa.green(c),pa.blue(c));
-		} else {
-			print_err("class R_Color method get_rgb(",group,") no group match with your demand, instead 'null' is return");
-			return null;
-		}
-	}
-	
-		/**
-	 * @depreacated instead use void public get_rgba(String name, int target) 
-	 * @param group
-	 * @param target
-	 * @return
-	 */
-	@Deprecated public vec4 get_rgba(int group, int target) {
-		if(group >= 0 && group < size_group()) {
-			int c = list.get(group).get(target);
-			return new vec4(pa.red(c),pa.green(c),pa.blue(c),pa.alpha(c));
-		} else {
-			print_err("class R_Color method get_rgba(",group,") no group match with your demand, instead 'null' is return");
-			return null;
-		}
-	}
-	
 
 	public float [] hue() {
-		return hue(0);
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.hue(arg[i]);
+		}
+		return val;
 	}
+
+	public float [] saturation() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.saturation(arg[i]);
+		}
+		return val;
+	}
+
+	public float [] brightness() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.brightness(arg[i]);
+		}
+		return val;
+	}
+
+	public float [] red() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.red(arg[i]);
+		}
+		return val;
+	}
+
+	public float [] green() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.green(arg[i]);
+		}
+		return val;
+	}
+
+	public float [] blue() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.blue(arg[i]);
+		}
+		return val;
+	}
+
+	public float [] alpha() {
+		int [] arg = this.get();
+		float [] val = new float[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = pa.alpha(arg[i]);
+		}
+		return val;
+	}
+
+	public vec3 [] hsb() {
+		int [] arg = this.get();
+		vec3 [] val = new vec3[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = new vec3(pa.hue(arg[i]), pa.saturation(arg[i]), pa.brightness(arg[i]));
+		}
+		return val;
+	}
+
+	public vec4 [] hsba() {
+		int [] arg = this.get();
+		vec4 [] val = new vec4[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = new vec4(pa.hue(arg[i]), pa.saturation(arg[i]), pa.brightness(arg[i]), pa.alpha(arg[i]));
+		}
+		return val;
+	}
+
+	public vec3 [] rgb() {
+		int [] arg = this.get();
+		vec3 [] val = new vec3[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = new vec3(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]));
+		}
+		return val;
+	}
+
+	public vec4 [] rgba() {
+		int [] arg = this.get();
+		vec4 [] val = new vec4[arg.length];
+		for(int i = 0 ; i < arg.length ; i++) {
+			val[i] = new vec4(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]), pa.alpha(arg[i]));
+		}
+		return val;
+	}
+
+
+
 
 	public float [] hue(String name) {
 		if(get(name) == null) {
@@ -622,8 +491,259 @@ public class R_Colour extends Rope {
 		return component;
 	}
 
+	public float [] saturation(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.saturation(arg[i]);
+		}
+		return component;
+	}
+
+	public float [] brightness(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.brightness(arg[i]);
+		}
+		return component;
+	}
+
+	public float [] red(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.red(arg[i]);
+		}
+		return component;
+	}
+
+	public float [] green(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.green(arg[i]);
+		}
+		return component;
+	}
+
+	public float [] blue(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.blue(arg[i]);
+		}
+		return component;
+	}
+
+	public float [] alpha(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		float[] component = new float[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = this.pa.alpha(arg[i]);
+		}
+		return component;
+	}
+
+
+
+	
+
+
+
+	public vec3 [] hsb(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		vec3[] component = new vec3[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = new vec3(pa.hue(arg[i]),pa.saturation(arg[i]),pa.brightness(arg[i]));
+		}
+		return component;
+	}
+
+	public vec3 [] rgb(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		vec3[] component = new vec3[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = new vec3(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]));
+		}
+		return component;
+	}
+
+	public vec4 [] hsba(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		vec4[] component = new vec4[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = new vec4(pa.hue(arg[i]), pa.saturation(arg[i]), pa.brightness(arg[i]), pa.alpha(arg[i]));
+		}
+		return component;
+	}
+
+	public vec4 [] rgba(String name) {
+		if(get(name) == null) {
+			return null;
+		}
+		int [] arg = get(name);
+		vec4[] component = new vec4[arg.length];
+		for(int i = 0 ; i < component.length ; i++) {
+			component[i] = new vec4(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]), pa.alpha(arg[i]));
+		}
+		return component;
+	}
+
+
+
+	
 	/**
-	* @depreacated instead use void public hue(String name)
+	 * 
+	 * 
+	 * DEPRECATED
+	 * 
+	 * 
+	 * */
+	
+
+	@Deprecated public int size(int group) {
+		if(group >= 0 && group < size_group()) {
+			return list.get(group).size();
+		} else {
+			String s = "class R_Colour method size(int group) the group: " + group + " don't exist yet, add group before use this method, instead '-1' is return";
+			System.err.println(s);
+			return -1;
+		}
+	}
+
+
+	 		/**
+	 * instead use public int size_palette()
+	 * @return
+	 */
+	@Deprecated public int size_group() {
+		return list.size();
+	}
+	
+	/**
+	 * @deprecated instead use int [] get(String name)
+	 * @param group
+	 * @return
+	 */
+	@Deprecated public int [] get(int group) {
+		if(group >= 0 && group < size_group()) {
+			return list.get(group).array(); 
+		} else {
+			String s = "class R_Colour method get(int group) the group: " + group + " don't exist yet, add group before use this method";
+			System.err.println(s);
+			return null;
+		}
+	}
+
+	@Deprecated public void set(int index, int colour) {
+		set(0, index, colour);
+	}
+
+	/**
+	 * @deprecated instead use public void set(String name, int index, int colour)
+	 * @param group
+	 * @param index
+	 * @param colour
+	 */
+	@Deprecated public void set(int group, int index, int colour) {
+		if(group >= 0 && group <= size_group() && index >= 0 && index < list.get(group).size()) {
+			list.get(group).set(index,colour);
+		}
+	}
+
+
+	/**
+	 * @deprecated instead public void add_palette(String name)
+	 * */
+	@Deprecated public void add_group() {
+		Palette p = new Palette();
+		list.add(p);
+	}
+
+		/**
+	 * @deprecated instead public void add_palette(String name)
+	 * */
+	@Deprecated public void add_group(int num) {
+		for(int i = 0 ; i < num ; i++) {
+			Palette p = new Palette();
+			list.add(p);
+		}
+	}
+
+		/**
+	 * @deprecated instead public void add(String name, int... colour)
+	 * */
+	@Deprecated public void add(int group, int [] colour) {
+		if(group >= 0) {
+			if(group >= size_group()) {
+				String s = "class R_Colour method add(int group, int [] colour) the group: " + group + " don't exist yet, add group before use this method";
+				System.err.println(s);
+			} else {
+				list.get(group).add(colour);
+			}
+		}
+	}
+
+		/**
+	 * @deprecated instead public void add(String name, int... colour)
+	 * */
+	@Deprecated public void add(int group, int colour) {
+		if(group >= 0) {
+			if(group >= size_group()) {
+				String s = "class R_Colour method add(int group, int colour): the group " + group + " don't exist yet, add group before use this method";
+				System.err.println(s);
+			} else {
+				list.get(group).add(colour);
+			}   
+		}
+	}
+	 	/**
+	 * @deprecated instead use public int rand(String name)
+	 * @param group
+	 * @return
+	 */
+	@Deprecated public int rand(int group) {
+		int target = 0;
+		if(group < list.size()) {
+			target = floor(random(list.get(group).array().length));
+		} else {
+			group = 0;
+			target = floor(random(list.get(group).array().length));
+		}
+		return get_colour(group,target);
+	}
+
+
+		/**
+	* @deprecated instead use void public hue(String name)
 	 * @param group
 	 * @return
 	 */
@@ -641,26 +761,8 @@ public class R_Colour extends Rope {
 		}
 	}
 
-
-	
-	public float [] saturation() {
-		return saturation(0);
-	}
-
-	public float [] saturation(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.saturation(arg[i]);
-		}
-		return component;
-	}
-
-		/**
-	* @depreacated instead use void public saturation(String name)
+	/**
+	* @deprecated instead use void public saturation(String name)
 	 * @param group
 	 * @return
 	 */
@@ -680,24 +782,10 @@ public class R_Colour extends Rope {
 
 
 
-	public float [] brightness() {
-		return brightness(0);
-	}
-	
-	public float [] brightness(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.brightness(arg[i]);
-		}
-		return component;
-	}
+
 
 	/**
-	* @depreacated instead use void public brightness(String name)
+	* @deprecated instead use void public brightness(String name)
 	 * @param group
 	 * @return
 	 */
@@ -716,24 +804,10 @@ public class R_Colour extends Rope {
 	}
 
 
-	public float [] red() {
-		return red(0);
-	}
 
-	public float [] red(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.red(arg[i]);
-		}
-		return component;
-	}
 
 		/**
-	* @depreacated instead use void public red(String name)
+	* @deprecated instead use void public red(String name)
 	 * @param group
 	 * @return
 	 */
@@ -752,24 +826,10 @@ public class R_Colour extends Rope {
 	}
 
 	
-	public float [] green() {
-		return green(0);
-	}
 
-	public float [] green(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.green(arg[i]);
-		}
-		return component;
-	}
 
 	/**
-	* @depreacated instead use void public green(String name)
+	* @deprecated instead use void public green(String name)
 	 * @param group
 	 * @return
 	 */
@@ -786,26 +846,9 @@ public class R_Colour extends Rope {
 			return null; 
 		}
 	}
-
-
-	public float [] blue() {
-		return blue(0);
-	}
-
-	public float [] blue(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.blue(arg[i]);
-		}
-		return component;
-	}
 	
 	/**
-	* @depreacated instead use void public blue(String name)
+	* @deprecated instead use void public blue(String name)
 	 * @param group
 	 * @return
 	 */
@@ -824,24 +867,10 @@ public class R_Colour extends Rope {
 	}
 
 
-	public float [] alpha() {
-		return alpha(0);
-	}
 
-	public float [] alpha(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		float[] component = new float[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = this.pa.alpha(arg[i]);
-		}
-		return component;
-	}
 
 		/**
-	* @depreacated instead use void public alpha(String name)
+	* @deprecated instead use void public alpha(String name)
 	 * @param group
 	 * @return
 	 */
@@ -859,26 +888,11 @@ public class R_Colour extends Rope {
 		}
 	}
 
-	
 
-	public vec3 [] hsb() {
-		return hsb(0);
-	}
 
-	public vec3 [] hsb(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		vec3[] component = new vec3[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = new vec3(pa.hue(arg[i]),pa.saturation(arg[i]),pa.brightness(arg[i]));
-		}
-		return component;
-	}
 
-			/**
-	* @depreacated instead use void public hsb(String name)
+	 /**
+	* @deprecated instead use void public hsb(String name)
 	 * @param group
 	 * @return
 	 */
@@ -896,23 +910,6 @@ public class R_Colour extends Rope {
 		}
 	}
 
-
-	public vec3 [] rgb() {
-		return rgb(0);
-	}
-
-	public vec3 [] rgb(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		vec3[] component = new vec3[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = new vec3(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]));
-		}
-		return component;
-	}
-
 	@Deprecated public vec3 [] rgb(int group) {
 		if(group >= 0 && group < size_group()) {
 			vec3[] component = new vec3[list.get(group).size()];
@@ -925,23 +922,6 @@ public class R_Colour extends Rope {
 			print_err("class R_Color method rgb(",group,") no group match with your demand, instead 'null' is return");
 			return null;
 		}
-	}
-
-
-	public vec4 [] hsba() {
-		return hsba(0);
-	}
-
-	public vec4 [] hsba(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		vec4[] component = new vec4[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = new vec4(pa.hue(arg[i]), pa.saturation(arg[i]), pa.brightness(arg[i]), pa.alpha(arg[i]));
-		}
-		return component;
 	}
 
 	@Deprecated public vec4 [] hsba(int group) {
@@ -958,23 +938,6 @@ public class R_Colour extends Rope {
 		}
 	}
 
-
-	public vec4 [] rgba() {
-		return rgba(0);
-	}
-
-	public vec4 [] rgba(String name) {
-		if(get(name) == null) {
-			return null;
-		}
-		int [] arg = get(name);
-		vec4[] component = new vec4[arg.length];
-		for(int i = 0 ; i < component.length ; i++) {
-			component[i] = new vec4(pa.red(arg[i]), pa.green(arg[i]), pa.blue(arg[i]), pa.alpha(arg[i]));
-		}
-		return component;
-	}
-
 	@Deprecated public vec4 [] rgba(int group) {
 		if(group >= 0 && group < size_group()) {
 			vec4[] component = new vec4[list.get(group).size()];
@@ -985,6 +948,190 @@ public class R_Colour extends Rope {
 			return component;
 		} else {
 			print_err("class R_Color method rgba(",group,") no group match with your demand, instead 'null' is return");
+			return null;
+		}
+	}
+
+			/**
+	 * @deprecated instead use void public get_colour(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public int get_colour(int group, int target) {
+		if(target >= 0 && group >= 0 && group < size_group() && target < list.get(group).array().length) {
+			return list.get(group).array()[target];
+		} else {
+			print_err("class R_Colour method get_colour() no target match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_hue(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_hue(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return pa.hue(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_hue(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_saturation(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_saturation(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return this.pa.saturation(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_saturation(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+	
+		/**
+	 * @deprecated instead use void public get_brightness(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_brightness(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return this.pa.brightness(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_brightness(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+			/**
+	 * @deprecated instead use void public get_red(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_red(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return this.pa.red(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_red(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+	
+		/**
+	 * @deprecated instead use void public get_green(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_green(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return this.pa.green(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_green(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+			/**
+	 * @deprecated instead use void public get_blue(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_blue(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+		 return this.pa.blue(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_blue(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_alpha(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public float get_alpha(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			return this.pa.alpha(list.get(group).get(target));
+		} else {
+			print_err("class R_Color method get_alpha(",group,") no group match with your demand, instead '0' is return");
+			return 0;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_hsb(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public vec3 get_hsb(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			int c = list.get(group).get(target);
+			return new vec3(this.pa.hue(c),this.pa.saturation(c),this.pa.brightness(c));
+		} else {
+			print_err("class R_Color method get_hsb(",group,") no group match with your demand, instead 'null' is return");
+			return null;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_hsba(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public vec4 get_hsba(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			int c = list.get(group).get(target);
+			return new vec4(this.pa.hue(c),this.pa.saturation(c),this.pa.brightness(c),this.pa.alpha(c));
+		} else {
+			print_err("class R_Color method get_hsba(",group,") no group match with your demand, instead 'null' is return");
+			return null;
+		}
+	}
+
+		/**
+	 * @deprecated instead use void public get_rgb(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public vec3 get_rgb(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			int c = list.get(group).get(target);
+			return new vec3(pa.red(c),pa.green(c),pa.blue(c));
+		} else {
+			print_err("class R_Color method get_rgb(",group,") no group match with your demand, instead 'null' is return");
+			return null;
+		}
+	}
+	
+		/**
+	 * @deprecated instead use void public get_rgba(String name, int target) 
+	 * @param group
+	 * @param target
+	 * @return
+	 */
+	@Deprecated public vec4 get_rgba(int group, int target) {
+		if(group >= 0 && group < size_group()) {
+			int c = list.get(group).get(target);
+			return new vec4(pa.red(c),pa.green(c),pa.blue(c),pa.alpha(c));
+		} else {
+			print_err("class R_Color method get_rgba(",group,") no group match with your demand, instead 'null' is return");
 			return null;
 		}
 	}
@@ -1000,7 +1147,7 @@ public class R_Colour extends Rope {
 	*/
 	private class Palette {
 		private ArrayList<Integer> list;
-		private String name = "";
+		private String name = "palette";
 		private int id = -1;
 		// private int rank = 0;
 

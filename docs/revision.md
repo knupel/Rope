@@ -1,6 +1,10 @@
 \* version 48
-> COLOR
-> class R_Color add function to create palette by name
+> R_Colour
+> class R_Colour add function add(String name, int... arg) to create palette by name
+> class R_Colour add function current() to return a current colour
+> class R_Colour add function select() to choose the current colour
+> Deprecated all function who use a number to call palette replace the function with String name, all function like (int group, int colour) decome (String name, int colour).
+> the function who return the array of the first palette, now return all the component of all palette
 
 > GUI
 > 
