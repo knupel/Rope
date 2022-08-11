@@ -2,6 +2,8 @@
 * class R_Input
 * 2021-2021
 * v 0.1.0
+* @author Knupel / Stanislas Marçais
+* @see https://github.com/StanLepunK/Rope
 */
 
 package rope.tool.file;
