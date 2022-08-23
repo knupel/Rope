@@ -75,6 +75,9 @@ void dropdown_draw() {
   dropdown[0].update();
   dropdown[0].show_struc();
   // dropdown[0].show_value();
+  println(dropdown[0].is_done());
+  //exit();
+  //println(dropdown[0].is_active());
   
   dropdown[1].update();
   dropdown[1].show_struc();

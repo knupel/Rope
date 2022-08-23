@@ -341,7 +341,7 @@ public class ivec2 extends ivec {
 		/**
 	 * random
 	 * @param max int
-	 * @return
+	 * @return random value from 0 to int max for each argument
 	 */
 	public ivec2 rand(int max) {
 		return rand(0,max);
@@ -350,7 +350,7 @@ public class ivec2 extends ivec {
 	 * random
 	 * @param min int
 	 * @param max int
-	 * @return
+	 * @return random value from int min to int max for each argument
 	 */
 	public ivec2 rand(int min, int max) {
 		x = random(min,max);
@@ -363,7 +363,7 @@ public class ivec2 extends ivec {
 	 * random
 	 * @param min
 	 * @param max
-	 * @return
+	 * @return random value from ivec min to ivec max for each argument
 	 */
 	public ivec2 rand(ivec2 min, ivec2 max) {
 		x = random(min.x(),max.x());

@@ -2,12 +2,12 @@
 /**
  * * R_Constants
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2021
+	* Copyleft (c) 2014-2022
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.3
-	* Processing 4.0.2b
+	* v 1.1.4
+	* Processing 4.0.7b
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
@@ -122,6 +122,8 @@ public interface R_Constants {
 
 	static final int NORMAL = 1; // processing value
 	static final int REPEAT = 999; // *** ACHTUNG *** Processing use 1
+
+	static final int CHOICE = 888;
 	
 	static final float PHI = (1 + (float)Math.sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
 	static final float GOLD_NUMBER = PHI;
@@ -155,11 +157,22 @@ public interface R_Constants {
   static final int RADIUS   = 2; // processing value
   static final int DIAMETER = 3; // processing value
 
-	static final int CENTER   = 3; // processing value
+	static final int CENTER  = 3; // processing value
+
+
 
   static final int TOP = 101;
   static final int BOTTOM = 102;
 
+
+
+
+
+
+	static final int UP	= KeyEvent.VK_UP; // 38
+  static final int DOWN	= KeyEvent.VK_DOWN; // 40
+  static final int LEFT	= KeyEvent.VK_LEFT; // 37
+  static final int RIGHT = KeyEvent.VK_RIGHT; // 39
 	/**
 	 * KeyEvent.VK
 	 * shift:     16
@@ -181,10 +194,7 @@ public interface R_Constants {
 	 * space:     32
 	 * tab:       9
 	 */
-  static final int UP	= KeyEvent.VK_UP; // 38
-  static final int DOWN	= KeyEvent.VK_DOWN; // 40
-  static final int LEFT	= KeyEvent.VK_LEFT; // 37
-  static final int RIGHT = KeyEvent.VK_RIGHT; // 39
+
 
 	static final int STAR = 805;
   static final int STAR_3D = 806;
@@ -205,7 +215,6 @@ public interface R_Constants {
 
 	static final int MAD = 314_159_265;
 	static final int VIRUS = 88_888_888;
-
 
 	static final int FLUID = 200;
 	static final int GRAVITY = 201;
@@ -240,6 +249,14 @@ public interface R_Constants {
   static final int CIRCULAR = 553;
 
 	static final int MIX = 600 ;
+
+	static final int FIRST = 701;
+  static final int LAST = 702;
+	static final int NEXT = 703;
+	static final int PREVIOUS = 704;
+	// static final int QUARTER = 706;
+	// static final int THIRD = 707;
+	static final int HALF = 708;
 
 	static final int STATIC = 1000;
 	static final int DYNAMIC = 1001;

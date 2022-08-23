@@ -338,7 +338,10 @@ public class R_Shape extends R_Graphic {
 
 
 
-
+	/**
+	 * 
+	 * @return all the normal points of your Shape
+	 */
   public vec3 [] get_ref_points() {
     return ref_pts;
   }
@@ -346,7 +349,7 @@ public class R_Shape extends R_Graphic {
   /**
    * 
    * @param target
-   * @return
+   * @return a specific point normal of the array
    */
   public vec3 get_ref_point(int target) {
   	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
@@ -357,17 +360,21 @@ public class R_Shape extends R_Graphic {
   }
   
   /**
-   * 
-   * @return
+   * ***WARNING***
+	 * sometime it's can be necessary to use the function calc() from the Class is used
+	 * we do that to avoid a problem if the shape is too complex. Because that's can make a huge memory using for nothing
+   * @return all the points of your Shape
    */
   public vec3 [] get_points() {
     return pts;
   }
   
   /**
-   * 
+   * ***WARNING***
+	 * sometime it's can be necessary to use the function calc() from the Class is used
+	 * we do that to avoid a problem if the shape is too complex. Because that's can make a huge memory using for nothing
    * @param target
-   * @return
+   * @return a specific point of the array
    */
   public vec3 get_point(int target) {
   	if(pts != null && target >= 0 && target < pts.length) {

@@ -1,6 +1,6 @@
 /**
 * R_COLOUR LIST class
-* v 0.5.1
+* v 0.5.2
 * 2017-2022
 */
 
@@ -331,28 +331,57 @@ public class R_Colour extends Rope {
 		return this.pa.alpha(get_colour(name, target));
 	}
 
+	// HSB
+
+	public vec3 get_current_hsb() {
+		return get_hsb_impl(get_current());
+	}
 
 	public vec3 get_hsb(String name, int target) {
-		int c = get_colour(name, target);
+		return get_hsb_impl(get_colour(name, target));
+	}
+
+	public vec3 get_hsb_impl(int c) {
 		return new vec3(this.pa.hue(c), this.pa.saturation(c), this.pa.brightness(c));
 	}
 
 
-	public vec4 get_hsba(String name, int target) {
-		int c = get_colour(name, target);
-		return new vec4(this.pa.hue(c), this.pa.saturation(c), this.pa.brightness(c), this.pa.alpha(c));
-		
+	public vec4 get_current_hsba() {
+		return get_hsba_impl(get_current());
 	}
 
+	public vec4 get_hsba(String name, int target) {
+		return get_hsba_impl(get_colour(name, target));
+	}
+
+	public vec4 get_hsba_impl(int c) {
+		return new vec4(this.pa.hue(c), this.pa.saturation(c), this.pa.brightness(c), this.pa.alpha(c));	
+	}
+
+	// RGB
+
+	public vec3 get_current_rgb() {
+		return get_rgb_impl(get_current());
+	}
 
 	public vec3 get_rgb(String name, int target) {
-		int c = get_colour(name, target);
-		return new vec3(pa.red(c),pa.green(c),pa.blue(c));
+		return get_rgb_impl(get_colour(name, target));
+	}
+
+	public vec3 get_rgb_impl(int c) {
+		return new vec3(this.pa.red(c), this.pa.green(c), this.pa.blue(c));
 	}
 	
-	public vec4 get_rgba(String name, int target) {
-		int c = get_colour(name, target);
-		return new vec4(pa.red(c),pa.green(c),pa.blue(c),pa.alpha(c));
+	public vec4 get_current_rgba() {
+		return get_current_rgba_impl(get_current());
+	}
+
+	public vec4 get_current_rgba(String name, int target) {
+		return get_current_rgba_impl(get_colour(name, target));
+	}
+
+	public vec4 get_current_rgba_impl(int c) {
+		return new vec4(this.pa.red(c), this.pa.green(c), this.pa.blue(c), this.pa.alpha(c));	
 	}
 
 

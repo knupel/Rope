@@ -608,7 +608,7 @@ public class vec3 extends vec {
 	/**
 	 * random
 	 * @param max float
-	 * @return
+	 * @return random value from 0 to float max for each argument
 	 */
 	public vec3 rand(float max) {
 		return rand(0,max);
@@ -617,7 +617,7 @@ public class vec3 extends vec {
 	 * random
 	 * @param min float
 	 * @param max float
-	 * @return
+	 * @return random value from float min to float max for each argument
 	 */
 	public vec3 rand(float min, float max) {
 		x = random(min,max);
@@ -630,7 +630,7 @@ public class vec3 extends vec {
 	 * random
 	 * @param min
 	 * @param max
-	 * @return
+	 * @return random value from vec min to vec max for each argument
 	 */
 	public vec3 rand(vec3 min, vec3 max) {
 		x = random(min.x(),max.x());

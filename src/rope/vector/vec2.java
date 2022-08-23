@@ -457,7 +457,7 @@ public class vec2 extends vec {
 	 * random
 	 * 
 	 * @param max float
-	 * @return
+	 * @return random value from 0 to float max for each argument
 	 */
 	public vec2 rand(float max) {
 		return rand(0,max);
@@ -468,7 +468,7 @@ public class vec2 extends vec {
 	 * 
 	 * @param min float
 	 * @param max float
-	 * @return
+	 * @return random value from float min to float max for each argument
 	 */
 	public vec2 rand(float min, float max) {
 		x = random(min, max);
@@ -482,7 +482,7 @@ public class vec2 extends vec {
 	 * 
 	 * @param min
 	 * @param max
-	 * @return
+	 * @return random value from vec min to vec max for each argument
 	 */
 	public vec2 rand(vec2 min, vec2 max) {
 		x = random(min.x(), max.x());
