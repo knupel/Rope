@@ -1,7 +1,7 @@
 /**
 * R_Shape class
-* v 0.3.3
-* 2019-2021
+* v 0.4.1
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
@@ -188,7 +188,7 @@ public class R_Shape extends R_Graphic {
 
 	 	/**
 	 * 
-	 * @return
+	 * @return angle
 	 */
 	public vec3 angle() {
   	return this.angle;
@@ -220,8 +220,10 @@ public class R_Shape extends R_Graphic {
 
 
 
-	// ANGLE X
-
+	/**
+	 * set angle x to rotate
+	 * @param value
+	 */
 	public void angle_x(float value) {
 		if(angle == null) {
 			angle = new vec3(value,0,0);
@@ -230,7 +232,10 @@ public class R_Shape extends R_Graphic {
 		}	
 	}
 
-		public float angle_x() {
+	/**
+	* @return angle x
+	 */
+	public float angle_x() {
 		if(angle != null) {
 			return angle.x();
 		} else {
@@ -239,7 +244,10 @@ public class R_Shape extends R_Graphic {
   }
 	
 
-	// ANGLE Y
+	/**
+	 * set angle y to rotate
+	 * @param value
+	 */
 	public void angle_y(float value) {
 		if(angle == null) {
 			angle = new vec3(0,value,0);
@@ -248,6 +256,9 @@ public class R_Shape extends R_Graphic {
 		}	
 	}
 
+	/**
+	* @return angle y
+	 */
 	public float angle_y() {
 		if(angle != null) {
 			return angle.y();
@@ -257,8 +268,10 @@ public class R_Shape extends R_Graphic {
   }
 	
 
-	// ANGLE Z
-
+	/**
+	 * set angle z to rotate
+	 * @param value
+	 */
 	public void angle_z(float value) {
 		if(angle == null) {
 			angle = new vec3(0,0,value);
@@ -267,6 +280,9 @@ public class R_Shape extends R_Graphic {
 		}	
 	}
 
+	/**
+	* @return angle z
+	 */
 	public float angle_z() {
 		if(angle != null) {
 			return angle.z();
@@ -315,7 +331,7 @@ public class R_Shape extends R_Graphic {
 	
 	/**
 	 * 
-	 * @return
+	 * @return the num of summits
 	 */
 	public int get_summits() {
     return summits;
@@ -331,6 +347,38 @@ public class R_Shape extends R_Graphic {
     	this.summits = summits; 	
     }	
   }
+
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void add(float x, float y) {
+		add(x, y, 0);
+	}
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void add(float x, float y, float z) {
+		this.summits++;
+		ref_pts.add(new vec3(x,y,z));
+		pts.add(new vec3(x,y,z));
+	}
+
+		/**
+	 * 
+	 * @param vec
+	 */
+	public void add(vec coord) {
+		this.summits++;
+		ref_pts.add(new vec3(coord.x(),coord.y(),coord.z()));
+		pts.add(new vec3(coord.x(),coord.y(),coord.z()));
+	}
 
 
 
