@@ -18,8 +18,6 @@ R_Face [] faces;
 Rope r = new Rope();
 
 
-
-
 void setup() {
 	size(800,800,P3D);
 	// can work in P2D too !!!!
@@ -50,13 +48,3 @@ void draw() {
 		f.show();
 	}	
 }
-
-
-
-
-
-
-
-
-
-

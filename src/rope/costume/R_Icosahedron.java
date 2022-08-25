@@ -1,7 +1,7 @@
 /**
 * R_Icosahedron class
-* v 0.0.2
-* 2021-2021
+* v 0.1.0
+* 2021-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * @see https://processing.org/examples/icosahedra.html
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import rope.vector.vec3;
+
 
 public class R_Icosahedron extends R_Shape {
 
@@ -127,9 +128,7 @@ public class R_Icosahedron extends R_Shape {
 			translate(this.pos);
 			rotateXYZ(this.angle);
 		}
-		// set_final_point(size.x());
 		show_imp();
-		// reset_final_point();
 		if(this.pos != null && this.pos.sum() != 0) {
 			popMatrix();
 		}
@@ -280,56 +279,53 @@ public class R_Icosahedron extends R_Shape {
 	 */
 	public vec3 [] get_ref_points() {
 		if(this.ref_pts == null) {
-			this.ref_pts = new vec3[summits];
-			this.ref_pts[0] = new vec3(ref_top_point);
-			this.ref_pts[1] = new vec3(ref_top_pent[0]);
-			this.ref_pts[2] = new vec3(ref_top_pent[1]);
-			this.ref_pts[3] = new vec3(ref_top_pent[2]);
-			this.ref_pts[4] = new vec3(ref_top_pent[3]);
-			this.ref_pts[5] = new vec3(ref_top_pent[4]);
-			this.ref_pts[6] = new vec3(ref_bottom_pent[0]);
-			this.ref_pts[7] = new vec3(ref_bottom_pent[1]);
-			this.ref_pts[8] = new vec3(ref_bottom_pent[2]);
-			this.ref_pts[9] = new vec3(ref_bottom_pent[3]);
-			this.ref_pts[10] = new vec3(ref_bottom_pent[4]);
-			this.ref_pts[11] = new vec3(ref_bottom_point);
+			this.ref_pts.add(new vec3(ref_top_point));
+			this.ref_pts.add(new vec3(ref_top_pent[0]));
+			this.ref_pts.add(new vec3(ref_top_pent[1]));
+			this.ref_pts.add(new vec3(ref_top_pent[2]));
+			this.ref_pts.add(new vec3(ref_top_pent[3]));
+			this.ref_pts.add(new vec3(ref_top_pent[4]));
+			this.ref_pts.add(new vec3(ref_bottom_pent[0]));
+			this.ref_pts.add(new vec3(ref_bottom_pent[1]));
+			this.ref_pts.add(new vec3(ref_bottom_pent[2]));
+			this.ref_pts.add(new vec3(ref_bottom_pent[3]));
+			this.ref_pts.add(new vec3(ref_bottom_pent[4]));
+			this.ref_pts.add(new vec3(ref_bottom_point));
 		}
-    return ref_pts;
+    return ref_pts.toArray(new vec3[ref_pts.size()]);
   }
 
 	/**
 	 * @return an Array of points in vec3 coord
 	 */
 	public vec3 [] get_points() {
-		if(this.pts == null) {
-			this.pts = new vec3[summits];
-			this.pts[0] = new vec3(top_point);
-			this.pts[1] = new vec3(top_pent[0]);
-			this.pts[2] = new vec3(top_pent[1]);
-			this.pts[3] = new vec3(top_pent[2]);
-			this.pts[4] = new vec3(top_pent[3]);
-			this.pts[5] = new vec3(top_pent[4]);
-			this.pts[6] = new vec3(bottom_pent[0]);
-			this.pts[7] = new vec3(bottom_pent[1]);
-			this.pts[8] = new vec3(bottom_pent[2]);
-			this.pts[9] = new vec3(bottom_pent[3]);
-			this.pts[10] = new vec3(bottom_pent[4]);
-			this.pts[11] = new vec3(bottom_point);
+		if(this.pts.size() == 0) {
+			this.pts.add(new vec3(top_point));
+			this.pts.add(new vec3(top_pent[0]));
+			this.pts.add(new vec3(top_pent[1]));
+			this.pts.add(new vec3(top_pent[2]));
+			this.pts.add(new vec3(top_pent[3]));
+			this.pts.add(new vec3(top_pent[4]));
+			this.pts.add(new vec3(bottom_pent[0]));
+			this.pts.add(new vec3(bottom_pent[1]));
+			this.pts.add(new vec3(bottom_pent[2]));
+			this.pts.add(new vec3(bottom_pent[3]));
+			this.pts.add(new vec3(bottom_pent[4]));
+			this.pts.add(new vec3(bottom_point));
 		} else {
-			this.pts[0].set(top_point);
-			this.pts[1].set(top_pent[0]);
-			this.pts[2].set(top_pent[1]);
-			this.pts[3].set(top_pent[2]);
-			this.pts[4].set(top_pent[3]);
-			this.pts[5].set(top_pent[4]);
-			this.pts[6].set(bottom_pent[0]);
-			this.pts[7].set(bottom_pent[1]);
-			this.pts[8].set(bottom_pent[2]);
-			this.pts[9].set(bottom_pent[3]);
-			this.pts[10].set(bottom_pent[4]);
-			this.pts[11].set(bottom_point);
+			this.pts.set(0,top_point);
+			this.pts.set(1, top_pent[0]);
+			this.pts.set(2,top_pent[1]);
+			this.pts.set(3,top_pent[2]);
+			this.pts.set(4,top_pent[3]);
+			this.pts.set(5,top_pent[4]);
+			this.pts.set(6,bottom_pent[0]);
+			this.pts.set(7,bottom_pent[1]);
+			this.pts.set(8,bottom_pent[2]);
+			this.pts.set(9,bottom_pent[3]);
+			this.pts.set(10,bottom_pent[4]);
+			this.pts.set(11,bottom_point);
 		}
-    return pts;
+    return pts.toArray(new vec3[pts.size()]);
   }
-
 }

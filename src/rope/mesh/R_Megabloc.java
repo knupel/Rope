@@ -134,7 +134,7 @@ public class R_Megabloc extends R_Graphic {
 	}
 
 	public void show(PGraphics other) {
-		for(R_Bloc b : list) {;
+		for(R_Bloc b : list) {
 			b.show(other);
 		}
 	}

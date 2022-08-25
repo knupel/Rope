@@ -7,8 +7,19 @@
 > the function who return the array of the first palette, now return all the component of all palette
 > class R_Colour add function to get the hsb and rgb of the current color in vec
 
+
 > GUI
-> 
+>
+
+> CONSTANT
+> add constant FIRST, LAST, NEXT, PREVIOUS, CHOICE
+
+> R_BLOC
+> add constructor with default canvas
+> add vec2 get_coord();
+
+> R_Shape, R_Primitive, R_Chose, R_Polygon, R_Icosahedron
+> change system array to ArrayList to managepoint
 
 
 \*version 47

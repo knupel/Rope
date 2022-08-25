@@ -1,7 +1,7 @@
 /**
 * R_Primitive class
-* v 0.4.0
-* 2019-2021
+* v 0.5.0
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RPrimitive store the utilities to draw shape and costume
@@ -11,6 +11,7 @@ package rope.costume;
 import rope.vector.*;
 import rope.core.*;
 import processing.core.*;
+
 
 public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contract  {
 	private boolean init;
@@ -33,7 +34,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits) {
 		super(pa, summits);
-		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -48,7 +48,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public R_Primitive(PApplet pa, int summits, float angle) {
 		super(pa, summits);
 		angle_x(angle);
-		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -64,7 +63,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir) {
 		super(pa, summits);
 		angle_x(angle);
-		// this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
@@ -83,7 +81,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 */
 	public R_Primitive(PApplet pa, int summits, PGraphics other) {
 		super(pa, summits, other);
-		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -99,7 +96,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public R_Primitive(PApplet pa, int summits, float angle, PGraphics other) {
 		super(pa, summits, other);
 		angle_x(angle);
-		// this.summits = summits;
 		pos(0);
 		size(1);
 		calc();
@@ -116,7 +112,6 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir, PGraphics other) {
 		super(pa, summits, other);
 		angle_x(angle);
-		// this.summits = summits;
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
 		} else {
@@ -132,12 +127,12 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return array
 	 */
 	public vec3[] get_normals() {
-		return ref_pts;
+		return ref_pts.toArray(new vec3[ref_pts.size()]);
 	}
 
 	public vec3 get_normal(int target) {
-		if(ref_pts != null && target >= 0 && target < ref_pts.length) {
-			return ref_pts[target];
+		if(ref_pts != null && target >= 0 && target < ref_pts.size()) {
+			return ref_pts.get(target);
   	} else {
   		return null;
   	}
@@ -150,7 +145,7 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return array
 	 */
 	public vec3[] get_ref_points() {
-		return ref_pts;
+		return ref_pts.toArray(new vec3[ref_pts.size()]);
 	}
 	
 	/**
@@ -170,10 +165,10 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return array
 	 */
 	public vec3[] get() {
-		vec3[] temp = new vec3[ref_pts.length];
+		vec3[] temp = new vec3[ref_pts.size()];
 		vec3 radius = size.mult((float).5);
 		for (int i = 0; i < temp.length; i++) {
-			temp[i] = ref_pts[i].copy();
+			temp[i] = ref_pts.get(i).copy();
 			if (temp.length == 2) {
 				temp[i].mult(radius).add(pos);
 			} else {
@@ -188,8 +183,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return vec3
 	 */
 	public vec3 get(int target) {
-  	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
-			vec3 temp = ref_pts[target].copy();
+  	if(ref_pts != null && target >= 0 && target < ref_pts.size()) {
+			vec3 temp = ref_pts.get(target).copy();
 			return temp.mult(size).add(pos);
   	} else {
   		return null;
@@ -226,15 +221,12 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 
 
 
-
-
 	// Primitive with vec method and angle to display
 	/**
 	 * 
 	 */
 	private void calc() {
-		if (!init || this.summits != summits || angle_x() != angle_ref_x) {
-			this.summits = summits;
+		if (!init || angle_x() != angle_ref_x) {
 			angle_ref_x = angle_x();
 			build();
 			init = true;
@@ -250,14 +242,25 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 			this.summits = 2;
 		}
 
-		ref_pts = new vec3[this.summits];
 		// create coord of the shape
-		if (this.summits == 2 && angle_x() == 0) {
-			ref_pts[0] = new vec3((float) -.5, 0, 0);
-			ref_pts[1] = new vec3((float) .5, 0, 0);
+		if(ref_pts.size() == 0) {
+			if (this.summits == 2 && angle_x() == 0) {
+				ref_pts.add(new vec3((float) -.5, 0, 0));
+				ref_pts.add(new vec3((float) .5, 0, 0));
+			} else {
+				for (int i = 0; i < this.summits; i++) {
+					ref_pts.add(polygon_2D(this.summits, angle_x())[i].copy());
+				}
+			}
+
 		} else {
-			for (int i = 0; i < this.summits; i++) {
-				ref_pts[i] = polygon_2D(this.summits, angle_x())[i].copy();
+			if (this.summits == 2 && angle_x() == 0) {
+				ref_pts.set(0,new vec3((float) -.5, 0, 0));
+				ref_pts.set(1,new vec3((float) .5, 0, 0));
+			} else {
+				for (int i = 0; i < this.summits; i++) {
+					ref_pts.set(i,polygon_2D(this.summits, angle_x())[i].copy());
+				}
 			}
 		}
 	}
@@ -270,9 +273,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		vec3 radius = this.size.copy().mult((float).5);
 		// boolean check_line = false;
 
-		vec3[] temp_pos = new vec3[ref_pts.length];
+		vec3[] temp_pos = new vec3[ref_pts.size()];
 		for (int i = 0; i < temp_pos.length; i++) {
-			temp_pos[i] = ref_pts[i].copy();
+			temp_pos[i] = ref_pts.get(i).copy();
 		}
 
 		if (temp_pos.length == 2) {
@@ -382,13 +385,10 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @return
 	 */
 	public vec3[] polygon_3D(vec3 pos, float radius, int num, float new_orientation, vec3 dir) {
-
 		vec3 p1 = dir.copy();
 		vec3 p2 = to_cartesian_3D(PI, PI);
 		vec3 support = to_cartesian_3D(PI, PI);
-		/*
-		 * vec3 p2 = vec3(0,0,1) ; vec3 support = vec3 (1,0,0) ;
-		 */
+
 		// prepare the vector direction
 		vec3 r = new vec3();
 		vec3 s = new vec3();
@@ -428,5 +428,4 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		}
 		return p;
 	}
-
 }

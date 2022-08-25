@@ -1,7 +1,7 @@
 /**
 * R_Polygon
-* v 0.3.2
-* 2019-2021
+* v 0.4.0
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -53,10 +53,10 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
       float x = (float)Math.sin(angle_step*i +angle);
       float y = (float)Math.cos(angle_step*i +angle);
       float z = 0;
-      if(ref_pts[i] == null) {
-        ref_pts[i] = new vec3(x,y,z);
+      if(ref_pts.size() <= i) {
+        ref_pts.add(new vec3(x,y,z));
       } else {
-        ref_pts[i].set(x,y,z);
+        ref_pts.get(i).set(x,y,z);
       }
     }
   }
@@ -67,12 +67,12 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    */
   public void show() {
     calc(true);
-    if(pts != null && pts.length > 0) {
+    if(pts != null && pts.size() > 0) {
       beginShape();
-      for(int i = 0 ; i < pts.length ; i++) {
-        vertex(pts[i]);
+      for(int i = 0 ; i < pts.size() ; i++) {
+        vertex(pts.get(i));
       }
-      vertex(pts[0]);
+      vertex(pts.get(0));
       endShape();
     } 
   }
@@ -122,25 +122,22 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    * @return
    */
   private vec3 [] calc_final_points(boolean render) {
-    if(pts == null || pts.length != ref_pts.length) {
-      pts = new vec3[ref_pts.length];
-    }
     if(render) beginShape();
-    for(int i = 0 ; i < ref_pts.length ; i++) {
-      if(pts[i] == null) {
-        pts[i] = new vec3(ref_pts[i].x,ref_pts[i].y,ref_pts[i].z);
+    for(int i = 0 ; i < ref_pts.size() ; i++) {
+      if(i >= pts.size()) {
+        pts.add(new vec3(ref_pts.get(i).x(),ref_pts.get(i).y(),ref_pts.get(i).z()));
       } else {
-        pts[i].set(ref_pts[i]);
+        pts.set(i,ref_pts.get(i).copy());
       }
-
-      pts[i].mult(size.x*(float)0.5);
-      if(use_pos_is()) pts[i].add(pos);
-      if(render) vertex(pts[i]);
+      // print_err( pts.get(i));
+      pts.get(i).mult(size.x()*(float)0.5f);
+      if(use_pos_is()) pts.get(i).add(pos);
+      if(render) vertex(pts.get(i));
     }
     if(render) {
-      vertex(pts[0]);
+      vertex(pts.get(0));
       endShape();
     }
-    return pts;
+    return pts.toArray(new vec3[pts.size()]);
   }
 }

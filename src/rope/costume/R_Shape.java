@@ -8,6 +8,8 @@
 */
 package rope.costume;
 
+import java.util.ArrayList;
+
 import rope.core.*;
 import rope.vector.*;
 import processing.core.*;
@@ -19,9 +21,8 @@ public class R_Shape extends R_Graphic {
 	protected vec3 angle;
 	
 	protected int summits;
-	protected vec3 [] ref_pts;
-	protected vec3 [] pts;
-
+	protected ArrayList<vec3> ref_pts = new ArrayList<vec3>();
+	protected ArrayList<vec3> pts = new ArrayList<vec3>();
 
 	private boolean use_pos_is = true;
   private boolean reset_is = false;
@@ -52,7 +53,6 @@ public class R_Shape extends R_Graphic {
 	public R_Shape(PApplet pa, int summits) {
 		super(pa);
 		this.summits = summits;
-    ref_pts = new vec3[summits];  
 	}
 	
 	/**
@@ -63,8 +63,7 @@ public class R_Shape extends R_Graphic {
 	 */
 	public R_Shape(PApplet pa, int summits, PGraphics other) {
 		super(pa,other);
-		this.summits = summits;
-    ref_pts = new vec3[summits];  
+		this.summits = summits; 
 	}
 	
 	
@@ -313,7 +312,6 @@ public class R_Shape extends R_Graphic {
 
 
 	
-
 	
 	/**
 	 * 
@@ -343,7 +341,8 @@ public class R_Shape extends R_Graphic {
 	 * @return all the normal points of your Shape
 	 */
   public vec3 [] get_ref_points() {
-    return ref_pts;
+		vec3 [] arr = ref_pts.toArray(new vec3[ref_pts.size()]);
+		return arr;
   }
   
   /**
@@ -352,8 +351,8 @@ public class R_Shape extends R_Graphic {
    * @return a specific point normal of the array
    */
   public vec3 get_ref_point(int target) {
-  	if(ref_pts != null && target >= 0 && target < ref_pts.length) {
-  		return ref_pts[target];
+		if(ref_pts.size() > 0 && target >= 0 && target < ref_pts.size()) {
+  		return ref_pts.get(target);
   	} else {
   		return null;
   	}  
@@ -365,8 +364,10 @@ public class R_Shape extends R_Graphic {
 	 * we do that to avoid a problem if the shape is too complex. Because that's can make a huge memory using for nothing
    * @return all the points of your Shape
    */
-  public vec3 [] get_points() {
-    return pts;
+
+	public vec3 [] get_points() {
+		vec3 [] arr = pts.toArray(new vec3[pts.size()]);
+		return arr;
   }
   
   /**
@@ -377,11 +378,10 @@ public class R_Shape extends R_Graphic {
    * @return a specific point of the array
    */
   public vec3 get_point(int target) {
-  	if(pts != null && target >= 0 && target < pts.length) {
-  		return pts[target];
+		if(pts.size() > 0 && target >= 0 && target < pts.size()) {
+  		return pts.get(target);
   	} else {
   		return null;
-  	}  
+  	}    
   }
-
 }

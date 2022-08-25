@@ -1,7 +1,7 @@
 /**
 * R_Bloc
-* v 0.1.1
-* 2019-2021
+* v 0.1.3
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -37,6 +37,18 @@ public class R_Bloc extends R_Graphic {
 
 	public R_Bloc(PApplet pa, int width, int height) {
     super(pa);
+		setting_impl();
+		this.canvas = new ivec2(width,height);
+	}
+
+	public R_Bloc(PApplet pa) {
+    super(pa);
+		setting_impl();
+		this.canvas = new ivec2(pa.width, pa.height);
+	}
+
+
+	private void setting_impl() {
 		list = new ArrayList<vec3>();
 		id = (int)random(Integer.MAX_VALUE);
 		coord = new vec2();
@@ -44,7 +56,6 @@ public class R_Bloc extends R_Graphic {
 		colour_build = CYAN;
 		fill = BLANC;
 		stroke = NOIR;
-		this.canvas = new ivec2(width,height);
 	}
 
 	public void set_id(int id) {
@@ -54,8 +65,6 @@ public class R_Bloc extends R_Graphic {
 	public void set_magnetism(int magnetism) {
 		this.magnetism = magnetism;
 	}
-
-
 
 	public void set_colour_build(int colour_build) {
 		this.colour_build = colour_build;
@@ -102,6 +111,10 @@ public class R_Bloc extends R_Graphic {
 		return this.id;
 	}
 
+	public vec2 get_coord() {
+		return this.coord;
+	}
+
 	public int get_magnetism() {
 		return this.magnetism;
 	}
@@ -128,7 +141,7 @@ public class R_Bloc extends R_Graphic {
 	}
 
 	public boolean in_bloc(float x, float y) {
-		return in_polygon(get(),new vec2(x,y));
+		return in_polygon(get(), new vec2(x,y));
 	}
 
 	public boolean end_is() {
@@ -177,18 +190,36 @@ public class R_Bloc extends R_Graphic {
 	}
 
 
-	// update
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * update all coord from the x, y. nothing happen if don't do that !!!
+	 */
 	public void update(float x, float y) {
 		coord.set(x,y);
 	}
 
 	/**
-	* build
-	*/
+	 * If the coord is not to close of an other, this point is added
+	 * @see set_magnetism(int magnetism)
+	 * @param x 
+	 * @param y
+	 * @param event_is if it's true, the bloc is build again.
+	 */
 	public void build(float x, float y, boolean event_is) {
 		build(x, y, event_is, true);
 	}
 
+
+	/**
+	 * If the coord is not to close of an other, this point is added
+	 * @see set_magnetism(int magnetism)
+	 * @param x 
+	 * @param y
+	 * @param event_is if it's true, the bloc is build again.
+	 * @param security_is if it's true the point can be added
+	 */
 	public void build(float x, float y, boolean event_is, boolean security_is) {
 		update(x,y);
 		if(event_is) {
@@ -298,6 +329,12 @@ public class R_Bloc extends R_Graphic {
 		}
 	}
 
+	/**
+	 * 
+	 * @param x float coord
+	 * @param y float coord
+	 * x, y coord is use to set the selection to true if the both are in the bloc.
+	 */
 	public void select(float x, float y) {
 		if(in_bloc(x,y)) {
 			select_is(true);
