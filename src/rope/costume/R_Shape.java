@@ -374,10 +374,17 @@ public class R_Shape extends R_Graphic {
 	 * 
 	 * @param vec
 	 */
-	public void add(vec coord) {
-		this.summits++;
-		ref_pts.add(new vec3(coord.x(),coord.y(),coord.z()));
-		pts.add(new vec3(coord.x(),coord.y(),coord.z()));
+	// public void add(vec coord) {
+	// 	this.summits++;
+	// 	ref_pts.add(new vec3(coord.x(),coord.y(),coord.z()));
+	// 	pts.add(new vec3(coord.x(),coord.y(),coord.z()));
+	// }
+	public void add(vec... coord) {
+		for(vec v : coord) {
+			this.summits++;
+			ref_pts.add(new vec3(v.x(),v.y(),v.z()));
+			pts.add(new vec3(v.x(),v.y(),v.z()));
+		}
 	}
 
 

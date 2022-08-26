@@ -1,12 +1,17 @@
 package rope.mesh;
 
 /**
- * Adaptation from Toxiclib by Stan le Punk 2022
-  */
-
-
-
-/*
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * Copyleft(l) Adaptation from Toxiclib by Stan le Punk 
+ * v 0.0.1
+ * 2022-2022
+ * 
  *   __               .__       .__  ._____.           
  * _/  |_  _______  __|__| ____ |  | |__\_ |__   ______
  * \   __\/  _ \  \/  /  |/ ___\|  | |  || __ \ /  ___/
@@ -33,55 +38,67 @@ package rope.mesh;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
-
+// JAVA
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-
-// import toxi.geom.Polygon2D;
+//ROPE
 import rope.costume.R_Shape;
-// import rope.mesh.R_Delaunay_Vertex;
-// import rope.mesh.R_Delaunay_Triangle;
-// import toxi.geom.Triangle2D;
-// import toxi.geom.Vec2D;
 import rope.vector.vec2;
+import rope.vector.vec3;
 import rope.core.BigBang;
 import processing.core.*;
 
+
+
 public class R_Voronoi extends BigBang {
-	public static float DEFAULT_SIZE = 10000;
-	// PApplet pa;
+	private static float DEFAULT_SIZE = 10000;
 
 	protected R_Delaunay_Triangulation delaunay;
 	protected R_Delaunay_Triangle initialTriangle;
-	protected List<vec2> sites = new ArrayList<vec2>();
+	protected List<vec2> seeds_list = new ArrayList<vec2>();
 
-	public R_Voronoi (PApplet pa) {
-		// this(DEFAULT_SIZE);
-		super(pa);
+
+	/**
+	 * Constructor
+	 * @param pa
+	 */
+	public R_Voronoi(PApplet pa) {
+		this(pa, DEFAULT_SIZE);
 	}
 
-	public R_Voronoi(float size) {
-		initialTriangle = new R_Delaunay_Triangle(
-						new R_Delaunay_Vertex(-size, -size), new R_Delaunay_Vertex(size,
-										-size), new R_Delaunay_Vertex(0, size));
+	/**
+	 * Constructor
+	 * @param pa
+	 * @param size
+	 */
+	public R_Voronoi(PApplet pa, float size) {
+		super(pa);
+		initialTriangle = new R_Delaunay_Triangle(new R_Delaunay_Vertex(-size, -size), 
+																							new R_Delaunay_Vertex(size,	-size), 
+																							new R_Delaunay_Vertex(0, size));
 		this.delaunay = new R_Delaunay_Triangulation(initialTriangle);
 	}
 
-	public void addPoint(vec2 p) {
-		sites.add(p.copy());
-		delaunay.delaunayPlace(new R_Delaunay_Vertex(p.x, p.y));
+
+	public void add_seed(float x, float y) {
+		seeds_list.add(new vec2(x,y));
+		delaunay.delaunayPlace(new R_Delaunay_Vertex(x,y));
 	}
 
-	public void addPoints(Collection<? extends vec2> points) {
-		for (vec2 p : points) {
-			addPoint(p);
+	public void add_seed(vec2 seed) {
+		add_seed(seed.x(), seed.y());
+	}
+
+	public void add_seeds(vec2... seeds) {
+		for (vec2 seed : seeds) {
+			add_seed(seed.x(), seed.y());
 		}
 	}
 
-	public List<R_Shape> getRegions() {
+	public List<R_Shape> get_regions() {
 		List<R_Shape> regions = new LinkedList<R_Shape>();
 		HashSet<R_Delaunay_Vertex> done = new HashSet<R_Delaunay_Vertex>(initialTriangle);
 		for (R_Delaunay_Triangle triangle : delaunay) {
@@ -104,16 +121,20 @@ public class R_Voronoi extends BigBang {
 		return regions;
 	}
 
-	public List<vec2> getSites() {
-			return sites;
+	public List<vec2> get_seeds() {
+			return seeds_list;
 	}
 
-	// public List<Triangle2D> getTriangles() {
-	//     List<Triangle2D> tris = new ArrayList<Triangle2D>();
-	//     for (DelaunayTriangle t : delaunay) {
-	//         tris.add(new Triangle2D(t.get(0).to_vec2(), t.get(1).to_vec2(), t
-	//                 .get(2).to_vec2()));
-	//     }
-	//     return tris;
-	// }
+	public List<R_Shape> get_triangles() {
+		List<R_Shape> triangles_list = new ArrayList<R_Shape>();
+		for (R_Delaunay_Triangle t : delaunay) {
+			R_Shape triangle = new R_Shape(this.pa);
+			vec3 a = t.get(0).to_vec2().xyz();
+			vec3 b = t.get(1).to_vec2().xyz();
+			vec3 c = t.get(2).to_vec2().xyz();
+			triangle.add(a,b,c);
+			triangles_list.add(triangle);
+		}
+		return triangles_list;
+	}
 }

@@ -19,7 +19,14 @@
 > add vec2 get_coord();
 
 > R_Shape, R_Primitive, R_Chose, R_Polygon, R_Icosahedron
-> change system array to ArrayList to managepoint
+> change system array to ArrayList to manage point
+
+> R_Shape
+> add function to add points, from float or list of vec points
+
+
+> add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
+
 
 
 \*version 47
