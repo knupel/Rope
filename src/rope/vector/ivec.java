@@ -1,14 +1,14 @@
 /**
 * ivec class
-* v 2.1.0
-* 2015-2021
+* v 2.1.1
+* 2015-2022
 * Vector with a integer precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
 package rope.vector;
 import rope.core.R_Constants;
-import rope.R_Utils.Ru;
+import rope.utils.R_Utils.Ru;
 
 public abstract class ivec implements R_Constants {
 	private int size;

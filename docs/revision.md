@@ -14,7 +14,7 @@
 > CONSTANT
 > add constant FIRST, LAST, NEXT, PREVIOUS, CHOICE
 
-> R_BLOC
+> R_Bloc
 > add constructor with default canvas
 > add vec2 get_coord();
 
@@ -24,8 +24,9 @@
 > R_Shape
 > add function to add points, from float or list of vec points
 
-
+> R_Voronoi
 > add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
+> add remove_seed(int index)
 
 
 

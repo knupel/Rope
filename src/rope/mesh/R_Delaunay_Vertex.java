@@ -52,8 +52,8 @@ public class R_Delaunay_Vertex {
 	/**
 	* Circumcenter of a simplex.
 	* 
-	* @param simplex the simplex (as an array of Pnts)
-	* @return the circumcenter (a DelaunayVertex) of simplex
+	* @param simplex the simplex (as an array of points)
+	* @return the circumcenter (a R_Delaunay_Vertex) of simplex
 	*/
 	public static R_Delaunay_Vertex circumcenter(R_Delaunay_Vertex[] simplex) {
 		int dim = simplex[0].dimension();
@@ -192,15 +192,14 @@ public class R_Delaunay_Vertex {
 		return buf.toString();
 	}
 
-   private double[] coordinates; // The point's coordinates
+	private double[] coordinates; // The point's coordinates
 
    /**
     * Constructor.
     * @param coords the coordinates
     */
 	public R_Delaunay_Vertex(double... coords) {
-		// Copying is done here to ensure that R_Delaunay_Vertex's coords cannot be
-		// altered.
+		// Copying is done here to ensure that R_Delaunay_Vertex's coords cannot be altered.
 		// This is necessary because the double... notation actually creates a
 		// constructor with double[] as its argument.
 		coordinates = new double[coords.length];

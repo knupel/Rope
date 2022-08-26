@@ -158,7 +158,6 @@ public class R_Delaunay_Triangle extends R_ArraySet<R_Delaunay_Vertex> {
     @Override
     public Iterator<R_Delaunay_Vertex> iterator() {
         return new Iterator<R_Delaunay_Vertex>() {
-
             private Iterator<R_Delaunay_Vertex> it = R_Delaunay_Triangle.super.iterator();
 
             public boolean hasNext() {

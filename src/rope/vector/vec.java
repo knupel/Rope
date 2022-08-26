@@ -1,8 +1,14 @@
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
 * vec class
-* v 2.2.0
-* 2015-2021
-* Processing 3.5.4
+* v 2.2.1
+* 2015-2022
 * Vector class with a float precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -10,7 +16,7 @@
 package rope.vector;
 import rope.core.R_Constants;
 
-import rope.R_Utils.Ru;
+import rope.utils.R_Utils.Ru;
 
 public abstract class vec implements R_Constants {
 	public int size;

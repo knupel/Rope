@@ -1,7 +1,7 @@
 /**
 * R_Chose
-* 2019-2021
-* v 0.3.2
+* 2019-2022
+* v 0.4.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */

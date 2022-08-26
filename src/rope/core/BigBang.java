@@ -7,10 +7,17 @@
 */
 
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
  * BIG BANG ROPE
  * is the main class of library
- * 2018-2021
- * v 2.0.1
+ * 2018-2022
+ * v 2.0.2
  * 
  * WARNING : Here it's PROCESSING BIG BANG
  * BigBang is used to use directly the Processing method, to keep Rope with only Java Stuff

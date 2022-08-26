@@ -1,4 +1,10 @@
-package rope;
+package rope.utils;
+
+/**
+ * Rope Static Utils
+ * v 0.2.0
+ * 2019-2022
+ */
 
 import java.util.Random;
 
@@ -10,9 +16,7 @@ import rope.vector.vec3;
 import rope.vector.vec4;
 
 public class R_Utils {
-
 	public static class Ru {
-	
 		/**
 		 * map method
 		 * 
@@ -252,3 +256,4 @@ public class R_Utils {
 	}
 
 }
+

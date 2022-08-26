@@ -1,9 +1,15 @@
 /**
- * Rope
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
  * collection of function can be use with out Processing.
  * @author stanlepunk
- * 2018-2021
- * v 0.3.1
+ * 2018-2022
+ * v 0.3.2
  * 
  */
 
@@ -12,7 +18,7 @@ package rope.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import rope.R_Utils.Ru;
+import rope.utils.R_Utils.Ru;
 
 import rope.vector.bvec;
 import rope.vector.bvec2;

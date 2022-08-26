@@ -54,7 +54,7 @@ import rope.utils.R_Undirected_Graph;
  * 	@author Karsten Schmidt
  *	Ported to use toxiclibs classes (June 2010).
  *  @author Stanislas Marçais
- *	Ported to use rope classes (Auguste 2022).
+ *	Ported to use rope classes (August 2022).
  */
 public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 
@@ -63,7 +63,6 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 
 	/**
 	* All sites must fall within the initial triangle.
-	* 
 	* @param triangle the initial triangle
 	*/
 	public R_Delaunay_Triangulation(R_Delaunay_Triangle triangle) {
@@ -89,7 +88,7 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 		* @param site the new R_Delaunay_Vertex
 		* @throws IllegalArgumentException if site does not lie in any triangle
 		*/
-	public void delaunayPlace(R_Delaunay_Vertex site) {
+	public void delaunay_area(R_Delaunay_Vertex site) {
 		// Uses straightforward scheme rather than best asymptotic time
 		// Locate containing triangle
 		R_Delaunay_Triangle triangle = locate(site);
@@ -184,13 +183,10 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 	/**
 		* Report neighbor opposite the given vertex of triangle.
 		* 
-		* @param site
-		*            a vertex of triangle
-		* @param triangle
-		*            we want the neighbor of this triangle
+		* @param site a vertex of triangle
+		* @param triangle we want the neighbor of this triangle
 		* @return the neighbor opposite site in triangle; null if none
-		* @throws IllegalArgumentException
-		*             if site is not in this triangle
+		* @throws IllegalArgumentException if site is not in this triangle
 		*/
 	public R_Delaunay_Triangle neighborOpposite(R_Delaunay_Vertex site, R_Delaunay_Triangle triangle) {
 		if (!triangle.contains(site)) {
@@ -207,8 +203,7 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 	/**
 		* Return the set of triangles adjacent to triangle.
 		* 
-		* @param triangle
-		*            the triangle to check
+		* @param triangle the triangle to check
 		* @return the neighbors of triangle
 		*/
 	public Set<R_Delaunay_Triangle> neighbors(R_Delaunay_Triangle triangle) {
@@ -223,13 +218,10 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 	/**
 		* Report triangles surrounding site in order (cw or ccw).
 		* 
-		* @param site
-		*            we want the surrounding triangles for this site
-		* @param triangle
-		*            a "starting" triangle that has site as a vertex
+		* @param site we want the surrounding triangles for this site
+		* @param triangle a "starting" triangle that has site as a vertex
 		* @return all triangles surrounding site in order (cw or ccw)
-		* @throws IllegalArgumentException
-		*             if site is not in triangle
+		* @throws IllegalArgumentException if site is not in triangle
 		*/
 	public List<R_Delaunay_Triangle> surroundingTriangles(R_Delaunay_Vertex site, R_Delaunay_Triangle triangle) {
 		if (!triangle.contains(site)) {
@@ -260,10 +252,8 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 		* Update the triangulation by removing the cavity triangles and then
 		* filling the cavity with new triangles.
 		* 
-		* @param site
-		*            the site that created the cavity
-		* @param cavity
-		*            the triangles with site in their circumcircle
+		* @param site the site that created the cavity
+		* @param cavity the triangles with site in their circumcircle
 		* @return one of the new triangles
 		*/
 	private R_Delaunay_Triangle update(R_Delaunay_Vertex site, Set<R_Delaunay_Triangle> cavity) {
