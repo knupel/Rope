@@ -23,10 +23,12 @@
 
 > R_Shape
 > add function to add points, from float or list of vec points
+> add int id, by default is 0;
 
 > R_Voronoi
 > add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
 > add remove_seed(int index)
+> add z argument to seed to pass color information
 
 
 

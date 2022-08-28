@@ -9,7 +9,7 @@
  * collection of function can be use with out Processing.
  * @author stanlepunk
  * 2018-2022
- * v 0.3.2
+ * v 0.3.3
  * 
  */
 
@@ -427,7 +427,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param pos coordinate of value must be tested
 	 * @return true is the position is in the shape
 	 */
-	protected boolean in_polygon(vec [] points, vec2 pos) {
+	protected boolean in_polygon(vec [] points, vec pos) {
 		int i, j;
 		boolean is = false;
 		int sides = points.length;

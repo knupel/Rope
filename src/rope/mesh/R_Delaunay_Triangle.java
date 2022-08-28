@@ -40,9 +40,7 @@ import rope.utils.R_ArraySet;
  * this rule.
  * 
  * @author Paul Chew
- * 
- *         Created December 2007. Replaced general simplices with geometric
- *         triangle.
+ * Created December 2007. Replaced general simplices with geometric triangle.
  * 
  */
 public class R_Delaunay_Triangle extends R_ArraySet<R_Delaunay_Vertex> {

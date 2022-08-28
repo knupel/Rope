@@ -1,7 +1,15 @@
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.4.1
-* 2019-2022
+* v 0.4.2
+* 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
@@ -16,6 +24,7 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Graphic {
+	protected int id = 0;
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;
@@ -67,17 +76,31 @@ public class R_Shape extends R_Graphic {
 	}
 	
 	
+/**
+ * 
+ * @param id give an id to your R_Shape by default all the shape have 0
+ */
+	public void id(int id) {
+		this.id = id;
+	}
 
+	/**
+	 * 
+	 * @return the id of your R_Shape
+	 */
+	public int id() {
+		return this.id;
+	}
 
   
   
  // POS
-	/**
-   * 
-   * @return
-   */
+/**
+ * 
+ * @return vec3 pos of your P_Shape
+ */
 	public vec3 pos() {
-		return pos;
+		return this.pos;
 	}
   /**
    * 
@@ -370,15 +393,10 @@ public class R_Shape extends R_Graphic {
 		pts.add(new vec3(x,y,z));
 	}
 
-		/**
-	 * 
-	 * @param vec
-	 */
-	// public void add(vec coord) {
-	// 	this.summits++;
-	// 	ref_pts.add(new vec3(coord.x(),coord.y(),coord.z()));
-	// 	pts.add(new vec3(coord.x(),coord.y(),coord.z()));
-	// }
+/**
+ * 
+ * @param coord a list of vec
+ */
 	public void add(vec... coord) {
 		for(vec v : coord) {
 			this.summits++;

@@ -1,6 +1,7 @@
 package rope.mesh;
 
 /*
+ *
  * Copyright (c) 2005, 2007 by L. Paul Chew.
  *
  * Permission is hereby granted, without written agreement and without
@@ -18,6 +19,10 @@ package rope.mesh;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ * 
+ *  Modifified by Stan le Punk !
+ *  Copyleft(l) 2022-2022 by Stanislas Marçais
+ *  v 0.0.1
  */
 
 import java.util.AbstractSet;
@@ -84,24 +89,26 @@ public class R_Delaunay_Triangulation extends AbstractSet<R_Delaunay_Triangle> {
 	/**
 		* Place a new site into the DT. Nothing happens if the site matches an
 		* existing DT vertex.
-		* 
 		* @param site the new R_Delaunay_Vertex
-		* @throws IllegalArgumentException if site does not lie in any triangle
+		* @return 0 or 1 in most of case or -1 if site does not lie in any triangle
 		*/
-	public void delaunay_area(R_Delaunay_Vertex site) {
+	public int delaunay_area(R_Delaunay_Vertex site) {
 		// Uses straightforward scheme rather than best asymptotic time
 		// Locate containing triangle
 		R_Delaunay_Triangle triangle = locate(site);
 		// Give up if no containing triangle or if site is already in DT
 		if (triangle == null) {
-			throw new IllegalArgumentException("No containing triangle");
+			System.err.println(site + " No containing triangle, increase the size of your Voronoi to fix this problem");
+			return -1;
 		}
+		// System.out.println("je suis là");
 		if (triangle.contains(site)) {
-			return;
+			return 1;
 		}
 		// Determine the cavity and update the triangulation
 		Set<R_Delaunay_Triangle> cavity = getCavity(site, triangle);
 		mostRecent = update(site, cavity);
+		return 0;
 	}
 
 	/**

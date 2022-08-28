@@ -405,10 +405,11 @@ public class R_Delaunay_Vertex {
     *    0 means R_Delaunay_Vertex is on the facet
     *   +1 means R_Delaunay_Vertex is on opposite side of facet
     * </pre>
+		* throws IllegalArgumentExcpetion if the simplex is degenerate
     * 
     * @param simplex an array of Pnts representing a simplex
     * @return an array of signs showing relation between this R_Delaunay_Vertex and simplex
-    * @throws IllegalArgumentExcpetion if the simplex is degenerate
+    * 
     */
 	public int[] relation(R_Delaunay_Vertex[] simplex) {
 		/*
