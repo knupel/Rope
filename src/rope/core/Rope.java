@@ -9,7 +9,7 @@
  * collection of function can be use with out Processing.
  * @author stanlepunk
  * 2018-2022
- * v 0.3.3
+ * v 0.4.0
  * 
  */
 
@@ -45,7 +45,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b vector added
 	 * @return result of the operation
 	 */
-	protected vec2 add(vec2 a, vec2 b) {
+	public vec2 add(vec2 a, vec2 b) {
 	  if(a == null || b == null) {
 	    return null ;
 	  } else {
@@ -55,7 +55,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 
-	protected vec3 add(vec3 a, vec3 b) {
+	public vec3 add(vec3 a, vec3 b) {
 	  if(a == null || b == null) {
 	    return null ;
 	  } else {
@@ -66,7 +66,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 
-	protected vec4 add(vec4 a, vec4 b) {  
+	public vec4 add(vec4 a, vec4 b) {  
 	  if(a == null || b == null) {
 	    return null ;
 	  } else {
@@ -78,15 +78,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 	
-	protected vec2 add(vec2 a, float arg) {
+	public vec2 add(vec2 a, float arg) {
 	  return add(a, new vec2(arg,arg));
 	}
 
-	protected vec3 add(vec3 a, float arg) {
+	public vec3 add(vec3 a, float arg) {
 	  return add(a,new vec3(arg,arg,arg));
 	}
 
-	protected vec4 add(vec4 a, float arg) {  
+	public vec4 add(vec4 a, float arg) {  
 	  return add(a, new vec4(arg,arg,arg,arg));
 	}
 	
@@ -96,7 +96,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b vector must be sub
 	 * @return result of the operation
 	 */
-	protected vec2 sub(vec2 a, vec2 b) {
+	public vec2 sub(vec2 a, vec2 b) {
 		if (a == null || b == null) {
 			return null;
 		} else {
@@ -106,7 +106,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	protected vec3 sub(vec3 a, vec3 b) {
+	public vec3 sub(vec3 a, vec3 b) {
 		if (a == null || b == null) {
 			return null;
 		} else {
@@ -117,7 +117,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	protected vec4 sub(vec4 a, vec4 b) {
+	public vec4 sub(vec4 a, vec4 b) {
 		if (a == null || b == null) {
 			return null;
 		} else {
@@ -129,15 +129,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 	
-	protected vec2 sub(vec2 a, float arg) {
+	public vec2 sub(vec2 a, float arg) {
 	  return sub(a, new vec2(arg,arg));
 	}
 
-	protected vec3 sub(vec3 a, float arg) {
+	public vec3 sub(vec3 a, float arg) {
 	  return sub(a, new vec3(arg,arg,arg));
 	}
 
-	protected vec4 sub(vec4 a, float arg) {  
+	public vec4 sub(vec4 a, float arg) {  
 	  return sub(a, new vec4(arg,arg,arg,arg));
 	}
 
@@ -147,7 +147,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b vector multiplicator
 	 * @return result of the operation
 	 */
-	protected vec2 mult(vec2 a, vec2 b) {
+	public vec2 mult(vec2 a, vec2 b) {
 		if(a == null || b == null) {
 			return null ;
 		} else {
@@ -157,7 +157,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	protected vec3 mult(vec3 a, vec3 b) {
+	public vec3 mult(vec3 a, vec3 b) {
 		if(a == null || b == null) {
 			return null ;
 		} else {
@@ -168,7 +168,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
-	protected vec4 mult(vec4 a, vec4 b) {
+	public vec4 mult(vec4 a, vec4 b) {
 		if(a == null || b == null) {
 			return null ;
 		} else {
@@ -180,15 +180,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 	
-	protected vec2 mult(vec2 a, float arg) {
+	public vec2 mult(vec2 a, float arg) {
 	  return mult(a, new vec2(arg,arg));
 	}
 
-	protected vec3 mult(vec3 a, float arg) {
+	public vec3 mult(vec3 a, float arg) {
 	  return mult(a, new vec3(arg,arg,arg));
 	}
 
-	protected vec4 mult(vec4 a, float arg) {  
+	public vec4 mult(vec4 a, float arg) {  
 	  return mult(a, new vec4(arg,arg,arg,arg));
 	}
 	
@@ -199,7 +199,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b vector must divide a
 	 * @return result of the operation
 	 */
-	protected vec2 div(vec2 a, vec2 b) {
+	public vec2 div(vec2 a, vec2 b) {
 	  if(a == null || b == null) {
 	    return null;
 	  } else {
@@ -209,7 +209,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 
-	protected vec3 div(vec3 a, vec3 b) {
+	public vec3 div(vec3 a, vec3 b) {
 	  if(a == null || b == null) {
 	    return null;
 	  } else {
@@ -220,7 +220,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 
-	protected vec4 div(vec4 a, vec4 b) {
+	public vec4 div(vec4 a, vec4 b) {
 	  if(a == null || b == null) {
 	    return null ;
 	  } else {
@@ -232,15 +232,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	  }
 	}
 	
-	protected vec2 div(vec2 a, float arg) {
+	public vec2 div(vec2 a, float arg) {
 	  return div(a, new vec2(arg,arg));
 	}
 
-	protected vec3 div(vec3 a, float arg) {
+	public vec3 div(vec3 a, float arg) {
 	  return div(a, new vec3(arg,arg,arg));
 	}
 
-	protected vec4 div(vec4 a, float arg) {  
+	public vec4 div(vec4 a, float arg) {  
 	  return div(a, new vec4(arg,arg,arg,arg));
 	}
 
@@ -251,7 +251,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param v2 coordinate
 	 * @return result of the croos operation
 	 */
-	protected vec3 cross(vec3 v1, vec3 v2) {
+	public vec3 cross(vec3 v1, vec3 v2) {
 		if (v1 == null || v2 == null) {
 			return null;
 		} else {
@@ -273,12 +273,12 @@ public class Rope implements R_Constants, R_Constants_Colour {
   * @param low minimum limit
   * @param high maximum limit
   */
-	protected int constrain(int amt, int low, int high) {
+	public int constrain(int amt, int low, int high) {
     return (amt < low) ? low : ((amt > high) ? high : amt);
   }
 
 
-	protected float constrain(float amt, float low, float high) {
+	public float constrain(float amt, float low, float high) {
     return (amt < low) ? low : ((amt > high) ? high : amt);
   }
   
@@ -312,7 +312,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param y2 value y of the second point
 	 * @return float distance beween the two points
 	 */
-	protected float dist(float x1, float y1, float x2, float y2) {
+	public float dist(float x1, float y1, float x2, float y2) {
 		float dx = x1 - x2;
 		float dy = y1 - y2;
 		return (float) Math.sqrt(dx*dx + dy*dy);
@@ -327,7 +327,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param z2 value z of the second point
 	 * @return float distance beween the two points
 	 */
-	protected float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
+	public float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
 		float dx = x1 - x2;
 		float dy = y1 - y2;
 		float dz = z1 - z2;
@@ -339,7 +339,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b coordinate of the second point
 	 * @return float distance beween the two points
 	 */
-	protected float dist(vec2 a, vec2 b) {
+	public float dist(vec2 a, vec2 b) {
 		if(a != null && b != null) {
 			float dx = a.x() - b.x();
 			float dy = a.y() - b.y();
@@ -352,7 +352,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b coordinate of the second point
 	 * @return float distance beween the two points
 	 */
-	protected float dist(vec3 a, vec3 b) {
+	public float dist(vec3 a, vec3 b) {
 		if(a != null && b != null) {
 			float dx = a.x() - b.x();
 			float dy = a.y() - b.y();
@@ -366,7 +366,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param b coordinate of the second point
 	 * @return float distance beween the two points
 	 */
-	protected float dist(vec4 a, vec4 b) {
+	public float dist(vec4 a, vec4 b) {
 		if(a != null && b != null) {
 			float dx = a.x() - b.x();
 			float dy = a.y() - b.y();
@@ -395,7 +395,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param range
 	 * @return
 	 */
-	protected boolean in_line(vec2 start, vec2 end, vec2 point, float range) {
+	public boolean in_line(vec2 start, vec2 end, vec2 point, float range) {
 		vec2 vp = new vec2();
 		vec2 line = sub(end,start);
 		float l2 = line.magSq();
@@ -427,7 +427,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param pos coordinate of value must be tested
 	 * @return true is the position is in the shape
 	 */
-	protected boolean in_polygon(vec [] points, vec pos) {
+	public boolean in_polygon(vec [] points, vec pos) {
 		int i, j;
 		boolean is = false;
 		int sides = points.length;
@@ -453,7 +453,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param size ??? may be the distance to center ???
 	 * @return
 	 */
-	protected vec3 to_cartesian_3D(vec2 pos, vec2 range, float size) {
+	public vec3 to_cartesian_3D(vec2 pos, vec2 range, float size) {
 		// vertical plan position
 		float vertical_y = to_cartesian_2D(pos.y, new vec2(0, range.y), new vec2(0, TAU), size).x;
 		float vertical_z = to_cartesian_2D(pos.y, new vec2(0, range.y), new vec2(0, TAU), size).y;
@@ -472,7 +472,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param longitude longitude in radiant
 	 * @return the cartesian angle coordinate
 	 */
-	protected vec3 to_cartesian_3D(float latitude, float longitude) {
+	public vec3 to_cartesian_3D(float latitude, float longitude) {
 		float radius_normal = 1;
 		return to_cartesian_3D(latitude, longitude, radius_normal);
 	}
@@ -484,7 +484,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance to center
 	 * @return the cartesian angle coordinate
 	 */
-	protected vec3 to_cartesian_3D(float latitude, float longitude, float radius) {
+	public vec3 to_cartesian_3D(float latitude, float longitude, float radius) {
 		float theta = longitude % TAU;
 		float phi = latitude % PI;
 
@@ -505,7 +505,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param distance distance to center
 	 * @return the cartesian angle coordinate
 	 */
-	protected vec2 to_cartesian_2D(float pos, vec2 range, vec2 target_rad, float distance) {
+	public vec2 to_cartesian_2D(float pos, vec2 range, vec2 target_rad, float distance) {
 		float rotation_plan = map(pos, range.x, range.y, target_rad.x, target_rad.y);
 		return to_cartesian_2D(rotation_plan, distance);
 	}
@@ -516,7 +516,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance to center
 	 * @return the cartesian angle coordinate
 	 */
-	protected vec2 to_cartesian_2D(float angle, float radius) {
+	public vec2 to_cartesian_2D(float angle, float radius) {
 		return to_cartesian_2D(angle).mult(radius);
 	}
 
@@ -525,7 +525,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param angle radiant value
 	 * @return the cartesian angle coordinate
 	 */
-	protected vec2 to_cartesian_2D(float angle) {
+	public vec2 to_cartesian_2D(float angle) {
 		float x = (float) Math.cos(angle);
 		float y = (float) Math.sin(angle);
 		return new vec2(x, y);
@@ -539,7 +539,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param v list coordinate to compute the barycenter
 	 * @return coordinate of the barycenter
 	 */
-	protected vec2 barycenter(vec2... v) {
+	public vec2 barycenter(vec2... v) {
 		int div_num = v.length;
 		vec2 sum = new vec2();
 		for (int i = 0; i < div_num; i++) {
@@ -553,7 +553,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param v list coordinate to compute the barycenter
 	 * @return coordinate of the barycenter
 	 */
-	protected vec3 barycenter(vec3... v) {
+	public vec3 barycenter(vec3... v) {
 		int div_num = v.length;
 		vec3 sum = new vec3();
 		for (int i = 0; i < div_num; i++) {
@@ -567,7 +567,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param vector array coordinates to calculate the barycenter
 	 * @return vec4 result
 	 */
-	protected vec4 barycenter(vec4... vector) {
+	public vec4 barycenter(vec4... vector) {
 		int div_num = vector.length;
 		vec4 sum = new vec4();
 		for (int i = 0; i < div_num; i++) {
@@ -585,7 +585,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param direction vec2 radiant direction
 	 * @return coordinate of the point
 	 */
-	protected vec2 projection(vec2 direction) {
+	public vec2 projection(vec2 direction) {
 	  return projection(direction, new vec2(), (float)1.) ;
 	}
   /**
@@ -594,7 +594,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
    * @param radius distance for the projection
    * @return coordinate of the point
    */
-	protected vec2 projection(vec2 direction, float radius) {
+	public vec2 projection(vec2 direction, float radius) {
 	  return projection(direction, new vec2(), radius) ;
 	}
 	
@@ -605,7 +605,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance for the projection
 	 * @return coordinate of the point
 	 */
-	protected vec2 projection(vec2 direction, vec2 origin, float radius) {
+	public vec2 projection(vec2 direction, vec2 origin, float radius) {
 	  vec2 ref = direction.copy() ;
 	  vec2 p = ref.dir(origin) ;
 	  p.mult(radius) ;
@@ -618,7 +618,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param angle float radiant direction
 	 * @return coordinate of the point
 	 */
-	protected vec2 projection(float angle) {
+	public vec2 projection(float angle) {
 	  return projection(angle, 1) ;
 	}
 	
@@ -628,7 +628,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance for the projection
 	 * @return coordinate of the point
 	 */
-	protected vec2 projection(float angle, float radius) {
+	public vec2 projection(float angle, float radius) {
 	  return new vec2((float)Math.cos(angle) *radius, (float)Math.sin(angle) *radius) ;
 	}
 	/**
@@ -636,7 +636,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param direction vec2 radiant direction
 	 * @return coordinate of the point
 	 */
-	protected vec3 projection(vec3 direction) {
+	public vec3 projection(vec3 direction) {
 	  return projection(direction, new vec3(), (float)1.) ;
 	}
   
@@ -646,7 +646,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance for the projection
 	 * @return coordinate of the point
 	 */
-	protected vec3 projection(vec3 direction, float radius) {
+	public vec3 projection(vec3 direction, float radius) {
 	  return projection(direction, new vec3(), radius) ;
 	}
   
@@ -657,7 +657,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param radius distance for the projection
 	 * @return coordinate of the point
 	 */
-	protected vec3 projection(vec3 direction, vec3 origin, float radius) {
+	public vec3 projection(vec3 direction, vec3 origin, float radius) {
 	  vec3 ref = direction.copy() ;
 	  vec3 p = ref.dir(origin) ;
 	  p.mult(radius) ;
@@ -671,7 +671,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param high define value max for the random
 	 * @return random number, this method is a copy of Processing one
 	 */
-	protected float random(float high) {	
+	public float random(float high) {	
 		return Ru.random(high);
 	}
 
@@ -724,31 +724,31 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return Ru.max(list);
 	}
 
-	protected int max(int... list) {
+	public int max(int... list) {
 		return Ru.max(list);
 	}
 
-	protected vec2 max(vec2 a, vec2 b) {
+	public vec2 max(vec2 a, vec2 b) {
   	return new vec2(max(a.x(),b.x()),max(a.y(),b.y()));
 	}
 
-	protected vec3 max(vec3 a, vec3 b) {
+	public vec3 max(vec3 a, vec3 b) {
   	return new vec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
 	}
 
-	protected vec4 max(vec4 a, vec4 b) {
+	public vec4 max(vec4 a, vec4 b) {
   	return new vec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
 	}
 
-	protected ivec2 max(ivec2 a, ivec2 b) {
+	public ivec2 max(ivec2 a, ivec2 b) {
   	return new ivec2(max(a.x(),b.x()),max(a.y(),b.y()));
 	}
 
-	protected ivec3 max(ivec3 a, ivec3 b) {
+	public ivec3 max(ivec3 a, ivec3 b) {
   	return new ivec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
 	}
 
-	protected ivec4 max(ivec4 a, ivec4 b) {
+	public ivec4 max(ivec4 a, ivec4 b) {
   	return new ivec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
 	}
 
@@ -764,31 +764,31 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public float min(float... list) {
 		return Ru.min(list);
 	}
-	protected int min(int... list) {
+	public int min(int... list) {
 		return Ru.min(list);
 	}
 
-	protected vec2 min(vec2 a, vec2 b) {
+	public vec2 min(vec2 a, vec2 b) {
 		return new vec2(min(a.x(),b.x()),min(a.y(),b.y()));
 	}
 
-	protected vec3 min(vec3 a, vec3 b) {
+	public vec3 min(vec3 a, vec3 b) {
 		return new vec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
 	}
 
-	protected vec4 min(vec4 a, vec4 b) {
+	public vec4 min(vec4 a, vec4 b) {
 		return new vec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
 	}
 
-	protected ivec2 min(ivec2 a, ivec2 b) {
+	public ivec2 min(ivec2 a, ivec2 b) {
 		return new ivec2(min(a.x(),b.x()),min(a.y(),b.y()));
 	}
 
-	protected ivec3 min(ivec3 a, ivec3 b) {
+	public ivec3 min(ivec3 a, ivec3 b) {
 		return new ivec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
 	}
 
-	protected ivec4 min(ivec4 a, ivec4 b) {
+	public ivec4 min(ivec4 a, ivec4 b) {
 		return new ivec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
 	}
 
@@ -801,35 +801,35 @@ public class Rope implements R_Constants, R_Constants_Colour {
  * @param arg passed to be transform
  * @return absolute value
  */
-	protected float abs(float arg) {
+public float abs(float arg) {
 		return Math.abs(arg);
 	}
 
-	protected int abs(int arg) {
+	public int abs(int arg) {
 		return Math.abs(arg);
 	}
 
-	protected vec2 abs(vec2 arg) {
+	public vec2 abs(vec2 arg) {
 		return new vec2(Math.abs(arg.x()),Math.abs(arg.y()));
 	}
 
-	protected vec3 abs(vec3 arg) {
+	public vec3 abs(vec3 arg) {
 		return new vec3(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()));
 	}
 
-	protected vec4 abs(vec4 arg) {
+	public vec4 abs(vec4 arg) {
 		return new vec4(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()),Math.abs(arg.w()));
 	}
 
-	protected ivec2 abs(ivec2 arg) {
+	public ivec2 abs(ivec2 arg) {
 		return new ivec2(Math.abs(arg.x()),Math.abs(arg.y()));
 	}
 
-	protected ivec3 abs(ivec3 arg) {
+	public ivec3 abs(ivec3 arg) {
 		return new ivec3(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()));
 	}
 
-	protected ivec4 abs(ivec4 arg) {
+	public ivec4 abs(ivec4 arg) {
 		return new ivec4(Math.abs(arg.x()),Math.abs(arg.y()),Math.abs(arg.z()),Math.abs(arg.w()));
 	}
 
@@ -839,19 +839,19 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value must be transform
 	 * @return return int rounded to down
 	 */
-	protected int floor(float value) {
+	public int floor(float value) {
 		return (int)Math.floor(value);
 	}
 	
-	protected vec2 floor(vec2 arg) {
+	public vec2 floor(vec2 arg) {
 	  return new vec2(floor(arg.x()),floor(arg.y()));
 	}
 
-	protected vec3 floor(vec3 arg) {
+	public vec3 floor(vec3 arg) {
 	  return new vec3(floor(arg.x()),floor(arg.y()),floor(arg.z()));
 	}
 
-	protected vec4 floor(vec4 arg) {
+	public vec4 floor(vec4 arg) {
 	  return new vec4(floor(arg.x()),floor(arg.y()),floor(arg.z()),floor(arg.w()));
 	}
 
@@ -860,19 +860,19 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value must be transform
 	 * @return int rounded to up
 	 */
-	protected int ceil(float value) {
+	public int ceil(float value) {
 		return (int)Math.ceil(value);
 	}
 	
-	protected vec2 ceil(vec2 arg) {
+	public vec2 ceil(vec2 arg) {
 	  return new vec2(ceil(arg.x()),ceil(arg.y()));
 	}
 
-	protected vec3 ceil(vec3 arg) {
+	public vec3 ceil(vec3 arg) {
 	  return new vec3(ceil(arg.x()),ceil(arg.y()),ceil(arg.z()));
 	}
 
-	protected vec4 ceil(vec4 arg) {
+	public vec4 ceil(vec4 arg) {
 	  return new vec4(ceil(arg.x()),ceil(arg.y()),ceil(arg.z()),ceil(arg.w()));
 	}
 
@@ -881,19 +881,19 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value must be transform
 	 * @return value average rounded value to int.
 	 */
-	protected int round(float value) {
+	public int round(float value) {
 		return Math.round(value);
 	}
 	
-	protected vec2 round(vec2 arg) {
+	public vec2 round(vec2 arg) {
 	  return new vec2(round(arg.x()),round(arg.y()));
 	}
 
-	protected vec3 round(vec3 arg) {
+	public vec3 round(vec3 arg) {
 	  return new vec3(round(arg.x()),round(arg.y()),round(arg.z()));
 	}
 
-	protected vec4 round(vec4 arg) {
+	public vec4 round(vec4 arg) {
 	  return new vec4(round(arg.x()),round(arg.y()),round(arg.z()),round(arg.w()));
 	}
 
@@ -902,7 +902,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value must be squared
 	 * @return the result of the operation
 	 */
-	protected float sq(float value) {
+	public float sq(float value) {
 		return value * value;
 	}
 	
@@ -911,7 +911,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value value to compute the squareroot
 	 * @return the result of the operation
 	 */
-	protected float sqrt(float value) {
+	public float sqrt(float value) {
 		return (float)Math.sqrt(value);
 	}
 
@@ -921,7 +921,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param exp it's the exponent value to powered
 	 * @return value powered by n
 	 */
-	protected float pow(float arg, float exp) {
+	public float pow(float arg, float exp) {
     return (float)Math.pow(arg, exp);
   }
 
@@ -930,7 +930,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value value to compute
 	 * @return the result of the operation
 	 */
-	protected float atan(float value) {
+	public float atan(float value) {
 		return (float)Math.atan(value);
 	}
 
@@ -939,7 +939,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value to compute
 	 * @return the result of the operation
 	 */
-	protected float cos(float value) {
+	public float cos(float value) {
 		return (float)Math.cos(value);
 	}
 
@@ -948,7 +948,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param value to compute
 	 * @return the result of the operation
 	 */
-	protected float sin(float value) {
+	public float sin(float value) {
 		return (float)Math.sin(value);
 	}
 	

@@ -8,6 +8,10 @@
 > class R_Colour add function to get the hsb and rgb of the current color in vec
 
 
+> Rope
+> pass all function protected to public
+
+
 > GUI
 >
 
