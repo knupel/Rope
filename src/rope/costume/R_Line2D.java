@@ -1,7 +1,7 @@
 /**
 * R_Line2D class
-* v 0.1.4
-* 2019-2021
+* v 0.2.0
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -17,8 +17,10 @@ import rope.vector.vec2;
 
 
 public class R_Line2D extends R_Graphic implements R_Constants {
-  private vec2 a;
-  private vec2 b;
+  protected vec2 a;
+  protected vec2 b;
+  protected vec2 ref_a;
+  protected vec2 ref_b;
   
   /**
    * 
@@ -28,6 +30,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   	super(pa);
     this.a = new vec2();
     this.b = new vec2();
+    this.ref_a = new vec2();
+    this.ref_b = new vec2();
   }
 
   /**
@@ -40,6 +44,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   	super(pa);
     this.a = new vec2(a.x(),a.y());
     this.b = new vec2(b.x(),b.y());
+    this.ref_a = new vec2(a.x(),a.y());
+    this.ref_b = new vec2(b.x(),b.y());
   }
   
   /**
@@ -54,6 +60,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   	super(pa);
     this.a = new vec2(ax,ay);
     this.b = new vec2(bx,by);
+    this.ref_a = new vec2(ax,ay);
+    this.ref_b = new vec2(bx,by);
   }
   
 
@@ -63,8 +71,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param b
    */
   public void set(vec2 a, vec2 b) {
-    this.a.set(a.x(),a.y());
-    this.b.set(b.x(),b.y());
+    set(a.x(),a.y(),b.x(),b.y());
   }
   
   /**
@@ -75,16 +82,17 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param by
    */
   public void set(float ax, float ay, float bx, float by) {
-    this.a.set(ax,ay);
-    this.b.set(bx,by);
+    this.a(ax,ay);
+    this.b(bx,by);
+    this.ref_a(ax,ay);
+    this.ref_b(bx,by);
   }
-  
   /**
    * 
    * @param a
    */
   public void a(vec2 a) {
-    this.a.set(a.x(),a.y());
+    this.a(a.x(),a.y());
   }
   
   /**
@@ -101,7 +109,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param b
    */
   public void b(vec2 b) {
-    this.b.set(b.x(),b.y());
+    this.b(b.x(),b.y());
   }
   
   
@@ -113,10 +121,28 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public void b(float x, float y) {
     this.b.set(x,y);
   }
+
+
+
+  protected void ref_a(vec2 ref_a) {
+    this.ref_a.set(ref_a.x(),ref_a.y());
+  }
+  
+  protected void ref_a(float x, float y) {
+    this.ref_a.set(x,y);
+  }
+  
+  protected void ref_b(vec2 ref_b) {
+    this.ref_b(ref_b.x(),ref_b.y());
+  }
+  
+  protected void ref_b(float x, float y) {
+    this.ref_b.set(x,y);
+  }
   
   /**
    * 
-   * @return
+   * @return the final value for a
    */
   public vec2 a() {
     return a;
@@ -124,7 +150,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   
   /**
    * 
-   * @return
+   * @return the final value for b
    */
   public vec2 b() {
     return b;
@@ -136,25 +162,59 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public R_Line2D offset(vec2 offset) {
-    this.a.add(offset);
-    this.b.add(offset);
+    offset(offset.x(), offset.y());
+    return this;
+  }
+
+  public R_Line2D offset(float offset_x, float offset_y) {
+    this.a.add(offset_x, offset_y);
+    this.b.add(offset_x, offset_y);
+    return this;
+  }
+
+  /**
+   * the idea is pass a normal value 0 to 1, where 1 is the size of your segment. The size is mult by the value
+   * @param begin add the distance of the beginning of the segment.
+   * @param end add the distance of the end of the segment.
+   */
+  public R_Line2D change(float begin, float end) {
+    float ang = angle();
+    float dist = dist_ref();
+    // change begin
+    vec2 proj_a = projection(ang,dist*begin);
+    vec2 proj_b = projection(ang,dist*end);
+    a(sub(ref_a,proj_a));
+    b(add(ref_b,proj_b));
     return this;
   }
   
   /**
-   * 
+   * Show the result of all previous work on line
    */
   public void show() {
   	show(null);
   }
   
   /**
+   * Show the result of all previous work on line
    * 
-   * @param other
+   * @param other is the PGraphics where the result will be showing
    */
   public void show(PGraphics other) {
   	this.other = other;
     line(a,b);
+    reset();
+    
+  }
+
+  /**
+   * If you don't use show() function for any reason, and in parralelele you change point
+   * with function offset(), function change() or any futur method yo must use
+   * function reset() to come back to references points setting
+   */
+  public void reset() {
+    a.set(ref_a);
+    b.set(ref_b);
   }
   
 
@@ -165,6 +225,10 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public float dist() {
     return abs(a.dist(b));
+  }
+
+  protected float dist_ref() {
+    return abs(ref_a.dist(ref_b));
   }
 
   /**
@@ -243,13 +307,15 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     float ax = (float)Math.cos(angle);
     float ay = (float)Math.sin(angle);
     this.b = new vec2(ax,ay).mult(dist()).add(a);
+    this.ref_b.set(this.b);
     return this;
   }
   
   
   /**
-   * return coordinate of the normal position on the line from the a point
-   * @param normal_pos
+   * return coordinate of the normal position on the line from the first point
+   * the distance use is calculte with the length of the line.
+   * @param normal_pos is the normal distance from the first point
    * @return
    */
   public vec2 coord(float normal_pos) {
@@ -263,20 +329,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
   
   /**
-   * return coordinate of distance from the a point on the line
-   * @param rank
+   * return coordinate of distance from the first point of the line
+   * @param len is the distance from the first point
    * @return
    */
-  public vec2 coord(int rank) {
-  	if(rank >= 0 && rank <= dist()) {
+  public vec2 coord(int len) {
+  	if(len >= 0 && len <= dist()) {
   		float dx = (float)Math.cos(angle());
 			float dy = (float)Math.sin(angle());
-			return new vec2(dx,dy).mult(rank).add(this.a);
+			return new vec2(dx,dy).mult(len).add(this.a);
   	} else {
   		return null;
   	}
   }
-
 
 
   /**
@@ -287,10 +352,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return new R_Line2D(this.pa,this.a,this.b);
   }
   
-  
-  
   @Override
 	public String toString() {
-		return "[ " + this.a.x + ", " + this.a.y + ", "+ this.b.x + ", " + this.b.y +" ]";
+		return "[ " + this.a.x() + ", " + this.a.y() + ", "+ this.b.x() + ", " + this.b.y() +" ]";
 	}
 }

@@ -385,8 +385,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return in_line(start, end, point, range);
 	}
 
-		/**
-	 * @link https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
+	/**
+	* @link https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
 	* refactoring from Quark Algorithm
 	 * 
 	 * @param start

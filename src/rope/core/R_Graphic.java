@@ -1888,8 +1888,4 @@ public class R_Graphic extends BigBang {
 			text(f,p.x(),p.y(),p.z());
 		} 
 	}
-
-
-
-
 }

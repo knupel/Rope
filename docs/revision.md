@@ -35,6 +35,13 @@
 > add z argument to seed to pass color information
 
 
+> R_Line2D
+> fix offset bug
+> add offset(float x, float y) function
+> add function update();
+> add function change(float begin, float end) to change dynamicly the length of the line
+
+
 
 \*version 47
 > Update to Processing 4
