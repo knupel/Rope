@@ -28,7 +28,7 @@ void setup() {
 void draw() {
   background(0);
   stroke(255);
-  println("frameRate",(int)frameRate, "that's very cool frameRate with",num,"num of lines");
+  println("frameRate",(int)frameRate, "that's very cool frameRate with",num,"lines");
   for(R_Line2D line : list) {
     // note the start and end value is normal from 0 to 1, to have a change mapped on the original size of your line
     float start = map(mouseX,0,width,0,1);
