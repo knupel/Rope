@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.2.0
+* v 0.2.1
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -289,6 +289,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return result;
   }
 
+  /**
+   * projected point on the line, the distance is calculated by multiplacation the distance line by the normal argument
+   *  where the starting point is the first point.
+   * @param normal_pos where 0 is the starting point and 1 is the end point
+   * @return a coordinate of the point 
+   */
+  public vec2 point(float normal_pos) {
+    return add(ref_a,projection(angle(), dist_ref()*normal_pos));
+  }
+
 
   /**
    * Return the angle of the line from "a" to "b"
@@ -301,13 +311,38 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   /**
    * Change the angle from the starting point "a"
    * @param angle
-   * @return
+   * @return  himself
    */
   public R_Line2D angle(float angle) {
-    float ax = (float)Math.cos(angle);
-    float ay = (float)Math.sin(angle);
-    this.b = new vec2(ax,ay).mult(dist()).add(a);
-    this.ref_b.set(this.b);
+    this.angle(angle,0);
+    // vec2 buf = rotation_lattice(b(), a(), angle);
+    // this.b.set(buf);
+    return this;
+  }
+
+  /**
+   * Create a rotation angle with the axe. 
+   * The axe is calculated with a normal position where 0 is the start point and 1 the end point
+   * see point()
+   * @param angle in radian
+   * @param normal_pos
+   * @return himself
+   */
+  public R_Line2D angle(float angle, float normal_pos) {
+    vec2 axe = point(normal_pos);
+    float dist_to_a = axe.dist(a());
+    float dist_to_b = axe.dist(b());
+    if(normal_pos >=0 && normal_pos <= 1) {
+      vec2 new_a = sub(axe, projection(angle, dist_to_a));
+      vec2 new_b = add(axe, projection(angle, dist_to_b));
+      this.a(new_a);
+      this.b(new_b);
+    } else {
+      vec2 new_a = sub(axe, projection(angle, dist_to_a));
+      vec2 new_b = sub(axe, projection(angle, dist_to_b));
+      this.a(new_a);
+      this.b(new_b);
+    }
     return this;
   }
   

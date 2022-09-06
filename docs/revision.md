@@ -12,9 +12,6 @@
 > pass all function protected to public
 
 
-> GUI
->
-
 > CONSTANT
 > add constant FIRST, LAST, NEXT, PREVIOUS, CHOICE
 
@@ -40,6 +37,7 @@
 > add offset(float x, float y) function
 > add function update();
 > add function change(float begin, float end) to change dynamicly the length of the line
+> improve angle function to add a roatation around axe, where the axe is somewhere a the line
 
 
 
