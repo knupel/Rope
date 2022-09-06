@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.4
+	* v 1.1.5
 	* Processing 4.0.7b
 	* @author @stanlepunk
 	* @see https://github.com/StanLepunK/Rope
@@ -198,6 +198,8 @@ public interface R_Constants {
 
 	static final int STAR = 805;
   static final int STAR_3D = 806;
+
+	static final int NOTCH = 850;
 
 	static final int FLOWER = 900;
 	static final int TREE = 901;
