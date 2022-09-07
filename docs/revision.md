@@ -38,6 +38,7 @@
 > add function update();
 > add function change(float begin, float end) to change dynamicly the length of the line
 > improve angle function to add a roatation around axe, where the axe is somewhere a the line
+> add method to mute() and mute_is() the line
 
 
 

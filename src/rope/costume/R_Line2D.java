@@ -21,6 +21,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   protected vec2 b;
   protected vec2 ref_a;
   protected vec2 ref_b;
+  private boolean mute_is = false;
   
   /**
    * 
@@ -40,7 +41,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param a
    * @param b
    */
-  public R_Line2D (PApplet pa, vec2 a, vec2 b) {
+  public R_Line2D(PApplet pa, vec2 a, vec2 b) {
   	super(pa);
     this.a = new vec2(a.x(),a.y());
     this.b = new vec2(b.x(),b.y());
@@ -56,7 +57,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param bx
    * @param by
    */
-  public R_Line2D (PApplet pa, float ax, float ay, float bx, float by) {
+  public R_Line2D(PApplet pa, float ax, float ay, float bx, float by) {
   	super(pa);
     this.a = new vec2(ax,ay);
     this.b = new vec2(bx,by);
@@ -65,14 +66,30 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
   
 
+  ///////////////////////////
+  // SET
+  //////////////////////////
+
   /**
    * 
    * @param a
    * @param b
    */
-  public void set(vec2 a, vec2 b) {
+  public R_Line2D set(vec2 a, vec2 b) {
     set(a.x(),a.y(),b.x(),b.y());
+    return this;
   }
+
+  /**
+   * change the state of the line, can be helpful to show or not the line and set behavior
+   * @param is
+   * @return
+   */
+  public R_Line2D mute(boolean is) {
+    this.mute_is = is;
+    return this;
+  }
+
   
   /**
    * 
@@ -81,11 +98,12 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param bx
    * @param by
    */
-  public void set(float ax, float ay, float bx, float by) {
+  public R_Line2D set(float ax, float ay, float bx, float by) {
     this.a(ax,ay);
     this.b(bx,by);
     this.ref_a(ax,ay);
     this.ref_b(bx,by);
+    return this;
   }
   /**
    * 
@@ -140,6 +158,14 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     this.ref_b.set(x,y);
   }
   
+
+  //////////////////////
+  // GET
+  ///////////////////////
+
+  public boolean mute_is() {
+    return mute_is;
+  }
   /**
    * 
    * @return the final value for a
