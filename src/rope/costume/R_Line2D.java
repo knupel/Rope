@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.2.1
+* v 0.2.2
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -415,6 +415,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   
   @Override
 	public String toString() {
-		return "[ " + this.a.x() + ", " + this.a.y() + ", "+ this.b.x() + ", " + this.b.y() +" ]";
+		return "[ " + this.a.x() + ", " + this.a.y() + " ] [ "+ this.b.x() + ", " + this.b.y() +" ]";
 	}
 }
