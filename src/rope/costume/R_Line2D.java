@@ -81,15 +81,14 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   /**
-   * change the state of the line, can be helpful to show or not the line and set behavior
-   * @param is
+   * 
+   * @param line
    * @return
    */
-  public R_Line2D mute(boolean is) {
-    this.mute_is = is;
+  public R_Line2D set(R_Line2D line) {
+    set(line.a().x(),line.a().y(),line.b().x(),line.b().y());
     return this;
   }
-
   
   /**
    * 
@@ -105,6 +104,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     this.ref_b(bx,by);
     return this;
   }
+
+
+    /**
+   * change the state of the line, can be helpful to show or not the line and set behavior
+   * @param is
+   * @return
+   */
+  public R_Line2D mute(boolean is) {
+    this.mute_is = is;
+    return this;
+  }
+
+  
   /**
    * 
    * @param a
