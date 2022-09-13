@@ -1,6 +1,6 @@
 /**
 * R_Pix
-* v 0.2.1
+* v 0.2.2
 * 2021-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -23,6 +23,12 @@ public class R_Pix extends Rope {
 		this.fill = BLACK;
   }
 
+	public R_Pix(int x, int y, int width) {
+    this.entry = index_pixel_array(x, y, width);
+		this.pos = new vec3(x,y,0);
+		this.fill = BLACK;
+  }
+
   // entry
 	/**
 	 * Use to define the entry point of the pixel in the pixel array
@@ -39,7 +45,8 @@ public class R_Pix extends Rope {
 	 * @param width
 	 */
 	public void set_entry(int x, int y, int width) {
-		set_entry(index_pixel_array(x, y, width));
+		this.pos(x, y);
+		this.set_entry(index_pixel_array(x, y, width));
 	}
 	
 	/**

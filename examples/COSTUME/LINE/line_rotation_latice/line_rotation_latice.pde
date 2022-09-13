@@ -1,10 +1,10 @@
 /**
 * Line2D 
-* use angle() for rotation
+* use rotation() for rotation
 * use point() to show the axe
 *
 * Copyleft(c) 2022-2022
-* v 0.1.0
+* v 0.1.1
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * 
@@ -38,7 +38,7 @@ void draw() {
   // line.angle(ang);
   vec2 p = line.point(normal_pos);
   circle(p.x(), p.y(), 10);
-  line.angle(ang, normal_pos);
+  line.rotation(ang, normal_pos);
   // line.angle(ang);
   line.show();
 }

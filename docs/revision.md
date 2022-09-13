@@ -39,9 +39,13 @@
 > add function change(float begin, float end) to change dynamicly the length of the line
 > improve angle function to add a roatation around axe, where the axe is somewhere a the line
 > add method to mute() and mute_is() the line
+> deprecated function coord(), instead use point()
+> deprecated function angle(), instead use rotation()
+> add function set_pixels() and show_pixels() to general pixels a long the segment
 
 > R_Pix
 > add function to set the entry pixel from x, y coordinate
+> add Constructor to set entruy and position
 
 
 
