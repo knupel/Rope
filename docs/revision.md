@@ -40,6 +40,9 @@
 > improve angle function to add a roatation around axe, where the axe is somewhere a the line
 > add method to mute() and mute_is() the line
 
+> R_Pix
+> add function to set the entry pixel from x, y coordinate
+
 
 
 \*version 47

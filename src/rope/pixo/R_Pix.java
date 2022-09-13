@@ -1,3 +1,12 @@
+/**
+* R_Pix
+* v 0.2.1
+* 2021-2022
+* @author @stanlepunk
+* @see https://github.com/StanLepunK/Rope
+*/
+
+
 package rope.pixo;
 
 
@@ -21,6 +30,16 @@ public class R_Pix extends Rope {
 	 */
 	public void set_entry(int entry) {
 		this.entry = entry;
+	}
+
+	/**
+	 * Use to define the entry point of the pixel from x, y coordinate in the pixel array
+	 * @param x
+	 * @param y
+	 * @param width
+	 */
+	public void set_entry(int x, int y, int width) {
+		set_entry(index_pixel_array(x, y, width));
 	}
 	
 	/**

@@ -328,7 +328,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   /**
-   * projected point on the line, the distance is calculated by multiplacation the distance line by the normal argument
+   * projected point on the line, the distance is calculated by multiplication the distance line by the normal argument
    *  where the starting point is the first point.
    * @param normal_pos where 0 is the starting point and 1 is the end point
    * @return a coordinate of the point 
