@@ -365,13 +365,18 @@ public class R_Graphic extends BigBang {
 
 	public void plot(int x, int y, int c) {
 		if(this.other != null) {
-			int index = index_pixel_array(x,y, this.other.width);
-			plot_impl(index,c, this.other);
-
+			plot_impl(x, y, c, this.other);
 		} else {
-			int index = index_pixel_array(x,y, this.pa.g.width);
-			plot_impl(index,c, this.pa.g);
-			// this.pa.g.pixels[index] = c;
+			plot_impl(x, y, c, this.pa.g);
+		}
+	}
+
+	public void plot_impl(int x, int y, int c, PGraphics pg) {
+		int w = pg.width;
+		int h = pg.height;
+		if(lessThan(x,w) && lessThan(y,h) && greaterThanEqual(x,0) && greaterThanEqual(y, 0)) {
+			int index = index_pixel_array(x, y, w);
+			pg.pixels[index] = c;
 		}
 	}
 
