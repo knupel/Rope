@@ -31,6 +31,11 @@
 > add remove_seed(int index)
 > add z argument to seed to pass color information
 
+> R_Graphic
+> add function plot() close to set() from Processing
+> add function plox_x2() doudouble the size of the pixel
+> add function background like Processing execpt for PImage
+
 
 > R_Line2D
 > fix offset bug
@@ -42,6 +47,7 @@
 > deprecated function coord(), instead use point()
 > deprecated function angle(), instead use rotation()
 > add function set_pixels() and show_pixels() to general pixels a long the segment
+> add function set_pixel_x2() to double the soze of the pixel
 
 > R_Pix
 > add function to set the entry pixel from x, y coordinate

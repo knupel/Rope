@@ -27,8 +27,8 @@ void setup() {
 void draw() {
   background(0);
   stroke(255);
-  line.show_pixels(); // static, before use it, it's necessry to use function set_pixels(float normal_position, int ... colour_arg) 
-  // line.show_pixels(0.3, r.MAGENTA, r.CYAN); // dynamic
+  // line.show_pixels(); // static, before use it, it's necessry to use function set_pixels(float normal_position, int ... colour_arg) 
+  line.show_pixels(0.3, r.MAGENTA, r.CYAN); // dynamic
 }
 
 void keyPressed() {

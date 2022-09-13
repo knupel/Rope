@@ -391,8 +391,20 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   private void set_pixel(R_Pix p, vec2 pos, int c) {
-    p.set_entry((int)pos.x(),(int)pos.y(), pa.g.width);
+    if(this.other != null) {
+      p.set_entry((int)pos.x(),(int)pos.y(), this.other.width, this.other.height);
+    } else {
+      p.set_entry((int)pos.x(),(int)pos.y(), pa.g.width, pa.g.height);
+    }
     p.fill(c);
+  }
+
+    /**
+   * 
+   * @return the array of pixels a long the line if it's possible.
+   */
+  public R_Pix [] get_pixels() {
+    return this.pixies;
   }
 
 
@@ -409,7 +421,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * Show the result of all previous work on line
    */
   public void show() {
-  	show(null);
+    line(a,b);
+    reset();
   }
   
   /**
@@ -417,42 +430,71 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * 
    * @param other is the PGraphics where the result will be showing
    */
-  public void show(PGraphics other) {
+  @Deprecated public void show(PGraphics other) {
   	this.other = other;
     line(a,b);
     reset();
   }
 
   public void show_pixels() {
-    this.pa.g.loadPixels();
+    loadPixels();
     for(int index = 0 ; index < pixies.length; index++) {
-      this.pa.g.pixels[pixies[index].get_entry()] = pixies[index].fill();
+      int entry = pixies[index].get_entry();
+      int c = pixies[index].fill();
+      plot(entry,c);
     }
-    this.pa.g.updatePixels();
+    updatePixels();
   }
 
+  public void show_pixels_x2() {
+    loadPixels();
+    for(int index = 0 ; index < pixies.length; index++) {
+      int x = (int)pixies[index].x();
+      int y = (int)pixies[index].y();
+      int c = pixies[index].fill();
+      plot_x2(x,y,c);
+    }
+    updatePixels();
+  }
 
   public void show_pixels(float density, int... colour) {
     int num_pixel = (int)(dist() * density);
     if(colour.length > 1) {
+      loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
         int which = floor(random(colour.length));
-        set(point(random(1)),colour[which]);
+        plot(point(random(1)),colour[which]);
       }
+      updatePixels();
     } else {
+      loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        set(point(random(1)),colour[0]);
+        plot(point(random(1)),colour[0]);
       }
+      updatePixels();
     }
   }
 
-  /**
-   * 
-   * @return the array of pixels a long the line if it's possible.
-   */
-  public R_Pix [] get_pixels() {
-    return this.pixies;
+
+  public void show_pixels_x2(float density, int... colour) {
+    int num_pixel = (int)(dist() * density);
+    if(colour.length > 1) {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        int which = floor(random(colour.length));
+        plot_x2(point(random(1)),colour[which]);
+      }
+      updatePixels();
+    } else {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        plot(point(random(1)),colour[0]);
+      }
+      updatePixels();
+    }
   }
+
+
 
 
   

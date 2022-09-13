@@ -1,14 +1,25 @@
-package rope.core;
-import processing.core.*;
-import processing.opengl.PShader;
+
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
 * R_Graphic class
-* v 0.6.1
-* 2019-2021
+* v 0.6.2
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class with Image utilities for Rope Library
 */
+package rope.core;
+
+import java.util.ArrayList;
+
+import processing.core.*;
+import processing.opengl.PShader;
 
 import rope.R_State.State;
 import rope.vector.*;
@@ -22,13 +33,10 @@ public class R_Graphic extends BigBang {
 	
 	public R_Graphic(PApplet pa, PGraphics other) {
 		super(pa);
-		this.other = other;
+		if(other != null) {
+			this.other = other;
+		}
 	}
-	
-  // private boolean render_checked_is = false;
-  // private boolean render_p3d_is = false;
-
-
 
 	/**
 	 * 
@@ -105,11 +113,11 @@ public class R_Graphic extends BigBang {
   	}
   }
   
-  
   public PGraphics createGraphics(float x, float y, String type) {
   	return pa.createGraphics((int)x,(int)y,type);
   }
-  
+
+
   
 	/**
 	 * 
@@ -185,7 +193,7 @@ public class R_Graphic extends BigBang {
    * IMAGE
    */
 
-  void image(PImage img) {
+  public void image(PImage img) {
     if(img != null) {
     	image(img, 0, 0);
     } else {
@@ -222,19 +230,76 @@ public class R_Graphic extends BigBang {
 			this.pa.g.image(img, a, b, c, d, u1, v1, u2, v2);
 		}
   }
-  
+
+	///////////////////////////////////
+	// BACKGROUND
+	////////////////////////////////////
+  public void background(int colour) {
+		if(this.other != null) {
+  		this.other.background(colour);
+		} else {
+			this.pa.g.background(colour);
+		}
+	}
+
+	public void background(int colour, float alpha) {
+		if(this.other != null) {
+  		this.other.background(colour, alpha);
+		} else {
+			this.pa.g.background(colour, alpha);
+		}
+	}
+
+	public void background(float gray) {
+		if(this.other != null) {
+  		this.other.background(gray);
+		} else {
+			this.pa.g.background(gray);
+		}
+	}
+
+	public void background(float gray, float alpha) {
+		if(this.other != null) {
+  		this.other.background(gray, alpha);
+		} else {
+			this.pa.g.background(gray, alpha);
+		}
+	}
+
+	public void background(float x, float y , float z) {
+		if(this.other != null) {
+  		this.other.background(x, y, z);
+		} else {
+			this.pa.g.background(x, y, z);
+		}
+	}
+
+	public void background(float x, float y , float z, float a) {
+		if(this.other != null) {
+  		this.other.background(x, y, z, a);
+		} else {
+			this.pa.g.background(x, y, z, a);
+		}
+	}
+
+	////////////////////////////////////
+	// PIXEL
+	////////////////////////////////////
   
   public int get(int x, int y) {
-  	if(other != null) {
-  		int index =  index_pixel_array(x,y, other.width);
-  		other.loadPixels();
+  	if(this.other != null) {
+  		int index = index_pixel_array(x,y, this.other.width);
+  		this.other.loadPixels();
 			return other.pixels[index];
 		} else {
-			int index =  index_pixel_array(x,y, this.pa.g.width);
+			int index = index_pixel_array(x,y, this.pa.g.width);
 			this.pa.g.loadPixels();
 			return this.pa.g.pixels[index];
 		}
   }
+
+
+
   
   /**
    * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
@@ -242,15 +307,15 @@ public class R_Graphic extends BigBang {
    * @param y position to set pixel
    * @param c int color pixel
    */
-	  public void set(int x, int y, int c) {
-			if(other != null) {
-				other.set(x,y,c);
-			} else {
-				this.pa.g.set(x,y,c);
-			}
+	public void set(int x, int y, int c) {
+		if(this.other != null) {
+			this.other.set(x,y,c);
+		} else {
+			this.pa.g.set(x,y,c);
 		}
+	}
 
-		  /**
+	/**
    * 
    * @param pos vec2 position to set pixel
    * @param c int color pixel
@@ -267,6 +332,176 @@ public class R_Graphic extends BigBang {
   public void set(ivec2 pos, int c) {
   	set(pos.x(),pos.y(),c);
   }
+
+	/**
+	 * close from Processing function set()
+	 * @param index
+	 * @param c
+	 */
+
+
+	////////////////////////////////////////
+	// PLOT
+	// is like set() processing function
+	////////////////////////////////////////
+
+	/**
+	 * close to Processing function set()
+	 * @param pos
+	 * @param c
+	 */
+	public void plot(ivec2 pos, int c) {
+		plot(pos.x(),pos.y(),c);
+	}
+
+	/**
+	 * close to Processing function set()
+	 * @param pos
+	 * @param c
+	 */
+	public void plot(vec2 pos, int c) {
+  	plot((int)pos.x(),(int)pos.y(),c);
+  }
+
+	public void plot(int x, int y, int c) {
+		if(this.other != null) {
+			int index = index_pixel_array(x,y, this.other.width);
+			plot_impl(index,c, this.other);
+
+		} else {
+			int index = index_pixel_array(x,y, this.pa.g.width);
+			plot_impl(index,c, this.pa.g);
+			// this.pa.g.pixels[index] = c;
+		}
+	}
+
+	public void plot(int index, int c) {
+		if(this.other != null) {
+			plot_impl(index,c, this.other);
+		} else {
+			plot_impl(index,c, this.pa.g);
+		}
+	}
+
+	private void plot_impl(int index, int colour, PGraphics pg) {
+		pg.pixels[index] = colour;
+	}
+
+	//////////////////////////////
+	// PLOT X2
+
+
+		/**
+   * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+   * @param pos position to set pixel
+   * @param colour int color pixel
+   */
+	public void plot_x2(vec2 pos, int colour) {
+		if(this.other != null) {
+			plot_x2_impl((int)pos.x(), (int)pos.y(), colour, this.other);
+		} else {
+			plot_x2_impl((int)pos.x(), (int)pos.y(), colour, this.pa.g);
+		}
+	}
+
+
+	/**
+   * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+   * @param x position to set pixel
+   * @param y position to set pixel
+   * @param colour int color pixel
+   */
+	public void plot_x2(int x, int y, int colour) {
+		if(this.other != null) {
+			plot_x2_impl(x, y, colour, this.other);
+		} else {
+			plot_x2_impl(x, y, colour, this.pa.g);
+		}
+	}
+
+
+	private void plot_x2_impl(int x, int y, int colour, PGraphics pg) {
+		int w = pg.width;
+		int h = pg.height;
+		if(lessThan(x,w) && lessThan(y,h) && greaterThanEqual(x,0) && greaterThanEqual(y, 0)) {
+			int index = index_pixel_array(x, y, w);
+			pg.pixels[index] = colour;
+			Integer [] arr = new Integer[calc_plot_neighbourhood(index, x, y, w, h).size()];
+			arr = calc_plot_neighbourhood(index, x, y, w, h).toArray(arr);
+			for(int which_one : arr) {
+				pg.pixels[which_one] = colour;
+			}
+		}
+	}
+
+
+	private ArrayList<Integer> calc_plot_neighbourhood(int index_base, int x, int y, int w, int h) {
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		int index, tx, ty = 0;
+	
+		if(x < w -1) {
+			index = index_base + 1;
+			arr.add(index);
+		}
+		if(x > 0) {
+			index = index_base - 1;
+			arr.add(index);
+		}
+		if(y < h -1) {
+			index = index_base + w;
+			arr.add(index);
+		}
+		if(y > 0) {
+			index = index_base - w;
+			arr.add(index);
+		}
+		return arr;
+	}
+
+
+
+
+
+
+
+
+	public void loadPixels() {
+		if(this.other != null) {
+			this.other.loadPixels();
+		} else {
+			this.pa.g.loadPixels();
+		}
+	}
+
+	public void updatePixels() {
+		if(this.other != null) {
+			this.other.updatePixels();
+		} else {
+			this.pa.g.updatePixels();
+		}
+	}
+
+
+	/////////////////////////
+	// DRAW
+	//////////////////////////
+
+	public void beginDraw() {
+		if(this.other != null) {
+			this.other.beginDraw();
+		}
+	}
+
+		public void endDraw() {
+		if(this.other != null) {
+			this.other.endDraw();
+		}
+	}
+
+
+
+
+
 
   
   
