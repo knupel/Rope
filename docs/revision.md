@@ -10,6 +10,7 @@
 
 > Rope
 > pass all function protected to public
+> add in_polygon(vec [] points, vec pos, float marge) to use marge to increase the detection around the polygon
 
 
 > CONSTANT

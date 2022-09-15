@@ -9,7 +9,7 @@
  * collection of function can be use with out Processing.
  * @author stanlepunk
  * 2018-2022
- * v 0.4.0
+ * v 0.4.1
  * 
  */
 
@@ -430,14 +430,38 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public boolean in_polygon(vec [] points, vec pos) {
 		int i, j;
 		boolean is = false;
-		int sides = points.length;
-		for(i = 0, j = sides - 1 ; i < sides ; j = i++) {
-			if (( ((points[i].y() <= pos.y()) && (pos.y() < points[j].y())) || ((points[j].y() <= pos.y()) && (pos.y() < points[i].y()))) &&
-						(pos.x() < (points[j].x() - points[i].x()) * (pos.y() - points[i].y()) / (points[j].y() - points[i].y()) + points[i].x())) {
+		for(i = 0, j =  points.length - 1 ; i <  points.length ; j = i++) {
+			vec a = points[i];
+			vec b = points[j];
+			if (( ((a.y() <= pos.y()) && (pos.y() < b.y())) || ((b.y() <= pos.y()) && (pos.y() < a.y()))) &&
+							(pos.x() < (b.x() - a.x()) * (pos.y() - a.y()) / (b.y() - a.y()) + a.x())) {
 				is = !is;
 			}
 		}
 		return is;
+	}
+
+	public boolean in_polygon(vec [] points, vec pos, float marge) {
+		int sides = points.length;
+		boolean is = in_polygon(points, pos);
+		// check the border
+		if(!is) {
+			for(int i = 1; i < sides ; i++) {
+				vec2 a = new vec2(points[i]);
+				vec2 b = new vec2(points[i-1]);
+				if(in_line(a,b, new vec2(pos), marge)) {
+					return true;
+				}
+			}
+			// to close the segment
+			vec2 a = new vec2(points[0]);
+			vec2 b = new vec2(points[sides -1]);
+			if(in_line(a,b, new vec2(pos), marge)) {
+				is = true;
+			}
+		}
+		return is;
+
 	}
 
 
