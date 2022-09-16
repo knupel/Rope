@@ -13,10 +13,10 @@ import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.ivec2;
 import rope.vector.bvec2;
-import rope.costume.R_Line2D;
 import rope.tool.R_Focus;
 import rope.tool.R_Fov;
 import rope.core.Rope;
+import rope.mesh.R_Line2D;
 
 
 public class R_Nubo extends Rope {

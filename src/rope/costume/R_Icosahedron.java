@@ -11,6 +11,7 @@
 package rope.costume;
 
 import rope.mesh.R_Face;
+import rope.mesh.R_Shape;
 
 import java.util.ArrayList;
 

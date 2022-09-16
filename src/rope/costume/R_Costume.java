@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import rope.mesh.R_Shape;
 import rope.vector.ivec2;
 import rope.vector.vec;
 import rope.vector.vec2;

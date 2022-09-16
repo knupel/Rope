@@ -9,6 +9,7 @@
 package rope.costume;
 
 import rope.core.R_Constants;
+import rope.mesh.R_Shape;
 import rope.vector.*;
 import processing.core.PApplet;
 

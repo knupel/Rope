@@ -9,6 +9,7 @@
 package rope.costume;
 
 import processing.core.PApplet;
+import rope.mesh.R_Shape;
 import rope.vector.vec3;
 
 public class R_House extends R_Shape {

@@ -16,6 +16,7 @@ package rope.costume;
 
 import processing.core.PApplet;
 import rope.core.R_Constants;
+import rope.mesh.R_Shape;
 import rope.vector.*;
 
 public class R_Shape_template extends R_Shape implements R_Constants, R_Shape_contract {

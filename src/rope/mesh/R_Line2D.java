@@ -5,7 +5,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
-package rope.costume;
+package rope.mesh;
 
 import rope.core.*;
 import processing.core.PApplet;
@@ -23,7 +23,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   protected vec2 ref_a;
   protected vec2 ref_b;
   private boolean mute_is = false;
-  private R_Pix [] pixies;
+  protected R_Pix [] pixies;
   
   /**
    * 

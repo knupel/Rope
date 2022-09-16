@@ -19,7 +19,11 @@ public abstract class ivec implements R_Constants {
 		this.size = size;
 	}
 	
-
+  /**
+   * 
+   * @return
+   * @deprecated instead use size()
+   */
 	@Deprecated public int get_size() {
 		return size;
 	}

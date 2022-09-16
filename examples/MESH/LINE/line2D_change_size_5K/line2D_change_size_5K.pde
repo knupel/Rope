@@ -10,7 +10,7 @@
 * 
 */
 
-import rope.costume.R_Line2D;
+import rope.mesh.R_Line2D;
 
 R_Line2D [] list;
 int num = 5000;

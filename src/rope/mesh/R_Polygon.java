@@ -1,14 +1,15 @@
 /**
 * R_Polygon
-* v 0.4.0
+* v 0.4.1
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
-package rope.costume;
+package rope.mesh;
 
 import rope.vector.*;
 import rope.core.*;
+import rope.costume.R_Shape_contract;
 import processing.core.*;
 
 public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract {
@@ -94,7 +95,7 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    * @return
    */
   float ref_angle;
-  boolean angle_modified_is() {
+  protected boolean angle_modified_is() {
     boolean angle_modified_is = false;
     if(ref_angle != angle_x()) {
       angle_modified_is = true;

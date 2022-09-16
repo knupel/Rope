@@ -7,6 +7,7 @@
 */
 package rope.costume;
 
+import rope.mesh.R_Polygon;
 import rope.vector.*;
 import processing.core.*;
 

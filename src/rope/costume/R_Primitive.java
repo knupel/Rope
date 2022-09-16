@@ -4,12 +4,13 @@
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* Class RPrimitive store the utilities to draw shape and costume
+* Class R_Primitive store the utilities to draw shape and costume
 */
 package rope.costume;
 
 import rope.vector.*;
 import rope.core.*;
+import rope.mesh.R_Shape;
 import processing.core.*;
 
 
@@ -414,9 +415,9 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 		delta = TAU / num;
 		int step = 0;
 		for (theta = 0; theta < TAU; theta += delta) {
-			plane.x = (float) (p1.x + r.x * Math.cos(theta + delta) + s.x * Math.sin(theta + delta));
-			plane.y = (float) (p1.y + r.y * Math.cos(theta + delta) + s.y * Math.sin(theta + delta));
-			plane.z = (float) (p1.z + r.z * Math.cos(theta + delta) + s.z * Math.sin(theta + delta));
+			plane.x = (float) (p1.x() + r.x() * Math.cos(theta + delta) + s.x() * Math.sin(theta + delta));
+			plane.y = (float) (p1.y() + r.y() * Math.cos(theta + delta) + s.y() * Math.sin(theta + delta));
+			plane.z = (float) (p1.z() + r.z() * Math.cos(theta + delta) + s.z() * Math.sin(theta + delta));
 			/**
 			 * plane is not a normal value, it's big problem :(((((((
 			 */

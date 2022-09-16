@@ -8,13 +8,13 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.4.2
+* v 0.5.0
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 * Class RShape store the utilities to draw shape and costume
 */
-package rope.costume;
+package rope.mesh;
 
 import java.util.ArrayList;
 
@@ -75,7 +75,13 @@ public class R_Shape extends R_Graphic {
 		this.summits = summits; 
 	}
 	
-	
+
+
+
+///////////////////////////////////////
+// ID
+///////////////////////////////////////
+
 /**
  * 
  * @param id give an id to your R_Shape by default all the shape have 0
@@ -93,8 +99,10 @@ public class R_Shape extends R_Graphic {
 	}
 
   
-  
- // POS
+//////////////////////////////////////  
+// POS
+/////////////////////////////////////
+
 /**
  * 
  * @return vec3 pos of your P_Shape
@@ -149,7 +157,10 @@ public class R_Shape extends R_Graphic {
 		}
 	}
 	
+	////////////////////////////////////
 	// SIZE
+	//////////////////////////////////
+
 		/**
 	 * 
 	 * @return
@@ -205,9 +216,9 @@ public class R_Shape extends R_Graphic {
 	}
 	
 	
-	/**
-	 * ANGLE
-	 */
+	//////////////////////////////////
+	// ANGLE
+	//////////////////////////////////
 
 	 	/**
 	 * 
@@ -314,8 +325,9 @@ public class R_Shape extends R_Graphic {
 		}
   }
 
-
+	////////////////////////////////
 	// MISC
+	//////////////////////////////////
 		/**
    * 
    * @return
@@ -349,9 +361,17 @@ public class R_Shape extends R_Graphic {
     return reset_is;
   }
 
+	public void clear() {
+		this.ref_pts.clear();
+		this.pts.clear();
+		this.summits = 0;
+	}
 
-	
-	
+
+	///////////////////////
+	// SUMMITS
+	////////////////////////
+
 	/**
 	 * 
 	 * @return the num of summits
@@ -371,14 +391,17 @@ public class R_Shape extends R_Graphic {
     }	
   }
 
-
+	////////////////////////////
+	// ADD
+	////////////////////////////
 	/**
 	 * 
 	 * @param x
 	 * @param y
+	 * @deprecated instead use void add_point(float x, float y)
 	 */
-	public void add(float x, float y) {
-		add(x, y, 0);
+	@Deprecated public void add(float x, float y) {
+		add_point(x, y, 0);
 	}
 
 	/**
@@ -386,28 +409,66 @@ public class R_Shape extends R_Graphic {
 	 * @param x
 	 * @param y
 	 * @param z
+	 * @deprecated instead use void add_point(float x, float y, float z)
 	 */
-	public void add(float x, float y, float z) {
-		this.summits++;
-		ref_pts.add(new vec3(x,y,z));
-		pts.add(new vec3(x,y,z));
+	@Deprecated public void add(float x, float y, float z) {
+		add_point(x,y,z);
 	}
 
-/**
- * 
- * @param coord a list of vec
- */
-	public void add(vec... coord) {
+
+
+	/**
+	 * 
+	 * @param coord a list of vec
+	 * @deprecated instead use void add_points(vec... coord)
+	 */
+	@Deprecated public void add(vec... coord) {
+		add_points(coord);
+	}
+
+
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void add_point(float x, float y) {
+		add_point(x,y,0);
+	}
+
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void add_point(float x, float y, float z) {
+		ref_pts.add(new vec3(x,y,z));
+		pts.add(new vec3(x,y,z));
+		this.summits = this.ref_pts.size();
+	}
+
+	
+	/**
+	 * 
+	 * @param coord a list of vec
+	 */
+	public void add_points(vec... coord) {
 		for(vec v : coord) {
-			this.summits++;
 			ref_pts.add(new vec3(v.x(),v.y(),v.z()));
 			pts.add(new vec3(v.x(),v.y(),v.z()));
 		}
+		this.summits = this.ref_pts.size();
 	}
 
 
 
 
+	///////////////////////////////
+	// GET COORD
+	///////////////////////////////
 
 	/**
 	 * 
@@ -457,4 +518,28 @@ public class R_Shape extends R_Graphic {
   		return null;
   	}    
   }
+
+	public float get_ref_x(int index) {
+		return get_ref_point(index).x();
+	}
+
+	public float get_ref_y(int index) {
+		return get_ref_point(index).y();
+	}
+
+	public float get_ref_z(int index) {
+		return get_ref_point(index).z();
+	}
+
+	public float get_x(int index) {
+		return get_point(index).x();
+	}
+
+	public float get_y(int index) {
+		return get_point(index).y();
+	}
+
+	public float get_z(int index) {
+		return get_point(index).z();
+	}
 }

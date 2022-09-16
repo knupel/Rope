@@ -1,12 +1,12 @@
 /**
 * Rope Polygon
-* v 0.0.2
-* 2019-2021
+* v 0.0.3
+* 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 *
 */
-import rope.costume.R_Polygon;
+import rope.mesh.R_Polygon;
 R_Polygon [] poly;
 
 void setup() {

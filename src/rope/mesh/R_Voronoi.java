@@ -45,8 +45,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-//ROPE
-import rope.costume.R_Shape;
+
 import rope.vector.vec2;
 // import rope.vector.ivec3;
 import rope.vector.vec3;

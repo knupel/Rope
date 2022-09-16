@@ -26,6 +26,10 @@
 > R_Shape
 > add function to add points, from float or list of vec points
 > add int id, by default is 0;
+> add function to get the ref point and point by argument x,y,z
+> add function clear() to clear the pts and ref_point list
+> move package from Costume to Mesh
+> Deprecated function add() to add_point() and add_points() because there is a problem with function add() from parent class Rope
 
 > R_Voronoi
 > add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
@@ -49,6 +53,7 @@
 > deprecated function angle(), instead use rotation()
 > add function set_pixels() and show_pixels() to general pixels a long the segment
 > add function set_pixel_x2() to double the soze of the pixel
+> move package from Costume to Mesh
 
 > R_Pix
 > add function to set the entry pixel from x, y coordinate
