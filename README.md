@@ -1,7 +1,7 @@
 
 ## Rope Library
-version 47
-copyleft(c) 2018-2021
+version 48
+copyleft(c) 2018-2022
 ROPE mean ROmanesco Processing Environment.
 
 This library is a logic way of Rope framework used to [Romanesco software](https://github.com/StanLepunK/ROMANESCO-Processing)
@@ -44,7 +44,7 @@ boolean precision:
 you can find class do build `R_Slider`, `R_Knob`, `R_Dropdown`, `R_Button`, `R_Apple_Bar`, `R_Palette`, `R_Board`
 
 ### Mesh
-you can find in this package différents classes to create triangle `R_Face`, `R_Node`, `R_Bloc` and Bloc manager `R_Megabloc`, also `R_Plane`...
+you can find in this package différents classes to create triangle `R_Shape`, `R_Face`, `R_Line2D` ,`R_Node`, `R_Bloc` and Bloc manager `R_Megabloc`, also `R_Plane`, 
 
 ### Pixo
 Work around the pixel to add it few useful functions and variables, to change, store colour, manage motion, manage pixel cloud. 
