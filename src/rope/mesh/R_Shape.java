@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.0
+* v 0.5.1
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -437,6 +437,15 @@ public class R_Shape extends R_Graphic {
 		add_point(x,y,0);
 	}
 
+		/**
+	 * @param index
+	 * @param x
+	 * @param y
+	 */
+	public void add_point(int index, float x, float y) {
+		add_point(index, x,y,0);
+	}
+
 
 	/**
 	 * 
@@ -450,6 +459,18 @@ public class R_Shape extends R_Graphic {
 		this.summits = this.ref_pts.size();
 	}
 
+		/**
+	 * @param index
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void add_point(int index, float x, float y, float z) {
+		ref_pts.add(index, new vec3(x,y,z));
+		pts.add(index, new vec3(x,y,z));
+		this.summits = this.ref_pts.size();
+	}
+
 	
 	/**
 	 * 
@@ -459,6 +480,19 @@ public class R_Shape extends R_Graphic {
 		for(vec v : coord) {
 			ref_pts.add(new vec3(v.x(),v.y(),v.z()));
 			pts.add(new vec3(v.x(),v.y(),v.z()));
+		}
+		this.summits = this.ref_pts.size();
+	}
+
+	/**
+	 * @param index
+	 * @param coord a list of vec
+	 */
+	public void add_points(int index, vec... coord) {
+		for(vec v : coord) {
+			ref_pts.add(index, new vec3(v.x(),v.y(),v.z()));
+			pts.add(index, new vec3(v.x(),v.y(),v.z()));
+			index++;
 		}
 		this.summits = this.ref_pts.size();
 	}
