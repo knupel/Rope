@@ -1,3 +1,5 @@
+\* version 49
+
 \* version 48
 > R_Colour
 > class R_Colour add function add(String name, int... arg) to create palette by name
