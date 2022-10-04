@@ -1,7 +1,7 @@
 /**
  * vec2 class 
- * v 1.6.0
- * 2015-2021
+ * v 1.6.1
+ * 2015-2022
  * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
@@ -933,6 +933,16 @@ public class vec2 extends vec {
       return false ;
     }
   }
+
+	/**
+	 * 
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(vec2 target, float area) {
+		return compare(target, new vec2(area));
+	}
 
 	// detection
 	/**

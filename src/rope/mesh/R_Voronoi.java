@@ -10,7 +10,7 @@ package rope.mesh;
  * 
  * Copyleft(l) 2022-2022 
  * Adaptation from Toxiclib by Stan le Punk / Stanislas Marçais
- * v 0.1.0
+ * v 0.1.1
  * 
  * 
  *   __               .__       .__  ._____.           
@@ -256,7 +256,7 @@ public class R_Voronoi extends BigBang {
 					R_Delaunay_Vertex circumeter = tri.getCircumcenter();
 					float x = (float) circumeter.coord(0);
 					float y = (float) circumeter.coord(1);
-					poly.add(new vec2(x,y));
+					poly.add_points(new vec2(x,y));
 				}
 				areas_list.add(poly);
 			}
@@ -270,7 +270,7 @@ public class R_Voronoi extends BigBang {
 			vec3 a = t.get(0).to_vec2().xyz();
 			vec3 b = t.get(1).to_vec2().xyz();
 			vec3 c = t.get(2).to_vec2().xyz();
-			triangle.add(a,b,c);
+			triangle.add_points(a,b,c);
 			triangles_list.add(triangle);
 		}
 	}

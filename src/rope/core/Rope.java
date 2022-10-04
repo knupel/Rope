@@ -9,7 +9,7 @@
  * collection of function can be use with out Processing.
  * @author stanlepunk
  * 2018-2022
- * v 0.4.1
+ * v 0.4.2
  * 
  */
 
@@ -31,6 +31,9 @@ import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec4;
+
+import rope.mesh.R_Line2D;
+import rope.mesh.R_Shape;
 
 public class Rope implements R_Constants, R_Constants_Colour {
 	public Rope() {}
@@ -417,6 +420,17 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		}
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * @param point
+	 * @param marge
+	 * @return
+	 */
+	public boolean in_line(R_Line2D line, vec2 point, float marge) {
+		return in_line(line.a(), line.b(), point, marge);
+	}
+
 
 
 	/**
@@ -461,7 +475,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			}
 		}
 		return is;
+	}
 
+	public boolean in_polygon(R_Shape shape, vec pos, float marge) {
+		return in_polygon(shape.get_points(), pos, marge);
 	}
 
 

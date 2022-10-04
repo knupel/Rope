@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.1
+* v 0.5.2
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -24,7 +24,7 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Graphic {
-	protected int id = 0;
+	protected Integer id;
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;
@@ -94,7 +94,7 @@ public class R_Shape extends R_Graphic {
 	 * 
 	 * @return the id of your R_Shape
 	 */
-	public int id() {
+	public Integer id() {
 		return this.id;
 	}
 

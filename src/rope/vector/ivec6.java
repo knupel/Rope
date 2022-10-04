@@ -1,7 +1,7 @@
 /**
 * ivec6 class
-* v 1.1.2
-* 2015-2021
+* v 1.1.3
+* 2015-2022
 * Vector class with a int precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -18,7 +18,7 @@ public class ivec6 extends ivec {
   	set(v,v,v,v,v,v); 
   }
 
-  public ivec6(int a, int b, int c, int d, int e, int f) {
+  public ivec6(Integer a, Integer b, Integer c, Integer d, Integer e, Integer f) {
     super(6);
     set(a,b,c,d,e,f);
   }
@@ -43,7 +43,7 @@ public class ivec6 extends ivec {
    * @param f
    * @return
    */
-  public ivec6 set(int a, int b, int c, int d, int e, int f) {
+  public ivec6 set(Integer a, Integer b, Integer c, Integer d, Integer e, Integer f) {
   	this.x = a;
   	this.y = b;
   	this.z = c;

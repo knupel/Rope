@@ -1,7 +1,7 @@
 /**
  * vec3 class
- * v 1.5.3
-* 2015-2021
+ * v 1.5.4
+* 2015-2022
 * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
@@ -974,6 +974,16 @@ public class vec3 extends vec {
 		} else {
 			return false ;
 		}
+	}
+
+	/**
+	 * 
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(vec3 target, float area) {
+		return compare(target, new vec3(area));
 	}
 	
 	

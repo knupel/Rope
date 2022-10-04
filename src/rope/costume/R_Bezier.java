@@ -4,7 +4,6 @@
 * 2019-2019
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
-* Class RShape store the utilities to draw shape and costume
 */
 
 package rope.costume;

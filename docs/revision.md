@@ -1,4 +1,17 @@
 \* version 49
+> ivec
+> the value use Integer class set to null for the start
+
+> vec
+> add function compare(vec arg, float arg)
+
+> Rope
+> add function boolean in_line() who accept R_Line2D for the coord line
+> add function boolean in_polygon() who accept R_Shape for the coord points
+
+> R_Shape
+> the id use now Integer class set to null instead int component to set null instead 0
+
 
 \* version 48
 > R_Colour
