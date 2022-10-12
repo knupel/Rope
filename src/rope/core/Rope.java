@@ -477,6 +477,10 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return is;
 	}
 
+	public boolean in_polygon(R_Shape shape, vec pos) {
+		return in_polygon(shape.get_points(), pos);
+	}
+
 	public boolean in_polygon(R_Shape shape, vec pos, float marge) {
 		return in_polygon(shape.get_points(), pos, marge);
 	}

@@ -1,6 +1,4 @@
 \* version 49
-> ivec
-> the value use Integer class set to null for the start
 
 > vec
 > add function compare(vec arg, float arg)
@@ -10,8 +8,15 @@
 > add function boolean in_polygon() who accept R_Shape for the coord points
 
 > R_Shape
-> the id use now Integer class set to null instead int component to set null instead 0
+> add area function, only work with regular polygon / shape don't use a strange stuff with it.
+> add set_point(int index, float x, float y, float z) to replace a specific point
+> add fonction ArrayList<vec3> equals(vec... points) return the list of the common point
 
+> add fonction boolean equals(int max, vec... points) return true if the num of commom point is equal or upper to max;
+
+> add fonction ArrayList<vec3> compare(float marge, vec... points) return the list of the common point
+
+> add fonction boolean compare(int max, float marge, vec... points) return true if the num of commom point is equal or upper to max;
 
 \* version 48
 > R_Colour

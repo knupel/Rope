@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.2
+* v 0.5.1
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -24,7 +24,7 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Graphic {
-	protected Integer id;
+	protected int id = 0;
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;
@@ -94,7 +94,7 @@ public class R_Shape extends R_Graphic {
 	 * 
 	 * @return the id of your R_Shape
 	 */
-	public Integer id() {
+	public int id() {
 		return this.id;
 	}
 
@@ -325,6 +325,118 @@ public class R_Shape extends R_Graphic {
 		}
   }
 
+
+
+	/////////////////////////
+	// AREA
+	///////////////
+
+	/**
+	 * area of the shape, but this one need to be a classical one, the line dont must cross each other and the shape must be close
+	 * @return area in pixel
+	 */
+	public float area() {
+		float sum = 0;
+		vec3 [] vertices = get_points();
+		for (int i = 0; i < vertices.length ; i++) {
+			if (i == 0) {
+				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[vertices.length - 1].y());
+			} else if (i == vertices.length - 1) {
+				sum += vertices[i].x() * (vertices[0].y() - vertices[i - 1].y());
+			} else {
+				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[i - 1].y());
+			}
+		}
+		float area = 0.5f * Math.abs(sum);
+		return area;
+	}
+
+
+
+	/////////////////////////////////
+	// CONTAIN POINT
+	////////////////////////
+
+		/**
+		 * @param marge
+	 * @param max
+	 * @param points
+	 * @return true if the num of common point is minimum equal to max and in the marge of error
+	 */
+	public boolean compare(int max, float marge, vec... points) {
+		int count = 0;
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().compare(v, marge)) {
+					count++;
+					if(count == max) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * @param marge
+	 * @param points
+	 * @return the list of points contain in R_Shape and in the marge of error
+	 */
+	public ArrayList<vec3> compare(float marge, vec... points) {
+		ArrayList<vec3> res = new ArrayList<vec3>();
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().compare(v, marge)) {
+					res.add(v);
+					break;
+				}
+			}
+		}
+		return res;
+	}
+
+
+	/**
+	 * @param max
+	 * @param points
+	 * @return true if the num of common point is minimum equal to max
+	 */
+	public boolean equals(int max, vec... points) {
+		int count = 0;
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().equals(v)) {
+					count++;
+					if(count == max) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * @param points
+	 * @return the list of points contain in R_Shape
+	 */
+	public ArrayList<vec3> equals(vec... points) {
+		ArrayList<vec3> res = new ArrayList<vec3>();
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().equals(v)) {
+					res.add(v);
+					break;
+				}
+			}
+		}
+		return res;
+	}
+
 	////////////////////////////////
 	// MISC
 	//////////////////////////////////
@@ -495,6 +607,26 @@ public class R_Shape extends R_Graphic {
 			index++;
 		}
 		this.summits = this.ref_pts.size();
+	}
+
+	/**
+	 * replace point at the specific index, if this exxist
+	 * @param index
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void set_point(int index, float x, float y, float z) {
+		ref_pts.set(index, new vec3(x,y,z));
+		pts.set(index, new vec3(x,y,z));
+	}
+
+	public void set_point(int index, float x, float y) {
+		this.set_point(index, x, y, 0);
+	}
+
+	public void set_point(int index, vec point) {
+		this.set_point(index, point.x(), point.y(), point.z());
 	}
 
 
