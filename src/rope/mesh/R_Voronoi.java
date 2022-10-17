@@ -10,7 +10,7 @@ package rope.mesh;
  * 
  * Copyleft(l) 2022-2022 
  * Adaptation from Toxiclib by Stan le Punk / Stanislas Marçais
- * v 0.1.1
+ * v 0.1.2
  * 
  * 
  *   __               .__       .__  ._____.           
@@ -218,7 +218,7 @@ public class R_Voronoi extends BigBang {
 				for(int k = 0 ; k < seeds_list.size(); k++) {
 					boolean is = in_polygon(areas_list.get(i).get_points(), seeds_list.get(k));
 					if(is) {
-						areas_list.get(i).id(k);
+						areas_list.get(i).id_a(k);
 						break;
 					}
 				}

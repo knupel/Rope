@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.1
+* v 0.5.2
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -24,7 +24,8 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Graphic {
-	protected int id = 0;
+	// protected int id = 0;
+	protected ivec6 id = new ivec6(Integer.MIN_VALUE);
 	protected vec3 pos;
 	protected vec3 size;
 	protected vec3 angle;
@@ -82,22 +83,66 @@ public class R_Shape extends R_Graphic {
 // ID
 ///////////////////////////////////////
 
-/**
- * 
- * @param id give an id to your R_Shape by default all the shape have 0
- */
-	public void id(int id) {
-		this.id = id;
+// /**
+//  * 
+//  * @param id give an id to your R_Shape by default all the shape have 0
+//  */
+// 	public void id(int id) {
+// 		this.id.a(id);
+// 	}
+
+// 	/**
+// 	 * 
+// 	 * @return the id of your R_Shape
+// 	 */
+// 	public int id() {
+// 		return this.id.a();
+// 	}
+
+  //////////////////////////
+  // ID
+  ///////////////////////////
+  public R_Shape id(int a, int b, int c, int d, int e, int f) {
+		this.id.set(a,b,c,d,e,f);
+		return this;
 	}
 
-	/**
-	 * 
-	 * @return the id of your R_Shape
-	 */
-	public int id() {
+	public R_Shape id_a(int id) {
+		this.id.a(id);
+		return this;
+	}
+
+	public R_Shape id_b(int id) {
+		this.id.b(id);
+		return this;
+	}
+
+	public R_Shape id_c(int id) {
+		this.id.c(id);
+		return this;
+	}
+
+	public R_Shape id_d(int id) {
+		this.id.d(id);
+		return this;
+	}
+
+	public R_Shape id_e(int id) {
+		this.id.e(id);
+		return this;
+	}
+
+	public R_Shape id_f(int id) {
+		this.id.f(id);
+		return this;
+	}
+
+	// GET ID
+	///////////////////////
+
+	public ivec6 id() {
 		return this.id;
 	}
-
   
 //////////////////////////////////////  
 // POS
@@ -477,6 +522,15 @@ public class R_Shape extends R_Graphic {
 		this.ref_pts.clear();
 		this.pts.clear();
 		this.summits = 0;
+	}
+
+
+	/**
+	 * 
+	 * @return the vec3 barycenter of the shape
+	 */
+	public vec3 barycenter() {
+		return barycenter(get_points());
 	}
 
 

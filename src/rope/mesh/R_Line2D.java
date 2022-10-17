@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.3.0
+* v 0.3.1
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -11,6 +11,7 @@ import rope.core.*;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import rope.vector.vec2;
+import rope.vector.ivec6;
 import rope.pixo.R_Pix;
 
 
@@ -24,6 +25,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   protected vec2 ref_b;
   private boolean mute_is = false;
   protected R_Pix [] pixies;
+  private ivec6 id = new ivec6(Integer.MIN_VALUE);
   
   /**
    * 
@@ -271,6 +273,52 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
 
+  //////////////////////////
+  // ID
+  ///////////////////////////
+  public R_Line2D id(int a, int b, int c, int d, int e, int f) {
+		this.id.set(a,b,c,d,e,f);
+		return this;
+	}
+
+	public R_Line2D id_a(int id) {
+		this.id.a(id);
+		return this;
+	}
+
+	public R_Line2D id_b(int id) {
+		this.id.b(id);
+		return this;
+	}
+
+	public R_Line2D id_c(int id) {
+		this.id.c(id);
+		return this;
+	}
+
+	public R_Line2D id_d(int id) {
+		this.id.d(id);
+		return this;
+	}
+
+	public R_Line2D id_e(int id) {
+		this.id.e(id);
+		return this;
+	}
+
+	public R_Line2D id_f(int id) {
+		this.id.f(id);
+		return this;
+	}
+
+	// GET ID
+	///////////////////////
+
+	public ivec6 id() {
+		return this.id;
+	}
+
+
 
 
   
@@ -501,6 +549,14 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   ///////////////////////////////////////
   // UTILS
   //////////////////////////////////////
+  
+  /**
+   * 
+   * @return the barycenter of the two points
+   */
+  public vec2 barycenter() {
+    return barycenter(a,b);
+  }
 
   /**
    * Return the length of the line
@@ -599,3 +655,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 		return "[ " + this.a.x() + ", " + this.a.y() + " ] [ "+ this.b.x() + ", " + this.b.y() +" ]";
 	}
 }
+
+
+

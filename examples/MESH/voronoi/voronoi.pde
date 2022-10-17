@@ -15,12 +15,12 @@
 *
 * Example adapted from Toxilibs
 * 2022-2022
-* version 0.0.2
+* version 0.0.3
 *
 */
 
 import rope.mesh.R_Voronoi;
-import rope.costume.R_Shape;
+import rope.mesh.R_Shape;
 import rope.vector.vec2;
 import rope.vector.vec3;
 
@@ -107,7 +107,7 @@ void print_info_voronoi() {
 		vec3 seed = voronoi.get_seed(i);
 		println("seed:", seed.x(), seed.y(), (int)seed.z());
 		if(i < voronoi.get_areas().size()) {
-			println("area", i, "id", voronoi.get_area(i).id());
+			println("area", i, "id", voronoi.get_area(i).id().a());
 			printArray(voronoi.get_area(i).get_points());
 			println("triangle");
 			printArray(voronoi.get_triangle(i).get_points());
@@ -148,7 +148,7 @@ void show_areas() {
 		for (R_Shape poly : voronoi.get_areas()) {
 			vec3 [] arr = poly.get_points();
 			if(voronoi.get_seed(index) != null) {
-				int target = poly.id();
+				int target = poly.id().a();
 				int c = (int)voronoi.get_seed(target).z();
 				fill(c);
 			}
