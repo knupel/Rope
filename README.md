@@ -1,6 +1,6 @@
 
 ## Rope Library
-version 48
+version 49
 copyleft(c) 2018-2022
 ROPE mean ROmanesco Processing Environment.
 
