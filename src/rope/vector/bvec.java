@@ -119,7 +119,6 @@ public abstract class bvec implements R_Constants  {
         count++;
       }
     }
-
     if(count == 1) {
       return true;
     }
@@ -128,11 +127,28 @@ public abstract class bvec implements R_Constants  {
 
   /**
    * 
-   * @return if only target alement is true and other is false
+   * @param index if all and only thes elements of the index arr is true, return true
+   * @return
    */
-  public boolean only(int index) {
-    boolean [] is =  this.array();
-    if(only() && is[index]) return true;
+  public boolean only(int... index) {
+    boolean [] is = this.array();
+    // boolean res = false;
+    int count = 0;
+    int count_true = 0;
+    for(int i = 0 ; i < is.length ;i++) {
+      if(is[i]) count_true++;
+
+    }
+    // boolean done_is = false;
+    for(int i = 0 ; i < index.length ; i++) {
+      for(int k = 0 ; k < is.length ;k++) {
+        if(k == index[i] && is[k]) {
+          count++;
+          break;
+        }
+      }
+    }
+    if(count == index.length && count == count_true) return true;
     return false;
   }
 
