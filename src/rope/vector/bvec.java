@@ -1,7 +1,7 @@
 /**
 * bvec class
-* v 2.1.1
-* 2015-2021
+* v 2.2.0
+* 2015-2022
 * Vector with a boolean precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -78,6 +78,65 @@ public abstract class bvec implements R_Constants  {
     if(f != bv.f()) return false;
     return true;
 	}
+
+
+  /**
+   * 
+   * @return true if all elements is true
+   */
+  public boolean all() {
+    boolean [] is =  this.array();
+    for(int i = 0 ; i < is.length ; i++) {
+      if(!is[i]) return false;
+    }
+    return true;
+  }
+
+
+  /**
+   * 
+   * @return true if all most one element is true;
+   */
+  public boolean any() {
+    boolean [] is =  this.array();
+    for(int i = 0 ; i < is.length ; i++) {
+      if(is[i]) return true;
+    }
+    return false;
+  }
+
+
+
+  /**
+   * 
+   * @return true if only one element is true
+   */
+  public boolean only() {
+    boolean [] is =  this.array();
+    int count = 0;
+    for(int i = 0 ; i < is.length ; i++) {
+      if(is[i]) {
+        count++;
+      }
+    }
+
+    if(count == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * 
+   * @return if only target alement is true and other is false
+   */
+  public boolean only(int index) {
+    boolean [] is =  this.array();
+    if(only() && is[index]) return true;
+    return false;
+  }
+
+
 
   /**
    * return single boolean component

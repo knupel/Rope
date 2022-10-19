@@ -1,4 +1,6 @@
 \* version 49
+> bvec
+> add function all(), any() and only() like glsl language
 
 > vec
 > add function compare(vec arg, float arg)
