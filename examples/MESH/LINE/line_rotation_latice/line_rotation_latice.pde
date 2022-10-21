@@ -35,11 +35,9 @@ void draw() {
   // float normal_pos = -0.1;
   float normal_pos = 0.5;
   float ang = map(mouseX,0,width,-PI,PI);
-  // line.angle(ang);
   vec2 p = line.point(normal_pos);
   circle(p.x(), p.y(), 10);
   line.rotation(ang, normal_pos);
-  // line.angle(ang);
   line.show();
 }
 

@@ -11,6 +11,7 @@ import rope.core.*;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import rope.vector.vec2;
+import rope.vector.vec3;
 import rope.vector.ivec6;
 import rope.pixo.R_Pix;
 
@@ -19,10 +20,10 @@ import rope.pixo.R_Pix;
 
 
 public class R_Line2D extends R_Graphic implements R_Constants {
-  protected vec2 a;
-  protected vec2 b;
-  protected vec2 ref_a;
-  protected vec2 ref_b;
+  protected vec3 a;
+  protected vec3 b;
+  protected vec3 ref_a;
+  protected vec3 ref_b;
   private boolean mute_is = false;
   protected R_Pix [] pixies;
   private ivec6 id = new ivec6(Integer.MIN_VALUE);
@@ -45,10 +46,10 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public R_Line2D(PApplet pa, vec2 a, vec2 b) {
   	super(pa);
     init();
-    this.a.set(a.x(),a.y());
-    this.b.set(b.x(),b.y());
-    this.ref_a.set(a.x(),a.y());
-    this.ref_b.set(b.x(),b.y());
+    this.a.set(a.x(),a.y(),0);
+    this.b.set(b.x(),b.y(),0);
+    this.ref_a.set(a.x(),a.y(),0);
+    this.ref_b.set(b.x(),b.y(),0);
   }
   
   /**
@@ -62,17 +63,17 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public R_Line2D(PApplet pa, float ax, float ay, float bx, float by) {
   	super(pa);
     init();
-    this.a.set(ax,ay);
-    this.b.set(bx,by);
-    this.ref_a.set(ax,ay);
-    this.ref_b.set(bx,by);
+    this.a.set(ax,ay,0);
+    this.b.set(bx,by,0);
+    this.ref_a.set(ax,ay,0);
+    this.ref_b.set(bx,by,0);
   }
 
   private void init() {
-    this.a = new vec2();
-    this.b = new vec2();
-    this.ref_a = new vec2();
-    this.ref_b = new vec2();
+    this.a = new vec3();
+    this.b = new vec3();
+    this.ref_a = new vec3();
+    this.ref_b = new vec3();
   }
   
 
@@ -124,7 +125,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param pointer_b give the same memory adress of the vec for the reference and the mane point
    * @return
    */
-  public R_Line2D pointer(vec2 pointer_a, vec2 pointer_b) {
+  public R_Line2D pointer(vec3 pointer_a, vec3 pointer_b) {
     this.a = pointer_a;
     this.b = pointer_b;
     this.ref_a = pointer_a;
@@ -148,7 +149,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param y
    */
   public void a(float x, float y) {
-    this.a.set(x,y);
+    this.a.set(x,y,0);
   }
   
   /**
@@ -166,15 +167,15 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param y
    */
   public void b(float x, float y) {
-    this.b.set(x,y);
+    this.b.set(x,y,0);
   }
 
   protected void ref_a(vec2 ref_a) {
-    this.ref_a.set(ref_a.x(),ref_a.y());
+    this.ref_a(ref_a.x(),ref_a.y());
   }
   
   protected void ref_a(float x, float y) {
-    this.ref_a.set(x,y);
+    this.ref_a.set(x,y,0);
   }
   
   protected void ref_b(vec2 ref_b) {
@@ -182,7 +183,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
   
   protected void ref_b(float x, float y) {
-    this.ref_b.set(x,y);
+    this.ref_b.set(x,y,0);
   }
 
     /**
@@ -196,8 +197,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   public R_Line2D offset(float offset_x, float offset_y) {
-    this.a.add(offset_x, offset_y);
-    this.b.add(offset_x, offset_y);
+    this.a.add(offset_x, offset_y,0);
+    this.b.add(offset_x, offset_y,0);
     return this;
   }
 
@@ -223,7 +224,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return the final value for a
    */
   public vec2 a() {
-    return a;
+    return a.xy();
   }
   
   /**
@@ -231,7 +232,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return the final value for b
    */
   public vec2 b() {
-    return b;
+    return b.xy();
   }
 
 
@@ -242,7 +243,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return a coordinate of the point 
    */
   public vec2 point(float normal_pos) {
-    return add(ref_a,projection(angle(), dist_ref()*normal_pos));
+    return add(ref_a.xy(),projection(angle(), dist_ref()*normal_pos));
+    // return add(ref_a,projection(angle(), dist_ref()*normal_pos));
   }
 
   /**
@@ -260,7 +262,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public float angle() {
-    return a.angle(b);
+    return a.xy().angle(b.xy());
   }
   
   /**
@@ -387,8 +389,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     // change begin
     vec2 proj_a = projection(ang,dist*begin);
     vec2 proj_b = projection(ang,dist*end);
-    a(sub(ref_a,proj_a));
-    b(add(ref_b,proj_b));
+    a(sub(ref_a.xy(),proj_a));
+    b(add(ref_b.xy(),proj_b));
     return this;
   }
 
@@ -493,7 +495,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * Show the result of all previous work on line
    */
   public void show() {
-    line(a,b);
+    // line(a,b);
+    line(a.xy(),b.xy());
     reset();
   }
   
@@ -504,7 +507,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   @Deprecated public void show(PGraphics other) {
   	this.other = other;
-    line(a,b);
+    line(a.xy(),b.xy());
     reset();
   }
 
@@ -579,7 +582,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return the barycenter of the two points
    */
   public vec2 barycenter() {
-    return barycenter(a,b);
+    return barycenter(a,b).xy();
   }
 
   /**
@@ -663,7 +666,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public R_Line2D copy() {
-    R_Line2D line = new R_Line2D(this.pa,this.a,this.b);
+    R_Line2D line = new R_Line2D(this.pa);
+    line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
     line.mute(this.mute_is());
     if(pixies != null && pixies.length > 0) {
       line.pixies = new R_Pix[pixies.length];

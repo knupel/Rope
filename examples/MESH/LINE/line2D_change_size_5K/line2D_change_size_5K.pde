@@ -13,11 +13,11 @@
 import rope.mesh.R_Line2D;
 
 R_Line2D [] list;
-int num = 5000;
+int num = 10000;
 
 void setup() {
   list = new R_Line2D[num];
-  size(400,400,P2D);
+  size(800,800,P2D);
   for(int i = 0 ; i < list.length ; i++) {
     list[i] = new R_Line2D(this);
   }

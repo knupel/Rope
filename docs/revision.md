@@ -24,6 +24,7 @@
 > add function barycenter()
 > add id ivec6 to store until to 6 id integer
 > add function pointer() to use line with pointer coordinate in memory, like i "C"
+>pass the vec, from vec2 to vec3 for the management and the bridge withe R_Shape
 
 
 
