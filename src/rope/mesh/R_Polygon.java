@@ -1,6 +1,6 @@
 /**
 * R_Polygon
-* v 0.4.1
+* v 0.4.2
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -132,8 +132,12 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
       }
       // print_err( pts.get(i));
       pts.get(i).mult(size.x()*(float)0.5f);
-      if(use_pos_is()) pts.get(i).add(pos);
-      if(render) vertex(pts.get(i));
+      if(use_pos_is()) {
+        pts.get(i).add(pos);
+      }
+      if(render) {
+        vertex(pts.get(i));
+      }
     }
     if(render) {
       vertex(pts.get(0));

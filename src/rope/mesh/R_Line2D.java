@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.3.1
+* v 0.4.0
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -33,10 +33,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public R_Line2D(PApplet pa) {
   	super(pa);
-    this.a = new vec2();
-    this.b = new vec2();
-    this.ref_a = new vec2();
-    this.ref_b = new vec2();
+    init();
   }
 
   /**
@@ -47,10 +44,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public R_Line2D(PApplet pa, vec2 a, vec2 b) {
   	super(pa);
-    this.a = new vec2(a.x(),a.y());
-    this.b = new vec2(b.x(),b.y());
-    this.ref_a = new vec2(a.x(),a.y());
-    this.ref_b = new vec2(b.x(),b.y());
+    init();
+    this.a.set(a.x(),a.y());
+    this.b.set(b.x(),b.y());
+    this.ref_a.set(a.x(),a.y());
+    this.ref_b.set(b.x(),b.y());
   }
   
   /**
@@ -63,10 +61,18 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public R_Line2D(PApplet pa, float ax, float ay, float bx, float by) {
   	super(pa);
-    this.a = new vec2(ax,ay);
-    this.b = new vec2(bx,by);
-    this.ref_a = new vec2(ax,ay);
-    this.ref_b = new vec2(bx,by);
+    init();
+    this.a.set(ax,ay);
+    this.b.set(bx,by);
+    this.ref_a.set(ax,ay);
+    this.ref_b.set(bx,by);
+  }
+
+  private void init() {
+    this.a = new vec2();
+    this.b = new vec2();
+    this.ref_a = new vec2();
+    this.ref_b = new vec2();
   }
   
 
@@ -108,6 +114,24 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     this.ref_b(bx,by);
     return this;
   }
+
+
+  /**
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()...
+   * So use in very specific cases.
+   * @param pointer_a give the same memory adress of the vec for the reference and the mane point
+   * @param pointer_b give the same memory adress of the vec for the reference and the mane point
+   * @return
+   */
+  public R_Line2D pointer(vec2 pointer_a, vec2 pointer_b) {
+    this.a = pointer_a;
+    this.b = pointer_b;
+    this.ref_a = pointer_a;
+    this.ref_b = pointer_b;
+    return this;
+  }
+
 
 
   /**

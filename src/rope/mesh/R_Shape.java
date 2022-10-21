@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.2
+* v 0.5.4
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -60,7 +60,7 @@ public class R_Shape extends R_Graphic {
 	 * @param pa
 	 * @param summits
 	 */
-	public R_Shape(PApplet pa, int summits) {
+	@Deprecated public R_Shape(PApplet pa, int summits) {
 		super(pa);
 		this.summits = summits;
 	}
@@ -71,33 +71,11 @@ public class R_Shape extends R_Graphic {
 	 * @param summits
 	 * @param other
 	 */
-	public R_Shape(PApplet pa, int summits, PGraphics other) {
+	@Deprecated public R_Shape(PApplet pa, int summits, PGraphics other) {
 		super(pa,other);
 		this.summits = summits; 
 	}
 	
-
-
-
-///////////////////////////////////////
-// ID
-///////////////////////////////////////
-
-// /**
-//  * 
-//  * @param id give an id to your R_Shape by default all the shape have 0
-//  */
-// 	public void id(int id) {
-// 		this.id.a(id);
-// 	}
-
-// 	/**
-// 	 * 
-// 	 * @return the id of your R_Shape
-// 	 */
-// 	public int id() {
-// 		return this.id.a();
-// 	}
 
   //////////////////////////
   // ID
@@ -664,7 +642,7 @@ public class R_Shape extends R_Graphic {
 	}
 
 	/**
-	 * replace point at the specific index, if this exxist
+	 * replace point at the specific index, if this one exist
 	 * @param index
 	 * @param x
 	 * @param y
@@ -762,4 +740,19 @@ public class R_Shape extends R_Graphic {
 	public float get_z(int index) {
 		return get_point(index).z();
 	}
+
+	//////////////
+	// SHOW
+	////////////
+
+	public void show() {
+    if(pts != null && pts.size() > 0) {
+      beginShape();
+      for(int i = 0 ; i < pts.size() ; i++) {
+        vertex(pts.get(i));
+      }
+      vertex(pts.get(0));
+      endShape();
+    } 
+  }
 }

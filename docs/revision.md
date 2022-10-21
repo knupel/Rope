@@ -18,10 +18,12 @@
 > add fonction boolean compare(int max, float marge, vec... points) return true if the num of commom point is equal or upper to max;
 >add function barycenter()
 > add id ivec6 to store until to 6 id integer
+> add function show() to show the points, not the ref_points one
 
 > R_Line2D
 > add function barycenter()
 > add id ivec6 to store until to 6 id integer
+> add function pointer() to use line with pointer coordinate in memory, like i "C"
 
 
 
