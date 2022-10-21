@@ -237,6 +237,23 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 
 
   /**
+   * 
+   * @return the final value for "a" and the original coord in the memory
+   */
+  public vec3 pointer_a() {
+    return a;
+  }
+  
+  /**
+   * 
+   * @return the final value for "b" and the original coord in the memory
+   */
+  public vec3 pointer_b() {
+    return b;
+  }
+
+
+  /**
    * projected point on the line, the distance is calculated by multiplication the distance line by the normal argument
    *  where the starting point is the first point.
    * @param normal_pos where 0 is the starting point and 1 is the end point

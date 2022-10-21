@@ -24,7 +24,6 @@ import processing.core.*;
 
 
 public class R_Shape extends R_Graphic {
-	// protected int id = 0;
 	protected ivec6 id = new ivec6(Integer.MIN_VALUE);
 	protected vec3 pos;
 	protected vec3 size;
@@ -610,8 +609,8 @@ public class R_Shape extends R_Graphic {
 	 * @param z
 	 */
 	public void add_point(int index, float x, float y, float z) {
-		ref_pts.add(index, new vec3(x,y,z));
 		pts.add(index, new vec3(x,y,z));
+		ref_pts.add(index, new vec3(x,y,z));
 		this.summits = this.ref_pts.size();
 	}
 
@@ -622,8 +621,8 @@ public class R_Shape extends R_Graphic {
 	 */
 	public void add_points(vec... coord) {
 		for(vec v : coord) {
-			ref_pts.add(new vec3(v.x(),v.y(),v.z()));
 			pts.add(new vec3(v.x(),v.y(),v.z()));
+			ref_pts.add(new vec3(v.x(),v.y(),v.z()));
 		}
 		this.summits = this.ref_pts.size();
 	}
@@ -634,8 +633,34 @@ public class R_Shape extends R_Graphic {
 	 */
 	public void add_points(int index, vec... coord) {
 		for(vec v : coord) {
-			ref_pts.add(index, new vec3(v.x(),v.y(),v.z()));
 			pts.add(index, new vec3(v.x(),v.y(),v.z()));
+			ref_pts.add(index, new vec3(v.x(),v.y(),v.z()));
+			index++;
+		}
+		this.summits = this.ref_pts.size();
+	}
+
+
+		/**
+	 * 
+	 * @param coord a list of vec
+	 */
+	public void pointer(vec3... coord) {
+		for(vec3 v : coord) {
+			pts.add(v);
+			ref_pts.add(v);
+		}
+		this.summits = this.ref_pts.size();
+	}
+
+	/**
+	 * @param index
+	 * @param coord a list of vec
+	 */
+	public void pointer(int index, vec3... coord) {
+		for(vec3 v : coord) {
+			pts.add(index, v);
+			ref_pts.add(index, v);
 			index++;
 		}
 		this.summits = this.ref_pts.size();
