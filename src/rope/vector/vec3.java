@@ -1,6 +1,6 @@
 /**
  * vec3 class
- * v 1.5.4
+ * v 1.5.5
 * 2015-2022
 * Vector class with a float precision
  * @author @stanlepunk
@@ -585,7 +585,7 @@ public class vec3 extends vec {
 	 * @param range_z
 	 * @return
 	 */
-	public vec3 jitter(int range_x,int range_y, int range_z) {
+	@Deprecated public vec3 jitter(int range_x,int range_y, int range_z) {
 		x += random_next_gaussian(range_x,3);
 		y += random_next_gaussian(range_y,3);
 		z += random_next_gaussian(range_z,3);
@@ -593,11 +593,11 @@ public class vec3 extends vec {
 		return this;
 	}
 	
-	public vec3 jitter(int range) {
+	@Deprecated public vec3 jitter(int range) {
 		return jitter(range,range,range) ;
 	}
 	
-	public vec3 jitter(vec3 range) {
+	@Deprecated public vec3 jitter(vec3 range) {
 		if(range != null) {
 			return jitter((int)range.x,(int)range.y,(int)range.z);
 		} else return jitter(0,0,0) ;

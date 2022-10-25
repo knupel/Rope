@@ -1351,6 +1351,7 @@ public float abs(float arg) {
 	// with vec
 	
 	public bvec2 greaterThan(vec2 x, vec2 y) {
+		print_err("x",x,"y",y);
 		if(x != null && y != null) {
 			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
 		} else return null; 

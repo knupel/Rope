@@ -1,6 +1,8 @@
 /**
 * State event
-* Processing 3.5.4
+* Processing 4
+* 2019-2022
+* v 0.0.2
 */
 
 import rope.R_State.State;
@@ -10,7 +12,7 @@ import rope.core.Rope;
 Rope r = new Rope();
 
 void setup() {
-  println(r.VERSION);
+  // println(r.VERSION);
   size(400,400);
   State.init(this);
 
@@ -19,6 +21,8 @@ void setup() {
 void draw() {
   State.pointer(mouseX,mouseY);
   State.event(mousePressed, keyPressed);
+
+  println("pointer", State.pointer());
 
   // if(r.all(State.event().array())) {
   //   println("all event is TRUE", frameCount);

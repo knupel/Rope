@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.4.0
+* v 0.4.5
 * 2019-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -87,7 +87,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param b
    */
   public R_Line2D set(vec2 a, vec2 b) {
-    set(a.x(),a.y(),b.x(),b.y());
+    this.set(a.x(),a.y(),b.x(),b.y());
     return this;
   }
 
@@ -97,7 +97,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return
    */
   public R_Line2D set(R_Line2D line) {
-    set(line.a().x(),line.a().y(),line.b().x(),line.b().y());
+    this.set(line.a().x(),line.a().y(),line.b().x(),line.b().y());
     return this;
   }
   
@@ -109,17 +109,15 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param by
    */
   public R_Line2D set(float ax, float ay, float bx, float by) {
-    this.a(ax,ay);
-    this.b(bx,by);
-    this.ref_a(ax,ay);
-    this.ref_b(bx,by);
+    this.set_a(ax, ay);
+    this.set_b(bx, by);
     return this;
   }
 
 
   /**
    * This function must be use with precaution because that's can break few function of the class
-   * like : offset(), change()...
+   * like : offset(), change()... because the reference and the main point point on the same address
    * So use in very specific cases.
    * @param pointer_a give the same memory adress of the vec for the reference and the mane point
    * @param pointer_b give the same memory adress of the vec for the reference and the mane point
@@ -134,17 +132,29 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
 
+  //////////////////////
+  // A
+  //////////////////////
 
   /**
    * 
+   * @return the final value for a
+   */
+  public vec2 a() {
+    return this.a.xy();
+  }
+
+  /**
+   * use for temporary change
    * @param a
    */
   public void a(vec2 a) {
     this.a(a.x(),a.y());
   }
-  
+
+
   /**
-   * 
+   * use for temporary change
    * @param x
    * @param y
    */
@@ -153,22 +163,45 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
   
   /**
-   * 
-   * @param b
+   * use with precaution because the vec who is returned pointer on real address 
+   * in the memory so any modification can modify all value who ppoint on this one
+   * @return the final value for "a" and the original coord in the memory
    */
-  public void b(vec2 b) {
-    this.b(b.x(),b.y());
+  public vec3 pointer_a() {
+    return this.a;
   }
-  
-  
+
   /**
-   * 
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()... because the reference and the main point point on the same address
+   * So use in very specific cases.
+   * @param pointer_a
+   */
+  public void pointer_a(vec3 pointer_a) {
+    this.a = pointer_a;
+    this.ref_a = pointer_a;
+  }
+
+  /**
+   * use for definitive changement
    * @param x
    * @param y
    */
-  public void b(float x, float y) {
-    this.b.set(x,y,0);
+  public void set_a(float x, float y) {
+    this.a(x,y);
+    this.ref_a(x,y);
   }
+
+  /**
+   * use for definitive changement
+   * @param x
+   * @param y
+   */
+  public void set_a(vec2 a) {
+    this.set_a(a.x(),a.y());
+  }
+
+
 
   protected void ref_a(vec2 ref_a) {
     this.ref_a(ref_a.x(),ref_a.y());
@@ -177,6 +210,81 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   protected void ref_a(float x, float y) {
     this.ref_a.set(x,y,0);
   }
+
+
+
+  //////////////////////
+  // B
+  //////////////////////
+
+  /**
+   * 
+   * @return the final value for b
+   */
+  public vec2 b() {
+    return this.b.xy();
+  }
+
+  /**
+   * use for temporary change
+   * @param b
+   */
+  public void b(vec2 b) {
+    this.b(b.x(),b.y());
+  }
+  
+  /**
+   * use for temporary change
+   * @param x
+   * @param y
+   */
+  public void b(float x, float y) {
+    this.b.set(x,y,0);
+  }
+
+
+  /**
+   * use with precaution because the vec who is returned pointer on real address 
+   * in the memory so any modification can modify all value who ppoint on this one
+   * @return the final value for "b" and the original coord in the memory
+   */
+  public vec3 pointer_b() {
+    return this.b;
+  }
+
+  /**
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()... because the reference and the main point point on the same address
+   * So use in very specific cases.
+   * @param pointer_b
+   */
+  public void pointer_b(vec3 pointer_b) {
+    this.a = pointer_b;
+    this.ref_a = pointer_b;
+  }
+
+
+  /**
+   * use for definitive changement
+   * @param x
+   * @param y
+   */
+  public void set_b(float x, float y) {
+    this.b(x,y);
+    this.ref_b(x,y);
+  }
+
+    /**
+   * use for definitive changement
+   * @param x
+   * @param y
+   */
+  public void set_b(vec2 b) {
+    this.set_b(b.x(),b.y());
+  }
+
+
+
   
   protected void ref_b(vec2 ref_b) {
     this.ref_b(ref_b.x(),ref_b.y());
@@ -186,13 +294,23 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     this.ref_b.set(x,y,0);
   }
 
+
+
+
+
+
+
+
+
+
+
     /**
    * make a displacement of the line
    * @param offset
    * @return
    */
   public R_Line2D offset(vec2 offset) {
-    offset(offset.x(), offset.y());
+    this.offset(offset.x(), offset.y());
     return this;
   }
 
@@ -209,48 +327,12 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * function reset() to come back to references points setting
    */
   public void reset() {
-    a.set(ref_a);
-    b.set(ref_b);
+    this.a.set(ref_a);
+    this.b.set(ref_b);
   }
 
 
 
-  ////////////////////////////////
-  // POSITION GETTING
-  ////////////////////////////////
-
-  /**
-   * 
-   * @return the final value for a
-   */
-  public vec2 a() {
-    return a.xy();
-  }
-  
-  /**
-   * 
-   * @return the final value for b
-   */
-  public vec2 b() {
-    return b.xy();
-  }
-
-
-  /**
-   * 
-   * @return the final value for "a" and the original coord in the memory
-   */
-  public vec3 pointer_a() {
-    return a;
-  }
-  
-  /**
-   * 
-   * @return the final value for "b" and the original coord in the memory
-   */
-  public vec3 pointer_b() {
-    return b;
-  }
 
 
   /**
@@ -260,8 +342,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return a coordinate of the point 
    */
   public vec2 point(float normal_pos) {
-    return add(ref_a.xy(),projection(angle(), dist_ref()*normal_pos));
-    // return add(ref_a,projection(angle(), dist_ref()*normal_pos));
+    // return add(ref_a.xy(),projection(angle(), dist_ref()*normal_pos));
+    return add(a.xy(),projection(angle(), dist()*normal_pos));
   }
 
   /**
@@ -272,6 +354,29 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public vec2 point(int len) {
     return point(len / this.dist());
   }
+
+
+  /**
+   * Check if a vec point is on the line, if it's true return ne normal position on it '0' to '1' where '0' represent a and 'b' for '1'.
+   * if the point is not on the segment the value return NaN.
+   * @param point coordinate of the point must be checked
+   * @param marge range in pixel around the point must be checked
+   * @return
+   */
+  public Float normal(vec2 vec, float marge) {
+		if(in_line(this, vec, marge)) {
+			float dist = this.dist();
+			float dist_ac = dist(this.a(), vec);
+			float dist_bc = dist(this.b(), vec);
+
+			float normal_dist = dist_ac / dist;
+			if(dist_bc > dist_ac && dist_bc > dist) {
+				normal_dist *= -1;
+			}
+			return normal_dist;
+		}
+		return Float.NaN;
+	}
 
 
     /**
@@ -303,7 +408,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * return coordinate of distance from the first point of the line
    * @param len is the distance from the first point
    * @return
-   * * @deprecated instead use vec2 point(int len)
+   * @deprecated instead use vec2 point(int len)
    */
   @Deprecated public vec2 coord(int len) {
   	if(len >= 0 && len <= dist()) {
@@ -321,6 +426,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   ///////////////////////////
   public R_Line2D id(int a, int b, int c, int d, int e, int f) {
 		this.id.set(a,b,c,d,e,f);
+		return this;
+	}
+
+  public R_Line2D id(ivec6 id) {
+		this.id = id.copy();
 		return this;
 	}
 

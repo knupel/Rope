@@ -1,6 +1,6 @@
 /**
 * vec4 class
-* v 1.4.3
+* v 1.4.4
 * 2015-2022
 * Vector class with a float precision
 * @author @stanlepunk
@@ -592,17 +592,17 @@ public class vec4 extends vec {
 	 * @param range
 	 * @return
 	 */
-	public vec4 jitter(int range) {
+	@Deprecated public vec4 jitter(int range) {
 		return jitter(range,range,range,range) ;
 	}
 	
-	public vec4 jitter(vec4 range) {
+	@Deprecated public vec4 jitter(vec4 range) {
 		if(range != null) {
 			return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
 		} else return jitter(0) ;
 	}
 
-	public vec4 jitter(int range_x,int range_y, int range_z, int range_w) {
+	@Deprecated public vec4 jitter(int range_x,int range_y, int range_z, int range_w) {
 		x += random_next_gaussian(range_x,3);
 		y += random_next_gaussian(range_y,3);
 		z += random_next_gaussian(range_z,3);

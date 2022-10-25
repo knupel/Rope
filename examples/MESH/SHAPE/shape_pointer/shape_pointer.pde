@@ -6,7 +6,7 @@
 * @see https://github.com/StanLepunK/Rope
 * 
 * An example how to use R_Shape in a pointer context
-* only update the vec point, to update R_Line2D and R_Shape in a sametime
+* only update the vec point, to update R_Line2D and R_Shape in a same time
 *
 */
 

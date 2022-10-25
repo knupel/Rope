@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.4
+* v 0.5.5
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -81,6 +81,11 @@ public class R_Shape extends R_Graphic {
   ///////////////////////////
   public R_Shape id(int a, int b, int c, int d, int e, int f) {
 		this.id.set(a,b,c,d,e,f);
+		return this;
+	}
+
+	public R_Shape id(ivec6 id) {
+		this.id = id.copy();
 		return this;
 	}
 

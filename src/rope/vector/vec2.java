@@ -1,6 +1,6 @@
 /**
  * vec2 class 
- * v 1.6.1
+ * v 1.6.2
  * 2015-2022
  * Vector class with a float precision
  * @author @stanlepunk
@@ -428,11 +428,11 @@ public class vec2 extends vec {
 	 * @param range int
 	 * @return Vec2 altered with a random gaussian effect
 	 */
-	public vec2 jitter(int range) {
+	@Deprecated public vec2 jitter(int range) {
 		return jitter(range, range);
 	}
 
-	public vec2 jitter(vec2 range) {
+	@Deprecated public vec2 jitter(vec2 range) {
 		if (range != null) {
 			return jitter((int) range.x(), (int) range.y());
 		} else {
@@ -446,7 +446,7 @@ public class vec2 extends vec {
 	 * @param range_y int
 	 * @return Vec2 altered with a random gaussian effect
 	 */
-	public vec2 jitter(int range_x, int range_y) {
+	@Deprecated public vec2 jitter(int range_x, int range_y) {
 		x += random_next_gaussian(range_x, 3);
 		y += random_next_gaussian(range_y, 3);
 		set(x, y);
@@ -631,27 +631,6 @@ public class vec2 extends vec {
 	public vec2 mod(vec2 mod) {
 		return mod(mod.x(), mod.y());
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

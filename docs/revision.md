@@ -4,6 +4,7 @@
 
 > vec
 > add function compare(vec arg, float arg)
+> Deprecated jitter() function in vec2, vec3 and vec4
 
 > Rope
 > add function boolean in_line() who accept R_Line2D for the coord line
@@ -23,8 +24,14 @@
 > R_Line2D
 > add function barycenter()
 > add id ivec6 to store until to 6 id integer
-> add function pointer() to use line with pointer coordinate in memory, like i "C"
->pass the vec, from vec2 to vec3 for the management and the bridge withe R_Shape
+> add function pointer(), pointer_a(), pointer_b() to use line with pointer coordinate in memory, like i "C"
+> pass the vec, from vec2 to vec3 for the management and the bridge withe R_Shape
+> add function normal() to catch the normal position on the line if this is on it.
+
+> R_Node
+> change int id to ivec6 id
+> Deprecated get_id() and set_id()
+> add ivec6 id(), id_a(int arg) to id_f(int arg) and id(int a ... int f) and id(ivec6 arg);
 
 
 
