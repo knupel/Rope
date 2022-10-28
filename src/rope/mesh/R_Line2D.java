@@ -259,8 +259,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param pointer_b
    */
   public void pointer_b(vec3 pointer_b) {
-    this.a = pointer_b;
-    this.ref_a = pointer_b;
+    this.b = pointer_b;
+    this.ref_b = pointer_b;
   }
 
 
