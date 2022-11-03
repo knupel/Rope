@@ -1,12 +1,13 @@
 /**
  * vec2 class 
- * v 1.6.2
+ * v 1.7.0
  * 2015-2022
  * Vector class with a float precision
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Rope
  */
 package rope.vector;
+import rope.core.Rope;
 
 public class vec2 extends vec {
 	public vec2() {
@@ -390,6 +391,33 @@ public class vec2 extends vec {
 			div(m);
 		}
 		return this;
+	}
+
+
+	/**
+	 * 
+	 * @param point
+	 * @return
+	 */
+	public vec2 ortho(vec2 p) {
+		return ortho(new vec2(), p);
+	}
+
+	/**
+	 * return the orthogonal projection of the point of the vector or on the line.
+	 * @param origin
+	 * @param point must be project on the vector or line.
+	 * @return
+	 */
+	public vec2 ortho(vec2 origin, vec2 point) {
+		// may be we can avoir this call and create class Rope ?
+		// but the problem it's Rope is not a Static class and cannot be it :(
+		rope.core.Rope r = new Rope(); 
+		vec2 n = r.sub(origin, this);
+		n.normalize();
+		vec2 proj = r.mult(n, -r.sub(origin, point).dot(n));
+		proj.add(origin);
+		return proj;
 	}
 
 	/**

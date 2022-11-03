@@ -1,10 +1,16 @@
 \* version 49
+
+> R_Pair new class to store quickly acouple of object
+
 > bvec
 > add function all(), any() and only() like glsl language
 
 > vec
 > add function compare(vec arg, float arg)
 > Deprecated jitter() function in vec2, vec3 and vec4
+
+> vec2
+> add function ortho() to create an an orthographic projection of the point on the vector line
 
 > Rope
 > add function boolean in_line() who accept R_Line2D for the coord line
@@ -26,7 +32,8 @@
 > add id ivec6 to store until to 6 id integer
 > add function pointer(), pointer_a(), pointer_b() to use line with pointer coordinate in memory, like i "C"
 > pass the vec, from vec2 to vec3 for the management and the bridge withe R_Shape
-> add function normal() to catch the normal position on the line if this is on it.
+> add function normal() to catch the normal position in or on the line if this is on it.
+> add ortho(vec2 p) to create a orthographic projection of the point on the line
 
 > R_Node
 > change int id to ivec6 id

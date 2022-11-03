@@ -33,7 +33,7 @@ void draw() {
 
 
   // float normal_pos = -0.1;
-  float normal_pos = 0.5;
+  float normal_pos = 0.2;
   float ang = map(mouseX,0,width,-PI,PI);
   vec2 p = line.point(normal_pos);
   circle(p.x(), p.y(), 10);

@@ -331,6 +331,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     this.b.set(ref_b);
   }
 
+  /**
+   * return the projection of the point on the line
+   * @param p is point must projected on the line
+   * @return
+   */
+  public vec2 ortho(vec2 p) {
+		vec2 proj = b.xy().ortho(a.xy(), p);
+		return new vec2(proj.x(), proj.y());
+	}
+
 
 
 
@@ -355,7 +365,9 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return point(len / this.dist());
   }
 
-
+  // @Deprecated public Float normal(vec2 vec, float marge) {
+  //   return normal(vec, marge, false);
+  // }
   /**
    * Check if a vec point is on the line, if it's true return ne normal position on it '0' to '1' where '0' represent a and 'b' for '1'.
    * if the point is not on the segment the value return NaN.
@@ -363,20 +375,43 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param marge range in pixel around the point must be checked
    * @return
    */
-  public Float normal(vec2 vec, float marge) {
-		if(in_line(this, vec, marge)) {
-			float dist = this.dist();
-			float dist_ac = dist(this.a(), vec);
-			float dist_bc = dist(this.b(), vec);
-
-			float normal_dist = dist_ac / dist;
-			if(dist_bc > dist_ac && dist_bc > dist) {
-				normal_dist *= -1;
-			}
-			return normal_dist;
+  public Float normal(vec2 p, float marge) {
+    float dist = this.dist();
+    float dist_ap = dist(this.a(), p);
+    float dist_bp = dist(this.b(), p);
+    // in line
+    if(in_line(this, p, marge)) {
+      return normal_impl(dist, dist_ap, dist_bp);
 		}
+    // the other case where p is not on the segment, but may be on the line
+    R_Line2D line = new R_Line2D(this.pa, this.a(), p);
+    line.change(0.1f, 0.1f);
+    if(in_line(line, p, marge)) {
+      return normal_impl(dist, dist_ap, dist_bp);
+    }
+    // nothing match
 		return Float.NaN;
 	}
+
+  /**
+   * @see Float normal(vec2 vec, float marge)
+   * @param vec
+   * @return
+   */
+  public Float normal(vec2 vec) {
+    return normal(vec, 0.05f);
+  }
+
+  private float normal_impl(float dist, float dist_ap, float dist_bp) {
+    float normal_dist = dist_ap / dist;
+    if(dist_bp > dist_ap && dist_bp > dist) {
+      normal_dist *= -1;
+    }
+    return normal_dist;
+  }
+
+
+
 
 
     /**
@@ -507,8 +542,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   ////////////////////////////////////////
   /**
    * the idea is pass a normal value 0 to 1, where 1 is the size of your segment. The size is mult by the value
-   * @param begin add the distance of the beginning of the segment.
-   * @param end add the distance of the end of the segment.
+   * @param begin add the distance of the beginning of the segment, where the value is a normal value.
+   * @param end add the distance of the end of the segment, where the value is a normal value.
    */
   public R_Line2D change(float begin, float end) {
     float ang = angle();
