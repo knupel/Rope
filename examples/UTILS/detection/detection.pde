@@ -1,6 +1,15 @@
-import rope.core.Rope;
+/**
+ * 
+ * 
+ * Detection
+ * 2018-2022
+ * v 0.0.2
+ * 
+ */
+
+ import rope.core.Rope;
 import rope.vector.vec2;
-import rope.costume.R_Line2D;
+import rope.mesh.R_Line2D;
 
 Rope r = new Rope();
 

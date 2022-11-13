@@ -976,14 +976,18 @@ public class vec2 extends vec {
 		return is;
 	}
 
+
 	/**
 	* https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
 	* refactoring from Quark Algorithm
-	*/
-	public boolean in_line(vec2 start, vec2 end, float range) {
+	 * @param start first point of the segment
+	 * @param end last point of the segment
+	 * @param range the range of pixel around the line to detect if the point is in or out
+	 * @return
+	 */
+	public boolean in_segment(vec2 start, vec2 end, float range) {
 		vec2 vp = new vec2();
 		vec2 line = end.copy().sub(start);
-		// vec2 line = sub(end,start);
 		float l2 = line.magSq();
 		if (l2 == 0.0) {
 			vp.set(start);
@@ -1002,6 +1006,18 @@ public class vec2 extends vec {
 			return false;
 		}
 	}
+
+	/**
+	 * @deprecated instead use in_segment()
+	 * @param start
+	 * @param end
+	 * @param range
+	 * @return
+	 */
+	@Deprecated boolean in_line(vec2 start, vec2 end, float range) {
+		return in_segment(start, end, range);
+	}
+
 
 	/**
 	 * copy() return all the component of vec

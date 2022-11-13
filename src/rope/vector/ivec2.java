@@ -1,7 +1,7 @@
 /**
 * ivec2 class
-* v 1.5.1
-* 2015-2021
+* v 1.6.0
+* 2015-2022
 * Vector class with a int precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -268,33 +268,7 @@ public class ivec2 extends ivec {
 			return sub(v.x,v.y);
 		} else return null;
 	}
-	
-	/**
-	 * equals
-	 * @param target
-	 * @return
-	 */
-	public boolean equals(ivec2 target) {
-		if(target != null ) {
-			if((x == target.x) && (y == target.y)) {
-				return true; 
-			} else return false;
-		} else return false;
-	}
 
-	public boolean equals(int target) {
-		if((x == target) && (y == target)) 
-		return true; 
-		else return false;
-	}
-	
-	public boolean equals(int tx, int ty) {
-		if((x == tx) && (y == ty)) 
-		return true; 
-		else return false;
-	}
-	
-	
 
 	public ivec2 constrain(int min, int max) {
 		return constrain(new ivec2(min), new ivec2(max));
@@ -371,6 +345,67 @@ public class ivec2 extends ivec {
 		set(x,y);
 		return this;
 	}
+
+	
+
+	
+	/**
+	 * equals
+	 * @param target
+	 * @return
+	 */
+	public boolean equals(ivec2 target) {
+		if(target != null ) {
+			if((x == target.x) && (y == target.y)) {
+				return true; 
+			} else return false;
+		} else return false;
+	}
+
+	public boolean equals(int target) {
+		if((x == target) && (y == target)) 
+		return true; 
+		else return false;
+	}
+	
+	public boolean equals(int tx, int ty) {
+		if((x == tx) && (y == ty)) 
+		return true; 
+		else return false;
+	}
+
+
+		/**
+   * return true if the vector this and vector target are in the same vector area
+   * @param target
+   * @param area
+   * @return
+   */
+  public boolean compare(ivec2 target, ivec2 area) {
+    if(this != null && target != null && area != null ) {
+      if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+          && (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y())) { 
+              return true ; 
+      } else {
+        return false ;
+      }
+    } else {
+      return false ;
+    }
+  }
+
+	/**
+	 * 
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(ivec2 target, int area) {
+		return compare(target, new ivec2(area));
+	}
+	
+	
+
 
 
 

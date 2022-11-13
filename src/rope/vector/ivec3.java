@@ -1,7 +1,7 @@
 /**
 * ivec3 class
-* v 1.4.1
-* 2015-2021
+* v 1.5.0
+* 2015-2022
 * Processing 3.5.4
 * Vector class with a int precision
 * @author @stanlepunk
@@ -371,37 +371,12 @@ public class ivec3 extends ivec {
 			z = max.z();
 		}
 		
-		
 		set(x,y,z);
 		return this;
 	}
-  
-  /**
-   * equals
-   * @param target
-   * @return
-   */
-  public boolean equals(ivec3 target) {
-    if(target != null ) {
-      if((x == target.x) && (y == target.y) && (z == target.z)) {
-        return true; 
-      } else return false;
-    } else return false;
-  }
 
-  public boolean equals(int target) {
-    if((x == target) && (y == target) && (z == target)) 
-    return true; 
-    else return false;
-  }
-  
-  public boolean equals(int tx, int ty, int tz) {
-    if((x == tx) && (y == ty) && (z == tz)) 
-    return true; 
-    else return false;
-  }
 
-  /**
+    /**
    * random
    * @param max int
    * @return random value from 0 to int max for each argument
@@ -435,6 +410,70 @@ public class ivec3 extends ivec {
     set(x,y,z);
     return this;
   }
+
+  
+  
+  /**
+   * equals
+   * @param target
+   * @return
+   */
+  public boolean equals(ivec3 target) {
+    if(target != null ) {
+      if((x == target.x) && (y == target.y) && (z == target.z)) {
+        return true; 
+      } else return false;
+    } else return false;
+  }
+
+  public boolean equals(int target) {
+    if((x == target) && (y == target) && (z == target)) 
+    return true; 
+    else return false;
+  }
+  
+  public boolean equals(int tx, int ty, int tz) {
+    if((x == tx) && (y == ty) && (z == tz)) 
+    return true; 
+    else return false;
+  }
+
+
+
+  	/**
+	 * return true if the vector this and vector target are in the same vector area
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(ivec3 target, ivec3 area) {
+		if(this != null && target != null && area != null ) {
+			if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+					&& (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y()) 
+					&& (this.z() >= target.z() -area.z() && this.z() <= target.z() +area.z())) { 
+							return true ; 
+			} else {
+				return false ;
+			}
+		} else {
+			return false ;
+		}
+	}
+
+	/**
+	 * 
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(ivec3 target, int area) {
+		return compare(target, new ivec3(area));
+	}
+
+
+
+
+
 
 
 

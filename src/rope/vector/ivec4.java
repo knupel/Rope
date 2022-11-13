@@ -1,8 +1,8 @@
 /**
 * ivec4 class
-* v 1.3.2
-* 2015-2021
-* Processing 3.5.4
+* v 1.4.0
+* 2015-2022
+* Processing 4
 * Vector class with a int precision
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -409,36 +409,10 @@ public class ivec4 extends ivec {
 		set(x,y,z,w);
 		return this;
 	}
-  
-  
-  /**
-   * equals
-   * @param target
-   * @return
-   */
-  public boolean equals(ivec4 target) {
-    if(target != null ) {
-      if((x == target.x) && (y == target.y) && (z == target.z) && (w == target.w)) {
-        return true; 
-      } else return false;
-    } else return false;
-  }
-
-  public boolean equals(int target) {
-    if((x == target) && (y == target) && (z == target) && (w == target)) 
-    return true; 
-    else return false;
-  }
-  
-  public boolean equals(int tx, int ty, int tz, int tw) {
-    if((x == tx) && (y == ty) && (z == tz) && (w == tw)) 
-    return true; 
-    else return false;
-  }
 
 
 
-  /**
+    /**
    * random
    * @param max int
    * @return random value from 0 to int max for each argument
@@ -474,6 +448,70 @@ public class ivec4 extends ivec {
     set(x,y,z,w);
     return this;
   }
+
+
+  
+  
+  /**
+   * equals
+   * @param target
+   * @return
+   */
+  public boolean equals(ivec4 target) {
+    if(target != null ) {
+      if((x == target.x) && (y == target.y) && (z == target.z) && (w == target.w)) {
+        return true; 
+      } else return false;
+    } else return false;
+  }
+
+  public boolean equals(int target) {
+    if((x == target) && (y == target) && (z == target) && (w == target)) 
+    return true; 
+    else return false;
+  }
+  
+  public boolean equals(int tx, int ty, int tz, int tw) {
+    if((x == tx) && (y == ty) && (z == tz) && (w == tw)) 
+    return true; 
+    else return false;
+  }
+
+
+  	/**
+	 * return true if the vector this and vector target are in the same vector area
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(ivec4 target, ivec4 area) {
+		if(this != null && target != null && area != null ) {
+			if(    (this.x() >= target.x() -area.x() && this.x() <= target.x() +area.x()) 
+					&& (this.y() >= target.y() -area.y() && this.y() <= target.y() +area.y()) 
+					&& (this.z() >= target.z() -area.z() && this.z() <= target.z() +area.z()) 
+					&& (this.w() >= target.w() -area.w() && this.w() <= target.w() +area.w())) {
+							return true ; 
+			} else {
+				return false ;
+			}
+		} else {
+			return false ;
+		}
+	}
+
+		/**
+	 * 
+	 * @param target
+	 * @param area
+	 * @return
+	 */
+	public boolean compare(ivec4 target, int area) {
+		return compare(target, new ivec4(area));
+	}
+
+
+
+
 
   
   /**

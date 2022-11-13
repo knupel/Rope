@@ -2,8 +2,8 @@
 * R_Line2D class
 * v 0.4.5
 * 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.mesh;
 
@@ -380,13 +380,13 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     float dist_ap = dist(this.a(), p);
     float dist_bp = dist(this.b(), p);
     // in line
-    if(in_line(this, p, marge)) {
+    if(in_segment(this, p, marge)) {
       return normal_impl(dist, dist_ap, dist_bp);
 		}
     // the other case where p is not on the segment, but may be on the line
     R_Line2D line = new R_Line2D(this.pa, this.a(), p);
     line.change(0.1f, 0.1f);
-    if(in_line(line, p, marge)) {
+    if(in_segment(line, p, marge)) {
       return normal_impl(dist, dist_ap, dist_bp);
     }
     // nothing match

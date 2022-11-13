@@ -44,7 +44,7 @@ void draw() {
 
 void keyPressed() {
   if(key =='n') {
-     init();
+    init();
   }
 }
 

@@ -7,7 +7,8 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * collection of function can be use with out Processing.
- * @author stanlepunk
+* @author @knupel
+* @see https://github.com/knupel/Rope
  * 2018-2022
  * v 0.4.2
  * 
@@ -381,11 +382,11 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	
 	
 	/**
-	 * @deprecated use in_line(vec2 start, vec2 end, vec2 point, float range) instead
+	 * @deprecated use in_segment(vec2 start, vec2 end, vec2 point, float range) instead
 	 */
 	@Deprecated
 	protected boolean is_on_line(vec2 start, vec2 end, vec2 point, float range) {
-		return in_line(start, end, point, range);
+		return in_segment(start, end, point, range);
 	}
 
 	/**
@@ -398,7 +399,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @param range
 	 * @return
 	 */
-	public boolean in_line(vec2 start, vec2 end, vec2 point, float range) {
+	public boolean in_segment(vec2 start, vec2 end, vec2 point, float range) {
 		vec2 vp = new vec2();
 		vec2 line = sub(end,start);
 		float l2 = line.magSq();
@@ -422,6 +423,34 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
+	 * @param line
+	 * @param point
+	 * @param marge
+	 * @return
+	 */
+	public boolean in_segment(R_Line2D line, vec2 point, float marge) {
+		return in_segment(line.a(), line.b(), point, marge);
+	}
+
+
+
+	/**
+	 * Check if the three points is aligned
+	 * @param a point must be checked
+	 * @param b point must be checked
+	 * @param c point must be checked
+	 * @param marge pixel around the line to test is the points are aligned
+	 * @return
+	 */
+	public boolean in_line(vec2 a, vec2 b, vec2 c, float marge) {
+		if(in_segment(a, b, c, marge)) return true;
+		if(in_segment(c, b, a, marge)) return true;
+		if(in_segment(c, a, b, marge)) return true;	
+		return false;
+	}
+
+	/**
+	 * check if the point is aligned with the line
 	 * @param line
 	 * @param point
 	 * @param marge
@@ -463,14 +492,14 @@ public class Rope implements R_Constants, R_Constants_Colour {
 			for(int i = 1; i < sides ; i++) {
 				vec2 a = new vec2(points[i]);
 				vec2 b = new vec2(points[i-1]);
-				if(in_line(a,b, new vec2(pos), marge)) {
+				if(in_segment(a,b, new vec2(pos), marge)) {
 					return true;
 				}
 			}
 			// to close the segment
 			vec2 a = new vec2(points[0]);
 			vec2 b = new vec2(points[sides -1]);
-			if(in_line(a,b, new vec2(pos), marge)) {
+			if(in_segment(a,b, new vec2(pos), marge)) {
 				is = true;
 			}
 		}
@@ -1213,6 +1242,44 @@ public float abs(float arg) {
 
 	public vec4 clamp(vec4 x, vec4 min, vec4 max) {
 		return min(max(x,min),max);
+	}
+
+
+
+	// COMPARE
+
+	public boolean compare(float x, float y, float area) {
+		if (x >= y -area && x <= y +area) return true;
+		return false;
+	}
+
+	public boolean compare(vec2 x, vec2 y, vec2 area) {
+		return x.compare(y, area);
+	}
+
+	public boolean compare(vec3 x, vec3 y, vec3 area) {
+		return x.compare(y, area);
+	}
+
+	public boolean compare(vec4 x, vec4 y, vec4 area) {
+		return x.compare(y, area);
+	}
+
+	public boolean compare(int x, int y, int area) {
+		if (x >= y -area && x <= y +area) return true;
+		return false;
+	}
+
+	public boolean compare(ivec2 x, ivec2 y, ivec2 area) {
+		return x.compare(y, area);
+	}
+
+	public boolean compare(ivec3 x, ivec3 y, ivec3 area) {
+		return x.compare(y, area);
+	}
+
+	public boolean compare(ivec4 x, ivec4 y, ivec4 area) {
+		return x.compare(y, area);
 	}
 
 

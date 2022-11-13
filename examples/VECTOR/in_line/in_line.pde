@@ -1,7 +1,7 @@
 /**
 * detect if a vec2 is on line or not
-* v 0.0.1
-* 2021-2021
+* v 0.0.2
+* 2021-2022
 */
 import rope.vector.vec2;
 import rope.core.Rope;
@@ -25,7 +25,7 @@ void draw() {
 	circle(point.x(), point.y(),20);
 	strokeWeight(1);
 	float range = 1.0;
-	if(point.in_line(a, b, range)) {
+	if(point.in_segment(a, b, range)) {
 		strokeWeight(5);
 		stroke(r.ROUGE);
 	} else {

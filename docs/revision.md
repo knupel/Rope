@@ -1,9 +1,17 @@
 \* version 49
 
+> R_Puppet2D new class to manipulater puppets point with two handles, it's an extands of R_Line2D
+
+
+
 > R_Pair new class to store quickly acouple of object
 
 > bvec
 > add function all(), any() and only() like glsl language
+
+> ivec
+> add function compare() to ivec2, ivec3, ivec4
+
 
 > vec
 > add function compare(vec arg, float arg)
@@ -11,10 +19,13 @@
 
 > vec2
 > add function ortho() to create an an orthographic projection of the point on the vector line
+> change function in_line() to in_segment()
 
 > Rope
-> add function boolean in_line() who accept R_Line2D for the coord line
+> add function boolean in_line who check all the point on the line not only in segment.
+> add function boolean in_segment() who accept R_Line2D for the coord line
 > add function boolean in_polygon() who accept R_Shape for the coord points
+> add function compare for float, int, vec and ivec
 
 > R_Shape
 > add area function, only work with regular polygon / shape don't use a strange stuff with it.
