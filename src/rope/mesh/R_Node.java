@@ -1,9 +1,9 @@
 /**
 * R_Node
-* v 0.3.0
+* v 0.3.1
 * 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.mesh;
 
@@ -180,11 +180,12 @@ public class R_Node extends BigBang {
 	}
 	
 
-	public void set_destination(vec3 pos) {
+	@Deprecated public void set_destination(vec3 dst) {
 		if(dest_list.size() < branch) {
-			dest_list.add(pos);
+			dest_list.add(dst);
 		} 
 	}
+
 
 
 

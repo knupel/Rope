@@ -8,7 +8,7 @@
  * 
  * Copyleft(l) 2019-2022
 * R_Shape class
-* v 0.5.5
+* v 0.6.1
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -86,6 +86,11 @@ public class R_Shape extends R_Graphic {
 
 	public R_Shape id(ivec6 id) {
 		this.id = id.copy();
+		return this;
+	}
+
+	public R_Shape id(int id) {
+		this.id.set(id);
 		return this;
 	}
 
@@ -539,14 +544,42 @@ public class R_Shape extends R_Graphic {
     }	
   }
 
+	////////////////////////
+	// POINTER
+	//////////////////////
+			/**
+	 * 
+	 * @param coord a list of vec must be a pointer
+	 */
+	public void add_pointers(vec3... coord) {
+		for(vec3 v : coord) {
+			pts.add(v);
+			ref_pts.add(v);
+		}
+		this.summits = this.ref_pts.size();
+	}
+
+	/**
+	 * @param index
+	 * @param coord a list of vec must be a pointer
+	 */
+	public void add_pointers(int index, vec3... coord) {
+		for(vec3 v : coord) {
+			pts.add(index, v);
+			ref_pts.add(index, v);
+			index++;
+		}
+		this.summits = this.ref_pts.size();
+	}
+
 	////////////////////////////
-	// ADD
+	// ADD DEPREACTED
 	////////////////////////////
 	/**
 	 * 
 	 * @param x
 	 * @param y
-	 * @deprecated instead use void add_point(float x, float y)
+	 * @deprecated instead use void add_vec(float x, float y)
 	 */
 	@Deprecated public void add(float x, float y) {
 		add_point(x, y, 0);
@@ -568,13 +601,16 @@ public class R_Shape extends R_Graphic {
 	/**
 	 * 
 	 * @param coord a list of vec
-	 * @deprecated instead use void add_points(vec... coord)
+	 * @deprecated instead use void add_vecs(vec... coord)
 	 */
 	@Deprecated public void add(vec... coord) {
 		add_points(coord);
 	}
 
 
+	/////////////////////
+	// POINT
+	////////////////////////
 
 	/**
 	 * 
@@ -646,30 +682,6 @@ public class R_Shape extends R_Graphic {
 	}
 
 
-		/**
-	 * 
-	 * @param coord a list of vec
-	 */
-	public void pointer(vec3... coord) {
-		for(vec3 v : coord) {
-			pts.add(v);
-			ref_pts.add(v);
-		}
-		this.summits = this.ref_pts.size();
-	}
-
-	/**
-	 * @param index
-	 * @param coord a list of vec
-	 */
-	public void pointer(int index, vec3... coord) {
-		for(vec3 v : coord) {
-			pts.add(index, v);
-			ref_pts.add(index, v);
-			index++;
-		}
-		this.summits = this.ref_pts.size();
-	}
 
 	/**
 	 * replace point at the specific index, if this one exist

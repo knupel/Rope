@@ -1,6 +1,6 @@
 /**
 * R_Line2D class
-* v 0.4.5
+* v 0.4.6
 * 2019-2022
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -465,7 +465,12 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 	}
 
   public R_Line2D id(ivec6 id) {
-		this.id = id.copy();
+		this.id.set(id);
+		return this;
+	}
+
+  public R_Line2D id(int id) {
+		this.id.set(id);
 		return this;
 	}
 

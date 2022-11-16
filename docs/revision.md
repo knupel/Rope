@@ -49,6 +49,7 @@
 > R_Node
 > change int id to ivec6 id
 > Deprecated get_id() and set_id()
+> Deprecated set_destination()
 > add ivec6 id(), id_a(int arg) to id_f(int arg) and id(int a ... int f) and id(ivec6 arg);
 
 
@@ -84,8 +85,8 @@
 > add function to get the ref point and point by argument x,y,z
 > add function clear() to clear the pts and ref_point list
 > move package from Costume to Mesh
-> Deprecated function add() to add_point() and add_points() because there is a problem with function add() from parent class Rope
-
+> Deprecated function add() to add_vecs() because there is a problem with function add() from parent class Rope
+> add function add_pointers()
 > R_Voronoi
 > add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
 > add remove_seed(int index)

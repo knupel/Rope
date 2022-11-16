@@ -2,8 +2,8 @@
 * Rope R_Shape
 * v 0.0.3
 * 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 * 
 * Check if a list of point is contained in the R_Shape
