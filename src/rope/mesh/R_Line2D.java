@@ -1,10 +1,18 @@
 /**
-* R_Line2D class
-* v 0.4.6
-* 2019-2022
-* @author @knupel
-* @see https://github.com/knupel/Rope
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * R_Line2D class
+ * v 0.4.6
+ * 2019-2022
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
 */
+
 package rope.mesh;
 
 import rope.core.*;

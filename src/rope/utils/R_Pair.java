@@ -31,14 +31,6 @@ public class R_Pair<A,B>  {
 		return this.a = a;
 	}
 
-	// public A pointer_a() {
-	// 	return this.a;
-	// }
-
-	// public A pointer_a(A a) {
-	// 	return this.a = a;
-	// }
-
 	// type B
 	//////////////
 
@@ -49,12 +41,4 @@ public class R_Pair<A,B>  {
 	public B b(B b) {
 		return this.b = b;
 	}
-
-	// public B pointer_b() {
-	// 	return this.b;
-	// }
-
-	// public B pointer_b(B b) {
-	// 	return this.b = b;
-	// }
 }

@@ -6,7 +6,7 @@
 * @see https://github.com/StanLepunK/Rope
 */
 
-package rope.costume;
+package rope.utils;
 
 import rope.vector.*;
 

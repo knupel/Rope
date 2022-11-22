@@ -2,6 +2,8 @@
 
 > R_Puppet2D new class to manipulater puppets point with two handles, it's an extands of R_Line2D
 
+> R_Impact new class to creata a pseudo deisgn of glass impact network
+
 
 
 > R_Pair new class to store quickly acouple of object
@@ -51,6 +53,9 @@
 > Deprecated get_id() and set_id()
 > Deprecated set_destination()
 > add ivec6 id(), id_a(int arg) to id_f(int arg) and id(int a ... int f) and id(ivec6 arg);
+
+> R_Graphic
+> add Processing function circle() basic, plus refactoring to accet vec parameter
 
 
 

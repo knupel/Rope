@@ -11,6 +11,7 @@ package rope.costume;
 import rope.vector.*;
 import rope.core.*;
 import rope.mesh.R_Shape;
+import rope.utils.R_Bezier;
 import processing.core.*;
 
 public class R_Circle extends R_Shape implements R_Constants, R_Shape_contract {

@@ -34,7 +34,7 @@ public class R_Puppet2D extends R_Line2D {
 
 	private vec2 start_a;
 	private vec2 start_b;
-	public R_Puppet2D (PApplet pa) {
+	public R_Puppet2D(PApplet pa) {
 		super(pa);
 		this.start_a = new vec2();
     this.start_b = new vec2();	

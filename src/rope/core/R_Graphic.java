@@ -7,12 +7,12 @@
  *  | |  \  \ \   / |  |/  |  |____
  *  |_| \_\  \___/  |_ |   |______/
  * 
-* R_Graphic class
-* v 0.6.2
-* 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
-* Class with Image utilities for Rope Library
+ * R_Graphic class
+ * v 0.7.0
+ * 2019-2022
+ * @author @stanlepunk
+ * @see https://github.com/StanLepunK/Rope
+ * Class with Image utilities for Rope Library
 */
 package rope.core;
 
@@ -727,6 +727,8 @@ public class R_Graphic extends BigBang {
 			this.pa.g.arc(px,py, sx,sy, start,stop, mode);
 		}
 	}
+
+
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param px float value for the ellipse position
@@ -776,6 +778,33 @@ public class R_Graphic extends BigBang {
 			return this.pa.g.ellipseMode;
 		}
   }
+
+
+		/**
+	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
+	 * @param px float value for the ellipse position
+	 * @param py float value for the ellipse position
+	 * @param sx float value for the ellipse size
+	 * @param sy float value for the ellipse size
+	 */
+	public void circle(float px, float py, float diam) {
+		if(other != null) {
+			other.circle(px,py,diam);
+		} else {
+			this.pa.g.circle(px,py,diam);
+		}
+	}
+
+	public void circle(vec p, float diam) {
+		if(renderer_P3D() && p instanceof vec3) {
+			push() ;
+			translate(p.x(), p.y(), p.z());
+			circle(0,0, diam);
+			pop() ;
+		} else {
+			circle(p.x(),p.y(),diam);
+		}
+	}
 
 
 
