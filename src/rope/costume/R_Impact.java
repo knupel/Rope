@@ -38,7 +38,6 @@ public class R_Impact extends R_Graphic {
 	private ArrayList<R_Puppet2D> heart;
 	// LINE
 	private ArrayList<R_Line2D>[] circle;
-	private ArrayList<R_Line2D> fail;
 	// ID / MODE
 	private int ID_MAIN = 0;
 	private int ID_CIRCLE = 1;
@@ -409,10 +408,6 @@ public class R_Impact extends R_Graphic {
 		return heart;
 	}
 
-	public ArrayList<R_Line2D> get_fail_lines() {
-		return fail;
-	}
-
 	public ArrayList<R_Node> get_nodes() {
 		return nodes;
 	}
@@ -628,10 +623,8 @@ public class R_Impact extends R_Graphic {
 		set_id_circle();
 	}
 
-
 	private void build_circle(float start_value) {
 	  circle = new ArrayList[get_num_circle()];
-	  fail = new ArrayList<R_Line2D>();
 		for(int i = 0 ; i < get_num_circle() ; i++) {
 			circle[i] = new ArrayList<R_Line2D>();
 			float dist = get_growth_circle() * (i + start_value);
@@ -640,14 +633,11 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-
-
-	private void circle_impl(int index, float dist) {
+	private void circle_impl(int index_circle, float dist) {
 		float start_angle = 0;
 		float step_angle = TAU / get_num_main();
 		vec2 ang_set = new vec2(start_angle, step_angle);
 		vec2 buf_meet = new vec2(-1);
-		// boolean jump_is = false;
 		float buf_dist = dist;
 
 	  for(int iter = 0 ; iter < get_iter_circle();  iter++){
@@ -660,26 +650,17 @@ public class R_Impact extends R_Graphic {
 					tuple[0] = tuple[1];
 					tuple[1] = swap;
 				}
-				adjust_string_web(index, line, buf_meet, tuple);
+				adjust_string_web(index_circle, iter, line, buf_meet, tuple);
 			} else {
 				// to make a fresh restart when there is losting connexion
 				buf_meet.set(-1);
 			}
-			
-			// jump_is = adjust_string_web(index, line, buf_meet, tuple, good_tuple_is, jump_is);
 			// check to cennect the line at the end of round
 			if(mode == SPIRAL) {
 				buf_dist = dist(line.b(),this.pos.xy());
-			} else if(mode == LINE) {
-				int iter_next = iter + 1;
-				if(iter_next%get_num_main() == 0) {
-					int which_one = iter_next - get_num_main();
-					close_string_web(index, which_one);
-				}
-			}	
+			} 
 	  }
 	}
-
 
 	private void build_circle_spiral() {
 		float start_value = 0;
@@ -724,38 +705,43 @@ public class R_Impact extends R_Graphic {
 		return line;
 	}
 
-	private void adjust_string_web(int index, R_Line2D line, vec2 buf_meet, vec2 [] tuple) {
+	private void adjust_string_web(int index, int iter, R_Line2D line, vec2 buf_meet, vec2 [] tuple) {
+
 		if(buf_meet.equals(-1)) {
+			// the first line
 			line.set(tuple[0],tuple[1]);
-			line.id_a((int)tuple[2].x());
-			line.id_b((int)tuple[2].y());
-			circle[index].add(line);
-			buf_meet.set(tuple[1].x(),tuple[1].y());
-			// add_err(line, buf_meet, tuple, "FAIL 1", false);
+			buf_meet.set(tuple[1]);
+		} else if(iter == get_num_main() -1) {
+			// when the end must be the start
+			R_Line2D line_first = circle[index].get(0);
+			line.set(line_first.a(),tuple[1]);
 		} else {
+			// the common line
 			line.set(buf_meet,tuple[1]);
-			line.id_a((int)tuple[2].x());
-			line.id_b((int)tuple[2].y());
-			// add_err(line, buf_meet, tuple, "FAIL 2", false);
-			circle[index].add(line);
 			buf_meet.set(tuple[1]);
 		}
-	}
 
-	private void close_string_web(int index, int which_one) {
-		if(which_one < circle[index].size()) {
-			R_Line2D line_next = circle[index].get(which_one);
-			int max = circle[index].size() -1;
-			R_Line2D line_current = circle[index].get(max);
-			// it's weird because I've feeling that must be 
-			// if(line_current.id().b() == line_next.id().a())
-			if(line_current.id().a() == line_next.id().a()) {
-				R_Line2D line = new R_Line2D(this.pa ,line_current.a(), line_next.a());
-				circle[index].remove(max);
-				circle[index].add(line);
+		// give id
+		line.id_a((int)tuple[2].x());
+		line.id_b((int)tuple[2].y());
+
+		// check the very specific case
+		if(circle[index].size() > 0) {	
+			R_Line2D first = circle[index].get(0);
+			if(first.id().a() != 0 && first.id().a() != line.id().b()) {
+				return;
 			}
-
 		}
+
+		if(iter == get_num_main() -1 && circle[index].size() > 0) {		
+			R_Line2D last = circle[index].get(circle[index].size() -1);
+			boolean is = last.id().b() == line.id().b();
+			if(is) {
+				line.set_b(last.b());
+			}
+		}
+
+		circle[index].add(line);
 	}
 
 	private vec2 [] meeting_point_main_and_circle(R_Line2D line) {
@@ -975,9 +961,9 @@ public class R_Impact extends R_Graphic {
 
 
 
-	// POLYGON HEART
+	// BUILD POLYGON HEART
 	//////////////////
-		private void build_polygon_heart() {
+	private void build_polygon_heart() {
 		R_Shape shape = new R_Shape(this.pa);
 		shape.id_a(GRIS[1]);
 		shape.id_b(-1);
@@ -990,7 +976,7 @@ public class R_Impact extends R_Graphic {
 
 
 
-	// BUILD POLYGON
+	// BUILD POLYGON NETORK
 	////////////////////////
 	private void build_polygons(int id_branch) {
 		int len = get_branch_lines(id_branch, true).size();
@@ -1361,9 +1347,7 @@ public class R_Impact extends R_Graphic {
 		}
 		// // heart
 		add_nodes_impl(this.get_heart_lines(), this, ID_HEART, false);
-		if(this.get_heart_polygon() != null) {
-			// vec2 [] polygon = this.get_heart_polygon();
-		} else {
+		if(this.get_heart_polygon() == null) {
 			R_Node node = new R_Node();
 			node.pointer(this.pos);
 			node.id(ID_HEART, 15,0,0,0,0);
@@ -1451,10 +1435,6 @@ public class R_Impact extends R_Graphic {
 		set_pixels_lines_impl(heart, normal_value, colour);
 	}
 
-	public void set_pixels_fail(float normal_value, int... colour) {
-		set_pixels_lines_impl(fail, normal_value, colour);
-	}
-
 	private void set_pixels_list_impl(ArrayList[] list, float normal_value, int... colour) {
 		for(int i = 0 ; i < list.length ; i++) {
 			set_pixels_lines_impl(list[i], normal_value, colour);
@@ -1513,25 +1493,6 @@ public class R_Impact extends R_Graphic {
 
 	public boolean use_mute_is() {
 		return this.use_mute_is;
-	}
-
-	// ERROR
-	////////////////////////////
-
-	private void add_err(R_Line2D line, vec2 buf_meet, vec2 [] tuple, String mess, boolean print_is) {
-		int marge_error = 5;
-		if(line.a().compare(line.b(),new vec2(marge_error))) {
-			R_Line2D fail_line = new R_Line2D(this.pa,tuple[0], tuple[1]);
-			fail.add(fail_line);
-			if(print_is) {
-				// print_err("-------------------------------------------------------");
-				// print_err(mess);
-				// print_err("buf_meet", buf_meet);
-				// print_err("tuple  ", tuple[0], tuple[1]);
-				// print_err("ADDED FAIL LINE", fail_line);
-				// print_err("ligne en usage", line);
-			}	
-		}
 	}
 
 
@@ -1594,10 +1555,6 @@ public class R_Impact extends R_Graphic {
 		show_pixels_lines_impl(heart);
 	}
 
-	public void show_pixels_fail() {
-		show_pixels_lines_impl(fail);
-	}
-
 	private void show_pixels_list_impl(ArrayList[] list) {
 		for(int i = 0 ; i < list.length ; i++) {
 			show_pixels_lines_impl(list[i]);
@@ -1637,10 +1594,6 @@ public class R_Impact extends R_Graphic {
 
 	public void show_pixels_heart(float normal_value, int... colour) {
 		show_pixels_lines_impl(heart, normal_value, colour);
-	}
-
-	public void show_pixels_fail(float normal_value, int... colour) {
-		show_pixels_lines_impl(fail, normal_value, colour);
 	}
 
 	private void show_pixels_list_impl(ArrayList[] list, float normal_value, int... colour) {
@@ -1758,10 +1711,6 @@ public class R_Impact extends R_Graphic {
 		show_lines_impl(heart, 0, heart.size());
 	}
 
-	public void show_lines_fail() {
-		show_lines_impl(fail, 0, fail.size());
-	}
-
 	////////////////////////////////
 	// IMPLEMENTATION
 	//////////////////////////////////
@@ -1807,42 +1756,61 @@ private void show_list_impl(ArrayList[] list) {
 
 	// SHOW POLYGON
 	////////////////////////
+	public void show_polygons() {
+		show_polygons(Integer.MIN_VALUE);
+	}
 
 	public void show_polygons(int mode) {
 		if(mode == -1) {
 			noStroke();
 			strokeWeight(0);
 		} else if(mode == 0) {
-			strokeWeight(2);
+			strokeWeight(1);
 			stroke(GRIS[13]);
-		} else {
+		} else if(mode == 1) {
 			stroke(YELLOW);
+		} else {
+			//
 		}
-		show_polygons_from(imp_shapes_center);
-		show_polygons_from(imp_shapes);
+		show_polygons_from(imp_shapes_center, mode);
+		show_polygons_from(imp_shapes, mode);
 	}
 
-	public void show_polygons_from(ArrayList<R_Shape> list) {
+	public void show_polygons_from(ArrayList<R_Shape> list, int mode) {
 		boolean display_all = true;
-		for(R_Shape shape : list) {
-			if(any(shape.id().a() == GRIS[4], 
-								shape.id().a() == MAGENTA, 
-								shape.id().a() == RED,
-								shape.id().a() == GREEN, 
-								shape.id().a() == CYAN,
-								display_all)) {
-				if(shape.id().a() != 0) {
-					fill(shape.id().a());
-				} else {
-					fill(MAGENTA);
-				}
-				beginShape();
-				for(int i = 0 ; i < shape.get_summits() ; i++) {
-					vertex(shape.get_x(i), shape.get_y(i));
-				}
-				endShape(CLOSE);
+		if(mode != Integer.MIN_VALUE) {
+			for(R_Shape shape : list) {
+				show_polygon_mode(shape, display_all);
+			}
+		} else {
+			for(R_Shape shape : list) {
+				show_polygon(shape);
 			}
 		}
+	}
+
+	private void show_polygon_mode(R_Shape shape, boolean display_all) {
+		if(any(shape.id().a() == GRIS[4], 
+							shape.id().a() == MAGENTA, 
+							shape.id().a() == RED,
+							shape.id().a() == GREEN, 
+							shape.id().a() == CYAN,
+							display_all)) {
+			if(shape.id().a() != 0) {
+				fill(shape.id().a());
+			} else {
+				fill(MAGENTA);
+			}
+			show_polygon(shape);
+		}
+	}
+
+	private void show_polygon(R_Shape shape) {
+		beginShape();
+		for(int i = 0 ; i < shape.get_summits() ; i++) {
+			vertex(shape.get_x(i), shape.get_y(i));
+		}
+		endShape(CLOSE);
 	}
 
 
@@ -1871,33 +1839,6 @@ private void show_list_impl(ArrayList[] list) {
 					stroke(WHITE);
 					circle(node.x(), node.y(), node.id().b());
 					break;
-			}
-		}
-	}
-
-	// SHOW DEBUGGER
-	//////////////////
-
-	public void show_bug() {
-		show_bug_impl(main);
-		show_bug_impl(circle);
-		show_lines_bug_impl(heart);
-		show_lines_bug_impl(fail);
-	}
-
-	private void show_bug_impl(ArrayList[] list) {
-		for(int i = 0 ; i < list.length ; i++) {
-			show_lines_bug_impl(list[i]);
-		}
-	}
-
-	// not very fast with the casting test, but no matter is just for the bug
-	private void show_lines_bug_impl(ArrayList lines) {
-		int marge_err = 5;
-		for(Object obj : lines) {
-			R_Line2D line = (R_Line2D)obj;
-			if(line.a().compare(line.b(),new vec2(marge_err))) {
-				circle(line.a().x(),line.a().y(), 10);
 			}
 		}
 	}

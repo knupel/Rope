@@ -28,15 +28,16 @@ void setup() {
 	imp.set_growth_circle(10);
 
 	imp.build();
-	imp.show_lines();
+	imp.build_polygon();
+	imp.show_polygons();
 	// imp.show_lines_main();
 	// imp.show_lines_heart();
 }
 
 void draw() {
-	background(255);
-	fill(0);
-	imp.show_lines();
+	background(0);
+
+	imp.show_polygons();
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 }
@@ -45,5 +46,6 @@ void keyPressed() {
 	println("nouveau tirage");
 	if(key == 'n') {
 		imp.build();
+		imp.build_polygon();
 	}
 }
