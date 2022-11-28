@@ -950,7 +950,6 @@ public class R_Impact extends R_Graphic {
 	///////////////////////////
 
 	public void build_polygon() {
-		ArrayList<vec2>poly = new ArrayList<vec2>();
 		// clear polygon
 		imp_shapes_center.clear();
 		imp_shapes.clear();
@@ -1005,7 +1004,7 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
 			for(int k = i + 1 ; k < len ; k++) {
-				R_Line2D next_line =  arr_branch[k];	
+				R_Line2D next_line =  arr_branch[k];
 				if(all(!line.mute_is(), !next_line.mute_is(), line.id().f() == Integer.MIN_VALUE)) {
 					create_polygon_current(line, next_line);
 					last_index = k;
@@ -1061,6 +1060,7 @@ public class R_Impact extends R_Graphic {
 			add_points_go(main[0], shape, lh);
 			add_points_return(main[1], shape, lh);
 		} else {
+			// common case reverse that current
 			add_points_go(main[1], shape, lh);
 			add_points_return(main[0], shape, lh);
 		}
@@ -1080,17 +1080,15 @@ public class R_Impact extends R_Graphic {
 		junction_heart_circle(shape, lh, lc, next_lc);
 
 		ArrayList<R_Puppet2D>[] main = tuple_main(lc.id().a(), lc.id().b());
-		// add_points_go(main[1], shape, lh);
-		// add_points_return(main[0], shape, lh);
 		boolean swap_is = lc.id().a() == get_num_main() -1;
 		if(swap_is) {
-			add_points_go(main[1], shape, lh);
-			add_points_return(main[0], shape, lh);
-		} else {
 			add_points_go(main[0], shape, lh);
 			add_points_return(main[1], shape, lh);
+		} else {
+			// common case
+			add_points_go(main[1], shape, lh);
+			add_points_return(main[0], shape, lh);
 		}
-		
 		imp_shapes.add(shape);
 	}
 
@@ -1130,6 +1128,7 @@ public class R_Impact extends R_Graphic {
 			add_points_go(main[0], shape, lh);
 			add_points_return(main[1], shape, lh);
 		} else {
+			// common case reverse that current
 			add_points_go(main[1], shape, lh);
 			add_points_return(main[0], shape, lh);
 		}

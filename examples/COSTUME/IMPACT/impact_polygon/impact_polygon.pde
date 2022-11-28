@@ -18,44 +18,27 @@ void setup() {
 	imp = new R_Impact(this, width/2, height/2);
 	
 	// imp.normal();
-	// imp.set_heart(0.7); // from 0 to 1
-
-	imp.set_num_main(12); // num of main branch
-	imp.set_iter_main(20); // num of node on each branch
-	imp.set_growth_main(10); // approximative pixel step between each node of the main
+	imp.set_heart(0.7); // from 0 to 1
+	int num = 20;
+	imp.set_num_main(num); // num of main branch
+	imp.set_iter_main(30); // num of node on each branch
+	imp.set_growth_main(5); // approximative pixel step between each node of the main
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
-	imp.set_num_circle(10); // num of branch circle start from the main branch
-	imp.set_iter_circle(12); // num of node on the circle branch / where the max for normal mode is the num of main branches
-	imp.set_growth_circle(60);
+	imp.set_num_circle(20); // num of branch circle start from the main branch
+	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
+	imp.set_growth_circle(10);
 	// imp.set_iter_circle(4);
 
 	imp.build();
 	imp.build_polygon();
-	// imp.show_polygons();
-	// imp.show_lines();
-	// imp.show_lines_main();
-	// imp.show_lines_heart();
-	// int index = imp.get_num_main() -1;
-
-	// ArrayList<R_Line2D> list =  imp.get_branch_lines(index);
-	// ArrayList<R_Line2D> list =  imp.get_branch_lines(4);
-	// println("index", index, list.size());
-	// for(int i = 0 ; i < imp.get_num_main() ; i++) {
-	// 	for(R_Line2D line : imp.get_branch_lines(i)) {
-	// 		println("id", line.id());
-	// 	}
-	// }
-	
 }
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.BLACK, 50);
-	stroke(r.GRIS[5]);
-
+	fill(r.BLACK);
+	stroke(r.GRIS[8]);
 	imp.show_polygons();
-	// imp.show_lines();
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
