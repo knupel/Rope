@@ -129,12 +129,13 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	public R_Impact set_heart(float norm_size) {
-		norm_size = abs(norm_size);
-		if(norm_size > 1.0f) {
-			norm_size = 1.0f;
-		}
-		data_main.e(norm_size);
+	/**
+	 * 
+	 * @param level from 0 to max main iteration
+	 * @return
+	 */
+	public R_Impact set_heart(int level) {
+		data_main.e(abs(level));
 		return this;
 	}
 
@@ -303,8 +304,8 @@ public class R_Impact extends R_Graphic {
 		return this.data_main.d();
 	}
 
-	public float get_heart_normal_radius() {
-		return this.data_main.e();
+	public int get_heart_level() {
+		return (int)this.data_main.e();
 	}
 
 
@@ -579,11 +580,7 @@ public class R_Impact extends R_Graphic {
 				line.pointer_a(main[index].get(i-1).pointer_b());
 				line.pointer_b(b);
 			}
-			if(i == 0 && get_heart_normal_radius() > 0) {
-				line.change(-get_heart_normal_radius(),0);
-				// to make the changement for ever !!!
-				line.set(line.a(),line.b());
-			}
+
 			main[index].add(line);
 			if(start_is) {
 				a = b;
@@ -597,7 +594,14 @@ public class R_Impact extends R_Graphic {
 	/////////////////////
 	private void build_heart() {
 		heart = new ArrayList<R_Puppet2D>();
-		if(get_heart_normal_radius() > 0 ) {
+		if(get_heart_level() > 0 ) {
+			// remove the unnecessary line
+			for(int i = 0 ; i < get_heart_level() -1 ; i++) {
+				for(int k = 1 ; k < main.length ; k++) {
+					main[k].remove(0);
+				}
+			}
+			// build the heart polygon
 			for(int i = 1 ; i < main.length ; i++) {
 				vec3 a = main[i -1].get(0).pointer_a();
 				vec3 b = main[i].get(0).pointer_a();
@@ -608,6 +612,8 @@ public class R_Impact extends R_Graphic {
 			add_puppet_line_to_heart(a, b);
 		}
 	}
+
+
 
 	private void add_puppet_line_to_heart(vec3 a, vec3 b) {
 		R_Puppet2D line = new R_Puppet2D(this.pa);
@@ -865,7 +871,8 @@ public class R_Impact extends R_Graphic {
 	//////////////////////
 	
 	private void sort_circle(int index) {
-		if(get_heart_normal_radius() > 0) {
+		if(get_heart_level() > 0) {
+		// if(get_heart_normal_radius() > 0) {
 			ArrayList<R_Line2D> selected_list = new ArrayList<R_Line2D>();
 			ArrayList<R_Line2D> working_list = new ArrayList<R_Line2D>();
 			// list of vec2 point of the heart
