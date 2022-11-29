@@ -595,23 +595,18 @@ public class R_Impact extends R_Graphic {
 	private void build_heart() {
 		heart = new ArrayList<R_Puppet2D>();
 		if(get_heart_level() > 0 ) {
-			// remove the unnecessary line
-			for(int i = 0 ; i < get_heart_level() -1 ; i++) {
-				for(int k = 0 ; k < main.length ; k++) {
-					main[k].remove(0);
-				}
-			}
-			// build the heart polygon
+			int start = get_heart_level();
 			for(int i = 1 ; i < main.length ; i++) {
-				vec3 a = main[i -1].get(0).pointer_a();
-				vec3 b = main[i].get(0).pointer_a();
+				vec3 a = main[i -1].get(start).pointer_a();
+				vec3 b = main[i].get(start).pointer_a();
 				add_puppet_line_to_heart(a, b);
 			}
-			vec3 a = main[main.length -1].get(0).pointer_a();
-			vec3 b = main[0].get(0).pointer_a();
+			vec3 a = main[main.length -1].get(start).pointer_a();
+			vec3 b = main[0].get(start).pointer_a();
 			add_puppet_line_to_heart(a, b);
 		}
 	}
+
 
 
 
@@ -1701,27 +1696,35 @@ public class R_Impact extends R_Graphic {
 	/////////////////
 
 	public void show_lines_main() {
-		show_list_impl(main);
-		for(int i = 0 ; i < main.length ; i++) {
-			int last = main[i].size() -1;
-			float x = main[i].get(last).b().x();
-			float y = main[i].get(last).b().y();
-			text("je suis "+ i, x,y);
-		}
+		show_lines_main(0, get_iter_main());
 	}
 	
-
+	/**
+	 * 
+	 * @param start
+	 * @param end
+	 */
 	public void show_lines_main(int start, int end) {
+		start += get_heart_level();
 		show_list_impl(main, start, end);
 	}
 
+	/**
+	 * 
+	 * @param index
+	 */
 	public void show_lines_main(int index) {
-		if(index >= 0 && index < main.length) {
-			show_lines_impl(main[index]);	
-		}
+		show_lines_main(index, 0, get_iter_main()); 
 	}
 
+	/**
+	 * 
+	 * @param index
+	 * @param start
+	 * @param end
+	 */
 	public void show_lines_main(int index, int start, int end) {
+		start += get_heart_level();
 		if(index >= 0 && index < main.length) {
 			show_lines_impl(main[index], start, end);	
 		}

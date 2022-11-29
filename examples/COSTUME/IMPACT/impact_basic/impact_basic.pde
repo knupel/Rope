@@ -16,7 +16,7 @@ void setup() {
 	imp = new R_Impact(this, width/2, height/2);
 	
 	// imp.normal();
-	imp.set_heart(4); // from 1 to max main iteration
+	imp.set_heart(1); // from 1 to max main iteration
 
 	imp.set_num_main(12); // num of main branch
 	imp.set_iter_main(20); // num of node on each branch
@@ -28,15 +28,19 @@ void setup() {
 	imp.set_growth_circle(10);
 
 	imp.build();
-	imp.show_lines();
-	// imp.show_lines_main();
-	// imp.show_lines_heart();
 }
 
 void draw() {
 	background(255);
 	fill(0);
-	imp.show_lines();
+	// imp.show_lines();
+	imp.show_lines_main();
+	if(mousePressed) {
+		imp.show_lines_circle();
+		imp.show_lines_heart();
+
+	}
+	
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 }
