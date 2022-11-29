@@ -21,7 +21,7 @@ void setup() {
 	imp.set_num_main(12); // num of main branch
 	// imp.set_iter_main(20); // num of node on each branch
 	imp.set_growth_main(25); // approximative pixel step between each node of the main
-	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
+	imp.set_angle_main(0.02); // max angle to change the direction of the main branch
 
 	imp.set_num_circle(30); // num of branch circle start from the main branch
 	imp.set_iter_circle(12); // num of node on the circle branch / where the max for normal mode is the num of main branches

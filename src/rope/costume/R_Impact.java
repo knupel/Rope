@@ -709,7 +709,7 @@ public class R_Impact extends R_Graphic {
 		float by = cos(final_angle) * dist + this.pos.y();
 		R_Line2D line = new R_Line2D(this.pa, ax, ay, bx, by);
 		// increase the size of line to meet the main branches and find the meeting point to next step
-		line.change(0.25f, 0.25f);
+		line.change(0.5f, 0.5f);
 		line.set(line.a(),line.b());
 		return line;
 	}
@@ -722,8 +722,13 @@ public class R_Impact extends R_Graphic {
 			buf_meet.set(tuple[1]);
 		} else if(iter == get_num_main() -1) {
 			// when the end must be the start
-			R_Line2D line_first = circle[index].get(0);
-			line.set(line_first.a(),tuple[1]);
+			R_Line2D first = circle[index].get(0);
+			if(first.id().a() == 0) {
+				line.set(first.a(),tuple[1]);
+			} else {
+				line.set(tuple[0],tuple[1]);
+				buf_meet.set(tuple[1]);
+			}
 		} else {
 			// the common line
 			line.set(buf_meet,tuple[1]);
@@ -733,14 +738,6 @@ public class R_Impact extends R_Graphic {
 		// give id
 		line.id_a((int)tuple[2].x());
 		line.id_b((int)tuple[2].y());
-
-		// check the very specific case
-		if(circle[index].size() > 0) {	
-			R_Line2D first = circle[index].get(0);
-			if(first.id().a() != 0 && first.id().a() != line.id().b()) {
-				return;
-			}
-		}
 		// to close at the end of the race!!!
 		if(iter == get_num_main() -1 && circle[index].size() > 0) {		
 			R_Line2D last = circle[index].get(circle[index].size() -1);
