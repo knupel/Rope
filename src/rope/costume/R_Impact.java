@@ -597,7 +597,7 @@ public class R_Impact extends R_Graphic {
 		if(get_heart_level() > 0 ) {
 			// remove the unnecessary line
 			for(int i = 0 ; i < get_heart_level() -1 ; i++) {
-				for(int k = 1 ; k < main.length ; k++) {
+				for(int k = 0 ; k < main.length ; k++) {
 					main[k].remove(0);
 				}
 			}
@@ -872,7 +872,6 @@ public class R_Impact extends R_Graphic {
 	
 	private void sort_circle(int index) {
 		if(get_heart_level() > 0) {
-		// if(get_heart_normal_radius() > 0) {
 			ArrayList<R_Line2D> selected_list = new ArrayList<R_Line2D>();
 			ArrayList<R_Line2D> working_list = new ArrayList<R_Line2D>();
 			// list of vec2 point of the heart
@@ -1020,6 +1019,7 @@ public class R_Impact extends R_Graphic {
 		// last element
 		if(arr_branch.length > 0) {
 			R_Line2D last_line = null;
+			
 			if(last_index > 0) {
 				last_line = arr_branch[last_index];
 			} else if (last_index == 0 && heart.size() > 0) {
@@ -1060,13 +1060,15 @@ public class R_Impact extends R_Graphic {
 		}
 		R_Line2D lh = null;
 		junction_heart_circle(shape, lh, lc, next_lc);
-		if(swap_is) {
-			add_points_go(main[0], shape, lh);
-			add_points_return(main[1], shape, lh);
-		} else {
-			// common case reverse that current
-			add_points_go(main[1], shape, lh);
-			add_points_return(main[0], shape, lh);
+		if(main[0] != null && main[1] != null) {
+			if(swap_is) {
+				add_points_go(main[0], shape, lh);
+				add_points_return(main[1], shape, lh);
+			} else {
+				// common case reverse that current
+				add_points_go(main[1], shape, lh);
+				add_points_return(main[0], shape, lh);
+			}
 		}
 		imp_shapes.add(shape);
 	}
@@ -1084,14 +1086,16 @@ public class R_Impact extends R_Graphic {
 		junction_heart_circle(shape, lh, lc, next_lc);
 
 		ArrayList<R_Puppet2D>[] main = tuple_main(lc.id().a(), lc.id().b());
-		boolean swap_is = lc.id().a() == get_num_main() -1;
-		if(swap_is) {
-			add_points_go(main[0], shape, lh);
-			add_points_return(main[1], shape, lh);
-		} else {
-			// common case
-			add_points_go(main[1], shape, lh);
-			add_points_return(main[0], shape, lh);
+		if(main[0] != null && main[1] != null) {
+			boolean swap_is = lc.id().a() == get_num_main() -1;
+			if(swap_is) {
+				add_points_go(main[0], shape, lh);
+				add_points_return(main[1], shape, lh);
+			} else {
+				// common case
+				add_points_go(main[1], shape, lh);
+				add_points_return(main[0], shape, lh);
+			}
 		}
 		imp_shapes.add(shape);
 	}
@@ -1128,13 +1132,15 @@ public class R_Impact extends R_Graphic {
 		}
 		// not in first to keep the same order thant current polygon
 		shape.add_points(lc.b(), lc.a());
-		if(swap_is) {
-			add_points_go(main[0], shape, lh);
-			add_points_return(main[1], shape, lh);
-		} else {
-			// common case reverse that current
-			add_points_go(main[1], shape, lh);
-			add_points_return(main[0], shape, lh);
+		if(main[0] != null && main[1] != null) {
+			if(swap_is) {
+				add_points_go(main[0], shape, lh);
+				add_points_return(main[1], shape, lh);
+			} else {
+				// common case reverse that current
+				add_points_go(main[1], shape, lh);
+				add_points_return(main[0], shape, lh);
+			}
 		}
 		imp_shapes.add(shape);
 	}
@@ -1343,7 +1349,6 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-
 	private void set_use_for_polygon(R_Line2D line) {
 		if(line.id().f() == Integer.MIN_VALUE) {
 			line.id_f(1);
@@ -1351,17 +1356,6 @@ public class R_Impact extends R_Graphic {
 			line.id_f(line.id().f() + 1);
 		}
 	}
-
-	// private boolean touch_heart_is(R_Line2D lc1, R_Line2D lc2, R_Line2D lh) {
-	// 	if(in_segment(lh, lc1.a(), marge)) return true;
-	// 	if(in_segment(lh, lc1.b(), marge)) return true;
-	// 	if(in_segment(lh, lc2.a(), marge)) return true;
-	// 	if(in_segment(lh, lc2.b(), marge)) return true;
-	// 	return false;
-	// }
-
-
-
 
 
 
@@ -1687,6 +1681,13 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
+
+
+
+
+
+
+
 	// SHOW LINE
 	////////////////////////////
 
@@ -1804,6 +1805,10 @@ private void show_list_impl(ArrayList[] list) {
 		}
 	}
 
+
+
+
+
 	// SHOW POLYGON
 	////////////////////////
 	public void show_polygons() {
@@ -1819,12 +1824,20 @@ private void show_list_impl(ArrayList[] list) {
 			stroke(GRIS[13]);
 		} else if(mode == 1) {
 			stroke(YELLOW);
-		} else {
-			//
 		}
-		show_polygons_from(imp_shapes_center, mode);
 		show_polygons_from(imp_shapes, mode);
 	}
+
+	public void show_polygon_heart(int mode) {
+		show_polygons_from(imp_shapes_center,mode);
+	}
+
+	public void show_polygon_heart() {
+		show_polygons_from(imp_shapes_center, Integer.MIN_VALUE);
+	}
+
+	// show polygons implementation
+	////////////////////////////////////////
 
 	public void show_polygons_from(ArrayList<R_Shape> list, int mode) {
 		boolean display_all = true;

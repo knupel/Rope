@@ -16,10 +16,10 @@ void setup() {
 	imp = new R_Impact(this, width/2, height/2);
 	
 	// imp.normal();
-	imp.set_heart(3); // from 0 to max main iteration
+	imp.set_heart(4); // from 1 to max main iteration
 
 	imp.set_num_main(12); // num of main branch
-	// imp.set_iter_main(20); // num of node on each branch
+	imp.set_iter_main(20); // num of node on each branch
 	imp.set_growth_main(25); // approximative pixel step between each node of the main
 	imp.set_angle_main(0.02); // max angle to change the direction of the main branch
 

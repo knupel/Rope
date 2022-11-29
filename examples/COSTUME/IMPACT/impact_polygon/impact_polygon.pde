@@ -18,7 +18,7 @@ void setup() {
 	imp = new R_Impact(this, width/2, height/2);
 	
 	// imp.normal();
-	imp.set_heart(0.7); // from 0 to 1
+	imp.set_heart(6); // from 1 to max main iteration
 	int num = 20;
 	imp.set_num_main(num); // num of main branch
 	imp.set_iter_main(30); // num of node on each branch
@@ -36,9 +36,11 @@ void setup() {
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.BLACK);
-	stroke(r.GRIS[8]);
+	fill(r.GRIS[1]);
+	stroke(r.GRIS[5]);
 	imp.show_polygons();
+	fill(r.BLACK);
+	imp.show_polygon_heart();
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
