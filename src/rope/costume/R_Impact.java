@@ -398,9 +398,11 @@ public class R_Impact extends R_Graphic {
 		ArrayList<R_Line2D> list = new ArrayList<R_Line2D>();
 		for(int i = 0 ; i < circle.length ; i++) {
 			for(int k = 0 ; k < circle[i].size() ; k++) {
-				int buf_id = get_abs_id(circle[i].get(k).id().a());
+				R_Line2D line = circle[i].get(k);
+				int buf_id = get_abs_id(line.id().a());	
+				// int buf_id = get_abs_id(circle[i].get(k).id().a());	
 				if(index == buf_id) {
-					R_Line2D line = circle[i].get(k);
+					// R_Line2D line = circle[i].get(k);
 					if(only_visible_is) {
 						if(!line.mute_is()) {
 							list.add(line);
@@ -408,7 +410,7 @@ public class R_Impact extends R_Graphic {
 					} else {
 						list.add(line);
 					}
-				}	
+				}
 			}
 		}
 		return list;
@@ -467,10 +469,10 @@ public class R_Impact extends R_Graphic {
 	//////////////////////////
 
 	private R_Line2D get_line_heart(R_Line2D lc) {
-		if(heart.size() > 0) {
-			if(lc.id().a() < 0) {
+		if(heart.size() > 0 ) {
+			if(lc.id().a() < 0 && lc.id().a() > Integer.MIN_VALUE) {
 				return heart.get(get_abs_id(lc.id().a()));
-			} else if (lc.id().b() < 0) {
+			} else if (lc.id().b() < 0 && lc.id().b() > Integer.MIN_VALUE) {
 				return heart.get(get_abs_id(lc.id().b()));
 			} else {
 				return heart.get(lc.id().a());
@@ -528,6 +530,9 @@ public class R_Impact extends R_Graphic {
 	 * Build the structure network with the default paramater is there is no specific setting
 	 */
 	public void build() {
+		if(get_heart_level() >= get_iter_main()) {
+			set_heart(get_iter_main() - 1);
+		}
 		build_main();
 		build_heart();
 		build_circle();
@@ -832,14 +837,22 @@ public class R_Impact extends R_Graphic {
 							line_main.add_puppets(lc.pointer_b());
 						}
 						// check the last branch, to swap the id
-						if(lc.id().a()== 0 && lc.id().b() == this.get_num_main() -1) {
+						if(lc.id().a() == 0 && lc.id().b() == this.get_num_main() -1) {
 							lc.id_a(lc.id().b());
 							lc.id_b(0);
 						}
+						// last check to avoid the lost id on the main branch
+						if(lc.id().a() == Integer.MIN_VALUE && in_segment(line_main,lc.a(),marge)) {
+							lc.id_a(k);
+						}
+						if(lc.id().b() == Integer.MIN_VALUE && in_segment(line_main,lc.b(),marge)) {
+							lc.id_b(k);
+						}
+
 						id_segment++;
 					}
 					// id from heart, we minus by one to avoid a conflict with the 0 ID
-					for(int m = 0 ; m <  heart.size() ; m++) {
+					for(int m = 0 ; m < heart.size() ; m++) {
 						R_Puppet2D lh = heart.get(m);
 						if(lc.id().a() == Integer.MIN_VALUE && in_segment(lh,lc.a(),marge)) {
 							lc.id_a(-m-1);
@@ -991,18 +1004,17 @@ public class R_Impact extends R_Graphic {
 		// first element
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
-			if(all(line.id().f() == Integer.MIN_VALUE)) {
+			if(line.id().f() == Integer.MIN_VALUE) {
 				create_polygon_first(line);
 				break;
 			}
 		}
-
 		// curent element
 		int last_index = 0;
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
 			for(int k = i + 1 ; k < len ; k++) {
-				R_Line2D next_line =  arr_branch[k];
+				R_Line2D next_line = arr_branch[k];
 				if(all(!line.mute_is(), !next_line.mute_is(), line.id().f() == Integer.MIN_VALUE)) {
 					create_polygon_current(line, next_line);
 					last_index = k;
@@ -1010,7 +1022,6 @@ public class R_Impact extends R_Graphic {
 				} 
 			}	
 		}
-
 		// last element
 		if(arr_branch.length > 0) {
 			R_Line2D last_line = null;
@@ -1030,31 +1041,39 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-	// LAST POLYGON
-	///////////////////
 
-	private void create_polygon_last(R_Line2D lc, int id_branch) {
+		// FIRST POLYGON
+	////////////////////////
+
+	private void create_polygon_first(R_Line2D lc) {
 		R_Shape shape = new R_Shape(this.pa);
-		shape.id_a(GRIS[15]);
-		shape.id_b(id_branch);
-		int next_id_branch = id_branch + 1;
-		if(next_id_branch >= get_num_main()) {
-			next_id_branch = 0;
-		}
-		ArrayList<R_Puppet2D>[] main = tuple_main(id_branch, next_id_branch);
-		R_Puppet2D next_lc;
-		// it's a reverse hack to avoid the inverse bug, because I don't find the reason
-		boolean swap_is = lc.id().a() == get_num_main() -1;
-		if(swap_is) {
-			next_lc = new R_Puppet2D(this.pa, main[1].get(main[1].size() -1).b(), main[0].get(main[0].size() -1).b());
-		} else {
-			next_lc = new R_Puppet2D(this.pa, main[0].get(main[0].size() -1).b(), main[1].get(main[1].size() -1).b());
-		}
-		if(all(main[0] != null, main[1] != null)) {
-			shape.add_points(next_lc.a(), next_lc.b(), lc.b(),lc.a());
-		}
+		shape.id_a(GRIS[7]);
+		shape.id_b(get_abs_id(lc.id().a()));
 		R_Line2D lh = null;
-		junction_heart_circle(shape, lh, lc, next_lc);
+
+		ArrayList<R_Puppet2D> [] main = tuple_main(lc.id().a(), lc.id().b());
+		boolean swap_is = lc.id().a() == get_num_main() -1;
+		if(heart.size() > 0) {
+			if(any(lc.id().a() < 0, lc.id().b() < 0)) {
+				lh = get_line_heart(lc);
+				vec2 point = get_point_line_heart(lh, lc, main[0], main[1]);
+				shape.id_a(GRIS[6]);
+				add_point_first_level_polygon(shape, lh, lc, point);
+			} else {
+				lh = get_line_heart(lc);
+				shape.add_points(lh.a(), lh.b());
+			}
+			if(swap_is) {
+				vec3 v_a = shape.get_point(0).copy();
+				vec3 v_b = shape.get_point(1).copy();
+				shape.set_point(0,v_b);
+				shape.set_point(1,v_a);
+			}
+		} else {
+			shape.add_points(pos, pos);
+		}
+		// not in first to keep the same order thant current polygon
+		shape.add_points(lc.b(), lc.a());
 		if(main[0] != null && main[1] != null) {
 			if(swap_is) {
 				add_points_go(main[0], shape, lh);
@@ -1095,38 +1114,35 @@ public class R_Impact extends R_Graphic {
 		imp_shapes.add(shape);
 	}
 
-	// FIRST POLYGON
-	////////////////////////
 
-	private void create_polygon_first(R_Line2D lc) {
+
+
+
+		// LAST POLYGON
+	///////////////////
+
+	private void create_polygon_last(R_Line2D lc, int id_branch) {
 		R_Shape shape = new R_Shape(this.pa);
-		shape.id_a(GRIS[7]);
-		shape.id_b(get_abs_id(lc.id().a()));
-		R_Line2D lh = null;
-		ArrayList<R_Puppet2D> [] main = tuple_main(lc.id().a(), lc.id().b());
-		boolean swap_is = lc.id().a() == get_num_main() -1;
-		if(heart.size() > 0) {
-			if(any(lc.id().a() < 0, lc.id().b() < 0)) {
-				lh = get_line_heart(lc);
-				vec2 point = get_point_line_heart(lh, lc, main[0], main[1]);
-				shape.id_a(GRIS[6]);
-				add_point_first_level_polygon(shape, lh, lc, point);
-			} else {
-				lh = get_line_heart(lc);
-				shape.add_points(lh.a(), lh.b());
-			}
-			if(swap_is) {
-				vec3 v_a = shape.get_point(0).copy();
-				vec3 v_b = shape.get_point(1).copy();
-				shape.set_point(0,v_b);
-				shape.set_point(1,v_a);
-
-			}
-		} else {
-			shape.add_points(pos, pos);
+		shape.id_a(GRIS[15]);
+		shape.id_b(id_branch);
+		int next_id_branch = id_branch + 1;
+		if(next_id_branch >= get_num_main()) {
+			next_id_branch = 0;
 		}
-		// not in first to keep the same order thant current polygon
-		shape.add_points(lc.b(), lc.a());
+		ArrayList<R_Puppet2D>[] main = tuple_main(id_branch, next_id_branch);
+		R_Puppet2D next_lc;
+		// it's a reverse hack to avoid the inverse bug, because I don't find the reason
+		boolean swap_is = lc.id().a() == get_num_main() -1;
+		if(swap_is) {
+			next_lc = new R_Puppet2D(this.pa, main[1].get(main[1].size() -1).b(), main[0].get(main[0].size() -1).b());
+		} else {
+			next_lc = new R_Puppet2D(this.pa, main[0].get(main[0].size() -1).b(), main[1].get(main[1].size() -1).b());
+		}
+		if(all(main[0] != null, main[1] != null)) {
+			shape.add_points(next_lc.a(), next_lc.b(), lc.b(),lc.a());
+		}
+		R_Line2D lh = null;
+		junction_heart_circle(shape, lh, lc, next_lc);
 		if(main[0] != null && main[1] != null) {
 			if(swap_is) {
 				add_points_go(main[0], shape, lh);
@@ -1140,6 +1156,9 @@ public class R_Impact extends R_Graphic {
 		imp_shapes.add(shape);
 	}
 
+
+		// UTILS POLYGON
+	//////////////////
 
 
 	// ADD GO and RETURN
@@ -1159,9 +1178,6 @@ public class R_Impact extends R_Graphic {
 		int index_next = 0;
 		add_points_return_impl(list_main_a, shape, lh, index, index_next);
 	}
-
-
-
 
 	// ADD GO IMPLEMENTATION
 	////////////////////////
@@ -1237,29 +1253,6 @@ public class R_Impact extends R_Graphic {
 
 
 
-
-
-	
-
-
-				
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// UTILS POLYGON
-	//////////////////
-
 	private void junction_heart_circle(R_Shape shape, R_Line2D lh, R_Line2D lc, R_Line2D next_lc) {
 		int id_heart = get_abs_id(lc.id().a());
 		if(heart.size() > 0 && id_heart < get_num_main()) {
@@ -1267,8 +1260,11 @@ public class R_Impact extends R_Graphic {
 			
 			bvec2 lc_is = new bvec2(in_segment(lh, lc.a(), marge), 
 															in_segment(lh, lc.b(), marge));
-			bvec2 next_lc_is = new bvec2(	in_segment(lh, next_lc.a(), marge), 
-																		in_segment(lh, next_lc.b(), marge));
+			bvec2 next_lc_is = new bvec2(true);
+			if(next_lc != null) {
+				next_lc_is.set(in_segment(lh, next_lc.a(), marge), 
+											in_segment(lh, next_lc.b(), marge));
+			}
 
 			bvec4 point_is = new bvec4(	lc.b().compare(lh.a(),marge),
 																	lc.b().compare(lh.b(),marge),
@@ -1770,7 +1766,7 @@ public class R_Impact extends R_Graphic {
 	// IMPLEMENTATION
 	//////////////////////////////////
 
-private void show_list_impl(ArrayList[] list) {
+	private void show_list_impl(ArrayList[] list) {
 		for(int i = 0 ; i < list.length ; i++) {
 			show_lines_impl(list[i]);
 		}
