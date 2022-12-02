@@ -16,7 +16,7 @@ void setup() {
 	imp = new R_Impact(this, width/2, height/2);
 	
 	// imp.normal();
-	imp.set_heart(1); // from 1 to max main iteration
+	imp.set_heart(2); // from 1 to max main iteration
 
 	imp.set_num_main(12); // num of main branch
 	imp.set_iter_main(20); // num of node on each branch

@@ -366,7 +366,7 @@ public class R_Impact extends R_Graphic {
 		return buf;
 	}
 
-	public ArrayList<R_Puppet2D> get_main_lines(int index) {
+	public ArrayList<R_Puppet2D> get_lines_main(int index) {
 		if(index >= 0 && index < main.length) {
 			return main[index];
 		}
@@ -376,7 +376,7 @@ public class R_Impact extends R_Graphic {
 	/**
 	* return circle
 	 */
-	public ArrayList<R_Line2D> get_circle_lines(int index) {
+	public ArrayList<R_Line2D> get_lines_circle(int index) {
 		if(index >= 0 && index < circle.length) {
 			return circle[index];
 		}
@@ -384,8 +384,8 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	public ArrayList<R_Line2D> get_branch_lines(int index) {
-		return get_branch_lines(index,true);
+	public ArrayList<R_Line2D> get_lines_branch(int index) {
+		return get_lines_branch(index,true);
 	}
 
 	/**
@@ -394,15 +394,12 @@ public class R_Impact extends R_Graphic {
 	 * @param only_visible_is if it's true add only the visible line
 	 * @return
 	 */
-	public ArrayList<R_Line2D> get_branch_lines(int index, boolean only_visible_is) {
+	public ArrayList<R_Line2D> get_lines_branch(int index, boolean only_visible_is) {
 		ArrayList<R_Line2D> list = new ArrayList<R_Line2D>();
 		for(int i = 0 ; i < circle.length ; i++) {
 			for(int k = 0 ; k < circle[i].size() ; k++) {
 				R_Line2D line = circle[i].get(k);
-				int buf_id = get_abs_id(line.id().a());	
-				// int buf_id = get_abs_id(circle[i].get(k).id().a());	
-				if(index == buf_id) {
-					// R_Line2D line = circle[i].get(k);
+				if(line_branch_is(index, line)) {
 					if(only_visible_is) {
 						if(!line.mute_is()) {
 							list.add(line);
@@ -416,7 +413,7 @@ public class R_Impact extends R_Graphic {
 		return list;
 	}
 
-	public ArrayList<R_Puppet2D> get_heart_lines() {
+	public ArrayList<R_Puppet2D> get_lines_heart() {
 		return heart;
 	}
 
@@ -445,7 +442,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	public ArrayList<R_Shape> get_heart_polygons() {
+	public ArrayList<R_Shape> get_polygon_heart() {
 		return imp_shapes_center;
 	}
 
@@ -454,7 +451,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 	// may be need to be refactoring to arrayList or R_Shape
-	public vec2 [] get_heart_polygon() {
+	public vec2 [] get_polygon_array_heart() {
 		if(heart.size() == 0) {
 			return null;
 		}
@@ -836,11 +833,7 @@ public class R_Impact extends R_Graphic {
 							lc.id_d(id_segment);
 							line_main.add_puppets(lc.pointer_b());
 						}
-						// check the last branch, to swap the id
-						if(lc.id().a() == 0 && lc.id().b() == this.get_num_main() -1) {
-							lc.id_a(lc.id().b());
-							lc.id_b(0);
-						}
+
 						// last check to avoid the lost id on the main branch
 						if(lc.id().a() == Integer.MIN_VALUE && in_segment(line_main,lc.a(),marge)) {
 							lc.id_a(k);
@@ -849,6 +842,11 @@ public class R_Impact extends R_Graphic {
 							lc.id_b(k);
 						}
 
+						// check the last branch, to swap the id
+						if(lc.id().a() == 0 && lc.id().b() == this.get_num_main() -1) {
+							lc.id_a(lc.id().b());
+							lc.id_b(0);
+						}
 						id_segment++;
 					}
 					// id from heart, we minus by one to avoid a conflict with the 0 ID
@@ -883,7 +881,7 @@ public class R_Impact extends R_Graphic {
 			ArrayList<R_Line2D> selected_list = new ArrayList<R_Line2D>();
 			ArrayList<R_Line2D> working_list = new ArrayList<R_Line2D>();
 			// list of vec2 point of the heart
-			vec2 [] heart_polygon = get_heart_polygon();
+			vec2 [] heart_polygon = get_polygon_array_heart();
 			// check all the lines web string point
 			for(R_Line2D line : circle[index]) {
 				bvec2 is = new bvec2(in_polygon(heart_polygon, line.a()), in_polygon(heart_polygon, line.b()));
@@ -986,7 +984,7 @@ public class R_Impact extends R_Graphic {
 		R_Shape shape = new R_Shape(this.pa);
 		shape.id_a(GRIS[1]);
 		shape.id_b(-1);
-		for(R_Line2D lh : this.get_heart_lines()) {
+		for(R_Line2D lh : this.get_lines_heart()) {
 			shape.add_points(lh.a());
 		}
 		imp_shapes_center.add(shape);
@@ -998,13 +996,14 @@ public class R_Impact extends R_Graphic {
 	// BUILD POLYGON NETWORK
 	////////////////////////
 	private void build_polygons(int id_branch) {
-		int len = get_branch_lines(id_branch, true).size();
+		int len = get_lines_branch(id_branch, true).size();
 		R_Line2D [] arr_branch = new R_Line2D[len];
-		arr_branch = get_branch_lines(id_branch, true).toArray(arr_branch);
+		arr_branch = get_lines_branch(id_branch, true).toArray(arr_branch);
 		// first element
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
-			if(line.id().f() == Integer.MIN_VALUE) {
+			
+			if(line.id().f() == Integer.MIN_VALUE || line.id().f() == Integer.MAX_VALUE) {
 				create_polygon_first(line);
 				break;
 			}
@@ -1013,9 +1012,12 @@ public class R_Impact extends R_Graphic {
 		int last_index = 0;
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
+			
 			for(int k = i + 1 ; k < len ; k++) {
 				R_Line2D next_line = arr_branch[k];
-				if(all(!line.mute_is(), !next_line.mute_is(), line.id().f() == Integer.MIN_VALUE)) {
+				if(all(	!line.mute_is(), 
+								!next_line.mute_is(), 
+								any(line.id().f() == Integer.MIN_VALUE, line.id().f() == Integer.MAX_VALUE))) {
 					create_polygon_current(line, next_line);
 					last_index = k;
 					break;
@@ -1047,6 +1049,7 @@ public class R_Impact extends R_Graphic {
 
 	private void create_polygon_first(R_Line2D lc) {
 		R_Shape shape = new R_Shape(this.pa);
+		// set_use_for_polygon(lc);
 		shape.id_a(GRIS[7]);
 		shape.id_b(get_abs_id(lc.id().a()));
 		R_Line2D lh = null;
@@ -1074,16 +1077,7 @@ public class R_Impact extends R_Graphic {
 		}
 		// not in first to keep the same order thant current polygon
 		shape.add_points(lc.b(), lc.a());
-		if(main[0] != null && main[1] != null) {
-			if(swap_is) {
-				add_points_go(main[0], shape, lh);
-				add_points_return(main[1], shape, lh);
-			} else {
-				// common case reverse that current
-				add_points_go(main[1], shape, lh);
-				add_points_return(main[0], shape, lh);
-			}
-		}
+		add_go_and_return(swap_is, main, shape);
 		imp_shapes.add(shape);
 	}
 
@@ -1100,17 +1094,8 @@ public class R_Impact extends R_Graphic {
 		junction_heart_circle(shape, lh, lc, next_lc);
 
 		ArrayList<R_Puppet2D>[] main = tuple_main(lc.id().a(), lc.id().b());
-		if(main[0] != null && main[1] != null) {
-			boolean swap_is = lc.id().a() == get_num_main() -1;
-			if(swap_is) {
-				add_points_go(main[0], shape, lh);
-				add_points_return(main[1], shape, lh);
-			} else {
-				// common case
-				add_points_go(main[1], shape, lh);
-				add_points_return(main[0], shape, lh);
-			}
-		}
+		boolean swap_is = lc.id().a() == get_num_main() -1;
+		add_go_and_return(swap_is, main, shape);
 		imp_shapes.add(shape);
 	}
 
@@ -1143,16 +1128,7 @@ public class R_Impact extends R_Graphic {
 		}
 		R_Line2D lh = null;
 		junction_heart_circle(shape, lh, lc, next_lc);
-		if(main[0] != null && main[1] != null) {
-			if(swap_is) {
-				add_points_go(main[0], shape, lh);
-				add_points_return(main[1], shape, lh);
-			} else {
-				// common case reverse that current
-				add_points_go(main[1], shape, lh);
-				add_points_return(main[0], shape, lh);
-			}
-		}
+		add_go_and_return(swap_is, main, shape);
 		imp_shapes.add(shape);
 	}
 
@@ -1160,29 +1136,41 @@ public class R_Impact extends R_Graphic {
 		// UTILS POLYGON
 	//////////////////
 
+	private boolean add_go_and_return(boolean swap_is, ArrayList<R_Puppet2D>[] main, R_Shape shape) {
+		if(main[0] != null && main[1] != null) {
+			if(swap_is) {
+				add_points_go(main[0], shape);
+				add_points_return(main[1], shape);
+			} else {
+				// common case reverse that current
+				add_points_go(main[1], shape);
+				add_points_return(main[0], shape);
+			}
+			return true;
+		}
+		return false;
+	}
 
 	// ADD GO and RETURN
 	/////////////////////
-
-	private void add_points_go(ArrayList<R_Puppet2D> list_main_b, R_Shape shape, R_Line2D lh) {
+	private void add_points_go(ArrayList<R_Puppet2D> list_main_b, R_Shape shape) {
 		int index = 1;
 		int index_next = shape.get_summits() -2;
 		if(shape.get_summits() == 5) {
 			index_next = shape.get_summits() -3;
 		}
-		add_points_go_impl(list_main_b, shape, lh, index, index_next);
+		add_points_go_impl(list_main_b, shape, index, index_next);
 	}
 
-	private void add_points_return(ArrayList<R_Puppet2D> list_main_a, R_Shape shape, R_Line2D lh) {
+	private void add_points_return(ArrayList<R_Puppet2D> list_main_a, R_Shape shape) {
 		int index = shape.get_summits() -1;
 		int index_next = 0;
-		add_points_return_impl(list_main_a, shape, lh, index, index_next);
+		add_points_return_impl(list_main_a, shape, index, index_next);
 	}
 
 	// ADD GO IMPLEMENTATION
 	////////////////////////
-
-	private void add_points_go_impl(ArrayList<R_Puppet2D> list_main_b, R_Shape shape, R_Line2D lh, int index, int index_next) {
+	private void add_points_go_impl(ArrayList<R_Puppet2D> list_main_b, R_Shape shape, int index, int index_next) {
 		int first = 0;
 		int last = 0;
 		vec3 a = shape.get_point(index);
@@ -1216,8 +1204,7 @@ public class R_Impact extends R_Graphic {
 
 	// ADD RETURN IMPLEMENTATION
 	////////////////////////
-
-	private void add_points_return_impl(ArrayList<R_Puppet2D> list_main_a, R_Shape shape, R_Line2D lh, int index, int index_next) {
+	private void add_points_return_impl(ArrayList<R_Puppet2D> list_main_a, R_Shape shape, int index, int index_next) {
 		int first = 0;
 		int last = 0;
 		vec3 a = shape.get_point(index);
@@ -1236,8 +1223,7 @@ public class R_Impact extends R_Graphic {
 				index++;
 				shape.add_point(index, buf.x(), buf.y());
 			}
-		}
-		else if(first < last) {
+		} else if(first < last) {
 			// it's for the center, because the order is reverse
 			int count = first;
 			for(int i = last ; i > first ; i--) {
@@ -1248,6 +1234,50 @@ public class R_Impact extends R_Graphic {
 				shape.add_point(index, buf.x(), buf.y());
 			}
 		} 
+	}
+
+	private int prev_line_rank = -1;
+	private boolean line_branch_is(int index, R_Line2D line) {
+		int index_sub_1 = index  - 1;
+		int index_plus_1 = index + 1;
+		if(index_plus_1 >= get_num_main()) index_plus_1 = 0;
+		if(index_sub_1 < 0) index_sub_1 = get_num_main() - 1;
+		int id_a = get_abs_id(line.id().a());
+		int id_b = get_abs_id(line.id().b());
+		// perfect fit
+		if(index == id_a  && index_plus_1 == id_b && prev_line_rank != line.id().e()) {
+			line.id_f(Integer.MAX_VALUE);
+			prev_line_rank = line.id().e();
+			return true;
+		}
+		// case where the line is on the main line and the other if line heart prologation of this one
+		if(index == id_a && index == id_b && prev_line_rank != line.id().e()) {
+			line.id_f(Integer.MAX_VALUE);
+			prev_line_rank = line.id().e();
+			return true;
+		}
+
+		// test for the last branch, because it's reversed
+		if(index == id_b  && index_plus_1 == id_a && prev_line_rank != line.id().e()) {
+			line.id_f(Integer.MAX_VALUE);
+			prev_line_rank = line.id().e();
+			return true;
+		}
+
+		// last test for the case where one point is on the junction / summit beween two line heart line
+		if(line.id().a() < 0 && id_a == index_sub_1 && id_b == index_plus_1) {
+			line.id_f(Integer.MAX_VALUE);
+			prev_line_rank = line.id().e();
+			return true;
+		}
+
+		// reverse for the last rank of round
+		if(line.id().b() < 0 && id_b == index_sub_1 && id_a == index_plus_1) {
+			line.id_f(Integer.MAX_VALUE);
+			prev_line_rank = line.id().e();
+			return true;
+		}
+		return false;
 	}
 
 
@@ -1316,8 +1346,8 @@ public class R_Impact extends R_Graphic {
 			im_0 = get_num_main() -1;
 		}
 
-		arr[0] = this.get_main_lines(im_0);
-		arr[1] = this.get_main_lines(im_1);
+		arr[0] = this.get_lines_main(im_0);
+		arr[1] = this.get_lines_main(im_1);
 		return arr;
 	}
 
@@ -1341,7 +1371,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void set_use_for_polygon(R_Line2D line) {
-		if(line.id().f() == Integer.MIN_VALUE) {
+		if(line.id().f() == Integer.MIN_VALUE || line.id().f() == Integer.MAX_VALUE) {
 			line.id_f(1);
 		} else {
 			line.id_f(line.id().f() + 1);
@@ -1371,19 +1401,19 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < this.get_num_main() ; i++) {
 			// family = 0;
 			if(i == this.get_num_main() -1) {
-				add_nodes_impl(this.get_main_lines(i), this, ID_MAIN, true);
+				add_nodes_impl(this.get_lines_main(i), this, ID_MAIN, true);
 			} else {
-				add_nodes_impl(this.get_main_lines(i), this, ID_MAIN, false);
+				add_nodes_impl(this.get_lines_main(i), this, ID_MAIN, false);
 			}
 			
 		}
 		// circle point
 		for(int i = 0 ; i < this.get_num_circle() ; i++) {
-			add_nodes_impl(this.get_circle_lines(i), this, ID_CIRCLE, false);
+			add_nodes_impl(this.get_lines_circle(i), this, ID_CIRCLE, false);
 		}
 		// // heart
-		add_nodes_impl(this.get_heart_lines(), this, ID_HEART, false);
-		if(this.get_heart_polygon() == null) {
+		add_nodes_impl(this.get_lines_heart(), this, ID_HEART, false);
+		if(this.get_polygon_heart() == null) {
 			R_Node node = new R_Node();
 			node.pointer(this.pos);
 			node.id(ID_HEART, 15,0,0,0,0);
@@ -1751,9 +1781,10 @@ public class R_Impact extends R_Graphic {
 	public void show_lines_branch(int index) {
 		for(int i = 0 ; i < circle.length ; i++) {
 			for(int k = 0 ; k < circle[i].size() ; k++) {
-				if(index == get_abs_id(circle[i].get(k).id().a())) {
-					show_single_line_impl(circle[i].get(k));
-				}		
+				R_Line2D line = circle[i].get(k);
+				if(line_branch_is(index, line)) {
+					show_single_line_impl(line);
+				}
 			}
 		}
 	}

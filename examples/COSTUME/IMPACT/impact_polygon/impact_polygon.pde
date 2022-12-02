@@ -22,15 +22,15 @@ void setup() {
 	
 	// imp.normal();
 	imp.set_heart(1); // from 1 to max main iteration, if it's upper the value is cap to max.
-	int num = 5;
+	int num = 8;
 	imp.set_num_main(num); // num of main branch
 	imp.set_iter_main(15); // num of node on each branch
 	imp.set_growth_main(30); // approximative pixel step between each node of the main
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
-	imp.set_num_circle(5); // num of branch circle start from the main branch
+	imp.set_num_circle(20); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
-	imp.set_growth_circle(25);
+	imp.set_growth_circle(10);
 	// imp.set_iter_circle(4);
 
 	imp.build();
@@ -39,16 +39,17 @@ void setup() {
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.GRIS[1]);
+	// fill(r.GRIS[1]);
+	fill(r.GRIS[1], 80);
 	stroke(r.GRIS[5]);
 	imp.show_polygons();
 	fill(r.BLACK);
 	imp.show_polygon_heart();
-	if(mousePressed) {
+
+	if(keyPressed) {
 		stroke(r.WHITE);
 		imp.show_lines();
 	}
-
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
@@ -70,7 +71,7 @@ void mousePressed() {
 
 
 void keyPressed() {
-	println("nouveau tirage");
+	println("<<<<<<<<<<<<<------|||| NEW SORT ||||--------->>>>>>>>");
 	if(key == 'n') {
 		imp.build();
 		imp.build_polygon();
