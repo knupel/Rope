@@ -28,6 +28,9 @@
 > add function boolean in_segment() who accept R_Line2D for the coord line
 > add function boolean in_polygon() who accept R_Shape for the coord points
 > add function compare for float, int, vec and ivec
+> add function map with vec2, vec3 and vec3 as entry
+> add function String get_renderer(PGragrichs pg) to return the type of Graphics Processing is used / to complete BigBang function
+> add float [] getColorMode(PGraphics pg) and float [] getColorMode(PGraphics pg, boolean print_info_is) to complete BigBang function
 
 > R_Shape
 > add area function, only work with regular polygon / shape don't use a strange stuff with it.

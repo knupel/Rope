@@ -1,18 +1,19 @@
 /**
  * 
- * impact example to create polygon from the patternimpact
+ * impact example to create polygon 
+ * from the pattern impact `
+ * and mute few line before build all polygons
  * v 0.0.1
  * 2022-2022
  * 
- * */
 
+ * */
 import rope.costume.R_Impact;
-import rope.mesh.R_Shape;
+import rope.mesh.R_Line2D;
 import rope.core.Rope;
-import rope.vector.vec2;
-import rope.vector.vec3;
 R_Impact imp;
 Rope r = new Rope();
+
 
 void setup() {
 	size(600,600);
@@ -30,13 +31,14 @@ void setup() {
 	imp.set_growth_circle(10);
 
 	imp.build();
+	set_mute();
 	imp.build_polygon();
 }
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.GRIS[1]);
-	stroke(r.GRIS[5]);
+	fill(r.GRIS[2]);
+	stroke(r.GRIS[7]);
 	imp.show_polygons();
 	fill(r.BLACK);
 	imp.show_polygon_heart();
@@ -46,14 +48,15 @@ void draw() {
 	text(str, mouseX + 10, mouseY);
 }
 
-void mousePressed() {
-	println("mouse position >",mouseX,mouseY);
-	for(R_Shape shape : imp.get_all_polygons()) {
-		if(r.in_polygon(shape, new vec2(mouseX,mouseY))) {
-			vec3 [] arr = shape.get_points();
-			int id_branch = shape.id().b();
-			println("shape ", shape.id().a(), id_branch);
-			printArray(arr);
+
+
+void set_mute() {
+	for(int i = 0 ; i < imp.get_num_circle() ; i++) {
+		for(R_Line2D line : imp.get_lines_circle(i)) {
+			float chance_to_mute = 0.3;
+			if(random(1) < chance_to_mute) {
+				line.mute(true);
+			}
 		}
 	}
 }
@@ -63,6 +66,7 @@ void keyPressed() {
 	println("<<<<<<<<<<<<<------|||| NEW SORT ||||--------->>>>>>>>");
 	if(key == 'n') {
 		imp.build();
+		set_mute();
 		imp.build_polygon();
 	}
 }

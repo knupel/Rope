@@ -69,25 +69,6 @@ public abstract class BigBang extends Rope {
 	  return get_renderer(this.pa.g);
 	}
 	
-	/**
-	 * Return the current render in your processing Sketch
-	 * @param graph
-	 * @return String name of your renderer.
-	 */
-	public String get_renderer(final PGraphics graph) {
-	  try {
-	    if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
-	    if (Class.forName(FX2D).isInstance(graph)) return FX2D;
-	    if (Class.forName(P2D).isInstance(graph)) return P2D;
-	    if (Class.forName(P3D).isInstance(graph)) return P3D;
-	    if (Class.forName(PDF).isInstance(graph)) return PDF;
-	    if (Class.forName(DXF).isInstance(graph)) return DXF;
-	  }
-
-	  catch (ClassNotFoundException ex) {
-	  }
-	  return "Unknown";
-	}
 	
 	
 	
@@ -98,20 +79,21 @@ public abstract class BigBang extends Rope {
 	 * @return array float data color set
 	 */
 	public float [] getColorMode(boolean print_info_is) {
-		float colorMode = this.pa.g.colorMode ;
-		float x = this.pa.g.colorModeX;
-		float y = this.pa.g.colorModeY;
-		float z = this.pa.g.colorModeZ;
-		float a = this.pa.g.colorModeA;
-		float array[] = {colorMode,x,y,z,a};
-		if (print_info_is && this.pa.g.colorMode == HSB) {
-			String mess = "HSB: "+x+", "+y+", "+z+", "+a;
-			System.out.println(mess);
-		} else if(print_info_is && this.pa.g.colorMode == RGB) {
-			String mess = "RGB: "+x+", "+y+", "+z+", "+a;
-			System.out.println(mess);
-		}
-		return array;
+		return getColorMode(this.pa.g, print_info_is);
+		// float colorMode = this.pa.g.colorMode;
+		// float x = this.pa.g.colorModeX;
+		// float y = this.pa.g.colorModeY;
+		// float z = this.pa.g.colorModeZ;
+		// float a = this.pa.g.colorModeA;
+		// float array[] = {colorMode,x,y,z,a};
+		// if (print_info_is && this.pa.g.colorMode == HSB) {
+		// 	String mess = "HSB: "+x+", "+y+", "+z+", "+a;
+		// 	System.out.println(mess);
+		// } else if(print_info_is && this.pa.g.colorMode == RGB) {
+		// 	String mess = "RGB: "+x+", "+y+", "+z+", "+a;
+		// 	System.out.println(mess);
+		// }
+		// return array;
 	}
 
 	public float [] getColorMode() {

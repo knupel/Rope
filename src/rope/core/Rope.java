@@ -10,7 +10,7 @@
 * @author @knupel
 * @see https://github.com/knupel/Rope
  * 2018-2022
- * v 0.4.2
+ * v 0.4.3
  * 
  */
 
@@ -36,8 +36,48 @@ import rope.vector.vec4;
 import rope.mesh.R_Line2D;
 import rope.mesh.R_Shape;
 
+import processing.core.*;
+
 public class Rope implements R_Constants, R_Constants_Colour {
 	public Rope() {}
+
+
+	
+	public String get_renderer(final PGraphics graph) {
+	// public String get_renderer(final PGraphics graph) {
+		try {
+			if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
+			if (Class.forName(P2D).isInstance(graph)) return P2D;
+			if (Class.forName(P3D).isInstance(graph)) return P3D;
+			if (Class.forName(PDF).isInstance(graph)) return PDF;
+			if (Class.forName(DXF).isInstance(graph)) return DXF;
+		}
+	
+		catch (ClassNotFoundException ex) {
+		}
+		return "Unknown";
+	}
+
+
+	public float [] getColorMode(PGraphics pg) {
+		// see rope.R_Graphic.getColorMode(boolean print_info_is);
+		return getColorMode(pg, false);
+	}
+	
+	public float [] getColorMode(PGraphics pg, boolean print_info_is) {
+		float colorMode = pg.colorMode ;
+		float x = pg.colorModeX;
+		float y = pg.colorModeY;
+		float z = pg.colorModeZ;
+		float a = pg.colorModeA;
+		float array[] = {colorMode,x,y,z,a};
+		if (print_info_is && pg.colorMode == HSB) {
+			print_err("HSB",x,y,z,a);
+		} else if(print_info_is && pg.colorMode == RGB) {
+			print_err("RGB",x,y,z,a);
+		}
+		return array;
+	}
 	
 	/**
 	 * OPERATION
@@ -299,6 +339,35 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 */
 	public float map(float value, float start1, float stop1, float start2, float stop2) {
 		return Ru.map(value, start1, stop1, start2, stop2);
+	}
+
+
+	public vec2 map(vec2 value,float minIn, float maxIn, float minOut, float maxOut) {
+		if(value != null) {
+			float x = Ru.map(value.x(), minIn, maxIn, minOut, maxOut) ;
+			float y = Ru.map(value.y(), minIn, maxIn, minOut, maxOut) ;
+			return new vec2(x,y);
+		} else return null;
+	}
+	
+	public vec3 map(vec3 value,float minIn, float maxIn, float minOut, float maxOut) {
+		if(value != null) {
+			float x = Ru.map(value.x(), minIn, maxIn, minOut, maxOut) ;
+			float y = Ru.map(value.y(), minIn, maxIn, minOut, maxOut) ;
+			float z = Ru.map(value.z(), minIn, maxIn, minOut, maxOut) ;
+			return new vec3(x,y,z);
+		} else return null;
+	}
+	
+	
+	public vec4 map(vec4 value,float minIn, float maxIn, float minOut, float maxOut) {
+		if(value != null) {
+			float x = Ru.map(value.x(), minIn, maxIn, minOut, maxOut) ;
+			float y = Ru.map(value.y(), minIn, maxIn, minOut, maxOut) ;
+			float z = Ru.map(value.z(), minIn, maxIn, minOut, maxOut) ;
+			float w = Ru.map(value.w(), minIn, maxIn, minOut, maxOut) ;
+			return new vec4(x,y,z,w);
+		} else return null;
 	}
 	
 	
