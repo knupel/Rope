@@ -10,10 +10,10 @@ package rope.gui.slider;
 
 import java.util.Arrays;
 
-import rope.R_State.State;
 import rope.gui.Crope;
 import rope.gui.R_GUI;
 import rope.gui.R_Mol;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 
 public class R_Slider extends Crope implements R_GUI {

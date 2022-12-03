@@ -6,7 +6,7 @@
  *
  */
 
-package rope;
+package rope.utils;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;

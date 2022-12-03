@@ -20,8 +20,7 @@ import java.util.ArrayList;
 
 import processing.core.*;
 import processing.opengl.PShader;
-
-import rope.R_State.State;
+import rope.utils.R_State.State;
 import rope.vector.*;
 
 public class R_Graphic extends BigBang {

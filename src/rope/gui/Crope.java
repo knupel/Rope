@@ -12,10 +12,10 @@ import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 import rope.core.R_Graphic;
+import rope.utils.R_State.State;
 import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec4;
-import rope.R_State.State;
 
 abstract public class Crope extends R_Graphic {
   protected vec2 pos;

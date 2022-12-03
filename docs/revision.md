@@ -1,5 +1,7 @@
 \* version 49
 
+> add class R_FX and remove from the Rope frameWork
+
 > R_Puppet2D new class to manipulater puppets point with two handles, it's an extands of R_Line2D
 
 > R_Impact new class to creata a pseudo deisgn of glass impact network

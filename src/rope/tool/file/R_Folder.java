@@ -10,8 +10,7 @@ package rope.tool.file;
 
 // import processing.core.PApplet;
 import rope.core.BigBang;
-import rope.R_State.State;
-
+import rope.utils.R_State.State;
 import processing.core.PApplet;
 
 import java.util.Arrays;

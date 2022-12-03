@@ -718,7 +718,6 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void adjust_string_web(int index, int iter, R_Line2D line, vec2 buf_meet, vec2 [] tuple) {
-
 		if(buf_meet.equals(-1)) {
 			// the first line
 			line.set(tuple[0],tuple[1]);
@@ -759,8 +758,6 @@ public class R_Impact extends R_Graphic {
 			ArrayList<R_Line2D> temp = new ArrayList<R_Line2D>();
 			R_Line2D temp_line_first = main[i].get(0);
 			temp_line_first.a(main[i].get(0).a());
-			// put the first point to center of the impact
-			// temp_line_first.a(this.pos.x(), this.pos.y()); // why in the center
 			temp.add(temp_line_first.copy());
 			for(int k = 1 ; k < main[i].size(); k++) {
 				R_Line2D temp_line_next = main[i].get(k).copy();
@@ -813,9 +810,6 @@ public class R_Impact extends R_Graphic {
 		meet[2] = new vec2(i_0, i_1);
 		return meet;
 	}
-
-
-
 
 
 	private void set_id_circle() {
@@ -1049,7 +1043,6 @@ public class R_Impact extends R_Graphic {
 
 	private void create_polygon_first(R_Line2D lc) {
 		R_Shape shape = new R_Shape(this.pa);
-		// set_use_for_polygon(lc);
 		shape.id_a(GRIS[7]);
 		shape.id_b(get_abs_id(lc.id().a()));
 		R_Line2D lh = null;

@@ -9,9 +9,8 @@
 package rope.gui;
 
 import rope.core.R_Graphic;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
-
-import rope.R_State.State;
 
 public class R_Mol extends R_Graphic {
   private vec2 size = new vec2();

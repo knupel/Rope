@@ -6,8 +6,8 @@
 */
 package rope.gui.palette;
 
-import rope.R_State.State;
 import rope.gui.Crope;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 
 public class R_Palette_Selector extends Crope {

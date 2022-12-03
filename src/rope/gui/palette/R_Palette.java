@@ -8,9 +8,9 @@ package rope.gui.palette;
 
 import rope.gui.Crope;
 import rope.gui.R_GUI;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 import rope.vector.vec4;
-import rope.R_State.State;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 

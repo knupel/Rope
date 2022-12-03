@@ -8,10 +8,10 @@
 package rope.gui.button;
 import java.util.Arrays;
 
-import rope.R_State.State;
 import rope.gui.R_Mol;
 import rope.vector.vec2;
 import rope.tool.R_Fov;
+import rope.utils.R_State.State;
 import rope.mesh.R_Segment;
 
 public class R_Knob extends R_Button {

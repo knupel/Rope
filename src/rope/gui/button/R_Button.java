@@ -7,9 +7,9 @@
 */
 package rope.gui.button;
 
-import rope.R_State.State;
 import processing.core.PImage;
 import rope.gui.Crope;
+import rope.utils.R_State.State;
 import rope.vector.bvec2;
 import rope.vector.vec2;
 

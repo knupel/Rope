@@ -9,8 +9,8 @@
 package rope.gui.slider;
 
 import processing.core.PApplet;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
-import rope.R_State.State;
 
 public class R_Sladj extends R_Slider {
 	// size

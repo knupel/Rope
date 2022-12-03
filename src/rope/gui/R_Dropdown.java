@@ -14,9 +14,9 @@ import java.util.Map;
 import processing.core.PFont;
 import rope.colour.R_Colour;
 import rope.gui.slider.R_Slider;
+import rope.utils.R_State.State;
 import rope.vector.ivec2;
 import rope.vector.vec2;
-import rope.R_State.State;
 
 public class R_Dropdown extends Crope implements R_GUI {
   // slider dropdown

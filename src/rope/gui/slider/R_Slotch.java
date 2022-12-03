@@ -8,8 +8,8 @@
 */
 package rope.gui.slider;
 
+import rope.utils.R_State.State;
 import rope.vector.vec2;
-import rope.R_State.State;
 
 public class R_Slotch extends R_Slider {
 	protected float [] notches_pos;

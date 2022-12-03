@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import rope.R_State.State;
 import rope.tool.R_Rank;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 import rope.gui.button.R_Button;
 import rope.gui.button.R_Knob;

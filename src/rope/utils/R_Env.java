@@ -9,7 +9,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
-package rope;
+package rope.utils;
 
 import processing.core.PGraphics;
 import rope.core.R_Constants_Colour;

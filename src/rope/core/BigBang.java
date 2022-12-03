@@ -28,7 +28,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import rope.R_State.State;
+import rope.utils.R_State.State;
 
 import java.awt.Font; 
 import java.awt.image.BufferedImage ;
