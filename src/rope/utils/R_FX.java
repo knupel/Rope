@@ -9,7 +9,7 @@
  * R_FX is a class to store FX data, can be utils to gui, effect...
  * the goal is for shader setting...
  * 2019-2022
- * v 0.5.1
+ * v 0.6.0
  * @author @knupel
  * @see https://github.com/knupel/Rope
 */
@@ -60,7 +60,6 @@ public class R_FX extends Rope {
 	private vec3 offset = null; // 25
 	private vec3 speed = null; // 26
 
-
 	private vec4 level_source = null; // 30
 	private vec4 level_layer = null; // 31
 	private vec4 colour = null; // 32
@@ -86,14 +85,11 @@ public class R_FX extends Rope {
 
 
 
-
-
   // CONSTRUCTOR
   public R_FX (PApplet pa) {
 		this.pa = pa;
 	}
 
-  // set
   public void set_canvas(int x, int y) {
   	if(this.canvas == null) {
   		this.canvas = new ivec2(x,y);
@@ -102,17 +98,8 @@ public class R_FX extends Rope {
   	}
   }
 
-  public void set_type(int type) {
-  	this.type = type;
-  }
-
-  public void set_id(int id) {
-  	this.id = id;
-  }
-
-  public void set_name(String name) {
-  	this.name = name;
-  }
+	// GUI SETTING
+	////////////////////////////////
 
   public void set_name_slider(String... name) {
   	name_slider = new String[name.length];
@@ -126,6 +113,20 @@ public class R_FX extends Rope {
   	for(int i = 0 ; i < name_button.length ; i++) {
   		this.name_button[i] = name[i];
   	}
+  }
+
+	// INFO SETTING
+	////////////////////////////////
+  public void set_type(int type) {
+  	this.type = type;
+  }
+
+  public void set_id(int id) {
+  	this.id = id;
+  }
+
+  public void set_name(String name) {
+  	this.name = name;
   }
 
   public void set_author(String author) {
@@ -144,121 +145,11 @@ public class R_FX extends Rope {
   	this.revision = revision;
   }
 
-  public void set(int which, Object... arg) {
-  	if(which == 0) {
-  		set_mode((int)arg[0]);
-  	} else if(which == 1) {
-  		set_num((int)arg[0]);
-  	} else if(which == 2) {
-  		set_quality((float)arg[0]);
-  	} else if(which == 3) {
-  		set_time((float)arg[0]);
-  	} else if(which == 4) {
-  		set_on_g((boolean)arg[0]);
-  	} else if(which == 5) {
-  		set_pg_filter((boolean)arg[0]);
-  	}
-
-  		else if(which == 10) {
-  		set_scale(to_float_array(arg));
-  	} else if(which == 11) {
-  		set_resolution(to_float_array(arg));
-  	}
-
-  		else if(which == 20) {
-  		set_strength(to_float_array(arg));
-  	} else if(which == 21) {
-  		set_angle(to_float_array(arg));
-  	} else if(which == 22) {
-  		set_threshold(to_float_array(arg));
-  	} else if(which == 23) {
-  		set_pos(to_float_array(arg));
-  	} else if(which == 24) {
-  		set_size(to_float_array(arg));
-  	} else if(which == 25) {
-  		set_offset(to_float_array(arg));
-  	} else if(which == 26) {
-  		set_speed(to_float_array(arg));
-  	}
-
-  		else if(which == 30) {
-  		set_level_source(to_float_array(arg));
-  	} else if(which == 31) {
-  		set_level_layer(to_float_array(arg));
-  	} else if(which == 32) {
-  		set_colour(to_float_array(arg));
-  	} else if(which == 33) {
-  		set_cardinal(to_float_array(arg));
-  	} else if(which == 34) {
-  		set_min(to_float_array(arg));
-  	} else if(which == 35) {
-  		set_max(to_float_array(arg));
-  	} else if(which == 36) {
-  		set_gamma(to_float_array(arg));
-  	}
-
-  		else if(which == 40) {
-  		if(matrix == null || matrix.length < 1) matrix = new vec3[1];
-  		set_matrix(0,to_float_array(arg));
-  	} else if(which == 41) {
-  		if(matrix == null || matrix.length < 2) matrix = new vec3[2];
-  		set_matrix(1,to_float_array(arg));
-  	} else if(which == 42) {
-  		if(matrix == null || matrix.length < 3) matrix = new vec3[3];
-  		set_matrix(2,to_float_array(arg));
-  	}	
-
-  	else if(which == 50) {
-  		if(pair == null || pair.length < 1) pair = new vec2[1];
-  		set_pair(0,to_float_array(arg));
-  	} else if(which == 51) {
-  		if(pair == null || pair.length < 2) pair = new vec2[2];
-  		set_pair(1,to_float_array(arg));
-  	} else if(which == 52) {
-  		if(pair == null || pair.length < 3) pair = new vec2[3];
-  		set_pair(2,to_float_array(arg));
-  	}	
-
-  		else if(which == 100) {
-  		if(event == null || event.length < 1) event = new bvec4[1];
-  		set_event(0,to_boolean_array(arg));
-  	} else if(which == 101) {
-  		if(event == null || event.length < 2) event = new bvec4[2];
-  		set_event(1,to_boolean_array(arg));
-  	} else if(which == 102) {
-  		if(event == null || event.length < 3) event = new bvec4[3];
-  		set_event(2,to_boolean_array(arg));
-  	}
-  }
-
-  private float[] to_float_array(Object... arg) {
-  	float [] f = new float[arg.length];
-  	for(int i = 0 ; i < arg.length ; i++) {
-  		if(arg[i] instanceof Float) {
-  			f[i] = (float)arg[i];
-  		} else {
-  			print_err("class FX method to_float_array(): arg",arg,"cannot be cast to float");
-  			f[i] = 0;
-  		}
-  	}
-  	return f;
-  }
 
 
-  private boolean[] to_boolean_array(Object... arg) {
-  	boolean [] b = new boolean[arg.length];
-  	for(int i = 0 ; i < arg.length ; i++) {
-  		if(arg[i] instanceof Boolean) {
-  			b[i] = (boolean)arg[i];
-  		} else {
-  			print_err("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
-  			b[i] = false;
-  		}
-  	}
-  	return b;
-  }
 
-
+	// SPECIFIC SETTER
+	////////////////////////////////////////////////////////////
 
   public void set_on_g(boolean is) {
   	on_g = is;
@@ -267,7 +158,6 @@ public class R_FX extends Rope {
   public void set_pg_filter(boolean is) {
   	pg_filter_is = is;
   }
-
 
   private void set_mode(int mode) {
 		this.mode = mode;
@@ -413,6 +303,85 @@ public class R_FX extends Rope {
 		}
 	}
 
+	private void set_matrix(int which, float... arg) {
+		if(this.matrix[which] == null) {
+			this.matrix[which] = new vec3(build_float_3(arg));
+		} else {
+			this.matrix[which].set(build_float_3(arg));
+		}
+	}
+
+	private void set_event(int which, boolean... arg) {
+		if(this.event[which] == null) {
+			this.event[which] = new bvec4(build_boolean_4(arg));
+		} else {
+			this.event[which].set(build_boolean_4(arg));
+		}
+	}
+
+	// GLOBAL SETTER
+	//////////////////////////
+
+	/**
+	 * 
+	 * @param index_case before use you must know the case you want use [0 > 5] [10 > 11] [20 > 26] [30 > 36] [40 > 42] [50 > 52] [100 > 102]
+	 * @param arg is an Object will be casted to use, take a precaution when you use it
+	 */
+	public void set(int index_case, Object... arg) {
+		switch(index_case) {
+			case 0: set_mode((int)arg[0]); break;
+			case 1: set_num((int)arg[0]); break;
+			case 2: set_quality((float)arg[0]); break;
+			case 3: set_time((float)arg[0]); break;
+			case 4: set_on_g((boolean)arg[0]); break;
+			case 5: set_pg_filter((boolean)arg[0]); break;
+
+			case 10: set_scale(to_float_array(arg)); break;
+			case 11: set_resolution(to_float_array(arg)); break;
+
+			case 20: set_strength(to_float_array(arg)); break;
+			case 21: set_angle(to_float_array(arg)); break;
+			case 22: set_threshold(to_float_array(arg)); break;
+			case 23: set_pos(to_float_array(arg)); break;
+			case 24: set_size(to_float_array(arg)); break;
+			case 25: set_offset(to_float_array(arg)); break;
+			case 26: set_speed(to_float_array(arg)); break;
+
+			case 30: set_level_source(to_float_array(arg)); break;
+			case 31: set_level_layer(to_float_array(arg)); break;
+			case 32: set_colour(to_float_array(arg)); break;
+			case 33: set_cardinal(to_float_array(arg)); break;
+			case 34: set_min(to_float_array(arg)); break;
+			case 35: set_max(to_float_array(arg)); break;
+			case 36: set_gamma(to_float_array(arg)); break;
+
+			case 40: 	if(matrix == null || matrix.length < 1) matrix = new vec3[1];
+  							set_matrix(0,to_float_array(arg)); break;
+			case 41: 	if(matrix == null || matrix.length < 2) matrix = new vec3[2];
+  							set_matrix(1,to_float_array(arg)); break;
+			case 42:	if(matrix == null || matrix.length < 3) matrix = new vec3[3];
+  							set_matrix(2,to_float_array(arg)); break;
+
+			case 50:	if(pair == null || pair.length < 1) pair = new vec2[1];
+  							set_pair(0,to_float_array(arg)); break;
+			case 51: 	if(matrix == null || matrix.length < 2) matrix = new vec3[2];
+  							set_matrix(1,to_float_array(arg)); break;
+			case 52: 	if(matrix == null || matrix.length < 3) matrix = new vec3[3];
+  							set_matrix(2,to_float_array(arg)); break;
+
+			case 100: if(event == null || event.length < 1) event = new bvec4[1];
+  							set_event(0,to_boolean_array(arg)); break;
+			case 101: if(event == null || event.length < 2) event = new bvec4[2];
+  							set_event(1,to_boolean_array(arg)); break;
+			case 102: if(event == null || event.length < 3) event = new bvec4[3];
+  							set_event(2,to_boolean_array(arg)); break;
+
+			default:
+		}
+  }
+
+	// the setter bellow is not use in the global setter why ?
+	/////////////////////////////////////////////////////////////
 
 	private void set_hue(float hue) {
 		this.hue = hue;
@@ -442,14 +411,6 @@ public class R_FX extends Rope {
 		this.alpha = alpha;
 	}
 
-	private void set_matrix(int which, float... arg) {
-		if(this.matrix[which] == null) {
-			this.matrix[which] = new vec3(build_float_3(arg));
-		} else {
-			this.matrix[which].set(build_float_3(arg));
-		}
-	}
-
 	private void set_pair(int which, float... arg) {
 		if(this.pair[which] == null) {
 			this.pair[which] = new vec2(build_float_2(arg));
@@ -458,17 +419,12 @@ public class R_FX extends Rope {
 		}
 	}
 
-	private void set_event(int which, boolean... arg) {
-		if(this.event[which] == null) {
-			this.event[which] = new bvec4(build_boolean_4(arg));
-		} else {
-			this.event[which].set(build_boolean_4(arg));
-		}
-	}
 
 
 
-	// get
+	// GETTER
+	/////////////////////////
+
 	public boolean on_g() {
 		return on_g;
 	}
@@ -689,7 +645,6 @@ public class R_FX extends Rope {
 		return alpha;
 	}   
 
-  // matrix
 	public vec3 get_matrix(int which) {
 		if(matrix != null  && which < matrix.length && which >= 0) {
 			if(matrix[which] == null) {
@@ -718,7 +673,6 @@ public class R_FX extends Rope {
 		} else return null;
 	}
   
-  // pair
 	public vec2 get_pair(int which) {
 		if(pair != null && which < pair.length && which >= 0) {
 			if(pair[which] == null) {
@@ -747,7 +701,6 @@ public class R_FX extends Rope {
 		} else return null;
 	}
   
-  // event
   public bvec4 get_event(int which) {
 		if(event != null && which < event.length  && which >= 0) {
 			return event[which];
@@ -774,7 +727,35 @@ public class R_FX extends Rope {
 		}
 	}
 
-	// util
+	// UTILS
+	//////////////////////////
+
+	private float[] to_float_array(Object... arg) {
+  	float [] f = new float[arg.length];
+  	for(int i = 0 ; i < arg.length ; i++) {
+  		if(arg[i] instanceof Float) {
+  			f[i] = (float)arg[i];
+  		} else {
+  			print_err("class FX method to_float_array(): arg",arg,"cannot be cast to float");
+  			f[i] = 0;
+  		}
+  	}
+  	return f;
+  }
+
+  private boolean[] to_boolean_array(Object... arg) {
+  	boolean [] b = new boolean[arg.length];
+  	for(int i = 0 ; i < arg.length ; i++) {
+  		if(arg[i] instanceof Boolean) {
+  			b[i] = (boolean)arg[i];
+  		} else {
+  			print_err("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
+  			b[i] = false;
+  		}
+  	}
+  	return b;
+  }
+
 	private bvec4 build_boolean_4(boolean... arg) {
 		if(arg.length == 1 ) {
 			return new bvec4(arg[0],false,false,false);
