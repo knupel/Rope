@@ -1,18 +1,17 @@
 /**
 * R_Plane
-* v 0.1.0
-* 2019-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.1.1
+* 2019-2022
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.mesh;
 
 import java.util.ArrayList;
-
-import rope.core.BigBang;
+import rope.core.Rope;
 import rope.vector.vec3;
 
-public class R_Plane extends BigBang {
+public class R_Plane extends Rope {
   private vec3 plane;
 	private vec3 a;
 	private float range = 1;
@@ -46,7 +45,6 @@ public class R_Plane extends BigBang {
 	public ArrayList<R_Node> get_nodes() {
 		if(nodes != null) {
 			return nodes;
-			// return nodes.toArray(new R_Node[nodes.size()]);
 		} else {
 			return null;
 		}
@@ -62,7 +60,6 @@ public class R_Plane extends BigBang {
 		// range unit.
 		return Math.abs(d) < range; 
 	}
-
 
 	public void debug(boolean debug) {
 		this.debug = debug;

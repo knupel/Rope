@@ -15,7 +15,7 @@ import rope.vector.vec4;
 
 public class R_Colour extends Rope {
 	private ArrayList<Palette> list;
-	PApplet pa;
+	private PApplet pa;
 	private int current_colour = 0;
 	
 	public R_Colour(PApplet pa) {

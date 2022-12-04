@@ -7,12 +7,13 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * collection of function can be use with out Processing.
-* @author @knupel
-* @see https://github.com/knupel/Rope
- * 2018-2022
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
+ * 2014-2022
  * v 0.4.3
  * 
  */
+
 
 package rope.core;
 
@@ -39,12 +40,10 @@ import rope.mesh.R_Shape;
 import processing.core.*;
 
 public class Rope implements R_Constants, R_Constants_Colour {
+	
 	public Rope() {}
 
-
-	
 	public String get_renderer(final PGraphics graph) {
-	// public String get_renderer(final PGraphics graph) {
 		try {
 			if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
 			if (Class.forName(P2D).isInstance(graph)) return P2D;

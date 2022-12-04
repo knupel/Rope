@@ -32,6 +32,8 @@ import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec5;
 
+import processing.core.PApplet;
+
 public class R_Impact extends R_Graphic {
 	// PUPPET MASTER
 	private ArrayList<R_Puppet2D>[] main;

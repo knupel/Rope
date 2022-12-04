@@ -1,18 +1,14 @@
 /**
-* ROPE > ROmanesco Processing Environment
-* Copyleft (c) 2014-2021
-* Processing 3.5.4
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
-*/
-
-/**
  *   ___      ___   ____   _______
  *  | -  \   /   \  |    \ |  ___/
  *  | |/  | |   \ | | |\ | |  |__
  *  |    /  | | | | | |  / |  __/
  *  | |  \  \ \   / |  |/  |  |____
  *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * 
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
  * 
  * BIG BANG ROPE
  * is the main class of library
@@ -38,8 +34,8 @@ import java.awt.FontMetrics;
 public abstract class BigBang extends Rope {
 	public PApplet pa;
 	
-	public BigBang() {
-	}
+	// public BigBang() {
+	// }
 	
 
 	public BigBang(PApplet pa) {

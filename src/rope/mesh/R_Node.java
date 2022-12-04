@@ -1,6 +1,6 @@
 /**
 * R_Node
-* v 0.3.1
+* v 0.3.3
 * 2019-2022
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -9,12 +9,12 @@ package rope.mesh;
 
 import java.util.ArrayList;
 
-import rope.core.BigBang;
+import rope.core.Rope;
 import rope.vector.vec;
 import rope.vector.vec3;
 import rope.vector.ivec6;
 
-public class R_Node extends BigBang {
+public class R_Node extends Rope {
 	private vec3 pos = new vec3();
 	private ArrayList<vec3> dest_list;
 	private int branch = 4;
