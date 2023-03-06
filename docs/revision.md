@@ -1,3 +1,10 @@
+\* version 50
+
+> Go to Java 17
+> Go to Processing 4.2
+
+
+
 \* version 49
 
 > add class R_FX and remove from the Rope frameWork
