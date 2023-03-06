@@ -10,7 +10,7 @@ package rope.mesh;
  * 
  * Copyleft(l) 2022-2022 
  * Adaptation from Toxiclib by Stan le Punk / Stanislas Marçais
- * v 0.1.2
+ * v 0.1.3
  * 
  * 
  *   __               .__       .__  ._____.           
@@ -167,7 +167,7 @@ public class R_Voronoi extends BigBang {
 
 
 
-	public R_Shape get_area(int index) {
+	public R_Shape get_polygon(int index) {
 		if(index >= 0 && index < areas_list.size()) {
 			return areas_list.get(index);
 		}
@@ -176,10 +176,29 @@ public class R_Voronoi extends BigBang {
 
 	/**
 	 * 
-	 * @return the list voronoi area, the area is discribe by cloud of vec2 points
+	 * @return the list voronoi polygon, the area is discribe by cloud of vec2 points
 	 */
-	public List<R_Shape> get_areas() {
+	public List<R_Shape> get_polygons() {
 		return areas_list;
+	}
+
+	/**
+	 * 
+	 * @param index
+	 * @return
+	 * @deprecated instead use get_polygon(int index)
+	 */
+	@Deprecated public R_Shape get_area(int index) {
+		return get_polygon(index);
+	}
+
+	/**
+	 * 
+	 * @return
+	 * @deprecated instead use get_polygons()
+	 */
+	@Deprecated public List<R_Shape> get_areas() {
+		return get_polygons();
 	}
 
 

@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.1.1
+ * v 0.1.2
  * 2022-2022
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -51,7 +51,7 @@ public class R_Impact extends R_Graphic {
 	// POINT
 	private ArrayList<R_Node> nodes = new ArrayList<R_Node>();
 	// GLOBAL POSTION of the impact
-	private vec3 pos;
+	private vec3 pos = new vec3();
 
 	private float marge = 2; // use for in_line detection
 	private int base = 5;
@@ -70,13 +70,12 @@ public class R_Impact extends R_Graphic {
 
 	public R_Impact(PApplet pa) {
 		super(pa);
-		pos = new vec3(0);
 		init();
 	}
 
 	public R_Impact(PApplet pa, int x, int y) {
 		super(pa);
-		pos = new vec3(x, y, 0);
+		pos(x,y);
 		init();
 	}
 
@@ -107,6 +106,15 @@ public class R_Impact extends R_Graphic {
 	////////////////////////////////
 	// SETTING
 	/////////////////////////////////
+	public R_Impact pos(float x, float y) {
+		this.pos.set(x,y,0);
+		return this;
+	}
+
+	public R_Impact pos(vec2 pos) {
+		this.pos.set(pos.x(),pos.y(),0);
+		return this;
+	}
 
 	// SET DATA MAIN
 	///////////////////
@@ -176,7 +184,6 @@ public class R_Impact extends R_Graphic {
 		this.mode = LINE;
 		return this;
 	}
-
 
 
 

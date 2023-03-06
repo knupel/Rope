@@ -6,7 +6,8 @@
 
 > R_Impact new class to creata a pseudo deisgn of glass impact network
 
-
+> R_Voronoi
+> add function get_polygon(int index) and get_poygons() to create a same spirit than R_Impact
 
 > R_Pair new class to store quickly acouple of object
 
