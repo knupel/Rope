@@ -7,8 +7,8 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.1.2
- * 2022-2022
+ * v 0.3.0
+ * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
 */
