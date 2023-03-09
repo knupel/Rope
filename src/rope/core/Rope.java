@@ -458,7 +458,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	* @link https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection
+	* @see <a href="https://forum.processing.org/two/discussion/90/point-and-line-intersection-detection">Processing discussion topic</a>
 	* refactoring from Quark Algorithm
 	 * 
 	 * @param start
@@ -531,8 +531,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 
 	/**
-	* @link https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html
-	* @link http://paulbourke.net/geometry/
+	* @see <a href="https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html">Forum processing topic</a>
+	* @see <a href="http://paulbourke.net/geometry/">Paul Bourke  topic</a>
 	* thks to Moggach and Paul Brook
 	 * @param points list of coordinate of the shape
 	 * @param pos coordinate of value must be tested

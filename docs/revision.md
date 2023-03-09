@@ -3,6 +3,13 @@
 > Go to Java 17
 > Go to Processing 4.2
 
+> VECTOR
+> remove jitter from all vec
+> add function abs to vec2, vec3, vec3, ivec2, ivec3, ivec4
+
+
+> R_SVG
+> remove the calling function jitter(), instead use random_next_gaussian() function
 
 
 \* version 49

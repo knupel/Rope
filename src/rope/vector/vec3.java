@@ -1,10 +1,10 @@
 /**
  * vec3 class
- * v 1.5.5
-* 2015-2022
+ * v 1.6.0
+* 2015-2023
 * Vector class with a float precision
- * @author @stanlepunk
- * @see https://github.com/StanLepunK/Rope
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
 */
 package rope.vector;
 
@@ -372,6 +372,18 @@ public class vec3 extends vec {
 			return sub(v.x,v.y,v.z);
 		} return null;
 	}
+
+
+	/**
+	* @return the absolute value of the vector
+	*/
+	public vec3 abs() {
+		x = (float)Math.abs(x);
+		y = (float)Math.abs(y);
+		z = (float)Math.abs(z);
+		set(x,y,z);
+		return this;
+	}
 	
 	
 
@@ -578,30 +590,30 @@ public class vec3 extends vec {
 		return this;
 	}
 	
-	/**
-	 * jitter
-	 * @param range_x
-	 * @param range_y
-	 * @param range_z
-	 * @return
-	 */
-	@Deprecated public vec3 jitter(int range_x,int range_y, int range_z) {
-		x += random_next_gaussian(range_x,3);
-		y += random_next_gaussian(range_y,3);
-		z += random_next_gaussian(range_z,3);
-		set(x,y,z);
-		return this;
-	}
+	// /**
+	//  * jitter
+	//  * @param range_x
+	//  * @param range_y
+	//  * @param range_z
+	//  * @return
+	//  */
+	// @Deprecated public vec3 jitter(int range_x,int range_y, int range_z) {
+	// 	x += random_next_gaussian(range_x,3);
+	// 	y += random_next_gaussian(range_y,3);
+	// 	z += random_next_gaussian(range_z,3);
+	// 	set(x,y,z);
+	// 	return this;
+	// }
 	
-	@Deprecated public vec3 jitter(int range) {
-		return jitter(range,range,range) ;
-	}
+	// @Deprecated public vec3 jitter(int range) {
+	// 	return jitter(range,range,range) ;
+	// }
 	
-	@Deprecated public vec3 jitter(vec3 range) {
-		if(range != null) {
-			return jitter((int)range.x,(int)range.y,(int)range.z);
-		} else return jitter(0,0,0) ;
-	}
+	// @Deprecated public vec3 jitter(vec3 range) {
+	// 	if(range != null) {
+	// 		return jitter((int)range.x,(int)range.y,(int)range.z);
+	// 	} else return jitter(0,0,0) ;
+	// }
 
 
 
@@ -645,8 +657,8 @@ public class vec3 extends vec {
 
 	/**
 	 * 
-	 * @param timeline
-	 * @param s
+	 * @param timeline give the tempo modification of the wave
+	 * @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec3 cosinus of each argument
 	 */
 	public vec3 wave(int timeline, float s) {
@@ -655,10 +667,10 @@ public class vec3 extends vec {
 
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx
-	 * @param sy
-	 * @param sz
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec3 cosinus of each argument
 	 */
 	public vec3 wave(int timeline, float sx, float sy, float sz) {
@@ -669,7 +681,7 @@ public class vec3 extends vec {
 	/**
 	* WAVE COSINUS
 	* @param timeline int
-	* @param s float speed for all vec arg
+	* @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	* @return vec3 cosinus of each argument
 	*/
 	public vec3 cos_wave(int timeline, float s) {
@@ -679,10 +691,10 @@ public class vec3 extends vec {
 	
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx float speed for all vec arg x
-	 * @param sy float speed for all vec arg y
-	 * @param sz float speed for all vec arg z
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec3 cosinus of each argument
 	 */
 	public vec3 cos_wave(int timeline, float sx, float sy, float sz) {
@@ -695,8 +707,8 @@ public class vec3 extends vec {
 
 	/**
 	* WAVE SINUS
-	* @param timeline int
-	* @param s float speed for all vec arg
+	* @param timeline give the tempo modification of the wave
+	* @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	* @return vec3 sinus of the value
 	*/
 	public vec3 sin_wave(int timeline, float s) {
@@ -705,10 +717,10 @@ public class vec3 extends vec {
 	
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx float speed for all vec arg x
-	 * @param sy float speed for all vec arg y
-	 * @param sz float speed for all vec arg z
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return
 	 */
 	public vec3 sin_wave(int timeline, float sx, float sy, float sz) {

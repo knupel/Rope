@@ -783,8 +783,7 @@ public class R_Graphic extends BigBang {
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param px float value for the ellipse position
 	 * @param py float value for the ellipse position
-	 * @param sx float value for the ellipse size
-	 * @param sy float value for the ellipse size
+	 * @param diam float value for the ellipse size
 	 */
 	public void circle(float px, float py, float diam) {
 		if(other != null) {
