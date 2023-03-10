@@ -39,41 +39,19 @@ void setup() {
 void draw() {
 	background(r.BLOOD);
 	fill(r.GRIS[2]);
-	if(!keyPressed) {
-		show_polygons_classic();
-	} else {
-		show_polygond_by_id();
-	}
+	noStroke();
+	impact.show_polygons();
+	stroke(r.WHITE);
+	impact.use_gradient(true);
+	impact.show_lines();
+
+	println(impact.radius());
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press any key to show polygon classic", 10, 50);
 }
 
-void show_polygons_classic() {
-	stroke(r.GRIS[7]);
-	impact.show_polygons();
-	fill(r.BLACK);
-	impact.show_polygon_heart();
-}
-
-void show_polygond_by_id() {
-	
-	int len = impact.get_polygons().size();
-	for(int i = 0 ; i < len ; i++) {
-		R_Shape shape = impact.get_polygons().get(i);
-		if(shape.id().c() == 0 ) {
-			fill(r.GRIS[4]);
-			noStroke();
-		} else {
-			fill(r.GRIS[2]);
-			stroke(r.GRIS[7]);
-		}
-		impact.show_polygon(impact.get_polygons().get(i));
-	}
-
-}
 
 
 

@@ -7,6 +7,9 @@
 > remove jitter from all vec
 > add function abs to vec2, vec3, vec3, ivec2, ivec3, ivec4
 
+> R_Impact
+> add polygon to show the peripheric polygon and display on all the window.
+
 
 > R_SVG
 > remove the calling function jitter(), instead use random_next_gaussian() function

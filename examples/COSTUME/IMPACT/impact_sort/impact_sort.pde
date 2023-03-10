@@ -1,8 +1,8 @@
 /**
  * 
  * simple impact example
- * v 0.0.1
- * 2022-2022
+ * v 0.0.2
+ * 2022-2023
  * 
 
  * */
@@ -33,6 +33,9 @@ void setup() {
 
 void draw() {
 	background(255);
+	text("click on mouse left to change branche",10,20);
+	text("press \"n\" for new sort",10,40);
+	text("press \"space\" to show all circles",10,60);
 	fill(0);
 	if(!keyPressed) {
 		imp.show_lines_heart();
@@ -75,25 +78,6 @@ void keyPressed() {
 		println("nouveau tirage");
 		imp.build();
 		info();
-		// for(int i = 0 ; i < imp.get_num_main() ; i++) {
-		// 	println("index branch", i);
-		// 	for(R_Line2D line : imp.get_lines_branch(i)) {
-		// 		println(line.id(), line);
-
-		// 	}
-		// 	// printArray(imp.get_lines_branch(i));
-		// 	// imp.get_lines_branch(i);
-
-		// }
-
-		// println("MISSING FOR PAPA");
-		// for(int i = 0 ; i < imp.get_num_circle() ; i++) {
-		// 	for(R_Line2D line : imp.get_lines_circle(i)) {
-		// 		if(line.id().f() == Integer.MAX_VALUE) {
-		// 			println(line.id(), line);
-		// 		}
-		// 	}
-		// }
 		
 	}
 }

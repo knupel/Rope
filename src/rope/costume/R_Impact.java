@@ -52,11 +52,13 @@ public class R_Impact extends R_Graphic {
 	private ArrayList<R_Node> nodes = new ArrayList<R_Node>();
 	// GLOBAL POSTION of the impact
 	private vec3 pos = new vec3();
+	private float radius = 0;
 
 	private float marge = 2; // use for in_line detection
 	private int base = 5;
 
 	private boolean use_mute_is = false;
+	private boolean use_gradient_is = false;
 	private int mode_pixel_x = 1;
 
 	private float growth_fact_spiral = 1;
@@ -277,6 +279,10 @@ public class R_Impact extends R_Graphic {
 	//////////////////////////////
 	// GETING
 	//////////////////////////////
+
+	public float radius() {
+		return this.radius;
+	}
 
 	public vec2 pos() {
 		return this.pos.xy();
@@ -555,11 +561,17 @@ public class R_Impact extends R_Graphic {
 		main = new ArrayList[get_num_main()];
 		float angle_step = TAU / get_num_main();
 		float angle = 0f;
+		radius = 0;
 
 		for(int i = 0 ; i < get_num_main() ; i++) {
 			main[i] = new ArrayList<R_Puppet2D>();
 			main_impl(i, angle);
 			angle += angle_step;
+			R_Line2D line = main[i].get(main[i].size() -1);
+			float dist = dist(line.b(), pos());
+			if(dist > radius) {
+				radius = dist;
+			}
 		}
 	}
 
@@ -1044,10 +1056,33 @@ public class R_Impact extends R_Graphic {
 				create_polygon_last(last_line, id_branch);
 			}
 		}
+		// external polygon
+		create_polygon_external();
 	}
 
 
-		// FIRST POLYGON
+	// EXTERNAL POLYGON
+	////////////////////////
+	private void create_polygon_external() {
+		R_Shape shape = new R_Shape(this.pa);
+		shape.id_a(GRIS[18]);
+		shape.id_b(-2); // polygon with hole
+		shape.id_c(0);
+		// frame part
+		shape.add_point(0,0);
+		shape.add_point(pa.width, 0);
+		shape.add_point(pa.width, pa.height);
+		shape.add_point(0, pa.height);
+		// interior part
+		for(int i = 0 ; i < main.length ; i++) {
+			vec2 p = main[i].get(main[i].size() -1).a();
+			shape.add_points(p);
+		}
+		imp_shapes.add(shape);
+	}
+
+
+	// FIRST POLYGON
 	////////////////////////
 
 	private void create_polygon_first(R_Line2D lc) {
@@ -1112,6 +1147,7 @@ public class R_Impact extends R_Graphic {
 		R_Shape shape = new R_Shape(this.pa);
 		shape.id_a(GRIS[15]);
 		shape.id_b(id_branch);
+		shape.id_c(0);
 		int next_id_branch = id_branch + 1;
 		if(next_id_branch >= get_num_main()) {
 			next_id_branch = 0;
@@ -1564,6 +1600,18 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+
+	// GRADIANT
+	////////////
+	public void use_gradient(boolean is) {
+		this.use_gradient_is = is;
+	}
+
+	public boolean use_gradient_is() {
+		return this.use_gradient_is;
+	}
+
+
 	
 
 
@@ -1828,6 +1876,17 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void show_single_line_impl(R_Line2D line) {
+		if(use_gradient_is()) {
+			// calc dist from center
+			float dist = dist(line.a(), pos());
+			float ratio = dist / radius();
+			float thickness_min = 0.5f;
+			float thickness_max = 5.0f;
+			float thickness = map(ratio, 0, 1, thickness_max, thickness_min);
+			strokeWeight(thickness);
+
+
+		}
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
 				line.show();
@@ -1900,9 +1959,23 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-	private void show_polygon(R_Shape shape) {
+	/**
+	 * 
+	 * @param shape
+	 */
+	public void show_polygon(R_Shape shape) {
 		beginShape();
-		for(int i = 0 ; i < shape.get_summits() ; i++) {
+		int i = 0;
+		// create the exterior if necessary, for the external polygon
+		if(shape.id().b() == -2) {
+			beginContour();
+			for( ; i < 4 ; i++) {
+				vertex(shape.get_x(i), shape.get_y(i));
+			}
+			endContour();
+		}
+		// classic draw or internal draw depend of the case.
+		for( ; i < shape.get_summits() ; i++) {
 			vertex(shape.get_x(i), shape.get_y(i));
 		}
 		endShape(CLOSE);
