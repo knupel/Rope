@@ -37,15 +37,24 @@ void setup() {
 }
 
 void draw() {
+	// When you use gradient it's necessary to complete
+	// this pattern design by using set function
+	// set_fill() and set_stroke() to avoid few graphics problems.
 	background(r.BLOOD);
-	fill(r.GRIS[2]);
-	noStroke();
-	impact.show_polygons();
-	stroke(r.WHITE);
-	impact.use_gradient(true);
-	impact.show_lines();
+	impact.set_fill(r.GRIS[2]);
+	impact.set_stroke(r.WHITE);
+	// noStroke();
+	if(!mousePressed) {
+		impact.use_gradient_thickness(true, 2, 0.1);
+	} else {
+		impact.use_gradient_thickness(true, 0.1, 2);
+	}
 
-	println(impact.radius());
+	impact.show_polygons();
+	// 
+	// impact.show_lines();
+
+	// println(impact.radius());
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";

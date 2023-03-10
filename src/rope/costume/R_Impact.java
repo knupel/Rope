@@ -58,7 +58,12 @@ public class R_Impact extends R_Graphic {
 	private int base = 5;
 
 	private boolean use_mute_is = false;
-	private boolean use_gradient_is = false;
+	private boolean use_gradient_thickness_is = false;
+	private vec2 thickness = new vec2(1);
+	private boolean use_gradient_stroke_is = false;
+	private ivec2 stroke = new ivec2(BLACK);
+	private boolean use_gradient_fill_is = false;
+	private ivec2 fill = new ivec2(WHITE);
 	private int mode_pixel_x = 1;
 
 	private float growth_fact_spiral = 1;
@@ -1147,7 +1152,6 @@ public class R_Impact extends R_Graphic {
 		R_Shape shape = new R_Shape(this.pa);
 		shape.id_a(GRIS[15]);
 		shape.id_b(id_branch);
-		shape.id_c(0);
 		int next_id_branch = id_branch + 1;
 		if(next_id_branch >= get_num_main()) {
 			next_id_branch = 0;
@@ -1600,15 +1604,82 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-
-	// GRADIANT
-	////////////
-	public void use_gradient(boolean is) {
-		this.use_gradient_is = is;
+	// ASPECT
+	/////////////
+	public void set_stroke(int stroke) {
+		this.stroke.x(stroke);
+		stroke(this.stroke.x());
 	}
 
-	public boolean use_gradient_is() {
-		return this.use_gradient_is;
+	public void set_fill(int fill) {
+		this.fill.x(fill);
+		fill(this.fill.x());
+	}
+
+	public void set_thickness(float thickness) {
+		this.thickness.x(thickness);
+		strokeWeight(this.thickness.x());
+	}
+
+
+
+	// GRADIENT
+	////////////
+	/**
+	 * Apply a thickness gradient on all strokeweight from the center to the exterior shape
+	 * @param is set if the gradient must be apply
+	 * @param min thickness minimum for the strokeWeight
+	 * @param max thickness maximum for the strokeWeight
+	 */
+	public void use_gradient_thickness(boolean is, float min, float max) {
+		thickness.set(min,max);
+		this.use_gradient_thickness_is = is;
+	}
+
+	private boolean use_gradient_thickness_is() {
+		return this.use_gradient_thickness_is;
+	}
+
+	private void apply_gradient_thickness(float dist) {
+		if(use_gradient_thickness_is()) {
+			float ratio = dist / radius();
+			float value = map(ratio, 0, 1, thickness.x(), thickness.y());
+			// that can give a problem for the ccase where there is gradient for color ???
+			stroke(stroke.x()); 
+			strokeWeight(value);
+		}
+	}
+
+		/**
+	 * Apply a stroke gradient on all strokeweight from the center to the exterior shape
+	 * @param is set if the gradient must be apply
+	 * @param start stroke for color
+	 * @param end stroke for color
+	 */
+	public void use_gradient_stroke(boolean is, int start, int end) {
+		stroke.set(start,end);
+		this.use_gradient_stroke_is = is;
+	}
+
+	private boolean use_gradient_stroke_is() {
+		return this.use_gradient_stroke_is;
+	}
+
+
+
+		/**
+	 * Apply a fill gradient on all strokeweight from the center to the exterior shape
+	 * @param is set if the gradient must be apply
+	 * @param start fill for color
+	 * @param end fill for color
+	 */
+	public void use_gradient_fill(boolean is, int start, int end) {
+		fill.set(start,end);
+		this.use_gradient_fill_is = is;
+	}
+
+	private boolean use_gradient_fill_is() {
+		return this.use_gradient_fill_is;
 	}
 
 
@@ -1876,17 +1947,8 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void show_single_line_impl(R_Line2D line) {
-		if(use_gradient_is()) {
-			// calc dist from center
-			float dist = dist(line.a(), pos());
-			float ratio = dist / radius();
-			float thickness_min = 0.5f;
-			float thickness_max = 5.0f;
-			float thickness = map(ratio, 0, 1, thickness_max, thickness_min);
-			strokeWeight(thickness);
-
-
-		}
+		float dist_from_center = dist(line.a(), pos());
+		apply_gradient_thickness(dist_from_center);
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
 				line.show();
@@ -1895,6 +1957,9 @@ public class R_Impact extends R_Graphic {
 			line.show();
 		}
 	}
+
+
+
 
 
 
@@ -1964,6 +2029,20 @@ public class R_Impact extends R_Graphic {
 	 * @param shape
 	 */
 	public void show_polygon(R_Shape shape) {
+		float dist_from_center = dist(shape.get_point(shape.get_summits()-1).xy(), pos());
+		// float dist_from_center = dist(shape.barycenter().xy(), pos());
+		if(shape.id().c() != 0) {
+			apply_gradient_thickness(dist_from_center);
+		} else {
+			strokeWeight(1);
+			stroke(this.fill.x());
+			// print_err("je suis là");
+		}
+		// if(shape.id().b() == -2) {
+			// dist_from_center = radius();
+		// }
+		
+
 		beginShape();
 		int i = 0;
 		// create the exterior if necessary, for the external polygon
