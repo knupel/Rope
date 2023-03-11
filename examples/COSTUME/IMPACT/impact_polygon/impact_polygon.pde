@@ -35,7 +35,8 @@ void setup() {
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.GRIS[1]);
+	fill(r.MAGENTA);
+	// fill(r.GRIS[1]);
 	stroke(r.GRIS[5]);
 	impact.show_polygons();
 	fill(r.BLACK);

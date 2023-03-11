@@ -61,9 +61,9 @@ public class R_Impact extends R_Graphic {
 	private boolean use_gradient_thickness_is = false;
 	private vec2 thickness = new vec2(1);
 	private boolean use_gradient_stroke_is = false;
-	private ivec2 stroke = new ivec2(BLACK);
+	private ivec2 stroke = new ivec2(0);
 	private boolean use_gradient_fill_is = false;
-	private ivec2 fill = new ivec2(WHITE);
+	private ivec2 fill = new ivec2(0);
 	private int mode_pixel_x = 1;
 
 	private float growth_fact_spiral = 1;
@@ -2057,12 +2057,10 @@ public class R_Impact extends R_Graphic {
 			apply_gradient_thickness(dist_from_center);
 		} else {
 			strokeWeight(1);
-			stroke(this.fill.y());
-			fill(this.fill.y());
-			// print_err("je suis là");
+			if(this.fill.y() < 0) stroke(this.fill.y());
+			if(this.fill.y() < 0) fill(this.fill.y());
 		}
 		
-
 		beginShape();
 		int i = 0;
 		// create the exterior if necessary, for the external polygon
