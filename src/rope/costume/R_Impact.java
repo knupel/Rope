@@ -1607,12 +1607,12 @@ public class R_Impact extends R_Graphic {
 	// ASPECT
 	/////////////
 	public void set_stroke(int stroke) {
-		this.stroke.x(stroke);
+		this.stroke.set(stroke);
 		stroke(this.stroke.x());
 	}
 
 	public void set_fill(int fill) {
-		this.fill.x(fill);
+		this.fill.set(fill);
 		fill(this.fill.x());
 	}
 
@@ -1665,6 +1665,15 @@ public class R_Impact extends R_Graphic {
 		return this.use_gradient_stroke_is;
 	}
 
+	private void apply_gradient_stroke(float dist) {
+		if(use_gradient_stroke_is()) {
+			float ratio = dist / radius();
+			int value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
+			// that can give a problem for the ccase where there is gradient for color ???
+			stroke(value); 
+		}
+	}
+
 
 
 		/**
@@ -1680,6 +1689,16 @@ public class R_Impact extends R_Graphic {
 
 	private boolean use_gradient_fill_is() {
 		return this.use_gradient_fill_is;
+	}
+
+
+	private void apply_gradient_fill(float dist) {
+		if(use_gradient_fill_is()) {
+			float ratio = dist / radius();
+			int value = lerpColor(fill.x(), fill.y(), ratio, RGB);
+			// that can give a problem for the ccase where there is gradient for color ???
+			fill(value); 
+		}
 	}
 
 
@@ -1948,6 +1967,7 @@ public class R_Impact extends R_Graphic {
 
 	private void show_single_line_impl(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
+		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
@@ -2031,16 +2051,16 @@ public class R_Impact extends R_Graphic {
 	public void show_polygon(R_Shape shape) {
 		float dist_from_center = dist(shape.get_point(shape.get_summits()-1).xy(), pos());
 		// float dist_from_center = dist(shape.barycenter().xy(), pos());
+		apply_gradient_fill(dist_from_center);
+		apply_gradient_stroke(dist_from_center);
 		if(shape.id().c() != 0) {
 			apply_gradient_thickness(dist_from_center);
 		} else {
 			strokeWeight(1);
-			stroke(this.fill.x());
+			stroke(this.fill.y());
+			fill(this.fill.y());
 			// print_err("je suis là");
 		}
-		// if(shape.id().b() == -2) {
-			// dist_from_center = radius();
-		// }
 		
 
 		beginShape();

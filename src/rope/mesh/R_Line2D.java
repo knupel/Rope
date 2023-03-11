@@ -668,7 +668,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * Show the result of all previous work on line
    */
   public void show() {
-    // line(a,b);
     line(a.xy(),b.xy());
     reset();
   }
@@ -678,11 +677,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * 
    * @param other is the PGraphics where the result will be showing
    */
-  @Deprecated public void show(PGraphics other) {
-  	this.other = other;
-    line(a.xy(),b.xy());
-    reset();
-  }
+  // @Deprecated public void show(PGraphics other) {
+  // 	this.other = other;
+  //   line(a.xy(),b.xy());
+  //   reset();
+  // }
 
   public void show_pixels() {
     loadPixels();

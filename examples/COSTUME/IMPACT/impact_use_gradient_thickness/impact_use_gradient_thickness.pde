@@ -3,7 +3,7 @@
  * impact example to create polygon 
  * from the pattern impact `
  * and mute few line before build all polygons
- * v 0.1.0
+ * v 0.1.1
  * 2022-2023
  * 
 
@@ -44,21 +44,29 @@ void draw() {
 	impact.set_fill(r.GRIS[2]);
 	impact.set_stroke(r.WHITE);
 	// noStroke();
-	if(!mousePressed) {
+	if(mousePressed) {
 		impact.use_gradient_thickness(true, 2, 0.1);
 	} else {
 		impact.use_gradient_thickness(true, 0.1, 2);
 	}
 
-	impact.show_polygons();
+	if(keyPressed) {
+		impact.show_polygons();
+	} else {
+		impact.show_lines();
+	}
+	
 	// 
-	// impact.show_lines();
+	// 
 
 	// println(impact.radius());
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
+	text("press \"n\" for new sort", 10,30);
+	text("press any to show polygon line", 10,50);
+	text("press mouse to reverse gradient", 10,70);
 }
 
 
