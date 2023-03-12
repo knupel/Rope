@@ -1622,6 +1622,20 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+	private void apply_stroke() {
+		if(stroke_is()) {
+			stroke(stroke.x()); 
+			strokeWeight(thickness.x());
+		}
+	}
+
+	private void apply_fill() {
+		if(fill_is()) {
+			fill(fill.x()); 
+		}
+	}
+
+
 
 	// GRADIENT
 	////////////
@@ -1944,6 +1958,8 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void show_list_impl(ArrayList[] list, int start, int end) {
+		// print_err("show_list_impl() list", list);
+		// print_err("list.length", list.length);
 		for(int i = 0 ; i < list.length ; i++) {
 			show_lines_impl(list[i], start, end);
 		}
@@ -2051,6 +2067,8 @@ public class R_Impact extends R_Graphic {
 	public void show_polygon(R_Shape shape) {
 		float dist_from_center = dist(shape.get_point(shape.get_summits()-1).xy(), pos());
 		// float dist_from_center = dist(shape.barycenter().xy(), pos());
+		apply_stroke();
+		apply_fill();
 		apply_gradient_fill(dist_from_center);
 		apply_gradient_stroke(dist_from_center);
 		if(shape.id().c() != 0) {

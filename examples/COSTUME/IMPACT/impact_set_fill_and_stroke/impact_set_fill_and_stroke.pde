@@ -28,12 +28,9 @@ void draw() {
 	background(r.BLOOD);
 	impact.set_fill(r.GRIS[2]);
 	impact.set_stroke(r.WHITE);
-
-	if(mousePressed) {
-		impact.use_gradient_thickness(true, 2, 0.1);
-	} else {
-		impact.use_gradient_thickness(true, 0.1, 2);
-	}
+	impact.set_thickness(3);
+	impact.stroke_is(true);
+	impact.fill_is(true);
 
 	if(keyPressed) {
 		impact.show_polygons();

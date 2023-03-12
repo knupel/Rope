@@ -14,6 +14,7 @@
 
 > R_Graphic
 > add function stroke_is(), fill_is() to set if stroke(), strokeWeight() and fill() is active
+> add function clear() from Processing
 
 
 

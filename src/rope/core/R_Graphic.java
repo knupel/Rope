@@ -118,6 +118,17 @@ public class R_Graphic extends BigBang {
   	return pa.createGraphics((int)x,(int)y,type);
   }
 
+	/**
+	 * @return clone Processing function() clear
+	 */
+	public void clear() {
+		if(this.other != null) {
+			this.other.clear();
+		} else {
+			this.pa.g.clear();
+		}
+	}
+
 
   
 	/**

@@ -1,8 +1,8 @@
 /**
  * 
  * manage stroke, fill by an other than noStroke() and noFill()
- * v 0.2.0
- * 2018-2023
+ * v 0.0.2
+ * 2023-2023
  *
  * */
 
@@ -13,30 +13,29 @@ boolean use_stroke_is = false;
 
 Rope r = new Rope();
 
-R_Graphic g;
-// PGraphics pg;
+R_Graphic rg; // we cannot use g because is Processing rendering
 void setup() {
 	size(600,600,P2D);
-	g = new R_Graphic(this);
-	g.background(r.YELLOW);
-	g.strokeWeight(10);
+	rg = new R_Graphic(this);
+	rg.background(r.YELLOW);
+	rg.strokeWeight(10);
 }
 
 
 void draw() {
-	g.background(r.YELLOW);
+	rg.background(r.YELLOW);
 
-	g.fill_is(use_fill_is);
-	g.fill(r.MAGENTA);
-	g.stroke_is(use_stroke_is);
-	g.stroke(r.CYAN);
-	g.circle(mouseX,mouseY, 50);
+	rg.fill_is(use_fill_is);
+	rg.fill(r.MAGENTA);
+	rg.stroke_is(use_stroke_is);
+	rg.stroke(r.CYAN);
+	rg.circle(mouseX,mouseY, 50);
 
-	g.fill_is(!use_fill_is); // reverse the boolean value
-	g.fill(r.MAGENTA);
-	g.stroke_is(!use_stroke_is); // reverse the boolean value
-	g.stroke(r.CYAN);
-	g.circle(mouseY,mouseX, 50);
+	rg.fill_is(!use_fill_is); // reverse the boolean value
+	rg.fill(r.MAGENTA);
+	rg.stroke_is(!use_stroke_is); // reverse the boolean value
+	rg.stroke(r.CYAN);
+	rg.circle(mouseY,mouseX, 50);
 }
 
 
