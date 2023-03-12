@@ -8,7 +8,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Graphic class
- * v 0.7.1
+ * v 0.7.2
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -25,8 +25,8 @@ import rope.vector.*;
 
 public class R_Graphic extends BigBang {
 	protected processing.core.PGraphics other;
-	private boolean fill_is = true;
-	private boolean stroke_is = true;
+	private boolean fill_is = false;
+	private boolean stroke_is = false;
 	
 	public R_Graphic(PApplet pa) {
 		super(pa);

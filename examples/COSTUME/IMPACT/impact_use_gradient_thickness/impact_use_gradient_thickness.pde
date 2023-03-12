@@ -53,7 +53,7 @@ void draw() {
 void set_impact() {
 	impact = new R_Impact(this, width/2, height/2);
 	
-	impact.set_heart(1); // from 1 to max main iteration, if it's upper the value is cap to max.
+	impact.set_heart(2); // from 1 to max main iteration, if it's upper the value is cap to max.
 	int num = 8;
 	impact.set_num_main(num); // num of main branch
 	impact.set_iter_main(15); // num of node on each branch

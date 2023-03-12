@@ -1120,8 +1120,14 @@ public class R_Impact extends R_Graphic {
 		// not in first to keep the same order thant current polygon
 		shape.add_points(lc.b(), lc.a());
 		add_go_and_return(swap_is, main, shape);
+		// need to check if the polygon is in the heart if not add
+		if(in_heart(shape)) {
+			return;
+		}
 		imp_shapes.add(shape);
 	}
+
+
 
 	// CURRENT POLYGONS
 	//////////////////////
@@ -1138,6 +1144,10 @@ public class R_Impact extends R_Graphic {
 		ArrayList<R_Puppet2D>[] main = tuple_main(lc.id().a(), lc.id().b());
 		boolean swap_is = lc.id().a() == get_num_main() -1;
 		add_go_and_return(swap_is, main, shape);
+
+		if(in_heart(shape)) {
+			return;
+		}
 		imp_shapes.add(shape);
 	}
 
@@ -1171,12 +1181,28 @@ public class R_Impact extends R_Graphic {
 		R_Line2D lh = null;
 		junction_heart_circle(shape, lh, lc, next_lc);
 		add_go_and_return(swap_is, main, shape);
+
+		if(in_heart(shape)) {
+			return;
+		}
 		imp_shapes.add(shape);
 	}
 
 
 		// UTILS POLYGON
 	//////////////////
+
+	private boolean in_heart(R_Shape shape) {
+		if(imp_shapes_center.size() > 0) {
+			R_Shape heart = imp_shapes_center.get(0);
+			vec3 barycenter = shape.barycenter();
+			if(in_polygon(heart, barycenter)) {
+				print_err("not good don't add this polygon");
+				return true;
+			}
+		}
+		return false;
+	}
 
 	private boolean add_go_and_return(boolean swap_is, ArrayList<R_Puppet2D>[] main, R_Shape shape) {
 		if(main[0] != null && main[1] != null) {
@@ -1193,8 +1219,10 @@ public class R_Impact extends R_Graphic {
 		return false;
 	}
 
-	// ADD GO and RETURN
-	/////////////////////
+
+	
+	// ADD GO IMPLEMENTATION
+	////////////////////////
 	private void add_points_go(ArrayList<R_Puppet2D> list_main_b, R_Shape shape) {
 		int index = 1;
 		int index_next = shape.get_summits() -2;
@@ -1204,14 +1232,6 @@ public class R_Impact extends R_Graphic {
 		add_points_go_impl(list_main_b, shape, index, index_next);
 	}
 
-	private void add_points_return(ArrayList<R_Puppet2D> list_main_a, R_Shape shape) {
-		int index = shape.get_summits() -1;
-		int index_next = 0;
-		add_points_return_impl(list_main_a, shape, index, index_next);
-	}
-
-	// ADD GO IMPLEMENTATION
-	////////////////////////
 	private void add_points_go_impl(ArrayList<R_Puppet2D> list_main_b, R_Shape shape, int index, int index_next) {
 		int first = 0;
 		int last = 0;
@@ -1246,6 +1266,12 @@ public class R_Impact extends R_Graphic {
 
 	// ADD RETURN IMPLEMENTATION
 	////////////////////////
+	private void add_points_return(ArrayList<R_Puppet2D> list_main_a, R_Shape shape) {
+		int index = shape.get_summits() -1;
+		int index_next = 0;
+		add_points_return_impl(list_main_a, shape, index, index_next);
+	}
+
 	private void add_points_return_impl(ArrayList<R_Puppet2D> list_main_a, R_Shape shape, int index, int index_next) {
 		int first = 0;
 		int last = 0;
@@ -1277,6 +1303,9 @@ public class R_Impact extends R_Graphic {
 			}
 		} 
 	}
+
+
+
 
 	private int prev_line_rank = -1;
 	private boolean line_branch_is(int index, R_Line2D line) {
@@ -1647,6 +1676,7 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_thickness(boolean is, float min, float max) {
 		thickness.set(min,max);
+		stroke_is(true);
 		this.use_gradient_thickness_is = is;
 	}
 
@@ -1672,6 +1702,7 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_stroke(boolean is, int start, int end) {
 		stroke.set(start,end);
+		stroke_is(true);
 		this.use_gradient_stroke_is = is;
 	}
 
@@ -1698,6 +1729,7 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_fill(boolean is, int start, int end) {
 		fill.set(start,end);
+		fill_is(true);
 		this.use_gradient_fill_is = is;
 	}
 
@@ -1784,6 +1816,7 @@ public class R_Impact extends R_Graphic {
 	private void show_pixels_lines_impl(ArrayList lines) {
 		for(Object obj : lines) {
 			R_Line2D line = (R_Line2D)obj;
+			// maybe need pass graphics other in the future ?
 			if(use_mute_is()) {
 				if(!line.mute_is()) {
 					line.show_pixels();
@@ -1833,6 +1866,7 @@ public class R_Impact extends R_Graphic {
 	private void show_pixels_lines_impl_x1(ArrayList lines, float normal_value, int... colour) {
 		for(Object obj : lines) {
 				R_Line2D line = (R_Line2D)obj;
+				// maybe need pass graphics other in the future ?
 				if(use_mute_is()) {
 				if(!line.mute_is()) {
 					line.show_pixels(normal_value, colour);
@@ -1846,6 +1880,7 @@ public class R_Impact extends R_Graphic {
 	private void show_pixels_lines_impl_x2(ArrayList lines, float normal_value, int... colour) {
 		for(Object obj : lines) {
 			R_Line2D line = (R_Line2D)obj;
+			// maybe need pass graphics other in the future ?
 			if(use_mute_is()) {
 				if(!line.mute_is()) {
 					line.show_pixels_x2(normal_value, colour);
@@ -1985,6 +2020,10 @@ public class R_Impact extends R_Graphic {
 		float dist_from_center = dist(line.a(), pos());
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
+		// maybe need pass graphics other in the future ?
+		if(other != null) {
+			line.pass_graphic(other);
+		}
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
 				line.show();
