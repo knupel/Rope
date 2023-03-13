@@ -9,8 +9,8 @@
  * collection of function can be use with out Processing.
  * @author @knupel
  * @see https://github.com/knupel/Rope
- * 2014-2022
- * v 0.4.3
+ * 2014-2023
+ * v 0.5.0
  * 
  */
 
@@ -533,7 +533,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	/**
 	* @see <a href="https://forum.processing.org/one/topic/how-do-i-find-if-a-point-is-inside-a-complex-polygon.html">Forum processing topic</a>
 	* @see <a href="http://paulbourke.net/geometry/">Paul Bourke  topic</a>
-	* thks to Moggach and Paul Brook
+	* thanks to Moggach and Paul Brook
 	 * @param points list of coordinate of the shape
 	 * @param pos coordinate of value must be tested
 	 * @return true is the position is in the shape
@@ -552,33 +552,44 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return is;
 	}
 
-	public boolean in_polygon(vec [] points, vec pos, float marge) {
-		int sides = points.length;
-		boolean is = in_polygon(points, pos);
-		// check the border
-		if(!is) {
-			for(int i = 1; i < sides ; i++) {
-				vec2 a = new vec2(points[i]);
-				vec2 b = new vec2(points[i-1]);
-				if(in_segment(a,b, new vec2(pos), marge)) {
-					return true;
-				}
-			}
-			// to close the segment
-			vec2 a = new vec2(points[0]);
-			vec2 b = new vec2(points[sides -1]);
-			if(in_segment(a,b, new vec2(pos), marge)) {
-				is = true;
-			}
-		}
-		return is;
-	}
-
 	public boolean in_polygon(R_Shape shape, vec pos) {
 		return in_polygon(shape.get_points(), pos);
 	}
 
-	public boolean in_polygon(R_Shape shape, vec pos, float marge) {
+	/**
+	 * @param points cloud of points shape the polygon
+	 * @param pos of the point must be detected
+	 * @param marge distance of the point around the border
+	 * @return -1 is out / 0 on border / 1 in polygon
+	 */
+	public byte in_polygon(vec [] points, vec pos, float marge) {
+		// -1 out of the polygon
+		// 0 is on the border
+		// 1 is fully inside
+		int sides = points.length;
+		boolean polygon_is = in_polygon(points, pos);
+		boolean border_is = false;
+		// check the border
+		for(int i = 1; i < sides ; i++) {
+			vec2 a = points[i].xy();
+			vec2 b = points[i-1].xy();
+			if(in_segment(a,b, pos.xy(), marge)) {
+				border_is = true;
+			}
+		}
+		// to close the segment
+		vec2 a = points[0].xy();
+		vec2 b = points[sides -1].xy();
+		if(in_segment(a,b, pos.xy(), marge)) {
+			border_is = true;
+		}
+	
+		if(!polygon_is && !border_is) return -1;
+		if(border_is) return 0;
+		return 1;
+	}
+
+	public byte in_polygon(R_Shape shape, vec pos, float marge) {
 		return in_polygon(shape.get_points(), pos, marge);
 	}
 

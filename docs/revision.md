@@ -22,6 +22,13 @@
 > remove the calling function jitter(), instead use random_next_gaussian() function
 
 
+> R_Shape
+> add function length() thant return the num of summits like get_summits()
+
+> R_Rope
+> improve function in_polygon() for the marge detection, now the detection is divide on 3 results : out, border and in polygon
+
+
 \* version 49
 
 > add class R_FX and remove from the Rope frameWork

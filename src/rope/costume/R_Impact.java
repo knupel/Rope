@@ -404,8 +404,8 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	public ArrayList<R_Line2D> get_lines_branch(int index) {
-		return get_lines_branch(index,true);
+	public ArrayList<R_Line2D> get_lines_circle_branch(int index) {
+		return get_lines_circle_branch(index,true);
 	}
 
 	/**
@@ -414,7 +414,7 @@ public class R_Impact extends R_Graphic {
 	 * @param only_visible_is if it's true add only the visible line
 	 * @return
 	 */
-	public ArrayList<R_Line2D> get_lines_branch(int index, boolean only_visible_is) {
+	public ArrayList<R_Line2D> get_lines_circle_branch(int index, boolean only_visible_is) {
 		ArrayList<R_Line2D> list = new ArrayList<R_Line2D>();
 		for(int i = 0 ; i < circle.length ; i++) {
 			for(int k = 0 ; k < circle[i].size() ; k++) {
@@ -994,6 +994,30 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < get_num_main() ; i++) {
 			build_polygons(i);
 		}
+
+		// need to clear polygon by removing all points are in heart
+		for(R_Shape shape : get_polygons()) {
+			int len = shape.length();
+			R_Shape buffer = new R_Shape(this.pa);
+			for(int i = 0 ; i < len ; i++) {
+				vec3 pos = shape.get_point(i);
+				//
+				//
+				// may be the dection is to close of the border of the heart ?
+				//
+				//
+				if(in_heart(pos)) {
+					print_err("remove this point", pos);
+				} else {
+					buffer.add_points(pos);
+				}
+			}
+			shape.clear();
+			for(int i = 0 ; i < buffer.length() ; i++) {
+				shape.add_points(buffer.get_point(i));
+			}
+
+		}
 	}
 
 
@@ -1016,10 +1040,15 @@ public class R_Impact extends R_Graphic {
 	// BUILD POLYGON NETWORK
 	////////////////////////
 	private void build_polygons(int id_branch) {
-		int len = get_lines_branch(id_branch, true).size();
+		int len = get_lines_circle_branch(id_branch, true).size();
 		R_Line2D [] arr_branch = new R_Line2D[len];
-		arr_branch = get_lines_branch(id_branch, true).toArray(arr_branch);
+		arr_branch = get_lines_circle_branch(id_branch, true).toArray(arr_branch);
+		// print_err("num from line circle", len, "num main",get_num_main());
+
+		// int start = get_heart_level();
+		
 		// first element
+		// for(int i = start ; i < len -1 ; i++) {
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
 			
@@ -1030,6 +1059,7 @@ public class R_Impact extends R_Graphic {
 		}
 		// curent element
 		int last_index = 0;
+		// for(int i = start ; i < len -1 ; i++) {
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
 			
@@ -1066,25 +1096,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	// EXTERNAL POLYGON
-	////////////////////////
-	private void create_polygon_external() {
-		R_Shape shape = new R_Shape(this.pa);
-		shape.id_a(GRIS[18]);
-		shape.id_b(-2); // polygon with hole
-		shape.id_c(0);
-		// frame part
-		shape.add_point(0,0);
-		shape.add_point(pa.width, 0);
-		shape.add_point(pa.width, pa.height);
-		shape.add_point(0, pa.height);
-		// interior part
-		for(int i = 0 ; i < main.length ; i++) {
-			vec2 p = main[i].get(main[i].size() -1).a();
-			shape.add_points(p);
-		}
-		imp_shapes.add(shape);
-	}
+
 
 
 	// FIRST POLYGON
@@ -1121,7 +1133,7 @@ public class R_Impact extends R_Graphic {
 		shape.add_points(lc.b(), lc.a());
 		add_go_and_return(swap_is, main, shape);
 		// need to check if the polygon is in the heart if not add
-		if(in_heart(shape)) {
+		if(in_heart(shape.barycenter())) {
 			return;
 		}
 		imp_shapes.add(shape);
@@ -1145,7 +1157,7 @@ public class R_Impact extends R_Graphic {
 		boolean swap_is = lc.id().a() == get_num_main() -1;
 		add_go_and_return(swap_is, main, shape);
 
-		if(in_heart(shape)) {
+		if(in_heart(shape.barycenter())) {
 			return;
 		}
 		imp_shapes.add(shape);
@@ -1182,27 +1194,60 @@ public class R_Impact extends R_Graphic {
 		junction_heart_circle(shape, lh, lc, next_lc);
 		add_go_and_return(swap_is, main, shape);
 
-		if(in_heart(shape)) {
+		if(in_heart(shape.barycenter())) {
 			return;
 		}
 		imp_shapes.add(shape);
 	}
 
 
-		// UTILS POLYGON
-	//////////////////
+	// EXTERNAL POLYGON
+	////////////////////////
+	private void create_polygon_external() {
+		R_Shape shape = new R_Shape(this.pa);
+		shape.id_a(GRIS[18]);
+		shape.id_b(-2); // polygon with hole
+		shape.id_c(0);
+		// frame part
+		shape.add_point(0,0);
+		shape.add_point(pa.width, 0);
+		shape.add_point(pa.width, pa.height);
+		shape.add_point(0, pa.height);
+		// interior part
+		for(int i = 0 ; i < main.length ; i++) {
+			vec2 p = main[i].get(main[i].size() -1).a();
+			shape.add_points(p);
+		}
+		imp_shapes.add(shape);
+	}
 
-	private boolean in_heart(R_Shape shape) {
+
+
+
+	// UTILS POLYGON
+	//////////////////
+	private boolean in_heart(vec3 pos) {
 		if(imp_shapes_center.size() > 0) {
 			R_Shape heart = imp_shapes_center.get(0);
-			vec3 barycenter = shape.barycenter();
-			if(in_polygon(heart, barycenter)) {
-				print_err("not good don't add this polygon");
+			if(in_polygon(heart, pos)) {
+				// print_err("not good don't add this polygon");
 				return true;
 			}
 		}
 		return false;
 	}
+
+	// private boolean in_heart(R_Shape shape) {
+	// 	if(imp_shapes_center.size() > 0) {
+	// 		R_Shape heart = imp_shapes_center.get(0);
+	// 		vec3 barycenter = shape.barycenter();
+	// 		if(in_polygon(heart, barycenter)) {
+	// 			print_err("not good don't add this polygon");
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 
 	private boolean add_go_and_return(boolean swap_is, ArrayList<R_Puppet2D>[] main, R_Shape shape) {
 		if(main[0] != null && main[1] != null) {
@@ -1220,7 +1265,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	
+
 	// ADD GO IMPLEMENTATION
 	////////////////////////
 	private void add_points_go(ArrayList<R_Puppet2D> list_main_b, R_Shape shape) {
@@ -1238,6 +1283,11 @@ public class R_Impact extends R_Graphic {
 		vec3 a = shape.get_point(index);
 		vec3 b = shape.get_point(index_next);
 
+		// int start = get_level_heart() - 1;
+		// if(start < 0) {
+		// 	start = 0;
+		// }
+		// for(int i = start ; i < list_main_b.size() ; i++) {
 		for(int i = 0 ; i < list_main_b.size() ; i++) {
 			R_Line2D line = list_main_b.get(i);
 			if(in_segment(line, a.xy(), marge)) first = i;
@@ -1277,7 +1327,12 @@ public class R_Impact extends R_Graphic {
 		int last = 0;
 		vec3 a = shape.get_point(index);
 		vec3 b = shape.get_point(index_next);
-
+		
+		// int start = get_level_heart() - 1;
+		// if(start < 0) {
+		// 	start = 0;
+		// }
+		// for(int i = start ; i < list_main_a.size() ; i++) {
 		for(int i = 0 ; i < list_main_a.size() ; i++) {
 			R_Line2D line = list_main_a.get(i);
 			if(in_segment(line, a.xy(), marge)) first = i;

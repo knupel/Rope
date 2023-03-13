@@ -6,9 +6,9 @@
  *  | |  \  \ \   / |  |/  |  |____
  *  |_| \_\  \___/  |_ |   |______/
  * 
- * Copyleft(l) 2019-2022
+ * Copyleft(l) 2019-2023
 * R_Shape class
-* v 0.6.1
+* v 0.6.2
 * 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
@@ -525,11 +525,19 @@ public class R_Shape extends R_Graphic {
 	// SUMMITS
 	////////////////////////
 
-	/**
+/**
+ * 
+ * @return the num of summits
+ */
+	public int get_summits() {
+    return summits;
+  }
+
+		/**
 	 * 
 	 * @return the num of summits
 	 */
-	public int get_summits() {
+	public int length() {
     return summits;
   }
 
