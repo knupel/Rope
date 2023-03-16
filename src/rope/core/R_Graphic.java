@@ -8,10 +8,10 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Graphic class
- * v 0.7.0
- * 2019-2022
- * @author @stanlepunk
- * @see https://github.com/StanLepunK/Rope
+ * v 0.7.2
+ * 2019-2023
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
  * Class with Image utilities for Rope Library
 */
 package rope.core;
@@ -25,6 +25,8 @@ import rope.vector.*;
 
 public class R_Graphic extends BigBang {
 	protected processing.core.PGraphics other;
+	private boolean fill_is = false;
+	private boolean stroke_is = false;
 	
 	public R_Graphic(PApplet pa) {
 		super(pa);
@@ -115,6 +117,17 @@ public class R_Graphic extends BigBang {
   public PGraphics createGraphics(float x, float y, String type) {
   	return pa.createGraphics((int)x,(int)y,type);
   }
+
+	/**
+	 * @return clone Processing function() clear
+	 */
+	public void clear() {
+		if(this.other != null) {
+			this.other.clear();
+		} else {
+			this.pa.g.clear();
+		}
+	}
 
 
   
@@ -783,8 +796,7 @@ public class R_Graphic extends BigBang {
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work ont it
 	 * @param px float value for the ellipse position
 	 * @param py float value for the ellipse position
-	 * @param sx float value for the ellipse size
-	 * @param sy float value for the ellipse size
+	 * @param diam float value for the ellipse size
 	 */
 	public void circle(float px, float py, float diam) {
 		if(other != null) {
@@ -990,50 +1002,74 @@ public class R_Graphic extends BigBang {
 	 * @param rgb in value for the stroke color
 	 */
 	public void fill(int rgb) {
-		if(other != null) {
-			other.fill(rgb);
+		if(fill_is()) {
+			if(other != null) {
+				other.fill(rgb);
+			} else {
+				pa.g.fill(rgb);
+			}
 		} else {
-			pa.g.fill(rgb);
+			this.noFill();
 		}
 	}
 
   public void fill(int rgb, float alpha) {
-    if(other != null) {
-			other.fill(rgb, alpha);
+		if(fill_is()) {
+			if(other != null) {
+				other.fill(rgb, alpha);
+			} else {
+				pa.g.fill(rgb, alpha);
+			}
 		} else {
-			pa.g.fill(rgb, alpha);
+			this.noFill();
 		}
   }
 
   public void fill(float gray) {
-		if(other != null) {
-			other.fill(gray);
+		if(fill_is()) {
+			if(other != null) {
+				other.fill(gray);
+			} else {
+				pa.g.fill(gray);
+			}
 		} else {
-			pa.g.fill(gray);
-		}
+			this.noFill();
+		} 
   }
 
   public void fill(float gray, float alpha) {
-    if(other != null) {
-			other.fill(gray, alpha);
+    if(fill_is()) {
+			if(other != null) {
+				other.fill(gray, alpha);
+			} else {
+				pa.g.fill(gray, alpha);
+			}
 		} else {
-			pa.g.fill(gray, alpha);
+			this.noFill();
 		}
   }
 
   public void fill(float x, float y, float z) {
-    if(other != null) {
-			other.fill(x, y, z);
+    if(fill_is()) {
+			if(other != null) {
+				other.fill(x, y, z);
+			} else {
+				pa.g.fill(x, y, z);
+			}
 		} else {
-			pa.g.fill(x, y, z);
+			this.noFill();
 		}
   }
 
   public void fill(float x, float y, float z, float a) {
-    if(other != null) {
-			other.fill(x, y, z, a);
+    if(fill_is()) {
+			if(other != null) {
+				other.fill(x, y, z, a);
+			} else {
+				pa.g.fill(x, y, z, a);
+			}
 		} else {
-			pa.g.fill(x, y, z, a);
+			this.noFill();
 		}
   }
 
@@ -1048,55 +1084,87 @@ public class R_Graphic extends BigBang {
 		}
 	}
 
+	public void fill_is(boolean is) {
+		this.fill_is = is;
+	}
+
+	public boolean fill_is() {
+		return this.fill_is;
+	}
+
 	/**
 	 * This Processing clone method, add check if any PGraphics is active, and if it's a case work on it
 	 * @param rgb in value for the stroke color
 	 */
 	public void stroke(int rgb) {
-		if(other != null) {
-			other.stroke(rgb);
+		if(stroke_is()) {
+			if(other != null) {
+				other.stroke(rgb);
+			} else {
+				pa.g.stroke(rgb);
+			}
 		} else {
-			pa.g.stroke(rgb);
+			this.noStroke();
 		}
 	}
 
 	public void stroke(int rgb, float alpha) {
-    if(other != null) {
-			other.stroke(rgb, alpha);
+    if(stroke_is()) {
+			if(other != null) {
+				other.stroke(rgb, alpha);
+			} else {
+				pa.g.stroke(rgb, alpha);
+			}
 		} else {
-			pa.g.stroke(rgb, alpha);
+			this.noStroke();
 		}
   }
 
   public void stroke(float gray) {
-		if(other != null) {
-			other.stroke(gray);
+		if(stroke_is()) {
+			if(other != null) {
+				other.stroke(gray);
+			} else {
+				pa.g.stroke(gray);
+			}
 		} else {
-			pa.g.stroke(gray);
+			this.noStroke();
 		}
   }
 
   public void stroke(float gray, float alpha) {
-    if(other != null) {
-			other.stroke(gray, alpha);
+    if(stroke_is()) {
+			if(other != null) {
+				other.stroke(gray, alpha);
+			} else {
+				pa.g.stroke(gray, alpha);
+			}
 		} else {
-			pa.g.stroke(gray, alpha);
+			this.noStroke();
 		}
   }
 
   public void stroke(float x, float y, float z) {
-    if(other != null) {
-			other.stroke(x, y, z);
+		if(stroke_is()) {
+			if(other != null) {
+				other.stroke(x, y, z);
+			} else {
+				pa.g.stroke(x, y, z);
+			}
 		} else {
-			pa.g.stroke(x, y, z);
+			this.noStroke();
 		}
   }
 
   public void stroke(float x, float y, float z, float a) {
-    if(other != null) {
-			other.stroke(x, y, z, a);
+    if(stroke_is()) {
+			if(other != null) {
+				other.stroke(x, y, z, a);
+			} else {
+				pa.g.stroke(x, y, z, a);
+			}
 		} else {
-			pa.g.stroke(x, y, z, a);
+			this.noStroke();
 		}
   }
 
@@ -1109,6 +1177,15 @@ public class R_Graphic extends BigBang {
 		} else {
 			pa.g.noStroke();
 		}
+	}
+
+
+	public void stroke_is(boolean is) {
+		this.stroke_is = is;
+	}
+
+	public boolean stroke_is() {
+		return this.stroke_is;
 	}
 
 	/**
@@ -1148,13 +1225,13 @@ public class R_Graphic extends BigBang {
 	 * @param other is your PGRaphics to render your art work
 	 */
 	public void aspect(int fill, int stroke, float thickness, PGraphics other) {
-		if(other.alpha(fill) <= 0) {
+		if(other.alpha(fill) <= 0 || !fill_is()) {
 			other.noFill(); 
 		} else {
 			other.fill(fill);
 		}
 
-		if(other.alpha(stroke) <= 0  || thickness <= 0) {
+		if(other.alpha(stroke) <= 0  || thickness <= 0 || !stroke_is()) {
 			other.noStroke(); 
 		} else {
 			other.stroke(stroke);

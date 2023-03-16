@@ -3,7 +3,7 @@
  * impact example to create polygon 
  * from the pattern impact `
  * and mute few line before build all polygons
- * v 0.1.1
+ * v 0.1.2
  * 2022-2023
  * 
 
@@ -19,45 +19,34 @@ Rope r = new Rope();
 void setup() {
 	size(600,600);
 	set_impact();
-
 }
 
 void draw() {
+	// When you use gradient it's necessary to complete
+	// this pattern design by using set function
+	// set_fill() and set_stroke() to avoid few graphics problems.
 	background(r.BLOOD);
-	fill(r.GRIS[2]);
-	if(!keyPressed) {
-		show_polygons_classic();
+	impact.set_fill(r.GRIS[2]);
+	impact.set_stroke(r.WHITE);
+
+	if(mousePressed) {
+		impact.use_gradient_thickness(true, 2, 0.1);
 	} else {
-		show_polygond_by_id();
+		impact.use_gradient_thickness(true, 0.1, 2);
+	}
+
+	if(keyPressed) {
+		impact.show_polygons();
+	} else {
+		impact.show_lines();
 	}
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press any key to show polygon classic", 10, 50);
-}
-
-void show_polygons_classic() {
-	stroke(r.GRIS[7]);
-	impact.show_polygons();
-	fill(r.BLACK);
-	impact.show_polygon_heart();
-}
-
-void show_polygond_by_id() {
-	
-	int len = impact.get_polygons().size();
-	for(int i = 0 ; i < len ; i++) {
-		R_Shape shape = impact.get_polygons().get(i);
-		if(shape.id().c() == 0 ) {
-			fill(r.GRIS[4]);
-			noStroke();
-		} else {
-			fill(r.GRIS[2]);
-			stroke(r.GRIS[7]);
-		}
-		impact.show_polygon(impact.get_polygons().get(i));
-	}
+	text("press \"n\" for new sort", 10,30);
+	text("press any to show polygon line", 10,50);
+	text("press mouse to reverse gradient", 10,70);
 }
 
 
@@ -80,6 +69,7 @@ void set_impact() {
 	impact.build_polygon();
 
 }
+
 
 
 

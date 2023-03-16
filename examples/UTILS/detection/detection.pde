@@ -1,9 +1,9 @@
 /**
  * 
  * 
- * Detection
- * 2018-2022
- * v 0.0.2
+ * Detection polygon and line
+ * 2018-2023
+ * v 0.1.0
  * 
  */
 
@@ -32,21 +32,18 @@ void draw() {
 	vec2 pointer = new vec2(mouseX,mouseY);
 	float marge = 10.0;
 
-
 	beginShape();
 	for(vec2 p : polygon) {
 		vertex(p.x(), p.y());
 	}
 	endShape(CLOSE);
 
-	int what = 0;
-	if(r.in_polygon(polygon, pointer)) {
-		what = 1;
-	} else if(r.in_polygon(polygon, pointer, marge)) {
-		what = 2;
-	}
+	// r.in_polygon(polygon, pointer, marge)
+	// return -1 for out
+	// return 0 for the border
+	// return 1 when it's full inside...that's depend of border thickness
+	int what = r.in_polygon(polygon, pointer, marge);
 
-	
 	boolean is = r.in_line(line.a(), line.b(), pointer, marge);
 	if(is) {
 		stroke(r.CYAN);
@@ -56,9 +53,9 @@ void draw() {
 	line.show();
 
 	switch(what) {
-		case 0: fill(r.BLACK); break;
-		case 1: fill(r.RED); break;
-		case 2: fill(r.GREEN); break;
+		case -1: fill(r.BLACK); break;
+		case 0: fill(r.RED); break;
+		case 1: fill(r.GREEN); break;
 	}
 }
 

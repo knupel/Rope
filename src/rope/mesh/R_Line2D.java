@@ -202,8 +202,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 
   /**
    * use for definitive changement
-   * @param x
-   * @param y
+   * @param a
    */
   public void set_a(vec2 a) {
     this.set_a(a.x(),a.y());
@@ -284,8 +283,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 
     /**
    * use for definitive changement
-   * @param x
-   * @param y
+   * @param b
    */
   public void set_b(vec2 b) {
     this.set_b(b.x(),b.y());
@@ -379,7 +377,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   /**
    * Check if a vec point is on the line, if it's true return ne normal position on it '0' to '1' where '0' represent a and 'b' for '1'.
    * if the point is not on the segment the value return NaN.
-   * @param point coordinate of the point must be checked
+   * @param p coordinate of the point must be checked
    * @param marge range in pixel around the point must be checked
    * @return
    */
@@ -670,7 +668,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * Show the result of all previous work on line
    */
   public void show() {
-    // line(a,b);
     line(a.xy(),b.xy());
     reset();
   }
@@ -680,11 +677,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * 
    * @param other is the PGraphics where the result will be showing
    */
-  @Deprecated public void show(PGraphics other) {
-  	this.other = other;
-    line(a.xy(),b.xy());
-    reset();
-  }
+  // @Deprecated public void show(PGraphics other) {
+  // 	this.other = other;
+  //   line(a.xy(),b.xy());
+  //   reset();
+  // }
 
   public void show_pixels() {
     loadPixels();

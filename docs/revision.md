@@ -3,6 +3,33 @@
 > Go to Java 17
 > Go to Processing 4.2
 
+> VECTOR
+> remove jitter from all vec
+> add function abs to vec2, vec3, vec3, ivec2, ivec3, ivec4
+
+> R_Impact
+> add polygon to show the peripheric polygon and display on all the window.
+> add function to create gradient, for thickness, fill and stroke use_gradient_fill(), use_gradient_stroke(), use_gradient_thivkness()
+> add function boolean build_is() to check is OBject is build or not
+> add function heart_is(), heart_is(boolean is)
+> remove set_heart(int level);
+
+
+> R_Graphic
+> add function stroke_is(), fill_is() to set if stroke(), strokeWeight() and fill() is active
+> add function clear() from Processing
+
+
+
+> R_SVG
+> remove the calling function jitter(), instead use random_next_gaussian() function
+
+
+> R_Shape
+> add function length() thant return the num of summits like get_summits()
+
+> R_Rope
+> improve function in_polygon() for the marge detection, now the detection is divide on 3 results : out, border and in polygon
 
 
 \* version 49

@@ -1,10 +1,10 @@
 /**
  * vec2 class 
- * v 1.7.0
- * 2015-2022
+ * v 1.8.0
+ * 2015-2023
  * Vector class with a float precision
- * @author @stanlepunk
- * @see https://github.com/StanLepunK/Rope
+ * @author @knupel
+ * @see https://github.com/knupel/Rope
  */
 package rope.vector;
 import rope.core.Rope;
@@ -322,6 +322,17 @@ public class vec2 extends vec {
 			return null;
 	}
 
+
+		/**
+	* @return the absolute value of the vector
+	*/
+	public vec2 abs() {
+		x = (float)Math.abs(x);
+		y = (float)Math.abs(y);
+		set(x,y);
+		return this;
+	}
+
 	
 
 	/**
@@ -396,7 +407,7 @@ public class vec2 extends vec {
 
 	/**
 	 * 
-	 * @param point
+	 * @param p
 	 * @return
 	 */
 	public vec2 ortho(vec2 p) {
@@ -450,36 +461,36 @@ public class vec2 extends vec {
 	}
 
 
-	/**
-	 * JITTER
-	 * 
-	 * @param range int
-	 * @return Vec2 altered with a random gaussian effect
-	 */
-	@Deprecated public vec2 jitter(int range) {
-		return jitter(range, range);
-	}
+	// /**
+	//  * JITTER
+	//  * 
+	//  * @param range int
+	//  * @return Vec2 altered with a random gaussian effect
+	//  */
+	// @Deprecated public vec2 jitter(int range) {
+	// 	return jitter(range, range);
+	// }
 
-	@Deprecated public vec2 jitter(vec2 range) {
-		if (range != null) {
-			return jitter((int) range.x(), (int) range.y());
-		} else {
-			return jitter(0, 0);
-		}
-	}
+	// @Deprecated public vec2 jitter(vec2 range) {
+	// 	if (range != null) {
+	// 		return jitter((int) range.x(), (int) range.y());
+	// 	} else {
+	// 		return jitter(0, 0);
+	// 	}
+	// }
 
-	/**
-	 * 
-	 * @param range_x int
-	 * @param range_y int
-	 * @return Vec2 altered with a random gaussian effect
-	 */
-	@Deprecated public vec2 jitter(int range_x, int range_y) {
-		x += random_next_gaussian(range_x, 3);
-		y += random_next_gaussian(range_y, 3);
-		set(x, y);
-		return this;
-	}
+	// /**
+	//  * 
+	//  * @param range_x int
+	//  * @param range_y int
+	//  * @return Vec2 altered with a random gaussian effect
+	//  */
+	// @Deprecated public vec2 jitter(int range_x, int range_y) {
+	// 	x += random_next_gaussian(range_x, 3);
+	// 	y += random_next_gaussian(range_y, 3);
+	// 	set(x, y);
+	// 	return this;
+	// }
 
 	/**
 	 * random
@@ -580,8 +591,8 @@ public class vec2 extends vec {
 	/**
 	 * WAVE
 	 * 
-	 * @param timeline int
-	 * @param s     float speed for all vec arg
+	 * @param timeline give the tempo modification of the wave
+	 * @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec2 cosinus of the value
 	 */
 	public vec2 wave(int timeline, float s) {
@@ -590,9 +601,9 @@ public class vec2 extends vec {
 
 		/**
 	 * 
-	 * @param timeline
-	 * @param sx
-	 * @param sy
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return
 	 */
 	public vec2 wave(int timeline, float sx, float sy) {
@@ -601,8 +612,8 @@ public class vec2 extends vec {
 
 	/**
 	 * 
-	 * @param timeline int
-	 * @param s     float speed for all vec arg
+	 * @param timeline give the tempo modification of the wave
+	 * @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec2 cosinus of the value
 	 */
 	public vec2 cos_wave(int timeline, float s) {
@@ -610,9 +621,9 @@ public class vec2 extends vec {
 	}
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx
-	 * @param sy
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return
 	 */
 	public vec2 cos_wave(int timeline, float sx, float sy) {
@@ -624,8 +635,8 @@ public class vec2 extends vec {
 
 	/**
 	 * 
-	 * @param timeline int
-	 * @param s     float speed for all vec arg
+	 * @param timeline give the tempo modification of the wave
+	 * @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec2 sinus of the value
 	 */
 	public vec2 sin_wave(int timeline, float s) {

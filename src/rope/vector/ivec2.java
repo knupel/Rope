@@ -1,10 +1,10 @@
 /**
 * ivec2 class
-* v 1.6.0
-* 2015-2022
+* v 1.7.0
+* 2015-2023
 * Vector class with a int precision
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.vector;
 public class ivec2 extends ivec {
@@ -267,6 +267,17 @@ public class ivec2 extends ivec {
 		if(v != null) {
 			return sub(v.x,v.y);
 		} else return null;
+	}
+
+
+		/**
+	* @return the absolute value of the vector
+	*/
+	public ivec2 abs() {
+		x = (int)Math.abs(x);
+		y = (int)Math.abs(y);
+		set(x,y);
+		return this;
 	}
 
 

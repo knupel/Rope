@@ -12,11 +12,11 @@
  * 
  * BIG BANG ROPE
  * is the main class of library
- * 2018-2022
- * v 2.0.2
+ * 2018-2023
+ * v 2.0.3
  * 
  * WARNING : Here it's PROCESSING BIG BANG
- * BigBang is used to use directly the Processing method, to keep Rope with only Java Stuff
+ * BigBang is used to acces directly to Processing method, to keep Rope with only Java Stuff
  
  */
 package rope.core;
@@ -252,6 +252,20 @@ public abstract class BigBang extends Rope {
 	 */
 	public float blue(int value) {
 		return this.pa.blue(value);
+	}
+
+
+
+	/**
+	 * 
+	 * @param start_color
+	 * @param end_color
+	 * @param amt value from 0 to 1
+	 * @param mode choice between RGB or HSB, that can be usefull when you're in HSB mode because the rendering is not really good
+	 * @return an int color value compute from the amt value
+	 */
+	public int lerpColor(int start_color, int end_color, float amt, int mode) {
+		return this.pa.lerpColor(start_color, end_color, amt, mode);
 	}
 
 

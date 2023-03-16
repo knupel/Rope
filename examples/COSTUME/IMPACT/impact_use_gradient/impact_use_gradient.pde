@@ -24,51 +24,35 @@ void setup() {
 
 void draw() {
 	background(r.BLOOD);
-	fill(r.GRIS[2]);
-	if(!keyPressed) {
-		show_polygons_classic();
+	int color_a = r.YELLOW;
+	int color_b = r.MAGENTA;
+	// noStroke();
+	if(!mousePressed) {
+		impact.use_gradient_fill(true, color_a, color_b);
+		impact.use_gradient_stroke(true, color_b, color_a);
+		impact.use_gradient_thickness(true, 2, 0.1);
 	} else {
-		show_polygond_by_id();
+		impact.use_gradient_fill(true, color_b, color_a);
+		impact.use_gradient_stroke(true, color_a, color_b);
+		impact.use_gradient_thickness(true, 0.1, 2);
 	}
+
+	impact.show_polygons();
+
 
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press any key to show polygon classic", 10, 50);
-}
-
-void show_polygons_classic() {
-	stroke(r.GRIS[7]);
-	impact.show_polygons();
-	fill(r.BLACK);
-	impact.show_polygon_heart();
-}
-
-void show_polygond_by_id() {
-	
-	int len = impact.get_polygons().size();
-	for(int i = 0 ; i < len ; i++) {
-		R_Shape shape = impact.get_polygons().get(i);
-		if(shape.id().c() == 0 ) {
-			fill(r.GRIS[4]);
-			noStroke();
-		} else {
-			fill(r.GRIS[2]);
-			stroke(r.GRIS[7]);
-		}
-		impact.show_polygon(impact.get_polygons().get(i));
-	}
 }
 
 
 void set_impact() {
 	impact = new R_Impact(this, width/2, height/2);
-	
 	impact.heart_is(true); // from 1 to max main iteration, if it's upper the value is cap to max.
 	int num = 8;
 	impact.set_num_main(num); // num of main branch
-	impact.set_iter_main(15); // num of node on each branch
-	impact.set_growth_main(10); // approximative pixel step between each node of the main
+	impact.set_iter_main(10); // num of node on each branch
+	impact.set_growth_main(20); // approximative pixel step between each node of the main
 	impact.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	impact.set_num_circle(20); // num of branch circle start from the main branch
@@ -80,6 +64,7 @@ void set_impact() {
 	impact.build_polygon();
 
 }
+
 
 
 

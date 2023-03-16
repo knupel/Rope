@@ -1,10 +1,10 @@
 /**
 * vec4 class
-* v 1.4.4
-* 2015-2022
+* v 1.5.0
+* 2015-2023
 * Vector class with a float precision
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.vector;
 
@@ -419,6 +419,18 @@ public class vec4 extends vec {
 			return sub(v.x,v.y,v.z,v.w);
 		} else return null;
 	}
+
+	/**
+	* @return the absolute value of the vector
+	*/
+	public vec4 abs() {
+		x = (float)Math.abs(x);
+		y = (float)Math.abs(y);
+		z = (float)Math.abs(z);
+		w = (float)Math.abs(w);
+		set(x,y,z,w);
+		return this;
+	}
 	
 
 	
@@ -587,29 +599,29 @@ public class vec4 extends vec {
 	}
 	
 	
-	/**
-	 * jitter
-	 * @param range
-	 * @return
-	 */
-	@Deprecated public vec4 jitter(int range) {
-		return jitter(range,range,range,range) ;
-	}
+	// /**
+	//  * jitter
+	//  * @param range
+	//  * @return
+	//  */
+	// @Deprecated public vec4 jitter(int range) {
+	// 	return jitter(range,range,range,range) ;
+	// }
 	
-	@Deprecated public vec4 jitter(vec4 range) {
-		if(range != null) {
-			return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
-		} else return jitter(0) ;
-	}
+	// @Deprecated public vec4 jitter(vec4 range) {
+	// 	if(range != null) {
+	// 		return jitter((int)range.x,(int)range.y,(int)range.z,(int)range.w) ;
+	// 	} else return jitter(0) ;
+	// }
 
-	@Deprecated public vec4 jitter(int range_x,int range_y, int range_z, int range_w) {
-		x += random_next_gaussian(range_x,3);
-		y += random_next_gaussian(range_y,3);
-		z += random_next_gaussian(range_z,3);
-		w += random_next_gaussian(range_w,3);
-		set(x,y,z,w);
-		return this;
-	}
+	// @Deprecated public vec4 jitter(int range_x,int range_y, int range_z, int range_w) {
+	// 	x += random_next_gaussian(range_x,3);
+	// 	y += random_next_gaussian(range_y,3);
+	// 	z += random_next_gaussian(range_z,3);
+	// 	w += random_next_gaussian(range_w,3);
+	// 	set(x,y,z,w);
+	// 	return this;
+	// }
 
 
 	/**
@@ -657,8 +669,8 @@ public class vec4 extends vec {
 
 	/**
 	 * 
-	 * @param timeline
-	 * @param s
+	 * @param timeline give the tempo modification of the wave
+	 * @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec4 cosinus of each argument
 	 */
 	public vec4 wave(int timeline, float s) {
@@ -667,11 +679,11 @@ public class vec4 extends vec {
 
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx
-	 * @param sy
-	 * @param sz
-	 * @param sw
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sw float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return vec4 cosinus of each argument
 	 */
 	public vec4 wave(int timeline, float sx, float sy, float sz, float sw) {
@@ -679,8 +691,8 @@ public class vec4 extends vec {
 	}
 	/**
 	* WAVE COSINUS
-	* @param timeline int
-	* @param s float speed for all vec arg
+	* @param timeline give the tempo modification of the wave
+	* @param s float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	* @return vec4 cosinus of each argument
 	*/
 	public vec4 cos_wave(int timeline, float s) {
@@ -689,11 +701,11 @@ public class vec4 extends vec {
 	
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx float speed for all vec arg x
-	 * @param sy float speed for all vec arg y
-	 * @param sz float speed for all vec arg z
-	 * @param sw float speed for all vec arg w
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sw float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return
 	 */
 	public vec4 cos_wave(int timeline, float sx, float sy, float sz, float sw) {
@@ -707,7 +719,7 @@ public class vec4 extends vec {
 
 	/**
 	* WAVE SINUS
-	* @param timeline int
+	* @param timeline give the tempo modification of the wave
 	* @param s float speed for all vec arg
 	* @return vec4 sinus of the value
 	*/
@@ -717,11 +729,11 @@ public class vec4 extends vec {
 	
 	/**
 	 * 
-	 * @param timeline
-	 * @param sx float speed for all vec arg x
-	 * @param sy float speed for all vec arg y
-	 * @param sz float speed for all vec arg z
-	 * @param sw float speed for all vec arg w
+	 * @param timeline give the tempo modification of the wave
+	 * @param sx float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sy float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sz float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
+	 * @param sw float speed in relation with the timeline, this value is often between 0 and 1, but no obligation
 	 * @return
 	 */
 	public vec4 sin_wave(int timeline, float sx, float sy, float sz, float sw) {
