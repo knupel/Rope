@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.3.0
+ * v 0.3.1
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -35,6 +35,8 @@ import rope.vector.vec5;
 import processing.core.PApplet;
 
 public class R_Impact extends R_Graphic {
+	// BUILD
+	private boolean build_is = false;
 	// PUPPET MASTER
 	private ArrayList<R_Puppet2D>[] main;
 	private ArrayList<R_Puppet2D> heart;
@@ -50,10 +52,11 @@ public class R_Impact extends R_Graphic {
 	private ArrayList<R_Shape> imp_shapes = new ArrayList<R_Shape>();
 	// POINT
 	private ArrayList<R_Node> nodes = new ArrayList<R_Node>();
+
 	// GLOBAL POSTION of the impact
 	private vec3 pos = new vec3();
-	private float radius = 0;
 
+	private float radius = 0;
 	private float marge = 2; // use for in_line detection
 	private int base = 5;
 
@@ -553,7 +556,13 @@ public class R_Impact extends R_Graphic {
 		build_main();
 		build_heart();
 		build_circle();
-		add_nodes();	
+		add_nodes();
+		build_is = true;
+	}
+
+
+	public boolean build_is() {
+		return this.build_is;
 	}
 
 	////////////////////////
@@ -1227,10 +1236,11 @@ public class R_Impact extends R_Graphic {
 	// UTILS POLYGON
 	//////////////////
 	private boolean in_heart(vec3 pos) {
+		int marge = 1;
 		if(imp_shapes_center.size() > 0) {
 			R_Shape heart = imp_shapes_center.get(0);
-			if(in_polygon(heart, pos)) {
-				// print_err("not good don't add this polygon");
+			// the result 1 indicate the point is in the shape + in the border.
+			if(in_polygon(heart, pos, marge) == 1) {
 				return true;
 			}
 		}
@@ -2048,8 +2058,6 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void show_list_impl(ArrayList[] list, int start, int end) {
-		// print_err("show_list_impl() list", list);
-		// print_err("list.length", list.length);
 		for(int i = 0 ; i < list.length ; i++) {
 			show_lines_impl(list[i], start, end);
 		}
