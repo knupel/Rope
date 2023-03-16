@@ -25,8 +25,9 @@ void draw() {
 	// fill(r.GRIS[1]);
 	stroke(r.GRIS[5]);
 	impact.show_polygons();
+	// impact.show_lines();
 	fill(r.BLACK);
-	if(keyPressed) {
+	if(keyPressed && impact.heart_is()) {
 		impact.show_polygon_heart();
 	}
 
@@ -46,7 +47,7 @@ void mousePressed() {
 			println("barycenter", shape.barycenter());
 		}
 	}
-
+ 
 }
 
 
@@ -62,19 +63,18 @@ void keyPressed() {
 void set_impact() {
 	impact = new R_Impact(this, width/2, height/2);
 	
-	impact.set_heart(1); // from 1 to max main iteration, if it's upper the value is cap to max.
-	int num = 8;
+	impact.heart_is(true);
+	int num = 12;
 	impact.set_num_main(num); // num of main branch
-	impact.set_iter_main(20); // num of node on each branch
-	impact.set_growth_main(30); // approximative pixel step between each node of the main
+	impact.set_iter_main(8); // num of node on each branch
+	impact.set_growth_main(40); // approximative pixel step between each node of the main
 	impact.set_angle_main(0.1); // max angle to change the direction of the main branch
 
-	impact.set_num_circle(20); // num of branch circle start from the main branch
+	impact.set_num_circle(30); // num of branch circle start from the main branch
 	impact.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 	impact.set_growth_circle(10);
 
 	impact.build();
-
 	// this part is the most important, without that... 
 	// there is no polygons available
 	impact.build_polygon();

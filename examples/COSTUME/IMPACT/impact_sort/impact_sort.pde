@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact example
- * v 0.0.2
+ * v 0.1.1
  * 2022-2023
  * 
 
@@ -12,12 +12,14 @@ import rope.mesh.R_Line2D;
 R_Impact imp;
 int num_circle = 30;
 int num_branch = 5;
+int which_branch = 0;
+int which_circle = 0;
 
 
 void setup() {
 	size(600,600);
 	imp = new R_Impact(this, width/2, height/2);
-	imp.set_heart(1);
+	imp.heart_is(true);
 	
 	imp.set_num_main(num_branch); // num of main branch
 	imp.set_growth_main(25); // approximative pixel step between each node of the main
@@ -40,8 +42,8 @@ void draw() {
 	if(!keyPressed) {
 		imp.show_lines_heart();
 		imp.show_lines_main();
-		imp.show_lines_branch(num_branch);
-		// imp.show_lines_circle(num_circle);
+		imp.show_lines_branch(which_branch);
+		// imp.show_lines_circle(which_circle);
 	} else {
 		imp.show_lines();
 	}
@@ -53,13 +55,13 @@ void draw() {
 
 
 void mousePressed() {
-	num_circle++;
-	num_branch++;
-	if(num_circle >= imp.get_num_circle()) {
-		num_circle = 0;
+	which_circle++;
+	which_branch++;
+	if(which_circle >= imp.get_num_circle()) {
+		which_circle = 0;
 	}
-	if(num_branch >= imp.get_num_main()) {
-		num_branch = 0;
+	if(which_branch >= imp.get_num_main()) {
+		which_branch = 0;
 	}
 }
 

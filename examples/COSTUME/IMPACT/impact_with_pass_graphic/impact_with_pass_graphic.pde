@@ -49,7 +49,6 @@ void keyPressed() {
 	println("nouveau tirage");
 	if(key == 'n') {
 		int size_heart = (int)map(random(1),0,1,0,imp.get_iter_main()/2);
-		imp.set_heart(size_heart);
 		imp.build();
 		imp.build_polygon();
 	}
@@ -59,7 +58,6 @@ void keyPressed() {
 
 void set_impact() {
 	imp = new R_Impact(this, width/2, height/2);
-	imp.set_heart(2); // from 1 to max main iteration
 	int num = 12;
 	// SET THE MAIN BRANCHES
 		//////////////////////////////////////////////
