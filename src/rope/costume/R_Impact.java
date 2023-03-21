@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.3.1
+ * v 0.3.2
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -79,27 +79,35 @@ public class R_Impact extends R_Graphic {
 	// CONSTRUCTOR
 	/////////////////////////////
 
-	public R_Impact(PApplet pa) {
+	@Deprecated public R_Impact(PApplet pa) {
 		super(pa);
 		init();
 	}
 
-	public R_Impact(PApplet pa, int x, int y) {
+	@Deprecated public R_Impact(PApplet pa, int x, int y) {
 		super(pa);
 		pos(x,y);
 		init();
 	}
 
+	public R_Impact(PApplet pa, int x, int y, int diameter) {
+		super(pa);
+		pos(x,y);
+		init();
+		set_diam(diameter);
+	}
+
 
 	private void init() {
-		float diagonal = sqrt(pow(this.pa.width,2) + pow(this.pa.height,2));
+		// float diagonal = sqrt(pow(this.pa.width,2) + pow(this.pa.height,2));
+		float diagonal = this.diam() / 2;
 		float growth = (diagonal/this.base) * 0.25f;
 		// It's very small value for the result, there is something weird
 		float main_growth_angle = PI * 0.02f;
 		// main data
 		set_num_main(this.base);
 		set_iter_main(this.base);
-		set_growth_main(growth);
+		// set_growth_main(growth);
 		set_angle_main(main_growth_angle);
 
 		// circle data
@@ -139,13 +147,24 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	public R_Impact set_growth_main(float growth) {
+	/**
+	 * 
+	 * @param growth step value between the main point
+	 * @return
+	 * @deprecated instead use set_diam() 
+	 */
+	@Deprecated public R_Impact set_growth_main(float growth) {
 		this.data_main.c(growth);
 		return this;
 	}
 
 	public R_Impact set_angle_main(float angle) {
 		this.data_main.d(angle);
+		return this;
+	}
+
+	public R_Impact set_diam(float diameter) {
+		this.data_main.e(diameter);
 		return this;
 	}
 
@@ -288,8 +307,20 @@ public class R_Impact extends R_Graphic {
 	// GETING
 	//////////////////////////////
 
+	/**
+	 * 
+	 * @return the calculated value of the real farest point of the center
+	 */
 	public float radius() {
 		return this.radius;
+	}
+
+	/**
+	 * 
+	 * @return the value pass to set_diam() or constructor
+	 */
+	public float diam() {
+		return this.data_main.e;
 	}
 
 	public vec2 pos() {
@@ -319,17 +350,18 @@ public class R_Impact extends R_Graphic {
 		return (int)this.data_main.b();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public float get_growth_main() {
-		return this.data_main.c();
+		return this.diam() / get_iter_main() * 0.5f;
+		// return this.data_main.c();
 	}
 
 	public float get_angle_main() {
 		return this.data_main.d();
 	}
-
-	// public int get_heart_level() {
-	// 	return (int)this.data_main.e();
-	// }
 
 	public boolean heart_is() {
 		return this.heart_is;

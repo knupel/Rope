@@ -618,6 +618,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   // PIXEL
   /////////////////////////////////
 
+  /**
+ * 
+ * @param density the ratio of pixels along the line from 0 to 1
+ * @param colour list of int color to create the pixel line
+ */
   public void set_pixels(float density, int... colour) {
     int num_pixel = (int)(dist() * density);
     pixies = new R_Pix[num_pixel];

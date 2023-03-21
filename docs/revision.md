@@ -13,6 +13,9 @@
 > add function boolean build_is() to check is OBject is build or not
 > add function heart_is(), heart_is(boolean is)
 > remove set_heart(int level);
+> add function to set approximativ diameter set_diam(int value)
+> add function to get the diameter value diam()
+> @Deprecated constructor without position and diameter
 
 
 > R_Graphic
