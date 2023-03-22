@@ -1,6 +1,6 @@
 /**
  * 
- * simple impact example
+ * impact set growth parameter
  * v 0.2.0
  * 2022-2023
  * 
@@ -32,11 +32,20 @@ void keyPressed() {
 	
 	if(key == 'n') {
 		println("nouveau tirage");
-		int diam = (int)(random(width/4, width));
-		imp.set_diam(diam);
+    float min = random(1);
+    float max = min + random(2);
+    imp.set_growth_main(min, max);
+    min = random(1);
+    max = min + random(2);
+    // with this setting that's create something regular
+    // min = 1;
+    // max = 1;
+    imp.set_growth_circle(min, max);
+    println("main ratio", imp.get_growth_main_ratio());
+    println("main growth", imp.get_growth_main());
+    println("circle ratio", imp.get_growth_circle_ratio());
+    println("circle growth", imp.get_growth_circle());
 		imp.build();
-		println("imp.diam()", imp.diam());
-		println("radius", imp.radius());
 	}
 }
 

@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.0.1
+ * v 0.0.2
  * 2023-2023
  * 
 
@@ -17,6 +17,7 @@ void setup() {
 	// faster in P2D render, the speed is increase by 3.5
 	size(600,600, P2D);
 	set_impact();
+	imp.build();
 	set_color_static_pixel_line();
 }
 
@@ -46,7 +47,6 @@ void set_color_static_pixel_line() {
 
 void show_pixel_line() {
 	for(R_Line2D line : imp.get_lines()) {
-
 		if(mousePressed) {
 			line.show_pixels(); // static
 		} else {
@@ -63,24 +63,18 @@ void show_pixel_line() {
 
 
 void set_impact() {
-	imp = new R_Impact(this, width/2, height/2);
+	imp = new R_Impact(this, width/2, height/2, 300);
 	
 	// imp.normal();
 	imp.heart_is(true); // from 1 to max main iteration
 
 	// SET THE MAIN BRANCHES
-	//////////////////////////////////////////////
 	int num = 12;
 	imp.set_num_main(num); // num of main branch
 	imp.set_iter_main(20); // num of node on each branch
-	imp.set_growth_main(25); // approximative pixel step between each node of the main
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
-	//////////////////////////////////////////////
-	imp.set_num_circle(30); // num of branch circle start from the main branch
+	imp.set_num_circle(20); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
-	imp.set_growth_circle(10);
-
-	imp.build();
 }

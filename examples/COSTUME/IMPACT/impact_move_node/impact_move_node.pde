@@ -2,7 +2,7 @@
  * 
  * Example to move node.
  * click on node circle and drag it where you want
- * v 0.0.1
+ * v 0.1.0
  * 2023-2023
  * 
  * */
@@ -17,6 +17,7 @@ Rope r = new Rope();
 void setup() {
 	size(600,600);
 	set_impact();
+	imp.build();
 }
 
 void draw() {
@@ -68,24 +69,18 @@ void update_impact_node() {
 
 
 void set_impact() {
-	imp = new R_Impact(this, width/2, height/2);
-	
-	// imp.normal();
+	imp = new R_Impact(this, width/2, height/2, 500);
 	imp.heart_is(true); // from 1 to max main iteration
 
 	// SET THE MAIN BRANCHES
 	//////////////////////////////////////////////
 	int num = 12;
 	imp.set_num_main(num); // num of main branch
-	imp.set_iter_main(20); // num of node on each branch
-	imp.set_growth_main(25); // approximative pixel step between each node of the main
+	imp.set_iter_main(15); // num of node on each branch
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
 	//////////////////////////////////////////////
-	imp.set_num_circle(30); // num of branch circle start from the main branch
+	imp.set_num_circle(15); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
-	imp.set_growth_circle(10);
-
-	imp.build();
 }

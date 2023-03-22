@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.3.2
+ * v 0.3.3
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -72,48 +72,39 @@ public class R_Impact extends R_Graphic {
 
 	private float growth_fact_spiral = 1;
 
-	private vec5 data_main = new vec5();
+	// main data
+	private int main_num;
+	private int main_iter;
+	private float main_angle;
+	private vec2 main_growth_ratio = new vec2(0.2f, 1.6f);
+	private int diam;
+
+	// circle data
 	private vec3 data_circle = new vec3();
+	private vec2 circle_growth_ratio = new vec2(0.5f, 1.3f);
 	
 	////////////////////////////
 	// CONSTRUCTOR
 	/////////////////////////////
-
-	@Deprecated public R_Impact(PApplet pa) {
-		super(pa);
-		init();
-	}
-
-	@Deprecated public R_Impact(PApplet pa, int x, int y) {
-		super(pa);
-		pos(x,y);
-		init();
-	}
-
 	public R_Impact(PApplet pa, int x, int y, int diameter) {
 		super(pa);
 		pos(x,y);
-		init();
 		set_diam(diameter);
+		init();
 	}
 
 
 	private void init() {
-		// float diagonal = sqrt(pow(this.pa.width,2) + pow(this.pa.height,2));
-		float diagonal = this.diam() / 2;
-		float growth = (diagonal/this.base) * 0.25f;
+		set_num_main(this.base);
+		set_iter_main(this.base);
+		float diagonal = this.diam() / 2.0f;
 		// It's very small value for the result, there is something weird
 		float main_growth_angle = PI * 0.02f;
 		// main data
-		set_num_main(this.base);
-		set_iter_main(this.base);
-		// set_growth_main(growth);
 		set_angle_main(main_growth_angle);
-
 		// circle data
 		set_num_circle(this.base);
 		set_iter_circle(this.base);
-		set_growth_circle(growth);
 	}
 
 
@@ -134,39 +125,43 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
+
 	// SET DATA MAIN
 	///////////////////
-
 	public R_Impact set_num_main(int num) {
-		this.data_main.a(num);
+		this.main_num = num;
 		return this;
 	}
 
 	public R_Impact set_iter_main(int iter) {
-		this.data_main.b(iter);
+		this.main_iter = iter;
 		return this;
 	}
 
-	/**
-	 * 
-	 * @param growth step value between the main point
-	 * @return
-	 * @deprecated instead use set_diam() 
-	 */
-	@Deprecated public R_Impact set_growth_main(float growth) {
-		this.data_main.c(growth);
-		return this;
-	}
 
 	public R_Impact set_angle_main(float angle) {
-		this.data_main.d(angle);
+		this.main_angle = angle;
 		return this;
 	}
 
-	public R_Impact set_diam(float diameter) {
-		this.data_main.e(diameter);
+	public R_Impact set_diam(int diameter) {
+		this.diam = diameter;
 		return this;
 	}
+
+		/**
+	 * by default the value min is 0.2 and the value max is 1.6
+	 * to create something regular set the the min to 1 and the max to 1 too
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public R_Impact set_growth_main(float min, float max) {
+		main_growth_ratio.set(min, max);
+		return this;
+	}
+
+
 
 	/**
 	 * 
@@ -191,8 +186,20 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	public R_Impact set_growth_circle(float growth) {
-		this.data_circle.z(growth);
+	// public R_Impact set_growth_circle(float growth) {
+	// 	this.data_circle.z(growth);
+	// 	return this;
+	// }
+
+	/**
+	 * by default the value min is 0.5 and the value max is 1.3
+	 * to create something regular set the the min to 1 and the max to 1 too
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	public R_Impact set_growth_circle(float min, float max) {
+		circle_growth_ratio.set(min, max);
 		return this;
 	}
 
@@ -213,12 +220,6 @@ public class R_Impact extends R_Graphic {
 		this.mode = LINE;
 		return this;
 	}
-
-
-
-
-
-
 
 
 
@@ -319,8 +320,8 @@ public class R_Impact extends R_Graphic {
 	 * 
 	 * @return the value pass to set_diam() or constructor
 	 */
-	public float diam() {
-		return this.data_main.e;
+	public int diam() {
+		return this.diam;
 	}
 
 	public vec2 pos() {
@@ -335,32 +336,29 @@ public class R_Impact extends R_Graphic {
 		return this.growth_fact_spiral;
 	}
 
+
+
 	// GET DATA MAIN
 	///////////////////
 
-	public vec5 get_data_main() {
-		return this.data_main;
+	public float get_growth_main() {
+		return this.diam() / get_iter_main() * 0.5f;
+	}
+
+	public vec2 get_growth_main_ratio() {
+		return this.main_growth_ratio;
 	}
 
 	public int get_num_main() {
-		return (int)this.data_main.a();
+		return this.main_num;
 	}
 
 	public int get_iter_main() {
-		return (int)this.data_main.b();
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public float get_growth_main() {
-		return this.diam() / get_iter_main() * 0.5f;
-		// return this.data_main.c();
+		return this.main_iter;
 	}
 
 	public float get_angle_main() {
-		return this.data_main.d();
+		return this.main_angle;
 	}
 
 	public boolean heart_is() {
@@ -371,9 +369,14 @@ public class R_Impact extends R_Graphic {
 	// GET DATA CIRCLE
 	///////////////////
 
-	public vec3 get_data_circle() {
-		return this.data_circle;
+	public vec2 get_growth_circle_ratio() {
+		return this.circle_growth_ratio;
 	}
+
+	public float get_growth_circle() {
+		return this.diam() / get_num_circle() * 0.5f;
+	}
+
 
 	public int get_num_circle() {
 		return (int)this.data_circle.x();
@@ -383,9 +386,6 @@ public class R_Impact extends R_Graphic {
 		return (int)this.data_circle.y();
 	}
 
-	public float get_growth_circle() {
-		return this.data_circle.z();
-	}
 
 	// GET SIZE
 	////////////////////////
@@ -602,6 +602,14 @@ public class R_Impact extends R_Graphic {
 	// BUILD STRUCTURE
 	/////////////////////////
 
+	private float growth_main_impl() {
+		return random(get_growth_main() * main_growth_ratio.x(), get_growth_main() * main_growth_ratio.y());
+	}
+
+	private float growth_circle_impl() {
+		return random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
+	}
+
 	// BUILD MAIN BRANCH
 	/////////////////////
 	private void build_main() {
@@ -631,7 +639,7 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < get_iter_main() ; i++) {
 			// distance
 			vec3 b = new vec3();
-			float buf_dist = random(get_growth_main() * 0.1f,get_growth_main() * 2.5f);
+			float buf_dist = growth_main_impl();
 			dist += buf_dist;
 			// direction
 			float range = get_angle_main();
@@ -704,7 +712,8 @@ public class R_Impact extends R_Graphic {
 	  circle = new ArrayList[get_num_circle()];
 		for(int i = 0 ; i < get_num_circle() ; i++) {
 			circle[i] = new ArrayList<R_Line2D>();
-			float dist = get_growth_circle() * (i + start_value);
+			float dist = growth_circle_impl() * (i + start_value);
+			// float dist = get_growth_circle() * (i + start_value);
 			circle_impl(i, dist);
 			sort_circle(i); // clean for the heart heart case ?
 		}

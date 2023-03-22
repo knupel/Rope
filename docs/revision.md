@@ -16,6 +16,7 @@
 > add function to set approximativ diameter set_diam(int value)
 > add function to get the diameter value diam()
 > @Deprecated constructor without position and diameter
+> add function to set the growth range between the node of the main and the repartition of the circle. set_growth_main() and set_growth_circle()
 
 
 > R_Graphic

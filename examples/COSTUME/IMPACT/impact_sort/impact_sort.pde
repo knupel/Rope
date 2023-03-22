@@ -18,17 +18,7 @@ int which_circle = 0;
 
 void setup() {
 	size(600,600);
-	imp = new R_Impact(this, width/2, height/2);
-	imp.heart_is(true);
-	
-	imp.set_num_main(num_branch); // num of main branch
-	imp.set_growth_main(25); // approximative pixel step between each node of the main
-	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
-
-	imp.set_num_circle(num_circle); // num of branch circle start from the main branch
-	imp.set_iter_circle(num_branch); // num of node on the circle branch / where the max for normal mode is the num of main branches
-	imp.set_growth_circle(10);
-
+	set_impact();
 	imp.build();
 }
 
@@ -65,6 +55,26 @@ void mousePressed() {
 	}
 }
 
+void keyPressed() {
+	if(key == 'n') {
+		println("nouveau tirage");
+		imp.build();
+		info();	
+	}
+}
+
+
+void set_impact() {
+	imp = new R_Impact(this, width/2, height/2, 300);
+	imp.heart_is(true);
+	
+	imp.set_num_main(num_branch); // num of main branch
+	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
+
+	imp.set_num_circle(num_circle); // num of branch circle start from the main branch
+	imp.set_iter_circle(num_branch); // num of node on the circle branch / where the max for normal mode is the num of main branches
+}
+
 void info() {
 	for(int i = 0 ; i < imp.get_num_circle() ;i++) {
 		for(R_Line2D line : imp.get_lines_circle(i)) {
@@ -75,11 +85,3 @@ void info() {
 	}
 }
 
-void keyPressed() {
-	if(key == 'n') {
-		println("nouveau tirage");
-		imp.build();
-		info();
-		
-	}
-}
