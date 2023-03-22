@@ -42,7 +42,7 @@
 
 > R_Puppet2D new class to manipulater puppets point with two handles, it's an extands of R_Line2D
 
-> R_Impact new class to creata a pseudo deisgn of glass impact network
+> R_Impact new class to create a pseudo deisgn of glass impact network
 
 > R_Voronoi
 > add function get_polygon(int index) and get_poygons() to create a same spirit than R_Impact

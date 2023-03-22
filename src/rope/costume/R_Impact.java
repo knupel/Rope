@@ -81,7 +81,7 @@ public class R_Impact extends R_Graphic {
 
 	// circle data
 	private vec3 data_circle = new vec3();
-	private vec2 circle_growth_ratio = new vec2(0.5f, 1.3f);
+	private vec3 circle_growth_ratio = new vec3(0.5f, 1.3f, 0);
 	
 	////////////////////////////
 	// CONSTRUCTOR
@@ -186,22 +186,24 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	// public R_Impact set_growth_circle(float growth) {
-	// 	this.data_circle.z(growth);
-	// 	return this;
-	// }
-
 	/**
 	 * by default the value min is 0.5 and the value max is 1.3
 	 * to create something regular set the the min to 1 and the max to 1 too
 	 * @param min
 	 * @param max
+	 * @param distribution define the type of distribution, 0 is random, under 0 is decreasing, upper 0 is increasing
 	 * @return
 	 */
-	public R_Impact set_growth_circle(float min, float max) {
-		circle_growth_ratio.set(min, max);
+	public R_Impact set_growth_circle(float min, float max, int distribution) {
+		circle_growth_ratio.set(min, max, distribution);
 		return this;
 	}
+
+
+	// public R_Impact set_growth_circle(float min, float max) {
+	// 	set_growth_circle(min, max, 0);
+	// 	return this;
+	// }
 
 	// OTHER SETTING
 	///////////////////
@@ -370,7 +372,11 @@ public class R_Impact extends R_Graphic {
 	///////////////////
 
 	public vec2 get_growth_circle_ratio() {
-		return this.circle_growth_ratio;
+		return this.circle_growth_ratio.xy();
+	}
+
+	public int get_growth_circle_distribution() {
+		return (int)this.circle_growth_ratio.z();
 	}
 
 	public float get_growth_circle() {
@@ -606,9 +612,45 @@ public class R_Impact extends R_Graphic {
 		return random(get_growth_main() * main_growth_ratio.x(), get_growth_main() * main_growth_ratio.y());
 	}
 
-	private float growth_circle_impl() {
-		return random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
+
+
+	private float growth_circle_impl(int index, float inc) {
+		float buf = 0;
+		float ratio = 1;
+		float factor = 1;
+		int type = get_growth_circle_distribution();
+		switch(type) {
+			case -1:
+				// more density in the center
+				float start = 0;
+				// because the density is higher in the center
+				// we need to create an offset for the case where the heart is active
+				// because the heart can hide a lot of lines
+				if(heart_is()) {
+					start = 1.0f / get_iter_main();
+				}
+				ratio = map(index,  0, get_num_circle(), start, 1);
+				factor = pow(ratio,4);
+				buf = radius() * factor;
+				break;
+			case 0:
+				buf = random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
+				buf *= (index + inc);
+				break;
+			case 1:
+			// more density on the outside
+				ratio = map(index,  0, get_num_circle(), 1, 0);
+				factor = 1- pow(ratio,3);
+				buf = radius() * factor;
+				break;
+			default:
+				buf = random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
+				buf *= (index + inc);
+				break;
+		}
+		return buf;
 	}
+
 
 	// BUILD MAIN BRANCH
 	/////////////////////
@@ -703,17 +745,15 @@ public class R_Impact extends R_Graphic {
 			build_circle_spiral();
 			return;
   	}
-		float start_value = 0;
-  	build_circle(start_value);
+  	build_circle_impl(0);
 		set_id_circle();
 	}
 
-	private void build_circle(float start_value) {
+	private void build_circle_impl(int start_value) {
 	  circle = new ArrayList[get_num_circle()];
 		for(int i = 0 ; i < get_num_circle() ; i++) {
 			circle[i] = new ArrayList<R_Line2D>();
-			float dist = growth_circle_impl() * (i + start_value);
-			// float dist = get_growth_circle() * (i + start_value);
+			float dist = growth_circle_impl(i, start_value);
 			circle_impl(i, dist);
 			sort_circle(i); // clean for the heart heart case ?
 		}
@@ -749,13 +789,13 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void build_circle_spiral() {
-		float start_value = 0;
+		int start_value = 0;
 		boolean spiral_is_good = false;
 		vec2 area = new vec2(2);
 		int threshold_critic = get_num_main() * 2;
 		while(!spiral_is_good) {
 			int threshold = 0;
-			build_circle(start_value);
+			build_circle_impl(start_value);
 			for(int i = 0 ; i < get_num_circle() ; i++) {
 				for(R_Line2D line : circle[i]) {
 					if(line.a().compare(this.pos.xy(),area)) {

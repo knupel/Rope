@@ -4,7 +4,7 @@ package rope.utils;
 // import org.apache.commons.lang.SerializationUtils;
 /**
  * 
- * Class R_Pair to store quicly a coucple objects
+ * Class R_Pair to store quicly a couple objects
  * v 0.0.2
  * 
 
