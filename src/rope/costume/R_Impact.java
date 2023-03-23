@@ -76,12 +76,14 @@ public class R_Impact extends R_Graphic {
 	private int main_num;
 	private int main_iter;
 	private float main_angle;
-	private vec2 main_growth_ratio = new vec2(0.2f, 1.6f);
+	// x is minimum, y maximum and z the type of distribution
+	private vec3 main_growth_ratio = new vec3(0);
 	private int diam;
 
 	// circle data
+	// x is minimum, y maximum and z the type of distribution
 	private vec3 data_circle = new vec3();
-	private vec3 circle_growth_ratio = new vec3(0.5f, 1.3f, 0);
+	private vec3 circle_growth_ratio = new vec3(0);
 	
 	////////////////////////////
 	// CONSTRUCTOR
@@ -150,14 +152,21 @@ public class R_Impact extends R_Graphic {
 	}
 
 		/**
-	 * by default the value min is 0.2 and the value max is 1.6
-	 * to create something regular set the the min to 1 and the max to 1 too
-	 * @param min
-	 * @param max
+	 * by default min and max is 0, the value is like normal value, must be set with small value, 
+	 * is better like -2 to 2, after that's can give a strange result.
+	 * with use this value to find a random value to multiblie the original main arg
+	 * @param min it's good option to use negative value
+	 * @param max it's good option to use positive value
+	 * @param distribution it's a type of distrubution where 0 is lineare
 	 * @return
 	 */
-	public R_Impact set_growth_main(float min, float max) {
-		main_growth_ratio.set(min, max);
+	public R_Impact set_growth_main(int distribution, float min, float max) {
+		main_growth_ratio.set(min, max, distribution);
+		return this;
+	}
+
+	public R_Impact set_growth_main(int distribution) {
+		main_growth_ratio.z(distribution);
 		return this;
 	}
 
@@ -186,24 +195,26 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	/**
-	 * by default the value min is 0.5 and the value max is 1.3
-	 * to create something regular set the the min to 1 and the max to 1 too
-	 * @param min
-	 * @param max
-	 * @param distribution define the type of distribution, 0 is random, under 0 is decreasing, upper 0 is increasing
-	 * @return
-	 */
-	public R_Impact set_growth_circle(float min, float max, int distribution) {
-		circle_growth_ratio.set(min, max, distribution);
+
+
+	public R_Impact set_growth_circle(int distribution) {
+		circle_growth_ratio.z(distribution);
 		return this;
 	}
 
-
-	// public R_Impact set_growth_circle(float min, float max) {
-	// 	set_growth_circle(min, max, 0);
-	// 	return this;
-	// }
+	/**
+	 * by default min and max is 0, the value is like normal value, must be set with small value, 
+	 * is better like -2 to 2, after that's can give a strange result.
+	 * with use this value to find a random value to multiblie the original circle arg
+	 * @param min it's good option to use negative value
+	 * @param max it's good option to use positive value
+	 * @param distribution it's a type of distrubution where 0 is lineare
+	 * @return
+	 */
+	public R_Impact set_growth_circle(int distribution, float min, float max) {
+		circle_growth_ratio.set(min, max, distribution);
+		return this;
+	}
 
 	// OTHER SETTING
 	///////////////////
@@ -348,7 +359,11 @@ public class R_Impact extends R_Graphic {
 	}
 
 	public vec2 get_growth_main_ratio() {
-		return this.main_growth_ratio;
+		return this.main_growth_ratio.xy();
+	}
+
+	public int get_growth_main_distribution() {
+		return (int)this.main_growth_ratio.z();
 	}
 
 	public int get_num_main() {
@@ -608,14 +623,40 @@ public class R_Impact extends R_Graphic {
 	// BUILD STRUCTURE
 	/////////////////////////
 
-	private float growth_main_impl() {
-		return random(get_growth_main() * main_growth_ratio.x(), get_growth_main() * main_growth_ratio.y());
+	private float growth_main_impl(int index) {
+		float buf = get_growth_main();
+		int type = get_growth_main_distribution();
+		float ratio = 1;
+		float power = 2;
+		switch(type) {
+			case -1:
+				ratio = map(index,  0, get_iter_main(), 0.1f, power);
+				buf *= ratio;
+				break;
+			case 0:
+				break;
+			case 1:
+				ratio = map(index,  0, get_iter_main(), power, 0.1f);
+				buf *= ratio;
+				break;
+			default:
+				break;
+		}
+
+		if(!get_growth_main_ratio().equals(0)) {
+			float jitter = random(get_growth_main() * get_growth_main_ratio().x(), 
+														get_growth_main() * get_growth_main_ratio().y());
+			if(jitter > 0) {
+				buf+= jitter;
+			}
+		}
+		return buf;
 	}
 
 
-
 	private float growth_circle_impl(int index, float inc) {
-		float buf = 0;
+		float buf = get_growth_circle();
+
 		float ratio = 1;
 		float factor = 1;
 		int type = get_growth_circle_distribution();
@@ -634,7 +675,6 @@ public class R_Impact extends R_Graphic {
 				buf = radius() * factor;
 				break;
 			case 0:
-				buf = random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
 				buf *= (index + inc);
 				break;
 			case 1:
@@ -644,9 +684,15 @@ public class R_Impact extends R_Graphic {
 				buf = radius() * factor;
 				break;
 			default:
-				buf = random(get_growth_circle() * circle_growth_ratio.x(), get_growth_circle() * circle_growth_ratio.y());
 				buf *= (index + inc);
 				break;
+		}
+
+		// jitter / randomize part when the position is good
+		if(!get_growth_circle_ratio().equals(0)) {
+			float jitter = random(get_growth_circle() * get_growth_circle_ratio().x(), 
+														get_growth_circle() * get_growth_circle_ratio().y());
+			buf += jitter;
 		}
 		return buf;
 	}
@@ -681,7 +727,7 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < get_iter_main() ; i++) {
 			// distance
 			vec3 b = new vec3();
-			float buf_dist = growth_main_impl();
+			float buf_dist = growth_main_impl(i);
 			dist += buf_dist;
 			// direction
 			float range = get_angle_main();

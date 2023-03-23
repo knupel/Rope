@@ -20,25 +20,49 @@ void draw() {
 	background(255);
 	fill(0);
 	imp.show_lines();
-	// imp.show_lines_main();
-	// imp.show_lines_circle();
-	// imp.show_lines_heart();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
-  text("press N for new type of distribution and new sort", 20, 20);
+  text("press N for new sort", 20, 20);
   text("MOUSE CLICK for new sort", 20, 35);
+  text("press J use jitter option", 20, 50);
+  text("press M for new type of main distribution", 20, 65);
+  text("press C for new type of circle distribution", 20, 80);
+
 }
 
-int distribution = 0;
+int distri_main = 0;
+int distri_circle = 0;
+boolean use_jitter_is = false;
 void keyPressed() {
 	if(key == 'n') {
-    distribution ++;
-    if(distribution > 1) {
-      distribution = -1;
+    set_distribution();	
+	}
+
+  if(key == 'c') {
+    distri_circle ++;
+    if(distri_circle > 1) {
+      distri_circle = -1;
     }
     set_distribution();	
 	}
+
+	if(key == 'm') {
+    distri_main ++;
+    if(distri_main > 1) {
+      distri_main = -1;
+    }
+    set_distribution();	
+	}
+
+  if(key == 'j') {
+    if(use_jitter_is) {
+      use_jitter_is = false ; 
+    } else { 
+      use_jitter_is = true;
+    }
+    set_distribution();
+  }
 }
 
 void mousePressed() {
@@ -47,23 +71,33 @@ void mousePressed() {
 
 void set_distribution() {
   println("new sort");
+  float range_min = -0.5;
+  float range_max = 0.5;
     // main setting
-  float min = random(1);
-  float max = min + random(1);
-  imp.set_growth_main(min, max);
+  float min = random(range_min, 0);
+  float max = random(0, range_max);
+  if(!use_jitter_is) {
+    min = 0;
+    max = 0;
+  }
+  imp.set_growth_main(distri_main,  min, max);
 
   // circle setting
-  min = random(1);
-  max = min + random(1);
-  // with this setting that's create something regular
-  if(distribution != 0) {
-    min = 1;
-    max = 1;
+  min = random(range_min, 0);
+  max = random(0, range_max);
+  if(!use_jitter_is) {
+    min = 0;
+    max = 0;
   }
-  imp.set_growth_circle(min, max, distribution);
-  println("type of distribution", imp.get_growth_circle_distribution());
-  imp.build();
+  imp.set_growth_circle(distri_circle,  min, max);
 
+  println("circle type", imp.get_growth_circle_distribution());
+  println("circle ratio", imp.get_growth_circle_ratio());
+
+  println("\nmain type", imp.get_growth_main_distribution());
+  println("main ratio", imp.get_growth_main_ratio());
+
+  imp.build();
 }
 
 
