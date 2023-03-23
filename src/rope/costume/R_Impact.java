@@ -97,13 +97,10 @@ public class R_Impact extends R_Graphic {
 
 
 	private void init() {
+		// It's very small value for the result, there is something weird
+		// main data
 		set_num_main(this.base);
 		set_iter_main(this.base);
-		float diagonal = this.diam() / 2.0f;
-		// It's very small value for the result, there is something weird
-		float main_growth_angle = PI * 0.02f;
-		// main data
-		set_angle_main(main_growth_angle);
 		// circle data
 		set_num_circle(this.base);
 		set_iter_circle(this.base);

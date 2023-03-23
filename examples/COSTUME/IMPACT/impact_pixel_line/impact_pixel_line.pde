@@ -63,7 +63,7 @@ void show_pixel_line() {
 
 
 void set_impact() {
-	imp = new R_Impact(this, width/2, height/2, 300);
+	imp = new R_Impact(this, width/2, height/2, 500);
 	
 	// imp.normal();
 	imp.heart_is(true); // from 1 to max main iteration

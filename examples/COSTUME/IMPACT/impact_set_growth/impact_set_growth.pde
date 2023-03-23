@@ -34,10 +34,16 @@ void draw() {
 int distri_main = 0;
 int distri_circle = 0;
 boolean use_jitter_is = false;
+float angle_main = 0;
 void keyPressed() {
 	if(key == 'n') {
     set_distribution();	
 	}
+
+  if(key == 'a') {
+    angle_main = random(1) * 0.5;
+    set_distribution();	
+  }
 
   if(key == 'c') {
     distri_circle ++;
@@ -81,6 +87,12 @@ void set_distribution() {
     max = 0;
   }
   imp.set_growth_main(distri_main,  min, max);
+  // angle main
+   if(!use_jitter_is) {
+    imp.set_angle_main(angle_main);
+  } else {
+    imp.set_angle_main(0);
+  }
 
   // circle setting
   min = random(range_min, 0);
@@ -96,6 +108,7 @@ void set_distribution() {
 
   println("\nmain type", imp.get_growth_main_distribution());
   println("main ratio", imp.get_growth_main_ratio());
+  println("main angle", imp.get_angle_main());
 
   imp.build();
 }
@@ -110,7 +123,6 @@ void set_impact() {
 	int num = 12;
 	imp.set_num_main(num); // num of main branch
 	imp.set_iter_main(10); // num of node on each branch
-	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
 	imp.set_num_circle(num * 4); // num of branch circle start from the main branch
