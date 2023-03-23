@@ -9,6 +9,8 @@
 import rope.costume.R_Impact;
 
 R_Impact imp;
+int which_display = 0;
+boolean heart_is = true;
 
 void setup() {
 	size(600,600);
@@ -19,18 +21,22 @@ void setup() {
 void draw() {
 	background(255);
 	fill(0);
-	imp.show_lines();
-	// imp.show_lines_main();
-	// imp.show_lines_circle();
-	// imp.show_lines_heart();
+	switch(which_display) {
+		case 0 : imp.show_lines(); break;
+		case 1 : imp.show_lines_main(); break;
+		case 2 : imp.show_lines_circle(); break;
+		case 3 :imp.show_lines_heart(); break;
+		default : imp.show_lines(); break;
+	}
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
-	  text("press N for new sort", 20, 20);
+	text("press N for new sort", 20, 20);
+	text("press D to change display", 20, 35);
+	text("press H enable or disable heart", 20, 50);
 }
 
 void keyPressed() {
-	
 	if(key == 'n') {
 		println("nouveau tirage");
 		int diam = (int)(random(width/4, width));
@@ -38,6 +44,24 @@ void keyPressed() {
 		imp.build();
 		println("imp.diam()", imp.diam());
 		println("radius", imp.radius());
+		println("type display", which_display);
+	}
+
+	if(key == 'd') {
+		which_display++;
+		if(which_display > 3) {
+			which_display = 0;
+		}
+	}
+
+	if(key == 'h') {
+		if(heart_is) {
+			heart_is = false;
+		} else {
+			heart_is = true;
+		}
+		imp.heart_is(heart_is);
+		imp.build();
 	}
 }
 
@@ -46,7 +70,7 @@ void set_impact() {
 	imp = new R_Impact(this, width/2, height/2, 300);
 	
 	// imp.normal();
-	imp.heart_is(true); // from 1 to max main iteration
+	imp.heart_is(heart_is); // from 1 to max main iteration
 
 	// SET THE MAIN BRANCHES
 	int num = 12;
