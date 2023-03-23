@@ -70,13 +70,13 @@ void set_impact() {
 
 	// SET THE MAIN BRANCHES
 	//////////////////////////////////////////////
-	int num = 12;
+	int num = 40;
 	imp.set_num_main(num); // num of main branch
-	imp.set_iter_main(15); // num of node on each branch
-	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
+	imp.set_iter_main(30); // num of node on each branch
+	imp.set_angle_main(0.03); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
 	//////////////////////////////////////////////
-	imp.set_num_circle(15); // num of branch circle start from the main branch
+	imp.set_num_circle(30); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 }

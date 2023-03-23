@@ -28,6 +28,7 @@ import rope.utils.R_Pair;
 import rope.vector.bvec2;
 import rope.vector.bvec4;
 import rope.vector.ivec2;
+import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec5;
@@ -1125,6 +1126,17 @@ public class R_Impact extends R_Graphic {
 		for(int i = 0 ; i < get_num_main() ; i++) {
 			build_polygons(i);
 		}
+		// clear polygon
+		for(R_Shape poly : get_polygons()) {
+			R_Shape buf = new R_Shape(pa);
+			for(vec3 p : poly.get_points()) {
+				if(!in_heart(p, 1)) {
+					buf.add_points(p);
+				}
+			}
+			poly.clear();
+			poly.add_points(buf.get_points());
+		}
 	}
 
 
@@ -1215,7 +1227,6 @@ public class R_Impact extends R_Graphic {
 		// the problem it's before that we start at zero !!!! 
 		for(int i = 0 ; i < len -1 ; i++) {
 			R_Line2D line =  arr_branch[i];
-			
 			for(int k = i + 1 ; k < len ; k++) {
 				R_Line2D next_line = arr_branch[k];
 				if(all(	!line.mute_is(), 
@@ -1326,7 +1337,7 @@ public class R_Impact extends R_Graphic {
 
 	// UTILS POLYGON
 	//////////////////
-	private boolean in_heart(vec3 pos, int marge) {
+	private boolean in_heart(vec pos, int marge) {
 		if(heart_is() && imp_shapes_center.size() > 0) {
 			R_Shape heart = imp_shapes_center.get(0);
 			// the result 1 indicate the point is in the shape + in the border.
@@ -1381,8 +1392,7 @@ public class R_Impact extends R_Graphic {
 		if(first < last) {
 			for(int i = first ; i < last ; i++) {
 				vec2 buf = list_main_b.get(i).b();
-				index++;
-				shape.add_point(index, buf.x(), buf.y());
+				index = add_point_go_and_return_impl(shape, index, buf);
 			}
 		} else if(first > last) {
 			// it's for the center, because the order is reverse
@@ -1391,8 +1401,7 @@ public class R_Impact extends R_Graphic {
 				// reverse the order to put the point where this nust be
 				count--;
 				vec2 buf = list_main_b.get(count).b();
-				index++;
-				shape.add_point(index, buf.x(), buf.y());
+				index = add_point_go_and_return_impl(shape, index, buf);
 			}
 		}
 	}
@@ -1420,9 +1429,7 @@ public class R_Impact extends R_Graphic {
 		// the most of cases
 		if(first > last) {
 			for(int i = first ; i > last ; i--) {
-				vec2 buf = list_main_a.get(i).a();
-				index++;
-				shape.add_point(index, buf.x(), buf.y());
+				index = add_point_go_and_return_impl(shape, index, list_main_a.get(i).a());
 			}
 		} else if(first < last) {
 			// it's for the center, because the order is reverse
@@ -1430,11 +1437,18 @@ public class R_Impact extends R_Graphic {
 			for(int i = last ; i > first ; i--) {
 				// reverse the order to put the point where this nust be
 				count++;
-				vec2 buf = list_main_a.get(count).a();
-				index++;
-				shape.add_point(index, buf.x(), buf.y());
+				index = add_point_go_and_return_impl(shape, index, list_main_a.get(count).a());
 			}
 		} 
+	}
+
+
+	private int add_point_go_and_return_impl(R_Shape shape, int index, vec point) {
+		if(!in_heart(point,1)) {
+			index++;
+			shape.add_point(index, point.x(), point.y());
+		}
+		return index;
 	}
 
 
