@@ -25,9 +25,7 @@ void setup() {
 
 void draw() {
 	background(255);
-	text("click on mouse left to change branche",10,20);
-	text("press \"n\" for new sort",10,40);
-	text("press \"space\" to show all circles",10,60);
+
 	fill(0);
 	if(!keyPressed) {
 		imp.show_lines_heart();
@@ -40,6 +38,9 @@ void draw() {
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
+	text("click on mouse left to change branche",20,20);
+	text("press \"N\" for new sort",20,35);
+	text("press \"space\" to show all circles",20,50);
 }
 
 

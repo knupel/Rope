@@ -37,7 +37,9 @@ void draw() {
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press any key to show polygon classic", 10, 50);
+	text("press N for new sort", 20, 20);
+	text("press any key to show polygon classic", 20, 35);
+
 }
 
 void show_polygons_classic() {

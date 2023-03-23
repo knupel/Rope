@@ -47,9 +47,9 @@ void draw() {
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press \"n\" for new sort", 10,30);
-	text("press any to show polygon line", 10,50);
-	text("press mouse to reverse gradient", 10,70);
+	text("press \"N\" for new sort", 20,30);
+	text("press any to show polygon line", 20,45);
+	text("press mouse to reverse gradient", 20,60);
 }
 
 

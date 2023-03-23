@@ -25,9 +25,10 @@ void draw() {
 	background(r.BLOOD);
 	fill(r.MAGENTA);
 	// fill(r.GRIS[1]);
-	stroke(r.GRIS[5]);
+	stroke(r.YELLOW);
 	imp.show_polygons();
 	// imp.show_lines();
+	stroke(r.CYAN);
 	fill(r.BLACK);
 	if(keyPressed && imp.heart_is()) {
 		imp.show_polygon_heart();
@@ -36,6 +37,7 @@ void draw() {
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
+	text("press N for new sort", 20, 20);
 }
 
 void mousePressed() {

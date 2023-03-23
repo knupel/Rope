@@ -32,6 +32,7 @@ void draw() {
 	// info
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
+	text("press N for new sort", 20, 20);
 }
 
 void keyPressed() {

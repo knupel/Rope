@@ -46,6 +46,7 @@ void draw() {
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
+	text("press \"N\" for new sort",20,30);
 }
 
 
