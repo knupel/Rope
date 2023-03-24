@@ -54,9 +54,11 @@ void show_pixel_line() {
 			float dist = r.dist(imp.pos(), line.a());
 			// float ratio = 1 - (dist / imp.radius());
 			float ratio = 1 - (dist / width);
-			println("dist", dist);
-			println("radius", imp.radius());
-			println("ratio", ratio);
+			ratio *= ratio;
+			ratio *= ratio;
+			// println("dist", dist);
+			// println("radius", imp.radius());
+			// println("ratio", ratio);
 			line.show_pixels(ratio, r.MAGENTA, r.CYAN, r.YELLOW); // dynamic
 		}
 	}

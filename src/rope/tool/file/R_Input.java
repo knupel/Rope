@@ -129,13 +129,17 @@ public class R_Input extends BigBang {
 		}
 	}
 
+	// public void select_input() {
+
+	// }
+
 	public void select_input(String type) {
 		String context = get_renderer();
 		boolean apply_filter_is = true;
-		if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
-			apply_filter_is = false;
-			print_out(ANSI_RED+"WARNING:"+ANSI_WHITE+" method select_input(String type) cannot apply filter extension"+ANSI_RED,type,ANSI_WHITE+"\nin this renderer context"+ANSI_RED, context,ANSI_WHITE+"instead classic method selectInput() is used");
-		}
+		// if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
+		// 	apply_filter_is = false;
+		// 	print_out(ANSI_RED+"WARNING:"+ANSI_WHITE+" method select_input(String type) cannot apply filter extension"+ANSI_RED,type,ANSI_WHITE+"\nin this renderer context"+ANSI_RED, context,ANSI_WHITE+"instead classic method selectInput() is used");
+		// }
 
 		if(!apply_filter_is) {
 			type = "default";

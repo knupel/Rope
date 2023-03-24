@@ -28,6 +28,7 @@ void draw() {
   text("press J use jitter option", 20, 50);
   text("press M for new type of main distribution", 20, 65);
   text("press C for new type of circle distribution", 20, 80);
+  text("press A for new angle main", 20, 95);
 
 }
 

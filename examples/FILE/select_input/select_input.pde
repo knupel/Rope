@@ -1,55 +1,42 @@
 /**
-* Rope framework
-* Copyleft (c) 2014-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
+* Load input
+* Copyleft (c) 2023-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 */
 
-/**
-* INPUT
-* V 0.2.0
-* 2019-2021
-* void select_input();
-* void select_input(String type);
-* R_Data_Input get_input(String type);
-* R_Data_Input [] get_inputs();
-* R_Data_Input get_input(int target);
-* boolean input_use_is(); it's buggy or what ?
-* boolean input_use_is(String type); it's buggy or what ?
-* void input_use(boolean is);
-* void input_use(String type, boolean is);
-* String input_path();
-* String input_path(String type);
-* void reset_input();
-* void reset_input(String type);
-* File input_file();
-* File input_file(String type);
-* void set_filter_input(String type, String... extension);
-*/
-void setup() {
-	size(200,200,P3D);
-	print_extension_filter();
-	// select_input(); // you can select all file, no sorting
-  select_input("movie"); // give the possibility to select only file with a movie extension store in movie array
-  
-}
+import rope.tool.file.R_Input;
+import rope.tool.file.R_Data_Input;
+import rope.core.Rope;
 
+Rope r = new Rope();
+PImage img;
+R_Input input;
+/** 
+* type can be : "image", "movie", "shape", "sound", "text"
+* to see more about type go to 
+* @see https://github.com/knupel/Rope/blob/master/src/rope/tool/file/R_Input.java
+*/
+String type = "image";
+boolean img_is = false;
+
+
+void setup() {
+	size(800,600, P2D);
+	input = new R_Input(this);
+	input.select_input(type);
+}
 
 void draw() {
-	println(input_path("media"));
-
-
-	// input_use() to set witch type of file you can select after this setting, after that this is the default setting
-	// but it's buggy or what ?
-	input_use("image", true); 
-	println(input_use_is("image"));
-  // println(input_file("movie"));
-  // println(input("movie"));
-	exit();
+	println("input.input_path(type)",input.input_path(type));
+	if(input.input_path(type) != null && !img_is && type.equals("image")) {
+		img_is = true;
+		img = loadImage(input.input_path(type));
+	} 
+	if(img_is) {
+		image(img,0,0);
+	}
 }
-
-
-
 
 

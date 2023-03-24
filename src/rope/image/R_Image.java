@@ -1,7 +1,7 @@
 /**
 * R_Image
-* v 0.4.0
-* 2019-2022
+* v 0.4.1
+* 2019-2023
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope
 */
@@ -18,6 +18,13 @@ public class R_Image extends BigBang {
   private String name = "my name is nobody";
   private int id = -1;
 
+
+
+  public R_Image(PApplet pa) {
+    super(pa);
+    generate_id();
+  }
+
   /**
    * 
    * @param pa
@@ -27,7 +34,7 @@ public class R_Image extends BigBang {
   	super(pa);
     this.name = path.split("/")[path.split("/").length -1].split("\\.")[0];
     this.img = loadImage(path);
-    this.id = (int)random(MAX_INT);
+    generate_id();
   }
 
   /**
@@ -38,7 +45,7 @@ public class R_Image extends BigBang {
   public R_Image(PApplet pa, PImage img) {
   	super(pa);
     this.img = img;
-    this.id = (int)random(MAX_INT);
+    generate_id();
   }
 
   /**
@@ -51,6 +58,11 @@ public class R_Image extends BigBang {
   	super(pa);
     this.img = img;
     this.name = name;
+    generate_id();
+  }
+
+
+  private void generate_id() {
     this.id = (int)random(MAX_INT);
   }
 

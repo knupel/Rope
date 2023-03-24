@@ -1,8 +1,7 @@
 /**
- * Rope Framework
  * example to use R_Image_Manager and R_Image
- * v 0.0.2
- * 2021-2022
+ * v 0.0.3
+ * 2021-2023
  * 
  * 
  */
@@ -53,4 +52,6 @@ void draw() {
 		// image(lib.get(2).get_PImage(),0,0);
 		println(lib.get_name(2), lib.get_id(2));
 	}
+
+	text("click mouse or click keyboard to see image", 20, 20);
 }

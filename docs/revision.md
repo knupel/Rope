@@ -36,6 +36,12 @@
 > improve function in_polygon() for the marge detection, now the detection is divide on 3 results : out, border and in polygon
 
 
+> R_Colour
+> remove deprecated function()
+
+> R_Image
+> add simple constructor
+
 \* version 49
 
 > add class R_FX and remove from the Rope frameWork
