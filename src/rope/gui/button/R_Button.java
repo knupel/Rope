@@ -1,7 +1,7 @@
 /**
 * CLASS BUTTON 
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/knupel/Rope
 * v 2.7.0
 * 2013-2021
 */

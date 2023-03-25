@@ -1,14 +1,20 @@
 /**
-* R_Env
-* Control ROmanesco Processing Environment
-* v 0.1.0
-* Copyleft (c) 2021-2021
-
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+* v 0.1.1
+* Copyleft (c) 2021-2023
 * dependencies
-* Processing 3.5.4
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* Processing 4.2
+*
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
+
 package rope.utils;
 
 import processing.core.PGraphics;

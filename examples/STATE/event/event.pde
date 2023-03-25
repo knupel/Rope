@@ -1,13 +1,18 @@
 /**
 * State event
-* Processing 4
-* 2019-2022
-* v 0.0.2
+* Processing 4.2
+* 
+* v 0.0.3
+* Copyleft (c) 2019-2023
+* 
+* @author @knupel
+* @see https://github.com/knupel/Rope 
+* 
+*
 */
 
-import rope.R_State.State;
+import rope.utils.R_State.State;
 import rope.core.Rope;
-
 
 Rope r = new Rope();
 

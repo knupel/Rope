@@ -9,13 +9,19 @@
  * Copyleft(l) 2017-2023
 * R_COLOUR LIST class
 * v 0.6.0
+* Processing 4.2
+*
+* @author @knupel
+* @see https://github.com/knupel/Rope
+*
 */
 
 package rope.colour;
 
 import java.util.ArrayList;
-
+import java.lang.System;
 import processing.core.PApplet;
+import processing.core.PImage;
 import rope.core.Rope;
 import rope.vector.vec3;
 import rope.vector.vec4;
@@ -24,6 +30,7 @@ public class R_Colour extends Rope {
 	private ArrayList<Palette> list;
 	private PApplet pa;
 	private int current_colour = 0;
+	String default_name = "palette";
 	
 	public R_Colour(PApplet pa) {
 		this.pa = pa;
@@ -53,6 +60,63 @@ public class R_Colour extends Rope {
 		list.add(p);
 	}
 
+
+	// CREATE PALETTE
+	//////////////////
+		/**
+	 * create a new empty palette
+	 * @param name
+	 */
+	public boolean create(String name) {
+		if(list.size() > 0) {
+			for(Palette p : list) {
+				if(p.name.equals(name)) {
+					print_err("this palette", name , "still exist, try an other name to generate palette");
+					return false;
+				}
+			}
+		}
+		Palette p = new Palette(name);
+		list.add(p);
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param img
+	 * @param num
+	 * @return
+	 */
+	public boolean create(String name, PImage img, int num) {
+		for(Palette p : list) {
+			p.name.equals(name);
+			p.clear();
+		}
+		
+		for(int i = 0 ; i < num ; i++) {
+			int x = (int)random(img.width);
+			int y = (int)random(img.height);
+			int c = img.get(x,y);
+			this.add(name,c);
+		}
+		return true;
+	}
+
+	
+	
+	// ADD COLOUR TO PALETTE
+	////////////////////////
+	public void add(int index, int... colour) {
+		if(list.size() > 0 && index < list.size()) {
+			Palette p = list.get(index);
+			p.add(colour);
+		} else {
+			String name = default_name + "_" + System.currentTimeMillis();
+			Palette p = new Palette(name, colour);
+			list.add(p);
+		}
+	}
 
 	/**
 	 * 
@@ -84,28 +148,13 @@ public class R_Colour extends Rope {
 		if(this.size_palette() > 0) {
 			list.get(0).add(colour);
 		} else {
-			Palette p = new Palette("palette", colour);
+			String name = default_name + "_" + System.currentTimeMillis();
+			Palette p = new Palette(name, colour);
 			list.add(p);
 		}
 	}
 
-	/**
-	 * Add a new empty palette
-	 * @param name
-	 */
-	public void add_palette(String name) {
-		if(list.size() > 0) {
-			for(Palette p : list) {
-				if(p.name.equals(name)) {
-					print_err("this palette", name , "still exist, try an other name to generate palette");
-					// pa.exit();
-					return;
-				}
-			}
-		}
-		Palette p = new Palette(name);
-		list.add(p);
-	}
+
 
 	public void add(String name, int colour_ref, int num, int type, float range_x, float range_y, float range_z) {
 		// store color environment to return it at the end of the process
@@ -133,9 +182,6 @@ public class R_Colour extends Rope {
 		add(name, colour_ref, num, type, range, range, range);
 	}
 
-	// private int create_colour_rgb(int colour_ref, int type, float range) {
-	// 	return create_colour_rgb(colour_ref, type, range, range, range);
-	// }
 
 	private int create_colour_rgb(int colour_ref, int type, float rx, float ry, float rz) {
 		int c = 0;
@@ -477,6 +523,27 @@ public class R_Colour extends Rope {
 	 */
 	@Deprecated public int get_colour(String name, int target) {
 		return this.get(name, target);
+	}
+
+	public int get_master(String name) {
+		int c = 0;
+		float x = 0;
+		float y = 0;
+		float z = 0;
+		int [] arr = get(name);
+		for(int colour : arr) {
+			x += this.pa.red(colour);
+			y += this.pa.green(colour);
+			z += this.pa.blue(colour);
+		}
+		float [] env = getColorMode(pa.g);
+		pa.g.colorMode(RGB, env[1], env[2], env[3], env[4]);
+		x /= arr.length;
+		y /= arr.length;
+		z /= arr.length;
+		c = pa.color(x,y,z);
+		pa.g.colorMode((int)env[0], env[1], env[2], env[3], env[4]);
+		return c;
 	}
 
 

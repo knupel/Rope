@@ -1,10 +1,16 @@
 /**
-* R_Folder
-* Control ROmanesco Processing Environment
-* v 2.0.1
-* Copyleft (c) 2018-2021
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * Copyleft (c) 2018-2023
+* class R_Folder
+* v 2.0.2
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/knupel/Rope
 */
 package rope.tool.file;
 
@@ -30,7 +36,6 @@ public class R_Folder extends BigBang {
 	private boolean folder_selected_is;
 	private boolean explore_subfolder_is = false;
 	private ArrayList <File> files;
-	private int count_selection;
 	// private PApplet pa;
 	private R_Input input;
 	private String input_type = "default";
@@ -53,14 +58,12 @@ public class R_Folder extends BigBang {
 		return explore_subfolder_is;
 	}
 
-	/**
-	 * 
-	 * FOLDER
-	 * 
-	 */
+	public void select_folder(String callback_function) {
+		select_folder("default message:", callback_function);
+	}
 
-	public void select_folder(String message) {
-		this.pa.selectFolder(message, "rope_select_folder");
+	public void select_folder(String message, String callback_function) {
+		this.pa.selectFolder(message, callback_function);
 	}
 
 	public void reset_folder() {
@@ -119,28 +122,30 @@ public class R_Folder extends BigBang {
 
 	public void explore_folder(String path, boolean check_sub_folder, String... extension) {
 		if((folder_input_default_is() || input.input_use_is(this.input_type)) && path != ("")) {
-			count_selection++ ;
+
 			set_media_list();
 	
 			ArrayList allFiles = list_files(path, check_sub_folder);
 		
 			String file_name = "";
-			int count_pertinent_file = 0 ;
-		
-			for (int i = 0; i < allFiles.size(); i++) {
-				File f = (File) allFiles.get(i);   
-				file_name = f.getName(); 
-				// Add it to the list if it's not a directory
-				if (f.isDirectory() == false) {
-					for(int k = 0 ; k < extension.length ; k++) {
-						String ext = extension[k].toLowerCase();
+			int count_pertinent_file = 0;
+			for(int k = 0 ; k < extension.length ; k++) {
+				String ext = extension[k].toLowerCase();
+				count_pertinent_file = 0;
+				for (int i = 0; i < allFiles.size(); i++) {
+					File f = (File) allFiles.get(i);   
+					file_name = f.getName(); 
+					// Add it to the list if it's not a directory
+					if (f.isDirectory() == false) {
 						if(extension(file_name) != null && extension(file_name).equals(ext)) {
-							count_pertinent_file += 1 ;
+							count_pertinent_file++;
 							print_out(count_pertinent_file, "/", i, f.getName());
 							files.add(f);
 						}
 					}
+					
 				}
+				print_err("there is",count_pertinent_file,"file(s) pertinent for", ext);
 			}
 			// to don't loop with this void
 			reset_folder_input_default();

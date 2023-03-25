@@ -65,6 +65,4 @@ void mousePressed() {
   } else {
     rc.add("palette", colour, num, type, range);
   }
-  
-
 }

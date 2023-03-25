@@ -7,7 +7,6 @@
 */
 
 import rope.tool.file.R_Input;
-import rope.tool.file.R_Data_Input;
 import rope.core.Rope;
 
 Rope r = new Rope();
@@ -20,7 +19,6 @@ R_Input input;
 */
 String type = "image";
 boolean img_is = false;
-
 
 void setup() {
 	size(800,600, P2D);

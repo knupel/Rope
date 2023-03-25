@@ -1,15 +1,21 @@
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
+ * Copyleft (c) 2021-2023
 * class R_Input
-* 2021-2021
-* v 0.1.0
+* v 0.1.1
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope
+* @see https://github.com/knupel/Rope
 */
 
 package rope.tool.file;
 
 import rope.core.BigBang;
-// import rope.R_State.State;
 import processing.core.PApplet;
 
 import java.awt.FileDialog;
@@ -23,10 +29,22 @@ import java.io.FilenameFilter;
 public class R_Input extends BigBang {
 	private R_Data_Input [] input_rope;
 
-	private String [] input_type = {  "default",
-																		"image","media","movie","shape","sound","text",
-																		"load",
-																		"preference","setting"
+	private String t_default = "default";
+	private String t_image = "image";
+	private String t_media = "media";
+	private String t_movie = "movie";
+	private String t_shape = "shape";
+	private String t_sound = "sound";
+	private String t_text = "text";
+	private String t_load = "load";
+	private String t_pref = "preference";
+	private String t_setting ="setting";
+
+
+	private String [] input_type = {  t_default,
+																		t_image, t_media, t_movie, t_shape, t_sound, t_text,
+																		t_load,
+																		t_pref, t_setting
 																	};
 	// filter extension										
 	private String[] ext_default;
@@ -34,7 +52,7 @@ public class R_Input extends BigBang {
 	private String[] ext_load;
 	private String[] ext_media;
 	private String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
-	private String[] ext_preference;
+	private String[] ext_pref;
 	private String[] ext_setting = { "csv", "txt", "json"};
 	private String[] ext_shape = { "svg", "obj"};
 	private String[] ext_sound = { "mp3", "wav"};
@@ -59,41 +77,41 @@ public class R_Input extends BigBang {
 	private void set_input(R_Data_Input input, String type) { 
 		input.set_type(type);
 		input.set_prompt("select "+type);
-		if(type.equals("default")) input.set_filter(ext_default);
-		else if(type.equals("image")) input.set_filter(ext_image);
-		else if(type.equals("load")) input.set_filter(ext_load);
-		else if(type.equals("media")) input.set_filter(ext_media);
-		else if(type.equals("movie")) input.set_filter(ext_movie);
-		else if(type.equals("preference")) input.set_filter(ext_preference);
-		else if(type.equals("setting")) input.set_filter(ext_setting);
-		else if(type.equals("shape")) input.set_filter(ext_shape);
-		else if(type.equals("sound")) input.set_filter(ext_sound);
-		else if(type.equals("text")) input.set_filter(ext_text);
+		if(type.equals(t_default)) input.set_filter(ext_default);
+		else if(type.equals(t_image)) input.set_filter(ext_image);
+		else if(type.equals(t_load)) input.set_filter(ext_load);
+		else if(type.equals(t_media)) input.set_filter(ext_media);
+		else if(type.equals(t_movie)) input.set_filter(ext_movie);
+		else if(type.equals(t_pref)) input.set_filter(ext_pref);
+		else if(type.equals(t_setting)) input.set_filter(ext_setting);
+		else if(type.equals(t_shape)) input.set_filter(ext_shape);
+		else if(type.equals(t_sound)) input.set_filter(ext_sound);
+		else if(type.equals(t_text)) input.set_filter(ext_text);
 	}
 
 
 	public void set_filter_input(String type, String... ext) {
-		if(type.equals("default")) {
+		if(type.equals(t_default)) {
 			ext_default = ext;
-		} else if(type.equals("image")) {
+		} else if(type.equals(t_image)) {
 			ext_image = ext;
-		} else if(type.equals("load")) {
+		} else if(type.equals(t_load)) {
 			ext_load = ext;
-		} else if(type.equals("media")) {
+		} else if(type.equals(t_media)) {
 			ext_media = ext;
-		} else if(type.equals("movie")) {
+		} else if(type.equals(t_movie)) {
 			ext_movie = ext;
-		} else if(type.equals("preference")) {
-			ext_preference = ext;
-		} else if(type.equals("setting")) {
+		} else if(type.equals(t_pref)) {
+			ext_pref = ext;
+		} else if(type.equals(t_setting)) {
 			ext_setting = ext;
-		} else if(type.equals("shape")) {
+		} else if(type.equals(t_shape)) {
 			ext_shape = ext;
-		} else if(type.equals("sound")) {
+		} else if(type.equals(t_sound)) {
 			ext_sound = ext;
-		} else if(type.equals("text")) {
+		} else if(type.equals(t_text)) {
 			ext_text = ext;
-		} else if(type.equals("default")) {
+		} else if(type.equals(t_default)) {
 			ext_default = ext;
 		}
 		set_input(get_input(type),type);
@@ -129,9 +147,9 @@ public class R_Input extends BigBang {
 		}
 	}
 
-	// public void select_input() {
-
-	// }
+	public void select_input() {
+		select_input(t_default);
+	}
 
 	public void select_input(String type) {
 		String context = get_renderer();
@@ -142,7 +160,7 @@ public class R_Input extends BigBang {
 		// }
 
 		if(!apply_filter_is) {
-			type = "default";
+			type = t_default;
 			for(int i = 0 ; i < input_rope.length ; i++) {
 				if (type.toLowerCase().equals(input_rope[i].get_type())) {  
 					this.pa.selectInput(input_rope[i].get_prompt(),"select_single_file");

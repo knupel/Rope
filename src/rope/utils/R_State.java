@@ -1,8 +1,17 @@
 /**
+ *   ___      ___   ____   _______
+ *  | -  \   /   \  |    \ |  ___/
+ *  | |/  | |   \ | | |\ | |  |__
+ *  |    /  | | | | | |  / |  __/
+ *  | |  \  \ \   / |  |/  |  |____
+ *  |_| \_\  \___/  |_ |   |______/
+ * 
  * R_State is use to manage all the state of Rope like in React in lesser :)
  * v 0.1.1
- * 2021-2021
- * @author stanlepunk
+ * 2021-2023
+ * 
+* @author @knupel
+* @see https://github.com/knupel/Rope
  *
  */
 
@@ -70,6 +79,14 @@ public class R_State implements R_Constants {
 		
 		public static String get_renderer() {
 			return env.get_renderer();
+		}
+
+		/**
+		 * 
+		 * @return the type of colorMode
+		 */
+		public static int cm() {
+			return env.cm();
 		}
 
 		/**

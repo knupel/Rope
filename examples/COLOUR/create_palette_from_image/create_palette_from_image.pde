@@ -20,7 +20,7 @@ String type = "image";
 
 // palette
 R_Colour rc;
-int num = 10; // num of color add to the root color;
+int num = 20; // num of color add to the root color;
 boolean palette_is = false;
 String palette_name = "palette";
 
@@ -45,37 +45,26 @@ void draw() {
 
   // create palette from image
   if(img_is && !palette_is) {
-    create_palette();
+    palette_is = rc.create(palette_name, img, num);
   }
 
   //show palette
   if(palette_is) {
-    int [] arr = rc.get("palette");
+    int [] arr = rc.get(palette_name);
     int step = width / arr.length;
     stroke(r.BLACK);
     strokeWeight(3);
     for(int i = 0 ; i < arr.length ; i++) {
       fill(arr[i]);
       rect(step * i, height/2, step, height/4);
-    } 
+    }
+    fill(rc.get_master(palette_name));
+    circle(width/2, height/4, height/6);
   }
 }
 
 void mousePressed() {
   if(img_is) {
-    create_palette();
+    palette_is = rc.create(palette_name, img, num);
   }
-}
-
-
-void create_palette() {
-  rc.clear();
-  for(int i = 0 ; i < num ; i++) {
-    int x = (int)random(width);
-    int y = (int)random(height);
-    int c = get(x,y);
-    rc.add(palette_name,c);
-  }
-  palette_is = true;
-
 }

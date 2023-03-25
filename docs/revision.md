@@ -38,9 +38,14 @@
 
 > R_Colour
 > remove deprecated function()
+> add function get_master(String palette_name) return the average of all colours of the palette.
+> add function create(String name, PImage img, int num); create a random palette from images picking
 
 > R_Image
 > add simple constructor
+
+> R_State
+> add function to return the type colorMode
 
 \* version 49
 
