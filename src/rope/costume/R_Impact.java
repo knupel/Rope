@@ -50,8 +50,10 @@ public class R_Impact extends R_Graphic {
 	private int ID_HEART = 2;
 	private int mode = LINE;
 	// SHAPE
+	
 	private ArrayList<R_Shape> imp_shapes_center = new ArrayList<R_Shape>();
 	private ArrayList<R_Shape> imp_shapes = new ArrayList<R_Shape>();
+	private ArrayList<R_Shape> imp_shapes_external = new ArrayList<R_Shape>();
 	// POINT
 	private ArrayList<R_Node> nodes = new ArrayList<R_Node>();
 
@@ -514,11 +516,16 @@ public class R_Impact extends R_Graphic {
 
 	public ArrayList<R_Shape> get_all_polygons() {
 		ArrayList<R_Shape> buf = new ArrayList<R_Shape>();
+		buf.addAll(imp_shapes_external);
 		buf.addAll(imp_shapes_center);
 		buf.addAll(imp_shapes);
 		return buf;
 	}
 
+
+	public ArrayList<R_Shape> get_polygon_external() {
+		return imp_shapes_external;
+	}
 
 	public ArrayList<R_Shape> get_polygon_heart() {
 		return imp_shapes_center;
@@ -1114,6 +1121,7 @@ public class R_Impact extends R_Graphic {
 		// clear polygon
 		imp_shapes_center.clear();
 		imp_shapes.clear();
+		imp_shapes_external.clear();
 		int max_main = this.get_num_main();
 		// main branch by main branch
 		for(int m_index = 0 ; m_index < max_main ; m_index++) {
@@ -1329,7 +1337,7 @@ public class R_Impact extends R_Graphic {
 			vec2 p = main[i].get(main[i].size() -1).a();
 			shape.add_points(p);
 		}
-		imp_shapes.add(shape);
+		imp_shapes_external.add(shape);
 	}
 
 
@@ -2191,6 +2199,28 @@ public class R_Impact extends R_Graphic {
 
 	// SHOW POLYGON
 	////////////////////////
+	public void show_all_polygons() {
+		show_polygon_heart();
+		show_polygons();
+		show_polygon_external();
+	}
+
+	public void show_all_polygons(int mode) {
+		show_polygon_heart(mode);
+		show_polygons(mode);
+		show_polygon_external(mode);
+	}
+
+
+	public void show_polygon_heart(int mode) {
+		show_polygons_from(imp_shapes_center,mode);
+	}
+
+	public void show_polygon_heart() {
+		show_polygons_from(imp_shapes_center, Integer.MIN_VALUE);
+	}
+
+
 	public void show_polygons() {
 		show_polygons(Integer.MIN_VALUE);
 	}
@@ -2208,13 +2238,15 @@ public class R_Impact extends R_Graphic {
 		show_polygons_from(imp_shapes, mode);
 	}
 
-	public void show_polygon_heart(int mode) {
-		show_polygons_from(imp_shapes_center,mode);
+	public void show_polygon_external(int mode) {
+		show_polygons_from(imp_shapes_external,mode);
 	}
 
-	public void show_polygon_heart() {
-		show_polygons_from(imp_shapes_center, Integer.MIN_VALUE);
+	public void show_polygon_external() {
+		show_polygons_from(imp_shapes_external, Integer.MIN_VALUE);
 	}
+
+
 
 	// show polygons implementation
 	////////////////////////////////////////

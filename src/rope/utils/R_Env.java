@@ -8,7 +8,6 @@
  * 
 * v 0.1.1
 * Copyleft (c) 2021-2023
-* dependencies
 * Processing 4.2
 *
 * @author @knupel
