@@ -90,8 +90,9 @@ public class R_Colour extends Rope {
 	 */
 	public boolean create(String name, PImage img, int num) {
 		for(Palette p : list) {
-			p.name.equals(name);
-			p.clear();
+			if(p.name.equals(name)) {
+				p.clear();
+			}
 		}
 		
 		for(int i = 0 ; i < num ; i++) {
@@ -421,7 +422,7 @@ public class R_Colour extends Rope {
 
 	/**
 	 * 
-	 * @return a random color from random palette and add this one like a current colour
+	 * @return a random color from random palette and select this one as a current colour
 	 */
 	public int rand() {
 		int palette = floor(random(size_palette()));
@@ -433,19 +434,24 @@ public class R_Colour extends Rope {
 
 	/**
 	 * 
-	 * @param name
-	 * @return a random color from the named palette and add this one like a current colour
+	 * @param list_name array of pallete name
+	 * @return a random color from the named palette and select this one as a current colour, 
+	 * if nothing match the value 0 is returned
 	 */
-	public int rand(String name) {
+	public int rand(String... list_name) {
+		String name = this.default_name;
 		if(list.size() > 0) {
-			for(Palette p : list) {
-				if(p.get_name().equals(name)) {
-					int target = floor(random(p.array().length));
+			int which = floor(random(1.0f)*list_name.length);
+			name = list_name[which];
+			for(int i = 0 ; i < get_names().length ; i++) {
+				if(get_names()[i].equals(name)) {
+					int target = floor(random(get(name).length));
 					current_colour = get_colour(name,target);
 					return current_colour;
 				}
 			}
 		}
+
 		print_err("class R_Colour method rand(String name) no target match with your demand, instead '0' is return");
 		return 0;
 	}
@@ -458,10 +464,25 @@ public class R_Colour extends Rope {
 	 * 
 	 */
 
-	 	// get content
+	 	// get current selected colour
 	public int get_current() {
 		return current_colour;
 	}
+
+	/**
+	 * 
+	 * @return the list name of palette
+	 */
+	public String [] get_names() {
+		String [] res = new String[this.list.size()];
+		for(int i = 0 ; i < res.length ; i++) {
+			res[i] = list.get(i).get_name();
+		}
+		return res;
+	}
+
+
+
 
 
 
