@@ -23,6 +23,13 @@
 > add function stroke_is(), fill_is() to set if stroke(), strokeWeight() and fill() is active
 > add function clear() from Processing
 
+> R_Line2D
+> comment depracated function()
+> point() function become get_point() to avoid confusion with Mother function point() + protected it
+> add function get_point(float normal_abscissa, float normal_ordinate) to create a project in the ordinate from the line
+> add function show_pixels(float density, float thickness, int... colour) and show_pixels_x2(float density, float thickness, int... colour) to create a thickness option to pixel line
+> add function set_pixels(float density, float thickness, int.. colour) to create a thickness option to pixel line
+
 
 
 > R_SVG

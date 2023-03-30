@@ -2,8 +2,8 @@
 * R_Line2D find the othographic projection on the line and find the normal value too 
 * Copyleft(c) 2022-2022
 * v 0.0.1
-* @author @stanlepunk
-* https://github.com/StanLepunK/Rope/
+* @author @knupel
+* @see https://github.com/knupel/Rope/blob/master/src/rope/mesh/R_Line2D.java
 *
 * 
 */

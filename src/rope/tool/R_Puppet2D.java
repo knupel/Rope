@@ -7,10 +7,10 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Puppet2D class
-* v 0.0.1
-* 2022-2022
+* v 0.0.2
+* 2022-2023
 * @author @knupel
-* @see https://github.com/knupel/Rope
+* @see https://github.com/knupel/Rope/blob/master/src/rope/tool/R_Puppet2D.java
 */
 
 
@@ -264,7 +264,7 @@ public class R_Puppet2D extends R_Line2D {
 		if(index >= 0 && index < pair_list.size()) {
 			R_Pair<vec3,vec5> pair = this.get_puppet(index);
 			float normal_pos = pair.b().x();
-			return this.point(normal_pos);
+			return this.get_point(normal_pos);
 		}
 		return null;
 	}
@@ -290,6 +290,6 @@ public class R_Puppet2D extends R_Line2D {
 		float vpx = cos(data.z())* data.y();
 		float vpy = sin(data.z())* data.y();
 		vec2 vp = new vec2(vpx,vpy);
-		return vp.add(this.point(data.x()));
+		return vp.add(this.get_point(data.x()));
 	}
 }

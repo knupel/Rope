@@ -1,7 +1,7 @@
 
 ## Rope Library
 version 49
-copyleft(c) 2018-2022
+copyleft(c) 2018-2023
 ROPE mean ROmanesco Processing Environment.
 
 This library is a logic way of Rope framework used to [Romanesco software](https://github.com/StanLepunK/ROMANESCO-Processing)
@@ -53,16 +53,22 @@ The main classes are `R_Pixo`, `R_Moxo`, `R_Nubo`
 ### Image
 `R_Image` is an extends of `PImage` to store a little more infos, like name or path. You find also `R_Image_Manger` to use a list of `R_Image`. `R_Pattern` can help to create a differents random `PGraphics` with noise or marble pattern.
 
-### Svg
-classes to create svg rendering like the last `Illustrator` protocol.
-
 ### Colour
-classes to create and manage colour palette.
+classes to create and manage colour palettes
+- store color
+- sort color
+- named your palette
+- random sort colors from specific palette
+- create camaieu from specific root color.
+- etc
 
 ### Costume
 `vertex()` and `vertexBezier()` method with direct acces via the `vec` type.
 Collection of shape classes in the costume package : 
-`R_Star`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`, `R_Icosahedron`, `R_House`
+`R_Star`, `R_Polygon`, `R_Chose`, `R_Virus`, `R_Primitive`, `R_Circle`, `R_Bezier`, `R_Icosahedron`, `R_House`, `R_Impact`
+
+### Svg
+classes to create svg rendering like the last `Illustrator` protocol.
 
 
 
