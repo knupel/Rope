@@ -65,6 +65,8 @@ public class R_Impact extends R_Graphic {
 	private int base = 5;
 
 	private boolean use_mute_is = false;
+	private boolean use_gradient_density_is = false;
+	private vec2 density = new vec2(1);
 	private boolean use_gradient_thickness_is = false;
 	private vec2 thickness = new vec2(1);
 	private boolean use_gradient_stroke_is = false;
@@ -72,6 +74,8 @@ public class R_Impact extends R_Graphic {
 	private boolean use_gradient_fill_is = false;
 	private ivec2 fill = new ivec2(0);
 	private int mode_pixel_x = 1;
+	// 
+	private int [] pix_colour;
 
 	private float growth_fact_spiral = 1;
 
@@ -1709,27 +1713,32 @@ public class R_Impact extends R_Graphic {
 	// SET PIXELS
 	///////////////////////////
 
+	public void set_pixels_colour( int... colour) {
+		this.pix_colour = colour;
+	}
+
 	public void set_pixels(float normal_value, int... colour) {
-		set_pixels_main(normal_value, colour);
-		set_pixels_circle(normal_value, colour);
-		set_pixels_heart(normal_value, colour);
+		this.set_pixels_colour(colour);
+		this.set_pixels_main(normal_value, colour);
+		this.set_pixels_circle(normal_value, colour);
+		this.set_pixels_heart(normal_value, colour);
 	}
 
 	public void set_pixels_main(float normal_value, int... colour) {
-		set_pixels_list_impl(main, normal_value, colour);
+		this.set_pixels_list_impl(main, normal_value, colour);
 	}
 
 	public void set_pixels_circle(float normal_value, int... colour) {
-		set_pixels_list_impl(circle, normal_value, colour);
+		this.set_pixels_list_impl(circle, normal_value, colour);
 	}
 
 	public void set_pixels_heart(float normal_value, int... colour) {
-		set_pixels_lines_impl(heart, normal_value, colour);
+		this.set_pixels_lines_impl(heart, normal_value, colour);
 	}
 
 	private void set_pixels_list_impl(ArrayList[] list, float normal_value, int... colour) {
 		for(int i = 0 ; i < list.length ; i++) {
-			set_pixels_lines_impl(list[i], normal_value, colour);
+			this.set_pixels_lines_impl(list[i], normal_value, colour);
 		}
 	}
 	
@@ -1823,6 +1832,23 @@ public class R_Impact extends R_Graphic {
 
 	// GRADIENT
 	////////////
+	public void use_gradient_density(boolean is, float min, float max) {
+		this.density.set(min,max);
+		// density_is(true);
+		this.use_gradient_density_is = is;
+	}
+
+	private boolean use_gradient_density_is() {
+		return this.use_gradient_density_is;
+	}
+
+	private float get_gradient_density(float dist) {
+		float ratio = dist / radius();
+		return map(ratio, 0, 1, density.x(), density.y());
+	}
+
+
+
 	/**
 	 * Apply a thickness gradient on all strokeweight from the center to the exterior shape
 	 * @param is set if the gradient must be apply
@@ -1841,12 +1867,18 @@ public class R_Impact extends R_Graphic {
 
 	private void apply_gradient_thickness(float dist) {
 		if(use_gradient_thickness_is()) {
-			float ratio = dist / radius();
-			float value = map(ratio, 0, 1, thickness.x(), thickness.y());
+			// float ratio = dist / radius();
+			// float value = map(ratio, 0, 1, thickness.x(), thickness.y());
+			float value = get_gradient_thickness(dist);
 			// that can give a problem for the ccase where there is gradient for color ???
 			stroke(stroke.x()); 
 			strokeWeight(value);
 		}
+	}
+
+	private float get_gradient_thickness(float dist) {
+		float ratio = dist / radius();
+		return map(ratio, 0, 1, thickness.x(), thickness.y());
 	}
 
 		/**
@@ -1869,7 +1901,7 @@ public class R_Impact extends R_Graphic {
 		if(use_gradient_stroke_is()) {
 			float ratio = dist / radius();
 			int value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
-			// that can give a problem for the ccase where there is gradient for color ???
+			// that can give a problem for the case where there is gradient for color ???
 			stroke(value); 
 		}
 	}
@@ -1962,27 +1994,6 @@ public class R_Impact extends R_Graphic {
 		show_pixels_lines_impl(heart);
 	}
 
-	private void show_pixels_list_impl(ArrayList[] list) {
-		for(int i = 0 ; i < list.length ; i++) {
-			show_pixels_lines_impl(list[i]);
-		}
-	}
-
-	private void show_pixels_lines_impl(ArrayList lines) {
-		for(Object obj : lines) {
-			R_Line2D line = (R_Line2D)obj;
-			// maybe need pass graphics other in the future ?
-			if(use_mute_is()) {
-				if(!line.mute_is()) {
-					line.show_pixels();
-				}
-			} else {
-				line.show_pixels();
-			}	
-		}
-	}
-
-
 	// SHOW PIXELS DYNAMIC
 	///////////////////////////
 
@@ -2004,6 +2015,52 @@ public class R_Impact extends R_Graphic {
 		show_pixels_lines_impl(heart, normal_value, colour);
 	}
 
+
+	// PIXEL IMPL STATIC
+	//////////////////////
+
+	private void show_pixels_list_impl(ArrayList[] list) {
+		for(int i = 0 ; i < list.length ; i++) {
+			show_pixels_lines_impl(list[i]);
+		}
+	}
+
+	private void show_pixels_lines_impl(ArrayList lines) {
+		for(Object obj : lines) {
+			show_pixels_line_impl((R_Line2D)obj);
+		}
+	}
+
+	private void show_pixels_line_impl(R_Line2D line) {
+		if(!line.pixels_is()) {
+			float normal_abscissa = 0;
+			float normal_ordonate = 0;
+			if(use_gradient_thickness_is()) {
+				float dist_from_center = dist(line.a(), pos());
+				normal_abscissa = get_gradient_thickness(dist_from_center);
+			}
+			if(use_gradient_density_is()) {
+				float dist_from_center = dist(line.a(), pos());
+				normal_ordonate = get_gradient_thickness(dist_from_center);
+
+			}
+			line.set_pixels(normal_abscissa, normal_ordonate, this.pix_colour);
+		}
+
+
+		if(use_mute_is()) {
+			if(!line.mute_is()) {
+				line.show_pixels();
+			}
+		} else {
+			line.show_pixels();
+		}	
+	}
+
+
+	// PIXEL IMPL DYNAMIC
+	//////////////////////
+
 	private void show_pixels_list_impl(ArrayList[] list, float normal_value, int... colour) {
 		for(int i = 0 ; i < list.length ; i++) {
 			show_pixels_lines_impl(list[i], normal_value, colour);
@@ -2012,39 +2069,58 @@ public class R_Impact extends R_Graphic {
 
 	private void show_pixels_lines_impl(ArrayList lines, float normal_value, int... colour) {
 		switch(get_pixel_mode()) {
-			case 1: show_pixels_lines_impl_x1(lines, normal_value, colour); break;
-			case 2: show_pixels_lines_impl_x2(lines, normal_value, colour); break;
-			default: show_pixels_lines_impl_x1(lines, normal_value, colour); break;
+			case 1: 
+				show_pixels_lines_impl_x1(lines, normal_value, colour);
+				break;
+			case 2: 
+				show_pixels_lines_impl_x2(lines, normal_value, colour);
+				break;
+			default:
+				show_pixels_lines_impl_x1(lines, normal_value, colour);
+				break;
 		}
 	}
 
-	private void show_pixels_lines_impl_x1(ArrayList lines, float normal_value, int... colour) {
+	private void show_pixels_lines_impl_x1(ArrayList lines, float normal_abscissa, int... colour) {
+		int type = 1; // for pixel x1
 		for(Object obj : lines) {
-				R_Line2D line = (R_Line2D)obj;
-				// maybe need pass graphics other in the future ?
-				if(use_mute_is()) {
-				if(!line.mute_is()) {
-					line.show_pixels(normal_value, colour);
-				}
-			} else {
-				line.show_pixels(normal_value, colour);
-			}
+			show_single_pixels_line_impl((R_Line2D)obj, type, normal_abscissa, colour);
 		}
 	}
 
-	private void show_pixels_lines_impl_x2(ArrayList lines, float normal_value, int... colour) {
+	private void show_pixels_lines_impl_x2(ArrayList lines, float normal_abscissa, int... colour) {
+		int type = 2; // for pixel x1
 		for(Object obj : lines) {
-			R_Line2D line = (R_Line2D)obj;
-			// maybe need pass graphics other in the future ?
-			if(use_mute_is()) {
-				if(!line.mute_is()) {
-					line.show_pixels_x2(normal_value, colour);
-				}
-			} else {
-				line.show_pixels_x2(normal_value, colour);
-			}
+			show_single_pixels_line_impl((R_Line2D)obj, type, normal_abscissa, colour);
 		}
 	}
+
+	private void show_single_pixels_line_impl(R_Line2D line, int type, float normal_abscissa, int... colour) {
+		float normal_ordonate = 0;
+		if(use_gradient_thickness_is()) {
+			float dist_from_center = dist(line.a(), pos());
+			normal_ordonate = get_gradient_thickness(dist_from_center);
+		}
+		
+		// maybe need pass graphics other in the future ?
+		if(use_mute_is()) {
+			if(!line.mute_is()) {
+				if(type == 2) {
+					line.show_pixels_x2(normal_abscissa, normal_ordonate, colour);
+				} else {
+					line.show_pixels(normal_abscissa, normal_ordonate, colour);
+				}	
+			}
+		} else {
+			if(type == 2) {
+				line.show_pixels_x2(normal_abscissa, normal_ordonate, colour);
+			} else {
+				line.show_pixels(normal_abscissa, normal_ordonate, colour);
+			}	
+		}
+	}
+
+
 
 
 

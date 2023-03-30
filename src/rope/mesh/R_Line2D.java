@@ -722,6 +722,13 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return this.pixies;
   }
 
+  public boolean pixels_is() {
+    if(this.pixies == null) {
+      return false;
+    }
+    return true;
+  }
+
 
 
 
@@ -760,6 +767,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     }
     updatePixels();
   }
+
 
   public void show_pixels_x2() {
     loadPixels();
