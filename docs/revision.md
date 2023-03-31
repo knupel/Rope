@@ -19,6 +19,7 @@
 > add function to set the growth range between the node of the main and the repartition of the circle. set_growth_main() and set_growth_circle()
 > add function update_pixels(boolean is);
 > refactoring all pixels system to concate with line algorithme to have only one engine to manage all the line
+> add function use_gradient(boolean is) to disable or enable it
 
 > R_Graphic
 > add function stroke_is(), fill_is() to set if stroke(), strokeWeight() and fill() is active

@@ -19,6 +19,7 @@ package rope.costume;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import rope.pixo.R_Pix;
 import rope.core.R_Graphic;
 import rope.mesh.R_Line2D;
 import rope.mesh.R_Node;
@@ -378,6 +379,10 @@ public class R_Impact extends R_Graphic {
 
 	public float get_growth_spiral() {
 		return this.growth_fact_spiral;
+	}
+
+	public int [] get_pixels_colour() {
+		return this.pix_colour;
 	}
 
 
@@ -1751,21 +1756,93 @@ public class R_Impact extends R_Graphic {
 
 	// ASPECT
 	/////////////
+	/**
+	 * 
+	 * @param stroke to set the stroke color, of line, pixel and polygon
+	 * @return
+	 */
 	public R_Impact set_stroke(int stroke) {
 		this.stroke.set(stroke);
 		stroke(this.stroke.x());
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param fill to set the fill color polygone
+	 * @return
+	 */
 	public R_Impact set_fill(int fill) {
 		this.fill.set(fill);
 		fill(this.fill.x());
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param thickness to set strokeWeight
+	 * @return
+	 */
 	public R_Impact set_thickness(float thickness) {
 		this.thickness.x(thickness);
 		strokeWeight(this.thickness.x());
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param density to set pixel lin density
+	 * @return
+	 */
+	public R_Impact set_density(float density) {
+		this.density.set(density);
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param x use for minimum and to set stroke()
+	 * @param y only for the second parameter in case the gradient is used
+	 * @return this
+	 */
+	public R_Impact set_stroke(int x, int y) {
+		this.stroke.set(x,y);
+		stroke(this.stroke.x());
+		return this;
+	}
+
+		/**
+	 * 
+	 * @param x use for minimum and to set fill()
+	 * @param y only for the second parameter in case the gradient is used
+	 * @return this
+	 */
+	public R_Impact set_fill(int x, int y) {
+		this.fill.set(x,y);
+		fill(this.fill.x());
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param x use for minimum and to set strokeWeight()
+	 * @param y only for the second parameter in case the gradient is used
+	 * @return this
+	 */
+	public R_Impact set_thickness(float x, float y) {
+		this.thickness.set(x,y);
+		strokeWeight(this.thickness.x());
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param x use for minimum and to set density pixel line()
+	 * @param y only for the second parameter in case the gradient is used
+	 * @return this
+	 */
+	public R_Impact set_density(float x, float y) {
+		this.density.set(x,y);
 		return this;
 	}
 
@@ -1793,18 +1870,30 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
-	public R_Impact set_density(float density) {
-		this.density.set(density);
-		return this;
-	}
+
+
+
+
 
 
 
 	// GRADIENT
 	////////////
+
+	public void use_gradient(boolean is) {
+		use_gradient_density(is);
+		use_gradient_thickness(is);
+		use_gradient_fill(is);
+		use_gradient_stroke(is);
+	}
+
+
 	public void use_gradient_density(boolean is, float min, float max) {
 		this.density.set(min,max);
-		// density_is(true);
+		use_gradient_density(is);
+	}
+
+	public void use_gradient_density(boolean is) {
 		stroke_is(is);
 		this.use_gradient_density_is = is;
 	}
@@ -1820,6 +1909,7 @@ public class R_Impact extends R_Graphic {
 
 
 
+
 	/**
 	 * Apply a thickness gradient on all strokeweight from the center to the exterior shape
 	 * @param is set if the gradient must be apply
@@ -1828,23 +1918,31 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_thickness(boolean is, float min, float max) {
 		thickness.set(min,max);
+		use_gradient_thickness(is);
+
+	}
+
+	public void use_gradient_thickness(boolean is) {
 		stroke_is(is);
 		this.use_gradient_thickness_is = is;
 	}
+
 
 	private boolean use_gradient_thickness_is() {
 		return this.use_gradient_thickness_is;
 	}
 
-	private void apply_gradient_thickness(float dist) {
+	private float apply_gradient_thickness(float dist) {
+		float value = thickness.x();
 		if(use_gradient_thickness_is()) {
 			// float ratio = dist / radius();
 			// float value = map(ratio, 0, 1, thickness.x(), thickness.y());
-			float value = get_gradient_thickness(dist);
+			value = get_gradient_thickness(dist);
 			// that can give a problem for the ccase where there is gradient for color ???
 			stroke(stroke.x()); 
-			strokeWeight(value);
+			strokeWeight(value);	
 		}
+		return value;
 	}
 
 	private float get_gradient_thickness(float dist) {
@@ -1860,6 +1958,10 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_stroke(boolean is, int start, int end) {
 		stroke.set(start,end);
+		use_gradient_stroke(is);
+	}
+
+	public void use_gradient_stroke(boolean is) {
 		stroke_is(is);
 		this.use_gradient_stroke_is = is;
 	}
@@ -1868,13 +1970,15 @@ public class R_Impact extends R_Graphic {
 		return this.use_gradient_stroke_is;
 	}
 
-	private void apply_gradient_stroke(float dist) {
+	private int apply_gradient_stroke(float dist) {
+		int value = stroke.x();
 		if(use_gradient_stroke_is()) {
 			float ratio = dist / radius();
-			int value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
+			value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
 			// that can give a problem for the case where there is gradient for color ???
-			stroke(value); 
+			stroke(value);
 		}
+		return value;
 	}
 
 
@@ -1887,6 +1991,10 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_fill(boolean is, int start, int end) {
 		fill.set(start,end);
+		use_gradient_fill(is);
+	}
+
+	public void use_gradient_fill(boolean is) {
 		fill_is(is);
 		this.use_gradient_fill_is = is;
 	}
@@ -1896,13 +2004,15 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	private void apply_gradient_fill(float dist) {
+	private int apply_gradient_fill(float dist) {
+		int value = fill.x();
 		if(use_gradient_fill_is()) {
 			float ratio = dist / radius();
-			int value = lerpColor(fill.x(), fill.y(), ratio, RGB);
+			value = lerpColor(fill.x(), fill.y(), ratio, RGB);
 			// that can give a problem for the case where there is gradient for color ???
 			fill(value); 
 		}
+		return value;
 	}
 
 
@@ -2068,9 +2178,6 @@ public class R_Impact extends R_Graphic {
 
 	private void show_single_line_impl(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
-		// print_err("stroke", stroke);
-		// print_err("thickness", thickness);
-
 		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
@@ -2116,6 +2223,26 @@ public class R_Impact extends R_Graphic {
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
 		}
+
+
+		if(use_gradient_stroke_is()) {
+			float dist_from_center = dist(line.a(), pos());
+			int c = apply_gradient_stroke(dist_from_center);
+			if(!update_pixels_is()) {
+				for(R_Pix pix : line.get_pixels()) {
+					pix.fill(c);
+				}
+			} else {
+				int [] buf = new int[1];
+				buf[0] = c;
+				pix_colour = buf;
+			}
+
+		// 	int c = get_gradient_stroke(dist_from_center);
+		}
+
+
+
 
 		switch(mode) {
 			// default mode line

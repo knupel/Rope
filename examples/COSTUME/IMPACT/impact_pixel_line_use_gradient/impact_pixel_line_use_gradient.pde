@@ -31,16 +31,17 @@ void setup() {
 }
 
 void draw() {
-	background(r.WHITE);
+	background(r.BLACK);
 	if(mousePressed) {
 		imp.use_gradient_thickness(true, max_thickness, min_thickness);
 		imp.use_gradient_density(true, max_density, min_density);
+		// that kill the impact palette, after that you need to set this one again
+		imp.use_gradient_stroke(true, r.YELLOW, r.RED);
 	} else {
 		imp.use_gradient_thickness(true, min_thickness, max_thickness);
 		imp.use_gradient_density(true, min_density, max_density);
 	}
 
-	// imp.stroke_is(true);
 	imp.set_line_mode(1);
 	imp.show_lines();
 
@@ -54,7 +55,11 @@ void draw() {
 void keyPressed() {
 	if(key == 'n') {
     println("nouveau tirage");
+    imp.use_gradient(false);
+    imp.set_pixels_colour(r.CYAN, r.YELLOW, r.MAGENTA);
+    // printArray(imp.get_pixels_colour());
 		imp.build();
+
 	}
 }
 

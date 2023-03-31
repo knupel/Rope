@@ -23,18 +23,21 @@ void setup() {
 	set_mute();
 	imp.build_polygon();
 
+
 }
 
 void draw() {
 	background(r.BLOOD);
-	int color_a = r.YELLOW;
+	int color_a = r.CYAN;
 	int color_b = r.MAGENTA;
 	// noStroke();
 	if(!mousePressed) {
-		imp.use_gradient_fill(true, color_a, color_b);
-		imp.use_gradient_stroke(true, color_b, color_a);
-		imp.use_gradient_thickness(true, 2, 0.1);
+		// use the default setting
+		imp.use_gradient_fill(true);
+		imp.use_gradient_stroke(true);
+		imp.use_gradient_thickness(true);
 	} else {
+		// reset the argument fill, stroke, thickness and density
 		imp.use_gradient_fill(true, color_b, color_a);
 		imp.use_gradient_stroke(true, color_a, color_b);
 		imp.use_gradient_thickness(true, 0.1, 2);
@@ -46,7 +49,8 @@ void draw() {
 	fill(r.WHITE);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
-	text("press \"N\" for new sort",20,30);
+	text("press \"N\" for new impact",20,30);
+	text("clickmouse to reverse the aspect setting",20,45);
 }
 
 
@@ -60,6 +64,11 @@ void set_impact() {
 
 	imp.set_num_circle(25); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
+
+
+	imp.set_fill(r.RED, r.YELLOW);
+	imp.set_stroke(r.YELLOW, r.RED);
+	imp.set_thickness(2, 0.1);
 }
 
 
@@ -80,6 +89,7 @@ void set_mute() {
 void keyPressed() {
 	println("<<<<<<<<<<<<<------|||| NEW SORT ||||--------->>>>>>>>");
 	if(key == 'n') {
+		set_impact();
 		imp.build();
 		set_mute();
 		imp.build_polygon();
