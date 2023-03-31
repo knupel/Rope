@@ -30,7 +30,7 @@ void draw() {
 	// 1 is for pixel of size 2
 	imp.set_line_mode(1);
 	imp.show_lines();
-	imp.update(mousePressed);
+	imp.update_pixels(mousePressed);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 	text("press N for new sort", 20, 20);

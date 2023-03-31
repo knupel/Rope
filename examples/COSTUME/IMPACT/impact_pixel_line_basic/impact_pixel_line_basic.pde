@@ -25,7 +25,7 @@ void setup() {
 
 void draw() {
 	background(r.BLACK);
-	imp.update(mousePressed);
+	imp.update_pixels(mousePressed);
 	if(mousePressed) {
 		imp.set_density(map(sin(frameCount * 0.03), -1, 1, 0.1, 0.6));
 	}
