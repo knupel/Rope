@@ -14,10 +14,10 @@ R_Impact imp;
 Rope r = new Rope();
 
 float min_thickness = 0.1;
-float max_thickness = 30;
+float max_thickness = 3;
 // 
-float min_density = 0.1;
-float max_density = 0.5;
+float min_density = 0.01;
+float max_density = 2;
 
 
 void setup() {
@@ -58,7 +58,7 @@ void keyPressed() {
 void set_impact() {
 	imp = new R_Impact(this, width/2, height/2, 500);
 	
-	imp.heart_is(true); // from 1 to max main iteration
+	imp.heart_is(true);
 
 	// SET THE MAIN BRANCHES
 	int num = 12;
@@ -67,6 +67,6 @@ void set_impact() {
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
-	imp.set_num_circle(20); // num of branch circle start from the main branch
+	imp.set_num_circle(9); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 }

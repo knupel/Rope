@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.3.3
+ * v 0.4.0
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -63,18 +63,23 @@ public class R_Impact extends R_Graphic {
 	private float radius = 0;
 	private float marge = 2; // use for in_line detection
 	private int base = 5;
-
+	// mute part of impact shape
 	private boolean use_mute_is = false;
+	// density
 	private boolean use_gradient_density_is = false;
 	private vec2 density = new vec2(1);
 	private boolean use_gradient_thickness_is = false;
+	// thickness
 	private vec2 thickness = new vec2(1);
+	// stroke colour
 	private boolean use_gradient_stroke_is = false;
 	private ivec2 stroke = new ivec2(0);
+	// fill color
 	private boolean use_gradient_fill_is = false;
 	private ivec2 fill = new ivec2(0);
+	// mode
 	private int mode_pixel_x = 1;
-	// 
+	// palette colour
 	private int [] pix_colour;
 
 	private float growth_fact_spiral = 1;
@@ -1713,9 +1718,7 @@ public class R_Impact extends R_Graphic {
 	// SET PIXELS
 	///////////////////////////
 
-	public void set_pixels_colour( int... colour) {
-		this.pix_colour = colour;
-	}
+
 
 	public void set_pixels(float normal_value, int... colour) {
 		this.set_pixels_colour(colour);
@@ -1799,19 +1802,22 @@ public class R_Impact extends R_Graphic {
 
 	// ASPECT
 	/////////////
-	public void set_stroke(int stroke) {
+	public R_Impact set_stroke(int stroke) {
 		this.stroke.set(stroke);
 		stroke(this.stroke.x());
+		return this;
 	}
 
-	public void set_fill(int fill) {
+	public R_Impact set_fill(int fill) {
 		this.fill.set(fill);
 		fill(this.fill.x());
+		return this;
 	}
 
-	public void set_thickness(float thickness) {
+	public R_Impact set_thickness(float thickness) {
 		this.thickness.x(thickness);
 		strokeWeight(this.thickness.x());
+		return this;
 	}
 
 
@@ -1976,32 +1982,50 @@ public class R_Impact extends R_Graphic {
 	// SHOW PIXELS STATIC
 	///////////////////////////
 
+	// level 0
+
 	public void show_pixels() {
 		show_pixels_main();
 		show_pixels_circle();
 		show_pixels_heart();
 	}
 
+	// level 1 
+
 	public void show_pixels_main() {
-		show_pixels_list_impl(main);
+		show_pixels_main(0, get_iter_main());
 	}
 
 	public void show_pixels_circle() {
-		show_pixels_list_impl(circle);
+		show_pixels_circle(0, get_num_circle());
 	}
 
 	public void show_pixels_heart() {
-		show_pixels_lines_impl(heart);
+		show_pixels_lines_impl(heart, 0, 1);
 	}
+
+	// level 2
+
+	public void show_pixels_main(int start, int end) {
+		show_pixels_list_impl(main, start, end);
+	}
+
+	public void show_pixels_circle(int start, int end) {
+		show_pixels_list_impl(circle, start, end);
+	}
+
+
 
 	// SHOW PIXELS DYNAMIC
 	///////////////////////////
-
+	// level 0 
 	public void show_pixels(float normal_value, int... colour) {
 		show_pixels_main(normal_value, colour);
 		show_pixels_circle(normal_value, colour);
 		show_pixels_heart(normal_value, colour);
 	}
+
+	// level 1
 
 	public void show_pixels_main(float normal_value, int... colour) {
 		show_pixels_list_impl(main, normal_value, colour);
@@ -2015,35 +2039,83 @@ public class R_Impact extends R_Graphic {
 		show_pixels_lines_impl(heart, normal_value, colour);
 	}
 
+	// level 2
+
 
 	// PIXEL IMPL STATIC
 	//////////////////////
+	private void show_pixels_list_impl(ArrayList[] list, int start, int end) {
+		if(heart_is()) {
+			start++;
+		}
 
-	private void show_pixels_list_impl(ArrayList[] list) {
+		print_err("start", start, "end", end);
 		for(int i = 0 ; i < list.length ; i++) {
-			show_pixels_lines_impl(list[i]);
+			show_pixels_lines_impl(list[i], start, end);
 		}
 	}
 
-	private void show_pixels_lines_impl(ArrayList lines) {
-		for(Object obj : lines) {
-			show_pixels_line_impl((R_Line2D)obj);
+	private void show_pixels_lines_impl(ArrayList lines, int start, int end) {
+		if(end > lines.size()) {
+			end = lines.size();
 		}
+
+		if(start >= end) {
+			start = end -1;
+		}
+		
+		if(start < 0) {
+			start = 0;
+		}
+
+		for(int i = start ; i < lines.size() ; i++) {
+			R_Line2D line = (R_Line2D)lines.get(i);
+			show_pixels_line_impl(line);
+		}
+		// for(Object obj : lines) {
+		// 	show_pixels_line_impl((R_Line2D)obj);
+		// }
 	}
+
+	// private void show_pixels_list_impl(ArrayList[] list, int start, int end) {
+	// 	if(heart_is()) {
+	// 		start++;
+	// 	}
+	// 	if(end > list.length) {
+	// 		end = list.length;
+	// 	}
+	// 	if(start < 0) {
+	// 		start = 0;
+	// 	}
+	// 	if(start > end) {
+	// 		start = end;
+	// 	}
+	// 	print_err("start", start, "end", end);
+	// 	for(int i = start ; i < end ; i++) {
+	// 		show_pixels_lines_impl(list[i]);
+	// 	}
+	// }
+
+	// private void show_pixels_lines_impl(ArrayList lines) {
+	// 	for(Object obj : lines) {
+	// 		show_pixels_line_impl((R_Line2D)obj);
+	// 	}
+	// }
 
 	private void show_pixels_line_impl(R_Line2D line) {
 		if(!line.pixels_is()) {
 			float normal_abscissa = 0;
 			float normal_ordonate = 0;
-			if(use_gradient_thickness_is()) {
-				float dist_from_center = dist(line.a(), pos());
-				normal_abscissa = get_gradient_thickness(dist_from_center);
-			}
 			if(use_gradient_density_is()) {
 				float dist_from_center = dist(line.a(), pos());
-				normal_ordonate = get_gradient_thickness(dist_from_center);
-
+				normal_abscissa = get_gradient_density(dist_from_center);
 			}
+
+			if(use_gradient_thickness_is()) {
+				float dist_from_center = dist(line.a(), pos());
+				normal_ordonate = get_gradient_thickness(dist_from_center);
+			}
+
 			line.set_pixels(normal_abscissa, normal_ordonate, this.pix_colour);
 		}
 
@@ -2150,7 +2222,7 @@ public class R_Impact extends R_Graphic {
 	 * @param start
 	 * @param end
 	 */
-	public void show_lines_main(int start, int end) {
+	public void show_lines_main(int start, int end) {;
 		if(heart_is()) {
 			start++;
 		}
@@ -2251,20 +2323,113 @@ public class R_Impact extends R_Graphic {
 
 	private void show_single_line_impl(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
+		// print_err("stroke", stroke);
+		// print_err("thickness", thickness);
+
+		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
+
 		// maybe need pass graphics other in the future ?
 		if(other != null) {
 			line.pass_graphic(other);
 		}
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
-				line.show();
+				mode_line_show(line);
+				// line.show();
 			}
 		} else {
-			line.show();
+			// line.show();
+			mode_line_show(line);
 		}
 	}
+
+
+
+
+
+
+	///////////////////////////
+	// NEW LINE MODEL
+	//
+	// MAY BE it's here we must set if it's
+	// line, pixel x1, pixel x2 ?
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * set_pixel_color(int.. colour)
+	 * set_pixel_density(value);
+	 * set_pixel_density(min, max) > for the gradient
+	 * 
+	 * set_line_mode(int type) > for pixel size 1 ou size 2 ou 0 for line classic
+	 */
+	////////////////////////////
+	private int line_mode = 0; // default is continuous line
+
+	// SETTER
+	////////////
+	public R_Impact set_pixels_colour(int... colour) {
+		this.pix_colour = colour;
+		return this;
+	}
+
+
+	public R_Impact set_line_mode(int mode) {
+		this.line_mode = mode;
+		return this;
+	}
+
+	public R_Impact set_density(float density) {
+		this.density.set(density);
+		return this;
+	}
+
+	// GETTER
+	//////////////////
+	
+	public int get_line_mode() {
+		return line_mode;
+	}
+
+	// ENGINE
+	//////
+	private void mode_line_show(R_Line2D line) {
+		switch(get_line_mode()) {
+			case 0:
+				line.show();
+				break;
+			case 1:
+				line.show_pixels(density.x(), thickness.x(), stroke.x());
+				break;
+			case 2:
+				line.show_pixels_x2(density.x(), thickness.x(), stroke.x());
+				break;
+			default:
+				line.show();
+				break;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
