@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.0.2
+ * v 0.1.0
  * 2023-2023
  * 
 
@@ -25,11 +25,13 @@ void setup() {
 	size(600,600, P2D);
 	set_impact();
 	imp.build();
-	imp.set_pixels_colour(r.YELLOW, r.CYAN, r.MAGENTA);
+	// when the pixels_colour is used, 
+	// this color is used instead the stroke paramater
+	imp.set_pixels_colour(r.CYAN, r.YELLOW, r.MAGENTA);
 }
 
 void draw() {
-	background(r.BLACK);
+	background(r.WHITE);
 	if(mousePressed) {
 		imp.use_gradient_thickness(true, max_thickness, min_thickness);
 		imp.use_gradient_density(true, max_density, min_density);
@@ -38,7 +40,9 @@ void draw() {
 		imp.use_gradient_density(true, min_density, max_density);
 	}
 
-	imp.show_pixels();
+	// imp.stroke_is(true);
+	imp.set_line_mode(1);
+	imp.show_lines();
 
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
