@@ -2337,10 +2337,8 @@ public class R_Impact extends R_Graphic {
 		if(use_mute_is()) {	
 			if(!line.mute_is()) {
 				mode_line_show(line);
-				// line.show();
 			}
 		} else {
-			// line.show();
 			mode_line_show(line);
 		}
 	}
@@ -2369,6 +2367,16 @@ public class R_Impact extends R_Graphic {
 	 */
 	////////////////////////////
 	private int line_mode = 0; // default is continuous line
+	private boolean update_is = false;
+
+
+	public void update(boolean is) {
+		this.update_is = is;
+	}
+
+	protected boolean update_is() {
+		return this.update_is;
+	}
 
 	// SETTER
 	////////////
@@ -2398,15 +2406,34 @@ public class R_Impact extends R_Graphic {
 	// ENGINE
 	//////
 	private void mode_line_show(R_Line2D line) {
-		switch(get_line_mode()) {
+		int mode = get_line_mode();
+		if(update_is() && (mode == 1 || mode == 2)) {
+			mode += 10;
+		}
+
+		if(!line.pixels_is()) {
+			line.set_pixels(density.x(), thickness.x(), stroke.x());
+		}
+
+		// print_err("mode", mode);
+		switch(mode) {
+			
 			case 0:
 				line.show();
 				break;
+			// dynamic pixel mode
 			case 1:
-				line.show_pixels(density.x(), thickness.x(), stroke.x());
+				line.show_pixels();
 				break;
 			case 2:
-				line.show_pixels_x2(density.x(), thickness.x(), stroke.x());
+				line.show_pixels_x2();
+				break;
+			// static pixel mode
+			case 11:
+				line.show_pixels(density.x(), thickness.x(), stroke.x());
+				break;
+			case 12:
+				line.show_pixels_x2(density.x(), thickness.x(), stroke.x());		
 				break;
 			default:
 				line.show();

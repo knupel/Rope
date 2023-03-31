@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.0.3
+ * v 0.1.0
  * 2023-2023
  * 
 
@@ -18,17 +18,19 @@ void setup() {
 	size(600,600, P2D);
 	set_impact();
 	imp.build();
-
-	// set_color_static_pixel_line();
 }
 
 void draw() {
 	println("FPS", (int)frameRate);
 	background(r.BLACK);
-		// imp.set_stroke(r.WHITE);
-		imp.stroke_is(true);
-	// show_pixel_line();
+	imp.stroke_is(true);
+	// here we set the mode to pixel x1
+	// 0 is for line
+	// 1 is for pixel of size 1
+	// 1 is for pixel of size 2
+	imp.set_line_mode(1);
 	imp.show_lines();
+	imp.update(mousePressed);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 	text("press N for new sort", 20, 20);
@@ -38,35 +40,10 @@ void keyPressed() {
 	if(key == 'n') {
 		println("nouveau tirage");
 		imp.build();
-		// set_color_static_pixel_line();
 	}
 }
 
-// void set_color_static_pixel_line() {
-// 	for(R_Line2D line : imp.get_lines()) {
-// 		float dist = r.dist(imp.pos(), line.a());
-// 		float ratio = 1- (dist / imp.radius());
-// 		line.set_pixels(ratio, r.YELLOW, r.CYAN, r.MAGENTA);
-// 	}
-// }
 
-// void show_pixel_line() {
-// 	for(R_Line2D line : imp.get_lines()) {
-// 		if(mousePressed) {
-// 			line.show_pixels(); // static
-// 		} else {
-// 			float dist = r.dist(imp.pos(), line.a());
-// 			// float ratio = 1 - (dist / imp.radius());
-// 			float ratio = 1 - (dist / width);
-// 			ratio *= ratio;
-// 			ratio *= ratio;
-// 			// println("dist", dist);
-// 			// println("radius", imp.radius());
-// 			// println("ratio", ratio);
-// 			line.show_pixels(ratio, r.MAGENTA, r.CYAN, r.YELLOW); // dynamic
-// 		}
-// 	}
-// }
 
 
 void set_impact() {
@@ -88,7 +65,4 @@ void set_impact() {
 	imp.set_stroke(r.WHITE);
 	imp.set_density(0.5);
 	imp.set_thickness(6);
-	imp.set_line_mode(1);
-
-
 }
