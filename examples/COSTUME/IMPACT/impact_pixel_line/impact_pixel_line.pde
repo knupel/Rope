@@ -64,5 +64,5 @@ void set_impact() {
 	// SET ASPECT
 	imp.set_stroke(r.WHITE);
 	imp.set_density(0.5);
-	imp.set_thickness(6);
+	imp.set_thickness(3);
 }

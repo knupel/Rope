@@ -32,19 +32,25 @@ void setup() {
 
 void draw() {
 	background(r.BLACK);
-	if(mousePressed) {
+	imp.update_pixels(keyPressed && key=='u');
+	if(mousePressed && mouseButton == LEFT) {
 		imp.use_gradient_thickness(true, max_thickness, min_thickness);
 		imp.use_gradient_density(true, max_density, min_density);
 		// that kill the impact palette, after that you need to set this one again
 		imp.use_gradient_stroke(true, r.YELLOW, r.RED);
+	} else if(mousePressed && mouseButton == RIGHT) {
+		imp.use_gradient_thickness(true, min_thickness, max_thickness);
+		imp.use_gradient_density(true, min_density, max_density);
+		// that kill the impact palette, after that you need to set this one again
+		imp.use_gradient_stroke(true, r.YELLOW, r.CYAN);
 	} else {
+		// imp.use_gradient(false);
+    // imp.set_pixels_colour(r.CYAN, r.YELLOW, r.MAGENTA);
 		imp.use_gradient_thickness(true, min_thickness, max_thickness);
 		imp.use_gradient_density(true, min_density, max_density);
 	}
-
 	imp.set_line_mode(1);
 	imp.show_lines();
-
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
@@ -57,9 +63,7 @@ void keyPressed() {
     println("nouveau tirage");
     imp.use_gradient(false);
     imp.set_pixels_colour(r.CYAN, r.YELLOW, r.MAGENTA);
-    // printArray(imp.get_pixels_colour());
 		imp.build();
-
 	}
 }
 

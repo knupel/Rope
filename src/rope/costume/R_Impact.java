@@ -69,7 +69,9 @@ public class R_Impact extends R_Graphic {
 	// line mode
 	private int line_mode = 0; // default is continuous line
 	// update for refresh case
+	private int next_frameCount = 0;
 	private boolean update_pixels_is = false;
+	private boolean set_gradient_pixels_is = false;
 
 	// density
 	private boolean use_gradient_density_is = false;
@@ -1861,6 +1863,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 	public R_Impact set_pixels_colour(int... colour) {
+		this.stroke.set(colour[0]); // for the pixel case
 		this.pix_colour = colour;
 		return this;
 	}
@@ -1935,10 +1938,7 @@ public class R_Impact extends R_Graphic {
 	private float apply_gradient_thickness(float dist) {
 		float value = thickness.x();
 		if(use_gradient_thickness_is()) {
-			// float ratio = dist / radius();
-			// float value = map(ratio, 0, 1, thickness.x(), thickness.y());
 			value = get_gradient_thickness(dist);
-			// that can give a problem for the ccase where there is gradient for color ???
 			stroke(stroke.x()); 
 			strokeWeight(value);	
 		}
@@ -1957,7 +1957,11 @@ public class R_Impact extends R_Graphic {
 	 * @param end stroke for color
 	 */
 	public void use_gradient_stroke(boolean is, int start, int end) {
-		stroke.set(start,end);
+		if(start != stroke.x() || end != stroke.y()) {
+			stroke.set(start,end);
+			next_frameCount = pa.frameCount + 1;
+			set_gradient_pixels_is(false);
+		}
 		use_gradient_stroke(is);
 	}
 
@@ -1979,6 +1983,15 @@ public class R_Impact extends R_Graphic {
 			stroke(value);
 		}
 		return value;
+	}
+
+
+	private void set_gradient_pixels_is(boolean is) {
+		this.set_gradient_pixels_is = is;
+	}
+
+	private boolean set_gradient_pixels_is() {
+		return this.set_gradient_pixels_is;
 	}
 
 
@@ -2196,7 +2209,10 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+
 	private void mode_line_show(R_Line2D line) {
+
+
 		int mode = get_line_mode();
 		if(update_pixels_is() && mode > 0) {
 			mode += 10;
@@ -2220,28 +2236,27 @@ public class R_Impact extends R_Graphic {
 			float dist_from_center = dist(line.a(), pos());
 			normal_ordonate = get_gradient_thickness(dist_from_center);
 		}
+
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
 		}
 
+		if(pa.frameCount == next_frameCount) {
+			set_gradient_pixels_is(true);
+	  }
 
 		if(use_gradient_stroke_is()) {
 			float dist_from_center = dist(line.a(), pos());
 			int c = apply_gradient_stroke(dist_from_center);
-			if(!update_pixels_is()) {
+			if(!set_gradient_pixels_is()) {
 				for(R_Pix pix : line.get_pixels()) {
 					pix.fill(c);
 				}
-			} else {
-				int [] buf = new int[1];
-				buf[0] = c;
-				pix_colour = buf;
 			}
-
-		// 	int c = get_gradient_stroke(dist_from_center);
+			int [] buf = new int[1];
+			buf[0] = c;
+			pix_colour = buf;
 		}
-
-
 
 
 		switch(mode) {
