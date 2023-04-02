@@ -639,19 +639,49 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   /////////////////////////////////
   // PIXEL
   /////////////////////////////////
-  
+  private int type_abscissa = LINEAR;
+  private int type_ordinate = LINEAR;
   /**
    * 
-   * @param distri_x value to set the random on abscissa
+   * @param type_abscissa value to set the random on abscissa
    */
-  public void set_pixels_distribution(float distri_x) {
+  public void set_pixels_distribution(int type_abscissa) {
+    this.type_abscissa = type_abscissa;
   }
   /**
    * 
-   * @param distri_x value to set the random on abscissa
-   * @param distri_y value to set the random on ordinate
+   * @param type_abscissa value to set the random on abscissa
+   * @param type_ordinate value to set the random on ordinate
    */
-  public void set_pixels_distribution(float distri_x, float distri_y) {
+  public void set_pixels_distribution(int type_abscissa, int type_ordinate) {
+    this.type_abscissa = type_abscissa;
+    this.type_ordinate = type_ordinate;
+  }
+
+  private float get_distribution(int type) {
+    float value = 0; 
+    switch(type) {
+      case LINEAR:
+        value = random(1);
+        break;
+      case CENTER:
+        value = random(1) * random(1);
+        if(random(1) < 0.5) {
+          value *= -1;
+        }
+        value = map(value, -1, 1, 0, 1);
+        break;
+      default:
+        value = random(1);
+        break;
+    }
+    return value;
+  }
+
+  private vec2 absolute_pos(float range_ordinate) {
+    float abscissa = get_distribution(type_abscissa);
+    float ordinate = map(get_distribution(type_ordinate), 0,1, -range_ordinate, range_ordinate);
+    return new vec2(abscissa, ordinate);
   }
 
   /**
@@ -664,15 +694,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     set_pixels(density, thickness, colour);
   }
 
-  // DEVOIR POUR DEMAIN MATIN
-  // REMPLACER PARTOUT ou il se doit...
-  // au moins 6 endroits  2X set_pixels(), 2X show_pixels(), 2X show_pixels_x2() 
 
-  private vec2 absolute_pos(float range_ordinate) {
-    float abscissa = random(1);    
-    float ordinate = random(-range_ordinate, range_ordinate);
-    return new vec2(abscissa, ordinate);
-  }
 
   /**
    * 
