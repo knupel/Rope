@@ -7,6 +7,11 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * collection of function can be use with out Processing.
+ * 
+ * 
+ * WITHOUT PROCESSING ONLY JAVA
+ * 
+ * 
  * @author @knupel
  * @see https://github.com/knupel/Rope
  * 2014-2023
