@@ -633,52 +633,51 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return this;
   }
 
-  // @Deprecated public R_Line2D angle(float angle) {
-  //   return this.rotation(angle,0);
-  // }
-
-  // @Deprecated public R_Line2D angle(float angle, float normal_pos) {
-  //   return rotation(angle, normal_pos);
-  // }
 
 
 
   /////////////////////////////////
   // PIXEL
   /////////////////////////////////
+  
+  /**
+   * 
+   * @param distri_x value to set the random on abscissa
+   */
+  public void set_pixels_distribution(float distri_x) {
+  }
+  /**
+   * 
+   * @param distri_x value to set the random on abscissa
+   * @param distri_y value to set the random on ordinate
+   */
+  public void set_pixels_distribution(float distri_x, float distri_y) {
+  }
 
   /**
  * 
- * @param density the ratio of pixels along the line from 0 to 1
+ * @param density the ratio abscissa of pixels along the line from 0 to 1
  * @param colour list of int color to create the pixel line
  */
   public void set_pixels(float density, int... colour) {
-    // here we dont call the masterter funtion set_pixels(float density, float thickness, int... colour)
-    // to avoid the operation on the ordinate, to don't slow the algorithm
-    int num_pixel = (int)(dist() * density);
-    pixies = new R_Pix[num_pixel];
-    if(colour.length > 1) {
-      for(int i = 0 ; i < num_pixel ; i++) {
-        pixies[i] = new R_Pix();
-        float abscissa = random(1); 
-        vec2 pos = this.get_point(abscissa);
-        int which = floor(random(colour.length));
-        set_pixel(pixies[i], pos, colour[which]);
-      }
-    } else {
-      for(int i = 0 ; i < num_pixel ; i++) {
-        pixies[i] = new R_Pix();
-        float abscissa = random(1); 
-        vec2 pos = this.get_point(abscissa);
-        set_pixel(pixies[i], pos, colour[0]);
-      }
-    }
+    float thickness = 0;
+    set_pixels(density, thickness, colour);
+  }
+
+  // DEVOIR POUR DEMAIN MATIN
+  // REMPLACER PARTOUT ou il se doit...
+  // au moins 6 endroits  2X set_pixels(), 2X show_pixels(), 2X show_pixels_x2() 
+
+  private vec2 absolute_pos(float range_ordinate) {
+    float abscissa = random(1);    
+    float ordinate = random(-range_ordinate, range_ordinate);
+    return new vec2(abscissa, ordinate);
   }
 
   /**
    * 
-   * @param density the ratio of pixels along the line from 0 to 1
-   * @param thickness is the strokeWeight of your line in pixel point
+   * @param density the ratio abscissa of pixels along the line from 0 to 1
+   * @param thickness is the strokeWeight / ordinate of your line in pixel point
    * @param colour list of int color to create the pixel line
    */
   public void set_pixels(float density, float thickness, int... colour) {
@@ -688,18 +687,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     if(colour.length > 1) {
       for(int i = 0 ; i < num_pixel ; i++) {
         pixies[i] = new R_Pix();
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        vec2 pos = this.get_point(abscissa, ordinate);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
         int which = floor(random(colour.length));
         set_pixel(pixies[i], pos, colour[which]);
       }
     } else {
       for(int i = 0 ; i < num_pixel ; i++) {
         pixies[i] = new R_Pix();
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        vec2 pos = this.get_point(abscissa, ordinate);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
         set_pixel(pixies[i], pos, colour[0]);
       }
     }
@@ -747,16 +744,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     reset();
   }
   
-  /**
-   * Show the result of all previous work on line
-   * 
-   * @param other is the PGraphics where the result will be showing
-   */
-  // @Deprecated public void show(PGraphics other) {
-  // 	this.other = other;
-  //   line(a.xy(),b.xy());
-  //   reset();
-  // }
 
   public void show_pixels() {
     loadPixels();
@@ -786,47 +773,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param colour
    */
   public void show_pixels(float density, int... colour) {
-    int num_pixel = (int)(dist() * density);
-    if(colour.length > 1) {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        int which = floor(random(colour.length));
-        plot(this.get_point(random(1)),colour[which]);
-      }
-      updatePixels();
-    } else {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        plot(this.get_point(random(1)),colour[0]);
-      }
-      updatePixels();
-    }
+    float thickness = 0;
+    show_pixels(density, thickness, colour);
   }
 
-  /**
-   * 
-   * @param density
-   * @param colour
-   */
-  public void show_pixels_x2(float density, int... colour) {
-    int num_pixel = (int)(dist() * density);
-    if(colour.length > 1) {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        int which = floor(random(colour.length));
-        plot_x2(this.get_point(random(1)),colour[which]);
-      }
-      updatePixels();
-    } else {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        plot(this.get_point(random(1)),colour[0]);
-      }
-      updatePixels();
-    }
-  }
-
-  /**
+    /**
    * 
    * @param density
    * @param thickness
@@ -839,21 +790,33 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
         int which = floor(random(colour.length));
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        plot(this.get_point(abscissa, ordinate),colour[which]);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
+        plot(pos,colour[which]);
       }
       updatePixels();
     } else {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        plot(this.get_point(abscissa,ordinate),colour[0]);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
+        plot(pos,colour[0]);
       }
       updatePixels();
     }
   }
+
+  /**
+   * 
+   * @param density
+   * @param colour
+   */
+  public void show_pixels_x2(float density, int... colour) {
+    float thickness = 0;
+    show_pixels_x2(density, thickness, colour);
+  }
+
+
 
   /**
    * 
@@ -868,17 +831,17 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
         int which = floor(random(colour.length));
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        plot_x2(this.get_point(abscissa,ordinate),colour[which]);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
+        plot_x2(pos,colour[which]);
       }
       updatePixels();
     } else {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        float abscissa = random(1);    
-        float ordinate = random(-range_ordinate, range_ordinate);
-        plot(this.get_point(abscissa,ordinate),colour[0]);
+        vec2 abs = absolute_pos(range_ordinate);
+        vec2 pos = this.get_point(abs.x(), abs.y());
+        plot(pos,colour[0]);
       }
       updatePixels();
     }
