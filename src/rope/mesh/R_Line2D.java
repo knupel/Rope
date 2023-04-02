@@ -641,35 +641,63 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   /////////////////////////////////
   private int type_abscissa = LINEAR;
   private int type_ordinate = LINEAR;
+  private int level_abscissa = 1;
+  private int level_ordinate = 1;
   /**
    * 
-   * @param type_abscissa value to set the random on abscissa
+   * @param type value to set the random on abscissa
    */
-  public void set_pixels_distribution(int type_abscissa) {
+  public void abscissa(int type) {
     this.type_abscissa = type_abscissa;
-  }
-  /**
-   * 
-   * @param type_abscissa value to set the random on abscissa
-   * @param type_ordinate value to set the random on ordinate
-   */
-  public void set_pixels_distribution(int type_abscissa, int type_ordinate) {
-    this.type_abscissa = type_abscissa;
-    this.type_ordinate = type_ordinate;
   }
 
-  private float get_distribution(int type) {
+  public void abscissa(int type, int level) {
+    this.type_abscissa = type;
+    this.level_abscissa = abs(level);
+  }
+  /**
+   * 
+   * @param type value to set the random on abscissa
+   */
+  public void ordinate(int type) {
+    this.type_ordinate = type;
+  }
+
+  public void ordinate(int type, int level) {
+    this.type_ordinate = type;
+    this.level_ordinate = abs(level);
+  }
+
+  private float get_distribution(int type, int level) {
     float value = 0; 
     switch(type) {
       case LINEAR:
         value = random(1);
         break;
       case CENTER:
-        value = random(1) * random(1);
+        value = 1.0f;
+        for(int i = 0; i <= level ; i++) {
+          value *= random(1);
+        }
         if(random(1) < 0.5) {
           value *= -1;
         }
         value = map(value, -1, 1, 0, 1);
+        break;
+      case SIDE:
+        value = 1.0f;
+        for(int i = 0; i <= level ; i++) {
+          value *= random(1);
+        }
+        if(random(1) < 0.5) {
+          value *= -1;
+        }
+
+        if(value < 0) {
+          value = map(value, -1, 0, 0.5f, 0);
+        } else {
+          value = map(value, 0, 1, 1, 0.5f);
+        }
         break;
       default:
         value = random(1);
@@ -679,8 +707,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   private vec2 absolute_pos(float range_ordinate) {
-    float abscissa = get_distribution(type_abscissa);
-    float ordinate = map(get_distribution(type_ordinate), 0,1, -range_ordinate, range_ordinate);
+    float abscissa = get_distribution(type_abscissa, level_abscissa);
+    float ordinate = map(get_distribution(type_ordinate, level_ordinate), 0,1, -range_ordinate, range_ordinate);
     return new vec2(abscissa, ordinate);
   }
 

@@ -63,7 +63,9 @@ void set_lines() {
   b.set_pixels(density_b, thickness_b, r.RED, r.YELLOW);
   // pixel variation on thickness and density
   c = new R_Line2D(this);
-  c.set_pixels_distribution(r.LINEAR, r.CENTER);
+  // c.abscissa(r.LINEAR);
+  c.abscissa(r.SIDE, 1); 
+  c.ordinate(r.CENTER, 1);
   c.set(width/2,height/2,random(width),random(height));
   c.set_pixels(density_c, thickness_c, r.MAGENTA, r.YELLOW);
 }

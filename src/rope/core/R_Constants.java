@@ -2,14 +2,14 @@
 /**
  * * R_Constants
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2022
+	* Copyleft (c) 2014-2023
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
 	* v 1.1.5
-	* Processing 4.0.7b
-	* @author @stanlepunk
-	* @see https://github.com/StanLepunK/Rope
+	* Processing 4.2
+	* @author @knupel
+	* @see https://github.com/knupel/rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
 	*/
 
@@ -158,6 +158,7 @@ public interface R_Constants {
   static final int DIAMETER = 3; // processing value
 
 	static final int CENTER  = 3; // processing value
+	static final int SIDE  = 4;
 
 
 
