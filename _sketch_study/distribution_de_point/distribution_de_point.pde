@@ -28,8 +28,8 @@ void setup() {
 
 
     // the curve
-    float mx = map(x, 0, width, -1, 1);
-    res = normal_distribution(mx);
+    
+    res = normal_distribution(x, width);
     // res = normal_distribution(x);
     set((int)x,int(res * height), r.BLUE);
     
@@ -64,21 +64,25 @@ void setup() {
 // https://fr.wikipedia.org/wiki/Loi_normale
 // https://en.wikipedia.org/wiki/Normal_distribution
 // https://stackoverflow.com/questions/10138085/how-to-plot-normal-distribution
-float normal_distribution(float x) {
+// https://www.desmos.com/calculator/0x3rpqtgrx?lang=fr
+float normal_distribution(float x ,float dist) {
+  // why -5, 5, I test with other value like - 1, 1 and that's dont work.
+  float mx = map(x, 0, dist, -5, 5);
   float res = 0;
-  // float sigma = sqrt(0.2); // variance
-  // float sigma = sqrt(5.0); // variance
-  float sigma = 0.2; // variance
-  float mu = -0.2;
+  // variance is used for the y offsett, to give the shape of bell
+  float variance = 0.2;
+  float sigma = sqrt(variance);
+  // MU is used for the x offsett
+  float mu = 0; 
   float a = 1 / (sigma*(sqrt(2*PI)));
-  float exp = (-1 *pow((x - mu),2)) / (2 * pow(sigma,2));
-  // float exp = -(1.0f/2.0f)* pow(((x-mu)/sigma),2);
-  // float exp = (pow(x-mu,2)/ 2*(pow(sigma,2))) * -1;
-  // float exp = (pow(x-mu,2)/ 2*(pow(sigma,2)));
+  float exp = (-1 *pow((mx - mu),2)) / (2 * pow(sigma,2));
+  // float exp = -(1.0f/2.0f)* pow(((mx-mu)/sigma),2);
+  // float exp = (pow(mx-mu,2)/ 2*(pow(sigma,2))) * -1;
+  // float exp = (pow(mx-mu,2)/ 2*(pow(sigma,2)));
   println("a", a);
   println("exp", exp);
   // return res = pow(a, exp);
-  res = a * (float)Math.exp(exp);
+  res = a * exp(exp);
   // res = pow(exp, a);
   println("res:::::::::::::::::::", res);
   return res;

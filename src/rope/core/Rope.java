@@ -15,7 +15,7 @@
  * @author @knupel
  * @see https://github.com/knupel/Rope
  * 2014-2023
- * v 0.5.1
+ * v 0.5.2
  * 
  */
 
@@ -83,9 +83,42 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return array;
 	}
 	
+	/////////////////////////////
+	// DISTRIBUTION
+	/////////////////////////////
+
+	public float d_pow(float value, float power, float threshold) {
+		return Ru.d_pow(value, power, threshold);
+	}
+
+	public float d_sqrt(float value, float threshold) {
+		return Ru.d_sqrt(value, threshold);
+	}
+
+	public float d_cbrt(float value, float threshold) {
+		return Ru.d_cbrt(value, threshold);
+	}
+
 	/**
-	 * OPERATION
+	 * 
+	 * @param value in the range of threshold
+	 * @param variance usualy from 0 to 10 
+	 * @param offset the value can be negative and she relative to the threshold
+	 * @param threshold this value is used to calculate the normal value
+	 * @return
 	 */
+	public float d_bell(float value, float variance, float offset, float threshold) {
+		return Ru.d_normal(value, variance, offset, threshold);
+	}
+
+	public float d_normal(float value, float variance, float offset, float threshold) {
+		return Ru.d_normal(value, variance, offset, threshold);
+	}
+
+
+	////////////////////////
+	// OPERATION
+	///////////////////////////
 	
 	/**
 	 * each element add of each vector mult each one in the order
@@ -94,36 +127,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return result of the operation
 	 */
 	public vec2 add(vec2 a, vec2 b) {
-	  if(a == null || b == null) {
-	    return null ;
-	  } else {
-	    float x = a.x() + b.x();
-	    float y = a.y() + b.y();
-	    return new vec2(x,y);
-	  }
+		return Ru.add(a,b);
 	}
 
 	public vec3 add(vec3 a, vec3 b) {
-	  if(a == null || b == null) {
-	    return null ;
-	  } else {
-	    float x = a.x() + b.x();
-	    float y = a.y() + b.y();
-	    float z = a.z() + b.z();
-	    return new vec3(x,y,z);
-	  }
+		return Ru.add(a,b);
 	}
 
 	public vec4 add(vec4 a, vec4 b) {  
-	  if(a == null || b == null) {
-	    return null ;
-	  } else {
-	    float x = a.x() + b.x();
-	    float y = a.y() + b.y();
-	    float z = a.z() + b.z();
-	    float w = a.w() + b.w();
-	    return new vec4(x,y,z,w);
-	  }
+		return Ru.add(a,b);
 	}
 	
 	public vec2 add(vec2 a, float arg) {
@@ -145,36 +157,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return result of the operation
 	 */
 	public vec2 sub(vec2 a, vec2 b) {
-		if (a == null || b == null) {
-			return null;
-		} else {
-			float x = a.x - b.x;
-			float y = a.y - b.y;
-			return new vec2(x, y);
-		}
+		return Ru.sub(a, b);
 	}
 
 	public vec3 sub(vec3 a, vec3 b) {
-		if (a == null || b == null) {
-			return null;
-		} else {
-			float x = a.x - b.x;
-			float y = a.y - b.y;
-			float z = a.z - b.z;
-			return new vec3(x, y, z);
-		}
+		return Ru.sub(a,b);
 	}
 
 	public vec4 sub(vec4 a, vec4 b) {
-		if (a == null || b == null) {
-			return null;
-		} else {
-			float x = a.x - b.x;
-			float y = a.y - b.y;
-			float z = a.z - b.z;
-			float w = a.w - b.w;
-			return new vec4(x, y, z, w);
-		}
+		return Ru.sub(a,b);
 	}
 	
 	public vec2 sub(vec2 a, float arg) {
@@ -196,36 +187,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return result of the operation
 	 */
 	public vec2 mult(vec2 a, vec2 b) {
-		if(a == null || b == null) {
-			return null ;
-		} else {
-			float x = a.x() * b.x();
-			float y = a.y() * b.y();
-			return new vec2(x,y);
-		}
+		return Ru.mult(a,b);
 	}
 
 	public vec3 mult(vec3 a, vec3 b) {
-		if(a == null || b == null) {
-			return null ;
-		} else {
-			float x = a.x() * b.x();
-			float y = a.y() * b.y();
-			float z = a.z() * b.z();
-			return new vec3(x,y,z);
-		}
+		return Ru.mult(a,b);
 	}
 
 	public vec4 mult(vec4 a, vec4 b) {
-		if(a == null || b == null) {
-			return null ;
-		} else {
-			float x = a.x() * b.x();
-			float y = a.y() * b.y();
-			float z = a.z() * b.z();
-			float w = a.w() * b.w();
-			return new vec4(x,y,z,w);
-		}
+		return Ru.mult(a,b);
 	}
 	
 	public vec2 mult(vec2 a, float arg) {
@@ -248,36 +218,15 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return result of the operation
 	 */
 	public vec2 div(vec2 a, vec2 b) {
-	  if(a == null || b == null) {
-	    return null;
-	  } else {
-	    float x = a.x() /b.x();
-	    float y = a.y() /b.y();
-	    return new vec2(x,y);
-	  }
+		return Ru.div(a,b);
 	}
 
 	public vec3 div(vec3 a, vec3 b) {
-	  if(a == null || b == null) {
-	    return null;
-	  } else {
-	    float x = a.x() /b.x();
-	    float y = a.y() /b.y();
-	    float z = a.z() /b.z();
-	    return new vec3(x,y,z);
-	  }
+		return Ru.div(a,b);
 	}
 
 	public vec4 div(vec4 a, vec4 b) {
-	  if(a == null || b == null) {
-	    return null ;
-	  } else {
-	    float x = a.x() /b.x();
-	    float y = a.y() /b.y();
-	    float z = a.z() /b.z();
-	    float w = a.w() /b.w();
-	    return new vec4(x,y,z,w);
-	  }
+		return Ru.div(a,b);
 	}
 	
 	public vec2 div(vec2 a, float arg) {
@@ -390,9 +339,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return float distance beween the two points
 	 */
 	public float dist(float x1, float y1, float x2, float y2) {
-		float dx = x1 - x2;
-		float dy = y1 - y2;
-		return (float) Math.sqrt(dx*dx + dy*dy);
+		return Ru.dist(x1, y1, x2, y2);
 	}
 
 	/**
@@ -405,10 +352,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return float distance beween the two points
 	 */
 	public float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
-		float dx = x1 - x2;
-		float dy = y1 - y2;
-		float dz = z1 - z2;
-		return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+		return Ru.dist(x1, y1, z1, x2, y2, z2);
 	}
 
 	/**
@@ -417,11 +361,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return float distance beween the two points
 	 */
 	public float dist(vec2 a, vec2 b) {
-		if(a != null && b != null) {
-			float dx = a.x() - b.x();
-			float dy = a.y() - b.y();
-			return (float) Math.sqrt(dx*dx + dy*dy);
-		} else return Float.NaN ;	
+		return Ru.dist(a,b);
 	}
 
 	/**
@@ -430,12 +370,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return float distance beween the two points
 	 */
 	public float dist(vec3 a, vec3 b) {
-		if(a != null && b != null) {
-			float dx = a.x() - b.x();
-			float dy = a.y() - b.y();
-			float dz = a.z() - b.z();
-			return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
-		} else return Float.NaN ;
+		return Ru.dist(a,b);
 	}
 
 	/**
@@ -444,13 +379,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return float distance beween the two points
 	 */
 	public float dist(vec4 a, vec4 b) {
-		if(a != null && b != null) {
-			float dx = a.x() - b.x();
-			float dy = a.y() - b.y();
-			float dz = a.z() - b.z();
-			float dw = a.w() - b.w();
-			return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
-		} else return Float.NaN ;
+		return Ru.dist(a,b);
 	}
 	
 	
@@ -473,25 +402,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return
 	 */
 	public boolean in_segment(vec2 start, vec2 end, vec2 point, float range) {
-		vec2 vp = new vec2();
-		vec2 line = sub(end,start);
-		float l2 = line.magSq();
-		if (l2 == 0.0) {
-			vp.set(start);
-			return false;
-		}
-		vec2 pv0_line = sub(point, start);
-		float t = pv0_line.dot(line)/l2;
-		pv0_line.normalize();
-		vp.set(line);
-		vp.mult(t);
-		vp.add(start);
-		float d = dist(point, vp);
-		if (t >= 0 && t <= 1 && d <= range) {
-			return true;
-		} else {
-			return false;
-		}
+		return Ru.in_segment(start, end, point, range);
 	}
 
 	/**
@@ -544,17 +455,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return true is the position is in the shape
 	 */
 	public boolean in_polygon(vec [] points, vec pos) {
-		int i, j;
-		boolean is = false;
-		for(i = 0, j =  points.length - 1 ; i <  points.length ; j = i++) {
-			vec a = points[i];
-			vec b = points[j];
-			if (( ((a.y() <= pos.y()) && (pos.y() < b.y())) || ((b.y() <= pos.y()) && (pos.y() < a.y()))) &&
-							(pos.x() < (b.x() - a.x()) * (pos.y() - a.y()) / (b.y() - a.y()) + a.x())) {
-				is = !is;
-			}
-		}
-		return is;
+		return Ru.in_polygon(points, pos);
 	}
 
 	public boolean in_polygon(R_Shape shape, vec pos) {
@@ -568,30 +469,7 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	 * @return -1 is out / 0 on border / 1 in polygon
 	 */
 	public byte in_polygon(vec [] points, vec pos, float marge) {
-		// -1 out of the polygon
-		// 0 is on the border
-		// 1 is fully inside
-		int sides = points.length;
-		boolean polygon_is = in_polygon(points, pos);
-		boolean border_is = false;
-		// check the border
-		for(int i = 1; i < sides ; i++) {
-			vec2 a = points[i].xy();
-			vec2 b = points[i-1].xy();
-			if(in_segment(a,b, pos.xy(), marge)) {
-				border_is = true;
-			}
-		}
-		// to close the segment
-		vec2 a = points[0].xy();
-		vec2 b = points[sides -1].xy();
-		if(in_segment(a,b, pos.xy(), marge)) {
-			border_is = true;
-		}
-	
-		if(!polygon_is && !border_is) return -1;
-		if(border_is) return 0;
-		return 1;
+		return Ru.in_polygon(points, pos, marge);
 	}
 
 	public byte in_polygon(R_Shape shape, vec pos, float marge) {

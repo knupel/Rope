@@ -2,8 +2,8 @@ package rope.utils;
 
 /**
  * Rope Static Utils
- * v 0.2.0
- * 2019-2022
+ * v 0.3.0
+ * 2019-2023
  */
 
 import java.util.Random;
@@ -11,12 +11,367 @@ import java.util.Random;
 import rope.vector.ivec2;
 import rope.vector.ivec3;
 import rope.vector.ivec4;
+import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec4;
 
 public class R_Utils {
 	public static class Ru {
+
+
+		/////////////////////////////
+		// DISTRIBUTION
+		// where d is for distribution
+		/////////////////////////////
+
+		public static float d_pow(float value, float power, float threshold) {
+			return (float)Math.pow(value, power) / (float)Math.pow(threshold, power);
+		}
+
+		public static float d_sqrt(float value, float threshold) {
+			double ret = Math.sqrt(value) / Math.sqrt(threshold);
+			return (float)ret;
+		}
+
+		public static float d_cbrt(float value, float threshold) {
+			double ret = Math.cbrt(value) / Math.cbrt(threshold);
+			return (float)ret;
+		}
+
+		public static float d_normal(float value, float variance, float offset, float threshold) {
+			float range = 5.0f;
+			range = threshold * 0.01f;
+			offset *= 0.02f;
+			float mx = map(value, 0, threshold, -range, range);
+			double sigma = Math.sqrt(variance);
+			double mu = offset;
+			double a = 1 / (sigma*(Math.sqrt(2*Math.PI)));
+			double exp = (-1 * Math.pow((mx - mu),2)) / (2 * Math.pow(sigma,2));
+			double ret = a * Math.exp(exp);
+			return (float)ret;
+		}
+
+		///////////////////////////////
+		// DETECTION
+		///////////////////////////
+		/**
+		 * @param points cloud of points shape the polygon
+		 * @param pos of the point must be detected
+		 * @param marge distance of the point around the border
+		 * @return -1 is out / 0 on border / 1 in polygon
+		 */
+		public static byte in_polygon(vec [] points, vec pos, float marge) {
+			// -1 out of the polygon
+			// 0 is on the border
+			// 1 is fully inside
+			int sides = points.length;
+			boolean polygon_is = in_polygon(points, pos);
+			boolean border_is = false;
+			// check the border
+			for(int i = 1; i < sides ; i++) {
+				vec2 a = points[i].xy();
+				vec2 b = points[i-1].xy();
+				if(in_segment(a,b, pos.xy(), marge)) {
+					border_is = true;
+				}
+			}
+			// to close the segment
+			vec2 a = points[0].xy();
+			vec2 b = points[sides -1].xy();
+			if(in_segment(a,b, pos.xy(), marge)) {
+				border_is = true;
+			}
+		
+			if(!polygon_is && !border_is) return -1;
+			if(border_is) return 0;
+			return 1;
+		}
+
+		public static boolean in_polygon(vec [] points, vec pos) {
+			int i, j;
+			boolean is = false;
+			for(i = 0, j =  points.length - 1 ; i <  points.length ; j = i++) {
+				vec a = points[i];
+				vec b = points[j];
+				if (( ((a.y() <= pos.y()) && (pos.y() < b.y())) || ((b.y() <= pos.y()) && (pos.y() < a.y()))) &&
+								(pos.x() < (b.x() - a.x()) * (pos.y() - a.y()) / (b.y() - a.y()) + a.x())) {
+					is = !is;
+				}
+			}
+			return is;
+		}
+
+
+		public static boolean in_segment(vec2 start, vec2 end, vec2 point, float range) {
+			vec2 vp = new vec2();
+			vec2 line = sub(end,start);
+			float l2 = line.magSq();
+			if (l2 == 0.0) {
+				vp.set(start);
+				return false;
+			}
+			vec2 pv0_line = sub(point, start);
+			float t = pv0_line.dot(line)/l2;
+			pv0_line.normalize();
+			vp.set(line);
+			vp.mult(t);
+			vp.add(start);
+			float d = dist(point, vp);
+			if (t >= 0 && t <= 1 && d <= range) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		///////////////////////////
+		// DISCTANCE
+		/////////////////////////////
+		/**
+		 * 
+		 * @param x1 value x of the first point
+		 * @param y1 value y of the first point
+		 * @param x2 value x of the second point
+		 * @param y2 value y of the second point
+		 * @return float distance beween the two points
+		 */
+		public static float dist(float x1, float y1, float x2, float y2) {
+			float dx = x1 - x2;
+			float dy = y1 - y2;
+			return (float) Math.sqrt(dx*dx + dy*dy);
+		}
+
+		/**
+		 * @param x1 value x of the first point
+		 * @param y1 value y of the first point
+		 * @param z1 value z of the first point
+		 * @param x2 value x of the second point
+		 * @param y2 value y of the second point
+		 * @param z2 value z of the second point
+		 * @return float distance beween the two points
+		 */
+		public static float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
+			float dx = x1 - x2;
+			float dy = y1 - y2;
+			float dz = z1 - z2;
+			return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+		}
+
+		/**
+		 * @param a coordinate of the first point
+		 * @param b coordinate of the second point
+		 * @return float distance beween the two points
+		 */
+		public static float dist(vec2 a, vec2 b) {
+			if(a != null && b != null) {
+				float dx = a.x() - b.x();
+				float dy = a.y() - b.y();
+				return (float) Math.sqrt(dx*dx + dy*dy);
+			} else return Float.NaN ;	
+		}
+
+		/**
+		 * @param a coordinate of the first point
+		 * @param b coordinate of the second point
+		 * @return float distance beween the two points
+		 */
+		public static float dist(vec3 a, vec3 b) {
+			if(a != null && b != null) {
+				float dx = a.x() - b.x();
+				float dy = a.y() - b.y();
+				float dz = a.z() - b.z();
+				return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+			} else return Float.NaN ;
+		}
+
+		/**
+		 * @param a coordinate of the first point
+		 * @param b coordinate of the second point
+		 * @return float distance beween the two points
+		 */
+		public static float dist(vec4 a, vec4 b) {
+			if(a != null && b != null) {
+				float dx = a.x() - b.x();
+				float dy = a.y() - b.y();
+				float dz = a.z() - b.z();
+				float dw = a.w() - b.w();
+				return (float) Math.sqrt(dx*dx + dy*dy + dz*dz + dw*dw);
+			} else return Float.NaN ;
+		}
+
+
+
+
+
+
+
+		//////////////////////////////////
+		// OPERATION
+		///////////////////////////
+
+		// SUB
+		//////////////////////
+
+			/**
+		 * each element add of each vector mult each one in the order
+		 * @param a vector be added
+		 * @param b vector added
+		 * @return result of the operation
+		 */
+		public static vec2 add(vec2 a, vec2 b) {
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() + b.x();
+				float y = a.y() + b.y();
+				return new vec2(x,y);
+			}
+		}
+
+		public static vec3 add(vec3 a, vec3 b) {
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() + b.x();
+				float y = a.y() + b.y();
+				float z = a.z() + b.z();
+				return new vec3(x,y,z);
+			}
+		}
+
+		public static vec4 add(vec4 a, vec4 b) {  
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() + b.x();
+				float y = a.y() + b.y();
+				float z = a.z() + b.z();
+				float w = a.w() + b.w();
+				return new vec4(x,y,z,w);
+			}
+		}
+
+
+			/**
+		 * each element substract of each vector mult each one in the order
+		 * @param a vector target
+		 * @param b vector must be sub
+		 * @return result of the operation
+		 */
+		public static vec2 sub(vec2 a, vec2 b) {
+			if (a == null || b == null) {
+				return null;
+			} else {
+				float x = a.x - b.x;
+				float y = a.y - b.y;
+				return new vec2(x, y);
+			}
+		}
+
+		public static vec3 sub(vec3 a, vec3 b) {
+			if (a == null || b == null) {
+				return null;
+			} else {
+				float x = a.x - b.x;
+				float y = a.y - b.y;
+				float z = a.z - b.z;
+				return new vec3(x, y, z);
+			}
+		}
+
+		public static vec4 sub(vec4 a, vec4 b) {
+			if (a == null || b == null) {
+				return null;
+			} else {
+				float x = a.x - b.x;
+				float y = a.y - b.y;
+				float z = a.z - b.z;
+				float w = a.w - b.w;
+				return new vec4(x, y, z, w);
+			}
+		}
+
+		// MULT
+		//////////
+
+		public static vec2 mult(vec2 a, vec2 b) {
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() * b.x();
+				float y = a.y() * b.y();
+				return new vec2(x,y);
+			}
+		}
+	
+		public static vec3 mult(vec3 a, vec3 b) {
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() * b.x();
+				float y = a.y() * b.y();
+				float z = a.z() * b.z();
+				return new vec3(x,y,z);
+			}
+		}
+	
+		public static vec4 mult(vec4 a, vec4 b) {
+			if(a == null || b == null) {
+				return null ;
+			} else {
+				float x = a.x() * b.x();
+				float y = a.y() * b.y();
+				float z = a.z() * b.z();
+				float w = a.w() * b.w();
+				return new vec4(x,y,z,w);
+			}
+		}
+
+		// DIV
+		//////////////////
+			/**
+	 * 
+	 * @param a vector must be divide by b
+	 * @param b vector must divide a
+	 * @return result of the operation
+	 */
+	public static vec2 div(vec2 a, vec2 b) {
+	  if(a == null || b == null) {
+	    return null;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    return new vec2(x,y);
+	  }
+	}
+
+	public static vec3 div(vec3 a, vec3 b) {
+	  if(a == null || b == null) {
+	    return null;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    float z = a.z() /b.z();
+	    return new vec3(x,y,z);
+	  }
+	}
+
+	public static vec4 div(vec4 a, vec4 b) {
+	  if(a == null || b == null) {
+	    return null ;
+	  } else {
+	    float x = a.x() /b.x();
+	    float y = a.y() /b.y();
+	    float z = a.z() /b.z();
+	    float w = a.w() /b.w();
+	    return new vec4(x,y,z,w);
+	  }
+	}
+
+		/////////////////////////
+		// MAP
+		//////////////////////////
 		/**
 		 * map method
 		 * 
@@ -45,7 +400,9 @@ public class R_Utils {
 			return output;
 		}
 
-
+		//////////////////////////
+		// RANDOM
+		//////////////////////////
 
 		/**
 		 * 
@@ -146,10 +503,18 @@ public class R_Utils {
 			}
 		}
 
+
+
+
+
+		/////////////////////////////////
+		// MIN / MAX
+		////////////////////////////////
+
+
 		private static String ERROR_MIN_MAX = "Cannot use min() or max() on an empty array.";
 
 		public static float max(float... list) {
-			// return PApplet.max(list); // don't do that cause crash
 			if (list.length == 0) {
 				throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
 			}
@@ -162,7 +527,6 @@ public class R_Utils {
 		}
 
 		public static int max(int... list) {
-			// return PApplet.max(list); // don't do that cause crash
 			if (list.length == 0) {
 				throw new ArrayIndexOutOfBoundsException(ERROR_MIN_MAX);
 			}

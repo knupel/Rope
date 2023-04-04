@@ -3,6 +3,11 @@
 > Go to Java 17
 > Go to Processing 4.2
 
+
+> R_Rope
+> add function distribution relatited to mathematical curve, power, square root, normal distribution...
+> r_pow(), r_sqrt(), r_cbrt(), r_bell()
+
 > VECTOR
 > remove jitter from all vec
 > add function abs to vec2, vec3, vec3, ivec2, ivec3, ivec4
