@@ -13,7 +13,6 @@ R_Line2D [] line = new R_Line2D[num];
 
 
 void setup() {
-
 	size(400,800);
 	float step_y = height / (num + 1);
 	float step_x = width / (num + 1);

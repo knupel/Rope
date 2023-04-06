@@ -684,7 +684,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         break;
       // case for the abscissa
       case CENTER:
-
         absolute_pos = -1.0f;
         new_bell_pos = random(1);
         resultat = d_bell_raw(new_bell_pos, level);
@@ -704,7 +703,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         break;
       // case for the ordinate
       case SIDE *2:
-        // print_err("SIDE ORDINATE");
         absolute_pos = 1.0f;
         for(int i = 0; i <= level ; i++) {
           absolute_pos *= random(1);
@@ -720,7 +718,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         }
         break;
       case CENTER*2:
-        // print_err("CENTER ORDINATE");
         absolute_pos = 1.0f;
         for(int i = 0; i <= level ; i++) {
           absolute_pos *= random(1);
@@ -823,27 +820,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
     pixies = new R_Pix[num_pixel];
-    if(colour.length > 1) {
-      for(int i = 0 ; i < num_pixel ; i++) {
-        pixies[i] = new R_Pix();
-        vec2 abs = absolute_pos(range_ordinate);
-        if(abs != null) {
-          vec2 pos = this.get_point(abs.x(), abs.y());
+    for(int i = 0 ; i < num_pixel ; i++) {
+      pixies[i] = new R_Pix();
+      vec2 abs = absolute_pos(range_ordinate);
+      if(abs != null) {
+        vec2 pos = this.get_point(abs.x(), abs.y());
+        if(colour.length > 0) {
           int which = floor(random(colour.length));
           set_pixel(pixies[i], pos, colour[which]);
-        }
-      }
-    } else {
-      for(int i = 0 ; i < num_pixel ; i++) {
-        pixies[i] = new R_Pix();
-        vec2 abs = absolute_pos(range_ordinate);
-        if(abs != null) {
-          vec2 pos = this.get_point(abs.x(), abs.y());
-          if(colour.length == 1) {
-            set_pixel(pixies[i], pos, colour[0]);
-          } else {
-            set_pixel(pixies[i], pos, BLACK);
-          }  
+        } else {
+          set_pixel(pixies[i], pos, BLACK);
         }
       }
     }
@@ -857,6 +843,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     }
     p.fill(c);
   }
+
+
 
     /**
    * 

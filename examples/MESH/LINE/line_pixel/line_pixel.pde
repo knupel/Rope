@@ -41,7 +41,7 @@ void draw() {
     c.show_pixels();
     } else {
     a.show_pixels(density_a, r.MAGENTA, r.CYAN); // dynamic
-    b.show_pixels(density_b, thickness_b, r.RED, r.YELLOW); // dynamic
+    b.show_pixels(density_b, thickness_b, r.RED); // dynamic
     c.show_pixels(density_c, thickness_c, r.MAGENTA, r.YELLOW); // dynamic
   }
 }
@@ -61,7 +61,7 @@ void set_lines() {
   // pixel thickness
   b = new R_Line2D(this);
   b.set(width/2,height/2,random(width),random(height));
-  b.set_pixels(density_b, thickness_b, r.RED, r.YELLOW);
+  b.set_pixels(density_b, thickness_b, r.RED);
   // pixel variation on thickness and density
   c = new R_Line2D(this);
   // c.abscissa(r.NORMAL);
