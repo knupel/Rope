@@ -23,7 +23,7 @@ float density_a = 0.3;
 
 float thickness_b = 8.0f;
 float density_b = density_a * thickness_b;
-float thickness_c = thickness_b * 10;
+float thickness_c = thickness_b * 3;
 float density_c = density_b;
 
 void setup() {
@@ -35,7 +35,7 @@ void setup() {
 void draw() {
   background(0);
   stroke(255);
-  if(mousePressed) {
+  if(!mousePressed) {
     a.show_pixels(); // static, before use it, it's necessry to use function set_pixels(float normal_position, int ... colour_arg) 
     b.show_pixels();
     c.show_pixels();
@@ -48,6 +48,7 @@ void draw() {
 
 void keyPressed() {
   if(key == 'n') {
+    println(">>>>>>>> new sort");
     set_lines();
   }
 }
@@ -63,8 +64,9 @@ void set_lines() {
   b.set_pixels(density_b, thickness_b, r.RED, r.YELLOW);
   // pixel variation on thickness and density
   c = new R_Line2D(this);
-  // c.abscissa(r.LINEAR);
-  c.abscissa(r.SIDE, 1); 
+  // c.abscissa(r.NORMAL);
+  c.abscissa(r.CENTER, 3);
+  // c.abscissa(r.SIDE, 3);
   c.ordinate(r.CENTER, 1);
   c.set(width/2,height/2,random(width),random(height));
   c.set_pixels(density_c, thickness_c, r.MAGENTA, r.YELLOW);

@@ -6,7 +6,7 @@
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.5
+	* v 1.1.6
 	* Processing 4.2
 	* @author @knupel
 	* @see https://github.com/knupel/rope
@@ -158,7 +158,7 @@ public interface R_Constants {
   static final int DIAMETER = 3; // processing value
 
 	static final int CENTER  = 3; // processing value
-	static final int SIDE  = 4;
+	static final int SIDE  = 9;
 
 
 

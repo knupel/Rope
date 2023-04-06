@@ -639,8 +639,8 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   /////////////////////////////////
   // PIXEL
   /////////////////////////////////
-  private int type_abscissa = LINEAR;
-  private int type_ordinate = LINEAR;
+  private int type_abscissa = NORMAL;
+  private int type_ordinate = NORMAL;
   private int level_abscissa = 1;
   private int level_ordinate = 1;
   /**
@@ -648,11 +648,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param type value to set the random on abscissa
    */
   public void abscissa(int type) {
-    this.type_abscissa = type_abscissa;
+    this.type_abscissa = type;
   }
 
   public void abscissa(int type, int level) {
-    this.type_abscissa = type;
+    this.abscissa(type);
     this.level_abscissa = abs(level);
   }
   /**
@@ -660,56 +660,145 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @param type value to set the random on abscissa
    */
   public void ordinate(int type) {
+    if(type == CENTER || type == SIDE) {
+      type *= 2;
+    }
     this.type_ordinate = type;
   }
 
   public void ordinate(int type, int level) {
-    this.type_ordinate = type;
+    this.ordinate(type);
     this.level_ordinate = abs(level);
   }
 
   private float get_distribution(int type, int level) {
-    float value = 0; 
+    float absolute_pos = 0;
+    float new_bell_pos = 0;
+    float resultat = 0;
+    float is = 0;
+    float bell_detection = 0.18f;
+
     switch(type) {
-      case LINEAR:
-        value = random(1);
+      case NORMAL:
+        absolute_pos = random(1);
         break;
+      // case for the abscissa
       case CENTER:
-        value = 1.0f;
-        for(int i = 0; i <= level ; i++) {
-          value *= random(1);
+
+        absolute_pos = -1.0f;
+        new_bell_pos = random(1);
+        resultat = d_bell_raw(new_bell_pos, level);
+        is = random(bell_detection);  // 0.6 not nice
+        if(resultat > is) {
+          absolute_pos = new_bell_pos;
         }
-        if(random(1) < 0.5) {
-          value *= -1;
-        }
-        value = map(value, -1, 1, 0, 1);
         break;
       case SIDE:
-        value = 1.0f;
+        absolute_pos = -1.0f;
+        new_bell_pos = random(1);
+        resultat = d_bell_raw(new_bell_pos, level);
+        is = random(bell_detection); // 0.18 nice
+        if(resultat < is) {
+          absolute_pos = new_bell_pos;
+        }
+        break;
+      // case for the ordinate
+      case SIDE *2:
+        // print_err("SIDE ORDINATE");
+        absolute_pos = 1.0f;
         for(int i = 0; i <= level ; i++) {
-          value *= random(1);
+          absolute_pos *= random(1);
         }
         if(random(1) < 0.5) {
-          value *= -1;
+          absolute_pos *= -1;
         }
 
-        if(value < 0) {
-          value = map(value, -1, 0, 0.5f, 0);
+        if(absolute_pos < 0) {
+          absolute_pos = map(absolute_pos, -1, 0, 0.5f, 0);
         } else {
-          value = map(value, 0, 1, 1, 0.5f);
+          absolute_pos = map(absolute_pos, 0, 1, 1, 0.5f);
         }
         break;
+      case CENTER*2:
+        // print_err("CENTER ORDINATE");
+        absolute_pos = 1.0f;
+        for(int i = 0; i <= level ; i++) {
+          absolute_pos *= random(1);
+        }
+        if(random(1) < 0.5) {
+          absolute_pos *= -1;
+        }
+        absolute_pos = map(absolute_pos, -1, 1, 0, 1);
+        break;
       default:
-        value = random(1);
+        absolute_pos = random(1);
         break;
     }
-    return value;
+    return absolute_pos;
   }
+
+
+  private float d_bell_raw(float value, int level) {
+    float variance = 5;
+    switch (level) {
+      case 1: 
+        variance = 7.0f;
+        break;
+      case 2: 
+        variance = 6.0f;
+        break;
+      case 3: 
+        variance = 5.0f;
+        break;
+      case 4: 
+        variance = 4.0f;
+        break;
+      case 5: 
+        variance = 3.0f;
+        break;
+      case 6: 
+        variance = 2.0f;
+      case 7: 
+        variance = 1.5f;
+      case 8: 
+        variance = 1.0f;
+      case 9: 
+        variance = 0.75f;
+        break;
+      case 10: 
+        variance = 0.5f;
+        break;
+      case 11: 
+        variance = 0.3f;
+        break;
+      case 12: 
+        variance = 0.2f;
+        break;
+      case 13: 
+        variance = 0.1f;
+        break;
+      default :
+        variance = 5.0f;
+    }
+    // float variance = map(level, 1f, 5f, 0.05f, 3f);
+    float range = dist(this.a, this.b);
+    float offset = 0;
+    return d_bell(value * range, range, variance, offset);
+  }
+
 
   private vec2 absolute_pos(float range_ordinate) {
     float abscissa = get_distribution(type_abscissa, level_abscissa);
-    float ordinate = map(get_distribution(type_ordinate, level_ordinate), 0,1, -range_ordinate, range_ordinate);
+    if(abscissa < 0) {
+      return null;
+    }
+    float buf_ordinate = get_distribution(type_ordinate, level_ordinate);
+    if(buf_ordinate < 0) {
+      return null;
+    }
+    float ordinate = map(buf_ordinate, 0,1, -range_ordinate, range_ordinate);
     return new vec2(abscissa, ordinate);
+    
   }
 
   /**
@@ -738,16 +827,24 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       for(int i = 0 ; i < num_pixel ; i++) {
         pixies[i] = new R_Pix();
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        int which = floor(random(colour.length));
-        set_pixel(pixies[i], pos, colour[which]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          int which = floor(random(colour.length));
+          set_pixel(pixies[i], pos, colour[which]);
+        }
       }
     } else {
       for(int i = 0 ; i < num_pixel ; i++) {
         pixies[i] = new R_Pix();
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        set_pixel(pixies[i], pos, colour[0]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          if(colour.length == 1) {
+            set_pixel(pixies[i], pos, colour[0]);
+          } else {
+            set_pixel(pixies[i], pos, BLACK);
+          }  
+        }
       }
     }
   }
@@ -841,16 +938,20 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       for(int i = 0 ; i < num_pixel ; i++) {
         int which = floor(random(colour.length));
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        plot(pos,colour[which]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          plot(pos,colour[which]);
+        }
       }
       updatePixels();
     } else {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        plot(pos,colour[0]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          plot(pos,colour[0]);
+        }
       }
       updatePixels();
     }
@@ -882,16 +983,20 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       for(int i = 0 ; i < num_pixel ; i++) {
         int which = floor(random(colour.length));
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        plot_x2(pos,colour[which]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          plot_x2(pos,colour[which]);
+        }
       }
       updatePixels();
     } else {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
         vec2 abs = absolute_pos(range_ordinate);
-        vec2 pos = this.get_point(abs.x(), abs.y());
-        plot(pos,colour[0]);
+        if(abs != null) {
+          vec2 pos = this.get_point(abs.x(), abs.y());
+          plot(pos,colour[0]);
+        }
       }
       updatePixels();
     }

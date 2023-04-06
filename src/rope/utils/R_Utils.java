@@ -25,7 +25,7 @@ public class R_Utils {
 		// where d is for distribution
 		/////////////////////////////
 
-		public static float d_pow(float value, float power, float threshold) {
+		public static float d_pow(float value, float threshold, float power) {
 			return (float)Math.pow(value, power) / (float)Math.pow(threshold, power);
 		}
 
@@ -39,9 +39,8 @@ public class R_Utils {
 			return (float)ret;
 		}
 
-		public static float d_normal(float value, float variance, float offset, float threshold) {
-			float range = 5.0f;
-			range = threshold * 0.01f;
+		public static float d_normal(float value,  float threshold, float variance, float offset) {
+			float range = 5.0f; // this range is link to exponential exp() ?
 			offset *= 0.02f;
 			float mx = map(value, 0, threshold, -range, range);
 			double sigma = Math.sqrt(variance);
@@ -52,6 +51,23 @@ public class R_Utils {
 			return (float)ret;
 		}
 
+		public static float d_sin(float value, float threshold, float ratio) {
+			value /= threshold;
+			return map((float)Math.sin(value / ratio * 3 * Math.PI), -1, 1, 0, 1); 
+		}
+
+		public static float d_cos(float value, float threshold, float ratio) {
+			value /= threshold;
+			return map((float)Math.cos(value / ratio * 3 * Math.PI), -1, 1, 0, 1); 
+		}
+
+
+		public static float d_sigmoid(float value, float threshold, float variance) {
+			float range = 5.0f; // this range is ling to exponential exp() ?
+			value = map(value, 0,threshold, -range, range);
+			double ret =  variance / (variance + Math.exp(-value));
+			return (float)ret;
+		}
 		///////////////////////////////
 		// DETECTION
 		///////////////////////////

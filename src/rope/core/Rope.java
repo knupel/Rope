@@ -87,8 +87,8 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	// DISTRIBUTION
 	/////////////////////////////
 
-	public float d_pow(float value, float power, float threshold) {
-		return Ru.d_pow(value, power, threshold);
+	public float d_pow(float value, float threshold, float power) {
+		return Ru.d_pow(value, threshold, power);
 	}
 
 	public float d_sqrt(float value, float threshold) {
@@ -101,20 +101,52 @@ public class Rope implements R_Constants, R_Constants_Colour {
 
 	/**
 	 * 
+	 * @param value
+	 * @param threshold
+	 * @param ratio good value from 0 to 2
+	 * @return
+	 */
+	public float d_sin(float value, float threshold, float ratio) {
+		return Ru.d_sin(value, threshold, ratio);
+	}
+
+		/**
+	 * 
+	 * @param value
+	 * @param threshold
+	 * @param ratio good value from 0 to 2
+	 * @return
+	 */
+	public float d_cos(float value, float threshold, float ratio) {
+		return Ru.d_cos(value, threshold, ratio);
+	}
+
+	/**
+	 * 
 	 * @param value in the range of threshold
 	 * @param variance usualy from 0 to 10 
 	 * @param offset the value can be negative and she relative to the threshold
 	 * @param threshold this value is used to calculate the normal value
 	 * @return
 	 */
-	public float d_bell(float value, float variance, float offset, float threshold) {
-		return Ru.d_normal(value, variance, offset, threshold);
+	public float d_bell(float value, float threshold, float variance, float offset) {
+		return Ru.d_normal(value, threshold, variance, offset);
 	}
 
-	public float d_normal(float value, float variance, float offset, float threshold) {
-		return Ru.d_normal(value, variance, offset, threshold);
+	public float d_normal(float value, float threshold, float variance, float offset) {
+		return Ru.d_normal(value, threshold, variance, offset);
 	}
 
+	/**
+	 * 
+	 * @param value
+	 * @param threshold
+	 * @param variance value from 0.000001 to more, but the value between 0 to 1 is important. 1 is a average value.
+	 * @return
+	 */
+	public float d_sigmoid(float value, float threshold, float variance) {
+		return Ru.d_sigmoid(value, threshold, variance);
+	}
 
 	////////////////////////
 	// OPERATION
