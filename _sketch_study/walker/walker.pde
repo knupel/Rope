@@ -34,7 +34,8 @@ void jitter(ArrayList<PVector>points, float radius) {
     // rad = prng.random() * radius;
     //angle = prng.random() * ( 2 * PI );
     rad = random(-1,1) * radius;
-    angle = random(-1,1) * (2 * PI);
+    // angle = random(-1,1) * (2 * PI);
+    angle = random(-PI,PI);
     p.x += rad * cos(angle);
     p.y += rad * sin(angle);
   }

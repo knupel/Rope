@@ -822,7 +822,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   // WALKER 
 ////////////////////////
 
-  private void growth(int level) {
+  public void growth(int level, int step) {
     if(level < 1) {
       return;
     }
@@ -835,29 +835,35 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       R_Pix [] buf = new R_Pix[level];
       buf[0] = p;
       for(int i = 1 ; i < level ; i++) {
-        float angle = random(0,TAU);
+        float angle = random(-PI,PI);
         float dx = sin(angle);
         float dy = cos(angle);
+        // print_err("ang", angle, dx, dy);
+        // float dist = random(-1,1) * 2;
+        float dist = step;
         int prev = i - 1;
-        float x = buf[prev].x() + dx;
-        float y = buf[prev].y() + dy;
-        buf[i].pos(x,y);
-        // all the growth keep the color of the root pix
-        buf[i].fill(p.fill());
+        float x = buf[prev].x() + (dx * dist);
+        float y = buf[prev].y() + (dy * dist);
+        buf[i] = new R_Pix();
+        set_pixel_impl(buf[i], new vec2(x,y), p.fill());
         pixies_growth.add(buf[i]);
       }
     }
   }
 
   private void set_pixel(vec2 pos, int c) {
-    R_Pix p = new R_Pix();
+    R_Pix pix = new R_Pix();
+    set_pixel_impl(pix, pos, c);
+    pixies.add(pix);
+  }
+
+  private void set_pixel_impl(R_Pix p, vec2 pos, int c) {
     if(this.other != null) {
-      p.set_entry((int)pos.x(),(int)pos.y(), this.other.width, this.other.height);
+      p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
     } else {
-      p.set_entry((int)pos.x(),(int)pos.y(), pa.g.width, pa.g.height);
+      p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
     }
     p.fill(c);
-    pixies.add(p);
   }
 
 
@@ -894,23 +900,38 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     line(a.xy(),b.xy());
     reset();
   }
-  
+
   public void show_pixels() {
+    show_pixels_impl(pixies);
+    if(pixies_growth != null) {
+      show_pixels_impl(pixies_growth);
+    }
+    
+  }
+  
+  private void show_pixels_impl(R_Pixies list) {
     loadPixels();
-    for(int index = 0 ; index < pixies.size(); index++) {
-      int entry = pixies.get(index).get_entry();
-      int c = pixies.get(index).fill();
+    for(int index = 0 ; index < list.size(); index++) {
+      int entry = list.get(index).get_entry();
+      int c = list.get(index).fill();
       plot(entry,c);
     }
     updatePixels();
   }
 
   public void show_pixels_x2() {
+    show_pixels_x2_impl(pixies);
+    if(pixies_growth != null) {
+      show_pixels_x2_impl(pixies_growth);
+    }
+  }
+
+  private void show_pixels_x2_impl(R_Pixies list) {
     loadPixels();
-    for(int index = 0 ; index < pixies.size(); index++) {
-      int x = (int)pixies.get(index).x();
-      int y = (int)pixies.get(index).y();
-      int c = pixies.get(index).fill();
+    for(int index = 0 ; index < list.size(); index++) {
+      int x = (int)list.get(index).x();
+      int y = (int)list.get(index).y();
+      int c = list.get(index).fill();
       plot_x2(x,y,c);
     }
     updatePixels();
@@ -943,28 +964,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       }
     }
     updatePixels();
-    // if(colour.length > 1) {
-    //   loadPixels();
-    //   for(int i = 0 ; i < num_pixel ; i++) {
-    //     int which = floor(random(colour.length));
-    //     vec2 abs = absolute_pos(range_ordinate);
-    //     if(abs != null) {
-    //       vec2 pos = this.get_point(abs.x(), abs.y());
-    //       plot(pos,colour[which]);
-    //     }
-    //   }
-    //   updatePixels();
-    // } else {
-    //   loadPixels();
-    //   for(int i = 0 ; i < num_pixel ; i++) {
-    //     vec2 abs = absolute_pos(range_ordinate);
-    //     if(abs != null) {
-    //       vec2 pos = this.get_point(abs.x(), abs.y());
-    //       plot(pos,colour[0]);
-    //     }
-    //   }
-    //   updatePixels();
-    // }
   }
 
   /**
@@ -996,28 +995,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       }
     }
     updatePixels();
-    // if(colour.length > 1) {
-    //   loadPixels();
-    //   for(int i = 0 ; i < num_pixel ; i++) {
-    //     int which = floor(random(colour.length));
-    //     vec2 abs = absolute_pos(range_ordinate);
-    //     if(abs != null) {
-    //       vec2 pos = this.get_point(abs.x(), abs.y());
-    //       plot_x2(pos,colour[which]);
-    //     }
-    //   }
-    //   updatePixels();
-    // } else {
-    //   loadPixels();
-    //   for(int i = 0 ; i < num_pixel ; i++) {
-    //     vec2 abs = absolute_pos(range_ordinate);
-    //     if(abs != null) {
-    //       vec2 pos = this.get_point(abs.x(), abs.y());
-    //       plot_x2(pos,colour[0]);
-    //     }
-    //   }
-    //   updatePixels();
-    // }
   }
 
 
