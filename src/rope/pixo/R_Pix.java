@@ -8,9 +8,9 @@
  * 
 * R_Pix
 * v 0.2.3
-* 2021-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* 2021-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 
 
@@ -113,7 +113,7 @@ public class R_Pix extends Rope {
 
   /**
    * 
-   * @param fill
+   * @param fill set colour of the pixel
    */
 	public void fill(int fill) {
 		this.fill = fill;
@@ -121,7 +121,7 @@ public class R_Pix extends Rope {
 	
 	/**
 	 * 
-	 * @return
+	 * @return colour of the pixel
 	 */
 	public int fill() {
 		return this.fill;

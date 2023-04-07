@@ -8,7 +8,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Graphic class
- * v 0.7.2
+ * v 0.7.3
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -46,9 +46,11 @@ public class R_Graphic extends BigBang {
 	 * @param width is the width of your image
 	 * @return the rank of your pixel coordonate in the array pixel
 	 */
-	public int index_pixel_array(int x, int y, int width) {
-		return (x + y * width);
-	}
+
+	 // Already in Rope class
+	// public int index_pixel_array(int x, int y, int width) {
+	// 	return (x + y * width);
+	// }
   
   /**
    * 

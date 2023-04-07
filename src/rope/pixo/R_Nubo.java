@@ -2,8 +2,8 @@ package rope.pixo;
 import processing.core.PApplet;
 /**
 * R_Nubo
-* v 0.3.0
-* 2021-2021
+* v 0.4.0
+* 2021-2023
 *
 * R_Nubo is a collection of 2D algorithms to distribute point from center with an opening angle.
 *
@@ -64,12 +64,16 @@ public class R_Nubo extends Rope {
 
   /**
    * 
-   * @param iter define the num of iteration of ths cloud, so it's like the size of it.
+   * @param iter define the num of iteration of this cloud, so it's like the size of it.
    * @return this to give the opportunity to make train of function on the same line
    */
   public R_Nubo set_iter(int iter) {
   	this.iter = iter;
     return this;
+  }
+
+  public int get_iter() {
+    return this.iter;
   }
 
 
@@ -398,94 +402,84 @@ public class R_Nubo extends Rope {
 
   	switch(this.algo) {
   		case MAD:
-      pos.add(dx * this.step, dy * this.step);
-			if(ref_pos.dist(pos) > get_dist_max()) {
-      	pos.set(ref_pos);
-      }
-      break;
-
+        pos.add(dx * this.step, dy * this.step);
+        if(ref_pos.dist(pos) > get_dist_max()) {
+          pos.set(ref_pos);
+        }
+        break;
       case CIRCULAR:
-      dist = seg_dist * ratio;
-      pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-      break;
-
+        dist = seg_dist * ratio;
+        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+        break;
       case POLYGON:
-      // we add 3, because the fist polygon is a triangle from the begining to the end of human geometry HiStory... may be
-      int summits = this.mode + 3;
-      float [] summits_ang = new float[summits];
-      float seg_ang = TAU / summits;
-      for(int i = 0 ; i < summits_ang.length ; i++) {
-        summits_ang[i] = seg_ang * i + this.offset_angle;
-      }
-      // where point must be project
-      dist = seg_dist * ratio;
-      int len = summits_ang.length;
-      float ang_stop = 0;
-      for(int i = 0; i < len ; i++) {
-        float ang_start = summits_ang[i];
-        int i2 = i + 1;
-        if(i2 != len) {
-          ang_stop = summits_ang[i2];
-        } else { 
-          ang_stop = TAU + this.offset_angle;
+        // we add 3, because the fist polygon is a triangle from the begining to the end of human geometry HiStory... may be
+        int summits = this.mode + 3;
+        float [] summits_ang = new float[summits];
+        float seg_ang = TAU / summits;
+        for(int i = 0 ; i < summits_ang.length ; i++) {
+          summits_ang[i] = seg_ang * i + this.offset_angle;
         }
-        ang_start += get_start_fov();
-        ang_stop += get_start_fov();
-        if(ang >= ang_start && ang < ang_stop) {
-          polygon_point(dx, dy, dist, ang_start, ang_stop);
-          break;
+        // where point must be project
+        dist = seg_dist * ratio;
+        int len = summits_ang.length;
+        float ang_stop = 0;
+        for(int i = 0; i < len ; i++) {
+          float ang_start = summits_ang[i];
+          int i2 = i + 1;
+          if(i2 != len) {
+            ang_stop = summits_ang[i2];
+          } else { 
+            ang_stop = TAU + this.offset_angle;
+          }
+          ang_start += get_start_fov();
+          ang_stop += get_start_fov();
+          if(ang >= ang_start && ang < ang_stop) {
+            polygon_point(dx, dy, dist, ang_start, ang_stop);
+            break;
+          }
         }
-      }
-      break;
-
+        break;
       case LINE:
-      float ang_line = get_bissector() + this.offset_angle;
-      if(this.mode > 0) {
-        float seg_fov = get_fov() / (this.mode + 1);
-        seg_fov *= ratio;
-        ang_line += seg_fov;
-      }
-      dx = sin(ang_line);
-      dy = cos(ang_line);
-      pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-      break;
-
+        float ang_line = get_bissector() + this.offset_angle;
+        if(this.mode > 0) {
+          float seg_fov = get_fov() / (this.mode + 1);
+          seg_fov *= ratio;
+          ang_line += seg_fov;
+        }
+        dx = sin(ang_line);
+        dy = cos(ang_line);
+        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+        break;
       case SPIRAL:
-      float variance = random(this.iter/this.step, this.iter);
-      float segment_fov = get_fov() / variance;
-      segment_fov *= (this.index * this.step);
-      
-      switch(this.mode) {
-        case 0: 
-        segment_fov = spiral_regular(segment_fov);
+        float variance = random(this.iter/this.step, this.iter);
+        float segment_fov = get_fov() / variance;
+        segment_fov *= this.index; 
+        switch(this.mode) {
+          case 0: 
+            segment_fov = spiral_regular(segment_fov);
+            break;
+          case 1: 
+            segment_fov = spiral_z(segment_fov);
+            break;
+          default:
+            segment_fov = spiral_regular(segment_fov);
+            break;
+        }  
+        segment_fov += this.offset_angle;
+        dx = sin(segment_fov);
+        dy = cos(segment_fov);
+        float buf_dist = get_dist_max();
+        float segment = buf_dist / variance;
+        segment *= this.index;
+        segment /= this.step;
+        pos.set(ref_pos.x() + (dx * segment), ref_pos.y() + (dy * segment));
         break;
-
-        case 1: 
-        segment_fov = spiral_z(segment_fov);
-        break;
-
-        default:
-        segment_fov = spiral_regular(segment_fov);
-        break;
-      }
-      
-      segment_fov += this.offset_angle;
-      dx = sin(segment_fov);
-      dy = cos(segment_fov);
-      float buf_dist = get_dist_max();
-      float segment = buf_dist / variance;
-      segment *= this.index;
-      segment /= this.step;
-      pos.set(ref_pos.x() + (dx * segment), ref_pos.y() + (dy * segment));
-      break;
-
 			case CHAOS:
-      pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-      break;
-
+        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+        break;
       default:
-      pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-      break;
+        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+        break;
   	}
   }
 
@@ -516,7 +510,7 @@ public class R_Nubo extends Rope {
     print_out("POLYGON: mode : 0 > n, where the mode zero is the triangle");
     print_out("LINE: mode : 0 > n, where zero in first line. No step() available for the moment");
     print_out("SPIRAL: mode : 0 > 1");
-    print_out("CHAOS: no mode() for the moment");
+    print_out("CHAOS: no mode() for the moment, don't work well with set_fov()");
   }
 
 
@@ -569,7 +563,9 @@ public class R_Nubo extends Rope {
     float mod = count%div;
     if(mod == 0) {
       in = true; 
-    } else in = false;
+    } else {
+      in = false;
+    }
     if(!in) {
       segment_fov = segment_fov%get_fov();
     }

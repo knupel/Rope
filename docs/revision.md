@@ -63,6 +63,11 @@
 > R_State
 > add function to return the type colorMode
 
+> R_Nubo
+> fix spiral bug when there is too much iterations with step
+
+> R_Pixies new class to manage list of R_Pix
+
 \* version 49
 
 > add class R_FX and remove from the Rope frameWork

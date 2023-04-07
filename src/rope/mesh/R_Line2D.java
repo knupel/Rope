@@ -22,6 +22,7 @@ import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.ivec6;
 import rope.pixo.R_Pix;
+import rope.pixo.R_Pixies;
 
 
 
@@ -33,7 +34,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   protected vec3 ref_a;
   protected vec3 ref_b;
   private boolean mute_is = false;
-  protected R_Pix [] pixies;
+  protected R_Pixies pixies;
   private ivec6 id = new ivec6(Integer.MIN_VALUE);
   
   /**
@@ -453,44 +454,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 
 
 
-
-
-
-  
-  /**
-   * return coordinate of the normal position on the line from the first point
-   * the distance use is calculte with the length of the line.
-   * @param normal_pos is the normal distance from the first point
-   * @return
-   * @deprecated instead use vec2 point(float normal_pos)
-   */
-  // @Deprecated public vec2 coord(float normal_pos) {
-  // 	if(normal_pos >= 0 && normal_pos <= 1) {
-  // 		float dx = (float)Math.cos(angle());
-	// 		float dy = (float)Math.sin(angle());
-	// 		return new vec2(dx,dy).mult(normal_pos*dist()).add(this.a);
-  // 	} else {
-  // 		return null;
-  // 	}
-  // }
-  
-  /**
-   * return coordinate of distance from the first point of the line
-   * @param len is the distance from the first point
-   * @return
-   * @deprecated instead use vec2 point(int len)
-   */
-  // @Deprecated public vec2 coord(int len) {
-  // 	if(len >= 0 && len <= dist()) {
-  // 		float dx = (float)Math.cos(angle());
-	// 		float dy = (float)Math.sin(angle());
-	// 		return new vec2(dx,dy).mult(len).add(this.a);
-  // 	} else {
-  // 		return null;
-  // 	}
-  // }
-
-
   //////////////////////////
   // ID
   ///////////////////////////
@@ -777,7 +740,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       default :
         variance = 5.0f;
     }
-    // float variance = map(level, 1f, 5f, 0.05f, 3f);
     float range = dist(this.a, this.b);
     float offset = 0;
     return d_bell(value * range, range, variance, offset);
@@ -819,29 +781,54 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public void set_pixels(float density, float thickness, int... colour) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
-    pixies = new R_Pix[num_pixel];
+    if(pixies == null) {
+      pixies = new R_Pixies();
+    } else {
+      pixies.clear();
+    }
     for(int i = 0 ; i < num_pixel ; i++) {
-      pixies[i] = new R_Pix();
       vec2 abs = absolute_pos(range_ordinate);
       if(abs != null) {
         vec2 pos = this.get_point(abs.x(), abs.y());
+
+        // pixel_walker(R_Pix p, i, pos, colour); // instead the lines below
+        int c = BLACK;
         if(colour.length > 0) {
           int which = floor(random(colour.length));
-          set_pixel(pixies[i], pos, colour[which]);
-        } else {
-          set_pixel(pixies[i], pos, BLACK);
+          c = colour[which];
         }
+        set_pixel(pos, c);
       }
     }
   }
 
-  private void set_pixel(R_Pix p, vec2 pos, int c) {
+
+  ///////////////////////////////////
+  // WALKER 
+////////////////////////
+
+  // private void pixel_walker(R_Pix p, int index, vec2 pos, int... colour) {
+  //   int level_walker = 1;
+  //   for(int i = 0 ; i < level_walker ; i++) {
+  //       int c = BLACK;
+  //       if(colour.length > 0) {
+  //         int which = floor(random(colour.length));
+  //         c = colour[which];
+  //       }
+  //       set_pixel(pixies[i], pos, c);
+
+  //   }
+  // }
+
+  private void set_pixel(vec2 pos, int c) {
+    R_Pix p = new R_Pix();
     if(this.other != null) {
       p.set_entry((int)pos.x(),(int)pos.y(), this.other.width, this.other.height);
     } else {
       p.set_entry((int)pos.x(),(int)pos.y(), pa.g.width, pa.g.height);
     }
     p.fill(c);
+    pixies.add(p);
   }
 
 
@@ -851,11 +838,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * @return the array of pixels a long the line if it's possible.
    */
   public R_Pix [] get_pixels() {
-    return this.pixies;
+    return this.pixies.array();
   }
 
   public boolean pixels_is() {
-    if(this.pixies == null) {
+    if(this.pixies == null || this.pixies.size() == 0) {
       return false;
     }
     return true;
@@ -879,24 +866,22 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     reset();
   }
   
-
   public void show_pixels() {
     loadPixels();
-    for(int index = 0 ; index < pixies.length; index++) {
-      int entry = pixies[index].get_entry();
-      int c = pixies[index].fill();
+    for(int index = 0 ; index < pixies.size(); index++) {
+      int entry = pixies.get(index).get_entry();
+      int c = pixies.get(index).fill();
       plot(entry,c);
     }
     updatePixels();
   }
 
-
   public void show_pixels_x2() {
     loadPixels();
-    for(int index = 0 ; index < pixies.length; index++) {
-      int x = (int)pixies[index].x();
-      int y = (int)pixies[index].y();
-      int c = pixies[index].fill();
+    for(int index = 0 ; index < pixies.size(); index++) {
+      int x = (int)pixies.get(index).x();
+      int y = (int)pixies.get(index).y();
+      int c = pixies.get(index).fill();
       plot_x2(x,y,c);
     }
     updatePixels();
@@ -1084,16 +1069,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
 
   /**
    * 
-   * @return
+   * @return copy of herself
    */
   public R_Line2D copy() {
     R_Line2D line = new R_Line2D(this.pa);
     line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
     line.mute(this.mute_is());
-    if(pixies != null && pixies.length > 0) {
-      line.pixies = new R_Pix[pixies.length];
-      for(int i = 0 ; i < pixies.length ; i++) {
-        line.pixies[i] = pixies[i];
+    if(pixies != null && pixies.size() > 0) {
+      line.pixies = new R_Pixies();
+      for(R_Pix pix : pixies.get()) {
+        line.pixies.add(pix);
       }
     }
     return line;
