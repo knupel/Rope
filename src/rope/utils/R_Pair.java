@@ -4,8 +4,8 @@ package rope.utils;
 // import org.apache.commons.lang.SerializationUtils;
 /**
  * 
- * Class R_Pair to store quicly a couple objects
- * v 0.0.2
+ * Class R_Pair to store quickly a couple objects
+ * v 0.0.3
  * 
 
  */
@@ -14,6 +14,8 @@ package rope.utils;
 public class R_Pair<A,B>  {
 	private A a;
 	private B b;
+
+	public R_Pair() {}
 	
 	public R_Pair(A a, B b) {
 		this.a = a;

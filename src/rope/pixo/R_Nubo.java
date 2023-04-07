@@ -393,6 +393,7 @@ public class R_Nubo extends Rope {
   }
 
   private void update_pattern() {
+    // focus is a random value
     float ang = get_focus().get_angle() + this.offset_angle;
     float dx = sin(ang);
 		float dy = cos(ang);

@@ -25,21 +25,21 @@ void setup() {
 	// open angle
 	float angle_start = -PI;
 	float angle_stop = PI;
-	nuage.set_fov(angle_start, angle_stop);
+	// nuage.set_fov(angle_start, angle_stop);
 
 	// projection
-	float dist_min = 20; // work with Chaos for the other the value stay 0
-	float dist_max = 100;
+	float dist_min = 0; // work with Chaos for the other the value stay 0
+	float dist_max = 10;
 	nuage.set_field(dist_min, dist_max);
 
 	// type of algorithm for the rendering
-	int type = r.SPIRAL; // MAD, CHAOS, SPIRAL, LINE, POLYGON
+	int type = r.MAD; // MAD, CHAOS, SPIRAL, LINE, POLYGON
 	nuage.set_algo(type);
-	nuage.set_step(4);
+	nuage.set_step(2);
 	nuage.set_mode(1);
 
 	// iteration or num of point
-	int num = 400;
+	int num = 50;
 	nuage.set_iter(num);
 	nuage.info();
 }
