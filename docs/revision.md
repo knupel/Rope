@@ -6,7 +6,7 @@
 
 > R_Rope
 > add function distribution relatited to mathematical curve, power, square root, normal distribution...
-> r_pow(), r_sqrt(), r_cbrt(), r_bell()
+> `r_pow()`, `r_sqrt()`, `r_cbrt()`, `r_bell()`
 
 > VECTOR
 > remove jitter from all vec
@@ -14,48 +14,54 @@
 
 > R_Impact
 > add polygon to show the peripheric polygon and display on all the window.
-> add function to create gradient, for thickness, fill and stroke use_gradient_fill(), use_gradient_stroke(), use_gradient_thivkness()
-> add function boolean build_is() to check is OBject is build or not
-> add function heart_is(), heart_is(boolean is)
-> remove set_heart(int level);
-> add function to set approximativ diameter set_diam(int value)
-> add function to get the diameter value diam()
+> add function to create gradient, for thickness, fill and stroke `use_gradient_fill()`, `use_gradient_stroke()`, `use_gradient_thivkness()`
+> add function `boolean build_is()` to check is Onject is build or not
+> add function `heart_is()`, `heart_is(boolean is)`
+> remove `set_heart(int level)`
+> add function to set approximativ diameter `set_diam(int value)`
+> add function to get the diameter value `diam()`
 > @Deprecated constructor without position and diameter
-> add function to set the growth range between the node of the main and the repartition of the circle. set_growth_main() and set_growth_circle()
-> add function update_pixels(boolean is);
+> add function to set the growth range between the node of the main and the repartition of the circle. `set_growth_main()` and `set_growth_circle()`
+> add function `update_pixels(boolean is)`
 > refactoring all pixels system to concate with line algorithme to have only one engine to manage all the line
-> add function use_gradient(boolean is) to disable or enable it
+> add function `use_gradient(boolean is)` to disable or enable it
 
 > R_Graphic
-> add function stroke_is(), fill_is() to set if stroke(), strokeWeight() and fill() is active
-> add function clear() from Processing
+> add function `stroke_is()`, `fill_is()` to set if `stroke()`, `strokeWeight()` and `fill()` is active
+> add function `clear()` from Processing
 
 > R_Line2D
 > comment depracated function()
-> point() function become get_point() to avoid confusion with Mother function point() + protected it
-> add function get_point(float normal_abscissa, float normal_ordinate) to create a project in the ordinate from the line
-> add function show_pixels(float density, float thickness, int... colour) and show_pixels_x2(float density, float thickness, int... colour) to create a thickness option to pixel line
-> add function set_pixels(float density, float thickness, int.. colour) to create a thickness option to pixel line
+> point() function become `get_point()` to avoid confusion with Mother function point() + protected it
+> add function `get_point(float normal_abscissa, float normal_ordinate)` to create a project in the ordinate from the line
+> add function `show_pixels(float density, float thickness, int... colour)` and `show_pixels_x2(float density, float thickness, int... colour)` to create a thickness option to pixel line
+> add function `set_pixels(float density, float thickness, int.. colour)` to create a thickness option to pixel line
+
+> ivec
+> add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false
+
+> vec
+> add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false
 
 
 
 > R_SVG
-> remove the calling function jitter(), instead use random_next_gaussian() function
+> remove the calling function `jitter()`, instead use random_next_gaussian() function
 
 
 > R_Shape
-> add function length() thant return the num of summits like get_summits()
+> add function `length()` thant return the num of summits like `get_summits()`
 
 > R_Rope
-> improve function in_polygon() for the marge detection, now the detection is divide on 3 results : out, border and in polygon
+> improve function `in_polygon()` for the marge detection, now the detection is divide on 3 results : out, border and in polygon
 
 
 > R_Colour
 > remove deprecated function()
-> add function get_master(String palette_name) return the average of all colours of the palette.
-> add function create(String name, PImage img, int num); create a random palette from images picking
-> add function get_names() return the list name of palette
-> improve function rand(String name) to rand(String ... name) to sort color from list of palette name
+> add function `get_master(String palette_name)` return the average of all colours of the palette.
+> add function `create(String name, PImage img, int num);` create a random palette from images picking
+> add function `get_names()` return the list name of palette
+> improve function `rand(String name)` to `rand(String ... name)` to sort color from list of palette name
 
 > R_Image
 > add simple constructor
@@ -67,6 +73,11 @@
 > fix spiral bug when there is too much iterations with step
 
 > R_Pixies new class to manage list of R_Pix
+
+> BigBang
+> now BigBang is a classic Class, not abscract
+> add function to `save_frame()` `save_PDF()` `save_BMP()`, `save_JPG()`, `save_PNG()`
+> add function `sketchPath(int rank)`
 
 \* version 49
 
@@ -132,6 +143,7 @@
 
 > R_Graphic
 > add Processing function circle() basic, plus refactoring to accet vec parameter
+
 
 
 

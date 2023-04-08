@@ -7,11 +7,11 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * vec class
-* v 2.2.1
-* 2015-2022
+* v 2.2.2
+* 2015-2023
 * Vector class with a float precision
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.vector;
 import rope.core.R_Constants;
@@ -99,6 +99,22 @@ public abstract class vec implements R_Constants {
       float array [] = {x,y,z,w,e,f};
       return array;
     } else return null ;
+  }
+
+
+
+  public boolean equals() {
+    float buf [] = this.array();
+    for(int i = 1 ; i < buf.length ; i++) {
+      if(buf[i-1] != buf[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean all() {
+    return this.equals();
   }
 
 

@@ -20,16 +20,18 @@ void setup() {
 	set_impact();
 	imp.build();
 	imp.set_density(0.7);
+	imp.set_thickness(4);
 	imp.set_stroke(r.MAGENTA);
+	// imp.stroke_is(true); // need to enable for the classic Line rendering
 }
 
 void draw() {
 	background(r.BLACK);
-	imp.update_pixels(mousePressed);
+	// imp.update_pixels(mousePressed);
 	if(mousePressed) {
 		imp.set_density(map(sin(frameCount * 0.03), -1, 1, 0.1, 0.6));
 	}
-	imp.set_line_mode(1);
+	imp.set_line_mode(1); // 0 is classic one, 1 and 2 is for pixel x1 and x2
 	imp.show_lines();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
@@ -59,6 +61,6 @@ void set_impact() {
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES
-	imp.set_num_circle(20); // num of branch circle start from the main branch
+	imp.set_num_circle(10); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 }

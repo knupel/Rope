@@ -70,8 +70,11 @@ public class R_Impact extends R_Graphic {
 	private int line_mode = 0; // default is continuous line
 	// update for refresh case
 	private int next_frameCount = 0;
+	// pixel parl
 	private boolean update_pixels_is = false;
 	private boolean set_gradient_pixels_is = false;
+	private ivec2 level_growth_pixel = new ivec2();
+	private ivec2 step_growth_pixel = new ivec2();
 
 	// density
 	private boolean use_gradient_density_is = false;
@@ -1756,6 +1759,12 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+
+
+
+
+
+
 	// ASPECT
 	/////////////
 	/**
@@ -2211,8 +2220,6 @@ public class R_Impact extends R_Graphic {
 
 
 	private void mode_line_show(R_Line2D line) {
-
-
 		int mode = get_line_mode();
 		if(update_pixels_is() && mode > 0) {
 			mode += 10;
@@ -2239,6 +2246,7 @@ public class R_Impact extends R_Graphic {
 
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
+			growth_impl(line);
 		}
 
 		if(pa.frameCount == next_frameCount) {
@@ -2264,14 +2272,14 @@ public class R_Impact extends R_Graphic {
 			case 0:
 				line.show();
 				break;
-			// dynamic pixel mode
+			// dynamic pixel mode >>> something strange because this mode must be STATIC ????
 			case 1:
 				line.show_pixels();
 				break;
 			case 2:
 				line.show_pixels_x2();
 				break;
-			// static pixel mode
+			// static pixel mode >>> something strange because this mode must be DYNAMIC ????
 			case 11:
 				line.show_pixels(normal_abscissa, normal_ordonate, pix_colour);
 				break;
@@ -2283,6 +2291,40 @@ public class R_Impact extends R_Graphic {
 				break;
 		}
 	}
+
+	public void set_pixel_growth(int level, int step) {
+		level_growth_pixel.set(level);
+		step_growth_pixel.set(step);
+	}
+
+	public void set_pixel_growth(int level_min, int level_max, int step_min, int step_max) {
+		level_growth_pixel.set(level_min, level_max);
+		step_growth_pixel.set(step_min, step_max);
+	}
+
+	private void growth_impl(R_Line2D line) {
+		int level = 0;
+		int step = 0;
+		if(level_growth_pixel.equals()) {
+			level = level_growth_pixel.x();
+		} else {
+			level = round(random(level_growth_pixel.x(),level_growth_pixel.y()));
+		}
+
+		if(step_growth_pixel.equals()) {
+			step = step_growth_pixel.x();
+		} else {
+			step = round(random(step_growth_pixel.x(),step_growth_pixel.y()));
+		}
+		if(all(level != 0, step != 0)) {
+			line.growth(level, step);
+			return;
+		}
+		print_err("pas de growth aujourd'hui");
+	}
+
+
+
 
 
 

@@ -13,7 +13,7 @@
  * BIG BANG ROPE
  * is the main class of library
  * 2018-2023
- * v 2.0.3
+ * v 2.1.0
  * 
  * WARNING : Here it's PROCESSING BIG BANG
  * BigBang is used to acces directly to Processing method, to keep Rope with only Java Stuff
@@ -28,15 +28,33 @@ import rope.utils.R_State.State;
 
 import java.awt.Font; 
 import java.awt.image.BufferedImage ;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.File;
+
+
+import java.io.FileOutputStream;
+
+// import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import javax.imageio.ImageWriter;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.ImageIO;
+import javax.imageio.IIOImage;
+import java.util.Iterator;
+
+import java.awt.Graphics;
 import java.awt.FontMetrics;
 
 
-public abstract class BigBang extends Rope {
+
+
+public class BigBang extends Rope {
+// public abstract class BigBang extends Rope {
 	public PApplet pa;
-	
-	// public BigBang() {
-	// }
-	
+
 
 	public BigBang(PApplet pa) {
 		if(pa == null) {
@@ -76,20 +94,6 @@ public abstract class BigBang extends Rope {
 	 */
 	public float [] getColorMode(boolean print_info_is) {
 		return getColorMode(this.pa.g, print_info_is);
-		// float colorMode = this.pa.g.colorMode;
-		// float x = this.pa.g.colorModeX;
-		// float y = this.pa.g.colorModeY;
-		// float z = this.pa.g.colorModeZ;
-		// float a = this.pa.g.colorModeA;
-		// float array[] = {colorMode,x,y,z,a};
-		// if (print_info_is && this.pa.g.colorMode == HSB) {
-		// 	String mess = "HSB: "+x+", "+y+", "+z+", "+a;
-		// 	System.out.println(mess);
-		// } else if(print_info_is && this.pa.g.colorMode == RGB) {
-		// 	String mess = "RGB: "+x+", "+y+", "+z+", "+a;
-		// 	System.out.println(mess);
-		// }
-		// return array;
 	}
 
 	public float [] getColorMode() {
@@ -407,5 +411,201 @@ public abstract class BigBang extends Rope {
 		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		FontMetrics fm = img.getGraphics().getFontMetrics(font);
 		return fm.charWidth(target);
+	}
+
+
+
+
+	public String sketchPath(int minus) {
+		minus = abs(minus);
+		String [] element = split(sketchPath(),"/");
+		String new_path ="" ;
+		if(minus < element.length ) {
+			for(int i = 0 ; i < element.length -minus ; i++) {
+				new_path +="/";
+				new_path +=element[i];
+			}
+			return new_path; 
+		} else {
+			print_err("The number of path elements is lower that elements must be remove, instead a data folder is used");
+			return sketchPath()+"/data";
+		}  
+	}
+
+
+	public String sketchPath() {
+		return this.pa.sketchPath();
+	}
+
+
+	// SAVE FILE and IMAGE
+	//////////////////////
+
+	/**
+	* Save Frame
+	*/
+	public void save_frame(String where, String filename, PImage img) {
+		float compression = 1.0f;
+		save_frame(where, filename, compression, img);
+	}
+
+	public void save_frame(String where, String filename) {
+		float compression = 1.0f ;
+		save_frame(where, filename, compression, this.pa.g);
+	}
+
+	public void save_frame(String where, String filename, float compression) {
+		save_frame(where, filename, compression, this.pa.g);
+	}
+
+	public void save_frame(String where, String filename, float compression, PImage img) {
+		// check if the directory or folder exist, if it's not create the path
+		File dir = new File(where);
+		dir.mkdir() ;
+		// final path with file name adding
+		String path = where+"/"+filename;
+		try {
+			OutputStream os = new FileOutputStream(new File(path));
+			BufferedImage buff_img;
+			if(img == null) {
+			} else {
+				img.loadPixels(); 
+				buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
+				buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
+				print_err("save_frame():",filename, "is saved");
+
+				if(extension_is(path, "bmp")) {
+					save_BMP(os, buff_img);
+				} else if(extension_is(path, "jpg", "jpeg")) {
+					save_JPG(os, compression, buff_img);
+				} else {
+					print_err("save_frame(): no save match with this path "+path);
+				}
+			} 
+		} catch (FileNotFoundException e) {
+			print_err("fail to save", e);
+			print_err("save_frame(): Maybe too much folders need to be create only one more is possible");
+		}
+	}
+
+	/**
+	* SAVE PNG
+	*/
+	boolean record_PNG;
+	void save_PNG() {
+		save_PNG("data", "shot_"+ranking_shot);
+	}
+
+	void save_PNG(String path, String name_file) {
+		if(record_PNG) {
+			this.pa.saveFrame(path + "/" + name_file + ".png");
+			record_PNG = false;
+		}
+	}
+
+	void event_PNG() {
+		record_PNG = true;
+	}
+	/**
+	SAVE JPG
+	v 0.0.1
+	*/
+	// classic one
+	boolean save_JPG(OutputStream output, float compression,  BufferedImage buff_img) {
+		compression = truncate(compression, 1);
+		if(compression < 0) compression = 0.0f;
+		else if(compression > 1) compression = 1.0f;
+
+		try {
+			ImageWriter writer = null;
+			ImageWriteParam param = null;
+			IIOMetadata metadata = null;
+
+			if ((writer = image_io_writer("jpeg")) != null) {
+				param = writer.getDefaultWriteParam();
+				param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+				param.setCompressionQuality(compression);
+
+				writer.setOutput(ImageIO.createImageOutputStream(output));
+				writer.write(metadata, new IIOImage(buff_img, null, metadata), param);
+				writer.dispose();
+				output.flush();
+				javax.imageio.ImageIO.write(buff_img, "jpg", output);
+			}
+			return true;
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	ImageWriter image_io_writer(String extension) {
+		// code from Processing PImage.java
+		Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName(extension);
+		if (iter.hasNext()) {
+			return iter.next();
+		}
+		return null;
+	}
+	/**
+	SAVE BMP
+	v 0.3.0.1
+	*/
+	// SAVE
+	public boolean save_BMP(OutputStream output, BufferedImage buff_img) {
+		try {
+			Graphics g = buff_img.getGraphics();
+			g.dispose();
+			output.flush();
+			
+			ImageIO.write(buff_img, "bmp", output);
+			return true;
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	private String ranking_shot = "_######" ;
+// PDF
+	boolean record_PDF;
+	public void start_PDF() {
+		start_PDF(null,null) ;
+	}
+
+	public void start_PDF(String name_file) {
+		start_PDF(null, name_file) ;
+	}
+
+	public void start_PDF(String path_folder, String name_file) {
+		if(path_folder == null) path_folder = "pdf_folder";
+		if(name_file == null) name_file = "pdf_file_"+ranking_shot;
+
+		if (record_PDF && !record_PNG) {
+			if(get_renderer() == "P3D") {
+				this.pa.beginRaw(PDF, path_folder+"/"+name_file+".pdf"); 
+			} else {
+				this.pa.beginRecord(PDF, path_folder+"/"+name_file+".pdf");
+			}
+		}
+	}
+
+	void save_PDF() {
+		if (record_PDF && !record_PNG) {
+			if(get_renderer() == "P3D") {
+				this.pa.endRaw(); 
+			} else {
+				this.pa.endRecord() ;
+			}
+			print_err("PDF");
+			record_PDF = false;
+		}
+	}
+
+	void event_PDF() {
+		record_PDF = true;
 	}
 }

@@ -1,10 +1,10 @@
 /**
 * ivec class
-* v 2.1.1
-* 2015-2022
+* v 2.1.2
+* 2015-2023
 * Vector with a integer precision
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.vector;
 import rope.core.R_Constants;
@@ -91,6 +91,20 @@ public abstract class ivec implements R_Constants {
     } else return null ;
   }
 
+  public boolean equals() {
+    int buf [] = this.array();
+    for(int i = 1 ; i < buf.length ; i++) {
+      if(buf[i-1] != buf[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean all() {
+    return this.equals();
+  }
+
   /**
   * max
   * find the min and the max value in the vector list
@@ -163,11 +177,11 @@ public abstract class ivec implements R_Constants {
   }
 
   public int random(float high) {	
-    return (int)Ru.random(high);
+    return Math.round(Ru.random(high));
   }
 
   public int random(float low, float high) {
-    return (int)Ru.random(low, high);
+    return Math.round(Ru.random(low, high));
   }
 
 

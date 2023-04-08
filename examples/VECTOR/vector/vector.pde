@@ -35,12 +35,14 @@ void setup() {
   vec4 a4 = new vec4(3);
   vec4 b4 = new vec4(3,3,3,3);
 
-  println(a4.equals(b4));
+  println(a4, "a4.equals(b4)",b4,  a4.equals(b4));
+  println(a4, "a4.equals()", a4.equals());
+  println(b4, "b4.equals()", b4.equals());
   b4.map(0,1,10,30);
-  println(a4.equals(b4));
+  println(a4, "a4.equals(b4)",b4, a4.equals(b4));
   
   vec5 v5 = new vec5(3,-1,4.5,PI,234);
-  println(v5.max(),v5.min());
+  println(v5,"max()",v5.max(), " / ", v5, "min()", v5.min());
   
 
 
@@ -53,7 +55,8 @@ void setup() {
   println(v6);
   
   ivec3 iv3 = new ivec3(1,2,3);
-  println(iv3.sum());
+  println(iv3, "iv3.sum()", iv3.sum());
+  println(iv3, "iv3.equals()", iv3.equals());
   
   ivec4 ia4 = new ivec4(1,2,3,4);
   ivec4 ib4 = new ivec4(4,3,2,1);
