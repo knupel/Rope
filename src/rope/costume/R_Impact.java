@@ -281,7 +281,8 @@ public class R_Impact extends R_Graphic {
 	// It's for the case where there are dynamic change on the net impact
 
 	/**
-	 * Can be use only where there is change on the puppet master from main or heart
+	 * utils for the puppet case with node management.
+	 * May be it's possible to refactor with the option build_is(boolean is) ???
 	 */
 	public void update() {
 		// reset id circle, to give the opportuny to refresh the rank and id polygon
@@ -356,7 +357,6 @@ public class R_Impact extends R_Graphic {
 	public int get_line_mode() {
 		return line_mode;
 	}
-
 
 	/**
 	 * 
@@ -677,12 +677,16 @@ public class R_Impact extends R_Graphic {
 		build_heart();
 		build_circle();
 		add_nodes();
-		build_is = true;
+		build_is(true);
 	}
 
 
-	public boolean build_is() {
+	private boolean build_is() {
 		return this.build_is;
+	}
+
+	private void build_is(boolean is) {
+		this.build_is = is;
 	}
 
 	////////////////////////
@@ -1921,12 +1925,14 @@ public class R_Impact extends R_Graphic {
 
 
 	public void use_gradient_density(boolean is, float start, float end) {
+		if(!this.density.equals(start, end)) {
+			build_is(false);
+		}
 		this.density.set(start,end);
 		use_gradient_density(is);
 	}
 
 	public void use_gradient_density(boolean is) {
-		// this.density.set(density.x(),density.y());
 		stroke_is(is);
 		this.use_gradient_density_is = is;
 	}
@@ -1938,7 +1944,6 @@ public class R_Impact extends R_Graphic {
 	private float get_gradient_density(float dist) {
 		float ratio = dist / radius();
 		float res = map(ratio, 0, 1, density.x(), density.y());
-		// print_err("DENSITY: dist", dist, "res", res);
 		return res;
 	}
 
@@ -1958,7 +1963,6 @@ public class R_Impact extends R_Graphic {
 	}
 
 	public void use_gradient_thickness(boolean is) {
-		// this.thickness.set(thickness.x(),thickness.y());
 		stroke_is(is);
 		this.use_gradient_thickness_is = is;
 	}
@@ -1981,7 +1985,6 @@ public class R_Impact extends R_Graphic {
 	private float get_gradient_thickness(float dist) {
 		float ratio = dist / radius();
 		float res = map(ratio, 0, 1, thickness.x(), thickness.y());
-		// print_err("THICKNESS: dist", dist, "res", res);
 		return res;
 	}
 
@@ -2109,8 +2112,8 @@ public class R_Impact extends R_Graphic {
 
 	public void show_lines() {
 		show_lines_main();
-		// show_lines_circle();
-		// show_lines_heart();
+		show_lines_circle();
+		show_lines_heart();
 	}
 
 	// SHOW MAIN
@@ -2226,6 +2229,11 @@ public class R_Impact extends R_Graphic {
 
 	private void show_single_line_impl(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
+		// a hack when the density change !
+		if(!build_is()) {
+			build();
+		}
+
 		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
@@ -2247,6 +2255,7 @@ public class R_Impact extends R_Graphic {
 
 
 	//  mode_line_show() need to be refactorize
+  ////////////////////////////////////////
 
 	private void mode_line_show(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
@@ -2264,20 +2273,12 @@ public class R_Impact extends R_Graphic {
 		float normal_abscissa = density.x();
 		float normal_ordonate = thickness.x();
 		if(use_gradient_density_is()) {
-			//float dist_from_center = dist(line.a(), pos());
 			normal_abscissa = get_gradient_density(dist_from_center);
-			// print_err("DENSITY: dist", dist_from_center, "abscicca", normal_abscissa);
 		}
 		
 		if(use_gradient_thickness_is()) {
-			// float dist_from_center = dist(line.a(), pos());
 			normal_ordonate = get_gradient_thickness(dist_from_center);
-			// print_err("THICKNESS dist", dist_from_center, "ordinate", normal_ordonate);
 		}
-
-		// print_err("DIST", dist_from_center, "abscicca", normal_abscissa, "ordinate", normal_ordonate);
-
-
 
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
@@ -2289,7 +2290,6 @@ public class R_Impact extends R_Graphic {
 	  }
 
 		if(use_gradient_stroke_is()) {
-			// float dist_from_center = dist(line.a(), pos());
 			int c = apply_gradient_stroke(dist_from_center);
 			if(!set_gradient_pixels_is()) {
 				for(R_Pix pix : line.get_pixels()) {
