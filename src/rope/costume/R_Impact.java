@@ -73,8 +73,8 @@ public class R_Impact extends R_Graphic {
 	// pixel parl
 	private boolean update_pixels_is = false;
 	private boolean set_gradient_pixels_is = false;
-	private ivec2 level_growth_pixel = new ivec2();
-	private ivec2 step_growth_pixel = new ivec2();
+	private ivec2 level_evo_pixel = new ivec2();
+	private ivec2 step_evo_pixel = new ivec2();
 
 	// density
 	private boolean use_gradient_density_is = false;
@@ -270,7 +270,7 @@ public class R_Impact extends R_Graphic {
 	// UPDATE
 	//////////////////////////
 
-	public void update_pixels(boolean is) {
+	public void update_pixels_is(boolean is) {
 		this.update_pixels_is = is;
 	}
 
@@ -386,9 +386,7 @@ public class R_Impact extends R_Graphic {
 		return this.growth_fact_spiral;
 	}
 
-	public int [] get_pixels_colour() {
-		return this.pix_colour;
-	}
+
 
 
 
@@ -421,6 +419,28 @@ public class R_Impact extends R_Graphic {
 
 	public boolean heart_is() {
 		return this.heart_is;
+	}
+
+	// GET ASPECT
+	/////////////////
+	public vec2 get_thickness() {
+		return this.thickness;
+	}
+
+	public vec2 get_density() {
+		return this.density;
+	}
+
+	public ivec2 get_stroke() {
+		return this.stroke;
+	}
+
+	public ivec2 get_fill() {
+		return this.fill;
+	}
+
+	public int [] get_pixels_colour() {
+		return this.pix_colour;
 	}
 
 
@@ -1900,12 +1920,13 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	public void use_gradient_density(boolean is, float min, float max) {
-		this.density.set(min,max);
+	public void use_gradient_density(boolean is, float start, float end) {
+		this.density.set(start,end);
 		use_gradient_density(is);
 	}
 
 	public void use_gradient_density(boolean is) {
+		// this.density.set(density.x(),density.y());
 		stroke_is(is);
 		this.use_gradient_density_is = is;
 	}
@@ -1916,7 +1937,9 @@ public class R_Impact extends R_Graphic {
 
 	private float get_gradient_density(float dist) {
 		float ratio = dist / radius();
-		return map(ratio, 0, 1, density.x(), density.y());
+		float res = map(ratio, 0, 1, density.x(), density.y());
+		// print_err("DENSITY: dist", dist, "res", res);
+		return res;
 	}
 
 
@@ -1928,13 +1951,14 @@ public class R_Impact extends R_Graphic {
 	 * @param min thickness minimum for the strokeWeight
 	 * @param max thickness maximum for the strokeWeight
 	 */
-	public void use_gradient_thickness(boolean is, float min, float max) {
-		thickness.set(min,max);
+	public void use_gradient_thickness(boolean is, float start, float end) {
+		this.thickness.set(start,end);
 		use_gradient_thickness(is);
 
 	}
 
 	public void use_gradient_thickness(boolean is) {
+		// this.thickness.set(thickness.x(),thickness.y());
 		stroke_is(is);
 		this.use_gradient_thickness_is = is;
 	}
@@ -1956,7 +1980,9 @@ public class R_Impact extends R_Graphic {
 
 	private float get_gradient_thickness(float dist) {
 		float ratio = dist / radius();
-		return map(ratio, 0, 1, thickness.x(), thickness.y());
+		float res = map(ratio, 0, 1, thickness.x(), thickness.y());
+		// print_err("THICKNESS: dist", dist, "res", res);
+		return res;
 	}
 
 		/**
@@ -2083,8 +2109,8 @@ public class R_Impact extends R_Graphic {
 
 	public void show_lines() {
 		show_lines_main();
-		show_lines_circle();
-		show_lines_heart();
+		// show_lines_circle();
+		// show_lines_heart();
 	}
 
 	// SHOW MAIN
@@ -2203,6 +2229,7 @@ public class R_Impact extends R_Graphic {
 		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
+		// apply_gradient_density(dist_from_center);
 
 		// maybe need pass graphics other in the future ?
 		if(other != null) {
@@ -2219,7 +2246,10 @@ public class R_Impact extends R_Graphic {
 
 
 
+	//  mode_line_show() need to be refactorize
+
 	private void mode_line_show(R_Line2D line) {
+		float dist_from_center = dist(line.a(), pos());
 		int mode = get_line_mode();
 		if(update_pixels_is() && mode > 0) {
 			mode += 10;
@@ -2233,20 +2263,25 @@ public class R_Impact extends R_Graphic {
 
 		float normal_abscissa = density.x();
 		float normal_ordonate = thickness.x();
-		
 		if(use_gradient_density_is()) {
-			float dist_from_center = dist(line.a(), pos());
+			//float dist_from_center = dist(line.a(), pos());
 			normal_abscissa = get_gradient_density(dist_from_center);
+			// print_err("DENSITY: dist", dist_from_center, "abscicca", normal_abscissa);
+		}
+		
+		if(use_gradient_thickness_is()) {
+			// float dist_from_center = dist(line.a(), pos());
+			normal_ordonate = get_gradient_thickness(dist_from_center);
+			// print_err("THICKNESS dist", dist_from_center, "ordinate", normal_ordonate);
 		}
 
-		if(use_gradient_thickness_is()) {
-			float dist_from_center = dist(line.a(), pos());
-			normal_ordonate = get_gradient_thickness(dist_from_center);
-		}
+		// print_err("DIST", dist_from_center, "abscicca", normal_abscissa, "ordinate", normal_ordonate);
+
+
 
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
-			growth_impl(line);
+			evolution_impl(line);
 		}
 
 		if(pa.frameCount == next_frameCount) {
@@ -2254,7 +2289,7 @@ public class R_Impact extends R_Graphic {
 	  }
 
 		if(use_gradient_stroke_is()) {
-			float dist_from_center = dist(line.a(), pos());
+			// float dist_from_center = dist(line.a(), pos());
 			int c = apply_gradient_stroke(dist_from_center);
 			if(!set_gradient_pixels_is()) {
 				for(R_Pix pix : line.get_pixels()) {
@@ -2266,20 +2301,19 @@ public class R_Impact extends R_Graphic {
 			pix_colour = buf;
 		}
 
-
 		switch(mode) {
 			// default mode line
 			case 0:
 				line.show();
 				break;
-			// dynamic pixel mode >>> something strange because this mode must be STATIC ????
+			// static
 			case 1:
 				line.show_pixels();
 				break;
 			case 2:
 				line.show_pixels_x2();
 				break;
-			// static pixel mode >>> something strange because this mode must be DYNAMIC ????
+			// dynamic
 			case 11:
 				line.show_pixels(normal_abscissa, normal_ordonate, pix_colour);
 				break;
@@ -2292,35 +2326,47 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-	public void set_pixel_growth(int level, int step) {
-		level_growth_pixel.set(level);
-		step_growth_pixel.set(step);
+
+	/**
+	 * 
+	 * @param level num of pixel after the pixel root
+	 * @param step space between the pixel
+	 */
+	public void set_pixel_evolution(int level, int step) {
+		level_evo_pixel.set(level);
+		step_evo_pixel.set(step);
 	}
 
-	public void set_pixel_growth(int level_min, int level_max, int step_min, int step_max) {
-		level_growth_pixel.set(level_min, level_max);
-		step_growth_pixel.set(step_min, step_max);
+	/**
+	 * 
+	 * @param level_min num min of pixel after the pixel root
+	 * @param level_max num max of pixel after the pixel root
+	 * @param step_min space min between the pixel
+	 * @param step_max space max between the pixel
+	 */
+	public void set_pixel_evolution(int level_min, int level_max, int step_min, int step_max) {
+		level_evo_pixel.set(level_min, level_max);
+		step_evo_pixel.set(step_min, step_max);
 	}
 
-	private void growth_impl(R_Line2D line) {
+	private void evolution_impl(R_Line2D line) {
 		int level = 0;
 		int step = 0;
-		if(level_growth_pixel.equals()) {
-			level = level_growth_pixel.x();
+		if(level_evo_pixel.equals()) {
+			level = level_evo_pixel.x();
 		} else {
-			level = round(random(level_growth_pixel.x(),level_growth_pixel.y()));
+			level = round(random(level_evo_pixel.x(),level_evo_pixel.y()));
 		}
 
-		if(step_growth_pixel.equals()) {
-			step = step_growth_pixel.x();
+		if(step_evo_pixel.equals()) {
+			step = step_evo_pixel.x();
 		} else {
-			step = round(random(step_growth_pixel.x(),step_growth_pixel.y()));
+			step = round(random(step_evo_pixel.x(),step_evo_pixel.y()));
 		}
 		if(all(level != 0, step != 0)) {
 			line.growth(level, step);
 			return;
 		}
-		print_err("pas de growth aujourd'hui");
 	}
 
 

@@ -838,8 +838,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         float angle = random(-PI,PI);
         float dx = sin(angle);
         float dy = cos(angle);
-        // print_err("ang", angle, dx, dy);
-        // float dist = random(-1,1) * 2;
         float dist = step;
         int prev = i - 1;
         float x = buf[prev].x() + (dx * dist);
@@ -906,7 +904,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     if(pixies_growth != null) {
       show_pixels_impl(pixies_growth);
     }
-    
   }
   
   private void show_pixels_impl(R_Pixies list) {
