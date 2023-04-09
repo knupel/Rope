@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.1.0
+ * v 0.1.2
  * 2023-2023
  * 
 
@@ -52,7 +52,10 @@ void draw() {
 	println("density", imp.get_density());
 
 	imp.set_line_mode(1);
-	imp.show_lines();
+	// imp.show_lines();
+	imp.show_lines_main(); // bug color on the fist alement 
+	imp.show_lines_circle(); // bug color on the fist alement 
+	// imp.show_lines_heart();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);

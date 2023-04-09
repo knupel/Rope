@@ -3,7 +3,7 @@
  * impact example to create polygon 
  * from the pattern impact `
  * and mute few line before build all polygons
- * v 0.1.1
+ * v 0.1.2
  * 2022-2023
  * 
 
@@ -22,8 +22,6 @@ void setup() {
 	imp.build();
 	set_mute();
 	imp.build_polygon();
-
-
 }
 
 void draw() {
@@ -31,6 +29,11 @@ void draw() {
 	int color_a = r.CYAN;
 	int color_b = r.MAGENTA;
 	// noStroke();
+	if(keyPressed) {
+		imp.set_fill(r.RED, r.YELLOW);
+		imp.set_stroke(r.YELLOW, r.RED);
+		imp.set_thickness(2, 0.1);
+	}
 	if(!mousePressed) {
 		// use the default setting
 		imp.use_gradient_fill(true);
@@ -38,6 +41,7 @@ void draw() {
 		imp.use_gradient_thickness(true);
 	} else {
 		// reset the argument fill, stroke, thickness and density
+		// so after that you to back you need to set aspect again or rebuild
 		imp.use_gradient_fill(true, color_b, color_a);
 		imp.use_gradient_stroke(true, color_a, color_b);
 		imp.use_gradient_thickness(true, 0.1, 2);
@@ -50,7 +54,8 @@ void draw() {
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX + 10, mouseY);
 	text("press \"N\" for new impact",20,30);
-	text("clickmouse to reverse the aspect setting",20,45);
+	text("click mouse to reverse the aspect setting",20,45);
+	text("press any key to back to orinals colours",20,60);
 }
 
 
@@ -87,8 +92,8 @@ void set_mute() {
 
 
 void keyPressed() {
-	println("<<<<<<<<<<<<<------|||| NEW SORT ||||--------->>>>>>>>");
 	if(key == 'n') {
+		println("<<<<<<<<<<<<<------|||| NEW SORT ||||--------->>>>>>>>");
 		set_impact();
 		imp.build();
 		set_mute();

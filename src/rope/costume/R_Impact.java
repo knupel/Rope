@@ -1927,8 +1927,8 @@ public class R_Impact extends R_Graphic {
 	public void use_gradient_density(boolean is, float start, float end) {
 		if(!this.density.equals(start, end)) {
 			build_is(false);
+			this.density.set(start,end);
 		}
-		this.density.set(start,end);
 		use_gradient_density(is);
 	}
 
@@ -1957,7 +1957,10 @@ public class R_Impact extends R_Graphic {
 	 * @param max thickness maximum for the strokeWeight
 	 */
 	public void use_gradient_thickness(boolean is, float start, float end) {
-		this.thickness.set(start,end);
+		if(!this.thickness.equals(start, end)) {
+			build_is(false);
+			this.thickness.set(start,end);
+		}
 		use_gradient_thickness(is);
 
 	}
@@ -1995,8 +1998,9 @@ public class R_Impact extends R_Graphic {
 	 * @param end stroke for color
 	 */
 	public void use_gradient_stroke(boolean is, int start, int end) {
-		if(start != stroke.x() || end != stroke.y()) {
-			stroke.set(start,end);
+		if(!this.stroke.equals(start, end)) {
+			build_is(false);
+			this.stroke.set(start,end);
 			next_frameCount = pa.frameCount + 1;
 			set_gradient_pixels_is(false);
 		}
@@ -2237,7 +2241,6 @@ public class R_Impact extends R_Graphic {
 		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
-		// apply_gradient_density(dist_from_center);
 
 		// maybe need pass graphics other in the future ?
 		if(other != null) {
@@ -2280,6 +2283,7 @@ public class R_Impact extends R_Graphic {
 			normal_ordonate = get_gradient_thickness(dist_from_center);
 		}
 
+		// why line.pixels_is() must be false to set pixel ?
 		if(!line.pixels_is()) {
 			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
 			evolution_impl(line);
@@ -2410,7 +2414,6 @@ public class R_Impact extends R_Graphic {
 		show_polygon_external(mode);
 	}
 
-
 	public void show_polygon_heart(int mode) {
 		show_polygons_from(imp_shapes_center,mode);
 	}
@@ -2418,7 +2421,6 @@ public class R_Impact extends R_Graphic {
 	public void show_polygon_heart() {
 		show_polygons_from(imp_shapes_center, Integer.MIN_VALUE);
 	}
-
 
 	public void show_polygons() {
 		show_polygons(Integer.MIN_VALUE);
