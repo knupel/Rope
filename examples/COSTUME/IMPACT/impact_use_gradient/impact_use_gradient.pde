@@ -1,9 +1,7 @@
 /**
  * 
- * impact example to create polygon 
- * from the pattern impact `
- * and mute few line before build all polygons
- * v 0.1.2
+ * impact example to use the gradient for classic line
+ * v 0.1.3
  * 2022-2023
  * 
 
@@ -20,7 +18,7 @@ void setup() {
 	size(600,600);
 	set_impact();
 	imp.build();
-	set_mute();
+	// set_mute();
 	imp.build_polygon();
 }
 
@@ -47,7 +45,9 @@ void draw() {
 		imp.use_gradient_thickness(true, 0.1, 2);
 	}
 
-	imp.show_polygons();
+	// imp.show_polygons();
+	imp.show_lines();
+
 
 
 	fill(r.WHITE);
@@ -67,7 +67,7 @@ void set_impact() {
 	imp.set_iter_main(10); // num of node on each branch
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
-	imp.set_num_circle(25); // num of branch circle start from the main branch
+	imp.set_num_circle(9); // num of branch circle start from the main branch
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 
 

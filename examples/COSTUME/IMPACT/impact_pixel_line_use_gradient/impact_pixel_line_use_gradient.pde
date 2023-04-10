@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.1.2
+ * v 0.1.3
  * 2023-2023
  * 
 
@@ -13,6 +13,7 @@ import rope.mesh.R_Line2D;
 R_Impact imp;
 Rope r = new Rope();
 
+int line_mode = 1;
 float min_thickness = 0.1;
 float max_thickness = 8;
 // 
@@ -48,13 +49,13 @@ void draw() {
 	imp.use_gradient_thickness(true);
 	imp.use_gradient_density(true);
 
-	println("thickness", imp.get_thickness());
-	println("density", imp.get_density());
+	// println("thickness", imp.get_thickness());
+	// println("density", imp.get_density());
 
-	imp.set_line_mode(1);
-	// imp.show_lines();
-	imp.show_lines_main(); // bug color on the fist alement 
-	imp.show_lines_circle(); // bug color on the fist alement 
+	imp.set_line_mode(line_mode);
+	imp.show_lines();
+	// imp.show_lines_main(); // bug color on the fist alement 
+	// imp.show_lines_circle(); // bug color on the fist alement 
 	// imp.show_lines_heart();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
@@ -62,6 +63,7 @@ void draw() {
 	text("press N for new sort", 20, 20);
 	text("press U to update pixels", 20, 35);
   text("click mouse to reverse the thickness", 20, 50);
+  text("press 0, 1, 2 for choice the line mode", 20, 65);
 }
 
 void keyPressed() {
@@ -70,6 +72,18 @@ void keyPressed() {
     imp.use_gradient(false);
     imp.set_pixels_colour(r.CYAN, r.YELLOW, r.MAGENTA);
 		imp.build();
+	}
+
+	if(key == '0') {
+		line_mode = 0;
+	}
+
+	if(key == '1') {
+		line_mode = 1;
+	}
+
+	if(key == '2') {
+		line_mode = 2;
 	}
 }
 
@@ -80,9 +94,9 @@ void set_impact() {
 	imp.heart_is(true);
 
 	// SET THE MAIN BRANCHES
-	int num = 12;
+	int num = 8;
 	imp.set_num_main(num); // num of main branch
-	imp.set_iter_main(20); // num of node on each branch
+	imp.set_iter_main(10); // num of node on each branch
 	imp.set_angle_main(0.1); // max angle to change the direction of the main branch
 
 	// SET THE LINES WHO CONNECT THE MAIN BRANCHES

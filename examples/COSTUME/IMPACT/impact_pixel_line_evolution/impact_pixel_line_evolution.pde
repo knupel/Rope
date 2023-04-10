@@ -1,7 +1,7 @@
 /**
  * 
  * pixel evolution
- * v 0.1.0
+ * v 0.1.1
  * 2023-2023
  * 
 
@@ -30,7 +30,7 @@ void draw() {
 	// 1 is for pixel of size 2
 	imp.set_line_mode(1);
 	imp.show_lines();
-	imp.update_pixels(mousePressed);
+	imp.update_pixels_is(mousePressed);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 	text("press N for new sort", 20, 20);

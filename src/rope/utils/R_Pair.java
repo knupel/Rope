@@ -5,7 +5,7 @@ package rope.utils;
 /**
  * 
  * Class R_Pair to store quickly a couple objects
- * v 0.0.3
+ * v 0.0.4
  * 
 
  */
@@ -20,6 +20,15 @@ public class R_Pair<A,B>  {
 	public R_Pair(A a, B b) {
 		this.a = a;
 		this.b = b;
+	}
+
+	public void set(A a, B b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	public R_Pair get() {
+		return this;
 	}
 
 	// type A

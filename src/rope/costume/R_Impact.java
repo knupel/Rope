@@ -75,6 +75,7 @@ public class R_Impact extends R_Graphic {
 	private boolean set_gradient_pixels_is = false;
 	private ivec2 level_evo_pixel = new ivec2();
 	private ivec2 step_evo_pixel = new ivec2();
+	private R_Pair<Float, Float> pixel_absord = new R_Pair<Float, Float>();
 
 	// density
 	private boolean use_gradient_density_is = false;
@@ -2022,8 +2023,9 @@ public class R_Impact extends R_Graphic {
 			float ratio = dist / radius();
 			value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
 			// that can give a problem for the case where there is gradient for color ???
-			stroke(value);
+			// stroke(value);
 		}
+		stroke(value);
 		return value;
 	}
 
@@ -2181,6 +2183,9 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
+
+	// SHOW OTHER
+	//////////////////
 	/**
 	* an other way to show circle, not like circle but by branch from main pie slide
 	 */
@@ -2216,8 +2221,13 @@ public class R_Impact extends R_Graphic {
 	}
 
 	private void show_lines_impl(ArrayList lines, int start, int end) {
-		if(start < 0) start = 0;
-		if(start >= lines.size()) start = lines.size();
+		if(start < 0) {
+			start = 0;
+		}
+		if(start >= lines.size()) {
+			start = lines.size();
+		}
+	
 		end = constrain(end, start, lines.size());
 		for(int i = start ; i < end ; i++) {	
 			R_Line2D line = (R_Line2D)lines.get(i);
@@ -2257,53 +2267,68 @@ public class R_Impact extends R_Graphic {
 
 
 
-	//  mode_line_show() need to be refactorize
-  ////////////////////////////////////////
-
-	private void mode_line_show(R_Line2D line) {
-		float dist_from_center = dist(line.a(), pos());
-		int mode = get_line_mode();
-		if(update_pixels_is() && mode > 0) {
-			mode += 10;
-		}
-
+	private void set_line_pixels_colour(float dist) {
 		if(pix_colour == null) {
 			pix_colour = new int[2];
 			pix_colour[0] = stroke.x();
 			pix_colour[1] = stroke.y();
 		}
+		if(use_gradient_stroke_is()) {
+			int c = apply_gradient_stroke(dist);
+			int [] buf = new int[1];
+			buf[0] = c;
+			pix_colour = buf;
+		}
+	}
 
-		float normal_abscissa = density.x();
-		float normal_ordonate = thickness.x();
+	private void set_line_pixel_final(R_Line2D line, float dist, float abscissa, float ordonate) {
 		if(use_gradient_density_is()) {
-			normal_abscissa = get_gradient_density(dist_from_center);
+			abscissa = get_gradient_density(dist);
 		}
 		
 		if(use_gradient_thickness_is()) {
-			normal_ordonate = get_gradient_thickness(dist_from_center);
+			ordonate = get_gradient_thickness(dist);
 		}
 
 		// why line.pixels_is() must be false to set pixel ?
 		if(!line.pixels_is()) {
-			line.set_pixels(normal_abscissa, normal_ordonate, pix_colour);
+			line.set_pixels(abscissa, ordonate, pix_colour);
 			evolution_impl(line);
+		}
+
+		if(use_gradient_stroke_is()) {
+			if(!set_gradient_pixels_is()) {
+				for(R_Pix pix : line.get_pixels()) {
+					pix.fill(pix_colour[0]);
+				}
+			}
 		}
 
 		if(pa.frameCount == next_frameCount) {
 			set_gradient_pixels_is(true);
 	  }
 
-		if(use_gradient_stroke_is()) {
-			int c = apply_gradient_stroke(dist_from_center);
-			if(!set_gradient_pixels_is()) {
-				for(R_Pix pix : line.get_pixels()) {
-					pix.fill(c);
-				}
-			}
-			int [] buf = new int[1];
-			buf[0] = c;
-			pix_colour = buf;
+		pixel_absord.set(abscissa, ordonate);
+	}
+
+
+
+	
+	private void mode_line_show(R_Line2D line) {
+		float dist_from_center = dist(line.a(), pos());
+		int mode = get_line_mode();
+		if(update_pixels_is() && mode > 0) {
+			mode += 10;
 		}
+		set_line_pixels_colour(dist_from_center);
+
+		float normal_abscissa = density.x();
+		float normal_ordonate = thickness.x();
+		
+		set_line_pixel_final(line, dist_from_center, normal_abscissa, normal_ordonate);
+		normal_abscissa = pixel_absord.a();
+		normal_ordonate = pixel_absord.b();
+
 
 		switch(mode) {
 			// default mode line
