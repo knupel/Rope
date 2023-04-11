@@ -22,6 +22,7 @@ void setup() {
 
 void draw() {
 	background(255);
+	strokeWeight(1);
 	stroke(r.BLACK);
 	fill(r.WHITE);
 

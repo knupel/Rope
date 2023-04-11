@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact example
- * v 0.2.0
+ * v 0.2.1
  * 2022-2023
  * 
 
@@ -21,12 +21,24 @@ void setup() {
 void draw() {
 	background(255);
 	fill(0);
+	stroke(0);
+	println(imp.stroke_is());
 	switch(which_display) {
-		case 0 : imp.show_lines(); break;
-		case 1 : imp.show_lines_main(); break;
-		case 2 : imp.show_lines_circle(); break;
-		case 3 :imp.show_lines_heart(); break;
-		default : imp.show_lines(); break;
+		case 0 :
+			imp.show_lines();
+			break;
+		case 1 :
+			imp.show_lines_main();
+			break;
+		case 2 :
+			imp.show_lines_circle();
+			break;
+		case 3 :
+			imp.show_lines_heart();
+			break;
+		default :
+			imp.show_lines();
+			break;
 	}
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";

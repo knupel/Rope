@@ -1978,7 +1978,7 @@ public class R_Impact extends R_Graphic {
 
 	private float apply_gradient_thickness(float dist) {
 		float value = thickness.x();
-		if(use_gradient_thickness_is()) {
+		if(use_gradient_thickness_is() && stroke_is()) {
 			value = get_gradient_thickness(dist);
 			stroke(stroke.x()); 
 			strokeWeight(value);	
@@ -2019,13 +2019,11 @@ public class R_Impact extends R_Graphic {
 
 	private int apply_gradient_stroke(float dist) {
 		int value = stroke.x();
-		if(use_gradient_stroke_is()) {
+		if(use_gradient_stroke_is() && stroke_is()) {
 			float ratio = dist / radius();
 			value = lerpColor(stroke.x(), stroke.y(), ratio, RGB);
-			// that can give a problem for the case where there is gradient for color ???
-			// stroke(value);
+			stroke(value);
 		}
-		stroke(value);
 		return value;
 	}
 
@@ -2063,7 +2061,7 @@ public class R_Impact extends R_Graphic {
 
 	private int apply_gradient_fill(float dist) {
 		int value = fill.x();
-		if(use_gradient_fill_is()) {
+		if(use_gradient_fill_is() && fill_is()) {
 			float ratio = dist / radius();
 			value = lerpColor(fill.x(), fill.y(), ratio, RGB);
 			// that can give a problem for the case where there is gradient for color ???
