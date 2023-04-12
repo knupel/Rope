@@ -10,9 +10,9 @@
 * R_Shape class
 * v 0.6.2
 * 
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
-* Class RShape store the utilities to draw shape and costume
+* @author @knupel
+* @see https://github.com/knupel/Rope
+* Class R_Shape store the utilities to draw shape and costume
 */
 package rope.mesh;
 

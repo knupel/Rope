@@ -1,12 +1,12 @@
 /**
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2019
+	* Copyleft (c) 2014-2023
 	* Variable shared throughout rope.core.
 	* Rope Constants Colour
-	* v 0.0.3
-	* Processing 3.5.4
-	* @author @stanlepunk
-	* @see https://github.com/StanLepunK/Rope
+	* v 0.0.4
+	* Processing 4.2
+	* @author @knupel
+	* @see https://github.com/knupel/Rope
 	* @see https://fr.wikipedia.org/wiki/Liste_de_noms_de_couleur
 	*/
 
@@ -60,13 +60,29 @@ public interface R_Constants_Colour {
 	static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 
+	// DARK
+	////////////////
 
 	static final int BLACK = -16777216;
 	static final int NOIR = -16777216;
+
+	// CACHOU > #2F1B0C > HSB 0.07142857 0.7446808 0.18431373
+	static final int CACHOU = -13690100;
+	// TENEBRE [MARRON] > ### > HSB 0.0 0.3888889 0.07058824
+	static final int TENEBRE = -15594741;
+	// ABYSSE [BLEU] > ### > HSB 0.7647059 0.9444444 0.07058824
+	static final int ABYSSE = -16056046;
+
+
+
+
+	// LIGHT
+	/////////////////////////////
+
 	static final int WHITE = -1;
 	static final int BLANC = -1;
 
-	// LUNE > #F4FEFE > 0.5 , 0.03937008 , 0.99607843
+	// LUNE > #F4FEFE > 0.5 0.03937008 0.99607843
 	static final int LUNE = -721154;
 	static final int MOON = -721154;
 	// LIN > #FAF0E6 > 0.083333336 , 0.08 , 0.98039216

@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.1.0
+ * v 0.1.1
  * 2023-2023
  * 
 
@@ -30,7 +30,7 @@ void draw() {
 	// 1 is for pixel of size 2
 	imp.set_line_mode(1);
 	imp.show_lines();
-	imp.update_pixels(mousePressed);
+	imp.update_pixels_is(mousePressed);
 	String str = "[ " + mouseX + " " + mouseY + " ]";
 	text(str, mouseX, mouseY);
 	text("press N for new sort", 20, 20);
@@ -62,6 +62,7 @@ void set_impact() {
 	imp.set_iter_circle(num); // num of node on the circle branch / where the max for normal mode is the num of main branches
 
 	// SET ASPECT
+	// imp.set_pixels_colour(r.WHITE);
 	imp.set_stroke(r.WHITE);
 	imp.set_density(0.5);
 	imp.set_thickness(3);

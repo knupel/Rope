@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact example
- * v 0.1.0
+ * v 0.1.1
  * 2022-2023
  * 
 
@@ -32,7 +32,7 @@ void set_mute() {
 void draw() {
 	background(255);
 	fill(0);
-	imp.use_mute(true);
+	imp.use_mute_is(true);
 	imp.show_lines();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";

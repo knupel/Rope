@@ -3,7 +3,7 @@
  * impact example to create polygon 
  * from the pattern impact `
  * and mute few line before build all polygons
- * v 0.1.2
+ * v 0.1.3
  * 2022-2023
  * 
 

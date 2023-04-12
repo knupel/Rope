@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Puppet2D class
-* v 0.0.2
+* v 0.0.3
 * 2022-2023
 * @author @knupel
 * @see https://github.com/knupel/Rope/blob/master/src/rope/tool/R_Puppet2D.java
@@ -21,6 +21,8 @@ import processing.core.*;
 import java.util.ArrayList;
 
 import rope.mesh.R_Line2D;
+import rope.pixo.R_Pix;
+import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
 import rope.vector.bvec2;
 import rope.vector.vec2;
@@ -292,4 +294,30 @@ public class R_Puppet2D extends R_Line2D {
 		vec2 vp = new vec2(vpx,vpy);
 		return vp.add(this.get_point(data.x()));
 	}
+
+
+	  /**
+   * 
+   * @return copy of herself, maybe this one can be bugged because the ref is not copy
+   */
+  public R_Puppet2D copy() {
+		// maybe need copy this part too in the future ??????
+		// ???????????????????
+		// private ArrayList<R_Pair<vec3,vec5>> pair_list = new ArrayList<R_Pair<vec3,vec5>>();
+		// private ArrayList<vec3> list = new ArrayList<vec3>();
+		// private ArrayList<vec3> ref_list = new ArrayList<vec3>();
+		// private vec2 start_a;
+		// private vec2 start_b;
+		
+    R_Puppet2D puppet = new R_Puppet2D(this.pa);
+    puppet.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
+    puppet.mute(this.mute_is());
+    if(pixies != null && pixies.size() > 0) {
+      puppet.pixies = new R_Pixies();
+      for(R_Pix pix : pixies.get()) {
+        puppet.pixies.add(pix);
+      }
+    }
+    return puppet;
+  }
 }

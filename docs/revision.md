@@ -25,6 +25,7 @@
 > add function `update_pixels(boolean is)`
 > refactoring all pixels system to concate with line algorithme to have only one engine to manage all the line
 > add function `use_gradient(boolean is)` to disable or enable it
+> add function `copy()`
 
 > R_Graphic
 > add function `stroke_is()`, `fill_is()` to set if `stroke()`, `strokeWeight()` and `fill()` is active

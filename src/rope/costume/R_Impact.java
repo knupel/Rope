@@ -17,6 +17,7 @@ package rope.costume;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import processing.core.PApplet;
 import rope.pixo.R_Pix;
@@ -131,9 +132,6 @@ public class R_Impact extends R_Graphic {
 
 
 
-
-
-
 	////////////////////////////////
 	// SETTING
 	/////////////////////////////////
@@ -177,7 +175,7 @@ public class R_Impact extends R_Graphic {
 	 * with use this value to find a random value to multiblie the original main arg
 	 * @param min it's good option to use negative value
 	 * @param max it's good option to use positive value
-	 * @param distribution it's a type of distrubution where 0 is lineare
+	 * @param distribution it's a type of distrubution where 0 is lineare /  choice : -1, 0 or 1
 	 * @return
 	 */
 	public R_Impact set_growth_main(int distribution, float min, float max) {
@@ -705,6 +703,7 @@ public class R_Impact extends R_Graphic {
 				buf *= ratio;
 				break;
 			case 0:
+				// nothing happen
 				break;
 			case 1:
 				ratio = map(index,  0, get_iter_main(), power, 0.1f);
@@ -771,7 +770,7 @@ public class R_Impact extends R_Graphic {
 
 	// BUILD MAIN BRANCH
 	/////////////////////
-	private void build_main() {
+	@SuppressWarnings("unchecked")private void build_main() {
 		main = new ArrayList[get_num_main()];
 		float angle_step = TAU / get_num_main();
 		float angle = 0f;
@@ -866,7 +865,7 @@ public class R_Impact extends R_Graphic {
 		set_id_circle();
 	}
 
-	private void build_circle_impl(int start_value) {
+	@SuppressWarnings("unchecked")private void build_circle_impl(int start_value) {
 	  circle = new ArrayList[get_num_circle()];
 		for(int i = 0 ; i < get_num_circle() ; i++) {
 			circle[i] = new ArrayList<R_Line2D>();
@@ -1622,7 +1621,7 @@ public class R_Impact extends R_Graphic {
 	}
 	
 
-	private ArrayList<R_Puppet2D>[] tuple_main(int id_a, int id_b) {
+	@SuppressWarnings("unchecked")private ArrayList<R_Puppet2D>[] tuple_main(int id_a, int id_b) {
 		ArrayList<R_Puppet2D> [] arr = new ArrayList[2];
 		int im_0 = id_a;
 		int im_1 = im_0 + 1;
@@ -1775,7 +1774,7 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-	public void use_mute(boolean is) {
+	public void use_mute_is(boolean is) {
 		this.use_mute_is = is;
 	}
 
@@ -1835,6 +1834,26 @@ public class R_Impact extends R_Graphic {
 		return this;
 	}
 
+
+	public R_Impact set_pixels_colour(int... colour) {
+		this.stroke.set(colour[0]); // for the pixel case
+		this.pix_colour = Arrays.copyOf(colour, colour.length);
+		return this;
+	}
+	
+	
+
+	private void set_pix_colours_from_stroke() {
+		if(pix_colour == null || pix_colour.length == 1) {
+			pix_colour = new int[2];
+			pix_colour[0] = stroke.x();
+			pix_colour[1] = stroke.y();
+		} else {
+			pix_colour[0] = stroke.x();
+			pix_colour[1] = stroke.y();
+		}
+		// print_err("set_pix_colours_from_stroke()", pix_colour[0], pix_colour[1]);
+	}
 	/**
 	 * 
 	 * @param x use for minimum and to set stroke()
@@ -1844,6 +1863,7 @@ public class R_Impact extends R_Graphic {
 	public R_Impact set_stroke(int x, int y) {
 		this.stroke.set(x,y);
 		stroke(this.stroke.x());
+		set_pix_colours_from_stroke();
 		return this;
 	}
 
@@ -1894,12 +1914,6 @@ public class R_Impact extends R_Graphic {
 		if(fill_is()) {
 			fill(fill.x()); 
 		}
-	}
-
-	public R_Impact set_pixels_colour(int... colour) {
-		this.stroke.set(colour[0]); // for the pixel case
-		this.pix_colour = colour;
-		return this;
 	}
 
 	public R_Impact set_line_mode(int mode) {
@@ -2265,19 +2279,8 @@ public class R_Impact extends R_Graphic {
 
 
 
-	private void set_line_pixels_colour(float dist) {
-		if(pix_colour == null) {
-			pix_colour = new int[2];
-			pix_colour[0] = stroke.x();
-			pix_colour[1] = stroke.y();
-		}
-		if(use_gradient_stroke_is()) {
-			int c = apply_gradient_stroke(dist);
-			int [] buf = new int[1];
-			buf[0] = c;
-			pix_colour = buf;
-		}
-	}
+
+
 
 	private void set_line_pixel_final(R_Line2D line, float dist, float abscissa, float ordonate) {
 		if(use_gradient_density_is()) {
@@ -2288,8 +2291,16 @@ public class R_Impact extends R_Graphic {
 			ordonate = get_gradient_thickness(dist);
 		}
 
-		// why line.pixels_is() must be false to set pixel ?
-		if(!line.pixels_is()) {
+		// need to be update when the colour stroke is change, because the pix_colour is change too
+		// but how without add an other boolean ?????
+
+		// print_err("len",line.get_pixels().length);
+		// print_err("line.get_pixels()[0]",line.get_pixels()[0]);
+		print_err("pix_colour", pix_colour);
+		print_err("pix_colour[0]", pix_colour[0]);
+
+		// it's good but the problem there is too much refresh now, and we lost the static mode.
+		if(!line.pixels_is() || line.get_pixels()[0].fill() != pix_colour[0]) {
 			line.set_pixels(abscissa, ordonate, pix_colour);
 			evolution_impl(line);
 		}
@@ -2310,7 +2321,15 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-
+	private void set_line_pixels_colour(float dist) {
+		set_pix_colours_from_stroke();
+		if(use_gradient_stroke_is()) {
+			int c = apply_gradient_stroke(dist);
+			int [] buf = new int[1];
+			buf[0] = c;
+			pix_colour = buf;
+		}
+	}
 	
 	private void mode_line_show(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
@@ -2327,7 +2346,9 @@ public class R_Impact extends R_Graphic {
 		normal_abscissa = pixel_absord.a();
 		normal_ordonate = pixel_absord.b();
 
-
+		// for(int i = 0 ; i < line.get_pixels().length ; i++) {
+		// 	print_out(line.get_pixels()[i].fill());
+		// }
 		switch(mode) {
 			// default mode line
 			case 0:

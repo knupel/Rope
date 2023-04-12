@@ -32,7 +32,7 @@ void draw() {
 
 }
 
-int distri_main = 0;
+int distri_main = 0; //  distri_main : choice : -1, 0 or 1
 int distri_circle = 0;
 boolean use_jitter_is = false;
 float angle_main = 0;
@@ -55,7 +55,7 @@ void keyPressed() {
 	}
 
 	if(key == 'm') {
-    distri_main ++;
+    distri_main++;
     if(distri_main > 1) {
       distri_main = -1;
     }
@@ -87,6 +87,7 @@ void set_distribution() {
     min = 0;
     max = 0;
   }
+  //  distri_main : choice : -1, 0 or 1
   imp.set_growth_main(distri_main,  min, max);
   // angle main
    if(!use_jitter_is) {
