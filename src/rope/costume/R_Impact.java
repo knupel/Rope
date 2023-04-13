@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.4.0
+ * v 0.4.1
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -112,6 +112,12 @@ public class R_Impact extends R_Graphic {
 	////////////////////////////
 	// CONSTRUCTOR
 	/////////////////////////////
+	public R_Impact(PApplet pa, int diameter) {
+		super(pa);
+		set_diam(diameter);
+		init();
+	}
+
 	public R_Impact(PApplet pa, int x, int y, int diameter) {
 		super(pa);
 		pos(x,y);
@@ -2041,7 +2047,8 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_stroke(boolean is, int start, int end) {
 		if(!this.stroke.equals(start, end)) {
-			build_is(false);
+			// don't active this function, to give the opportunity to just refresh color without rebuild
+			// build_is(false); 
 			this.stroke.set(start,end);
 			next_frameCount = pa.frameCount + 1;
 			set_gradient_pixels_is(false);
