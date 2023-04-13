@@ -1923,6 +1923,33 @@ public class R_Impact extends R_Graphic {
 
 
 
+	// PIXEL SETTING
+	/////////////////////
+			/**
+	 * 
+	 * @param level num of pixel after the pixel root
+	 * @param step space between the pixel
+	 */
+	public void set_pixel_evolution(int level, int step) {
+		level_evo_pixel.set(level);
+		step_evo_pixel.set(step);
+	}
+
+	/**
+	 * 
+	 * @param level_min num min of pixel after the pixel root
+	 * @param level_max num max of pixel after the pixel root
+	 * @param step_min space min between the pixel
+	 * @param step_max space max between the pixel
+	 */
+	public void set_pixel_evolution(int level_min, int level_max, int step_min, int step_max) {
+		level_evo_pixel.set(level_min, level_max);
+		step_evo_pixel.set(step_min, step_max);
+	}
+
+
+
+
 
 
 
@@ -2279,9 +2306,6 @@ public class R_Impact extends R_Graphic {
 
 
 
-
-
-
 	private void set_line_pixel_final(R_Line2D line, float dist, float abscissa, float ordonate) {
 		if(use_gradient_density_is()) {
 			abscissa = get_gradient_density(dist);
@@ -2291,23 +2315,25 @@ public class R_Impact extends R_Graphic {
 			ordonate = get_gradient_thickness(dist);
 		}
 
-		// need to be update when the colour stroke is change, because the pix_colour is change too
-		// but how without add an other boolean ?????
-
-		// print_err("len",line.get_pixels().length);
-		// print_err("line.get_pixels()[0]",line.get_pixels()[0]);
-		print_err("pix_colour", pix_colour);
-		print_err("pix_colour[0]", pix_colour[0]);
-
-		// it's good but the problem there is too much refresh now, and we lost the static mode.
-		if(!line.pixels_is() || line.get_pixels()[0].fill() != pix_colour[0]) {
+		// update position and color pixel
+		if(!line.pixels_is()) {
 			line.set_pixels(abscissa, ordonate, pix_colour);
 			evolution_impl(line);
 		}
 
+		// update color pixel
+		if(line.pixels_is() && line.get_pixies()[0].fill() != pix_colour[0]) {
+			for(R_Pix pix : line.get_pixies()) {
+				pix.fill(pix_colour[0]);
+			}
+			for(R_Pix pix : line.get_pixies_growth()) {
+				pix.fill(pix_colour[0]);
+			}
+		}
+
 		if(use_gradient_stroke_is()) {
 			if(!set_gradient_pixels_is()) {
-				for(R_Pix pix : line.get_pixels()) {
+				for(R_Pix pix : line.get_pixies()) {
 					pix.fill(pix_colour[0]);
 				}
 			}
@@ -2321,6 +2347,26 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+	private void evolution_impl(R_Line2D line) {
+		int level = 0;
+		int step = 0;
+		if(level_evo_pixel.equals()) {
+			level = level_evo_pixel.x();
+		} else {
+			level = round(random(level_evo_pixel.x(),level_evo_pixel.y()));
+		}
+
+		if(step_evo_pixel.equals()) {
+			step = step_evo_pixel.x();
+		} else {
+			step = round(random(step_evo_pixel.x(),step_evo_pixel.y()));
+		}
+		if(all(level != 0, step != 0)) {
+			line.growth(level, step);
+			return;
+		}
+	}
+
 	private void set_line_pixels_colour(float dist) {
 		set_pix_colours_from_stroke();
 		if(use_gradient_stroke_is()) {
@@ -2330,7 +2376,11 @@ public class R_Impact extends R_Graphic {
 			pix_colour = buf;
 		}
 	}
-	
+
+
+	// FINAL RENDERING
+	///////////////////
+
 	private void mode_line_show(R_Line2D line) {
 		float dist_from_center = dist(line.a(), pos());
 		int mode = get_line_mode();
@@ -2346,9 +2396,6 @@ public class R_Impact extends R_Graphic {
 		normal_abscissa = pixel_absord.a();
 		normal_ordonate = pixel_absord.b();
 
-		// for(int i = 0 ; i < line.get_pixels().length ; i++) {
-		// 	print_out(line.get_pixels()[i].fill());
-		// }
 		switch(mode) {
 			// default mode line
 			case 0:
@@ -2375,47 +2422,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	/**
-	 * 
-	 * @param level num of pixel after the pixel root
-	 * @param step space between the pixel
-	 */
-	public void set_pixel_evolution(int level, int step) {
-		level_evo_pixel.set(level);
-		step_evo_pixel.set(step);
-	}
 
-	/**
-	 * 
-	 * @param level_min num min of pixel after the pixel root
-	 * @param level_max num max of pixel after the pixel root
-	 * @param step_min space min between the pixel
-	 * @param step_max space max between the pixel
-	 */
-	public void set_pixel_evolution(int level_min, int level_max, int step_min, int step_max) {
-		level_evo_pixel.set(level_min, level_max);
-		step_evo_pixel.set(step_min, step_max);
-	}
-
-	private void evolution_impl(R_Line2D line) {
-		int level = 0;
-		int step = 0;
-		if(level_evo_pixel.equals()) {
-			level = level_evo_pixel.x();
-		} else {
-			level = round(random(level_evo_pixel.x(),level_evo_pixel.y()));
-		}
-
-		if(step_evo_pixel.equals()) {
-			step = step_evo_pixel.x();
-		} else {
-			step = round(random(step_evo_pixel.x(),step_evo_pixel.y()));
-		}
-		if(all(level != 0, step != 0)) {
-			line.growth(level, step);
-			return;
-		}
-	}
 
 
 

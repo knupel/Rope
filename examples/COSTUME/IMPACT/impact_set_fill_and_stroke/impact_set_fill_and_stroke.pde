@@ -30,7 +30,7 @@ void draw() {
 	// set_fill() and set_stroke() to avoid few graphics problems.
 	background(r.BLOOD);
 	imp.set_fill(r.GRIS[2]);
-	imp.set_stroke(r.YELLOW);
+	imp.set_stroke(r.OR);
 	imp.set_thickness(3);
 	imp.stroke_is(true);
 	imp.fill_is(true);

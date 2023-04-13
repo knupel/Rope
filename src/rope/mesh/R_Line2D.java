@@ -865,13 +865,18 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
 
-
+  // protected R_Pixies pixies;
+  // protected R_Pixies pixies_growth;
     /**
    * 
    * @return the array of pixels a long the line if it's possible.
    */
-  public R_Pix [] get_pixels() {
+  public R_Pix [] get_pixies() {
     return this.pixies.array();
+  }
+
+  public R_Pix [] get_pixies_growth() {
+    return this.pixies_growth.array();
   }
 
   public boolean pixels_is() {
