@@ -23,11 +23,11 @@ void setup() {
 		float len = (step_x * i) + step_x ;
 		line[i].set(0, pos_y, len, pos_y);
 		if(i%2 != 0) {
-			line[i].abscissa(r.CENTER, bell_level_abscissa);
-			line[i].ordinate(r.SIDE, bell_level_ordinate);
+			line[i].mode_abscissa(r.CENTER, bell_level_abscissa);
+			line[i].mode_ordinate(r.SIDE, bell_level_ordinate);
 		} else {
-			line[i].abscissa(r.SIDE, bell_level_abscissa);
-			line[i].ordinate(r.CENTER, bell_level_ordinate);
+			line[i].mode_abscissa(r.SIDE, bell_level_abscissa);
+			line[i].mode_ordinate(r.CENTER, bell_level_ordinate);
 		}
 		
 		line[i].set_pixels(density, thickness);

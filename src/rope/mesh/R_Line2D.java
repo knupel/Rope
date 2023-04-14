@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 0.5.0
+ * v 0.5.1
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -612,27 +612,27 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    * 
    * @param type value to set the random on abscissa
    */
-  public void abscissa(int type) {
+  public void mode_abscissa(int type) {
     this.type_abscissa = type;
   }
 
-  public void abscissa(int type, int level) {
-    this.abscissa(type);
+  public void mode_abscissa(int type, int level) {
+    this.mode_abscissa(type);
     this.level_abscissa = abs(level);
   }
   /**
    * 
    * @param type value to set the random on abscissa
    */
-  public void ordinate(int type) {
+  public void mode_ordinate(int type) {
     if(type == CENTER || type == SIDE) {
       type *= 2;
     }
     this.type_ordinate = type;
   }
 
-  public void ordinate(int type, int level) {
-    this.ordinate(type);
+  public void mode_ordinate(int type, int level) {
+    this.mode_ordinate(type);
     this.level_ordinate = abs(level);
   }
 

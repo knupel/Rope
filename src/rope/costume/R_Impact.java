@@ -76,7 +76,9 @@ public class R_Impact extends R_Graphic {
 	private boolean set_gradient_pixels_is = false;
 	private ivec2 level_evo_pixel = new ivec2();
 	private ivec2 step_evo_pixel = new ivec2();
-	private R_Pair<Float, Float> pixel_absord = new R_Pair<Float, Float>();
+	private ivec2 mode_abs_pixel = new ivec2(NORMAL, 1);
+	private ivec2 mode_ord_pixel = new ivec2(NORMAL, 1);
+	private R_Pair<Float, Float> pixel_xy = new R_Pair<Float, Float>();
 
 	// density
 	private boolean use_gradient_density_is = false;
@@ -1954,6 +1956,15 @@ public class R_Impact extends R_Graphic {
 	}
 
 
+	public void set_pixel_mode_abscissa(int type, int level) {
+		mode_abs_pixel.set(type, level);
+	}
+
+
+	public void set_pixel_mode_ordinate(int type, int level) {
+		mode_ord_pixel.set(type, level);
+	}
+
 
 
 
@@ -2006,7 +2017,7 @@ public class R_Impact extends R_Graphic {
 	 */
 	public void use_gradient_thickness(boolean is, float start, float end) {
 		if(!this.thickness.equals(start, end)) {
-			build_is(false);
+			// build_is(false);
 			this.thickness.set(start,end);
 		}
 		use_gradient_thickness(is);
@@ -2313,18 +2324,21 @@ public class R_Impact extends R_Graphic {
 
 
 
-	private void set_line_pixel_final(R_Line2D line, float dist, float abscissa, float ordonate) {
+	private void set_line_pixel_final(R_Line2D line, float dist, float x, float y) {
 		if(use_gradient_density_is()) {
-			abscissa = get_gradient_density(dist);
+			x = get_gradient_density(dist);
 		}
 		
 		if(use_gradient_thickness_is()) {
-			ordonate = get_gradient_thickness(dist);
+			y = get_gradient_thickness(dist);
 		}
 
 		// update position and color pixel
 		if(!line.pixels_is()) {
-			line.set_pixels(abscissa, ordonate, pix_colour);
+			// distri_absord_pixel
+			line.mode_abscissa(mode_abs_pixel.x(), mode_abs_pixel.y());
+			line.mode_ordinate(mode_ord_pixel.x(), mode_ord_pixel.y());
+			line.set_pixels(x, y, pix_colour);
 			evolution_impl(line);
 		}
 
@@ -2350,7 +2364,7 @@ public class R_Impact extends R_Graphic {
 			set_gradient_pixels_is(true);
 	  }
 
-		pixel_absord.set(abscissa, ordonate);
+		pixel_xy.set(x, y);
 	}
 
 
@@ -2396,12 +2410,12 @@ public class R_Impact extends R_Graphic {
 		}
 		set_line_pixels_colour(dist_from_center);
 
-		float normal_abscissa = density.x();
-		float normal_ordonate = thickness.x();
+		float normal_x = density.x();
+		float normal_y = thickness.x();
 		
-		set_line_pixel_final(line, dist_from_center, normal_abscissa, normal_ordonate);
-		normal_abscissa = pixel_absord.a();
-		normal_ordonate = pixel_absord.b();
+		set_line_pixel_final(line, dist_from_center, normal_x, normal_y);
+		normal_x = pixel_xy.a();
+		normal_y = pixel_xy.b();
 
 		switch(mode) {
 			// default mode line
@@ -2417,10 +2431,10 @@ public class R_Impact extends R_Graphic {
 				break;
 			// dynamic
 			case 11:
-				line.show_pixels(normal_abscissa, normal_ordonate, pix_colour);
+				line.show_pixels(normal_x, normal_y, pix_colour);
 				break;
 			case 12:
-				line.show_pixels_x2(normal_abscissa, normal_ordonate, pix_colour);		
+				line.show_pixels_x2(normal_x, normal_y, pix_colour);		
 				break;
 			default:
 				line.show();

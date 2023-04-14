@@ -1,7 +1,7 @@
 /**
  * 
- * simple impact to show the pixel line
- * v 0.1.1
+ * impact to show the pixel line and with special distribution
+ * v 0.1.2
  * 2023-2023
  * 
 
@@ -64,6 +64,8 @@ void set_impact() {
 	// SET ASPECT
 	// imp.set_pixels_colour(r.WHITE);
 	imp.set_stroke(r.WHITE);
-	imp.set_density(0.5);
-	imp.set_thickness(3);
+	imp.set_pixel_mode_abscissa(r.SIDE, 2);
+	imp.set_pixel_mode_ordinate(r.CENTER, 1);
+	imp.set_density(6);
+	imp.set_thickness(15);
 }

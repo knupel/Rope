@@ -33,11 +33,12 @@
 
 > R_Line2D
 > comment depracated function()
-> point() function become `get_point()` to avoid confusion with Mother function point() + protected it
+> `point()` function become `get_point()` to avoid confusion with Mother function `point()` + protected it
 > add function `get_point(float normal_abscissa, float normal_ordinate)` to create a project in the ordinate from the line
 > add function `show_pixels(float density, float thickness, int... colour)` and `show_pixels_x2(float density, float thickness, int... colour)` to create a thickness option to pixel line
 > add function `set_pixels(float density, float thickness, int.. colour)` to create a thickness option to pixel line
 > add function `set_pixel_evolution()` to create a growth system from a root pixel
+> add function `mode_absicca()` and `mode_ordonate()` to set the pixel distribution on center or on side, maybe more in the future.
 
 > ivec
 > add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false
@@ -90,58 +91,58 @@
 > R_Impact new class to create a pseudo deisgn of glass impact network
 
 > R_Voronoi
-> add function get_polygon(int index) and get_poygons() to create a same spirit than R_Impact
+> add function `get_polygon(int index)` and `get_poygons()` to create a same spirit than R_Impact
 
 > R_Pair new class to store quickly acouple of object
 
 > bvec
-> add function all(), any() and only() like glsl language
+> add function `all()`, `any()` and `only()` like glsl language
 
 > ivec
-> add function compare() to ivec2, ivec3, ivec4
+> add function `compare()` to ivec2, ivec3, ivec4
 
 
 > vec
-> add function compare(vec arg, float arg)
-> Deprecated jitter() function in vec2, vec3 and vec4
+> add function `compare(vec arg, float arg)`
+> Deprecated `jitter()` function in vec2, vec3 and vec4
 
 > vec2
-> add function ortho() to create an an orthographic projection of the point on the vector line
-> change function in_line() to in_segment()
+> add function `ortho()` to create an an orthographic projection of the point on the vector line
+> change function `in_line()` to `in_segment()`
 
 > Rope
 > add function boolean in_line who check all the point on the line not only in segment.
-> add function boolean in_segment() who accept R_Line2D for the coord line
-> add function boolean in_polygon() who accept R_Shape for the coord points
+> add function boolean `in_segment()` who accept R_Line2D for the coord line
+> add function boolean `in_polygon()` who accept R_Shape for the coord points
 > add function compare for float, int, vec and ivec
 > add function map with vec2, vec3 and vec3 as entry
-> add function String get_renderer(PGragrichs pg) to return the type of Graphics Processing is used / to complete BigBang function
-> add float [] getColorMode(PGraphics pg) and float [] getColorMode(PGraphics pg, boolean print_info_is) to complete BigBang function
+> add function String `get_renderer(PGragrichs pg)` to return the type of Graphics Processing is used / to complete BigBang function
+> add `float [] getColorMode(PGraphics pg)` and `float [] getColorMode(PGraphics pg, boolean print_info_is)` to complete BigBang function
 
 > R_Shape
 > add area function, only work with regular polygon / shape don't use a strange stuff with it.
-> add set_point(int index, float x, float y, float z) to replace a specific point
+> add `set_point(int index, float x, float y, float z)` to replace a specific point
 > add fonction ArrayList<vec3> equals(vec... points) return the list of the common point
 > add fonction boolean equals(int max, vec... points) return true if the num of commom point is equal or upper to max;
 > add fonction ArrayList<vec3> compare(float marge, vec... points) return the list of the common point
 > add fonction boolean compare(int max, float marge, vec... points) return true if the num of commom point is equal or upper to max;
->add function barycenter()
+>add function `barycenter()`
 > add id ivec6 to store until to 6 id integer
-> add function show() to show the points, not the ref_points one
+> add function `show()` to show the points, not the ref_points one
 
 > R_Line2D
-> add function barycenter()
+> add function `barycenter()`
 > add id ivec6 to store until to 6 id integer
-> add function pointer(), pointer_a(), pointer_b() to use line with pointer coordinate in memory, like i "C"
+> add function `pointer()`, `pointer_a()`, `pointer_b()` to use line with pointer coordinate in memory, like i "C"
 > pass the vec, from vec2 to vec3 for the management and the bridge withe R_Shape
-> add function normal() to catch the normal position in or on the line if this is on it.
-> add ortho(vec2 p) to create a orthographic projection of the point on the line
+> add function `normal()` to catch the normal position in or on the line if this is on it.
+> add `ortho(vec2 p)` to create a orthographic projection of the point on the line
 
 > R_Node
 > change int id to ivec6 id
-> Deprecated get_id() and set_id()
-> Deprecated set_destination()
-> add ivec6 id(), id_a(int arg) to id_f(int arg) and id(int a ... int f) and id(ivec6 arg);
+> Deprecated `get_id()` and `set_id()`
+> Deprecated `set_destination()`
+> add `ivec6 id()`, `id_a(int arg)` to `id_f(int arg)` and `id(int a ... int f)` and `id(ivec6 arg)`;
 
 > R_Graphic
 > add Processing function circle() basic, plus refactoring to accet vec parameter
