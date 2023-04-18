@@ -32,13 +32,13 @@
 > add function `clear()` from Processing
 
 > R_Line2D
-> comment depracated function()
+> comment deprecated function()
 > `point()` function become `get_point()` to avoid confusion with Mother function `point()` + protected it
 > add function `get_point(float normal_abscissa, float normal_ordinate)` to create a project in the ordinate from the line
 > add function `show_pixels(float density, float thickness, int... colour)` and `show_pixels_x2(float density, float thickness, int... colour)` to create a thickness option to pixel line
 > add function `set_pixels(float density, float thickness, int.. colour)` to create a thickness option to pixel line
 > add function `set_pixel_evolution()` to create a growth system from a root pixel
-> add function `mode_absicca()` and `mode_ordonate()` to set the pixel distribution on center or on side, maybe more in the future.
+> add function `mode_abscissa()` and `mode_ordinate()` to set the pixel distribution on center,side, begin and end of line.
 
 > ivec
 > add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false
@@ -122,10 +122,10 @@
 > R_Shape
 > add area function, only work with regular polygon / shape don't use a strange stuff with it.
 > add `set_point(int index, float x, float y, float z)` to replace a specific point
-> add fonction ArrayList<vec3> equals(vec... points) return the list of the common point
-> add fonction boolean equals(int max, vec... points) return true if the num of commom point is equal or upper to max;
-> add fonction ArrayList<vec3> compare(float marge, vec... points) return the list of the common point
-> add fonction boolean compare(int max, float marge, vec... points) return true if the num of commom point is equal or upper to max;
+> add fonction ArrayList<vec3> `equals(vec... points)` return the list of the common point
+> add fonction boolean `equals(int max, vec... points)` return true if the num of commom point is equal or upper to max;
+> add fonction ArrayList<vec3> `compare(float marge, vec... points)` return the list of the common point
+> add fonction boolean `compare(int max, float marge, vec... points)` return true if the num of commom point is equal or upper to max;
 >add function `barycenter()`
 > add id ivec6 to store until to 6 id integer
 > add function `show()` to show the points, not the ref_points one
@@ -153,16 +153,16 @@
 \* version 48
 > R_Colour
 > class R_Colour add function add(String name, int... arg) to create palette by name
-> class R_Colour add function current() to return a current colour
-> class R_Colour add function select() to choose the current colour
-> Deprecated all function who use a number to call palette replace the function with String name, all function like (int group, int colour) decome (String name, int colour).
+> class R_Colour add function `current()` to return a current colour
+> class R_Colour add function `select()` to choose the current colour
+> Deprecated all function who use a number to call palette replace the function with String name, all function like (int group, int colour) become (String name, int colour).
 > the function who return the array of the first palette, now return all the component of all palette
 > class R_Colour add function to get the hsb and rgb of the current color in vec
 
 
 > Rope
 > pass all function protected to public
-> add in_polygon(vec [] points, vec pos, float marge) to use marge to increase the detection around the polygon
+> add `in_polygon(vec [] points, vec pos, float marge)` to use marge to increase the detection around the polygon
 
 
 > CONSTANT
@@ -170,7 +170,7 @@
 
 > R_Bloc
 > add constructor with default canvas
-> add vec2 get_coord();
+> add `vec2 get_coord()`;
 
 > R_Shape, R_Primitive, R_Chose, R_Polygon, R_Icosahedron
 > change system array to ArrayList to manage point
@@ -179,32 +179,32 @@
 > add function to add points, from float or list of vec points
 > add int id, by default is 0;
 > add function to get the ref point and point by argument x,y,z
-> add function clear() to clear the pts and ref_point list
+> add function `clear()` to clear the pts and ref_point list
 > move package from Costume to Mesh
-> Deprecated function add() to add_vecs() because there is a problem with function add() from parent class Rope
-> add function add_pointers()
+> Deprecated function `add()` to add_vecs() because there is a problem with function add() from parent class Rope
+> add function `add_pointers()`
 > R_Voronoi
 > add R_Voronoi, R_Delaunay_and_co adaptation from Toxiclib
-> add remove_seed(int index)
+> add `remove_seed(int index)`
 > add z argument to seed to pass color information
 
 > R_Graphic
-> add function plot() close to set() from Processing
-> add function plox_x2() doudouble the size of the pixel
+> add function `plot()` close to set() from Processing
+> add function `plot_x2()` doudouble the size of the pixel
 > add function background like Processing execpt for PImage
 
 
 > R_Line2D
 > fix offset bug
-> add offset(float x, float y) function
-> add function update();
-> add function change(float begin, float end) to change dynamicly the length of the line
+> add `offset(float x, float y)` function
+> add function `update()`;
+> add function `change(float begin, float end)` to change dynamicly the length of the line
 > improve angle function to add a roatation around axe, where the axe is somewhere a the line
-> add method to mute() and mute_is() the line
-> deprecated function coord(), instead use point()
-> deprecated function angle(), instead use rotation()
-> add function set_pixels() and show_pixels() to general pixels a long the segment
-> add function set_pixel_x2() to double the soze of the pixel
+> add method to `mute()` and `mute_is()` the line
+> deprecated function `coord()`, instead use `point()`
+> deprecated function `angle()`, instead use `rotation()`
+> add function `set_pixels()` and show_pixels() to general pixels a long the segment
+> add function `set_pixel_x2()` to double the soze of the pixel
 > move package from Costume to Mesh
 
 > R_Pix
@@ -217,30 +217,30 @@
 > Update to Processing 4
 
 > GUI
-> fixed function add_content() from R_Dropdown
-> fixed outbound array for the slider molette for the function get(int index);
-> added function set_curve(int type, float power) this function change the curve of the value result
-> added funct set_range(float min ,float max) for class R_Slider, deprected set_min_max();
+> fixed function `add_content()` from R_Dropdown
+> fixed outbound array for the slider molette for the function `get(int index)`;
+> added function `set_curve(int type, float power)` this function change the curve of the value result
+> added funct `et_range(float min ,float max)` for class R_Slider, deprected `set_min_max()`;
 > added simple Constructor to K_Nnob
 > fixed bug multimolette position for R_Knob
 > added variable and function previous_angle to class R_Mol
 > R_Mol make private vec2 pos and vec2 size
-> added function get_guide() to R_Knob
+> added function `get_guide()` to R_Knob
 > fixed default label position for R_Knob
-> added overwrite method show_value() to R_Knob, to show all value of knob in case where there is few molettes
-> added function get_start() and get_stop() to show the pie limit of the R_Knob
+> added overwrite method `show_value()` to R_Knob, to show all value of knob in case where there is few molettes
+> added function `get_start()` and `get_stop()` to show the pie limit of the R_Knob
 > changed all children Contructors where the type is used, from public to protected
-> added function is_done() return true when the gui action is complete
-> added function is_active() return true when a gui is active
+> added function `is_done()` return true when the gui action is complete
+> added function `is_active()` return true when a gui is active
 > improved display separation for R_Slotch
 > fixed bug for regular squaring display R_Slotch
 
 > MESH
-> fixed get_direction() from R_Segment
-> deprecated get_end() to get_stop() from R_Segment
+> fixed `get_direction()` from R_Segment
+> deprecated `get_end()` to get_stop() from R_Segment
 > added function to set start and stop value from R_Segment
 > remove @Deprecated update(int x, int y, boolean event) function from Dropdown
-> added more argument to function set() and offset()
+> added more argument to function `set()` and `offset()`
 
 > PIXO
 > fixed bug R_Nubo when polygon start from another value than 0

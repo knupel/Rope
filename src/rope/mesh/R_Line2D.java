@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 0.5.1
+ * v 0.5.2
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -610,63 +610,91 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   private int level_ordinate = 1;
   /**
    * 
-   * @param type value to set the random on abscissa
+   * @param type value to set the random on abscissa NORMAL, START, END, CENTER and SIDE is available
    */
   public void mode_abscissa(int type) {
     this.type_abscissa = type;
   }
 
+  /**
+   * 
+   * @param type value to set the random on abscissa NORMAL, START, END, CENTER and SIDE is available
+   * @param level from 1 to 13, but for CENTER and SIDE after 6 or 7 is not really interesting
+   */
   public void mode_abscissa(int type, int level) {
     this.mode_abscissa(type);
     this.level_abscissa = abs(level);
   }
   /**
    * 
-   * @param type value to set the random on abscissa
+   * @param type value to set the random on abscissa NORMAL, START, END, CENTER and SIDE is available
    */
   public void mode_ordinate(int type) {
-    if(type == CENTER || type == SIDE) {
+    // Need to make same for START and END ?
+    if(type == CENTER || type == SIDE || type == START || type == END) {
       type *= 2;
     }
     this.type_ordinate = type;
   }
 
+  /**
+   * 
+   * @param type  value to set the random on abscissa NORMAL, START, END, CENTER and SIDE is available
+   * @param level from 1 to 13, but for CENTER and SIDE after 6 or 7 is not really interesting
+   */
   public void mode_ordinate(int type, int level) {
     this.mode_ordinate(type);
     this.level_ordinate = abs(level);
   }
 
   private float get_distribution(int type, int level) {
-    float absolute_pos = 0;
-    float new_bell_pos = 0;
+    float absolute_pos = Float.NaN;;
+    float buf_pos = 0;
     float resultat = 0;
     float is = 0;
     float bell_detection = 0.18f;
-
+    // float bell_detection = 0.23f;
     switch(type) {
       case NORMAL:
         absolute_pos = random(1);
         break;
       // case for the abscissa
       case CENTER:
-        absolute_pos = -1.0f;
-        new_bell_pos = random(1);
-        resultat = d_bell_raw(new_bell_pos, level);
+        buf_pos = random(1);
+        resultat = d_bell_raw(buf_pos, level);
         is = random(bell_detection);  // 0.6 not nice
         if(resultat > is) {
-          absolute_pos = new_bell_pos;
+          absolute_pos = buf_pos;
         }
         break;
       case SIDE:
-        absolute_pos = -1.0f;
-        new_bell_pos = random(1);
-        resultat = d_bell_raw(new_bell_pos, level);
+        buf_pos = random(1);
+        resultat = d_bell_raw(buf_pos, level);
         is = random(bell_detection); // 0.18 nice
-        if(resultat < is) {
-          absolute_pos = new_bell_pos;
+        if(resultat < is) {   
+          absolute_pos = buf_pos;
         }
         break;
+      case START:
+        absolute_pos = d_spray_pos(level);
+        break;
+
+      case END:
+        absolute_pos = 1 - d_spray_pos(level);
+        break;
+
       // case for the ordinate
+      case START*2:
+        absolute_pos = d_spray_pos(level);
+        break;
+
+      case END*2:
+
+        absolute_pos = d_spray_pos(level);
+        if(!Float.isNaN(absolute_pos)) {
+          absolute_pos = 1 -absolute_pos;
+        }
+        break;
       case SIDE *2:
         absolute_pos = 1.0f;
         for(int i = 0; i <= level ; i++) {
@@ -699,62 +727,71 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return absolute_pos;
   }
 
+  private float d_spray_pos(int level) {
+    float buf_pos = random(1);
+    float resultat = d_spray(buf_pos, level);
+    float is = random(1);
+    if(resultat < is) {
+      return buf_pos;
+    }
+    return Float.NaN;
+  }
+
+  private float d_spray(float value , int level) {
+    float power = 1.0f;
+    switch (level) {
+      case 1: power = 0.5f; break;
+      case 2: power = 0.6f; break;
+      case 3: power = 0.7f; break;
+      case 4: power = 0.8f; break;
+      case 5: power = 0.9f; break;
+      case 6: power = 1.0f; break;
+      case 7: power = 1.3f; break;
+      case 8: power = 1.6f; break;
+      case 9: power = 2.1f; break;
+      case 10: power = 2.4f; break;
+      case 11: power = 2.7f; break;
+      case 12: power = 3.0f; break;
+      case 13: power = 3.3f; break;
+      default: power = 1.0f; break;
+    }
+    float range = 1.0f;
+    return d_pow(value, range, power);
+
+  }
+
 
   private float d_bell_raw(float value, int level) {
     float variance = 5;
     switch (level) {
-      case 1: 
-        variance = 7.0f;
-        break;
-      case 2: 
-        variance = 6.0f;
-        break;
-      case 3: 
-        variance = 5.0f;
-        break;
-      case 4: 
-        variance = 4.0f;
-        break;
-      case 5: 
-        variance = 3.0f;
-        break;
-      case 6: 
-        variance = 2.0f;
-      case 7: 
-        variance = 1.5f;
-      case 8: 
-        variance = 1.0f;
-      case 9: 
-        variance = 0.75f;
-        break;
-      case 10: 
-        variance = 0.5f;
-        break;
-      case 11: 
-        variance = 0.3f;
-        break;
-      case 12: 
-        variance = 0.2f;
-        break;
-      case 13: 
-        variance = 0.1f;
-        break;
-      default :
-        variance = 5.0f;
+      case 1: variance = 7.0f; break;
+      case 2: variance = 6.0f; break;
+      case 3: variance = 5.0f; break;
+      case 4: variance = 4.0f; break;
+      case 5: variance = 3.0f; break;
+      case 6: variance = 2.0f; break;
+      case 7: variance = 1.5f; break;
+      case 8: variance = 1.0f; break;
+      case 9: variance = 0.75f; break;
+      case 10: variance = 0.5f; break;
+      case 11: variance = 0.3f; break;
+      case 12: variance = 0.2f; break;
+      case 13: variance = 0.1f; break;
+      default: variance = 5.0f; break;
     }
     float range = dist(this.a, this.b);
     float offset = 0;
-    return d_bell(value * range, range, variance, offset);
+    return d_bell(value *range, range, variance, offset);
   }
 
 
   private vec2 absolute_pos(float range_ordinate) {
     float abscissa = get_distribution(type_abscissa, level_abscissa);
-    if(abscissa < 0) {
+    if(abscissa < 0 || Float.isNaN(abscissa)) {
       return null;
     }
     float buf_ordinate = get_distribution(type_ordinate, level_ordinate);
-    if(buf_ordinate < 0) {
+    if(buf_ordinate < 0 || Float.isNaN(buf_ordinate)) {
       return null;
     }
     float ordinate = map(buf_ordinate, 0,1, -range_ordinate, range_ordinate);
@@ -1103,6 +1140,12 @@ public class R_Line2D extends R_Graphic implements R_Constants {
       line.pixies = new R_Pixies();
       for(R_Pix pix : pixies.get()) {
         line.pixies.add(pix);
+      }
+    }
+    if(pixies_growth != null && pixies_growth.size() > 0) {
+      line.pixies_growth = new R_Pixies();
+      for(R_Pix pix : pixies_growth.get()) {
+        line.pixies_growth.add(pix);
       }
     }
     return line;

@@ -1,4 +1,13 @@
-import rope.mesh.R_Line2D;
+/**
+ * 
+ * growth example
+ * 2023-2023
+ * v 0.0.2
+ * 
+ */
+
+
+ import rope.mesh.R_Line2D;
 import rope.vector.vec2;
 import rope.core.Rope;
 
@@ -38,6 +47,8 @@ void draw() {
 void mousePressed() {
 	for(R_Line2D l : line) {
 		l.set_pixels(density, thickness);
-		l.growth((int)random(10,50), (int)random(1,10));
+		int level = (int)random(10,50);
+		int step = (int)random(1,10);
+		l.growth(level,step);
 	}
 }

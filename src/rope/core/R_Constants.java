@@ -93,8 +93,7 @@ public interface R_Constants {
 
 	
 
-  static final int OPEN = 1; // processing value
-  static final int CLOSE = 2; // processing value
+
 	
 	static final int CHORD = 2; // processing value
 	static final int PIE = 3; // processing value
@@ -164,8 +163,21 @@ public interface R_Constants {
 
   static final int TOP = 101;
   static final int BOTTOM = 102;
+	
+  static final int OPEN = 1; // processing value
+  static final int CLOSE = 2; // processing value
 
+	static final int BEGIN = 701;
+  static final int END = 702;
 
+	static final int START = 701;
+  static final int STOP = 702;
+
+	static final int FIRST = 701;
+  static final int LAST = 702;
+	
+	static final int NEXT = 703;
+	static final int PREVIOUS = 704;
 
 
 
@@ -253,10 +265,7 @@ public interface R_Constants {
 
 	static final int MIX = 600 ;
 
-	static final int FIRST = 701;
-  static final int LAST = 702;
-	static final int NEXT = 703;
-	static final int PREVIOUS = 704;
+
 	// static final int QUARTER = 706;
 	// static final int THIRD = 707;
 	static final int HALF = 708;

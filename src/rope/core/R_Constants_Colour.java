@@ -3,7 +3,7 @@
 	* Copyleft (c) 2014-2023
 	* Variable shared throughout rope.core.
 	* Rope Constants Colour
-	* v 0.0.4
+	* v 0.0.5
 	* Processing 4.2
 	* @author @knupel
 	* @see https://github.com/knupel/Rope
@@ -93,14 +93,26 @@ public interface R_Constants_Colour {
 	static final int SILVER = -4144960;
 	// PERLE > #CECECE > 0.0 , 0.0 , 0.80784315;
 	static final int PERLE = -3223858;
-	// SOURIS > #9E9E9E > 0.0 , 0.0 , 0.61960787
-	static final int SOURIS = -6381922;
+
 	// PAYNE > #677179 > 0.5740741 , 0.14876033 , 0.4745098
 	static final int PAYNE = -9997959;
 	// COLOMBIN > #BBACAC > 0.0 , 0.080213904 , 0.73333335
 	static final int COLOMBIN = -4477780;
 	// VERT_DE_GRIS > #95A595 > 0.33333334 , 0.096969694 , 0.64705884
 	static final int VERT_DE_GRIS = -6969963;
+
+
+
+
+	// GRIS
+	///////////////////////////
+
+	// SOURIS > #9E9E9E > 0.0 , 0.0 , 0.61960787
+	static final int SOURIS = -6381922;
+
+
+		// SOURIS > #9E9E9E > 0.0 , 0.0 , 0.61960787
+		static final int ELEPHANT = -9936290;
 
 	// static final int GRAY = 4050 ; // this GRAY already existe
 	static final int GRAY_MEDIUM = -8421505;
