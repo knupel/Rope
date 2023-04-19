@@ -2012,8 +2012,8 @@ public class R_Impact extends R_Graphic {
 	/**
 	 * Apply a thickness gradient on all strokeweight from the center to the exterior shape
 	 * @param is set if the gradient must be apply
-	 * @param min thickness minimum for the strokeWeight
-	 * @param max thickness maximum for the strokeWeight
+	 * @param start thickness minimum for the strokeWeight
+	 * @param end thickness maximum for the strokeWeight
 	 */
 	public void use_gradient_thickness(boolean is, float start, float end) {
 		if(!this.thickness.equals(start, end)) {

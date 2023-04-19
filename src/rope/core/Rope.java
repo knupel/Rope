@@ -1966,11 +1966,12 @@ public float abs(float arg) {
       String name = what.getClass().getName();
       if (name.charAt(0) == '[') {
         switch (name.charAt(1)) {
-          case '[' ->
+          case '[' :
             // don't even mess with multi-dimensional arrays (case '[')
             // or anything else that's not int, float, boolean, char
-            System.out.println(what);
-          case 'L' -> {
+            System.out.println(what); 
+						break;
+          case 'L' :
             // print a 1D array of objects as individual elements
             Object[] poo = (Object[]) what;
             for (int i = 0; i < poo.length; i++) {
@@ -1980,50 +1981,52 @@ public float abs(float arg) {
                 System.out.println("[" + i + "] " + poo[i]);
               }
             }
-          }
-          case 'Z' -> {  // boolean
+						break;
+          case 'Z' :  // boolean
             boolean[] zz = (boolean[]) what;
             for (int i = 0; i < zz.length; i++) {
               System.out.println("[" + i + "] " + zz[i]);
             }
-          }
-          case 'B' -> {  // byte
+          	break;
+          case 'B' :  // byte
             byte[] bb = (byte[]) what;
             for (int i = 0; i < bb.length; i++) {
               System.out.println("[" + i + "] " + bb[i]);
             }
-          }
-          case 'C' -> {  // char
+          	break;
+          case 'C' :  // char
             char[] cc = (char[]) what;
             for (int i = 0; i < cc.length; i++) {
               System.out.println("[" + i + "] '" + cc[i] + "'");
             }
-          }
-          case 'I' -> {  // int
+         		break;
+          case 'I' :  // int
             int[] ii = (int[]) what;
             for (int i = 0; i < ii.length; i++) {
               System.out.println("[" + i + "] " + ii[i]);
             }
-          }
-          case 'J' -> {  // int
+          	break;
+          case 'J' :  // int
             long[] jj = (long[]) what;
             for (int i = 0; i < jj.length; i++) {
               System.out.println("[" + i + "] " + jj[i]);
             }
-          }
-          case 'F' -> {  // float
+          	break;
+          case 'F' :  // float
             float[] ff = (float[]) what;
             for (int i = 0; i < ff.length; i++) {
               System.out.println("[" + i + "] " + ff[i]);
             }
-          }
-          case 'D' -> {  // double
+          	break;
+          case 'D' : // double
             double[] dd = (double[]) what;
             for (int i = 0; i < dd.length; i++) {
               System.out.println("[" + i + "] " + dd[i]);
             }
-          }
-          default -> System.out.println(what);
+          break;
+          default :
+						System.out.println(what);
+						break;
         }
       } else {  // not an array
         System.out.println(what);

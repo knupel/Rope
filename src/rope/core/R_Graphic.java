@@ -121,7 +121,7 @@ public class R_Graphic extends BigBang {
   }
 
 	/**
-	 * @return clone Processing function() clear
+	 * clone Processing function() clear
 	 */
 	public void clear() {
 		if(this.other != null) {

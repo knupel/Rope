@@ -160,10 +160,9 @@ public interface R_Constants {
 	static final int SIDE  = 9;
 
 
-
   static final int TOP = 101;
   static final int BOTTOM = 102;
-	
+
   static final int OPEN = 1; // processing value
   static final int CLOSE = 2; // processing value
 

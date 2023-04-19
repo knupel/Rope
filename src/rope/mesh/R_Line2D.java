@@ -652,8 +652,11 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     float buf_pos = 0;
     float resultat = 0;
     float is = 0;
-    float bell_detection = 0.18f;
+    // float bell_detection = map(level,1,13,0.15f,0.24f);
+    // float bell_detection = map(level,1,13,0.23f,0.10f);
+    // float bell_detection = map(level,1,13,0.12f,0.28f);
     // float bell_detection = 0.23f;
+   float bell_detection = 0.18f;
     switch(type) {
       case NORMAL:
         absolute_pos = random(1);
@@ -668,29 +671,36 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         }
         break;
       case SIDE:
-        buf_pos = random(1);
-        resultat = d_bell_raw(buf_pos, level);
-        is = random(bell_detection); // 0.18 nice
-        if(resultat < is) {   
-          absolute_pos = buf_pos;
+        absolute_pos = distri_pos(level, true);
+        if(!Float.isNaN(absolute_pos)) {
+          absolute_pos = map(absolute_pos, 0.0f, 1.0f, 0f, 0.5f);
+          if(random(1) < 0.5f) {
+            absolute_pos += (2*(0.5f -absolute_pos));
+          }
         }
+        // buf_pos = random(1);
+        // resultat = d_bell_raw(buf_pos, level);
+        // is = random(bell_detection); // 0.18 nice
+        // if(resultat < is) {  
+        //   absolute_pos = buf_pos;
+        // }
         break;
       case START:
-        absolute_pos = d_spray_pos(level);
+        absolute_pos = distri_pos(level, false);
         break;
 
       case END:
-        absolute_pos = 1 - d_spray_pos(level);
+        absolute_pos = 1 - distri_pos(level, false);
         break;
 
       // case for the ordinate
       case START*2:
-        absolute_pos = d_spray_pos(level);
+        absolute_pos = distri_pos(level, false);
         break;
 
       case END*2:
 
-        absolute_pos = d_spray_pos(level);
+        absolute_pos = distri_pos(level, false);
         if(!Float.isNaN(absolute_pos)) {
           absolute_pos = 1 -absolute_pos;
         }
@@ -727,9 +737,14 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     return absolute_pos;
   }
 
-  private float d_spray_pos(int level) {
+  private float distri_pos(int level, boolean reflect_is) {
     float buf_pos = random(1);
-    float resultat = d_spray(buf_pos, level);
+    float resultat = 0;
+    if(!reflect_is) {
+      resultat = d_spray(buf_pos, level);
+    } else {
+      resultat = d_reflect(buf_pos, level);
+    }
     float is = random(1);
     if(resultat < is) {
       return buf_pos;
@@ -757,28 +772,62 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     }
     float range = 1.0f;
     return d_pow(value, range, power);
+  }
 
+
+  // private float d_reflect_pos(int level) {
+  //   float buf_pos = random(1);
+  //   float resultat = d_reflect(buf_pos, level);
+  //   float is = random(1);
+  //   if(resultat < is) {
+  //     return buf_pos;
+  //   }
+  //   return Float.NaN;
+  // }
+
+  private float d_reflect(float value , int level) {
+    float power = 1.0f;
+    switch (level) {
+      case 1: power = 0.1f; break;
+      case 2: power = 0.2f; break;
+      case 3: power = 0.3f; break;
+      case 4: power = 0.4f; break;
+      case 5: power = 0.6f; break;
+      case 6: power = 0.8f; break;
+      case 7: power = 1.0f; break;
+      case 8: power = 1.2f; break;
+      case 9: power = 1.4f; break;
+      case 10: power = 1.6f; break;
+      case 11: power = 1.8f; break;
+      case 12: power = 2.0f; break;
+      case 13: power = 2.2f; break;
+      default: power = 1.0f; break;
+    }
+    float range = 1.0f;
+    return d_pow(value, range, power);
   }
 
 
   private float d_bell_raw(float value, int level) {
-    float variance = 5;
+    float variance = 3.0f;
     switch (level) {
-      case 1: variance = 7.0f; break;
-      case 2: variance = 6.0f; break;
-      case 3: variance = 5.0f; break;
-      case 4: variance = 4.0f; break;
-      case 5: variance = 3.0f; break;
-      case 6: variance = 2.0f; break;
-      case 7: variance = 1.5f; break;
-      case 8: variance = 1.0f; break;
-      case 9: variance = 0.75f; break;
-      case 10: variance = 0.5f; break;
-      case 11: variance = 0.3f; break;
-      case 12: variance = 0.2f; break;
-      case 13: variance = 0.1f; break;
-      default: variance = 5.0f; break;
+      case 1: variance = 5.0f; break;
+      case 2: variance = 4.85f; break;
+      case 3: variance = 4.7f; break;
+      case 4: variance = 4.55f; break;
+      case 5: variance = 4.4f; break;
+      case 6: variance = 4.25f; break;
+      case 7: variance = 4.1f; break;
+      case 8: variance = 3.95f; break;
+      case 9: variance = 3.8f; break;
+      case 10: variance = 3.65f; break;
+      case 11: variance = 3.5f; break;
+      case 12: variance = 3.35f; break;
+      case 13: variance = 3.2f; break;
+
+      default: variance = 4.25f; break;
     }
+    variance = 5.0f;
     float range = dist(this.a, this.b);
     float offset = 0;
     return d_bell(value *range, range, variance, offset);

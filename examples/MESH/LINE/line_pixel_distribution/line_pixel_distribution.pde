@@ -12,7 +12,7 @@ Rope r = new Rope();
 int num = 13;
 int level_abscissa = 1;
 int level_ordinate = 1;
-float density = 10;
+float density = 40;
 float thickness = 40.0f;
 R_Line2D [] line = new R_Line2D[num];
 
@@ -76,8 +76,10 @@ void set() {
 		float len = (step_x * i) + step_x ;
 		line[i].set(0, pos_y, len, pos_y);
 		//line[i].mode_abscissa(r.NORMAL, l_abs);
-		int type_abs = select_type();
-		int type_ord = select_type();
+		// int type_abs = select_type();
+		// int type_ord = select_type();
+		int type_abs = r.SIDE;
+		int type_ord = r.NORMAL;
 		print_type(type_abs, "abscissa", level_abscissa);
 		print_type(type_ord, "ordinate", level_ordinate);
 		line[i].mode_abscissa(type_abs, level_abscissa);

@@ -14,8 +14,8 @@
 
 > R_Impact
 > add polygon to show the peripheric polygon and display on all the window.
-> add function to create gradient, for thickness, fill and stroke `use_gradient_fill()`, `use_gradient_stroke()`, `use_gradient_thivkness()`
-> add function `boolean build_is()` to check is Onject is build or not
+> add function to create gradient, for thickness, fill and stroke `use_gradient_fill()`, `use_gradient_stroke()`, `use_gradient_thickness()`
+> add function `build_is()` to check is Onject is build or not
 > add function `heart_is()`, `heart_is(boolean is)`
 > remove `set_heart(int level)`
 > add function to set approximativ diameter `set_diam(int value)`

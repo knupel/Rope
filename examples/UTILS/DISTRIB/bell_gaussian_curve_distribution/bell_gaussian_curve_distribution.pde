@@ -21,7 +21,7 @@ void draw() {
 void show() {
 	int c = color(0);
 	float range = width/2;
-	float variance = 5; // from 0 to 5 usualy
+	float variance = 6; // from 0 to 7 usualy
 	// float offset = -(width /4); // is set in proportion of your range
 	float offset = 0;
 	for(int i = 0; i < range ; i++) {
