@@ -631,8 +631,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public void mode_ordinate(int type) {
     // Special case for swith because the treatment is not exacly a same
-    if(type == SIDE || type == START || type == END) {
-    // if(type == CENTER || type == SIDE || type == START || type == END) {
+    if(type == CENTER || type == SIDE || type == START || type == END) {
       type *= 2;
     }
     this.type_ordinate = type;
@@ -653,10 +652,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
     float buf_pos = 0;
     float resultat = 0;
     float is = 0;
-    // float bell_detection = map(level,1,13,0.15f,0.24f);
-    // float bell_detection = map(level,1,13,0.23f,0.10f);
-    // float bell_detection = map(level,1,13,0.12f,0.28f);
-    // float bell_detection = 0.23f;
     float bell_detection = 0.18f;
     switch(type) {
       case NORMAL:
@@ -709,14 +704,16 @@ public class R_Line2D extends R_Graphic implements R_Constants {
           }
         }
         break;
-      // case CENTER*2:
-      //   buf_pos = random(1);
-      //   resultat = d_bell_raw(buf_pos, level);
-      //   is = random(bell_detection);
-      //   if(resultat > is) {
-      //     absolute_pos = buf_pos;
-      //   }
-      //   break;
+      case CENTER *2:
+        absolute_pos = distri_pos(level, true);
+        if(!Float.isNaN(absolute_pos)) {
+          absolute_pos = pow(absolute_pos,map(level, 1,13,1,2));
+          absolute_pos = map(absolute_pos, 0.0f, 1.0f, 0.5f, 0);
+          if(random(1) < 0.5f) {
+            absolute_pos += (2*(0.5f -absolute_pos));
+          }
+        }
+        break;
       default:
         absolute_pos = random(1);
         break;

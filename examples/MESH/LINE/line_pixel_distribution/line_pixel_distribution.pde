@@ -12,8 +12,8 @@ Rope r = new Rope();
 int num = 13;
 int level_abscissa = 1;
 int level_ordinate = 1;
-float density = 40;
-float thickness = 40.0f;
+float density = 20;
+float thickness = 20.0f;
 R_Line2D [] line = new R_Line2D[num];
 
 
@@ -78,19 +78,19 @@ void set() {
 		//line[i].mode_abscissa(r.NORMAL, l_abs);
 		int type_abs = select_type();
 		int type_ord = select_type();
-		// int type_abs = r.NORMAL;
-		// int type_ord = r.SIDE;
+		type_abs = r.NORMAL;
+		// type_ord = r.CENTER;
 		print_type(type_abs, "abscissa", level_abscissa);
 		print_type(type_ord, "ordinate", level_ordinate);
-		// if(i%2 == 0) {
-		// 	line[i].mode_ordinate(type_ord, level_ordinate);
-		// 	// line[i].mode_abscissa(type_abs, level_abscissa);
-		// } else {
-		// 	line[i].mode_ordinate(r.CENTER, level_ordinate);
-		// 	// line[i].mode_abscissa(r.CENTER, level_abscissa);
-		// }
+		if(i%2 == 0) {
+			line[i].mode_ordinate(r.SIDE, level_ordinate);
+			// line[i].mode_abscissa(type_abs, level_abscissa);
+		} else {
+			line[i].mode_ordinate(r.CENTER, level_ordinate);
+			// line[i].mode_abscissa(r.CENTER, level_abscissa);
+		}
 		line[i].mode_abscissa(type_abs, level_abscissa);
-		line[i].mode_ordinate(type_ord, level_ordinate);
+		// line[i].mode_ordinate(type_ord, level_ordinate);
 
 
 		line[i].set_pixels(density, thickness);

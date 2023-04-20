@@ -64,8 +64,9 @@ void set_impact() {
 	// SET ASPECT
 	// imp.set_pixels_colour(r.WHITE);
 	imp.set_stroke(r.WHITE);
-	imp.set_pixel_mode_abscissa(r.SIDE, 2);
-	imp.set_pixel_mode_ordinate(r.CENTER, 1);
-	imp.set_density(6);
-	imp.set_thickness(15);
+	// imp.set_pixel_mode_abscissa(r.SIDE, 3); // 1 to 13
+	imp.set_pixel_mode_abscissa(r.SIDE, 2); // 1 to 13
+	imp.set_pixel_mode_ordinate(r.SIDE, 7); // 1 to 13
+	imp.set_density(9);
+	imp.set_thickness(40);
 }
