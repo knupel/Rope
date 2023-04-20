@@ -2240,7 +2240,6 @@ public class R_Impact extends R_Graphic {
 		}
 	}
 
-
 	// SHOW OTHER
 	//////////////////
 	/**

@@ -26,4 +26,5 @@ pids
 ehthumbs.db
 Thumbs.db
 
-*.class
+# to don't add the file create I don't an unkoow reason in my scr
+# *.class
