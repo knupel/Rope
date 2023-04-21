@@ -13,7 +13,8 @@ int which_display = 0;
 boolean heart_is = true;
 
 void setup() {
-	size(600,600);
+	size(600,600,P2D);
+	pixelDensity(2);
 	set_impact();
 	imp.build();
 }

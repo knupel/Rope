@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 0.5.2
+ * v 0.6.0
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -26,10 +26,7 @@ import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
 
 
-
-
-
-public class R_Line2D extends R_Graphic implements R_Constants {
+public class R_Line2D extends R_Graphic {
   protected vec3 a;
   protected vec3 b;
   protected vec3 ref_a;
@@ -921,8 +918,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
 
-  // protected R_Pixies pixies;
-  // protected R_Pixies pixies_growth;
     /**
    * 
    * @return the array of pixels a long the line if it's possible.
@@ -968,6 +963,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
   
   private void show_pixels_impl(R_Pixies list) {
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int index = 0 ; index < list.size(); index++) {
+        int x = (int)(list.get(index).x() *pa.displayDensity());
+        int y = (int)(list.get(index).y() *pa.displayDensity());
+        int c = list.get(index).fill();
+        plot(x,y,c);
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
     loadPixels();
     for(int index = 0 ; index < list.size(); index++) {
       int entry = list.get(index).get_entry();
@@ -978,6 +986,7 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   public void show_pixels_x2() {
+    
     show_pixels_x2_impl(pixies);
     if(pixies_growth != null) {
       show_pixels_x2_impl(pixies_growth);
@@ -985,6 +994,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   }
 
   private void show_pixels_x2_impl(R_Pixies list) {
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int index = 0 ; index < list.size(); index++) {
+      int x = (int)(list.get(index).x() * pa.displayDensity());
+      int y = (int)(list.get(index).y() * pa.displayDensity());
+        int c = list.get(index).fill();
+        plot_x2(x,y,c);
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
     loadPixels();
     for(int index = 0 ; index < list.size(); index++) {
       int x = (int)list.get(index).x();
@@ -1014,6 +1036,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public void show_pixels(float density, float thickness, int... colour) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+        if(pair != null) {
+          plot(pair.a().mult(pa.displayDensity()), pair.b());
+        }
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
       R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
@@ -1045,6 +1080,19 @@ public class R_Line2D extends R_Graphic implements R_Constants {
   public void show_pixels_x2(float density, float thickness, int... colour) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+        if(pair != null) {
+          plot_x2(pair.a().mult(pa.displayDensity()), pair.b());
+        }
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
       R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
@@ -1153,8 +1201,31 @@ public class R_Line2D extends R_Graphic implements R_Constants {
    */
   public R_Line2D copy() {
     R_Line2D line = new R_Line2D(this.pa);
+    copy_impl(line);
+    // Don't forget to clone this part to the children class like R_Puppet2D
+    // R_Line2D line = new R_Line2D(this.pa);
+    // line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
+    // line.mute(this.mute_is());
+    // line.pixel_density_is(this.pixel_density_is());
+    // if(pixies != null && pixies.size() > 0) {
+    //   line.pixies = new R_Pixies();
+    //   for(R_Pix pix : pixies.get()) {
+    //     line.pixies.add(pix);
+    //   }
+    // }
+    // if(pixies_growth != null && pixies_growth.size() > 0) {
+    //   line.pixies_growth = new R_Pixies();
+    //   for(R_Pix pix : pixies_growth.get()) {
+    //     line.pixies_growth.add(pix);
+    //   }
+    // }
+    return line;
+  }
+
+  protected void copy_impl(R_Line2D line) {
     line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
     line.mute(this.mute_is());
+    line.pixel_density_is(this.pixel_density_is());
     if(pixies != null && pixies.size() > 0) {
       line.pixies = new R_Pixies();
       for(R_Pix pix : pixies.get()) {
@@ -1167,7 +1238,6 @@ public class R_Line2D extends R_Graphic implements R_Constants {
         line.pixies_growth.add(pix);
       }
     }
-    return line;
   }
   
   @Override

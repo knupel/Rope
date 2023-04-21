@@ -285,6 +285,32 @@ public class R_Impact extends R_Graphic {
 		return this.update_pixels_is;
 	}
 
+
+	/**
+	 * Overwrite the R_Graphic function to set pixel density the line dynamicily 
+	 */
+	public void pixel_density_is(boolean is) {
+		this.pixel_density_is = is;
+		if(build_is()) {
+			// main
+			for(int i = 0 ; i < main.length ; i++) {
+				for(R_Puppet2D line : main[i]) {
+					line.pixel_density_is(is);
+				}
+			}
+			// circle
+			for(int i = 0 ; i < circle.length ; i++) {
+				for(R_Line2D line : circle[i]) {
+					line.pixel_density_is(is);
+				}
+			}
+			// heart
+			for(R_Puppet2D line : heart) {
+				line.pixel_density_is(is);
+			}
+		}
+	}
+
 	// It's for the case where there are dynamic change on the net impact
 
 	/**
@@ -671,7 +697,6 @@ public class R_Impact extends R_Graphic {
 
 
 
-
 	///////////////////////////
 	// BUILD GLOBAL
 	///////////////////////////
@@ -817,6 +842,8 @@ public class R_Impact extends R_Graphic {
 			b.y(y + this.pos.y());
 			
 			R_Puppet2D line = new R_Puppet2D(this.pa);
+			// set staticly the pixel density
+			line.pixel_density_is(this.pixel_density_is());
 			if(start_is) {
 				line.pointer_a(a);
 				line.pointer_b(b);
@@ -853,6 +880,8 @@ public class R_Impact extends R_Graphic {
 
 	private void add_puppet_line_to_heart(vec3 a, vec3 b) {
 		R_Puppet2D line = new R_Puppet2D(this.pa);
+		// set staticly the pixel density
+		line.pixel_density_is(this.pixel_density_is());
 		line.pointer_a(a);
 		line.pointer_b(b);
 		heart.add(line);
@@ -1158,6 +1187,8 @@ public class R_Impact extends R_Graphic {
 			}
 			circle[index].clear();
 			for(R_Line2D line : selected_list) {
+				// set staticly the pixel density
+				line.pixel_density_is(this.pixel_density_is());
 				circle[index].add(line);
 			}
 		}

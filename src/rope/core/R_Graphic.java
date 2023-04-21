@@ -8,7 +8,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Graphic class
- * v 0.7.3
+ * v 0.7.5
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -27,6 +27,7 @@ public class R_Graphic extends BigBang {
 	protected processing.core.PGraphics other;
 	private boolean fill_is = false;
 	private boolean stroke_is = false;
+	protected boolean pixel_density_is = false; 
 	
 	public R_Graphic(PApplet pa) {
 		super(pa);
@@ -39,18 +40,13 @@ public class R_Graphic extends BigBang {
 		}
 	}
 
-	/**
-	 * 
-	 * @param x int coordinate of your targeting pixel
-	 * @param y int coordinate of your targeting pixel
-	 * @param width is the width of your image
-	 * @return the rank of your pixel coordonate in the array pixel
-	 */
+	public void pixel_density_is(boolean is) {
+		this.pixel_density_is = is;
+	}
 
-	 // Already in Rope class
-	// public int index_pixel_array(int x, int y, int width) {
-	// 	return (x + y * width);
-	// }
+	public boolean pixel_density_is() {
+		return this.pixel_density_is;
+	}
   
   /**
    * 
@@ -385,9 +381,14 @@ public class R_Graphic extends BigBang {
 		}
 	}
 
-	public void plot_impl(int x, int y, int c, PGraphics pg) {
+	private void plot_impl(int x, int y, int c, PGraphics pg) {
 		int w = pg.width;
 		int h = pg.height;
+		if(pixel_density_is()) {
+			w = pg.pixelWidth;
+			h = pg.pixelHeight;
+		}
+
 		if(lessThan(x,w) && lessThan(y,h) && greaterThanEqual(x,0) && greaterThanEqual(y, 0)) {
 			int index = index_pixel_array(x, y, w);
 			pg.pixels[index] = c;
@@ -396,9 +397,9 @@ public class R_Graphic extends BigBang {
 
 	public void plot(int index, int c) {
 		if(this.other != null) {
-			plot_impl(index,c, this.other);
+			plot_impl(index, c, this.other);
 		} else {
-			plot_impl(index,c, this.pa.g);
+			plot_impl(index, c, this.pa.g);
 		}
 	}
 
@@ -442,6 +443,10 @@ public class R_Graphic extends BigBang {
 	private void plot_x2_impl(int x, int y, int colour, PGraphics pg) {
 		int w = pg.width;
 		int h = pg.height;
+		if(pixel_density_is()) {
+			w = pg.pixelWidth;
+			h = pg.pixelHeight;
+		}
 		if(lessThan(x,w) && lessThan(y,h) && greaterThanEqual(x,0) && greaterThanEqual(y, 0)) {
 			int index = index_pixel_array(x, y, w);
 			pg.pixels[index] = colour;

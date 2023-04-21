@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/stanislasmarcais/EN_COURS/CODE/eclipse-workspace/libs/core_processing_4_0b2.jar"/>
+	<classpathentry kind="lib" path="/Users/stanislasmarcais/EN_COURS/CODE/eclipse-workspace/libs/core_processing_4_2.jar"/>
 	<classpathentry kind="output" path="resources/code"/>
 </classpath>

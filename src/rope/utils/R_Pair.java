@@ -11,11 +11,12 @@ package rope.utils;
  */
 
 
-public class R_Pair<A,B>  {
+public class R_Pair<A,B>{
 	private A a;
 	private B b;
 
-	public R_Pair() {}
+	public R_Pair() {
+	}
 	
 	public R_Pair(A a, B b) {
 		this.a = a;

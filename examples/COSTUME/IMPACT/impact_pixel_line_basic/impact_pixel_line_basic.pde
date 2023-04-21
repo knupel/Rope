@@ -1,22 +1,31 @@
 /**
- * 
- * simple impact to show the pixel line
- * basic use
- * v 0.1.0
- * 2023-2023
- * 
+* 
+* simple impact to show the pixel line
+* with pixelDensity(2) or not
+* basic use
+* v 0.2.0
+* 2023-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope/blob/master/src/rope/mesh/R_Line2D.java
+*
+* */
 
- * */
 import rope.costume.R_Impact;
 import rope.core.Rope;
 import rope.mesh.R_Line2D;
 
 R_Impact imp;
 Rope r = new Rope();
+boolean use_pixel_density = false;
 
 void setup() {
 	// faster in P2D render, the speed is increase by 3.5
 	size(600,600, P2D);
+
+	// to have rendering with pixelDensity option
+	pixelDensity(2);
+	use_pixel_density = true;
+
 	set_impact();
 	imp.build();
 	imp.set_density(0.7);
@@ -26,12 +35,19 @@ void setup() {
 }
 
 void draw() {
+	println("FPS", (int)frameRate);
 	background(r.BLACK);
 	// imp.update_pixels(mousePressed);
 	if(mousePressed) {
 		imp.set_density(map(sin(frameCount * 0.03), -1, 1, 0.1, 0.6));
 	}
-	imp.set_line_mode(1); // 0 is classic one, 1 and 2 is for pixel x1 and x2
+	if(imp.pixel_density_is()) {
+		imp.set_line_mode(2); // better with pixelDensity(2)
+	} else {
+		imp.set_line_mode(1); // 0 is classic one, 1 and 2 is for pixel x1 and x2
+	}
+	
+
 	imp.show_lines();
 
 	String str = "[ " + mouseX + " " + mouseY + " ]";
@@ -51,7 +67,7 @@ void keyPressed() {
 
 void set_impact() {
 	imp = new R_Impact(this, width/2, height/2, 500);
-	
+	imp.pixel_density_is(use_pixel_density); // to use PixelDensity from Processing, for Retina and other HD screen
 	imp.heart_is(true); // from 1 to max main iteration
 
 	// SET THE MAIN BRANCHES

@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Puppet2D class
-* v 0.0.3
+* v 0.0.4
 * 2022-2023
 * @author @knupel
 * @see https://github.com/knupel/Rope/blob/master/src/rope/tool/R_Puppet2D.java
@@ -301,6 +301,8 @@ public class R_Puppet2D extends R_Line2D {
    * @return copy of herself, maybe this one can be bugged because the ref is not copy
    */
   public R_Puppet2D copy() {
+    R_Puppet2D puppet = new R_Puppet2D(this.pa);
+    copy_impl(puppet);
 		// maybe need copy this part too in the future ??????
 		// ???????????????????
 		// private ArrayList<R_Pair<vec3,vec5>> pair_list = new ArrayList<R_Pair<vec3,vec5>>();
@@ -308,16 +310,6 @@ public class R_Puppet2D extends R_Line2D {
 		// private ArrayList<vec3> ref_list = new ArrayList<vec3>();
 		// private vec2 start_a;
 		// private vec2 start_b;
-		
-    R_Puppet2D puppet = new R_Puppet2D(this.pa);
-    puppet.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
-    puppet.mute(this.mute_is());
-    if(pixies != null && pixies.size() > 0) {
-      puppet.pixies = new R_Pixies();
-      for(R_Pix pix : pixies.get()) {
-        puppet.pixies.add(pix);
-      }
-    }
     return puppet;
   }
 }
