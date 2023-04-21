@@ -13,7 +13,7 @@
  * BIG BANG ROPE
  * is the main class of library
  * 2018-2023
- * v 2.1.0
+ * v 2.2.0
  * 
  * WARNING : Here it's PROCESSING BIG BANG
  * BigBang is used to acces directly to Processing method, to keep Rope with only Java Stuff
@@ -52,8 +52,8 @@ import java.awt.FontMetrics;
 
 
 public class BigBang extends Rope {
-// public abstract class BigBang extends Rope {
 	public PApplet pa;
+	protected boolean pixel_density_is = false; 
 
 
 	public BigBang(PApplet pa) {
@@ -69,6 +69,14 @@ public class BigBang extends Rope {
 	/**
 	 * MISC IMPORTANT
 	 */
+
+	public void pixel_density_is(boolean is) {
+		this.pixel_density_is = is;
+	}
+
+	public boolean pixel_density_is() {
+		return this.pixel_density_is;
+	}
 
 	 /**
 		* must be used for the class child who don't pass the PApplet via the constructor and for any reason must be use few function from BigBang who need the Processing method or function.
@@ -469,10 +477,16 @@ public class BigBang extends Rope {
 			BufferedImage buff_img;
 			if(img == null) {
 			} else {
-				img.loadPixels(); 
-				buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
-				buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
-				print_err("save_frame():",filename, "is saved");
+				img.loadPixels();
+				int w = img.width;
+				int h = img.height;
+				if(pixel_density_is()) {
+					w = img.pixelWidth;
+					h = img.pixelHeight;
+				}
+				buff_img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+				buff_img.setRGB(0, 0, w, h, img.pixels, 0, w);
+				print_out("save_frame():",filename, "is saved");
 
 				if(extension_is(path, "bmp")) {
 					save_BMP(os, buff_img);

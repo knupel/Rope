@@ -27,7 +27,6 @@ public class R_Graphic extends BigBang {
 	protected processing.core.PGraphics other;
 	private boolean fill_is = false;
 	private boolean stroke_is = false;
-	protected boolean pixel_density_is = false; 
 	
 	public R_Graphic(PApplet pa) {
 		super(pa);
@@ -40,13 +39,7 @@ public class R_Graphic extends BigBang {
 		}
 	}
 
-	public void pixel_density_is(boolean is) {
-		this.pixel_density_is = is;
-	}
 
-	public boolean pixel_density_is() {
-		return this.pixel_density_is;
-	}
   
   /**
    * 

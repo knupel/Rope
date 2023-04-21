@@ -3,10 +3,16 @@
 > Go to Java 17
 > Go to Processing 4.2
 
+> R_BigBang
+> now BigBang is a classic Class, not abscract
+> add void `pixel_density_is(boolean is)` and boolean `use_pixel_density_is()`
+> add function to `save_frame()` `save_PDF()` `save_BMP()`, `save_JPG()`, `save_PNG()`
+> add function `sketchPath(int rank)`
 
 > R_Rope
 > add function distribution relatited to mathematical curve, power, square root, normal distribution...
 > `r_pow()`, `r_sqrt()`, `r_cbrt()`, `r_bell()`
+> improve function `in_polygon()` for the marge detection, now the detection is divide on 3 results : out, border and in polygon
 
 > VECTOR
 > remove jitter from all vec
@@ -31,6 +37,7 @@
 > add function `stroke_is()`, `fill_is()` to set if `stroke()`, `strokeWeight()` and `fill()` is active
 > add function `clear()` from Processing
 
+
 > R_Line2D
 > comment deprecated function()
 > `point()` function become `get_point()` to avoid confusion with Mother function `point()` + protected it
@@ -47,16 +54,11 @@
 > add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false
 
 
-
 > R_SVG
 > remove the calling function `jitter()`, instead use random_next_gaussian() function
 
-
 > R_Shape
 > add function `length()` thant return the num of summits like `get_summits()`
-
-> R_Rope
-> improve function `in_polygon()` for the marge detection, now the detection is divide on 3 results : out, border and in polygon
 
 
 > R_Colour
@@ -77,10 +79,8 @@
 
 > R_Pixies new class to manage list of R_Pix
 
-> BigBang
-> now BigBang is a classic Class, not abscract
-> add function to `save_frame()` `save_PDF()` `save_BMP()`, `save_JPG()`, `save_PNG()`
-> add function `sketchPath(int rank)`
+
+
 
 \* version 49
 
