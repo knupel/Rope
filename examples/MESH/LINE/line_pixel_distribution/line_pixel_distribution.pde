@@ -76,10 +76,10 @@ void set() {
 		float len = (step_x * i) + step_x ;
 		line[i].set(0, pos_y, len, pos_y);
 		//line[i].mode_abscissa(r.NORMAL, l_abs);
-		int type_abs = select_type();
-		int type_ord = select_type();
-		type_abs = r.NORMAL;
-		// type_ord = r.CENTER;
+		// int type_abs = select_type();
+		// int type_ord = select_type();
+		int type_abs = r.SIDE;
+		int type_ord = r.CENTER;
 		print_type(type_abs, "abscissa", level_abscissa);
 		print_type(type_ord, "ordinate", level_ordinate);
 		if(i%2 == 0) {
