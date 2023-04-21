@@ -1202,23 +1202,6 @@ public class R_Line2D extends R_Graphic {
   public R_Line2D copy() {
     R_Line2D line = new R_Line2D(this.pa);
     copy_impl(line);
-    // Don't forget to clone this part to the children class like R_Puppet2D
-    // R_Line2D line = new R_Line2D(this.pa);
-    // line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
-    // line.mute(this.mute_is());
-    // line.pixel_density_is(this.pixel_density_is());
-    // if(pixies != null && pixies.size() > 0) {
-    //   line.pixies = new R_Pixies();
-    //   for(R_Pix pix : pixies.get()) {
-    //     line.pixies.add(pix);
-    //   }
-    // }
-    // if(pixies_growth != null && pixies_growth.size() > 0) {
-    //   line.pixies_growth = new R_Pixies();
-    //   for(R_Pix pix : pixies_growth.get()) {
-    //     line.pixies_growth.add(pix);
-    //   }
-    // }
     return line;
   }
 
