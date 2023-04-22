@@ -1,9 +1,9 @@
 /**
 * Rope costume
-* v 0.0.1
-* 2019-2019
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.2
+* 2019-2023
+* @author @knupel
+* https://github.com/knupel/Rope
 *
 * In this example two application of class RCurve and RBezier
 */
@@ -19,8 +19,6 @@ void setup() {
   prim = new R_Primitive(this,4);
   star = new R_Star(this);
   virus = new R_Virus(this);
-  
-
 }
 
 void draw() {

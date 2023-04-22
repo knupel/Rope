@@ -1,10 +1,10 @@
 /**
 * Rope Primitive Polygon
-* v 0.0.2
-* 2019-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
 *
+* @author @knupel
+* https://github.com/knupel/Rope
+* v 0.0.2
+* 2019-2023
 */
 import rope.costume.R_Primitive;
 import rope.vector.*;

@@ -1,16 +1,16 @@
 /**
-* Rope Library
-* Copyleft (c) 2014-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
-*
+* Icosahedron
+* @author @knupel
+* https://github.com/knupel/Rope
+* v 0.0.2
+* 2019-2023
 */
 
 
 import rope.vector.vec3;
 import rope.mesh.R_Face;
-
 import rope.costume.R_Icosahedron;
+
 R_Icosahedron icosahedron;
 int radius = 100;
 int colour;

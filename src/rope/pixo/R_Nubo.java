@@ -104,7 +104,7 @@ public class R_Nubo extends Rope {
 
   /**
    * 
-   * @param mode define the variation of the type (algorithm)
+   * @param mode define the variation around the main shape algorithm
    * @return this to give the opportunity to make train of function on the same line
    */
   public R_Nubo set_mode(int mode) {
@@ -362,32 +362,26 @@ public class R_Nubo extends Rope {
     float dist = 1;
     switch(this.algo) {
       case CIRCULAR:
-      dist = get_dist_max();
-      break;
-
+        dist = get_dist_max();
+        break;
       case POLYGON:
-      dist = get_dist_max();
-      break;
-
-			case MAD:
-      dist = random(get_dist_min(), get_dist_max());
-      break;
-
+        dist = get_dist_max();
+        break;
+      case MAD:
+        dist = random(get_dist_min(), get_dist_max());
+        break;
       case SPIRAL:
-      dist = random(get_dist_min(), get_dist_max());
-      break;
-
+        dist = random(get_dist_min(), get_dist_max());
+        break;
       case CHAOS:
-      dist = random(get_dist_min(), get_dist_max());
-      break;
-
+        dist = random(get_dist_min(), get_dist_max());
+        break;
       case IMAGE:
-      dist = random(get_dist_min(), get_dist_max());
-      break;
-
+        dist = random(get_dist_min(), get_dist_max());
+        break;
       default:
-      dist = random(get_dist_min(), get_dist_max());
-      break;
+        dist = random(get_dist_min(), get_dist_max());
+        break;
     }
     set_focus(angle, dist);
   }
@@ -403,7 +397,12 @@ public class R_Nubo extends Rope {
 
   	switch(this.algo) {
   		case MAD:
-        pos.add(dx * this.step, dy * this.step);
+        // dx = sin(get_angle() + this.offset_angle);
+        // dy = cos(get_angle() + this.offset_angle);
+        float rdx = dx * this.step;
+        float rdy = dy * this.step;
+        pos.add(rdx, rdy);
+        // pos.add(dx * this.step, dy * this.step);
         if(ref_pos.dist(pos) > get_dist_max()) {
           pos.set(ref_pos);
         }

@@ -2,8 +2,8 @@
 * CLASS BUTTON 
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/knupel/Rope
-* v 2.7.0
-* 2013-2021
+* v 2.7.1
+* 2013-2023
 */
 package rope.gui.button;
 
@@ -336,37 +336,37 @@ public class R_Button extends Crope {
     }
   }
 
-  @Deprecated public void show(PImage [] pic) {
-    int offset_x = -1 ;
-    if(pic.length == 4) {
-      if (is) {
-        if (inside() && auth_rollover) {
-          image(pic[0],pos.x() +offset_x, pos.y()); 
-        } else {
-          image(pic[1],pos.x() +offset_x, pos.y());
-        }
-      } else {
-        if (inside() && auth_rollover) {
-          image(pic[2],pos.x() +offset_x, pos.y()); 
-        } else {
-          image(pic[3],pos.x() +offset_x, pos.y());
-        }
-      }
-    }
-  }
+  // @Deprecated public void show(PImage [] pic) {
+  //   int offset_x = -1 ;
+  //   if(pic.length == 4) {
+  //     if (is) {
+  //       if (inside() && auth_rollover) {
+  //         image(pic[0],pos.x() +offset_x, pos.y()); 
+  //       } else {
+  //         image(pic[1],pos.x() +offset_x, pos.y());
+  //       }
+  //     } else {
+  //       if (inside() && auth_rollover) {
+  //         image(pic[2],pos.x() +offset_x, pos.y()); 
+  //       } else {
+  //         image(pic[3],pos.x() +offset_x, pos.y());
+  //       }
+  //     }
+  //   }
+  // }
 
-  @Deprecated public void show(int kind, boolean on_off_is) {
-    this.kind = kind;
-    if(this.kind == RECT) {
-      aspect_impl(false);
-      rect(new vec2(pos), new vec2(size));
-    } else if(this.kind == ELLIPSE) {
-      aspect_impl(false);
-      vec2 final_size = new vec2(size);
-      vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
-      ellipse(final_pos,final_size);
-    }
-  }
+  // @Deprecated public void show(int kind, boolean on_off_is) {
+  //   this.kind = kind;
+  //   if(this.kind == RECT) {
+  //     aspect_impl(false);
+  //     rect(new vec2(pos), new vec2(size));
+  //   } else if(this.kind == ELLIPSE) {
+  //     aspect_impl(false);
+  //     vec2 final_size = new vec2(size);
+  //     vec2 final_pos = new vec2(pos).add(final_size.copy().mult(0.5f));
+  //     ellipse(final_pos,final_size);
+  //   }
+  // }
 
 
   public void show_value(float... value) {

@@ -1,10 +1,10 @@
 /**
 * R_Mol
 * Control ROmanesco Processing Environment
-* v 1.2.0
-* Copyleft (c) 2018-2021
+* v 1.2.1
+* Copyleft (c) 2018-2023
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope
+* https://github.com/knuepl/Rope
 */
 package rope.gui;
 
@@ -47,6 +47,8 @@ public class R_Mol extends R_Graphic {
 
   public R_Mol() {
   	super(State.pa());
+    fill_is(true);
+    stroke_is(true);
   }
   
   // set

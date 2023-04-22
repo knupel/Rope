@@ -1,14 +1,14 @@
 /**
  * ROPE Library
- * Copyleft (c) 2014-2021
- * @see https://github.com/StanLepunK/Rope
+ * https://github.com/knupel/Rope
+ * 
  * Knob example
- * 2020-2021
- * v 1.4.0
+ * 2020-2023
+ * v 1.4.1
  */
 
 import rope.gui.button.R_Knob;
-import rope.R_State.State;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
 

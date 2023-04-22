@@ -2,8 +2,8 @@
 * R_Icosahedron class
 * v 0.1.0
 * 2021-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* @author @knupel
+* @see https://github.com/knupel/Rope
 * @see https://processing.org/examples/icosahedra.html
 * @see https://en.wikipedia.org/wiki/Icosahedron
 */
@@ -12,9 +12,7 @@ package rope.costume;
 
 import rope.mesh.R_Face;
 import rope.mesh.R_Shape;
-
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import rope.vector.vec3;
 

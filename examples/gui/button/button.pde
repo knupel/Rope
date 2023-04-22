@@ -1,15 +1,15 @@
 /**
 * GUI CROPE EXAMPLE
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope 
+* https://github.com/knupel/Rope 
 * 
 * button
-* 2016-2021
-* v 1.0.4
+* 2016-2023
+* v 1.0.5
 */
 
 import rope.gui.button.R_Button;
-import rope.R_State.State;
+import rope.utils.R_State.State;
 import rope.vector.vec2;
 import rope.core.Rope;
 
@@ -24,6 +24,8 @@ void setup() {
 
 void draw() {
 	background(r.BLANC);
+	// stroke(r.BLACK);
+	fill(r.BLACK);
 	State.pointer(mouseX,mouseY);
 	State.event(mousePressed, !keyPressed);
 	button_draw();
@@ -37,6 +39,7 @@ void button_setup() {
 	button.size(50);
 	button.set_label("Hello World");
 	button.is(true);
+	button.set_kind(ELLIPSE);
 	// button.set_colour_in_on(r.GREEN);
 	// button.set_colour_out_on(r.SAPIN);
 	// button.set_colour_in_off(r.RED);
@@ -50,11 +53,11 @@ void button_draw() {
 
 	button.show_label();
 	button.show_value();
-	
-	button.show(ELLIPSE,true);
+	button.show();
+	// button.show(ELLIPSE,true);
 	//button.show(RECT,true);
 
-	r.print_tempo(60,"button is",button.is());
-	r.print_tempo(60,"button get",button.get());
+	// r.print_tempo(60,"button is",button.is());
+	// r.print_tempo(60,"button get",button.get());
 }
 

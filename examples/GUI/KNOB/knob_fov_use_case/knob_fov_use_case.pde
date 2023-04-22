@@ -4,11 +4,11 @@
 * 2021-2021
 * Knob example
 * Knob use case for fov mode
-* v 0.0.1
+* v 0.0.2
 */
 
 import rope.gui.button.R_Knob;
-import rope.R_State.State;
+import rope.utils.R_State.State;
 import rope.core.Rope;
 
 Rope r = new Rope();

@@ -1,15 +1,15 @@
 /**
 * Rope Circle
-* v 0.0.2
-* 2019-2019
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.3
+* 2019-2023
+* @author @knupel
+* https://github.com/knupel/Rope
 *
 * In this example two application of class RCurve and RBezier
 */
 import rope.vector.*;
 import rope.costume.R_Circle;
-import rope.costume.R_Bezier;
+import rope.utils.R_Bezier;
 R_Circle exotic_circle;
 void setup() {
   colorMode(HSB,1,1,1,1);

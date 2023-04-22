@@ -1,9 +1,10 @@
 /**
 * CROPE / Control ROmanesco Processing Environment
-* v 1.6.0
-* Copyleft (c) 2018-2021
+
 * @author Knupel / Stanislas Marçais
-* @see https://github.com/StanLepunK/Rope
+* https://github.com/knupel/Rope
+* v 1.6.2
+* Copyleft (c) 2018-2023
 */
 
 package rope.gui;
@@ -96,6 +97,8 @@ abstract public class Crope extends R_Graphic {
    * INIT
    */
   private void init(float x, float y, float sx, float sy) {
+    fill_is(true);
+    stroke_is(true);
     this.font_size = (int)State.pa().g.textSize;
     this.cursor = new vec2();
     this.pos(x,y);

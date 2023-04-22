@@ -1,10 +1,9 @@
 /**
 * Rope Star is like a Rock Star !!!!
+* @author Knupel
+* https://github.com/knupel/Rope
 * v 0.0.1
-* 2022-2022
-* by Stanislas Marçais alias Knupel aka Stan le Punk
-* @see https://github.com/StanLepunK/Rope
-
+* 2022-2023
 */
 
 import rope.costume.R_Star;
