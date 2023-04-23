@@ -874,11 +874,27 @@ public class R_Line2D extends R_Graphic {
   ///////////////////////////////////
   // WALKER 
 ////////////////////////
-
   public void growth(int level, int step) {
+    growth(level, step, Float.NaN, Float.NaN);
+
+  }
+
+  public void growth(int level, int step, float bisector, float fov) {
     if(level < 1) {
       return;
     }
+
+    float start_angle = -PI;
+    float end_angle = PI;
+    if(all(!Float.isNaN(bisector),!Float.isNaN(fov))) {
+      bisector = bisector%PI;
+      start_angle = bisector - (fov * 0.5f);
+      end_angle = start_angle + fov;
+      print_err("growth(): bisector", bisector, "fov", fov);
+      print_err("growth(): start_angle", start_angle, "end_angle", end_angle);
+    }
+    
+
     if(pixies_growth == null) {
       pixies_growth = new R_Pixies();
     } else {
@@ -888,7 +904,7 @@ public class R_Line2D extends R_Graphic {
       R_Pix [] buf = new R_Pix[level];
       buf[0] = p;
       for(int i = 1 ; i < level ; i++) {
-        float angle = random(-PI,PI);
+        float angle = random(-start_angle, end_angle);
         float dx = sin(angle);
         float dy = cos(angle);
         float dist = step;
