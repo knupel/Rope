@@ -3,6 +3,11 @@
 > Go to Java 17
 > Go to Processing 4.2
 
+
+> R_About new class to write text about...
+> add function `signature()` `stamp()` and `title()`
+
+
 > R_BigBang
 > now BigBang is a classic Class, not abscract
 > add void `pixel_density_is(boolean is)` and boolean `use_pixel_density_is()`
