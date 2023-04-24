@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Pix
-* v 0.2.3
+* v 0.3.0
 * 2021-2023
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -19,20 +19,21 @@ package rope.pixo;
 
 import rope.core.Rope;
 import rope.vector.vec3;
+import rope.vector.vec4;
 
 public class R_Pix extends Rope {
-  protected vec3 pos;
+  protected vec4 pos;
   protected int fill;
   protected int entry;
 
   public R_Pix() {
-    this.pos = new vec3();
+    this.pos = new vec4();
 		this.fill = BLACK;
   }
 
 	public R_Pix(int x, int y, int width, int height) {
 		set_entry_impl(x, y, width, height);
-		this.pos = new vec3(x,y,0);
+		this.pos = new vec4(x,y,0,0);
 		this.fill = BLACK;
   }
 
@@ -81,7 +82,8 @@ public class R_Pix extends Rope {
 	 * @param y
 	 */
 	public void pos(float x, float y) {
-		this.pos.set(x,y,0);
+		this.pos.x(x);
+		this.pos.y(y);
 	}
 	
 	/**
@@ -91,10 +93,22 @@ public class R_Pix extends Rope {
 	 * @param z
 	 */
 	public void pos(float x, float y, float z) {
-		this.pos.set(x,y,z);
+		this.pos.x(x);
+		this.pos.y(y);
+		this.pos.z(z);
 	}
 
+	/**
+	 * @return a copy of the position in x, y and z
+	 */
 	public vec3 pos() {
+		return this.pos.xyz();
+	}
+
+	/**
+	 * @return the reel allocation place of the position, use carefuly
+	 */
+	public vec4 pointer_pos() {
 		return this.pos;
 	}
 
@@ -108,6 +122,26 @@ public class R_Pix extends Rope {
 
 	public float z() {
 		return this.pos.z();
+	}
+
+	public float w() {
+		return this.pos.w();
+	}
+
+	public void x(float x) {
+		this.pos.x(x);
+	}
+
+	public void y(float y) {
+		this.pos.y(y);
+	}
+
+	public void z(float z) {
+		this.pos.z(z);
+	}
+
+	public void w(float w) {
+		this.pos.w(w);
 	}
 
 
@@ -125,6 +159,18 @@ public class R_Pix extends Rope {
 	 */
 	public int fill() {
 		return this.fill;
+	}
+
+	/**
+   * 
+   * @return copy of herself
+   */
+	public R_Pix copy() {
+		R_Pix p = new R_Pix();
+		p.pos = pos.copy();
+		p.fill(this.fill);
+		p.set_entry(this.entry);
+		return p;
 	}
 
 }

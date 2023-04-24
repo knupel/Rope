@@ -879,44 +879,55 @@ public class R_Line2D extends R_Graphic {
 
   }
 
-  public void growth(int level, int step, float bisector, float fov) {
+  public void growth(int level, int step, float direction, float fov) {
     if(level < 1) {
       return;
     }
 
     float start_angle = -PI;
-    float end_angle = PI;
-    if(all(!Float.isNaN(bisector),!Float.isNaN(fov))) {
-      bisector = bisector%PI;
-      start_angle = bisector - (fov * 0.5f);
-      end_angle = start_angle + fov;
-      print_err("growth(): bisector", bisector, "fov", fov);
-      print_err("growth(): start_angle", start_angle, "end_angle", end_angle);
-    }
-    
+    // float end_angle = PI;
+    if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
+      // direction = direction%PI;
+      start_angle = direction - (fov * 0.5f);
+      //end_angle = start_angle + fov;
+    }  
 
     if(pixies_growth == null) {
       pixies_growth = new R_Pixies();
     } else {
       pixies_growth.clear();
     }
+
+    float step_fov = fov / pixies.size();
+    float dir_angle = 0;
+    float dir = 0;
+    int count = 0;
     for(R_Pix p : pixies.get()) {
-      R_Pix [] buf = new R_Pix[level];
-      buf[0] = p;
+      count++;
+      R_Pix [] buf_growth = new R_Pix[level];
+      buf_growth[0] = p.copy();
+      // set angle pix growth
+      dir_angle += step_fov;
+      dir = dir_angle + start_angle;
+      buf_growth[0].w(dir);
+      float x = buf_growth[0].x();
+      float y = buf_growth[0].y();
       for(int i = 1 ; i < level ; i++) {
-        float angle = random(-start_angle, end_angle);
+        // float angle = random(-start_angle, end_angle);
+        float angle = buf_growth[0].w() + random(fov);
+        // float angle = random(fov) + start_angle;
         float dx = sin(angle);
         float dy = cos(angle);
-        float dist = step;
         int prev = i - 1;
-        float x = buf[prev].x() + (dx * dist);
-        float y = buf[prev].y() + (dy * dist);
-        buf[i] = new R_Pix();
-        set_pixel_impl(buf[i], new vec2(x,y), p.fill());
-        pixies_growth.add(buf[i]);
+        x += (dx * step);
+        y += (dy * step);
+        buf_growth[i] = new R_Pix();
+        set_pixel_impl(buf_growth[i], new vec2(x,y), p.fill());
+        pixies_growth.add(buf_growth[i]);
       }
     }
   }
+
 
   private void set_pixel(vec2 pos, int c) {
     R_Pix pix = new R_Pix();
@@ -925,6 +936,7 @@ public class R_Line2D extends R_Graphic {
   }
 
   private void set_pixel_impl(R_Pix p, vec2 pos, int c) {
+    // the problem is from the round...
     if(this.other != null) {
       p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
     } else {
@@ -933,8 +945,7 @@ public class R_Line2D extends R_Graphic {
     p.fill(c);
   }
 
-
-    /**
+  /**
    * 
    * @return the array of pixels a long the line if it's possible.
    */
