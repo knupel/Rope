@@ -35,7 +35,8 @@ boolean show_stroke_is = true;
 int thickness = 4;
 
 void setup() {
-  size(600, 600);
+  // size(600, 600);
+  fullScreen();
 	voronoi = new R_Voronoi(this);
 	add_seeds(3);
   textFont(createFont("SansSerif", 14));

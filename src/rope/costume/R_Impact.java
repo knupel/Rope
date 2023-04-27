@@ -2334,11 +2334,9 @@ public class R_Impact extends R_Graphic {
 		if(!build_is()) {
 			build();
 		}
-
 		apply_stroke();
 		apply_gradient_stroke(dist_from_center);
 		apply_gradient_thickness(dist_from_center);
-
 		// maybe need pass graphics other in the future ?
 		if(other != null) {
 			line.pass_graphic(other);
@@ -2358,11 +2356,9 @@ public class R_Impact extends R_Graphic {
 		if(use_gradient_density_is()) {
 			x = get_gradient_density(dist);
 		}
-		
 		if(use_gradient_thickness_is()) {
 			y = get_gradient_thickness(dist);
 		}
-
 		// update position and color pixel
 		if(!line.pixels_is()) {
 			// distri_absord_pixel
@@ -2371,15 +2367,17 @@ public class R_Impact extends R_Graphic {
 			line.set_pixels(x, y, pix_colour);
 			evolution_impl(line);
 		}
-
 		// update color pixel
 		if(line.pixels_is() && line.get_pixies()[0].fill() != pix_colour[0]) {
 			for(R_Pix pix : line.get_pixies()) {
 				pix.fill(pix_colour[0]);
 			}
-			for(R_Pix pix : line.get_pixies_growth()) {
-				pix.fill(pix_colour[0]);
+			if(line.get_pixies_growth() != null) {
+				for(R_Pix pix : line.get_pixies_growth()) {
+					pix.fill(pix_colour[0]);
+				}
 			}
+			
 		}
 
 		if(use_gradient_stroke_is()) {
@@ -2393,7 +2391,6 @@ public class R_Impact extends R_Graphic {
 		if(pa.frameCount == next_frameCount) {
 			set_gradient_pixels_is(true);
 	  }
-
 		pixel_xy.set(x, y);
 	}
 
@@ -2439,14 +2436,11 @@ public class R_Impact extends R_Graphic {
 			mode += 10;
 		}
 		set_line_pixels_colour(dist_from_center);
-
 		float normal_x = density.x();
 		float normal_y = thickness.x();
-		
 		set_line_pixel_final(line, dist_from_center, normal_x, normal_y);
 		normal_x = pixel_xy.a();
 		normal_y = pixel_xy.b();
-
 		switch(mode) {
 			// default mode line
 			case 0:

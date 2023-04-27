@@ -337,15 +337,7 @@ public class R_Line2D extends R_Graphic {
     this.b.set(ref_b);
   }
 
-  /**
-   * return the projection of the point on the line
-   * @param p is point must projected on the line
-   * @return
-   */
-  public vec2 ortho(vec2 p) {
-		vec2 proj = b.xy().ortho(a.xy(), p);
-		return new vec2(proj.x(), proj.y());
-	}
+
 
 
 
@@ -405,6 +397,17 @@ public class R_Line2D extends R_Graphic {
   public float angle() {
     return a.xy().angle(b.xy());
   }
+
+
+    /**
+   * return the projection of the point on the line
+   * @param p is point must projected on the line
+   * @return
+   */
+  public vec2 ortho(vec2 p) {
+		vec2 proj = b.xy().ortho(a.xy(), p);
+		return new vec2(proj.x(), proj.y());
+	}
 
   // @Deprecated public Float normal(vec2 vec, float marge) {
   //   return normal(vec, marge, false);
@@ -833,6 +836,22 @@ public class R_Line2D extends R_Graphic {
    * @param thickness is the strokeWeight / ordinate of your line in pixel point
    * @param colour list of int color to create the pixel line
    */
+  // public void set_pixels(float density, float thickness, int... colour) {
+  //   int num_pixel = (int)(dist() * density);
+  //   float range_ordinate = thickness / dist() * 0.5f;
+  //   if(pixies == null) {
+  //     pixies = new R_Pixies();
+  //   } else {
+  //     pixies.clear();
+  //   }
+  //   for(int i = 0 ; i < num_pixel ; i++) {
+  //     // pixel_impl(range_ordinate, colour);
+  //     R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+  //     if(pair != null) {
+  //       set_pixel(pair.a(), pair.b());
+  //     }
+  //   }
+  // }
   public void set_pixels(float density, float thickness, int... colour) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
@@ -843,18 +862,38 @@ public class R_Line2D extends R_Graphic {
     }
     for(int i = 0 ; i < num_pixel ; i++) {
       // pixel_impl(range_ordinate, colour);
-      R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
       if(pair != null) {
         set_pixel(pair.a(), pair.b());
       }
     }
   }
 
-  private R_Pair<vec2, Integer> pixel_impl(float range_ordinate, int... colour) {
-    R_Pair<vec2, Integer> pair = null;
+  // private R_Pair<vec2, Integer> pixel_impl(float range_ordinate, int... colour) {
+  //   R_Pair<vec2, Integer> pair = null;
+  //   // abs.x() is the position on the line
+  //   vec2 abs = absolute_pos(range_ordinate);
+  //   if(abs != null) {
+  //     pair = new R_Pair<vec2, Integer>();
+  //     vec2 pos = this.get_point(abs.x(), abs.y());
+
+  //     // pixel_walker(R_Pix p, i, pos, colour); // instead the lines below
+  //     int c = BLACK;
+  //     if(colour.length > 0) {
+  //       int which = floor(random(colour.length));
+  //       c = colour[which];
+  //     }
+  //     pair.a(pos);
+  //     pair.b(c);
+  //   }
+  //   return pair;
+  // }
+  private R_Pair<vec3, Integer> pixel_impl(float range_ordinate, int... colour) {
+    R_Pair<vec3, Integer> pair = null;
+    // abs.x() is the position on the line
     vec2 abs = absolute_pos(range_ordinate);
     if(abs != null) {
-      pair = new R_Pair<vec2, Integer>();
+      pair = new R_Pair<vec3, Integer>();
       vec2 pos = this.get_point(abs.x(), abs.y());
 
       // pixel_walker(R_Pix p, i, pos, colour); // instead the lines below
@@ -863,7 +902,7 @@ public class R_Line2D extends R_Graphic {
         int which = floor(random(colour.length));
         c = colour[which];
       }
-      pair.a(pos);
+      pair.a(new vec3(pos.x(), pos.y(), abs.x()));
       pair.b(c);
     }
     return pair;
@@ -876,20 +915,39 @@ public class R_Line2D extends R_Graphic {
 ////////////////////////
   public void growth(int level, int step) {
     growth(level, step, Float.NaN, Float.NaN);
-
   }
 
-  public void growth(int level, int step, float direction, float fov) {
+    /**
+   * 
+   * @param level from 1 to n
+   * @param step from 1 to n
+   * @param direction from 0 to 2PI / TAU
+   * @param start_fov from 0 to PI
+   * @param end_fov from 0 to PI
+   */
+  public void growth(int level, int step, float direction, float start_fov, float end_fov) {
     if(level < 1) {
       return;
     }
 
-    float start_angle = -PI;
-    // float end_angle = PI;
-    if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
-      // direction = direction%PI;
-      start_angle = direction - (fov * 0.5f);
-      //end_angle = start_angle + fov;
+    float start_angle = 0;
+    float half_fov = PI;
+    float step_fov = 0;
+    if(all(!Float.isNaN(direction),!Float.isNaN(start_fov), !Float.isNaN(end_fov))) {
+      float fov = end_fov - start_fov;
+      half_fov = fov * 0.5f;
+      start_angle = direction - half_fov;  
+      step_fov = fov / pixies.size();
+      print_out("fov", fov);
+      print_out("step fov", step_fov);
+      print_out("direction", direction);
+      print_out("start fov", start_fov);
+      // half_fov = fov * 0.5f;
+      
+      
+      // half_fov = fov * 0.5f;
+      // start_angle = direction - half_fov;  
+      // step_fov = fov / pixies.size();
     }  
 
     if(pixies_growth == null) {
@@ -898,63 +956,145 @@ public class R_Line2D extends R_Graphic {
       pixies_growth.clear();
     }
 
-    float step_fov = fov / pixies.size();
-    float dir_angle = 0;
+    float variance_angle = 0;
     float dir = 0;
-    int count = 0;
+    // How to konw the position of the pixel in the line ?????
     for(R_Pix p : pixies.get()) {
-      count++;
       R_Pix [] buf_growth = new R_Pix[level];
       buf_growth[0] = p.copy();
-      // set angle pix growth
-      dir_angle += step_fov;
-      dir = dir_angle + start_angle;
+      float abs_x = p.z();
+      dir = start_angle + variance_angle;
+
+      print_out("dir", dir);
+      // if(dir > 0) {
+      //   dir *= -1;
+      // }
       buf_growth[0].w(dir);
+      if(end_fov < start_fov) {
+        variance_angle -= step_fov;
+      } else {
+        variance_angle += step_fov;
+      }
+      
       float x = buf_growth[0].x();
       float y = buf_growth[0].y();
       for(int i = 1 ; i < level ; i++) {
-        // float angle = random(-start_angle, end_angle);
-        float angle = buf_growth[0].w() + random(fov);
-        // float angle = random(fov) + start_angle;
+        float angle = buf_growth[0].w();
         float dx = sin(angle);
         float dy = cos(angle);
         int prev = i - 1;
         x += (dx * step);
         y += (dy * step);
         buf_growth[i] = new R_Pix();
-        set_pixel_impl(buf_growth[i], new vec2(x,y), p.fill());
+        set_pixel_impl(buf_growth[i], new vec3(x,y, abs_x), p.fill());
         pixies_growth.add(buf_growth[i]);
       }
     }
   }
 
 
-  private void set_pixel(vec2 pos, int c) {
+
+  /**
+   * 
+   * @param level from 1 to n
+   * @param step from 1 to n
+   * @param direction from 0 to 2PI / TAU
+   * @param fov from 0 to 2PI / TAU
+   */
+  public void growth(int level, int step, float direction, float fov) {
+    if(level < 1) {
+      return;
+    }
+
+    float start_angle = 0;
+    float half_fov = PI;
+    float step_fov = 0;
+    if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
+      half_fov = fov * 0.5f;
+      start_angle = direction - half_fov;  
+      step_fov = fov / pixies.size();
+    }  
+
+    if(pixies_growth == null) {
+      pixies_growth = new R_Pixies();
+    } else {
+      pixies_growth.clear();
+    }
+
+    float variance_angle = 0;
+    float dir = 0;
+    for(R_Pix p : pixies.get()) {
+      R_Pix [] buf_growth = new R_Pix[level];
+      buf_growth[0] = p.copy();
+      float abs_x = p.z();
+      dir = start_angle + variance_angle;
+      buf_growth[0].w(dir);
+      variance_angle += step_fov;
+      float x = buf_growth[0].x();
+      float y = buf_growth[0].y();
+      for(int i = 1 ; i < level ; i++) {
+        float angle = buf_growth[0].w() + random(-half_fov,half_fov);
+        float dx = sin(angle);
+        float dy = cos(angle);
+        int prev = i - 1;
+        x += (dx * step);
+        y += (dy * step);
+        buf_growth[i] = new R_Pix();
+        set_pixel_impl(buf_growth[i], new vec3(x,y, abs_x), p.fill());
+        pixies_growth.add(buf_growth[i]);
+      }
+    }
+  }
+
+
+  // private void set_pixel(vec2 pos, int c) {
+  //   R_Pix pix = new R_Pix();
+  //   set_pixel_impl(pix, pos, c);
+  //   pixies.add(pix);
+  // }
+  private void set_pixel(vec3 pos, int c) {
     R_Pix pix = new R_Pix();
     set_pixel_impl(pix, pos, c);
     pixies.add(pix);
   }
 
-  private void set_pixel_impl(R_Pix p, vec2 pos, int c) {
-    // the problem is from the round...
+  private void set_pixel_impl(R_Pix p, vec3 pos, int c) {
+    // the problem is from the round, the problem is by the buffering of x, y values
     if(this.other != null) {
       p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
     } else {
       p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
     }
+    p.z(pos.z());
     p.fill(c);
   }
+
+  // private void set_pixel_impl(R_Pix p, vec2 pos, int c) {
+  //   // the problem is from the round, the problem is by the buffering of x, y values
+  //   if(this.other != null) {
+  //     p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
+  //   } else {
+  //     p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
+  //   }
+  //   p.fill(c);
+  // }
 
   /**
    * 
    * @return the array of pixels a long the line if it's possible.
    */
   public R_Pix [] get_pixies() {
-    return this.pixies.array();
+    if(this.pixies != null) {
+      return this.pixies.array();
+    }
+    return null;
   }
 
   public R_Pix [] get_pixies_growth() {
-    return this.pixies_growth.array();
+    if(this.pixies_growth != null) {
+      return this.pixies_growth.array();
+    }
+    return null;
   }
 
   public boolean pixels_is() {
@@ -983,7 +1123,9 @@ public class R_Line2D extends R_Graphic {
   }
 
   public void show_pixels() {
-    show_pixels_impl(pixies);
+    if(pixies != null) {
+      show_pixels_impl(pixies);
+    }
     if(pixies_growth != null) {
       show_pixels_impl(pixies_growth);
     }
@@ -1013,7 +1155,6 @@ public class R_Line2D extends R_Graphic {
   }
 
   public void show_pixels_x2() {
-    
     show_pixels_x2_impl(pixies);
     if(pixies_growth != null) {
       show_pixels_x2_impl(pixies_growth);
@@ -1067,9 +1208,9 @@ public class R_Line2D extends R_Graphic {
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
         if(pair != null) {
-          plot(pair.a().mult(pa.displayDensity()), pair.b());
+          plot(pair.a().xy().mult(pa.displayDensity()), pair.b());
         }
       }
       updatePixels();
@@ -1078,9 +1219,9 @@ public class R_Line2D extends R_Graphic {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
       if(pair != null) {
-        plot(pair.a(), pair.b());
+        plot(pair.a().xy(), pair.b());
       }
     }
     updatePixels();
@@ -1111,9 +1252,9 @@ public class R_Line2D extends R_Graphic {
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
         if(pair != null) {
-          plot_x2(pair.a().mult(pa.displayDensity()), pair.b());
+          plot_x2(pair.a().xy().mult(pa.displayDensity()), pair.b());
         }
       }
       updatePixels();
@@ -1122,9 +1263,9 @@ public class R_Line2D extends R_Graphic {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
       if(pair != null) {
-        plot_x2(pair.a(), pair.b());
+        plot_x2(pair.a().xy(), pair.b());
       }
     }
     updatePixels();

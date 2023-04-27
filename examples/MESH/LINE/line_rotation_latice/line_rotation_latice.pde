@@ -1,12 +1,12 @@
 /**
 * Line2D 
 * use rotation() for rotation
-* use point() to show the axe
+* use get_point() to show the axe
 *
-* Copyleft(c) 2022-2022
-* v 0.1.1
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* Copyleft(c) 2022-2023
+* v 0.1.2
+* @author @knupel
+* @see https://github.com/knupel/Rope
 * 
 */
 
@@ -35,7 +35,7 @@ void draw() {
   // float normal_pos = -0.1;
   float normal_pos = 0.2;
   float ang = map(mouseX,0,width,-PI,PI);
-  vec2 p = line.point(normal_pos);
+  vec2 p = line.get_point(normal_pos);
   circle(p.x(), p.y(), 10);
   line.rotation(ang, normal_pos);
   line.show();
