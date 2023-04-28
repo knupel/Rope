@@ -69,21 +69,24 @@ void update_lines() {
 		float fov = PI/2;
 		// float start_fov = PI/2;
 		// float end_fov = PI/2;
-		float start_fov = PI * 0.25;
-		float end_fov = PI * 0.75;
+		// float start_fov = PI * 0.65;
+		// float end_fov = PI * 0.75;
+				float start_fov = -PI/4;
+		float end_fov = PI/4;
 		// println("dir", dir, "fov", fov);
 		// dir = (PI*0.75) - l.angle(); // PAS TRES BON
 		 // ça devrait être bon, mais non ????
 		// println("dir", dir%TAU, "angle step", ang_step, "line angle", l.angle(), " half fov", fov /2.0f);
 		// println("line angle", l.angle());
-		// float final_angle = dir - (l.angle() * -1);
-		float final_angle = dir - l.angle();
+		// float direction = dir - (l.angle() * -1);
+		float direction = dir - l.angle();
 		println("line angle", l.angle());
 
 		if(count%2 == 0) {
-			l.growth(level,step, final_angle, fov);
+			l.growth(level,step, direction, fov);
 		} else {
-			l.growth(level,step, final_angle, start_fov, end_fov);
+			l.set_growth_type(r.CHAOS);
+			l.growth(level,step, direction, start_fov, end_fov);
 		}
 		
 		// l.growth(level,step);

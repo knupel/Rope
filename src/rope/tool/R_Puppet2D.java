@@ -21,8 +21,6 @@ import processing.core.*;
 import java.util.ArrayList;
 
 import rope.mesh.R_Line2D;
-import rope.pixo.R_Pix;
-import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
 import rope.vector.bvec2;
 import rope.vector.vec2;

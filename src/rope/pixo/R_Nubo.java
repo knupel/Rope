@@ -396,6 +396,9 @@ public class R_Nubo extends Rope {
     float seg_dist = get_dist() / this.step;
 
   	switch(this.algo) {
+      case CHAOS:
+        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+        break;
   		case MAD:
         // dx = sin(get_angle() + this.offset_angle);
         // dy = cos(get_angle() + this.offset_angle);
@@ -473,9 +476,6 @@ public class R_Nubo extends Rope {
         segment *= this.index;
         segment /= this.step;
         pos.set(ref_pos.x() + (dx * segment), ref_pos.y() + (dy * segment));
-        break;
-			case CHAOS:
-        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
         break;
       default:
         pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));

@@ -34,6 +34,7 @@ public class R_Line2D extends R_Graphic {
   private boolean mute_is = false;
   protected R_Pixies pixies;
   protected R_Pixies pixies_growth;
+  private int growth_type = NORMAL;
   private ivec6 id = new ivec6(Integer.MIN_VALUE);
   
   /**
@@ -836,22 +837,6 @@ public class R_Line2D extends R_Graphic {
    * @param thickness is the strokeWeight / ordinate of your line in pixel point
    * @param colour list of int color to create the pixel line
    */
-  // public void set_pixels(float density, float thickness, int... colour) {
-  //   int num_pixel = (int)(dist() * density);
-  //   float range_ordinate = thickness / dist() * 0.5f;
-  //   if(pixies == null) {
-  //     pixies = new R_Pixies();
-  //   } else {
-  //     pixies.clear();
-  //   }
-  //   for(int i = 0 ; i < num_pixel ; i++) {
-  //     // pixel_impl(range_ordinate, colour);
-  //     R_Pair<vec2, Integer> pair = pixel_impl(range_ordinate, colour);
-  //     if(pair != null) {
-  //       set_pixel(pair.a(), pair.b());
-  //     }
-  //   }
-  // }
   public void set_pixels(float density, float thickness, int... colour) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
@@ -869,25 +854,6 @@ public class R_Line2D extends R_Graphic {
     }
   }
 
-  // private R_Pair<vec2, Integer> pixel_impl(float range_ordinate, int... colour) {
-  //   R_Pair<vec2, Integer> pair = null;
-  //   // abs.x() is the position on the line
-  //   vec2 abs = absolute_pos(range_ordinate);
-  //   if(abs != null) {
-  //     pair = new R_Pair<vec2, Integer>();
-  //     vec2 pos = this.get_point(abs.x(), abs.y());
-
-  //     // pixel_walker(R_Pix p, i, pos, colour); // instead the lines below
-  //     int c = BLACK;
-  //     if(colour.length > 0) {
-  //       int which = floor(random(colour.length));
-  //       c = colour[which];
-  //     }
-  //     pair.a(pos);
-  //     pair.b(c);
-  //   }
-  //   return pair;
-  // }
   private R_Pair<vec3, Integer> pixel_impl(float range_ordinate, int... colour) {
     R_Pair<vec3, Integer> pair = null;
     // abs.x() is the position on the line
@@ -911,14 +877,22 @@ public class R_Line2D extends R_Graphic {
 
 
   ///////////////////////////////////
-  // WALKER 
+  // GROWTH
 ////////////////////////
+  public void set_growth_type(int type) {
+    this.growth_type = type;
+  }
+
+  public int get_growth_type() {
+    return this.growth_type;
+  }
+
   public void growth(int level, int step) {
     growth(level, step, Float.NaN, Float.NaN);
   }
 
     /**
-   * 
+   * The direction is based on start_fov angle
    * @param level from 1 to n
    * @param step from 1 to n
    * @param direction from 0 to 2PI / TAU
@@ -936,18 +910,8 @@ public class R_Line2D extends R_Graphic {
     if(all(!Float.isNaN(direction),!Float.isNaN(start_fov), !Float.isNaN(end_fov))) {
       float fov = end_fov - start_fov;
       half_fov = fov * 0.5f;
-      start_angle = direction - half_fov;  
+      start_angle = direction;  
       step_fov = fov / pixies.size();
-      print_out("fov", fov);
-      print_out("step fov", step_fov);
-      print_out("direction", direction);
-      print_out("start fov", start_fov);
-      // half_fov = fov * 0.5f;
-      
-      
-      // half_fov = fov * 0.5f;
-      // start_angle = direction - half_fov;  
-      // step_fov = fov / pixies.size();
     }  
 
     if(pixies_growth == null) {
@@ -963,23 +927,23 @@ public class R_Line2D extends R_Graphic {
       R_Pix [] buf_growth = new R_Pix[level];
       buf_growth[0] = p.copy();
       float abs_x = p.z();
-      dir = start_angle + variance_angle;
-
-      print_out("dir", dir);
-      // if(dir > 0) {
-      //   dir *= -1;
-      // }
-      buf_growth[0].w(dir);
-      if(end_fov < start_fov) {
-        variance_angle -= step_fov;
-      } else {
+      if(this.growth_type == CHAOS) {
         variance_angle += step_fov;
+        dir = start_angle + variance_angle + start_fov;
+      } else {
+        variance_angle = map(abs_x, 0, 1, start_fov, end_fov);
+        dir = start_angle + variance_angle;
       }
+      buf_growth[0].w(dir);
+
       
       float x = buf_growth[0].x();
       float y = buf_growth[0].y();
       for(int i = 1 ; i < level ; i++) {
         float angle = buf_growth[0].w();
+        if(this.growth_type == MAD || this.growth_type == CHAOS) {
+          angle += random(-half_fov,half_fov);
+        }
         float dx = sin(angle);
         float dy = cos(angle);
         int prev = i - 1;
@@ -995,7 +959,7 @@ public class R_Line2D extends R_Graphic {
 
 
   /**
-   * 
+   * The direction is based on the bissector of the fov
    * @param level from 1 to n
    * @param step from 1 to n
    * @param direction from 0 to 2PI / TAU
@@ -1047,11 +1011,6 @@ public class R_Line2D extends R_Graphic {
   }
 
 
-  // private void set_pixel(vec2 pos, int c) {
-  //   R_Pix pix = new R_Pix();
-  //   set_pixel_impl(pix, pos, c);
-  //   pixies.add(pix);
-  // }
   private void set_pixel(vec3 pos, int c) {
     R_Pix pix = new R_Pix();
     set_pixel_impl(pix, pos, c);
@@ -1068,16 +1027,6 @@ public class R_Line2D extends R_Graphic {
     p.z(pos.z());
     p.fill(c);
   }
-
-  // private void set_pixel_impl(R_Pix p, vec2 pos, int c) {
-  //   // the problem is from the round, the problem is by the buffering of x, y values
-  //   if(this.other != null) {
-  //     p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
-  //   } else {
-  //     p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
-  //   }
-  //   p.fill(c);
-  // }
 
   /**
    * 
@@ -1356,7 +1305,6 @@ public class R_Line2D extends R_Graphic {
     }
     return result;
   }
-
 
 
 
