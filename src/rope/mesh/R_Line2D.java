@@ -399,6 +399,20 @@ public class R_Line2D extends R_Graphic {
     return a.xy().angle(b.xy());
   }
 
+  public float angle(R_Line2D line) {
+    float ang_a = a.xy().angle(b.xy());
+    float ang_b = line.angle();
+    float res = ang_a - ang_b;
+    if(abs(res) > PI) {
+      if(res < 0) {
+        res += TAU;
+      } else {
+        res = (TAU -res) * -1;
+      }
+    }
+    return res;
+  }
+
 
     /**
    * return the projection of the point on the line
@@ -909,7 +923,7 @@ public class R_Line2D extends R_Graphic {
     float step_fov = 0;
     if(all(!Float.isNaN(direction),!Float.isNaN(start_fov), !Float.isNaN(end_fov))) {
       float fov = end_fov - start_fov;
-      half_fov = fov * 0.5f;
+      half_fov = abs(fov * 0.5f);
       start_angle = direction;  
       step_fov = fov / pixies.size();
     }  

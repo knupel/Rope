@@ -12,7 +12,7 @@ import rope.core.Rope;
 
 Rope r = new Rope();
 int num = 8;
-float density = 0.2;
+float density = 0.5;
 float thickness = 3.0f;
 R_Line2D [] line = new R_Line2D[num];
 
@@ -71,8 +71,8 @@ void update_lines() {
 		// float end_fov = PI/2;
 		// float start_fov = PI * 0.65;
 		// float end_fov = PI * 0.75;
-				float start_fov = -PI/4;
-		float end_fov = PI/4;
+				float start_fov = PI/4;
+		float end_fov = -PI/4;
 		// println("dir", dir, "fov", fov);
 		// dir = (PI*0.75) - l.angle(); // PAS TRES BON
 		 // ça devrait être bon, mais non ????
@@ -80,11 +80,12 @@ void update_lines() {
 		// println("line angle", l.angle());
 		// float direction = dir - (l.angle() * -1);
 		float direction = dir - l.angle();
-		println("line angle", l.angle());
+		// println("line angle", l.angle());
 
 		if(count%2 == 0) {
 			l.growth(level,step, direction, fov);
 		} else {
+			// l.set_growth_type(r.MAD);
 			l.set_growth_type(r.CHAOS);
 			l.growth(level,step, direction, start_fov, end_fov);
 		}
