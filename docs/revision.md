@@ -47,10 +47,11 @@
 > comment deprecated function()
 > `point()` function become `get_point()` to avoid confusion with Mother function `point()` + protected it
 > add function `get_point(float normal_abscissa, float normal_ordinate)` to create a project in the ordinate from the line
-> add function `show_pixels(float density, float thickness, int... colour)` and `show_pixels_x2(float density, float thickness, int... colour)` to create a thickness option to pixel line
-> add function `set_pixels(float density, float thickness, int.. colour)` to create a thickness option to pixel line
+> add function `show_pixels(float density, float thickness)` and `show_pixels_x2(float density, float thickness)` to create a thickness option to pixel line
+> add function `set_pixels(float density)` `set_pixels(float density, float thickness)` to create a thickness option to pixel line
 > add function `set_pixel_evolution()` to create a growth system from a root pixel
 > add function `mode_abscissa()` and `mode_ordinate()` to set the pixel distribution on center,side, begin and end of line.
+> add function `set_palette(int... colours)`
 
 > ivec
 > add function `equals()` and `all()` to compare all terms of the vector, is all is true return true alse return false

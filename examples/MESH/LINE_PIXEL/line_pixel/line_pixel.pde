@@ -3,7 +3,7 @@
 * with pixelDensity(2) or not
 *
 * Copyleft(c) 2022-2023
-* v 0.4.0
+* v 0.5.0
 * @author @knupel
 * @see https://github.com/knupel/Rope/blob/master/src/rope/mesh/R_Line2D.java
 * 
@@ -40,7 +40,7 @@ void setup() {
 
 void draw() {
   println("FPS", (int)frameRate);
-  background(0);
+  background(r.ELEPHANT);
   stroke(255);
   if(!mousePressed) {
     a.show_pixels(); // static, before use it, it's necessry to use function set_pixels(float normal_position, int ... colour_arg) 
@@ -53,9 +53,12 @@ void draw() {
     // a.show_pixels(density_a, r.MAGENTA, r.CYAN); // dynamic
     // b.show_pixels(density_b, thickness_b, r.RED); // dynamic
     // c.show_pixels(density_c, thickness_c, r.MAGENTA, r.YELLOW); // dynamic
-    a.show_pixels_x2(density_a, r.MAGENTA, r.CYAN); // dynamic
-    b.show_pixels_x2(density_b, thickness_b, r.RED); // dynamic
-    c.show_pixels_x2(density_c, thickness_c, r.MAGENTA, r.YELLOW); // dynamic
+    a.set_palette(r.MAGENTA, r.CYAN);
+    a.show_pixels_x2(density_a); // dynamic
+    b.set_palette(r.RED);
+    b.show_pixels_x2(density_b, thickness_b); // dynamic
+    c.set_palette(r.MAGENTA, r.YELLOW);
+    c.show_pixels_x2(density_c, thickness_c); // dynamic
   }
 }
 
@@ -77,11 +80,13 @@ void set_lines() {
 
 
   a.set(width/2,height/2,random(width),random(height));
-  a.set_pixels(density_a, r.MAGENTA, r.CYAN);
+  a.set_palette(r.MAGENTA, r.CYAN);
+  a.set_pixels(density_a, 1.0);
   // pixel thickness
   
   b.set(width/2,height/2,random(width),random(height));
-  b.set_pixels(density_b, thickness_b, r.RED);
+  b.set_palette(r.RED);
+  b.set_pixels(density_b, thickness_b);
   // pixel variation on thickness and density
 
   // c.mode_abscissa(r.NORMAL);
@@ -89,7 +94,8 @@ void set_lines() {
   c.mode_abscissa(r.SIDE, 3);
   c.mode_ordinate(r.CENTER, 1);
   c.set(width/2,height/2,random(width),random(height));
-  c.set_pixels(density_c, thickness_c *4, r.MAGENTA, r.YELLOW);
+  c.set_palette(r.MAGENTA, r.YELLOW);
+  c.set_pixels(density_c, thickness_c *4);
   c.growth(10, 3);
 }
 

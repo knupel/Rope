@@ -2364,7 +2364,9 @@ public class R_Impact extends R_Graphic {
 			// distri_absord_pixel
 			line.mode_abscissa(mode_abs_pixel.x(), mode_abs_pixel.y());
 			line.mode_ordinate(mode_ord_pixel.x(), mode_ord_pixel.y());
-			line.set_pixels(x, y, pix_colour);
+			line.set_palette(pix_colour);
+			line.set_pixels(x, y);
+			// line.set_pixels(x, y, pix_colour);
 			evolution_impl(line);
 		}
 		// update color pixel
@@ -2455,10 +2457,12 @@ public class R_Impact extends R_Graphic {
 				break;
 			// dynamic
 			case 11:
-				line.show_pixels(normal_x, normal_y, pix_colour);
+				line.show_pixels(normal_x, normal_y);
+				// line.show_pixels(normal_x, normal_y, pix_colour);
 				break;
 			case 12:
-				line.show_pixels_x2(normal_x, normal_y, pix_colour);		
+				line.show_pixels_x2(normal_x, normal_y);		
+				// line.show_pixels_x2(normal_x, normal_y, pix_colour);		
 				break;
 			default:
 				line.show();

@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 0.6.0
+ * v 1.0.0
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -24,6 +24,7 @@ import rope.vector.ivec6;
 import rope.pixo.R_Pix;
 import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
+import rope.colour.R_Colour;
 
 
 public class R_Line2D extends R_Graphic {
@@ -36,6 +37,7 @@ public class R_Line2D extends R_Graphic {
   protected R_Pixies pixies_growth;
   private int growth_type = NORMAL;
   private ivec6 id = new ivec6(Integer.MIN_VALUE);
+  private R_Colour palette;
   
   /**
    * 
@@ -83,15 +85,16 @@ public class R_Line2D extends R_Graphic {
     this.b = new vec3();
     this.ref_a = new vec3();
     this.ref_b = new vec3();
+    this.palette = new R_Colour(this.pa, BLACK);
   }
   
 
   ///////////////////////////
-  // POSITION SETTING
+  // SET DEFINITIVE POSITION
   //////////////////////////
 
   /**
-   * 
+   * use for definitive changement
    * @param a
    * @param b
    */
@@ -101,7 +104,7 @@ public class R_Line2D extends R_Graphic {
   }
 
   /**
-   * 
+   * use for definitive changement
    * @param line
    * @return
    */
@@ -111,7 +114,7 @@ public class R_Line2D extends R_Graphic {
   }
   
   /**
-   * 
+   * use for definitive changement
    * @param ax
    * @param ay
    * @param bx
@@ -123,75 +126,10 @@ public class R_Line2D extends R_Graphic {
     return this;
   }
 
+  ////////////////////////
+  // SET A
 
-  /**
-   * This function must be use with precaution because that's can break few function of the class
-   * like : offset(), change()... because the reference and the main point point on the same address
-   * So use in very specific cases.
-   * @param pointer_a give the same memory adress of the vec for the reference and the mane point
-   * @param pointer_b give the same memory adress of the vec for the reference and the mane point
-   * @return
-   */
-  public R_Line2D pointer(vec3 pointer_a, vec3 pointer_b) {
-    this.a = pointer_a;
-    this.b = pointer_b;
-    this.ref_a = pointer_a;
-    this.ref_b = pointer_b;
-    return this;
-  }
-
-
-  //////////////////////
-  // A
-  //////////////////////
-
-  /**
-   * 
-   * @return the final value for a
-   */
-  public vec2 a() {
-    return this.a.xy();
-  }
-
-  /**
-   * use for temporary change
-   * @param a
-   */
-  public void a(vec2 a) {
-    this.a(a.x(),a.y());
-  }
-
-
-  /**
-   * use for temporary change
-   * @param x
-   * @param y
-   */
-  public void a(float x, float y) {
-    this.a.set(x,y,0);
-  }
-  
-  /**
-   * use with precaution because the vec who is returned pointer on real address 
-   * in the memory so any modification can modify all value who ppoint on this one
-   * @return the final value for "a" and the original coord in the memory
-   */
-  public vec3 pointer_a() {
-    return this.a;
-  }
-
-  /**
-   * This function must be use with precaution because that's can break few function of the class
-   * like : offset(), change()... because the reference and the main point point on the same address
-   * So use in very specific cases.
-   * @param pointer_a
-   */
-  public void pointer_a(vec3 pointer_a) {
-    this.a = pointer_a;
-    this.ref_a = pointer_a;
-  }
-
-  /**
+    /**
    * use for definitive changement
    * @param x
    * @param y
@@ -209,8 +147,6 @@ public class R_Line2D extends R_Graphic {
     this.set_a(a.x(),a.y());
   }
 
-
-
   protected void ref_a(vec2 ref_a) {
     this.ref_a(ref_a.x(),ref_a.y());
   }
@@ -219,58 +155,8 @@ public class R_Line2D extends R_Graphic {
     this.ref_a.set(x,y,0);
   }
 
-
-
-  //////////////////////
-  // B
-  //////////////////////
-
-  /**
-   * 
-   * @return the final value for b
-   */
-  public vec2 b() {
-    return this.b.xy();
-  }
-
-  /**
-   * use for temporary change
-   * @param b
-   */
-  public void b(vec2 b) {
-    this.b(b.x(),b.y());
-  }
-  
-  /**
-   * use for temporary change
-   * @param x
-   * @param y
-   */
-  public void b(float x, float y) {
-    this.b.set(x,y,0);
-  }
-
-
-  /**
-   * use with precaution because the vec who is returned pointer on real address 
-   * in the memory so any modification can modify all value who ppoint on this one
-   * @return the final value for "b" and the original coord in the memory
-   */
-  public vec3 pointer_b() {
-    return this.b;
-  }
-
-  /**
-   * This function must be use with precaution because that's can break few function of the class
-   * like : offset(), change()... because the reference and the main point point on the same address
-   * So use in very specific cases.
-   * @param pointer_b
-   */
-  public void pointer_b(vec3 pointer_b) {
-    this.b = pointer_b;
-    this.ref_b = pointer_b;
-  }
-
+  ////////////////////////
+  // SET B
 
   /**
    * use for definitive changement
@@ -300,6 +186,138 @@ public class R_Line2D extends R_Graphic {
   protected void ref_b(float x, float y) {
     this.ref_b.set(x,y,0);
   }
+
+
+
+
+
+  /////////////////////////////
+  // SET POS TEMPORARLY
+  ///////////////////////
+
+  //////////////////////
+  // A
+  /**
+   * 
+   * @return the final value for a
+   */
+  public vec2 a() {
+    return this.a.xy();
+  }
+
+  /**
+   * use for temporary change
+   * @param a
+   */
+  public void a(vec2 a) {
+    this.a(a.x(),a.y());
+  }
+
+
+  /**
+   * use for temporary change
+   * @param x
+   * @param y
+   */
+  public void a(float x, float y) {
+    this.a.set(x,y,0);
+  }
+
+  //////////////////////
+  // B
+
+  /**
+   * 
+   * @return the final value for b
+   */
+  public vec2 b() {
+    return this.b.xy();
+  }
+
+  /**
+   * use for temporary change
+   * @param b
+   */
+  public void b(vec2 b) {
+    this.b(b.x(),b.y());
+  }
+  
+  /**
+   * use for temporary change
+   * @param x
+   * @param y
+   */
+  public void b(float x, float y) {
+    this.b.set(x,y,0);
+  }
+
+
+
+
+
+  //////////////////////////////
+  // POINTER
+  ///////////////////////
+
+    /**
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()... because the reference and the main point point on the same address
+   * So use in very specific cases.
+   * @param pointer_a give the same memory adress of the vec for the reference and the mane point
+   * @param pointer_b give the same memory adress of the vec for the reference and the mane point
+   * @return
+   */
+  public R_Line2D pointer(vec3 pointer_a, vec3 pointer_b) {
+    this.a = pointer_a;
+    this.b = pointer_b;
+    this.ref_a = pointer_a;
+    this.ref_b = pointer_b;
+    return this;
+  }
+
+  /**
+   * use with precaution because the vec who is returned pointer on real address 
+   * in the memory so any modification can modify all value who ppoint on this one
+   * @return the final value for "a" and the original coord in the memory
+   */
+  public vec3 pointer_a() {
+    return this.a;
+  }
+
+  /**
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()... because the reference and the main point point on the same address
+   * So use in very specific cases.
+   * @param pointer_a
+   */
+  public void pointer_a(vec3 pointer_a) {
+    this.a = pointer_a;
+    this.ref_a = pointer_a;
+  }
+
+
+
+  /**
+   * use with precaution because the vec who is returned pointer on real address 
+   * in the memory so any modification can modify all value who ppoint on this one
+   * @return the final value for "b" and the original coord in the memory
+   */
+  public vec3 pointer_b() {
+    return this.b;
+  }
+
+  /**
+   * This function must be use with precaution because that's can break few function of the class
+   * like : offset(), change()... because the reference and the main point point on the same address
+   * So use in very specific cases.
+   * @param pointer_b
+   */
+  public void pointer_b(vec3 pointer_b) {
+    this.b = pointer_b;
+    this.ref_b = pointer_b;
+  }
+
+
 
 
 
@@ -838,9 +856,25 @@ public class R_Line2D extends R_Graphic {
  * @param density the ratio abscissa of pixels along the line from 0 to 1
  * @param colour list of int color to create the pixel line
  */
-  public void set_pixels(float density, int... colour) {
-    float thickness = 0;
-    set_pixels(density, thickness, colour);
+  // @Deprecated public void set_pixels(float density, int... colour) {
+  //   float thickness = 0;
+  //   set_pixels(density, thickness, colour);
+  // }
+
+  /**
+  * @param density the ratio abscissa of pixels along the line from 0 to 1 usualy
+   */
+  public void set_pixels(float density) {
+    set_pixels(density, 0.0f, this.palette);
+  }
+
+    /**
+   * 
+   * @param density the ratio abscissa of pixels along the line from 0 to 1
+   * @param thickness is the strokeWeight / ordinate of your line in pixel point
+   */
+  public void set_pixels(float density, float thickness) {
+    set_pixels(density, thickness, this.palette);
   }
 
 
@@ -851,8 +885,11 @@ public class R_Line2D extends R_Graphic {
    * @param thickness is the strokeWeight / ordinate of your line in pixel point
    * @param colour list of int color to create the pixel line
    */
-  public void set_pixels(float density, float thickness, int... colour) {
+  public void set_pixels(float density, float thickness, R_Colour palette) {
     int num_pixel = (int)(dist() * density);
+    if(thickness <= 0) {
+      thickness = 0.1f;
+    }
     float range_ordinate = thickness / dist() * 0.5f;
     if(pixies == null) {
       pixies = new R_Pixies();
@@ -860,27 +897,24 @@ public class R_Line2D extends R_Graphic {
       pixies.clear();
     }
     for(int i = 0 ; i < num_pixel ; i++) {
-      // pixel_impl(range_ordinate, colour);
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
       if(pair != null) {
         set_pixel(pair.a(), pair.b());
       }
     }
   }
 
-  private R_Pair<vec3, Integer> pixel_impl(float range_ordinate, int... colour) {
+  private R_Pair<vec3, Integer> pixel_impl(float range_ordinate, int... colours) {
     R_Pair<vec3, Integer> pair = null;
     // abs.x() is the position on the line
     vec2 abs = absolute_pos(range_ordinate);
     if(abs != null) {
       pair = new R_Pair<vec3, Integer>();
       vec2 pos = this.get_point(abs.x(), abs.y());
-
-      // pixel_walker(R_Pix p, i, pos, colour); // instead the lines below
       int c = BLACK;
-      if(colour.length > 0) {
-        int which = floor(random(colour.length));
-        c = colour[which];
+      if(colours.length > 0) {
+        int which = floor(random(colours.length));
+        c = colours[which];
       }
       pair.a(new vec3(pos.x(), pos.y(), abs.x()));
       pair.b(c);
@@ -888,6 +922,10 @@ public class R_Line2D extends R_Graphic {
     return pair;
   }
 
+  public void set_palette(int... colours) {
+    this.palette.clear();
+    this.palette.add(colours);
+  }
 
 
   ///////////////////////////////////
@@ -938,9 +976,8 @@ public class R_Line2D extends R_Graphic {
     float dir = 0;
     // How to konw the position of the pixel in the line ?????
     for(R_Pix p : pixies.get()) {
-      R_Pix [] buf_growth = new R_Pix[level];
-      buf_growth[0] = p.copy();
       float abs_x = p.z();
+      // set root direction
       if(this.growth_type == CHAOS) {
         variance_angle += step_fov;
         dir = start_angle + variance_angle + start_fov;
@@ -948,25 +985,7 @@ public class R_Line2D extends R_Graphic {
         variance_angle = map(abs_x, 0, 1, start_fov, end_fov);
         dir = start_angle + variance_angle;
       }
-      buf_growth[0].w(dir);
-
-      
-      float x = buf_growth[0].x();
-      float y = buf_growth[0].y();
-      for(int i = 1 ; i < level ; i++) {
-        float angle = buf_growth[0].w();
-        if(this.growth_type == MAD || this.growth_type == CHAOS) {
-          angle += random(-half_fov,half_fov);
-        }
-        float dx = sin(angle);
-        float dy = cos(angle);
-        int prev = i - 1;
-        x += (dx * step);
-        y += (dy * step);
-        buf_growth[i] = new R_Pix();
-        set_pixel_impl(buf_growth[i], new vec3(x,y, abs_x), p.fill());
-        pixies_growth.add(buf_growth[i]);
-      }
+      growth_impl(p, level, step, half_fov, dir, abs_x);
     }
   }
 
@@ -1002,27 +1021,46 @@ public class R_Line2D extends R_Graphic {
     float variance_angle = 0;
     float dir = 0;
     for(R_Pix p : pixies.get()) {
-      R_Pix [] buf_growth = new R_Pix[level];
-      buf_growth[0] = p.copy();
       float abs_x = p.z();
-      dir = start_angle + variance_angle;
-      buf_growth[0].w(dir);
-      variance_angle += step_fov;
-      float x = buf_growth[0].x();
-      float y = buf_growth[0].y();
-      for(int i = 1 ; i < level ; i++) {
-        float angle = buf_growth[0].w() + random(-half_fov,half_fov);
-        float dx = sin(angle);
-        float dy = cos(angle);
-        int prev = i - 1;
-        x += (dx * step);
-        y += (dy * step);
-        buf_growth[i] = new R_Pix();
-        set_pixel_impl(buf_growth[i], new vec3(x,y, abs_x), p.fill());
-        pixies_growth.add(buf_growth[i]);
+      // dir = start_angle + variance_angle;
+      // variance_angle += step_fov;
+      if(this.growth_type == CHAOS) {
+        variance_angle += step_fov;
+        dir = start_angle + variance_angle;
+      } else {
+        variance_angle = map(abs_x, 0, 1, 0, fov);
+        dir = start_angle + variance_angle;
       }
+      growth_impl(p, level, step, half_fov, dir, abs_x);
     }
   }
+
+
+
+  private void growth_impl(R_Pix p, int level, int step, float half_fov, float dir, float abs_pos) {
+    R_Pix [] buf_growth = new R_Pix[level];
+    buf_growth[0] = p.copy();
+    buf_growth[0].w(dir);
+
+    float x = buf_growth[0].x();
+    float y = buf_growth[0].y();
+    for(int i = 1 ; i < level ; i++) {
+      float angle = buf_growth[0].w();
+      if(this.growth_type == MAD || this.growth_type == CHAOS) {
+        angle += random(-half_fov,half_fov);
+      }
+      float dx = sin(angle);
+      float dy = cos(angle);
+      int prev = i - 1;
+      x += (dx * step);
+      y += (dy * step);
+      buf_growth[i] = new R_Pix();
+      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), p.fill());
+      pixies_growth.add(buf_growth[i]);
+    }
+  }
+
+
 
 
   private void set_pixel(vec3 pos, int c) {
@@ -1148,30 +1186,27 @@ public class R_Line2D extends R_Graphic {
     updatePixels();
   }
 
-  /**
-   * 
-   * @param density
-   * @param colour
-   */
-  public void show_pixels(float density, int... colour) {
-    float thickness = 0;
-    show_pixels(density, thickness, colour);
+
+
+  public void show_pixels(float density) {
+    show_pixels(density, 1);
   }
+
 
     /**
    * 
    * @param density
    * @param thickness
-   * @param colour
+   * @param palette
    */
-  public void show_pixels(float density, float thickness, int... colour) {
+  public void show_pixels(float density, float thickness) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
     // with pixel density
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
+        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, this.palette.get());
         if(pair != null) {
           plot(pair.a().xy().mult(pa.displayDensity()), pair.b());
         }
@@ -1182,7 +1217,7 @@ public class R_Line2D extends R_Graphic {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
       if(pair != null) {
         plot(pair.a().xy(), pair.b());
       }
@@ -1190,17 +1225,17 @@ public class R_Line2D extends R_Graphic {
     updatePixels();
   }
 
+
+
+
   /**
    * 
    * @param density
    * @param colour
    */
-  public void show_pixels_x2(float density, int... colour) {
-    float thickness = 0;
-    show_pixels_x2(density, thickness, colour);
+  public void show_pixels_x2(float density) {
+    show_pixels_x2(density, 1);
   }
-
-
 
   /**
    * 
@@ -1208,14 +1243,15 @@ public class R_Line2D extends R_Graphic {
    * @param thickness
    * @param colour
    */
-  public void show_pixels_x2(float density, float thickness, int... colour) {
+
+   public void show_pixels_x2(float density, float thickness) {
     int num_pixel = (int)(dist() * density);
     float range_ordinate = thickness / dist() * 0.5f;
     // with pixel density
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
+        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, this.palette.get());
         if(pair != null) {
           plot_x2(pair.a().xy().mult(pa.displayDensity()), pair.b());
         }
@@ -1226,14 +1262,13 @@ public class R_Line2D extends R_Graphic {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, colour);
+      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
       if(pair != null) {
         plot_x2(pair.a().xy(), pair.b());
       }
     }
     updatePixels();
   }
-
 
 
 

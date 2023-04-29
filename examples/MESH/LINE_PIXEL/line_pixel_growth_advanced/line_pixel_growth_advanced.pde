@@ -5,23 +5,19 @@
  * v 0.0.1
  * 
 */
-
 import rope.mesh.R_Line2D;
 import rope.vector.vec2;
 import rope.core.Rope;
 
 Rope r = new Rope();
-// int num = 14;
 float density = 1;
 float thickness = 3.0f;
 R_Line2D [] lines;
-
 
 void setup() {
 	size(700, 700);
 	build_shape(width/2, height/2, width /2);
 	set_shape();
-
 }
 
 
@@ -38,9 +34,11 @@ void keyPressed() {
 	}
 }
 
-
-
 void build_shape(int x, int y, float radius) {
+	boolean regular_is = true;
+	if(random(1) < 0.5) {
+		regular_is = false;
+	}
 	int num = (int)random(3,42);
 	lines = new R_Line2D[num];
 	float step = TAU / lines.length;
@@ -52,7 +50,9 @@ void build_shape(int x, int y, float radius) {
 		float ay = cos(angle) * buf_radius + y;
 		angle += step;
 		if(i < lines.length - 1) {
-			buf_radius = random(10,radius);
+			if(!regular_is) {
+				buf_radius = random(10,radius);
+			}	
 		} else {
 			buf_radius = first_radius;
 		}
@@ -79,16 +79,18 @@ void set_shape() {
 		}
 		R_Line2D line = lines[i];
 
-		line.set_pixels(1.0, 3.0, r.LUNE);
-		int level = 35;
+		line.set_palette(r.LUNE);
+		line.set_pixels(1.0, 1.0);
+		int level = 20;
 		int step = 2;
 		float dir = line.angle() * -1 + PI;
-		// float dir = line.angle() * -1;
-		// float fov = PI/2;
-		// line.growth(level,step, dir, fov);
+		if(i%2== 0) {
+			dir = line.angle() * -1;
+		}
+		
 		float start_fov = line.angle(line_prev) * 0.5;
 		float end_fov = line.angle(line_next) * 0.5;
-		line.set_growth_type(r.MAD);
+		//line.set_growth_type(r.MAD);
 		line.growth(level,step, dir, start_fov, end_fov);
 	}
 }
@@ -99,11 +101,6 @@ void show_shape() {
 	stroke(r.BLACK);
 	strokeWeight(5);
 	for(R_Line2D line : lines) {
-		// count++;
-		// if(count >= r.GRIS.length) {
-		// 	count = 0;
-		// }
-		// stroke(r.GRIS[count++]);
 		line.show_pixels();
 		line.show();
 	}
