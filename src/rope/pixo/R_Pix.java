@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Pix
-* v 0.3.0
+* v 0.4.0
 * 2021-2023
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -20,21 +20,26 @@ package rope.pixo;
 import rope.core.Rope;
 import rope.vector.vec3;
 import rope.vector.vec4;
+import rope.vector.ivec6;
 
 public class R_Pix extends Rope {
   protected vec4 pos;
-  protected int fill;
-  protected int entry;
+  // private int fill;
+  // private int entry;
+	// private ivec6 id;
+	private ivec6 id = new ivec6(Integer.MIN_VALUE);
 
   public R_Pix() {
     this.pos = new vec4();
-		this.fill = BLACK;
+		// this.fill = BLACK;
+		id.f(BLACK);
   }
 
 	public R_Pix(int x, int y, int width, int height) {
 		set_entry_impl(x, y, width, height);
 		this.pos = new vec4(x,y,0,0);
-		this.fill = BLACK;
+		// this.fill = BLACK;
+		id.f(BLACK);
   }
 
   // entry
@@ -43,7 +48,8 @@ public class R_Pix extends Rope {
 	 * @param entry
 	 */
 	public void set_entry(int entry) {
-		this.entry = entry;
+		// this.entry = entry;
+		id.e(entry);
 	}
 
 	/**
@@ -63,7 +69,8 @@ public class R_Pix extends Rope {
 				&& lessThan(y,height) 
 				&& greaterThanEqual(x,0) 
 				&& greaterThanEqual(y, 0)) {
-			this.entry = index_pixel_array(x, y, width);
+			// this.entry = index_pixel_array(x, y, width);
+			id.e(index_pixel_array(x, y, width));
 		} 
 	}
 	
@@ -72,7 +79,8 @@ public class R_Pix extends Rope {
 	 * @return
 	 */
 	public int get_entry() {
-		return this.entry;
+		// return this.entry;
+		return this.id.e();
 	}
 
 
@@ -150,7 +158,8 @@ public class R_Pix extends Rope {
    * @param fill set colour of the pixel
    */
 	public void fill(int fill) {
-		this.fill = fill;
+		// this.fill = fill;
+		this.id.f(fill);
 	}
 	
 	/**
@@ -158,7 +167,8 @@ public class R_Pix extends Rope {
 	 * @return colour of the pixel
 	 */
 	public int fill() {
-		return this.fill;
+		// return this.fill;
+		return this.id.f();
 	}
 
 	/**
@@ -168,8 +178,9 @@ public class R_Pix extends Rope {
 	public R_Pix copy() {
 		R_Pix p = new R_Pix();
 		p.pos = pos.copy();
-		p.fill(this.fill);
-		p.set_entry(this.entry);
+		p.id = id.copy();
+		// p.fill(this.fill);
+		// p.set_entry(this.entry);
 		return p;
 	}
 

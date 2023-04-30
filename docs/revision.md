@@ -73,6 +73,7 @@
 > add function `create(String name, PImage img, int num);` create a random palette from images picking
 > add function `get_names()` return the list name of palette
 > improve function `rand(String name)` to `rand(String ... name)` to sort color from list of palette name
+> add function `gradient()` to set gradient array
 
 > R_Image
 > add simple constructor

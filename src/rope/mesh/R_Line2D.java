@@ -21,6 +21,7 @@ import processing.core.PGraphics;
 import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.ivec6;
+import rope.vector.bvec2;
 import rope.pixo.R_Pix;
 import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
@@ -36,6 +37,7 @@ public class R_Line2D extends R_Graphic {
   protected R_Pixies pixies;
   protected R_Pixies pixies_growth;
   private int growth_type = NORMAL;
+  private bvec2 use_gradient_is;
   private ivec6 id = new ivec6(Integer.MIN_VALUE);
   private R_Colour palette;
   
@@ -85,6 +87,7 @@ public class R_Line2D extends R_Graphic {
     this.b = new vec3();
     this.ref_a = new vec3();
     this.ref_b = new vec3();
+    this.use_gradient_is = new bvec2(false);
     this.palette = new R_Colour(this.pa, BLACK);
   }
   
@@ -912,8 +915,15 @@ public class R_Line2D extends R_Graphic {
       pair = new R_Pair<vec3, Integer>();
       vec2 pos = this.get_point(abs.x(), abs.y());
       int c = BLACK;
-      if(colours.length > 0) {
-        int which = floor(random(colours.length));
+      int len = colours.length;
+      if(len > 0) {
+        int which = 0;
+        if(use_gradient_is.y() && len > 1) {
+          which = floor(random(len));
+          if(which%2 != 0) {
+            which--;
+          }
+        }
         c = colours[which];
       }
       pair.a(new vec3(pos.x(), pos.y(), abs.x()));
@@ -931,7 +941,11 @@ public class R_Line2D extends R_Graphic {
   ///////////////////////////////////
   // GROWTH
 ////////////////////////
-  public void set_growth_type(int type) {
+public void growth_option(int type, boolean use_gradient) {
+  this.growth_type = type;
+  this.use_gradient_is.y(use_gradient);
+}
+  public void growth_option(int type) {
     this.growth_type = type;
   }
 
@@ -1022,8 +1036,6 @@ public class R_Line2D extends R_Graphic {
     float dir = 0;
     for(R_Pix p : pixies.get()) {
       float abs_x = p.z();
-      // dir = start_angle + variance_angle;
-      // variance_angle += step_fov;
       if(this.growth_type == CHAOS) {
         variance_angle += step_fov;
         dir = start_angle + variance_angle;
@@ -1038,9 +1050,44 @@ public class R_Line2D extends R_Graphic {
 
 
   private void growth_impl(R_Pix p, int level, int step, float half_fov, float dir, float abs_pos) {
+    int [] col = new int[level];
+    if(!use_gradient_is.y()) {
+      for(int i = 0 ; i < level ; i++) {
+        col[i] = p.fill();
+      }
+    } else {
+      int first = p.fill();
+      int second = p.fill();
+      int [] arr = palette.get("palette");
+      // int len = palette.get("palette").length;
+      if(arr.length > 1) {
+        for(int i = 0 ; i < arr.length ; i++) {
+          if(first == arr[i]) {
+            // first = palette.get("palette", 0);
+            
+            int next = i+1;
+            // print_out("NEXT", next);
+            if(next >= arr.length) {
+              // print_out("PAS BON", next);
+              next = 0;
+            }
+            second = palette.get("palette", next);
+            break;
+          }
+        }
+        
+      }
+
+      col = palette.gradient(first, second, level);
+    }
+    
+    
+    
     R_Pix [] buf_growth = new R_Pix[level];
     buf_growth[0] = p.copy();
     buf_growth[0].w(dir);
+    buf_growth[0].fill(col[0]);
+
 
     float x = buf_growth[0].x();
     float y = buf_growth[0].y();
@@ -1055,7 +1102,7 @@ public class R_Line2D extends R_Graphic {
       x += (dx * step);
       y += (dy * step);
       buf_growth[i] = new R_Pix();
-      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), p.fill());
+      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), col[i]);
       pixies_growth.add(buf_growth[i]);
     }
   }
