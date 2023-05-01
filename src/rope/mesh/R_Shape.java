@@ -53,28 +53,7 @@ public class R_Shape extends R_Graphic {
 	public R_Shape(PApplet pa, PGraphics other) {
 		super(pa,other);
 	}
-  
-	/**
-	 * 
-	 * @param pa
-	 * @param summits
-	 */
-	@Deprecated public R_Shape(PApplet pa, int summits) {
-		super(pa);
-		this.summits = summits;
-	}
-	
-	/**
-	 * 
-	 * @param pa
-	 * @param summits
-	 * @param other
-	 */
-	@Deprecated public R_Shape(PApplet pa, int summits, PGraphics other) {
-		super(pa,other);
-		this.summits = summits; 
-	}
-	
+
 
   //////////////////////////
   // ID

@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
 * R_Pix
-* v 0.4.0
+* v 0.5.0
 * 2021-2023
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -19,27 +19,21 @@ package rope.pixo;
 
 import rope.core.Rope;
 import rope.vector.vec3;
-import rope.vector.vec4;
-import rope.vector.ivec6;
+import rope.vector.vec6;
 
 public class R_Pix extends Rope {
-  protected vec4 pos;
-  // private int fill;
-  // private int entry;
-	// private ivec6 id;
-	private ivec6 id = new ivec6(Integer.MIN_VALUE);
+	protected vec6 body;
+	protected int id = Integer.MIN_VALUE;
+	// private vec6 id;
+	// we lost 2 FPS with one million of particle
 
   public R_Pix() {
-    this.pos = new vec4();
-		// this.fill = BLACK;
-		id.f(BLACK);
+		this.body = new vec6(0,0,0,0,0,BLACK);
   }
 
 	public R_Pix(int x, int y, int width, int height) {
+		this.body = new vec6(x,y,0,0,0,BLACK);
 		set_entry_impl(x, y, width, height);
-		this.pos = new vec4(x,y,0,0);
-		// this.fill = BLACK;
-		id.f(BLACK);
   }
 
   // entry
@@ -48,8 +42,7 @@ public class R_Pix extends Rope {
 	 * @param entry
 	 */
 	public void set_entry(int entry) {
-		// this.entry = entry;
-		id.e(entry);
+		body.e(entry);
 	}
 
 	/**
@@ -69,8 +62,7 @@ public class R_Pix extends Rope {
 				&& lessThan(y,height) 
 				&& greaterThanEqual(x,0) 
 				&& greaterThanEqual(y, 0)) {
-			// this.entry = index_pixel_array(x, y, width);
-			id.e(index_pixel_array(x, y, width));
+			body.e(index_pixel_array(x, y, width));
 		} 
 	}
 	
@@ -79,8 +71,21 @@ public class R_Pix extends Rope {
 	 * @return
 	 */
 	public int get_entry() {
-		// return this.entry;
-		return this.id.e();
+		return (int)this.body.e();
+	}
+
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public void id(int id) {
+		this.id = id;
+	}
+
+
+	public int id() {
+		return this.id;
 	}
 
 
@@ -90,8 +95,8 @@ public class R_Pix extends Rope {
 	 * @param y
 	 */
 	public void pos(float x, float y) {
-		this.pos.x(x);
-		this.pos.y(y);
+		this.x(x);
+		this.y(y);
 	}
 	
 	/**
@@ -101,55 +106,64 @@ public class R_Pix extends Rope {
 	 * @param z
 	 */
 	public void pos(float x, float y, float z) {
-		this.pos.x(x);
-		this.pos.y(y);
-		this.pos.z(z);
+		this.x(x);
+		this.y(y);
+		this.z(z);
 	}
 
 	/**
 	 * @return a copy of the position in x, y and z
 	 */
 	public vec3 pos() {
-		return this.pos.xyz();
-	}
-
-	/**
-	 * @return the reel allocation place of the position, use carefuly
-	 */
-	public vec4 pointer_pos() {
-		return this.pos;
+		return this.body.xyz();
 	}
 
 	public float x() {
-		return this.pos.x();
+		return this.body.x();
 	}
 
 	public float y() {
-		return this.pos.y();
+		return this.body.y();
 	}
 
 	public float z() {
-		return this.pos.z();
+		return this.body.z();
 	}
 
 	public float w() {
-		return this.pos.w();
+		return this.body.w();
 	}
 
+	/**
+	 * 
+	 * @param x
+	 */
 	public void x(float x) {
-		this.pos.x(x);
+		this.body.a(x);
 	}
 
+	/**
+	 * 
+	 * @param y
+	 */
 	public void y(float y) {
-		this.pos.y(y);
+		this.body.b(y);
 	}
 
+	/**
+	 * 
+	 * @param z
+	 */
 	public void z(float z) {
-		this.pos.z(z);
+		this.body.c(z);
 	}
 
+	/**
+	 * 
+	 * @param w
+	 */
 	public void w(float w) {
-		this.pos.w(w);
+		this.body.d(w);
 	}
 
 
@@ -158,8 +172,7 @@ public class R_Pix extends Rope {
    * @param fill set colour of the pixel
    */
 	public void fill(int fill) {
-		// this.fill = fill;
-		this.id.f(fill);
+		this.body.f(fill);
 	}
 	
 	/**
@@ -167,8 +180,7 @@ public class R_Pix extends Rope {
 	 * @return colour of the pixel
 	 */
 	public int fill() {
-		// return this.fill;
-		return this.id.f();
+		return (int)this.body.f();
 	}
 
 	/**
@@ -177,10 +189,8 @@ public class R_Pix extends Rope {
    */
 	public R_Pix copy() {
 		R_Pix p = new R_Pix();
-		p.pos = pos.copy();
-		p.id = id.copy();
-		// p.fill(this.fill);
-		// p.set_entry(this.entry);
+		p.body = body.copy();
+		p.id = this.id;
 		return p;
 	}
 

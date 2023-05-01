@@ -1,9 +1,9 @@
 /**
 * R_Primitive class
-* v 0.5.0
-* 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.5.1
+* 2019-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope
 * Class R_Primitive store the utilities to draw shape and costume
 */
 package rope.costume;
@@ -34,7 +34,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param summits
 	 */
 	public R_Primitive(PApplet pa, int summits) {
-		super(pa, summits);
+		super(pa);
+		set_summits(summits);
 		pos(0);
 		size(1);
 		calc();
@@ -47,7 +48,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param angle
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle) {
-		super(pa, summits);
+		super(pa);
+		set_summits(summits);
 		angle_x(angle);
 		pos(0);
 		size(1);
@@ -62,7 +64,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param dir
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir) {
-		super(pa, summits);
+		super(pa);
+		set_summits(summits);
 		angle_x(angle);
 		if (this.dir == null) {
 			this.dir = new vec2(dir);
@@ -81,7 +84,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, PGraphics other) {
-		super(pa, summits, other);
+		super(pa, other);
+		set_summits(summits);
 		pos(0);
 		size(1);
 		calc();
@@ -95,7 +99,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, PGraphics other) {
-		super(pa, summits, other);
+		super(pa, other);
+		set_summits(summits);
 		angle_x(angle);
 		pos(0);
 		size(1);
@@ -111,7 +116,8 @@ public class R_Primitive extends R_Shape implements R_Constants, R_Shape_contrac
 	 * @param other
 	 */
 	public R_Primitive(PApplet pa, int summits, float angle, vec2 dir, PGraphics other) {
-		super(pa, summits, other);
+		super(pa, other);
+		set_summits(summits);
 		angle_x(angle);
 		if (this.dir == null) {
 			this.dir = new vec2(dir);

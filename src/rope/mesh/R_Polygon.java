@@ -1,9 +1,9 @@
 /**
 * R_Polygon
-* v 0.4.2
-* 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.4.3
+* 2019-2023
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.mesh;
 
@@ -19,7 +19,8 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
 	 * @param summits
 	 */
   public R_Polygon(PApplet pa, int summits) {
-    super(pa,summits);
+    super(pa);
+    set_summits(summits);
     build();
   }
   
@@ -30,7 +31,8 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
    * @param other
    */
   public R_Polygon(PApplet pa, int summits, PGraphics other) {
-    super(pa,summits,other);
+    super(pa, other);
+    set_summits(summits);
     build();
   }
   
@@ -131,7 +133,7 @@ public class R_Polygon extends R_Shape implements R_Constants, R_Shape_contract 
         pts.set(i,ref_pts.get(i).copy());
       }
       // print_err( pts.get(i));
-      pts.get(i).mult(size.x()*(float)0.5f);
+      pts.get(i).mult(size.x()*0.5f);
       if(use_pos_is()) {
         pts.get(i).add(pos);
       }

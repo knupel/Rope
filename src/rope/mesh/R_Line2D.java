@@ -445,9 +445,7 @@ public class R_Line2D extends R_Graphic {
 		return new vec2(proj.x(), proj.y());
 	}
 
-  // @Deprecated public Float normal(vec2 vec, float marge) {
-  //   return normal(vec, marge, false);
-  // }
+
   /**
    * Check if a vec point is on the line, if it's true return ne normal position on it '0' to '1' where '0' represent a and 'b' for '1'.
    * if the point is not on the segment the value return NaN.
@@ -855,16 +853,6 @@ public class R_Line2D extends R_Graphic {
   }
 
   /**
- * 
- * @param density the ratio abscissa of pixels along the line from 0 to 1
- * @param colour list of int color to create the pixel line
- */
-  // @Deprecated public void set_pixels(float density, int... colour) {
-  //   float thickness = 0;
-  //   set_pixels(density, thickness, colour);
-  // }
-
-  /**
   * @param density the ratio abscissa of pixels along the line from 0 to 1 usualy
    */
   public void set_pixels(float density) {
@@ -900,24 +888,24 @@ public class R_Line2D extends R_Graphic {
       pixies.clear();
     }
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
+      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, palette.get());
       if(pair != null) {
         set_pixel(pair.a(), pair.b());
       }
     }
   }
 
-  private R_Pair<vec3, Integer> pixel_impl(float range_ordinate, int... colours) {
-    R_Pair<vec3, Integer> pair = null;
+  private R_Pair<vec3, vec2> pixel_impl(float range_ordinate, int... colours) {
+    R_Pair<vec3, vec2> pair = null;
     // abs.x() is the position on the line
     vec2 abs = absolute_pos(range_ordinate);
     if(abs != null) {
-      pair = new R_Pair<vec3, Integer>();
+      pair = new R_Pair<vec3, vec2>();
       vec2 pos = this.get_point(abs.x(), abs.y());
       int c = BLACK;
       int len = colours.length;
+      int which = 0;
       if(len > 0) {
-        int which = 0;
         if(use_gradient_is.y() && len > 1) {
           which = floor(random(len));
           if(which%2 != 0) {
@@ -927,10 +915,32 @@ public class R_Line2D extends R_Graphic {
         c = colours[which];
       }
       pair.a(new vec3(pos.x(), pos.y(), abs.x()));
-      pair.b(c);
+      pair.b(new vec2(c, which));
+      // pair.b(c);
     }
     return pair;
   }
+
+  private void set_pixel(vec3 pos, vec2 info) {
+    R_Pix pix = new R_Pix();
+    set_pixel_impl(pix, pos, info);
+    pixies.add(pix);
+  }
+
+  private void set_pixel_impl(R_Pix p, vec3 pos, vec2 info) {
+    // the problem is from the round, the problem is by the buffering of x, y values
+    if(this.other != null) {
+      p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
+    } else {
+      p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
+    }
+    p.z(pos.z());
+    p.fill((int)info.x());
+    p.id((int)info.y());
+  }
+
+
+
 
   public void set_palette(int... colours) {
     this.palette.clear();
@@ -940,11 +950,11 @@ public class R_Line2D extends R_Graphic {
 
   ///////////////////////////////////
   // GROWTH
-////////////////////////
-public void growth_option(int type, boolean use_gradient) {
-  this.growth_type = type;
-  this.use_gradient_is.y(use_gradient);
-}
+  ////////////////////////
+  public void growth_option(int type, boolean use_gradient) {
+    this.growth_type = type;
+    this.use_gradient_is.y(use_gradient);
+  }
   public void growth_option(int type) {
     this.growth_type = type;
   }
@@ -1057,31 +1067,24 @@ public void growth_option(int type, boolean use_gradient) {
       }
     } else {
       int first = p.fill();
+      int first_id = p.id();
       int second = p.fill();
       int [] arr = palette.get("palette");
-      // int len = palette.get("palette").length;
       if(arr.length > 1) {
         for(int i = 0 ; i < arr.length ; i++) {
-          if(first == arr[i]) {
-            // first = palette.get("palette", 0);
-            
+          if(first_id == i) {
+          // if(first == arr[i]) {
             int next = i+1;
-            // print_out("NEXT", next);
             if(next >= arr.length) {
-              // print_out("PAS BON", next);
               next = 0;
             }
             second = palette.get("palette", next);
             break;
           }
-        }
-        
+        } 
       }
-
       col = palette.gradient(first, second, level);
     }
-    
-    
     
     R_Pix [] buf_growth = new R_Pix[level];
     buf_growth[0] = p.copy();
@@ -1102,7 +1105,7 @@ public void growth_option(int type, boolean use_gradient) {
       x += (dx * step);
       y += (dy * step);
       buf_growth[i] = new R_Pix();
-      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), col[i]);
+      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), new vec2(col[i], p.id()));
       pixies_growth.add(buf_growth[i]);
     }
   }
@@ -1110,22 +1113,7 @@ public void growth_option(int type, boolean use_gradient) {
 
 
 
-  private void set_pixel(vec3 pos, int c) {
-    R_Pix pix = new R_Pix();
-    set_pixel_impl(pix, pos, c);
-    pixies.add(pix);
-  }
 
-  private void set_pixel_impl(R_Pix p, vec3 pos, int c) {
-    // the problem is from the round, the problem is by the buffering of x, y values
-    if(this.other != null) {
-      p.set_entry(round(pos.x()),round(pos.y()), this.other.width, this.other.height);
-    } else {
-      p.set_entry(round(pos.x()),round(pos.y()), pa.g.width, pa.g.height);
-    }
-    p.z(pos.z());
-    p.fill(c);
-  }
 
   /**
    * 
@@ -1253,9 +1241,9 @@ public void growth_option(int type, boolean use_gradient) {
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, this.palette.get());
+        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
         if(pair != null) {
-          plot(pair.a().xy().mult(pa.displayDensity()), pair.b());
+          plot(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
         }
       }
       updatePixels();
@@ -1264,9 +1252,9 @@ public void growth_option(int type, boolean use_gradient) {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
+      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
       if(pair != null) {
-        plot(pair.a().xy(), pair.b());
+        plot(pair.a().xy(), (int)pair.b().x());
       }
     }
     updatePixels();
@@ -1298,9 +1286,9 @@ public void growth_option(int type, boolean use_gradient) {
     if(pixel_density_is()) {
       loadPixels();
       for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, this.palette.get());
+        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
         if(pair != null) {
-          plot_x2(pair.a().xy().mult(pa.displayDensity()), pair.b());
+          plot_x2(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
         }
       }
       updatePixels();
@@ -1309,9 +1297,9 @@ public void growth_option(int type, boolean use_gradient) {
     // without pixel density
     loadPixels();
     for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, Integer> pair = pixel_impl(range_ordinate, palette.get());
+      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, palette.get());
       if(pair != null) {
-        plot_x2(pair.a().xy(), pair.b());
+        plot_x2(pair.a().xy(), (int)pair.b().x());
       }
     }
     updatePixels();

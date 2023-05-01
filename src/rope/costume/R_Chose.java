@@ -1,9 +1,9 @@
 /**
 * R_Chose
 * 2019-2022
-* v 0.4.0
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.4.1
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 package rope.costume;
 
@@ -166,7 +166,7 @@ public class R_Chose extends R_Polygon {
           count = 0;
         }
       } else {
-        pts.get(i).mult(size.x*(float)0.5f);
+        pts.get(i).mult(size.x*0.5f);
       }
 
       if(use_pos_is()) {

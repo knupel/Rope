@@ -1,7 +1,7 @@
 /**
  * 
  * simple impact to show the pixel line
- * v 0.1.3
+ * v 0.1.4
  * 2023-2023
  * 
 
@@ -32,6 +32,7 @@ void setup() {
 }
 
 void draw() {
+	println("FPS", r.truncate(frameRate,2));
 	background(r.BLACK);
 	imp.update_pixels_is(keyPressed && key=='u');
 	if(mousePressed && mouseButton == LEFT) {
