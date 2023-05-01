@@ -23,6 +23,7 @@ import rope.vector.vec3;
 import rope.vector.ivec6;
 import rope.vector.bvec2;
 import rope.pixo.R_Pix;
+import rope.mesh.R_Shape;
 import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
 import rope.colour.R_Colour;
@@ -1046,6 +1047,7 @@ public class R_Line2D extends R_Graphic {
 
     float variance_angle = 0;
     float dir = 0;
+    get_field(-half_fov, half_fov, level*step);
     for(R_Pix p : pixies.get()) {
       float abs_x = p.z();
       if(this.growth_type == CHAOS) {
@@ -1053,11 +1055,27 @@ public class R_Line2D extends R_Graphic {
         dir = start_angle + variance_angle;
       } else {
         variance_angle = map(abs_x, 0, 1, 0, buf_fov);
-        // variance_angle = map(abs_x, 0, 1, 0, fov);
         dir = start_angle + variance_angle;
       }
       growth_impl(p, level, step, half_fov, dir, abs_x);
     }
+  }
+
+
+  private R_Shape get_field(float start_angle, float end_angle, float dist) {
+    R_Shape field = new R_Shape(pa);
+    float cx = sin(start_angle) * dist;
+    float cy = cos(start_angle) * dist;
+    vec3 c = new vec3(cx,cy,0);
+    c.add(this.a());
+    float dx = sin(end_angle) * dist;
+    float dy = cos(end_angle) * dist;
+    vec3 d = new vec3(dx,dy,0);
+    d.add(this.b());
+    field.add_points(this.a(), this.b(), c, d);
+    field.show();
+    print_array(field.get_points());
+    return field;
   }
 
 
@@ -1076,7 +1094,6 @@ public class R_Line2D extends R_Graphic {
       if(arr.length > 1) {
         for(int i = 0 ; i < arr.length ; i++) {
           if(first_id == i) {
-          // if(first == arr[i]) {
             int next = i+1;
             if(next >= arr.length) {
               next = 0;
@@ -1097,11 +1114,21 @@ public class R_Line2D extends R_Graphic {
 
     float x = buf_growth[0].x();
     float y = buf_growth[0].y();
+    // float buf_abs = map(abs_pos, 0, 1, -1, 1);
+    // float ratio_distri = map(abs(buf_abs), 0,1,10,1);
     for(int i = 1 ; i < level ; i++) {
       float angle = buf_growth[0].w();
       if(this.growth_type == MAD || this.growth_type == CHAOS) {
         angle += random(-half_fov,half_fov);
+      } else if(this.growth_type == CHAOS) {
+        // need to find an other type of distrubition for the chaos
+        angle += random(-half_fov, half_fov);
       }
+      // if(this.growth_type == MAD) {
+      //   angle += random(-half_fov, half_fov);
+      // } else if(this.growth_type == CHAOS) {
+      //   angle += random(-half_fov*ratio_distri, half_fov*ratio_distri);
+      // }
       float dx = sin(angle);
       float dy = cos(angle);
       int prev = i - 1;

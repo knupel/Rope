@@ -68,7 +68,7 @@ void set_impact() {
 
 	int g_level = 2; // num of iteration
 	int g_step = 1; // space between the pixel
-	int g_type = r.MAD;
+	int g_type = r.CHAOS;
 	if(frameCount%2 == 0) {
 		imp.set_pixel_evolution(g_type, g_level, g_level *10 , g_step, g_step *5);
 	} else {

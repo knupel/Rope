@@ -90,7 +90,7 @@ void set_shape() {
 		
 		float start_fov = line.angle(line_prev) * 0.5;
 		float end_fov = line.angle(line_next) * 0.5;
-		//line.set_growth_type(r.MAD);
+		line.growth_option(r.CHAOS);
 		line.growth(level,step, dir, start_fov, end_fov);
 	}
 }
