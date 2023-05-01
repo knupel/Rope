@@ -82,7 +82,7 @@ void update_lines() {
 		float direction = dir - l.angle();
 		// println("line angle", l.angle());
 
-		l.set_growth_type(r.NORMAL);
+		// l.growth_option(r.NORMAL);
 			// l.set_growth_type(r.CHAOS);
 		if(count%2 == 0) {
 			l.growth(level,step, direction, fov);

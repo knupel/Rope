@@ -21,7 +21,7 @@ void setup() {
 }
 
 void draw() {
-	println("FPS", (int)frameRate);
+	// println("FPS", r.truncate(frameRate,2));
 	background(r.BLACK);
 	imp.stroke_is(true);
 	// here we set the mode to pixel x1
@@ -68,10 +68,11 @@ void set_impact() {
 
 	int g_level = 2; // num of iteration
 	int g_step = 1; // space between the pixel
+	int g_type = r.MAD;
 	if(frameCount%2 == 0) {
-		imp.set_pixel_evolution(g_level, g_level *20 , g_step, g_step *5);
+		imp.set_pixel_evolution(g_type, g_level, g_level *10 , g_step, g_step *5);
 	} else {
-		imp.set_pixel_evolution(g_level,g_step);
+		imp.set_pixel_evolution(g_type, g_level, g_step);
 	}
 
 }

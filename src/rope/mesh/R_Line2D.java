@@ -1028,9 +1028,11 @@ public class R_Line2D extends R_Graphic {
     }
 
     float start_angle = 0;
+    float buf_fov = TAU;
     float half_fov = PI;
     float step_fov = 0;
     if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
+      buf_fov = fov;
       half_fov = fov * 0.5f;
       start_angle = direction - half_fov;  
       step_fov = fov / pixies.size();
@@ -1050,7 +1052,8 @@ public class R_Line2D extends R_Graphic {
         variance_angle += step_fov;
         dir = start_angle + variance_angle;
       } else {
-        variance_angle = map(abs_x, 0, 1, 0, fov);
+        variance_angle = map(abs_x, 0, 1, 0, buf_fov);
+        // variance_angle = map(abs_x, 0, 1, 0, fov);
         dir = start_angle + variance_angle;
       }
       growth_impl(p, level, step, half_fov, dir, abs_x);

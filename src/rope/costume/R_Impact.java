@@ -74,8 +74,11 @@ public class R_Impact extends R_Graphic {
 	// pixel parl
 	private boolean update_pixels_is = false;
 	private boolean set_gradient_pixels_is = false;
+	// pixel growth evolution
+	private int type_evo_pixel = NORMAL;
 	private ivec2 level_evo_pixel = new ivec2();
 	private ivec2 step_evo_pixel = new ivec2();
+	// pixel rendering
 	private ivec2 mode_abs_pixel = new ivec2(NORMAL, 1);
 	private ivec2 mode_ord_pixel = new ivec2(NORMAL, 1);
 	private R_Pair<Float, Float> pixel_xy = new R_Pair<Float, Float>();
@@ -1969,7 +1972,8 @@ public class R_Impact extends R_Graphic {
 	 * @param level num of pixel after the pixel root
 	 * @param step space between the pixel
 	 */
-	public void set_pixel_evolution(int level, int step) {
+	public void set_pixel_evolution(int type, int level, int step) {
+		type_evo_pixel = type;
 		level_evo_pixel.set(level);
 		step_evo_pixel.set(step);
 	}
@@ -1981,7 +1985,8 @@ public class R_Impact extends R_Graphic {
 	 * @param step_min space min between the pixel
 	 * @param step_max space max between the pixel
 	 */
-	public void set_pixel_evolution(int level_min, int level_max, int step_min, int step_max) {
+	public void set_pixel_evolution(int type, int level_min, int level_max, int step_min, int step_max) {
+		type_evo_pixel = type;
 		level_evo_pixel.set(level_min, level_max);
 		step_evo_pixel.set(step_min, step_max);
 	}
@@ -2412,6 +2417,7 @@ public class R_Impact extends R_Graphic {
 			step = round(random(step_evo_pixel.x(),step_evo_pixel.y()));
 		}
 		if(all(level != 0, step != 0)) {
+			line.growth_option(type_evo_pixel);
 			line.growth(level, step);
 			return;
 		}
