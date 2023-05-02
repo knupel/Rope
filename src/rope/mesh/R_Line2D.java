@@ -35,6 +35,7 @@ public class R_Line2D extends R_Graphic {
   protected vec3 ref_a;
   protected vec3 ref_b;
   private boolean mute_is = false;
+  private boolean field_is = false;
   protected R_Pixies pixies;
   protected R_Pixies pixies_growth;
   private int growth_type = NORMAL;
@@ -952,11 +953,22 @@ public class R_Line2D extends R_Graphic {
   ///////////////////////////////////
   // GROWTH
   ////////////////////////
-  public void growth_option(int type, boolean use_gradient) {
+
+  /**
+   * The direction is based on start_fov angle
+   * @param use_field to distribute the pixels only in the fov field
+   * @param type of pixel growth distribution
+   * @param use_gradient to create a gradient from the fist color to second... il there more color in the palette the color is used like a pair colors successively
+   */
+  public void growth_option(boolean field_is, int type, boolean use_gradient) {
+    this.field_is = field_is;
     this.growth_type = type;
     this.use_gradient_is.y(use_gradient);
   }
-  public void growth_option(int type) {
+
+
+  public void growth_option(boolean field_is, int type) {
+    this.field_is = field_is;
     this.growth_type = type;
   }
 
@@ -966,6 +978,59 @@ public class R_Line2D extends R_Graphic {
 
   public void growth(int level, int step) {
     growth(level, step, Float.NaN, Float.NaN);
+  }
+
+    /**
+   * The direction is based on the bissector of the fov
+   * @param level from 1 to n
+   * @param step from 1 to n
+   * @param direction from 0 to 2PI / TAU
+   * @param fov from 0 to 2PI / TAU
+   */
+  public void growth(int level, int step, float direction, float fov) {
+    if(level < 1) {
+      return;
+    }
+
+    float start_angle = 0;
+    float buf_fov = TAU;
+    float half_fov = PI;
+    float step_fov = 0;
+    R_Shape field = null;
+
+    if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
+      buf_fov = fov;
+      half_fov = fov * 0.5f;
+      start_angle = direction - half_fov;  
+      step_fov = fov / pixies.size();
+    }  
+
+    if(pixies_growth == null) {
+      pixies_growth = new R_Pixies();
+    } else {
+      pixies_growth.clear();
+    }
+
+    float variance_angle = 0;
+    float dir = 0;
+    
+    if(field_is) {
+      field = get_field(direction, -half_fov, half_fov, level*step);
+    }
+    // } else {
+    //   get_field(direction, -half_fov, half_fov, level*step);
+    // }
+    for(R_Pix p : pixies.get()) {
+      float abs_x = p.z();
+      if(this.growth_type == CHAOS) {
+        variance_angle += step_fov;
+        dir = start_angle + variance_angle;
+      } else {
+        variance_angle = map(abs_x, 0, 1, 0, buf_fov);
+        dir = start_angle + variance_angle;
+      }
+      growth_impl(p, field, level, step, half_fov, dir, abs_x);
+    }
   }
 
     /**
@@ -984,6 +1049,7 @@ public class R_Line2D extends R_Graphic {
     float start_angle = 0;
     float half_fov = PI;
     float step_fov = 0;
+    R_Shape field = null;
     if(all(!Float.isNaN(direction),!Float.isNaN(start_fov), !Float.isNaN(end_fov))) {
       float fov = end_fov - start_fov;
       half_fov = abs(fov * 0.5f);
@@ -999,7 +1065,9 @@ public class R_Line2D extends R_Graphic {
 
     float variance_angle = 0;
     float dir = 0;
-    // How to konw the position of the pixel in the line ?????
+    if(field_is) {
+      field = get_field(direction, start_fov, end_fov, level*step);
+    }
     for(R_Pix p : pixies.get()) {
       float abs_x = p.z();
       // set root direction
@@ -1010,77 +1078,47 @@ public class R_Line2D extends R_Graphic {
         variance_angle = map(abs_x, 0, 1, start_fov, end_fov);
         dir = start_angle + variance_angle;
       }
-      growth_impl(p, level, step, half_fov, dir, abs_x);
+      growth_impl(p, field, level, step, half_fov, dir, abs_x);
     }
   }
+
+
 
 
 
   /**
-   * The direction is based on the bissector of the fov
-   * @param level from 1 to n
-   * @param step from 1 to n
-   * @param direction from 0 to 2PI / TAU
-   * @param fov from 0 to 2PI / TAU
+   * Can be useful to create a field action from the line. this function is use internally for the pixel growth.
+   * @param direction of the field
+   * @param start_angle from the point a
+   * @param end_angle from the point b
+   * @param dist distance of the field from the line
+   * @return R_Shape
    */
-  public void growth(int level, int step, float direction, float fov) {
-    if(level < 1) {
-      return;
-    }
-
-    float start_angle = 0;
-    float buf_fov = TAU;
-    float half_fov = PI;
-    float step_fov = 0;
-    if(all(!Float.isNaN(direction),!Float.isNaN(fov))) {
-      buf_fov = fov;
-      half_fov = fov * 0.5f;
-      start_angle = direction - half_fov;  
-      step_fov = fov / pixies.size();
-    }  
-
-    if(pixies_growth == null) {
-      pixies_growth = new R_Pixies();
-    } else {
-      pixies_growth.clear();
-    }
-
-    float variance_angle = 0;
-    float dir = 0;
-    get_field(-half_fov, half_fov, level*step);
-    for(R_Pix p : pixies.get()) {
-      float abs_x = p.z();
-      if(this.growth_type == CHAOS) {
-        variance_angle += step_fov;
-        dir = start_angle + variance_angle;
-      } else {
-        variance_angle = map(abs_x, 0, 1, 0, buf_fov);
-        dir = start_angle + variance_angle;
-      }
-      growth_impl(p, level, step, half_fov, dir, abs_x);
-    }
-  }
-
-
-  private R_Shape get_field(float start_angle, float end_angle, float dist) {
+  public R_Shape get_field(float direction, float start_angle, float end_angle, float dist) {
     R_Shape field = new R_Shape(pa);
-    float cx = sin(start_angle) * dist;
-    float cy = cos(start_angle) * dist;
+    dist *= 1.11f;
+    float cx = sin(direction + start_angle) * dist;
+    float cy = cos(direction + start_angle) * dist;
     vec3 c = new vec3(cx,cy,0);
     c.add(this.a());
-    float dx = sin(end_angle) * dist;
-    float dy = cos(end_angle) * dist;
+    float dx = sin(direction + end_angle) * dist;
+    float dy = cos(direction + end_angle) * dist;
     vec3 d = new vec3(dx,dy,0);
     d.add(this.b());
-    field.add_points(this.a(), this.b(), c, d);
+
+    float bissector_x = sin(direction) * dist;
+    float bissector_y = cos(direction) * dist;
+    vec3 bissector = new vec3(bissector_x,bissector_y,0);
+    bissector.add(this.barycenter());
+
+    field.add_points(this.a(), this.b(), d, bissector, c);
     field.show();
-    print_array(field.get_points());
     return field;
   }
 
 
 
-  private void growth_impl(R_Pix p, int level, int step, float half_fov, float dir, float abs_pos) {
+  private void growth_impl(R_Pix p, R_Shape field, int level, int step, float half_fov, float dir, float abs_pos) {
     int [] col = new int[level];
     if(!use_gradient_is.y()) {
       for(int i = 0 ; i < level ; i++) {
@@ -1110,34 +1148,79 @@ public class R_Line2D extends R_Graphic {
     buf_growth[0] = p.copy();
     buf_growth[0].w(dir);
     buf_growth[0].fill(col[0]);
-
-
-    float x = buf_growth[0].x();
-    float y = buf_growth[0].y();
-    // float buf_abs = map(abs_pos, 0, 1, -1, 1);
-    // float ratio_distri = map(abs(buf_abs), 0,1,10,1);
-    for(int i = 1 ; i < level ; i++) {
-      float angle = buf_growth[0].w();
-      if(this.growth_type == MAD || this.growth_type == CHAOS) {
-        angle += random(-half_fov,half_fov);
-      } else if(this.growth_type == CHAOS) {
-        // need to find an other type of distrubition for the chaos
-        angle += random(-half_fov, half_fov);
-      }
-      // if(this.growth_type == MAD) {
-      //   angle += random(-half_fov, half_fov);
-      // } else if(this.growth_type == CHAOS) {
-      //   angle += random(-half_fov*ratio_distri, half_fov*ratio_distri);
-      // }
-      float dx = sin(angle);
-      float dy = cos(angle);
-      int prev = i - 1;
-      x += (dx * step);
-      y += (dy * step);
-      buf_growth[i] = new R_Pix();
-      set_pixel_impl(buf_growth[i], new vec3(x,y, abs_pos), new vec2(col[i], p.id()));
-      pixies_growth.add(buf_growth[i]);
+    if(field_is && field != null) {
+      growth_distribution_yes_field(field, buf_growth, col, p, level, step, half_fov, abs_pos);
+    } else {
+      growth_distribution_no_field(buf_growth, col, p, level, step, half_fov, abs_pos);
     }
+  }
+
+
+  private void growth_distribution_no_field(R_Pix [] pix_list, int [] colour_list, R_Pix ref_pix, int level, int step, float half_fov, float abs_pos) {
+    // too much arguments :(
+    vec3 coord = pix_list[0].pos();
+    float jitter = half_fov;
+    if(this.growth_type == CHAOS) {
+      jitter = half_fov*2;
+    }
+    for(int i = 1 ; i < level ; i++) {
+      float angle = pix_list[0].w();
+      if(this.growth_type == MAD || this.growth_type == CHAOS) {
+        angle += random(-jitter,jitter);
+      }
+      pix_list[i] = new R_Pix();
+      pixel_growth_coord(coord, angle, step);
+      pixel_growth_add(coord, colour_list[i], pix_list[i], ref_pix, abs_pos);
+    }
+  }
+
+  private void growth_distribution_yes_field(R_Shape field, R_Pix [] pix_list, int [] colour_list, R_Pix ref_pix, int level, int step, float half_fov, float abs_pos) {
+    // too much arguments :(
+    vec3 coord = pix_list[0].pos();
+    float jitter = half_fov;
+    if(this.growth_type == CHAOS) {
+      jitter = half_fov*2;
+    }
+    for(int i = 1 ; i < level ; i++) {
+      float angle = pix_list[0].w();
+      // float offset_angle = 0;
+      if(this.growth_type == MAD || this.growth_type == CHAOS) {
+        angle += random(-jitter,jitter);
+      }
+      pix_list[i] = new R_Pix();
+      coord = pixel_in_field(field, coord, angle, step, jitter, 0);
+      if(coord == null) {
+        break;
+      }
+      pixel_growth_add(coord, colour_list[i], pix_list[i], ref_pix, abs_pos);
+    }
+  }
+
+  private vec3 pixel_in_field(R_Shape field, vec3 coord_ref, float angle, int step, float jitter, int count) {
+    boolean in = false;
+    vec3 buf = coord_ref.copy();
+    pixel_growth_coord(buf, angle, step);
+    
+    if(in_polygon(field, buf)) {
+      return buf;
+    } else if(count < 5) {
+      angle += random(-jitter,jitter);
+      count++;
+      pixel_in_field(field, coord_ref, angle, step, jitter, count);
+    }
+    // return coord_ref;
+    return null;
+  }
+
+  private void pixel_growth_coord(vec3 coord, float angle, int step) {
+    float dx = sin(angle);
+    float dy = cos(angle);
+    coord.add(dx * step, dy * step, 0);
+  }
+
+  private void pixel_growth_add(vec3 coord, int col, R_Pix new_pix, R_Pix ref_pix, float abs_pos) {
+    set_pixel_impl(new_pix, new vec3(coord.x(),coord.y(), abs_pos), new vec2(col, ref_pix.id()));
+    pixies_growth.add(new_pix);
   }
 
 

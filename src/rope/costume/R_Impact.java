@@ -2417,7 +2417,7 @@ public class R_Impact extends R_Graphic {
 			step = round(random(step_evo_pixel.x(),step_evo_pixel.y()));
 		}
 		if(all(level != 0, step != 0)) {
-			line.growth_option(type_evo_pixel);
+			line.growth_option(false, type_evo_pixel);
 			line.growth(level, step);
 			return;
 		}

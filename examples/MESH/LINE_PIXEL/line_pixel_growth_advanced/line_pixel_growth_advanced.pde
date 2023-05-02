@@ -2,7 +2,7 @@
  * 
  * line growth with complexe shape
  * 2023-2023
- * v 0.0.1
+ * v 0.0.2
  * 
 */
 import rope.mesh.R_Line2D;
@@ -16,22 +16,26 @@ R_Line2D [] lines;
 
 void setup() {
 	size(700, 700);
+	background(r.SANG);
+	stroke(r.BLACK);
+	strokeWeight(5);
+	noFill();
 	build_shape(width/2, height/2, width /2);
 	set_shape();
-}
-
-
-void draw() {
-	background(r.SANG);
 	show_shape();
 }
 
+
+void draw() {}
+
 void keyPressed() {
+	background(r.SANG);
 	if(key == 'n') {
 		println("new sort");
 		build_shape(width/2, height/2, width /2);
 		set_shape();
 	}
+	show_shape();
 }
 
 void build_shape(int x, int y, float radius) {
@@ -39,7 +43,7 @@ void build_shape(int x, int y, float radius) {
 	if(random(1) < 0.5) {
 		regular_is = false;
 	}
-	int num = (int)random(3,42);
+	int num = (int)random(3,19);
 	lines = new R_Line2D[num];
 	float step = TAU / lines.length;
 	float angle = 0;
@@ -84,22 +88,20 @@ void set_shape() {
 		int level = 20;
 		int step = 2;
 		float dir = line.angle() * -1 + PI;
-		if(i%2== 0) {
-			dir = line.angle() * -1;
-		}
+		// if(i%2== 0) {
+		// 	dir = line.angle() * -1;
+		// }
 		
 		float start_fov = line.angle(line_prev) * 0.5;
 		float end_fov = line.angle(line_next) * 0.5;
-		line.growth_option(r.CHAOS);
+		boolean use_field = true;
+		line.growth_option(use_field, r.CHAOS);
 		line.growth(level,step, dir, start_fov, end_fov);
 	}
 }
 
 
 void show_shape() {
-	int count = 0;
-	stroke(r.BLACK);
-	strokeWeight(5);
 	for(R_Line2D line : lines) {
 		line.show_pixels();
 		line.show();

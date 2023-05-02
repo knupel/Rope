@@ -18,6 +18,9 @@ R_Line2D b;
 void setup() {
   size(500,500);
   background(r.TENEBRE);
+  stroke(r.MOON);
+  strokeWeight(2);
+  noFill();
   a = new R_Line2D(this);
   b = new R_Line2D(this);
   int ax = width/4;
@@ -26,16 +29,18 @@ void setup() {
   int by = height - height/3;
   a.set(ax, ay, bx, ay);
   boolean use_gradient = true;
+  boolean use_field = true;
   // if you use gradient the color palette work by pair
   // the first is the line and the second is the top of the growth.
-  a.growth_option(r.MAD, use_gradient);
+  a.growth_option(use_field, r.MAD, use_gradient);
   a.set_palette(r.MAGENTA, r.CYAN);
   a.set_pixels(0.5);
   a.growth(100,1, 0, PI);
   a.show_pixels();
 
   b.set(ax, by, bx, by);
-  b.growth_option(r.NORMAL, use_gradient);
+  
+  b.growth_option(use_field, r.NORMAL, use_gradient);
   b.set_palette(r.MAGENTA, r.CYAN, r.MAGENTA, r.YELLOW);
   b.set_pixels(0.5);
   b.growth(100,1, 0, PI);
