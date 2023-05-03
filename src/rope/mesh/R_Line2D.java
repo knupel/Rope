@@ -1096,23 +1096,47 @@ public class R_Line2D extends R_Graphic {
    */
   public R_Shape get_field(float direction, float start_angle, float end_angle, float dist) {
     R_Shape field = new R_Shape(pa);
+    float ang_a = direction + start_angle;
+    float ang_b = direction + end_angle;
+    float abs_a = 0;
+    float abs_b = 1.0f;
+    int num = 2;
+    float step_ang_a = (direction - ang_a) / num; 
+    float step_ang_b = (direction - ang_b) / num; 
+    float step_abs = 0.5f / num;
     dist *= 1.11f;
-    float cx = sin(direction + start_angle) * dist;
-    float cy = cos(direction + start_angle) * dist;
-    vec3 c = new vec3(cx,cy,0);
-    c.add(this.a());
-    float dx = sin(direction + end_angle) * dist;
-    float dy = cos(direction + end_angle) * dist;
-    vec3 d = new vec3(dx,dy,0);
-    d.add(this.b());
+
+    vec3 [] a = new vec3[num];
+    vec3 [] b = new vec3[num];
+    for(int i = 0 ; i < num; i++) {
+      // b part
+      float bx = sin(ang_b) * dist;
+      float by = cos(ang_b) * dist;
+      b[i] = new vec3(bx,by,0);
+      ang_b += step_ang_b;
+      b[i].add(get_point(abs_b));
+      abs_b -= step_abs;
+      // a part
+      float ax = sin(ang_a) * dist;
+      float ay = cos(ang_a) * dist;
+      a[i] = new vec3(ax,ay,0);
+      ang_a += step_ang_a;
+      a[i].add(get_point(abs_a));
+      abs_a += step_abs;
+    }
+
 
     float bissector_x = sin(direction) * dist;
     float bissector_y = cos(direction) * dist;
     vec3 bissector = new vec3(bissector_x,bissector_y,0);
     bissector.add(this.barycenter());
 
-    field.add_points(this.a(), this.b(), d, bissector, c);
-    field.show();
+    field.add_points(this.a(), this.b());
+    field.add_points(b);
+    field.add_points(bissector);
+    field.add_points(reverse(a));
+
+    // field.show();
     return field;
   }
 

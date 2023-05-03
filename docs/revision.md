@@ -18,6 +18,7 @@
 > add function distribution relatited to mathematical curve, power, square root, normal distribution...
 > `r_pow()`, `r_sqrt()`, `r_cbrt()`, `r_bell()`
 > improve function `in_polygon()` for the marge detection, now the detection is divide on 3 results : out, border and in polygon
+> add function `reverse(T [] arr)`
 
 > VECTOR
 > remove jitter from all vec

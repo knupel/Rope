@@ -2,7 +2,7 @@ package rope.utils;
 
 /**
  * Rope Static Utils
- * v 0.3.0
+ * v 0.3.1
  * 2019-2023
  */
 
@@ -522,6 +522,26 @@ public class R_Utils {
 
 
 
+		//////////////////////////////////
+		// ARRAY UTILS
+		///////////////////////////////
+		/**
+		 * 
+		 * @param arr list of any type elements
+		 * @return a reverse list of elements
+		 */
+		public static <T> T [] reverse(T [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				T buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+
+
+
 
 		/////////////////////////////////
 		// MIN / MAX
@@ -634,6 +654,8 @@ public class R_Utils {
 			return new ivec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
 		}
 	}
+
+
 
 }
 
