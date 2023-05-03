@@ -548,7 +548,7 @@ public class R_Shape extends R_Graphic {
 
 	/**
 	 * @param index
-	 * @param coord a list of vec must be a pointer. means the vec must not be create to be destroy after it passed.
+	 * @param coord a list of vec must be a pointer. Mean the vec must not be create to be destroy after it passed.
 	 */
 	public void add_pointers(int index, vec3... coord) {
 		for(vec3 v : coord) {

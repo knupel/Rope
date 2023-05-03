@@ -539,6 +539,81 @@ public class R_Utils {
 			return arr;
 		}
 
+		public static boolean [] reverse(boolean [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				boolean buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static byte [] reverse(byte [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				byte buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static char [] reverse(char [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				char buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static int [] reverse(int [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				int buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static long [] reverse(long [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				long buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static float [] reverse(float [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				float buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static double [] reverse(double [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				double buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+		public static String [] reverse(String [] arr) {
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				String buf = arr[i];
+				arr[i] = arr[arr.length - i - 1];
+				arr[arr.length - i - 1] = buf;
+			}
+			return arr;
+		}
+
+
+
+
 
 
 

@@ -1,31 +1,31 @@
 /**
-*
+* reverse function faster than Processing
+* may be when I've the possibility I push this one on Processing
 */
 import rope.utils.R_Utils.Ru;
 import rope.core.Rope;
 
-// Rope r = new Rope();
+int num = 30_000_000;
 
 void setup() {
-  int [] arr = {0,1,2,3};
-  PVector [] p = new PVector[3];
-  p[0] = new PVector(0,0);
-  p[1] = new PVector(1,1);
-  p[2] = new PVector(2,2);
-  printArray(arr);
-  printArray(p);
-  printArray(Ru.reverse(arr)); // KO,  don't work but the code is the same
-  // printArray(reverse(arr)); // ok, work
-  printArray(Ru.reverse(p));
-  // printArray(rope.utils.R_Utils.Ru.reverse(p));
-}
-
-
-<T> T [] reverse(T [] arr) {
-  for(int i = 0 ; i < arr.length / 2; i++) {
-    T buf = arr[i];
-    arr[i] = arr[arr.length - i - 1];
-    arr[arr.length - i - 1] = buf;
+ // PVector [] arr = new PVector[num];
+  String [] arr = new String[num]; 
+  // int Rope faster x3.5
+  // float Rope faster x3.5
+  // Integer Rope faster x3.5
+  // Rope Processing faster x1.1
+  // PVector Rope faster x3.5
+  for(int i = 0 ; i < arr.length ; i++) {
+    // arr[i] = i;
+    arr[i] = ""+i;
+    // arr[i] = new PVector(i,i);
   }
-  return arr;
+
+  float start = millis();
+  reverse(arr);
+  println("P5",millis() - start);
+  
+  start = millis();
+  Ru.reverse(arr); 
+  println("Rope",millis() - start);
 }

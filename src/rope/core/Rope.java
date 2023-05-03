@@ -15,7 +15,7 @@
  * @author @knupel
  * @see https://github.com/knupel/Rope
  * 2014-2023
- * v 0.5.2
+ * v 0.5.3
  * 
  */
 
@@ -790,6 +790,39 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return Ru.reverse(arr);
 	}
 
+	public boolean [] reverse(boolean [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public byte [] reverse(byte [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public char [] reverse(char [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public int [] reverse(int [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public long [] reverse(long [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public float [] reverse(float [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public double [] reverse(double [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public String [] reverse(String [] arr) {
+		return Ru.reverse(arr);
+	}
+
+
 
 
 
@@ -836,29 +869,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
   	return Ru.max(a,b);
 	}
 
-	// public vec2 max(vec2 a, vec2 b) {
-  // 	return new vec2(max(a.x(),b.x()),max(a.y(),b.y()));
-	// }
-
-	// public vec3 max(vec3 a, vec3 b) {
-  // 	return new vec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
-	// }
-
-	// public vec4 max(vec4 a, vec4 b) {
-  // 	return new vec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
-	// }
-
-	// public ivec2 max(ivec2 a, ivec2 b) {
-  // 	return new ivec2(max(a.x(),b.x()),max(a.y(),b.y()));
-	// }
-
-	// public ivec3 max(ivec3 a, ivec3 b) {
-  // 	return new ivec3(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()));
-	// }
-
-	// public ivec4 max(ivec4 a, ivec4 b) {
-  // 	return new ivec4(max(a.x(),b.x()),max(a.y(),b.y()),max(a.z(),b.z()),max(a.w(),b.w()));
-	// }
 
 
 
@@ -898,30 +908,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	public ivec4 min(ivec4 a, ivec4 b) {
 		return Ru.min(a,b);
 	}
-
-	// public vec2 min(vec2 a, vec2 b) {
-	// 	return new vec2(min(a.x(),b.x()),min(a.y(),b.y()));
-	// }
-
-	// public vec3 min(vec3 a, vec3 b) {
-	// 	return new vec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
-	// }
-
-	// public vec4 min(vec4 a, vec4 b) {
-	// 	return new vec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
-	// }
-
-	// public ivec2 min(ivec2 a, ivec2 b) {
-	// 	return new ivec2(min(a.x(),b.x()),min(a.y(),b.y()));
-	// }
-
-	// public ivec3 min(ivec3 a, ivec3 b) {
-	// 	return new ivec3(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()));
-	// }
-
-	// public ivec4 min(ivec4 a, ivec4 b) {
-	// 	return new ivec4(min(a.x(),b.x()),min(a.y(),b.y()),min(a.z(),b.z()),min(a.w(),b.w()));
-	// }
 
 
 

@@ -1023,8 +1023,8 @@ public class R_Line2D extends R_Graphic {
     for(R_Pix p : pixies.get()) {
       float abs_x = p.z();
       if(this.growth_type == CHAOS) {
-        variance_angle += step_fov;
-        dir = start_angle + variance_angle;
+        variance_angle += random(-step_fov, step_fov);
+        dir += start_angle + variance_angle;
       } else {
         variance_angle = map(abs_x, 0, 1, 0, buf_fov);
         dir = start_angle + variance_angle;
@@ -1136,7 +1136,7 @@ public class R_Line2D extends R_Graphic {
     field.add_points(bissector);
     field.add_points(reverse(a));
 
-    // field.show();
+    field.show();
     return field;
   }
 
@@ -1202,14 +1202,18 @@ public class R_Line2D extends R_Graphic {
     // too much arguments :(
     vec3 coord = pix_list[0].pos();
     float jitter = half_fov;
-    if(this.growth_type == CHAOS) {
-      jitter = half_fov*2;
-    }
+    // if(this.growth_type == CHAOS) {
+    //   jitter = half_fov * 2;
+    // }
     for(int i = 1 ; i < level ; i++) {
-      float angle = pix_list[0].w();
-      // float offset_angle = 0;
-      if(this.growth_type == MAD || this.growth_type == CHAOS) {
+      float dir = pix_list[0].w();
+      float angle = dir;
+      if(this.growth_type == MAD) {
         angle += random(-jitter,jitter);
+      } else if(this.growth_type == CHAOS) {
+        angle = this.angle() + dir + random(-jitter,jitter);
+        // angle = this.angle() + PI + random(-PI/2,PI/2);
+        // angle += random(-PI,PI);
       }
       pix_list[i] = new R_Pix();
       coord = pixel_in_field(field, coord, angle, step, jitter, 0);
@@ -1221,14 +1225,18 @@ public class R_Line2D extends R_Graphic {
   }
 
   private vec3 pixel_in_field(R_Shape field, vec3 coord_ref, float angle, int step, float jitter, int count) {
-    boolean in = false;
+    // boolean in = false;
     vec3 buf = coord_ref.copy();
     pixel_growth_coord(buf, angle, step);
-    
-    if(in_polygon(field, buf)) {
+    boolean in = in_polygon(field, buf);
+    float max = TAU / jitter;
+    if(in) {
       return buf;
-    } else if(count < 5) {
-      angle += random(-jitter,jitter);
+    } else if(!in && count < max) {
+      // angle += (PI*0.5f);
+      angle += jitter;
+      // angle += random(-jitter,jitter);
+      // print_out("count", count, "angle", angle, "buf", buf, "coord", coord_ref);
       count++;
       pixel_in_field(field, coord_ref, angle, step, jitter, count);
     }
