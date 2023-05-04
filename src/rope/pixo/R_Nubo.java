@@ -361,27 +361,13 @@ public class R_Nubo extends Rope {
     float angle = random(get_start_fov(),get_stop_fov());
     float dist = 1;
     switch(this.algo) {
-      case CIRCULAR:
-        dist = get_dist_max();
-        break;
-      case POLYGON:
-        dist = get_dist_max();
-        break;
-      case MAD:
-        dist = random(get_dist_min(), get_dist_max());
-        break;
-      case SPIRAL:
-        dist = random(get_dist_min(), get_dist_max());
-        break;
-      case CHAOS:
-        dist = random(get_dist_min(), get_dist_max());
-        break;
-      case IMAGE:
-        dist = random(get_dist_min(), get_dist_max());
-        break;
-      default:
-        dist = random(get_dist_min(), get_dist_max());
-        break;
+      case CIRCULAR -> dist = get_dist_max();
+      case POLYGON -> dist = get_dist_max();
+      case MAD -> dist = random(get_dist_min(), get_dist_max());
+      case SPIRAL -> dist = random(get_dist_min(), get_dist_max());
+      case CHAOS -> dist = random(get_dist_min(), get_dist_max());
+      case IMAGE -> dist = random(get_dist_min(), get_dist_max());
+      default -> dist = random(get_dist_min(), get_dist_max());
     }
     set_focus(angle, dist);
   }
@@ -396,10 +382,8 @@ public class R_Nubo extends Rope {
     float seg_dist = get_dist() / this.step;
 
   	switch(this.algo) {
-      case CHAOS:
-        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-        break;
-  		case MAD:
+      case CHAOS -> pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
+  		case MAD -> {
         // dx = sin(get_angle() + this.offset_angle);
         // dy = cos(get_angle() + this.offset_angle);
         float rdx = dx * this.step;
@@ -409,12 +393,12 @@ public class R_Nubo extends Rope {
         if(ref_pos.dist(pos) > get_dist_max()) {
           pos.set(ref_pos);
         }
-        break;
-      case CIRCULAR:
+      }
+      case CIRCULAR -> {
         dist = seg_dist * ratio;
         pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-        break;
-      case POLYGON:
+      }
+      case POLYGON -> {
         // we add 3, because the fist polygon is a triangle from the begining to the end of human geometry HiStory... may be
         int summits = this.mode + 3;
         float [] summits_ang = new float[summits];
@@ -441,8 +425,8 @@ public class R_Nubo extends Rope {
             break;
           }
         }
-        break;
-      case LINE:
+      }
+      case LINE -> {
         float ang_line = get_bissector() + this.offset_angle;
         if(this.mode > 0) {
           float seg_fov = get_fov() / (this.mode + 1);
@@ -452,21 +436,16 @@ public class R_Nubo extends Rope {
         dx = sin(ang_line);
         dy = cos(ang_line);
         pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-        break;
-      case SPIRAL:
+
+      }
+      case SPIRAL -> {
         float variance = random(this.iter/this.step, this.iter);
         float segment_fov = get_fov() / variance;
         segment_fov *= this.index; 
         switch(this.mode) {
-          case 0: 
-            segment_fov = spiral_regular(segment_fov);
-            break;
-          case 1: 
-            segment_fov = spiral_z(segment_fov);
-            break;
-          default:
-            segment_fov = spiral_regular(segment_fov);
-            break;
+          case 0 -> segment_fov = spiral_regular(segment_fov);
+          case 1 -> segment_fov = spiral_z(segment_fov);
+          default -> segment_fov = spiral_regular(segment_fov);
         }  
         segment_fov += this.offset_angle;
         dx = sin(segment_fov);
@@ -476,10 +455,9 @@ public class R_Nubo extends Rope {
         segment *= this.index;
         segment /= this.step;
         pos.set(ref_pos.x() + (dx * segment), ref_pos.y() + (dy * segment));
-        break;
-      default:
-        pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
-        break;
+
+      }
+      default -> pos.set(ref_pos.x() + (dx * dist), ref_pos.y() + (dy * dist));
   	}
   }
 

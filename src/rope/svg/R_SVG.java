@@ -1314,143 +1314,146 @@ public class R_SVG extends R_Graphic {
         vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
   
         switch (v.vertex_code[j]) {
-          //----------
-          case VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          //
-          if(!scale.equals(new vec3(1))) temp_pos_a.mult(scale) ;
-          //
-          if(!jitter.equals(new vec3())) {
-            float x = random_next_gaussian((int)jitter.x(),3);
-            float y = random_next_gaussian((int)jitter.y(),3);
-            float z = random_next_gaussian((int)jitter.z(),3);
-            vec3 jitter_pos = new vec3(x,y,z);
-            // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_a.add(jitter_pos) ;
+          case VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            //
+            if(!scale.equals(new vec3(1))) temp_pos_a.mult(scale) ;
+            //
+            if(!jitter.equals(new vec3())) {
+              float x = random_next_gaussian((int)jitter.x(),3);
+              float y = random_next_gaussian((int)jitter.y(),3);
+              float z = random_next_gaussian((int)jitter.z(),3);
+              vec3 jitter_pos = new vec3(x,y,z);
+              // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_a.add(jitter_pos) ;
+            }
+            //
+            if(position_center) temp_pos_a.sub(center_pos) ;
+            //
+            if(!pos.equals(new vec3())) temp_pos_a.add(pos) ;
+            //
+            vertex(temp_pos_a);
+            index++;
+
           }
-          //
-          if(position_center) temp_pos_a.sub(center_pos) ;
-          //
-          if(!pos.equals(new vec3())) temp_pos_a.add(pos) ;
-          //
-          vertex(temp_pos_a);
-          index++;
-          break;
         // QUADRATIC_VERTEX
-          case QUADRATIC_VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          temp_pos_b = v.vert[index +1].copy() ;
-          //
-          if(!scale.equals(new vec3(1))) {
-            temp_pos_a.mult(scale) ;
-            temp_pos_b.mult(scale) ;
+          case QUADRATIC_VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            temp_pos_b = v.vert[index +1].copy() ;
+            //
+            if(!scale.equals(new vec3(1))) {
+              temp_pos_a.mult(scale) ;
+              temp_pos_b.mult(scale) ;
+            }
+            //
+            if(!jitter.equals(new vec3())) {
+              float x = random_next_gaussian((int)jitter.x(),3);
+              float y = random_next_gaussian((int)jitter.y(),3);
+              float z = random_next_gaussian((int)jitter.z(),3);
+              vec3 jitter_pos = new vec3(x,y,z);
+              // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_a.add(jitter_pos);
+              x = random_next_gaussian((int)jitter.x(),3);
+              y = random_next_gaussian((int)jitter.y(),3);
+              z = random_next_gaussian((int)jitter.z(),3);
+              jitter_pos.set(x,y,z);
+              // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_b.add(jitter_pos) ;
+            }
+            //
+            if(position_center) {
+              temp_pos_a.sub(center_pos) ;
+              temp_pos_b.sub(center_pos) ;
+            }
+            //
+            if(!pos.equals(new vec3())) {
+              temp_pos_a.add(pos) ;
+              temp_pos_b.add(pos) ;
+            }
+            //
+            quadraticVertex(temp_pos_a, temp_pos_b);
+            index += 2;
           }
-          //
-          if(!jitter.equals(new vec3())) {
-            float x = random_next_gaussian((int)jitter.x(),3);
-            float y = random_next_gaussian((int)jitter.y(),3);
-            float z = random_next_gaussian((int)jitter.z(),3);
-            vec3 jitter_pos = new vec3(x,y,z);
-            // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_a.add(jitter_pos);
-            x = random_next_gaussian((int)jitter.x(),3);
-            y = random_next_gaussian((int)jitter.y(),3);
-            z = random_next_gaussian((int)jitter.z(),3);
-            jitter_pos.set(x,y,z);
-            // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_b.add(jitter_pos) ;
-          }
-          //
-          if(position_center) {
-            temp_pos_a.sub(center_pos) ;
-            temp_pos_b.sub(center_pos) ;
-          }
-          //
-          if(!pos.equals(new vec3())) {
-            temp_pos_a.add(pos) ;
-            temp_pos_b.add(pos) ;
-          }
-          //
-          quadraticVertex(temp_pos_a, temp_pos_b);
-          index += 2;
-          break;
           // BEZIER_VERTEX
-          case BEZIER_VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          temp_pos_b = v.vert[index +1].copy() ;
-          temp_pos_c = v.vert[index +2].copy() ;
-          //
-          if(!scale.equals(new vec3(1))) {
-            temp_pos_a.mult(scale);
-            temp_pos_b.mult(scale);
-            temp_pos_c.mult(scale);
+          case BEZIER_VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            temp_pos_b = v.vert[index +1].copy() ;
+            temp_pos_c = v.vert[index +2].copy() ;
+            //
+            if(!scale.equals(new vec3(1))) {
+              temp_pos_a.mult(scale);
+              temp_pos_b.mult(scale);
+              temp_pos_c.mult(scale);
+            }
+            //
+            if(!jitter.equals(new vec3())) {
+              float x = random_next_gaussian((int)jitter.x(),3);
+              float y = random_next_gaussian((int)jitter.y(),3);
+              float z = random_next_gaussian((int)jitter.z(),3);
+              vec3 jitter_pos = new vec3(x,y,z);
+              // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_a.add(jitter_pos);
+              x = random_next_gaussian((int)jitter.x(),3);
+              y = random_next_gaussian((int)jitter.y(),3);
+              z = random_next_gaussian((int)jitter.z(),3);
+              jitter_pos.set(x,y,z);
+              // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_b.add(jitter_pos);
+              x = random_next_gaussian((int)jitter.x(),3);
+              y = random_next_gaussian((int)jitter.y(),3);
+              z = random_next_gaussian((int)jitter.z(),3);
+              jitter_pos.set(x,y,z);
+              // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z);
+              temp_pos_c.add(jitter_pos);
+            }
+            //
+            if(position_center) {
+              temp_pos_a.sub(center_pos);
+              temp_pos_b.sub(center_pos);
+              temp_pos_c.sub(center_pos);
+            }
+            //
+            if(!pos.equals(new vec3())) {
+              temp_pos_a.add(pos);
+              temp_pos_b.add(pos);
+              temp_pos_c.add(pos);
+            }
+            //
+            bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
+            index += 3;
+
           }
-          //
-          if(!jitter.equals(new vec3())) {
-            float x = random_next_gaussian((int)jitter.x(),3);
-            float y = random_next_gaussian((int)jitter.y(),3);
-            float z = random_next_gaussian((int)jitter.z(),3);
-            vec3 jitter_pos = new vec3(x,y,z);
-            // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_a.add(jitter_pos);
-            x = random_next_gaussian((int)jitter.x(),3);
-            y = random_next_gaussian((int)jitter.y(),3);
-            z = random_next_gaussian((int)jitter.z(),3);
-            jitter_pos.set(x,y,z);
-            // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_b.add(jitter_pos);
-            x = random_next_gaussian((int)jitter.x(),3);
-            y = random_next_gaussian((int)jitter.y(),3);
-            z = random_next_gaussian((int)jitter.z(),3);
-            jitter_pos.set(x,y,z);
-            // jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z);
-            temp_pos_c.add(jitter_pos);
-          }
-          //
-          if(position_center) {
-            temp_pos_a.sub(center_pos);
-            temp_pos_b.sub(center_pos);
-            temp_pos_c.sub(center_pos);
-          }
-          //
-          if(!pos.equals(new vec3())) {
-            temp_pos_a.add(pos);
-            temp_pos_b.add(pos);
-            temp_pos_c.add(pos);
-          }
-          //
-          bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
-          index += 3;
-          break;
           // CURVE_VERTEX
-          case CURVE_VERTEX:
-          temp_pos_a = v.vert[index].copy();
-          //
-          if(!scale.equals(new vec3(1))) temp_pos_a.mult(scale);
-          //
-          if(!jitter.equals(new vec3())) {
-            float x = random_next_gaussian((int)jitter.x(),3);
-            float y = random_next_gaussian((int)jitter.y(),3);
-            float z = random_next_gaussian((int)jitter.z(),3);
-            vec3 jitter_pos = new vec3(x,y,z);
-            // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
-            temp_pos_a.add(jitter_pos);
+          case CURVE_VERTEX -> {
+            temp_pos_a = v.vert[index].copy();
+            //
+            if(!scale.equals(new vec3(1))) temp_pos_a.mult(scale);
+            //
+            if(!jitter.equals(new vec3())) {
+              float x = random_next_gaussian((int)jitter.x(),3);
+              float y = random_next_gaussian((int)jitter.y(),3);
+              float z = random_next_gaussian((int)jitter.z(),3);
+              vec3 jitter_pos = new vec3(x,y,z);
+              // vec3 jitter_pos = new vec3().jitter((int)jitter.x,(int)jitter.y,(int)jitter.z) ;
+              temp_pos_a.add(jitter_pos);
+            }
+            //
+            if(position_center) temp_pos_a.sub(center_pos);
+            //
+            if(!pos.equals(new vec3())) temp_pos_a.add(pos);
+            //
+            curveVertex(temp_pos_a);
+            index++;
+
           }
-          //
-          if(position_center) temp_pos_a.sub(center_pos);
-          //
-          if(!pos.equals(new vec3())) temp_pos_a.add(pos);
-          //
-          curveVertex(temp_pos_a);
-          index++;
-          break;
           // BREAK
-          case BREAK:
-          if (insideContour) {
-            endContour();
+          case BREAK -> {
+            if (insideContour) {
+              endContour();
+            }
+            beginContour();
+            insideContour = true;
           }
-          beginContour();
-          insideContour = true;
         }
       }
     }
@@ -1706,36 +1709,36 @@ public class R_SVG extends R_Graphic {
       for (int j = 0; j < v.code_vertex_count; j++) {
         vec3 temp_pos_a , temp_pos_b, temp_pos_c ;
         switch (v.vertex_code[j]) {
-          case VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          vertex(temp_pos_a);
-          index++;
-          break;
+          case VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            vertex(temp_pos_a);
+            index++;
+          }
           // QUADRATIC_VERTEX
-          case QUADRATIC_VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          temp_pos_b = v.vert[index +1].copy() ;
-          //
-          quadraticVertex(temp_pos_a, temp_pos_b);
-          index += 2;
-          break;
+          case QUADRATIC_VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            temp_pos_b = v.vert[index +1].copy() ;
+            //
+            quadraticVertex(temp_pos_a, temp_pos_b);
+            index += 2;
+          }
           // BEZIER_VERTEX
-          case BEZIER_VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          temp_pos_b = v.vert[index +1].copy() ;
-          temp_pos_c = v.vert[index +2].copy() ;
-          //
-          bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
-          index += 3;
-          break;
+          case BEZIER_VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            temp_pos_b = v.vert[index +1].copy() ;
+            temp_pos_c = v.vert[index +2].copy() ;
+            //
+            bezierVertex(temp_pos_a, temp_pos_b, temp_pos_c);
+            index += 3;
+          }
           // CURVE_VERTEX
-          case CURVE_VERTEX:
-          temp_pos_a = v.vert[index].copy() ;
-          curveVertex(temp_pos_a);
-          index++;
-          break;
+          case CURVE_VERTEX -> {
+            temp_pos_a = v.vert[index].copy() ;
+            curveVertex(temp_pos_a);
+            index++;
+          }
           // BREAK
-          case BREAK:
+          case BREAK -> { }
         }
       }
     }

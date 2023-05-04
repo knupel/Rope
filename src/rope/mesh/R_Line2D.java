@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 1.0.0
+ * v 1.0.1
  * 2019-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -690,19 +690,16 @@ public class R_Line2D extends R_Graphic {
     float is = 0;
     float bell_detection = 0.18f;
     switch(type) {
-      case NORMAL:
-        absolute_pos = random(1);
-        break;
-      // case for the abscissa
-      case CENTER:
+      case NORMAL -> absolute_pos = random(1);
+      case CENTER -> {
         buf_pos = random(1);
         resultat = d_bell_raw(buf_pos, level);
         is = random(bell_detection);
         if(resultat > is) {
           absolute_pos = buf_pos;
         }
-        break;
-      case SIDE:
+      }
+      case SIDE -> {
         absolute_pos = distri_pos(level, true);
         if(!Float.isNaN(absolute_pos)) {
           absolute_pos = map(absolute_pos, 0.0f, 1.0f, 0f, 0.5f);
@@ -710,27 +707,19 @@ public class R_Line2D extends R_Graphic {
             absolute_pos += (2*(0.5f -absolute_pos));
           }
         }
-        break;
-      case START:
-        absolute_pos = distri_pos(level, false);
-        break;
-
-      case END:
-        absolute_pos = 1 - distri_pos(level, false);
-        break;
+      }
+      case START -> absolute_pos = distri_pos(level, false);
+      case END -> absolute_pos = 1 - distri_pos(level, false);
 
       // special case for the ordinate
-      case START*2:
-        absolute_pos = distri_pos(level, false);
-        break;
-
-      case END*2:
+      case START*2 -> absolute_pos = distri_pos(level, false);
+      case END*2 -> {
         absolute_pos = distri_pos(level, false);
         if(!Float.isNaN(absolute_pos)) {
           absolute_pos = 1 -absolute_pos;
         }
-        break;
-      case SIDE *2:
+      }
+      case SIDE *2 -> {
         absolute_pos = distri_pos(level, true);
         if(!Float.isNaN(absolute_pos)) {
           absolute_pos = pow(absolute_pos,map(level, 1,13,1,2));
@@ -739,8 +728,8 @@ public class R_Line2D extends R_Graphic {
             absolute_pos += (2*(0.5f -absolute_pos));
           }
         }
-        break;
-      case CENTER *2:
+      }
+      case CENTER *2 -> {
         absolute_pos = distri_pos(level, true);
         if(!Float.isNaN(absolute_pos)) {
           absolute_pos = pow(absolute_pos,map(level, 1,13,1,2));
@@ -749,10 +738,8 @@ public class R_Line2D extends R_Graphic {
             absolute_pos += (2*(0.5f -absolute_pos));
           }
         }
-        break;
-      default:
-        absolute_pos = random(1);
-        break;
+      }
+      default -> absolute_pos = random(1);
     }
     return absolute_pos;
   }
@@ -775,20 +762,20 @@ public class R_Line2D extends R_Graphic {
   private float d_reflect(float value , int level) {
     float power = 1.0f;
     switch (level) {
-      case 1: power = 0.05f; break;
-      case 2: power = 0.12f; break;
-      case 3: power = 0.24f; break;
-      case 4: power = 0.38f; break;
-      case 5: power = 0.54f; break;
-      case 6: power = 0.7f; break;
-      case 7: power = 0.85f; break;
-      case 8: power = 1.0f; break;
-      case 9: power = 1.2f; break;
-      case 10: power = 1.4f; break;
-      case 11: power = 1.6f; break;
-      case 12: power = 1.8f; break;
-      case 13: power = 2.0f; break;
-      default: power = 0.7f; break;
+      case 1 -> power = 0.05f;
+      case 2 -> power = 0.12f;
+      case 3 -> power = 0.24f;
+      case 4 -> power = 0.38f;
+      case 5 -> power = 0.54f;
+      case 6 -> power = 0.7f;
+      case 7 -> power = 0.85f;
+      case 8 -> power = 1.0f;
+      case 9 -> power = 1.2f;
+      case 10 -> power = 1.4f;
+      case 11 -> power = 1.6f;
+      case 12 -> power = 1.8f;
+      case 13 -> power = 2.0f;
+      default -> power = 0.7f;
     }
     float range = 1.0f;
     return d_sigmoid(value, range, power);
@@ -797,20 +784,20 @@ public class R_Line2D extends R_Graphic {
   private float d_spray(float value , int level) {
     float power = 1.0f;
     switch (level) {
-      case 1: power = 0.5f; break;
-      case 2: power = 0.6f; break;
-      case 3: power = 0.7f; break;
-      case 4: power = 0.8f; break;
-      case 5: power = 0.9f; break;
-      case 6: power = 1.0f; break;
-      case 7: power = 1.3f; break;
-      case 8: power = 1.6f; break;
-      case 9: power = 2.1f; break;
-      case 10: power = 2.4f; break;
-      case 11: power = 2.7f; break;
-      case 12: power = 3.0f; break;
-      case 13: power = 3.3f; break;
-      default: power = 1.0f; break;
+      case 1 -> power = 0.5f;
+      case 2 -> power = 0.6f;
+      case 3 -> power = 0.7f;
+      case 4 -> power = 0.8f;
+      case 5 -> power = 0.9f;
+      case 6 -> power = 1.0f;
+      case 7 -> power = 1.3f;
+      case 8 -> power = 1.6f;
+      case 9 -> power = 2.1f;
+      case 10 -> power = 2.4f;
+      case 11 -> power = 2.7f;
+      case 12 -> power = 3.0f;
+      case 13 -> power = 3.3f;
+      default -> power = 1.0f;
     }
     float range = 1.0f;
     return d_pow(value, range, power);
@@ -819,20 +806,20 @@ public class R_Line2D extends R_Graphic {
   private float d_bell_raw(float value, int level) {
     float variance = 3.0f;
     switch (level) {
-      case 1: variance = 7.0f; break;
-      case 2: variance = 6.0f; break;
-      case 3: variance = 5.0f; break;
-      case 4: variance = 4.0f; break;
-      case 5: variance = 3.0f; break;
-      case 6: variance = 2.5f; break;
-      case 7: variance = 2.1f; break;
-      case 8: variance = 1.8f; break;
-      case 9: variance = 1.5f; break;
-      case 10: variance = 1.2f; break;
-      case 11: variance = 0.9f; break;
-      case 12: variance = 0.6f; break;
-      case 13: variance = 0.3f; break;
-      default: variance = 3.0f; break;
+      case 1 -> variance = 7.0f;
+      case 2 -> variance = 6.0f;
+      case 3 -> variance = 5.0f;
+      case 4 -> variance = 4.0f;
+      case 5 -> variance = 3.0f;
+      case 6 -> variance = 2.5f;
+      case 7 -> variance = 2.1f;
+      case 8 -> variance = 1.8f;
+      case 9 -> variance = 1.5f;
+      case 10 -> variance = 1.2f;
+      case 11 -> variance = 0.9f;
+      case 12 -> variance = 0.6f;
+      case 13 -> variance = 0.3f;
+      default -> variance = 3.0f;
     }
     float range = dist(this.a, this.b);
     float offset = 0;

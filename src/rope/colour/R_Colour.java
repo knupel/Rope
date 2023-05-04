@@ -190,27 +190,26 @@ public class R_Colour extends Rope {
 		float g = 0;
 		float b = 0;
 		switch(type) {
-			case RED :
+			case RED -> {
 				r = rand_red(colour_ref, rx);
 				g = pa.g.green(colour_ref);
 				b = pa.g.blue(colour_ref);
-				break;
-			case GREEN :
+			}
+			case GREEN -> {
 				r = pa.g.red(colour_ref);
 				g = rand_gre(colour_ref, ry);
 				b = pa.g.blue(colour_ref);
-				break;
-			case BLUE :
+			}
+			case BLUE -> {
 				r = pa.g.red(colour_ref);
 				g = pa.g.green(colour_ref);
 				b = rand_blu(colour_ref, rz);
-				break;
-			case RGB :
+			}
+			case RGB -> {
 				r = rand_red(colour_ref, rx);
 				g = rand_gre(colour_ref, ry);
 				b = rand_blu(colour_ref, rz);
-				break;
-			default : break;
+			}
 		}
 		return pa.color(r,g,b);
 	}
@@ -241,27 +240,27 @@ public class R_Colour extends Rope {
 		float s = 0;
 		float b = 0;
 		switch(type) {
-			case HUE :
+			case HUE -> {
 				h = rand_hue(colour_ref, rx);
 				s = pa.g.saturation(colour_ref);
 				b = pa.g.brightness(colour_ref);
-				break;
-			case SATURATION :
+			}
+			case SATURATION -> {
 				h = pa.g.hue(colour_ref);
 				s = rand_sat(colour_ref, ry);
 				b = pa.g.brightness(colour_ref);
-				break;
-			case BRIGHTNESS :
+			}
+			case BRIGHTNESS -> {
 				h = pa.g.hue(colour_ref);
 				s = pa.g.saturation(colour_ref);
 				b = rand_bri(colour_ref, rz);
-				break;
-			case HSB :
+			}
+			case HSB -> {
 				h = rand_hue(colour_ref, rx);
 				s = rand_sat(colour_ref, ry);
 				b = rand_bri(colour_ref, rz);
-				break;
-			default : break;
+			}
+			default -> { }
 		}
 		return pa.color(h,s,b);
 	}

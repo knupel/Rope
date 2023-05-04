@@ -5,13 +5,13 @@
 # fit the structure of your Library
 
 # the package name of your Library
-package=template;
+package=rope;
 
 # source folder location
-src=../src;
+src=../src/rope;
 
 # the destination folder of your documentation
-dest=../documentation;
+dest=../test;
 
 
 # compile the java documentation

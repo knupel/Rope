@@ -329,54 +329,87 @@ public class R_FX extends Rope {
 	 */
 	public void set(int index_case, Object... arg) {
 		switch(index_case) {
-			case 0: set_mode((int)arg[0]); break;
-			case 1: set_num((int)arg[0]); break;
-			case 2: set_quality((float)arg[0]); break;
-			case 3: set_time((float)arg[0]); break;
-			case 4: set_on_g((boolean)arg[0]); break;
-			case 5: set_pg_filter((boolean)arg[0]); break;
+			case 0 -> set_mode((int)arg[0]);
+			case 1 -> set_num((int)arg[0]);
+			case 2 -> set_quality((float)arg[0]);
+			case 3 -> set_time((float)arg[0]);
+			case 4 -> set_on_g((boolean)arg[0]);
+			case 5 -> set_pg_filter((boolean)arg[0]);
 
-			case 10: set_scale(to_float_array(arg)); break;
-			case 11: set_resolution(to_float_array(arg)); break;
+			case 10 -> set_scale(to_float_array(arg));
+			case 11 -> set_resolution(to_float_array(arg));
 
-			case 20: set_strength(to_float_array(arg)); break;
-			case 21: set_angle(to_float_array(arg)); break;
-			case 22: set_threshold(to_float_array(arg)); break;
-			case 23: set_pos(to_float_array(arg)); break;
-			case 24: set_size(to_float_array(arg)); break;
-			case 25: set_offset(to_float_array(arg)); break;
-			case 26: set_speed(to_float_array(arg)); break;
+			case 20 -> set_strength(to_float_array(arg));
+			case 21 -> set_angle(to_float_array(arg));
+			case 22 -> set_threshold(to_float_array(arg));
+			case 23 -> set_pos(to_float_array(arg));
+			case 24 -> set_size(to_float_array(arg));
+			case 25 -> set_offset(to_float_array(arg));
+			case 26 -> set_speed(to_float_array(arg));
 
-			case 30: set_level_source(to_float_array(arg)); break;
-			case 31: set_level_layer(to_float_array(arg)); break;
-			case 32: set_colour(to_float_array(arg)); break;
-			case 33: set_cardinal(to_float_array(arg)); break;
-			case 34: set_min(to_float_array(arg)); break;
-			case 35: set_max(to_float_array(arg)); break;
-			case 36: set_gamma(to_float_array(arg)); break;
+			case 30 -> set_level_source(to_float_array(arg));
+			case 31 -> set_level_layer(to_float_array(arg));
+			case 32 -> set_colour(to_float_array(arg));
+			case 33 -> set_cardinal(to_float_array(arg));
+			case 34 -> set_min(to_float_array(arg));
+			case 35 -> set_max(to_float_array(arg));
+			case 36 -> set_gamma(to_float_array(arg));
 
-			case 40: 	if(matrix == null || matrix.length < 1) matrix = new vec3[1];
-  							set_matrix(0,to_float_array(arg)); break;
-			case 41: 	if(matrix == null || matrix.length < 2) matrix = new vec3[2];
-  							set_matrix(1,to_float_array(arg)); break;
-			case 42:	if(matrix == null || matrix.length < 3) matrix = new vec3[3];
-  							set_matrix(2,to_float_array(arg)); break;
-
-			case 50:	if(pair == null || pair.length < 1) pair = new vec2[1];
-  							set_pair(0,to_float_array(arg)); break;
-			case 51: 	if(matrix == null || matrix.length < 2) matrix = new vec3[2];
-  							set_matrix(1,to_float_array(arg)); break;
-			case 52: 	if(matrix == null || matrix.length < 3) matrix = new vec3[3];
-  							set_matrix(2,to_float_array(arg)); break;
-
-			case 100: if(event == null || event.length < 1) event = new bvec4[1];
-  							set_event(0,to_boolean_array(arg)); break;
-			case 101: if(event == null || event.length < 2) event = new bvec4[2];
-  							set_event(1,to_boolean_array(arg)); break;
-			case 102: if(event == null || event.length < 3) event = new bvec4[3];
-  							set_event(2,to_boolean_array(arg)); break;
-
-			default:
+			case 40 -> {
+				if(matrix == null || matrix.length < 1) {
+					matrix = new vec3[1];
+				}
+				set_matrix(0,to_float_array(arg));
+			}
+			case 41 -> {
+				if(matrix == null || matrix.length < 2) {
+					matrix = new vec3[2];
+				}
+				set_matrix(1,to_float_array(arg));
+			}
+			case 42 -> {
+				if(matrix == null || matrix.length < 3) {
+					matrix = new vec3[3];
+  			}
+				set_matrix(2,to_float_array(arg));
+			}
+			case 50 -> {
+				if(pair == null || pair.length < 1) {
+					pair = new vec2[1];
+				}
+ 				set_pair(0,to_float_array(arg));
+			}
+			case 51 -> {
+				if(matrix == null || matrix.length < 2) {
+					matrix = new vec3[2];
+				}
+				set_matrix(1,to_float_array(arg));
+			}
+			case 52 -> {
+				if(matrix == null || matrix.length < 3) {
+					matrix = new vec3[3];
+  			}
+				set_matrix(2,to_float_array(arg));
+			}
+			case 100 -> {
+				if(event == null || event.length < 1) {
+					event = new bvec4[1];
+				}
+				set_event(0,to_boolean_array(arg));
+			}
+			case 101 -> {
+				if(event == null || event.length < 2) {
+					event = new bvec4[2];
+				}
+				set_event(1,to_boolean_array(arg));
+			}
+			case 102 -> {
+				if(event == null || event.length < 3) {
+					event = new bvec4[3];
+				}
+				set_event(2,to_boolean_array(arg));
+			}
+			default -> { }
 		}
   }
 

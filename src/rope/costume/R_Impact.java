@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Impact
- * v 0.4.1
+ * v 0.4.2
  * 2022-2023
  * @author @knupel
  * @see https://github.com/knupel/Rope
@@ -716,7 +716,7 @@ public class R_Impact extends R_Graphic {
 	}
 
 
-	private boolean build_is() {
+	public boolean build_is() {
 		return this.build_is;
 	}
 
@@ -734,19 +734,16 @@ public class R_Impact extends R_Graphic {
 		float ratio = 1;
 		float power = 2;
 		switch(type) {
-			case -1:
+			case -1 -> {
 				ratio = map(index,  0, get_iter_main(), 0.1f, power);
 				buf *= ratio;
-				break;
-			case 0:
-				// nothing happen
-				break;
-			case 1:
+			}
+			case 0 -> { }
+			case 1 -> {
 				ratio = map(index,  0, get_iter_main(), power, 0.1f);
 				buf *= ratio;
-				break;
-			default:
-				break;
+			}
+			default -> { }
 		}
 
 		if(!get_growth_main_ratio().equals(0)) {
@@ -767,7 +764,7 @@ public class R_Impact extends R_Graphic {
 		float factor = 1;
 		int type = get_growth_circle_distribution();
 		switch(type) {
-			case -1:
+			case -1 -> {
 				// more density in the center
 				float start = 0;
 				// because the density is higher in the center
@@ -779,19 +776,15 @@ public class R_Impact extends R_Graphic {
 				ratio = map(index,  0, get_num_circle(), start, 1);
 				factor = pow(ratio,4);
 				buf = radius() * factor;
-				break;
-			case 0:
-				buf *= (index + inc);
-				break;
-			case 1:
-			// more density on the outside
+			}
+			case 0 -> buf *= (index + inc);
+			case 1 -> {
+				// more density on the outside
 				ratio = map(index,  0, get_num_circle(), 1, 0);
 				factor = 1- pow(ratio,3);
 				buf = radius() * factor;
-				break;
-			default:
-				buf *= (index + inc);
-				break;
+			}
+			default -> buf *= (index + inc);
 		}
 
 		// jitter / randomize part when the position is good
@@ -2451,28 +2444,16 @@ public class R_Impact extends R_Graphic {
 		normal_y = pixel_xy.b();
 		switch(mode) {
 			// default mode line
-			case 0:
-				line.show();
-				break;
+			case 0 -> line.show();
 			// static
-			case 1:
-				line.show_pixels();
-				break;
-			case 2:
-				line.show_pixels_x2();
-				break;
+			case 1 -> line.show_pixels();
+			case 2 -> line.show_pixels_x2();
 			// dynamic
-			case 11:
-				line.show_pixels(normal_x, normal_y);
+			case 11 -> line.show_pixels(normal_x, normal_y);
 				// line.show_pixels(normal_x, normal_y, pix_colour);
-				break;
-			case 12:
-				line.show_pixels_x2(normal_x, normal_y);		
+			case 12 -> line.show_pixels_x2(normal_x, normal_y);		
 				// line.show_pixels_x2(normal_x, normal_y, pix_colour);		
-				break;
-			default:
-				line.show();
-				break;
+			default -> line.show();
 		}
 	}
 
@@ -2633,22 +2614,22 @@ public class R_Impact extends R_Graphic {
 		stroke(WHITE);
 		for(R_Node node : nodes) {
 			switch(node.id().a()) {
-				case 0:
+				case 0 -> {
 					stroke(CYAN);
 					circle(node.x(), node.y(), node.id().b());
-					break;
-				case 1:
+				}
+				case 1 -> {
 					stroke(MAGENTA);
 					circle(node.x(), node.y(), node.id().b());
-					break;
-				case 2:
+				}
+				case 2 -> {
 					stroke(YELLOW);
 					circle(node.x(), node.y(), node.id().b());
-					break;
-				default:
+				}
+				default -> {
 					stroke(WHITE);
 					circle(node.x(), node.y(), node.id().b());
-					break;
+				}
 			}
 		}
 	}
