@@ -15,7 +15,7 @@
  * @author @knupel
  * @see https://github.com/knupel/Rope
  * 2014-2023
- * v 0.5.3
+ * v 0.6.0
  * 
  */
 
@@ -819,6 +819,43 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	public String [] reverse(String [] arr) {
+		return Ru.reverse(arr);
+	}
+
+
+		public <T> T [] reverse_copy(T [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public boolean [] reverse_copy(boolean [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public byte [] reverse_copy(byte [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public char [] reverse_copy(char [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public int [] reverse_copy(int [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public long [] reverse_copy(long [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public float [] reverse_copy(float [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public double [] reverse_copy(double [] arr) {
+		return Ru.reverse(arr);
+	}
+
+	public String [] reverse_copy(String [] arr) {
 		return Ru.reverse(arr);
 	}
 

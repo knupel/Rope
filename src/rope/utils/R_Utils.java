@@ -1,8 +1,10 @@
 package rope.utils;
 
+import java.util.Arrays;
+
 /**
  * Rope Static Utils
- * v 0.3.1
+ * v 0.4.0
  * 2019-2023
  */
 
@@ -525,6 +527,117 @@ public class R_Utils {
 		//////////////////////////////////
 		// ARRAY UTILS
 		///////////////////////////////
+
+
+		/**
+		 * 
+		 * @param arr list of any type elements
+		 * @return a reverse a copy list of elements
+		 */
+		public static <T> T [] reverse_copy(T [] arr) {
+			int len = arr.length;
+			T[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				T buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static boolean [] reverse_copy(boolean [] arr) {
+			int len = arr.length;
+			boolean[] arr_buf = Arrays.copyOf(arr, len);
+			// System.arraycopy(arr, 0, arr_buf, 0, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				boolean buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+
+		public static byte [] reverse_copy(byte [] arr) {
+			int len = arr.length;
+			byte[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				byte buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static char [] reverse_copy(char [] arr) {
+			int len = arr.length;
+			char[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				char buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static int [] reverse_copy(int [] arr) {
+			int len = arr.length;
+			int[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				int buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static long [] reverse_copy(long [] arr) {
+			int len = arr.length;
+			long[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				long buf = arr_buf[i];
+				arr[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static float [] reverse_copy(float [] arr) {
+			int len = arr.length;
+			float[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr.length / 2; i++) {
+				float buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static double [] reverse_copy(double [] arr) {
+			int len = arr.length;
+			double[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				double buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+		public static String [] reverse_copy(String [] arr) {
+			int len = arr.length;
+			String[] arr_buf = Arrays.copyOf(arr, len);
+			for(int i = 0 ; i < arr_buf.length / 2; i++) {
+				String buf = arr_buf[i];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[arr_buf.length - i - 1] = buf;
+			}
+			return arr_buf;
+		}
+
+
+
+
 		/**
 		 * 
 		 * @param arr list of any type elements

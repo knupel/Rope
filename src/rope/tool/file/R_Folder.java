@@ -8,7 +8,7 @@
  * 
  * Copyleft (c) 2018-2023
 * class R_Folder
-* v 2.0.2
+* v 2.0.3
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/knupel/Rope
 */
@@ -16,7 +16,7 @@ package rope.tool.file;
 
 // import processing.core.PApplet;
 import rope.core.BigBang;
-import rope.utils.R_State.State;
+// import rope.utils.R_State.State;
 import processing.core.PApplet;
 
 import java.util.Arrays;
@@ -36,6 +36,7 @@ public class R_Folder extends BigBang {
 	private boolean folder_selected_is;
 	private boolean explore_subfolder_is = false;
 	private ArrayList <File> files;
+	private ArrayList <File> folders;
 	// private PApplet pa;
 	private R_Input input;
 	private String input_type = "default";
@@ -87,16 +88,34 @@ public class R_Folder extends BigBang {
 	}
 
 
-	private void set_media_list() {
+	private void set_list() {
 		if(files == null) {
 			files = new ArrayList<File>(); 
 		} else {
 			files.clear();
 		}
+
+		if(folders == null) {
+			folders = new ArrayList<File>(); 
+		} else {
+			folders.clear();
+		}
 	}
 
+		/**
+	 * 
+	 * @return file list
+	 */
 	public ArrayList<File> get_files() {
-		return files ;
+		return files;
+	}
+
+	/**
+	 * 
+	 * @return folders list
+	 */
+	public ArrayList<File> get_folders() {
+		return folders;
 	}
 
 	/**
@@ -104,6 +123,7 @@ public class R_Folder extends BigBang {
 	 */
 	public void clear() {
 		files.clear();
+		folders.clear();
 	}
 
 	public String [] get_files_sort() {
@@ -117,35 +137,56 @@ public class R_Folder extends BigBang {
 			return list;
 
 		} else return null ;
-
 	}
 
-	public void explore_folder(String path, boolean check_sub_folder, String... extension) {
-		if((folder_input_default_is() || input.input_use_is(this.input_type)) && path != ("")) {
+	/////////////////////////
+	// EXPLORE FOLDER
+	//////////////////////////
 
-			set_media_list();
-	
-			ArrayList allFiles = list_files(path, check_sub_folder);
-		
-			String file_name = "";
+	public void explore_folder(String path, boolean check_sub_folder, String... extension) {
+		explore_folder(path, check_sub_folder, false, extension);
+	}
+
+	/**
+	 * This function add pertienent file in array, and folder path in array. The array is File data.
+	 * @param path Strating path on the main directory
+	 * @param check_sub_folder to check the sub directories if there is on current the directory.
+	 * @param print_pertinent_file_is to print the result file in the console.
+	 * @param extension array of extension file must but check, if that's math the file is added to the array list.
+	 */
+	public void explore_folder(String path, boolean check_sub_folder, boolean print_pertinent_file_is, String... extension) {
+		if((folder_input_default_is() || input.input_use_is(this.input_type)) && path != ("")) {
+			set_list();
+			// create temp file with all elements
+			explore_subfolder_is(check_sub_folder);
+			ArrayList all_files = list_files(path);
 			int count_pertinent_file = 0;
+			// add files if the extension match with the demand
 			for(int k = 0 ; k < extension.length ; k++) {
 				String ext = extension[k].toLowerCase();
 				count_pertinent_file = 0;
-				for (int i = 0; i < allFiles.size(); i++) {
-					File f = (File) allFiles.get(i);   
-					file_name = f.getName(); 
+				for (int i = 0; i < all_files.size(); i++) {
+					File f = (File) all_files.get(i);
 					// Add it to the list if it's not a directory
-					if (f.isDirectory() == false) {
-						if(extension(file_name) != null && extension(file_name).equals(ext)) {
+					if (!f.isDirectory()) {
+						if(extension(f.getName()) != null && extension(f.getName()).equals(ext)) {
 							count_pertinent_file++;
-							print_out(count_pertinent_file, "/", i, f.getName());
+							if(print_pertinent_file_is) {
+								print_out(count_pertinent_file, "/", i, f.getName());
+							}
 							files.add(f);
 						}
 					}
-					
 				}
 				print_err("there is",count_pertinent_file,"file(s) pertinent for", ext);
+			}
+
+			// add folders to list
+			for (int i = 0; i < all_files.size(); i++) {
+				File f = (File) all_files.get(i);
+				if (f.isDirectory()) {
+					folders.add(f);
+				}
 			}
 			// to don't loop with this void
 			reset_folder_input_default();
@@ -162,9 +203,9 @@ public class R_Folder extends BigBang {
 	}
 
 	// Method to get a list of all files in a directory and all subdirectories
-	private ArrayList<File> list_files(String dir, boolean check_sub_folder) {
+	private ArrayList<File> list_files(String dir) {
 		ArrayList<File> fileList = new ArrayList<File>(); 
-		if(check_sub_folder) { 
+		if(explore_subfolder_is()) { 
 			explore_directory(fileList, dir);
 		} else {
 			if(folder_selected_is) {

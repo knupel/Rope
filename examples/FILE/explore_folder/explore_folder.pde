@@ -5,8 +5,8 @@
 * @author @knupel
 * @see https://github.com/knupel/Rope 
 * 
-* V 0.2.1
-* 2019-2021
+* V 0.2.2
+* 2019-2023
 *
 * void explore_folder(String path, String... extension);
 * void explore_folder(String path, boolean check_sub_folder, String... extension);
@@ -22,39 +22,39 @@ import rope.core.Rope;
 
 Rope r = new Rope();
 R_Folder folder;
-String title = "Need function";
-String callback = "callback_function";
 
 void setup() {
 	size(400,400,P2D);
 	folder = new R_Folder(this);
-
-	// the function is describe and write below
-	folder.select_folder(title, callback);
+	// we use the function here to open when the sketch run at the first time.
+	folder.select_folder("Need function", "callback_function");
 }
 
 
 void draw() {
 	boolean explore_sub_folder = true;
-	String [] ext = {"jpg", "jpeg"};
+  boolean print_file_is = true;
+	String [] ext = {"jpg", "jpeg", "webp"};
 	String path = folder.get_folder_path();
-	// println("path", path);
-	folder.explore_folder(path,explore_sub_folder,ext); 
+  folder.explore_folder(path, explore_sub_folder); // if you don't add extension only folders is added to list folder.
+	// folder.explore_folder(path, explore_sub_folder, ext);
+  // folder.explore_folder(path, explore_sub_folder, print_file_is, ext);
 
-	if(folder.get_files() != null && folder.get_files().size() > 0) {
+	if(folder.get_files() != null) {
 		println("size",folder.get_files().size());
-		// for(File f : folder.get_files()) {
-		// 	println(f);
-		// }
+
+    println("FILES:");
+		for(File file : folder.get_files()) {
+		 	println(file);
+		}
+
+    println("FOLDERS:");
+    for(File folder : folder.get_folders()) {
+       println(folder.getAbsolutePath());
+       println(folder.getName());
+    }
 		exit();
 	}
-}
-
-void keyPressed() {
-	if(key == 'o' || key == 'i') {
-		folder.select_folder(title, callback);
-	}
-
 }
 
 
