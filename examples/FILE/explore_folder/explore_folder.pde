@@ -57,7 +57,9 @@ void draw() {
 	}
 }
 
-
+/////////////////
+// CALLBACK
+/////////////////////
 void callback_function(File selection) {
 	if (selection == null) {
 		println("Nothing, sorry");

@@ -8,7 +8,7 @@
  * 
  * Copyleft (c) 2021-2023
 * class R_Input
-* v 0.1.1
+* v 0.1.2
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/knupel/Rope
 */
@@ -48,7 +48,7 @@ public class R_Input extends BigBang {
 																	};
 	// filter extension										
 	private String[] ext_default;
-	private String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif"};
+	private String[] ext_image = { "png", "jpeg", "jpg", "tif", "tga", "gif", "webp"};
 	private String[] ext_load;
 	private String[] ext_media;
 	private String[] ext_movie = { "mov", "avi", "mp4", "mpg", "mkv"};
