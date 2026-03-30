@@ -1,18 +1,20 @@
 
 ## Rope Library
-version 49
-copyleft(c) 2018-2023
+version 51
+copyleft(c) 2018-2026
 ROPE mean ROmanesco Processing Environment.
 
-This library is a logic way of Rope framework used to [Romanesco software](https://github.com/StanLepunK/ROMANESCO-Processing)
+This library is a logic way of Rope framework used to [Romanesco software](https://github.com/knupel/ROMANESCO-Processing)
 
-[Download](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip) library link > unzip > add in Processing library folder
+This library is build with Gradle build
 
-[ROPE page](https://stanlepunk.github.io/Rope/)
+[Download](https://github.com/knupel/Rope/blob/master/build_rope/Rope.zip) library link > unzip > add in Processing library folder
 
-[Rope sketches examples](https://github.com/StanLepunK/Rope/tree/master/examples)
+[ROPE page](https://knupel.github.io/Rope/)
 
-[Romanesco software repository](https://github.com/StanLepunK/ROMANESCO-Processing) that use Rope library and Rope framework
+[Rope sketches examples](https://github.com/knupel/Rope/tree/master/examples)
+
+[Romanesco software repository](https://github.com/knupel/ROMANESCO-Processing) that use Rope library and Rope framework
 
 
 ## Available in the Library

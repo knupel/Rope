@@ -2,12 +2,11 @@
 /**
  * * R_Constants
 	* ROPE - ROmanesco Processing Environment – 
-	* Copyleft (c) 2014-2023
+	* Copyleft (c) 2014-2026
 	* Variable shared throughout rope.core.
 	* *
 	* Rope constants
-	* v 1.1.6
-	* Processing 4.2
+	* v 1.1.7
 	* @author @knupel
 	* @see https://github.com/knupel/rope
 	* @see https://en.wikipedia.org/wiki/Mathematical_constant
