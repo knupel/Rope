@@ -17,7 +17,7 @@ package rope.core;
 import java.awt.event.KeyEvent;
 
 public interface R_Constants {
-	static final String VERSION = "Rope 0.15.1.50 \nProcessing 4.2.0";
+	static final String VERSION = "Rope 0.16.0.51 \nProcessing 4.5.2";
 
 	static final String P2D = "processing.opengl.PGraphics2D";
 	static final String P3D = "processing.opengl.PGraphics3D";

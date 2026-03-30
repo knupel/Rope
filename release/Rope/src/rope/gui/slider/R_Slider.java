@@ -1077,7 +1077,7 @@ public class R_Slider extends Crope implements R_GUI {
 	 * @param index
 	 * @param locked_method
 	 * @param result
-	 * @param authorization
+	 * @param auth
 	 * @return
 	 */
 	protected boolean select(int index, boolean locked_method, boolean result, boolean auth) {

@@ -863,7 +863,7 @@ public class R_Line2D extends R_Graphic {
    * 
    * @param density the ratio abscissa of pixels along the line from 0 to 1
    * @param thickness is the strokeWeight / ordinate of your line in pixel point
-   * @param colour list of int color to create the pixel line
+   * @param palette list of int color to create the pixel line
    */
   public void set_pixels(float density, float thickness, R_Colour palette) {
     int num_pixel = (int)(dist() * density);
@@ -943,7 +943,7 @@ public class R_Line2D extends R_Graphic {
 
   /**
    * The direction is based on start_fov angle
-   * @param use_field to distribute the pixels only in the fov field
+   * @param field_is to distribute the pixels only in the fov field
    * @param type of pixel growth distribution
    * @param use_gradient to create a gradient from the fist color to second... il there more color in the palette the color is used like a pair colors successively
    */
@@ -1364,7 +1364,6 @@ public class R_Line2D extends R_Graphic {
    * 
    * @param density
    * @param thickness
-   * @param palette
    */
   public void show_pixels(float density, float thickness) {
     int num_pixel = (int)(dist() * density);
@@ -1398,7 +1397,6 @@ public class R_Line2D extends R_Graphic {
   /**
    * 
    * @param density
-   * @param colour
    */
   public void show_pixels_x2(float density) {
     show_pixels_x2(density, 1);
@@ -1408,7 +1406,6 @@ public class R_Line2D extends R_Graphic {
    * 
    * @param density
    * @param thickness
-   * @param colour
    */
 
    public void show_pixels_x2(float density, float thickness) {

@@ -11,11 +11,11 @@ plugins {
 }
 
 // test d'import Bug complet
-// sourceSets {
-//     main {
-//         java.srcDir("src/rope")
-//     }
-// }
+sourceSets {
+    main {
+        java.srcDir("src/rope")
+    }
+}
 
 
 // Sets the Java version to use for compiling your library.
