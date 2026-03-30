@@ -49,7 +49,10 @@ void draw() {
     // list.sort(Comparator.comparing(a -> a.b()));
     // print list
     for(R_Pair pair : list) {
-      println(pair.a(), pair.b());
+      if((int)pair.b() > 10) {
+        println(pair.a(), pair.b());
+      }
+      
     }
 		exit();
 	}

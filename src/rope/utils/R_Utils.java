@@ -596,7 +596,7 @@ public class R_Utils {
 			long[] arr_buf = Arrays.copyOf(arr, len);
 			for(int i = 0 ; i < arr_buf.length / 2; i++) {
 				long buf = arr_buf[i];
-				arr[i] = arr_buf[arr_buf.length - i - 1];
+				arr_buf[i] = arr_buf[arr_buf.length - i - 1];
 				arr_buf[arr_buf.length - i - 1] = buf;
 			}
 			return arr_buf;
