@@ -10,6 +10,14 @@ plugins {
     id("java")
 }
 
+// test d'import Bug complet
+// sourceSets {
+//     main {
+//         java.srcDir("src/rope")
+//     }
+// }
+
+
 // Sets the Java version to use for compiling your library.
 // Processing4 was compiled with Java version 17, so it's recommended to compile your library with version 17.
 java {
