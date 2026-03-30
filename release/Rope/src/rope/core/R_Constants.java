@@ -1,0 +1,275 @@
+
+/**
+ * * R_Constants
+	* ROPE - ROmanesco Processing Environment – 
+	* Copyleft (c) 2014-2023
+	* Variable shared throughout rope.core.
+	* *
+	* Rope constants
+	* v 1.1.6
+	* Processing 4.2
+	* @author @knupel
+	* @see https://github.com/knupel/rope
+	* @see https://en.wikipedia.org/wiki/Mathematical_constant
+	*/
+
+package rope.core;
+import java.awt.event.KeyEvent;
+
+public interface R_Constants {
+	static final String VERSION = "Rope 0.15.1.50 \nProcessing 4.2.0";
+
+	static final String P2D = "processing.opengl.PGraphics2D";
+	static final String P3D = "processing.opengl.PGraphics3D";
+	static final String JAVA2D = "processing.awt.PGraphicsJava2D";
+	static final String FX2D = "processing.javafx.PGraphicsFX2D";
+	static final String PDF = "processing.pdf.PGraphicsPDF";
+	static final String SVG = "processing.svg.PGraphicsSVG";
+	static final String DXF = "processing.dxf.RawDXF";
+
+	static final int BEZIER_VERTEX = 1; // processing value
+	static final int QUADRATIC_VERTEX = 2; // processing value
+	static final int CURVE_VERTEX = 3; // processing value
+	static final int BREAK = 4; // processing value
+
+	static final int VERTEX = 0; // processing value
+
+  static final int POINT = 2; // processing value
+
+  static final int LINE = 4; // processing value
+	static final int SHAPE = 5; // processing value
+	
+	static final int POLYGON = 7;
+
+  static final int TRIANGLE = 8; // processing value
+  static final int SQUARE = 14;
+  static final int PENTAGON = 15;
+  static final int HEXAGON = 16;
+  static final int HEPTAGON = 17;
+  static final int OCTOGON = 18;
+  static final int NONAGON = 19;
+  static final int DECAGON = 20;
+  static final int HENDECAGON = 21;
+  static final int DODECAGON = 22;
+
+  static final int RECT = 30; // processing value
+  static final int ELLIPSE = 31; // processing value
+  static final int ARC = 32;  // processing value
+
+  static final int SPHERE = 40; // processing value
+  static final int BOX = 41; // processing value
+
+	static final int CROSS = 51;
+  static final int CROSS_RECT = 52;
+  static final int CROSS_BOX_2 = 53;
+  static final int CROSS_BOX_3 = 54;
+
+	static final int SPIRAL = 60;
+
+  static final int SPHERE_LOW = 100;
+  static final int SPHERE_MEDIUM = 101;
+  static final int SPHERE_HIGH = 102;
+  static final int TETRAHEDRON = 103;
+
+	static final int TEXT = 200;
+
+	static final int IMAGE = 210; // *** ACHTUNG *** Processing use 2
+	static final int PORTRAIT = 211; // *** ACHTUNG *** Processing use 1
+	static final int LANDSCAPE = 212; // *** ACHTUNG *** Processing use 2
+	static final int SPAN = 213; // *** ACHTUNG *** Processing use 2
+
+  static final int PIXEL = 800;
+
+
+
+
+  static final int TETRAHEDRON_LINE = 1001;
+  static final int CUBE_LINE = 1002;
+  static final int OCTOHEDRON_LINE = 1003;
+  static final int RHOMBIC_COSI_DODECAHEDRON_SMALL_LINE = 1004;
+  static final int ICOSI_DODECAHEDRON_LINE = 1005;
+
+
+
+	
+
+
+	
+	static final int CHORD = 2; // processing value
+	static final int PIE = 3; // processing value
+
+
+  static final float MAX_FLOAT = Float.MAX_VALUE;
+  static final float MIN_FLOAT = -Float.MAX_VALUE;
+  static final int MAX_INT = Integer.MAX_VALUE;
+  static final int MIN_INT = Integer.MIN_VALUE;
+  
+	static final float HPI = (float)(Math.PI * 0.5);
+	static final float HALF_PI = (float)(Math.PI * 0.5);
+	static final float QPI = (float)(Math.PI * 0.25);
+	static final float QUARTER_PI = (float)(Math.PI * 0.25);
+	static final float PI = (float) Math.PI;
+	static final float TWO_PI = (float) (2.0 * Math.PI);
+	static final float TAU = (float) (2.0 * Math.PI);
+  
+  /**
+   * Rope CONSTANTS 
+   */
+	static final int  NOTHING = 0;
+	static final int  NONE = 0;
+	static final int  NULL = 0;
+
+	static final int NORMAL = 1; // processing value
+	static final int REPEAT = 999; // *** ACHTUNG *** Processing use 1
+
+	static final int CHOICE = 888;
+	
+	static final float PHI = (1 + (float)Math.sqrt(5))/2; //a number of polys use the golden ratio... > 1.618....
+	static final float GOLD_NUMBER = PHI;
+	static final float GOLD_ANGLE = (float)(2*Math.PI) / (PHI*PHI); // > 137.500 in degree
+	static final float ROOT2 = (float)Math.sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
+	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
+	static final double G = 0.00000000006693; // last gravity constant
+	
+  //for the unicity value we note the angle between -PI to PI from atan2
+	static final float NORTH = -(PI *0.5f);
+	static final float NORTH_EAST = -(PI *0.25f);
+	static final float EAST = 0;
+	static final float SOUTH_EAST = PI *0.25f;
+	static final float SOUTH = PI * 0.5f;
+	static final float SOUTH_WEST = PI * 0.75f;
+	static final float WEST = PI;
+	static final float NORTH_WEST = -(PI * 0.75f);
+	// classic angle notation
+  // float north = HALF_PI;
+  // float north_east = QUARTER_PI;
+  // float east = PI;
+  // float south_east = (7*PI)*0.25;
+  // float south = (3*PI)*0.5;
+  // float south_west = (5*PI)*0.25;
+  // float west = 0;
+  // float north_west = (3*PI)*0.25;
+	
+	// shape drawing modes
+  static final int CORNER   = 0; // processing value
+  static final int CORNERS  = 1; // processing value
+  static final int RADIUS   = 2; // processing value
+  static final int DIAMETER = 3; // processing value
+
+	static final int CENTER  = 3; // processing value
+	static final int SIDE  = 9;
+
+
+  static final int TOP = 101;
+  static final int BOTTOM = 102;
+
+  static final int OPEN = 1; // processing value
+  static final int CLOSE = 2; // processing value
+
+	static final int BEGIN = 701;
+  static final int END = 702;
+
+	static final int START = 701;
+  static final int STOP = 702;
+
+	static final int FIRST = 701;
+  static final int LAST = 702;
+	
+	static final int NEXT = 703;
+	static final int PREVIOUS = 704;
+
+
+
+
+	static final int UP	= KeyEvent.VK_UP; // 38
+  static final int DOWN	= KeyEvent.VK_DOWN; // 40
+  static final int LEFT	= KeyEvent.VK_LEFT; // 37
+  static final int RIGHT = KeyEvent.VK_RIGHT; // 39
+	/**
+	 * KeyEvent.VK
+	 * shift:     16
+	 * control:   17
+	 * alt:       18
+	 * meta:      157
+	 * enter:     10
+	 * backspace: 8
+	 * escape:    27
+	 * left:      37
+	 * up:        38
+	 * right:     39
+	 * down:      40
+	 * pg_down:   34
+	 * pg_up:     33
+	 * a:         65
+	 * 
+	 * z:         90
+	 * space:     32
+	 * tab:       9
+	 */
+
+
+	static final int STAR = 805;
+  static final int STAR_3D = 806;
+
+	static final int NOTCH = 850;
+
+	static final int FLOWER = 900;
+	static final int TREE = 901;
+	static final int LEAF = 902;
+	static final int SEED = 903;
+	static final int ROOT = 904;
+
+	static final int CLOUD = 1500;
+	static final int SKY = 1501;
+
+	static final int HOUSE = 2000;
+
+	static final int WALK = 3000;
+	static final int RUN = 3001;
+
+	static final int MAD = 314_159_265;
+	static final int VIRUS = 88_888_888;
+
+	static final int FLUID = 200;
+	static final int GRAVITY = 201;
+	static final int MAGNETIC = 202;
+
+	static final int BLANK = 300;
+	
+	static final int PERLIN = 301;
+	static final int CHAOS = 302;
+	static final int RAND = 2456417;
+	static final int ORDER = 303;
+	static final int EQUATION = 304;
+
+	static final int LINEAR = 1; // same value than NORMAL
+
+	static final int SIN = 350;
+	static final int COS = 351;
+	static final int TAN = 352;
+
+	static final int POW = 375;
+
+	static final int DRAW = 400;
+	static final int FIT = 450;
+	static final int SCALE = 451;
+
+	static final int CARTESIAN = 500;
+	static final int POLAR = 501 ;
+	
+  static final int HORIZONTAL = 550;
+  static final int VERTICAL = 551;
+  static final int DIAGONAL = 552;
+  static final int CIRCULAR = 553;
+
+	static final int MIX = 600 ;
+
+
+	// static final int QUARTER = 706;
+	// static final int THIRD = 707;
+	static final int HALF = 708;
+
+	static final int STATIC = 1000;
+	static final int DYNAMIC = 1001;
+}
+
