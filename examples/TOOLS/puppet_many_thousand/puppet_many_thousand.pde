@@ -1,17 +1,17 @@
 /**
-* R_Puppet2D test with thousant of elements versur R_Line2D
-* v 0.0.1
-* 2022-2022
+* R_Puppet2D test with many hundred thousand of elements versus R_Line2D
+* v 0.0.2
+* 2022-2026
 */
 import rope.tool.R_Puppet2D;
 import rope.mesh.R_Line2D;
 import rope.vector.vec2;
 
-int num = 10_000;
+int num = 200_000;
 R_Puppet2D [] puppets = new R_Puppet2D[num];
 R_Line2D [] lines = new R_Line2D[num];
 void setup() {
-  size(800,800,P2D);
+  size(1200,1200,P2D);
   for(int i = 0 ; i < num ; i++) {
     vec2 a = new vec2().rand(0,width);
     vec2 b = new vec2().rand(0,width);
