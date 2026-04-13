@@ -17,7 +17,11 @@ void setup() {
 
 void draw() {
   background(125);
+  chose.pos(mouseX,mouseY);
+  chose.use_pos_is(true);
+  println("pos", chose.pos(), chose.use_pos_is());
   chose.show();
+
 }
 
 void keyPressed() {
@@ -46,7 +50,7 @@ void generator_chose() {
   // chose.radius(60,40,100);
   chose.radius(relief); // create a radius for each summits, and if missing cycling is used symetric or not.
   chose.calc(); // to have the final point you need to calculated those.
-  printArray(chose.get_points());
+  // printArray(chose.get_points());
   // printArray(chose.get_ref_points());
-  chose.pos(width/2,height/2);
+  // chose.pos(width/2,height/2);
 }

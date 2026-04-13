@@ -491,7 +491,16 @@ public class R_Colour extends Rope {
 		return res;
 	}
 
-
+	/**
+	 * @param index of the colour palette name
+	 * @return the name of specific palette
+	 */
+	public String get_name(int index) {
+		if (index < this.list.size()) {
+			return list.get(index).get_name();
+		}
+		return null;
+	}
 
 
 

@@ -1,7 +1,7 @@
 /**
 * R_Chose
-* 2019-2022
-* v 0.4.1
+* 2019-2026
+* v 0.4.2
 * @author @knupel
 * @see https://github.com/knupel/Rope
 */
@@ -69,7 +69,7 @@ public class R_Chose extends R_Polygon {
       ref_symmetria = symmetric_is();
       new_calc_is = true;
     }
-    if(pts.size() == 0 || reset_is() || new_calc_is || angle_modified_is()) {
+    if(pts.size() == 0 || reset_is() || new_calc_is || angle_modified_is() || use_pos_is()) {
       calc_final_points(render);
     }
   }
@@ -139,7 +139,7 @@ public class R_Chose extends R_Polygon {
   /**
    * 
    * @param render set if the render must be renderer
-   * @returnlist of coordinate
+   * @return list of coordinate
    */
   private vec3 [] calc_final_points(boolean render) {
     int count = 0;

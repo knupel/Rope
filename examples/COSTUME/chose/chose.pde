@@ -1,9 +1,9 @@
 /**
 * Rope Chose
-* v 0.0.1
-* 2019-2019
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.2
+* 2019-2026
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 */
 import rope.costume.R_Chose;
@@ -17,7 +17,9 @@ void setup() {
 
 void draw() {
   background(125);
+  chose.pos(mouseX,mouseY);
   chose.show();
+
 }
 
 void keyPressed() {
@@ -46,7 +48,6 @@ void generator_chose() {
   // chose.radius(60,40,100);
   chose.radius(relief); // create a radius for each summits, and if missing cycling is used symetric or not.
   chose.calc(); // to have the final point you need to calculated those.
-  printArray(chose.get_points());
+  // printArray(chose.get_points());
   // printArray(chose.get_ref_points());
-  chose.pos(width/2,height/2);
 }
