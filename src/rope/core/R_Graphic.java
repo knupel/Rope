@@ -1228,6 +1228,7 @@ public class R_Graphic extends BigBang {
 		if(other.alpha(fill) <= 0 || !fill_is()) {
 			other.noFill(); 
 		} else {
+			System.out.println("other.fill(fill)");
 			other.fill(fill);
 		}
 

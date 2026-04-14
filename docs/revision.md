@@ -1,10 +1,15 @@
 \* version 51
+> Go to Processing 4.5.2
+
 > R_UTILS
 > add function `reverse_copy(T [] arr)`
 
 > R_FOLDER
 > add function `public void explore_folder(String path, boolean check_sub_folder, boolean print_pertinent_file_is, String... extension)`
 > add function `get_folders()` return folder File list.
+
+> EXAMPLE
+> update example bloc.pde
 
 \* version 50
 

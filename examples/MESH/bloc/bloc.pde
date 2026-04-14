@@ -1,8 +1,8 @@
 /**
 * R_Bloc example
 * example : create bloc
-* v 0.0.1
-* 2019-2022
+* v 0.0.2
+* 2019-2026
 */
 
 /**
@@ -32,14 +32,20 @@ void draw() {
     vec2 c = new vec2(random(height),random(width));
     // etc
 		bloc = create_bloc(true, a,b,c);
+    bloc.fill_is(true);
+    bloc.stroke_is(true);
     bloc.thickness(4);
     bloc.stroke(r.BLACK);
     bloc.fill(r.WHITE);
 	} else {
+    // println("je suis là dans P5");
 		bloc.show();
 	}
   // update
   bloc.update(mouseX,mouseY);
+  // if(mousePressed) {
+  //   printArray(bloc.get());
+  // }
   
   // detection
   bloc.select(mouseX,mouseY);

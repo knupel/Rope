@@ -150,7 +150,7 @@ tasks.test {
 // Tasks for releasing library
 // ===========================
 
-val releaseRoot = "$rootDir/release"
+val releaseRoot = "$rootDir/build_rope/release"
 val releaseName = libName
 val releaseDirectory = "$releaseRoot/$releaseName"
 
@@ -177,7 +177,8 @@ tasks.javadoc.get().mustRunAfter("build")
 tasks.register("buildReleaseArtifacts") {
     group = "processing"
     dependsOn("clean","build","javadoc", "writeLibraryProperties")
-    finalizedBy("packageRelease", "duplicateZipToPdex")
+    finalizedBy("packageRelease")
+    // finalizedBy("packageRelease", "duplicateZipToPdex")
 
     doFirst {
         println("Releasing library $libName")
@@ -241,24 +242,24 @@ tasks.register<Zip>("packageRelease") {
     doFirst {
         println("Create zip file...")
     }
-    archiveFileName.set("${libName}.zip")
+    // archiveFileName.set("${libName}.zip")
     from(releaseDirectory)
     into(releaseName)
     destinationDirectory.set(file(releaseRoot))
     exclude("**/*.DS_Store")
 }
 
-tasks.register<Copy>("duplicateZipToPdex") {
-    doFirst {
-        println("Duplicate zip file to pdex extension...")
-    }
-    from(releaseRoot) {
-        include("$libName.zip")
-        rename("$libName.zip", "$libName.pdex")
-    }
-    into(releaseRoot)
-}
-tasks["duplicateZipToPdex"].mustRunAfter("packageRelease")
+// tasks.register<Copy>("duplicateZipToPdex") {
+//     doFirst {
+//         println("Duplicate zip file to pdex extension...")
+//     }
+//     from(releaseRoot) {
+//         include("$libName.zip")
+//         rename("$libName.zip", "$libName.pdex")
+//     }
+//     into(releaseRoot)
+// }
+// tasks["duplicateZipToPdex"].mustRunAfter("packageRelease")
 
 tasks.register("deployToProcessingSketchbook") {
     group = "processing"
