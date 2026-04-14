@@ -16,6 +16,9 @@ pids
 *.seed
 *.pid.lock
 
+# exclude rope release not zipped
+**/build_rope/release/Rope
+
 
 # OS generated files
 .DS_Store
