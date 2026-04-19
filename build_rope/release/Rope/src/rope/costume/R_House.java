@@ -1,9 +1,9 @@
 /**
 * R_House class
-* v 0.0.2
-* 2021-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.3
+* 2021-2026
+* @author @knupel
+* @see https://github.com/knupel/Rope
 */
 
 package rope.costume;
@@ -148,7 +148,6 @@ public class R_House extends R_Shape {
 	}
 
 	public void stroke_ground(float x, float y, float z, float a) {
-    // int c = this.pa.color(x,y,z,a);
 		stroke_ground(color(x,y,z,a));
 	}
 
@@ -186,6 +185,7 @@ public class R_House extends R_Shape {
 	}
   
 
+ @Override
 	public void show() {
 		float smallest_size = 0;
 		for(int i = 0 ; i < 3 ; i++) {

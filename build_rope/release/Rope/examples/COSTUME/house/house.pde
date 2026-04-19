@@ -1,9 +1,9 @@
 /**
 * R_House
-* v 0.0.2
-* 2019-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.3
+* 2019-2026
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 */
 

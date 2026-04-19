@@ -1,9 +1,9 @@
 /**
 * R_House
-* v 0.0.2
-* 2019-2021
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.0.3
+* 2019-2026
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 */
 
@@ -13,6 +13,7 @@ import rope.vector.vec3;
 R_House house;
 Rope r;
 void setup() {
+  // pixelDensity(1);
   colorMode(HSB,360,100,100,100);
   size(700,700,P3D);
   house = new R_House(this);
@@ -22,6 +23,8 @@ float rot_x = 0;
 float rot_y = 0;
 void draw() {
   background(0);
+  house.fill_is(true);
+  house.stroke_is(true);
   float min = width/12;
   float max = width *.4;
   

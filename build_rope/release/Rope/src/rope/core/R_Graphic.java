@@ -1225,9 +1225,6 @@ public class R_Graphic extends BigBang {
 	 * @param other is your PGRaphics to render your art work
 	 */
 	public void aspect(int fill, int stroke, float thickness, PGraphics other) {
-			System.out.println("truc moche");
-			System.out.println("fill is " + fill_is());
-			System.out.println("stroke is " + stroke_is());
 		if(other.alpha(fill) <= 0 || !fill_is()) {
 			other.noFill(); 
 		} else {
