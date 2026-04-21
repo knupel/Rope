@@ -1,10 +1,10 @@
 /**
 * R_Line2D intersection
 *
-* Copyleft(c) 2019-2022
-* v 0.2.0
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* Copyleft(c) 2019-2026
+* v 0.3.0
+* @author @knupel
+* @see https://github.com/knupel/Rope
 *
 * The order of operation is important, check the println to understand
 * the reason is all the values are reset to reference value after the show() function
@@ -36,11 +36,13 @@ void draw() {
   println("B 1",line_b);
   vec2 node = line_a.intersection(line_b);
   println("B 2",line_b);
-  float dist = line_b.dist();
+  
   println("B 3",line_b);
-  vec2 middle = line_b.coord((int)dist/2);
+
+  float dist = line_b.dist();
+  vec2 middle = line_b.get_point((int)dist/2);
    println("B 4",line_b);
-  vec2 coord_norm = line_b.coord(0.25);
+  vec2 coord_norm = line_b.get_point(0.25);
    println("B 5",line_b);
   
   strokeWeight(10);

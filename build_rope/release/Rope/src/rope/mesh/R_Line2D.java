@@ -15,18 +15,17 @@
 
 package rope.mesh;
 
-import rope.core.*;
 import processing.core.PApplet;
-import processing.core.PGraphics;
-import rope.vector.vec2;
-import rope.vector.vec3;
-import rope.vector.ivec6;
-import rope.vector.bvec2;
-import rope.pixo.R_Pix;
+import rope.colour.R_Colour;
+import rope.core.*;
 import rope.mesh.R_Shape;
+import rope.pixo.R_Pix;
 import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
-import rope.colour.R_Colour;
+import rope.vector.bvec2;
+import rope.vector.ivec6;
+import rope.vector.vec2;
+import rope.vector.vec3;
 
 
 public class R_Line2D extends R_Graphic {
@@ -1462,7 +1461,7 @@ public class R_Line2D extends R_Graphic {
   }
 
   /**
-   * Return the intersection point between this line and an other one.
+   * Return the intersection point between this line and an other line.
    * @param target
    * @return
    */
@@ -1518,6 +1517,40 @@ public class R_Line2D extends R_Graphic {
     }
     return result;
   }
+
+
+
+
+public R_Line2D intersection(vec2 pos, int radius) {
+  float ba_x = b().x() - a().x();
+  float ba_y = b().y() - a().y();
+  float ca_x = pos.x() - a().x();
+  float ca_y = pos.y() - a().y();
+
+  float a = ba_x * ba_x + ba_y * ba_y;
+  float b_by_2 = ba_x * ca_x + ba_y * ca_y;
+  float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
+
+  float p_by_2 = b_by_2 / a;
+  float q = c / a;
+
+  float disc = p_by_2 * p_by_2 - q;
+  if (disc < 0) {
+    return null;
+  }
+
+  // if disc == 0 ... dealt with later
+  float buf_sqrt = sqrt(disc);
+  float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
+  float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
+
+  vec2 p1 = new vec2(a().x() - ba_x * ab_scaling_factor_1, a().y() - ba_y * ab_scaling_factor_1);
+  if (disc == 0) { // abScalingFactor1 == abScalingFactor2
+    return new R_Line2D(pa, p1, p1);
+  }
+  vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
+  return new R_Line2D(pa, p1, p2);
+}
 
 
 

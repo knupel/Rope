@@ -1863,6 +1863,7 @@ public class R_Graphic extends BigBang {
   		bezierVertex(a.x(),a.y() ,b.x(),b.y(), pos.x(),pos.y());	
   	}	
 	}
+	
 	/**
 	 * @param x2 the x-coordinate of the 1st control point
 	 * @param y2 the y-coordinate of the 1st control point
@@ -1973,7 +1974,7 @@ public class R_Graphic extends BigBang {
 
   
   
-/**
+	/**
 	 * 
 	 * @param x
 	 * @param y

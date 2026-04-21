@@ -460,38 +460,6 @@ public class vec2 extends vec {
 		return this;
 	}
 
-
-	// /**
-	//  * JITTER
-	//  * 
-	//  * @param range int
-	//  * @return Vec2 altered with a random gaussian effect
-	//  */
-	// @Deprecated public vec2 jitter(int range) {
-	// 	return jitter(range, range);
-	// }
-
-	// @Deprecated public vec2 jitter(vec2 range) {
-	// 	if (range != null) {
-	// 		return jitter((int) range.x(), (int) range.y());
-	// 	} else {
-	// 		return jitter(0, 0);
-	// 	}
-	// }
-
-	// /**
-	//  * 
-	//  * @param range_x int
-	//  * @param range_y int
-	//  * @return Vec2 altered with a random gaussian effect
-	//  */
-	// @Deprecated public vec2 jitter(int range_x, int range_y) {
-	// 	x += random_next_gaussian(range_x, 3);
-	// 	y += random_next_gaussian(range_y, 3);
-	// 	set(x, y);
-	// 	return this;
-	// }
-
 	/**
 	 * random
 	 * 
