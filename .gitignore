@@ -17,8 +17,8 @@ pids
 *.pid.lock
 
 # exclude gradle
-.gradle
-# **/build
+**/.gradle
+**/build
 
 # exclude rope release not zipped
 **/build_rope/release/Rope

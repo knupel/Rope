@@ -1463,7 +1463,7 @@ public class R_Line2D extends R_Graphic {
   /**
    * Return the intersection point between this line and an other line.
    * @param target
-   * @return
+   * @return vec2 postion of the intersection
    */
   public vec2 intersection(R_Line2D target) {
     vec2 [] arr = null; 
@@ -1474,7 +1474,7 @@ public class R_Line2D extends R_Graphic {
    * Return the intersection point between this line and an other one.
    * @param target
    * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
-   * @return
+   * @return vec2 postion of the intersection
    */
   public vec2 intersection(R_Line2D target, vec2... exception) {
     float x1 = this.a.x();
@@ -1520,37 +1520,42 @@ public class R_Line2D extends R_Graphic {
 
 
 
+  /**
+   * Return the intersection line between this line and circle.
+   * @param pos the vec2 position of the circle
+   * @param radius the int radius value of the circle
+   * @return the line if it's possible
+   */
+  public R_Line2D intersection(vec2 pos, int radius) {
+    float ba_x = b().x() - a().x();
+    float ba_y = b().y() - a().y();
+    float ca_x = pos.x() - a().x();
+    float ca_y = pos.y() - a().y();
 
-public R_Line2D intersection(vec2 pos, int radius) {
-  float ba_x = b().x() - a().x();
-  float ba_y = b().y() - a().y();
-  float ca_x = pos.x() - a().x();
-  float ca_y = pos.y() - a().y();
+    float a = ba_x * ba_x + ba_y * ba_y;
+    float b_by_2 = ba_x * ca_x + ba_y * ca_y;
+    float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
 
-  float a = ba_x * ba_x + ba_y * ba_y;
-  float b_by_2 = ba_x * ca_x + ba_y * ca_y;
-  float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
+    float p_by_2 = b_by_2 / a;
+    float q = c / a;
 
-  float p_by_2 = b_by_2 / a;
-  float q = c / a;
+    float disc = p_by_2 * p_by_2 - q;
+    if (disc < 0) {
+      return null;
+    }
 
-  float disc = p_by_2 * p_by_2 - q;
-  if (disc < 0) {
-    return null;
+    // if disc == 0 ... dealt with later
+    float buf_sqrt = sqrt(disc);
+    float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
+    float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
+
+    vec2 p1 = new vec2(a().x() - ba_x * ab_scaling_factor_1, a().y() - ba_y * ab_scaling_factor_1);
+    if (disc == 0) { // abScalingFactor1 == abScalingFactor2
+      return new R_Line2D(pa, p1, p1);
+    }
+    vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
+    return new R_Line2D(pa, p1, p2);
   }
-
-  // if disc == 0 ... dealt with later
-  float buf_sqrt = sqrt(disc);
-  float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
-  float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
-
-  vec2 p1 = new vec2(a().x() - ba_x * ab_scaling_factor_1, a().y() - ba_y * ab_scaling_factor_1);
-  if (disc == 0) { // abScalingFactor1 == abScalingFactor2
-    return new R_Line2D(pa, p1, p1);
-  }
-  vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
-  return new R_Line2D(pa, p1, p2);
-}
 
 
 

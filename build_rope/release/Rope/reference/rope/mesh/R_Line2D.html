@@ -345,7 +345,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="R_Line2D.html" title="class in rope.mesh">R_Line2D</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#intersection(rope.vector.vec2,int)" class="member-name-link">intersection</a><wbr>(<a href="../vector/vec2.html" title="class in rope.vector">vec2</a>&nbsp;pos,
  int&nbsp;radius)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Return the intersection line between this line and circle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mode_abscissa(int)" class="member-name-link">mode_abscissa</a><wbr>(int&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
@@ -1472,6 +1474,7 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>target</code> - </dd>
 <dt>Returns:</dt>
+<dd>vec2 postion of the intersection</dd>
 </dl>
 </section>
 </li>
@@ -1486,6 +1489,7 @@ loadScripts(document, 'script');</script>
 <dd><code>target</code> - </dd>
 <dd><code>exception</code> - , list of vec2 point make an exception node, helpful when you don't want a specific node point</dd>
 <dt>Returns:</dt>
+<dd>vec2 postion of the intersection</dd>
 </dl>
 </section>
 </li>
@@ -1494,6 +1498,14 @@ loadScripts(document, 'script');</script>
 <h3>intersection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="R_Line2D.html" title="class in rope.mesh">R_Line2D</a></span>&nbsp;<span class="element-name">intersection</span><wbr><span class="parameters">(<a href="../vector/vec2.html" title="class in rope.vector">vec2</a>&nbsp;pos,
  int&nbsp;radius)</span></div>
+<div class="block">Return the intersection line between this line and circle.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pos</code> - the vec2 position of the circle</dd>
+<dd><code>radius</code> - the int radius value of the circle</dd>
+<dt>Returns:</dt>
+<dd>the line if it's possible</dd>
+</dl>
 </section>
 </li>
 <li>
