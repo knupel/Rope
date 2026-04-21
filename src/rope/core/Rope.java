@@ -14,8 +14,8 @@
  * 
  * @author @knupel
  * @see https://github.com/knupel/Rope
- * 2014-2023
- * v 0.6.0
+ * 2014-2026
+ * v 0.7.0
  * 
  */
 
@@ -24,9 +24,10 @@ package rope.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import processing.core.PGraphics;
+import rope.mesh.R_Line2D;
+import rope.mesh.R_Shape;
 import rope.utils.R_Utils.Ru;
-
 import rope.vector.bvec;
 import rope.vector.bvec2;
 import rope.vector.bvec3;
@@ -39,10 +40,9 @@ import rope.vector.vec2;
 import rope.vector.vec3;
 import rope.vector.vec4;
 
-import rope.mesh.R_Line2D;
-import rope.mesh.R_Shape;
 
-import processing.core.*;
+
+
 
 public class Rope implements R_Constants, R_Constants_Colour {
 	
@@ -1491,45 +1491,83 @@ public float abs(float arg) {
 		return x>y?true:false;
 	}
 
+		/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x int value to test
+	* @param y int value to test
+	* @return true if x superior to y
+	 */
 	public boolean greaterThan(int x, int y) {
 		return greaterThan((float)x,(float)y);
 	}
 
-	// with vec
-	
+	/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x vec2 value to test
+	* @param y vec2 value to test
+	* @return true if x superior to y
+	 */
 	public bvec2 greaterThan(vec2 x, vec2 y) {
-		print_err("x",x,"y",y);
+		// print_err("x",x,"y",y);
 		if(x != null && y != null) {
 			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
 		} else return null; 
 	}
 
+		/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x vec3 value to test
+	* @param y vec3 value to test
+	* @return true if x superior to y
+	 */
 	public bvec3 greaterThan(vec3 x, vec3 y) {
 		if(x != null && y != null) {
 			return new bvec3(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()));
 		} else return null; 
 	}
 
+		/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x vec4 value to test
+	* @param y vec4 value to test
+	* @return true if x superior to y
+	 */
 	public bvec4 greaterThan(vec4 x, vec4 y) {
 		if(x != null && y != null) {
 			return new bvec4(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()),greaterThan(x.w(),y.w()));
 		} else return null; 
 	}
 
-	// width ivec
-	
+	/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x ivec2 value to test
+	* @param y ivec2 value to test
+	* @return true if x superior to y
+	 */
 	public bvec2 greaterThan(ivec2 x, ivec2 y) {
 		if(x != null && y != null) {
 			return new bvec2(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()));
 		} else return null; 
 	}
 
+		/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x ivec3 value to test
+	* @param y ivec3 value to test
+	* @return true if x superior to y
+	 */
 	public bvec3 greaterThan(ivec3 x, ivec3 y) {
 		if(x != null && y != null) {
 			return new bvec3(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()));
 		} else return null; 
 	}
 
+		/**
+	* <a href="https://www.khronos.org/registry/OpenGL/specs/gl/">https://www.khronos.org/registry/OpenGL/specs/gl</a>
+	* @param x ivec4 value to test
+	* @param y ivec4 value to test
+	* @return true if x superior to y
+	 */
 	public bvec4 greaterThan(ivec4 x, ivec4 y) {
 		if(x != null && y != null) {
 			return new bvec4(greaterThan(x.x(),y.x()),greaterThan(x.y(),y.y()),greaterThan(x.z(),y.z()),greaterThan(x.w(),y.w()));
