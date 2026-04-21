@@ -63,37 +63,3 @@ void keyPressed() {
   pos_circle = new vec2(random(width), random(height));
 
 }
- 
-
-
-
-R_Line2D intersection(R_Line2D line, vec2 pos, int radius) {
-  float ba_x = line.b().x() - line.a().x();
-  float ba_y = line.b().y() - line.a().y();
-  float ca_x = pos.x() - line.a().x();
-  float ca_y = pos.y() - line.a().y();
-
-  float a = ba_x * ba_x + ba_y * ba_y;
-  float b_by_2 = ba_x * ca_x + ba_y * ca_y;
-  float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
-
-  float p_by_2 = b_by_2 / a;
-  float q = c / a;
-
-  float disc = p_by_2 * p_by_2 - q;
-  if (disc < 0) {
-    return null;
-  }
-
-  // if disc == 0 ... dealt with later
-  float buf_sqrt = sqrt(disc);
-  float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
-  float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
-
-  vec2 p1 = new vec2(line.a().x() - ba_x * ab_scaling_factor_1, line.a().y() - ba_y * ab_scaling_factor_1);
-  if (disc == 0) { // abScalingFactor1 == abScalingFactor2
-    return new R_Line2D(this, p1, p1);
-  }
-  vec2 p2 = new vec2(line.a().x() - ba_x * ab_scaling_factor_2, line.a().y() - ba_y * ab_scaling_factor_2);
-  return new R_Line2D(this, p1, p2);
-}
