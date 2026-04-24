@@ -12,6 +12,7 @@ import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 
+@Deprecated
 public class R_Segment {
 	private vec3 start;
 	private vec3 stop;

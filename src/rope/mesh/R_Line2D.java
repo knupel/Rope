@@ -7,9 +7,9 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 1.0.1
- * 2019-2023
- * @author @knupel
+ * v 1.0.2
+ * 2019-2026
+ * @author Knupel / Stanislas Marçais
  * @see https://github.com/knupel/Rope
 */
 
@@ -58,6 +58,22 @@ public class R_Line2D extends R_Graphic {
    * @param b
    */
   public R_Line2D(PApplet pa, vec2 a, vec2 b) {
+  	super(pa);
+    init();
+    this.a.set(a.x(),a.y(),0);
+    this.b.set(b.x(),b.y(),0);
+    this.ref_a.set(a.x(),a.y(),0);
+    this.ref_b.set(b.x(),b.y(),0);
+  }
+
+
+  /**
+   * 
+   * @param pa
+   * @param a
+   * @param b
+   */
+  public R_Line2D(PApplet pa, vec3 a, vec3 b) {
   	super(pa);
     init();
     this.a.set(a.x(),a.y(),0);
@@ -559,10 +575,10 @@ public class R_Line2D extends R_Graphic {
   //////////////////////////////////////////
   // MUTE
   /////////////////////////////////////////
-    /**
+  /**
    * change the state of the line, can be helpful to show or not the line and set behavior
    * @param is
-   * @return
+   * @return void
    */
   public R_Line2D mute(boolean is) {
     this.mute_is = is;
@@ -570,6 +586,10 @@ public class R_Line2D extends R_Graphic {
   }
 
 
+  /**
+   * helpful to show or not the line and set behavior
+   * @return boolean statement
+   */
   public boolean mute_is() {
     return mute_is;
   }
@@ -1519,6 +1539,20 @@ public class R_Line2D extends R_Graphic {
   }
 
 
+    /**
+   * Return the intersection point between this line and an other line.
+   * @param target
+   * @return boolean true if there is intersection with the target line argument
+   */
+	public boolean intersection_is(R_Line2D target) {
+		if(intersection(target) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
 
   /**
    * Return the intersection line between this line and circle.
@@ -1556,6 +1590,11 @@ public class R_Line2D extends R_Graphic {
     vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
     return new R_Line2D(pa, p1, p2);
   }
+
+
+
+
+
 
 
 

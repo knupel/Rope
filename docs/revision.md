@@ -1,3 +1,15 @@
+\* version 52
+> R_Line2D
+> add funtion `intersection_is(R_Line2D target)`
+> add funtion `intersection(vec2 pos, int radius`
+
+
+> R_Segment `deprecated` this class
+
+
+
+
+
 \* version 51
 > Go to Processing 4.5.2
 
