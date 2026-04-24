@@ -1539,6 +1539,20 @@ public class R_Line2D extends R_Graphic {
   }
 
 
+    /**
+   * Return the intersection point between this line and an other line.
+   * @param target
+   * @return boolean true if there is intersection with the target line argument
+   */
+	public boolean intersection_is(R_Line2D target) {
+		if(intersection(target) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
 
   /**
    * Return the intersection line between this line and circle.
@@ -1578,18 +1592,6 @@ public class R_Line2D extends R_Graphic {
   }
 
 
-
-  // public vec2 meet_at(R_Line2D target) {
-	// 	return intersection(this,target);
-	// }
-
-	public boolean meet_is(R_Line2D target) {
-		if(intersection(target) == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 
 
 
