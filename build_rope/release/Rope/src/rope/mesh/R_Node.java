@@ -8,11 +8,11 @@
 package rope.mesh;
 
 import java.util.ArrayList;
-
 import rope.core.Rope;
+import rope.vector.ivec6;
 import rope.vector.vec;
 import rope.vector.vec3;
-import rope.vector.ivec6;
+
 
 public class R_Node extends Rope {
 	private vec3 pos = new vec3();
@@ -203,6 +203,6 @@ public class R_Node extends Rope {
 
 	@Override
 	public String toString() {
-		return "POS [ " + this.pos.x() + ", " + this.pos.y() + ", " + this.pos.z() + " ] BRANCH(ES) ["+ this.branch +"]";
+		return "POS [ " + this.pos.x() + ", " + this.pos.y() + ", " + this.pos.z() + " ] BRANCH(ES) ["+ this.get_branch_available() +"/"+ this.get_branch() + "]";
 	}
 }

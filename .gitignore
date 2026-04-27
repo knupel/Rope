@@ -16,13 +16,15 @@ pids
 *.seed
 *.pid.lock
 
-# exclude gradle
-.gradle
+# exclude gradle but that's dont work ????
+**/gradle
 **/build/
+/.gradle
 
-# exclude rope release not zipped
-**/build_rope/release/Rope
-
+# exclude rope release not zipped, but that's don't work
+**/build_rope/release/Rope/
+build_rope/release/Rope/library/Rope.jar
+/build_rope
 
 # OS generated files
 .DS_Store
@@ -35,3 +37,5 @@ Thumbs.db
 
 # to don't add the file create I don't an unkoow reason in my scr
 # *.class
+
+
