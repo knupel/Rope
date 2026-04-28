@@ -23,6 +23,7 @@
 package rope.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import processing.core.PGraphics;
 import rope.mesh.R_Line2D;
@@ -744,7 +745,6 @@ public class Rope implements R_Constants, R_Constants_Colour {
 	}
 
 	/**
-	 * 
 	 * @param low define value min for the random
 	 * @param high define value max for the random
 	 * @return random number, this method is a copy of Processing one
@@ -753,6 +753,32 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		return Ru.random(low, high);
 	}
 
+
+	/**
+	 * @param src positive float use to set the minimum and the maximum for the random.
+	 * @param proportion list of int value that represente the proportion of each segment.
+	 * @return a random value between 0 and the value src. This value will be proportional to the values in the `array_proportion` list.
+	 */
+	public float random_ratio(float src, int[] proportion) {
+  float sum = Arrays.stream(proportion).sum();
+  float value = random(sum);
+  int which_part = 0;
+  int count = 0;
+  for(int j = 0 ; j < proportion.length ; j++) {
+    count += proportion[j];
+    if(value < count) {
+      which_part = j;
+      break;
+    } else {
+      which_part = j;
+    }
+  }
+
+  float part_final = abs(src) / proportion.length;
+  float in = part_final * which_part;
+  float out = in + part_final;
+  return Ru.random(in,out);
+}
 
 	/**
 	 * 

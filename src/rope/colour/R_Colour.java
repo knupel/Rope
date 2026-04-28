@@ -18,8 +18,8 @@
 
 package rope.colour;
 
-import java.util.ArrayList;
 import java.lang.System;
+import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 import rope.core.Rope;
@@ -229,10 +229,6 @@ public class R_Colour extends Rope {
 		return new_color_value(h, range);
 	}
 
-
-	// private int create_colour_hsb(int colour_ref, int type, float range) {
-	// 	return create_colour_hsb(colour_ref, type, range, range, range);
-	// }
 
 	private int create_colour_hsb(int colour_ref, int type, float rx, float ry, float rz) {
 		int c = 0;

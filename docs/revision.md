@@ -1,4 +1,9 @@
 \* version 52
+
+> Rope
+> add function `random_ratio(float src, int[] proportion)`
+
+
 > R_Line2D
 > add funtion `intersection_is(R_Line2D target)`
 > add funtion `intersection(vec2 pos, int radius`
