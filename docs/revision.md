@@ -6,6 +6,7 @@
 
 > R_Line2D
 > add funtion `intersection_is(R_Line2D target)`
+> add funtion `intersection_is(R_Line2D target, vec2... exception)`
 > add funtion `intersection(vec2 pos, int radius`
 
 
