@@ -4,10 +4,13 @@
 > add function `random_ratio(float src, int[] proportion)`
 
 
+> vec2
+> add function `boolean in_rect(float x, float y, float w, float h)`
+
 > R_Line2D
-> add funtion `intersection_is(R_Line2D target)`
-> add funtion `intersection_is(R_Line2D target, vec2... exception)`
-> add funtion `intersection(vec2 pos, int radius`
+> add function `intersection_is(R_Line2D target)`
+> add function `intersection_is(R_Line2D target, vec2... exception)`
+> add function `intersection(vec2 pos, int radius`
 
 
 > R_Segment `deprecated` this class

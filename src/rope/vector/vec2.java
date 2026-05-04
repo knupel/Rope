@@ -942,7 +942,10 @@ public class vec2 extends vec {
 	 * @param points array of point who define the polygon.
 	 * @return true if the vec2 is in the polygon, false in the other case
 	 */
-	public boolean in_polygon(vec [] points) {
+	public boolean in_polygon(vec... points) {
+		if(points.length < 3) {
+			return false;
+		}
 		int i, j;
 		boolean is = false;
 		int sides = points.length;
@@ -953,6 +956,22 @@ public class vec2 extends vec {
 			}
 		}
 		return is;
+	}
+
+
+	/**
+	 * @param x position of the rectangle on the top left
+	 * @param y position of the rectangle on the top left
+	 * @param w represent the width of the rectangle
+	 * @param h represent the height of the rectangle
+	 * @return boolean true id the vector is in the shape
+	 */
+	public boolean in_rect(float x, float y, float w, float h) {
+		vec2 a = new vec2(x, y);
+		vec2 b = new vec2(x+w, y);
+		vec2 c = new vec2(x+w, y+h);
+		vec2 d = new vec2(x, y+h);
+		return this.in_polygon(a,b,c,d);
 	}
 
 
