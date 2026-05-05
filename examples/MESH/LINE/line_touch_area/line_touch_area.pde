@@ -50,12 +50,10 @@ void draw() {
   rg.ellipse(pos_circle, radius*2);
   // show intersection
   if(buf != null) {
-        buf.stroke_is(true);
+    buf.stroke_is(true);
     buf.thickness(5);
     buf.stroke(r.BLOOD);
-
     buf.show();
-
   }
 }
 

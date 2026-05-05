@@ -127,8 +127,9 @@ public interface R_Constants {
 	static final float GOLD_NUMBER = PHI;
 	static final float GOLD_ANGLE = (float)(2*Math.PI) / (PHI*PHI); // > 137.500 in degree
 	static final float ROOT2 = (float)Math.sqrt(2); //...and the square root of two, the famous first irrationnal number by Pythagore
-	static final float EULER = (float)2.718281828459045235360287471352; // Euler number constant
+	static final double EULER = 2.718281828459045235360287471352; // Euler number constant
 	static final double G = 0.00000000006693; // last gravity constant
+	static final double EPSILON = 1e-9;
 	
   //for the unicity value we note the angle between -PI to PI from atan2
 	static final float NORTH = -(PI *0.5f);

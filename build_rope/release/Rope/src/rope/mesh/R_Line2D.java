@@ -24,6 +24,7 @@ import rope.pixo.R_Pixies;
 import rope.utils.R_Pair;
 import rope.vector.bvec2;
 import rope.vector.ivec6;
+import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
 
@@ -1480,6 +1481,18 @@ public class R_Line2D extends R_Graphic {
     return abs(ref_a.dist(ref_b));
   }
 
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  // MEET
+  // INTERSECTION
+  // TOUCH
+  //////////////////////////////////////
+  ///////////////////////////////////////
+
+
+
+
+
   /**
    * Return the intersection point between this line and an other line.
    * @param target
@@ -1570,10 +1583,10 @@ public class R_Line2D extends R_Graphic {
 
 
   /**
-   * Return the intersection line between this line and circle.
+   * Find the two points make the intersection with circle area. In this case the line segment is considerate as a line
    * @param pos the vec2 position of the circle
    * @param radius the int radius value of the circle
-   * @return the line if it's possible
+   * @return line if line meet the circle.
    */
   public R_Line2D intersection(vec2 pos, int radius) {
     float ba_x = b().x() - a().x();
@@ -1607,6 +1620,48 @@ public class R_Line2D extends R_Graphic {
   }
 
 
+  /**
+   * 
+   * @param pos is position of the point must test
+   * @return true if the moint meet the line segment
+   */
+  public boolean meet_is(vec pos) {
+    return between_is(this.a(), this.b(), pos, EPSILON);
+  }
+
+  private boolean between_is(vec a, vec b, vec p, double epsilon) {
+    // Edge case: If a and b are the same point, p must equal a (or b)
+    if (same_point_is(a, b, epsilon)) {
+      return same_point_is(a, p, epsilon);
+    }
+
+    // Step 1: Check collinearity
+    boolean collinear = collinear_is(a, b, p, epsilon);
+    if (!collinear) return false;
+
+    // Step 2: Check bounding box
+    return inside_is(a, b, p, epsilon);
+  }
+    
+
+  private boolean same_point_is(vec a, vec b, double epsilon) {
+    return Math.abs(a.x() - b.x()) < epsilon && Math.abs(a.y() - b.y()) < epsilon;
+  }
+
+  private boolean collinear_is(vec a, vec b, vec p, double epsilon) {
+    double crossProduct = (b.x() - a.x()) * (p.y() - a.y()) - 
+                          (b.y() - a.y()) * (p.x() - a.x());
+    return Math.abs(crossProduct) < epsilon;
+  }
+
+  private boolean inside_is(vec a, vec b, vec p, double epsilon) {
+    double min_x = Math.min(a.x(), b.x());
+    double max_x = Math.max(a.x(), b.x());
+    double min_y = Math.min(a.y(), b.y());
+    double max_y = Math.max(a.y(), b.y());
+    return  (p.x() >= min_x - epsilon && p.x() <= max_x + epsilon) && 
+            (p.y() >= min_y - epsilon && p.y() <= max_y + epsilon);
+  }
 
 
 
@@ -1614,6 +1669,13 @@ public class R_Line2D extends R_Graphic {
 
 
 
+
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  // COPY and TO_STRING‡
+  // to close the Class
+  //////////////////////////////////////
+  ///////////////////////////////////////
 
 
   /**

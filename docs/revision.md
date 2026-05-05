@@ -1,5 +1,9 @@
 \* version 52
 
+> R_Constants
+> change EULER become a double variable
+> add EPSILON 
+
 > Rope
 > add function `random_ratio(float src, int[] proportion)`
 
@@ -11,6 +15,7 @@
 > add function `intersection_is(R_Line2D target)`
 > add function `intersection_is(R_Line2D target, vec2... exception)`
 > add function `intersection(vec2 pos, int radius`
+> add function `boolean meet_is(vec pos)`
 
 
 > R_Segment `deprecated` this class
