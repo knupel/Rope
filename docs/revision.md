@@ -15,7 +15,8 @@
 > add function `intersection_is(R_Line2D target)`
 > add function `intersection_is(R_Line2D target, vec2... exception)`
 > add function `intersection(vec2 pos, int radius`
-> add function `boolean meet_is(vec pos)`
+> add function `boolean meet_is(vec pos)` meet point
+> add function `boolean meet_is(vec pos, float radius)` meet circle
 
 
 > R_Segment `deprecated` this class
