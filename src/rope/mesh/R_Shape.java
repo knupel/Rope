@@ -6,9 +6,9 @@
  *  | |  \  \ \   / |  |/  |  |____
  *  |_| \_\  \___/  |_ |   |______/
  * 
- * Copyleft(l) 2019-2023
+ * Copyleft(l) 2019-2026
 * R_Shape class
-* v 0.6.2
+* v 0.6.3
 * 
 * @author @knupel
 * @see https://github.com/knupel/Rope
@@ -17,10 +17,11 @@
 package rope.mesh;
 
 import java.util.ArrayList;
-
+import processing.core.PApplet;
+import processing.core.PGraphics;
 import rope.core.*;
 import rope.vector.*;
-import processing.core.*;
+
 
 
 public class R_Shape extends R_Graphic {
@@ -484,6 +485,7 @@ public class R_Shape extends R_Graphic {
     return reset_is;
   }
 
+ @Override
 	public void clear() {
 		this.ref_pts.clear();
 		this.pts.clear();
@@ -560,39 +562,39 @@ public class R_Shape extends R_Graphic {
 	}
 
 	////////////////////////////
-	// ADD DEPREACTED
+	// ADD DEPRECATED
 	////////////////////////////
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @deprecated instead use void add_vec(float x, float y)
-	 */
-	@Deprecated public void add(float x, float y) {
-		add_point(x, y, 0);
-	}
+	// /**
+	//  * 
+	//  * @param x
+	//  * @param y
+	//  * @deprecated instead use void add_vec(float x, float y)
+	//  */
+	// @Deprecated public void add(float x, float y) {
+	// 	add_point(x, y, 0);
+	// }
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @deprecated instead use void add_point(float x, float y, float z)
-	 */
-	@Deprecated public void add(float x, float y, float z) {
-		add_point(x,y,z);
-	}
+	// /**
+	//  * 
+	//  * @param x
+	//  * @param y
+	//  * @param z
+	//  * @deprecated instead use void add_point(float x, float y, float z)
+	//  */
+	// @Deprecated public void add(float x, float y, float z) {
+	// 	add_point(x,y,z);
+	// }
 
 
 
-	/**
-	 * 
-	 * @param coord a list of vec
-	 * @deprecated instead use void add_points(vec... coord)
-	 */
-	@Deprecated public void add(vec... coord) {
-		add_points(coord);
-	}
+	// /**
+	//  * 
+	//  * @param coord a list of vec
+	//  * @deprecated instead use void add_points(vec... coord)
+	//  */
+	// @Deprecated public void add(vec... coord) {
+	// 	add_points(coord);
+	// }
 
 
 	/////////////////////

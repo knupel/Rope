@@ -1,14 +1,13 @@
 /**
 * R_Face
-* v 0.2.3
-* 2019-2022
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope
+* v 0.3.0
+* 2019-2026
+* @author @knupel
+* @see https://github.com/knupel
 */
 package rope.mesh;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import rope.core.R_Graphic;
 import rope.vector.vec;
 import rope.vector.vec3;
@@ -43,6 +42,14 @@ public class R_Face extends R_Graphic {
 		this.pts[0] = new vec3(a.x(), a.y(), a.z());
 		this.pts[1] = new vec3(b.x(), b.y(), b.z());
 		this.pts[2] = new vec3(c.x(), c.y(), c.z());
+	}
+
+
+
+	public void pointer(vec3 a, vec3 b, vec3 c) {
+		this.pts[0]= a;
+		this.pts[1]= b;
+		this.pts[2]= c;
 	}
 
 	/**
@@ -81,13 +88,7 @@ public class R_Face extends R_Graphic {
 		return pts;
 	}
 
-	/**
-	 * 
-	 * @return a copy of R_Face with a new reference.
-	 */
-	public R_Face copy() {
-		return new R_Face(this.pa, this.pts[0],this.pts[1],this.pts[2]);
-	}
+
 
 	/**
 	 * 
@@ -201,6 +202,17 @@ public class R_Face extends R_Graphic {
 		}
 	}
 
+
+
+
+
+	/**
+	 * 
+	 * @return a copy of R_Face with a new reference.
+	 */
+	public R_Face copy() {
+		return new R_Face(this.pa, this.pts[0],this.pts[1],this.pts[2]);
+	}
 
 
 

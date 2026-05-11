@@ -21,6 +21,9 @@
 
 > R_Segment `deprecated` this class
 
+> R_Face
+> add function pointer(vec3 a, vec3 b, vec3 c);
+
 
 > R_Node
 > improve `toString()` to add information about available branches
