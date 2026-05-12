@@ -1,5 +1,10 @@
 \* version 52
 
+> add new package <geo> to create world with geolocical logic !
+> add class R_Tectos with function()
+> add R_Lithos with function()
+
+
 > R_Constants
 > change EULER become a double variable
 > add EPSILON 

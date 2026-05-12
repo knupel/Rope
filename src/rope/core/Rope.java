@@ -602,6 +602,16 @@ public class Rope implements R_Constants, R_Constants_Colour {
   
 
 
+/**
+ * 
+ * @param start
+ * @param stop
+ * @param normal_position between 0 to 1
+ * @return a position between start and stop in proportion of the normal_position
+ */
+	public float lerp(float start, float stop, float normal_position) {
+		return start + (stop-start) * normal_position;
+	}
 
 	/**
 	 * 

@@ -90,7 +90,7 @@ public class R_Env implements R_Constants_Colour {
 	public float gui_but_thickness = 0;
 	// public ivec4 gui_but_rounded = new ivec4();
 
-	// dropdonw
+	// dropdown
 	public int gui_db_fill_struct = GRAY[4];
   public int gui_db_fill_box_in = GRAY[12];
   public int gui_db_fill_box_out = GRAY[18];
@@ -101,7 +101,7 @@ public class R_Env implements R_Constants_Colour {
   public int gui_db_fill_box_text_in = GRAY[4];
   public int gui_db_fill_box_text_out = GRAY[8];
 
-		// board
+	// board
 	public int gui_board_fill_in = GRAY[2];
 	public int gui_board_fill_out = GRAY[4];
 	public int gui_board_stroke_in = GRAY[2];

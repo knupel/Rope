@@ -1,6 +1,7 @@
 rope.colour
 rope.core
 rope.costume
+rope.geo
 rope.gui
 rope.gui.bar
 rope.gui.button
