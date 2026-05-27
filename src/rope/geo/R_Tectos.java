@@ -242,15 +242,12 @@ public class R_Tectos extends R_Graphic {
         int row_width = cols + 1;
         float[] values = new float[grid.length];
         boolean[] locked = new boolean[grid.length];
-
         for(int i = 0; i < grid.length; i++) {
             values[i] = grid[i].pos().z();
             locked[i] = values[i] == 1 || values[i] == 0;
         }
-
         for(int pass = 0; pass < passes; pass++) {
             float[] next = new float[grid.length];
-
             for(int i = 0; i < grid.length; i++) {
             if(locked[i]) {
                 next[i] = values[i];
@@ -266,7 +263,8 @@ public class R_Tectos extends R_Graphic {
                 sum += values[i - 1];
                 count++;
             }
-            if(x < row_width - 1) {
+            // if(x < row_width - 1) {
+            if(x < row_width - 1 && i < values.length -1) {
                 sum += values[i + 1];
                 count++;
             }
@@ -275,6 +273,7 @@ public class R_Tectos extends R_Graphic {
                 count++;
             }
             if(y < rows - 1) {
+            // if(y < rows - 1 && i < values.length - row_width) {
                 sum += values[i + row_width];
                 count++;
             }
@@ -285,7 +284,6 @@ public class R_Tectos extends R_Graphic {
 
             values = next;
         }
-
         for(int i = 0; i < grid.length; i++) {
             grid[i].z(values[i]);
         }

@@ -1,7 +1,17 @@
 /**
-* line test fps one hundred thousand iteration
-* is 10 FPS on mac book pro 2018
-* 2023-2023
+* line test fps
+*
+* 100_000 iteration
+* is 10 FPS on macbook pro 2018
+* is 60 FPS on macbook pro 2026
+*
+* 500_000 iteration
+* is 16 FPS on macbook pro 2026
+* 
+1_000_000 iteration
+* is 7 FPS on macbook pro 2026
+*
+* 2023-2026
 * v 0.0.1
 */
 
@@ -9,7 +19,7 @@ import rope.core.Rope;
 import rope.mesh.R_Line2D;
 
 Rope r = new Rope();
-int num = 100_000;
+int num = 500_000;
 R_Line2D [] lines = new R_Line2D[num];
 void setup() {
 	// don't use classical renderer is too slow, use P2D or P3D instead

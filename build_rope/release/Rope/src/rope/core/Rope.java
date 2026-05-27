@@ -15,7 +15,7 @@
  * @author @knupel
  * @see https://github.com/knupel/Rope
  * 2014-2026
- * v 0.7.0
+ * v 0.7.1
  * 
  */
 
@@ -26,20 +26,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import processing.core.PGraphics;
+import processing.core.PVector;
 import rope.mesh.R_Line2D;
 import rope.mesh.R_Shape;
 import rope.utils.R_Utils.Ru;
-import rope.vector.bvec;
-import rope.vector.bvec2;
-import rope.vector.bvec3;
-import rope.vector.bvec4;
-import rope.vector.ivec2;
-import rope.vector.ivec3;
-import rope.vector.ivec4;
-import rope.vector.vec;
-import rope.vector.vec2;
-import rope.vector.vec3;
-import rope.vector.vec4;
+import rope.vector.*;
 
 
 
@@ -61,6 +52,45 @@ public class Rope implements R_Constants, R_Constants_Colour {
 		catch (ClassNotFoundException ex) {
 		}
 		return "Unknown";
+	}
+
+
+
+	/**
+	 * 
+	 * @param obj
+	 * @return the type of this Object
+	 */
+	public String get_type(Object obj) {
+		if(obj instanceof Integer) {
+			return "Integer";
+		} else if(obj instanceof Float) {
+			return "Float";
+		} else if(obj instanceof String) {
+			return "String";
+		} else if(obj instanceof Double) {
+			return "Double";
+		} else if(obj instanceof Long) {
+			return "Long";
+		} else if(obj instanceof Short) {
+			return "Short";
+		} else if(obj instanceof Boolean) {
+			return "Boolean";
+		} else if(obj instanceof Byte) {
+			return "Byte";
+		} else if(obj instanceof Character) {
+			return "Character";
+		} else if(obj instanceof PVector) {
+			return "PVector";
+		} else if(obj instanceof vec) {
+			return "vec";
+		} else if(obj instanceof ivec) {
+			return "ivec";
+		} else if(obj instanceof bvec) {
+			return "bvec";
+		} else if(obj == null) {
+			return "null";
+		} else return "Unknow" ;
 	}
 
 

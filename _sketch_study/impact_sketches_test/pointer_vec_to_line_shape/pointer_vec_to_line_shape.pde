@@ -1,7 +1,12 @@
+/**
+* link point shape and line
+* 2019-2026
+* V 0.0.2
+*/
+
 import rope.mesh.R_Line2D;
 import rope.mesh.R_Shape;
 import rope.vector.vec3;
-// import rope.vector.vec2;
 import rope.core.Rope;
 
 // vec2 [] points = new vec2[6];
@@ -30,9 +35,9 @@ void setup() {
 	lines[2].pointer(points[4],points[5]);
 
 	shapes[0] = new R_Shape(this);
-	shapes[0].pointer(lines[0].pointer_a(), lines[0].pointer_b(), lines[1].pointer_b(), lines[1].pointer_a());
+	shapes[0].add_pointers(lines[0].pointer_a(), lines[0].pointer_b(), lines[1].pointer_b(), lines[1].pointer_a());
 	shapes[1] = new R_Shape(this);
-	shapes[1].pointer(lines[1].pointer_a(), lines[1].pointer_b(), lines[2].pointer_b(), lines[2].pointer_a());
+	shapes[1].add_pointers(lines[1].pointer_a(), lines[1].pointer_b(), lines[2].pointer_b(), lines[2].pointer_a());
 }
 
 

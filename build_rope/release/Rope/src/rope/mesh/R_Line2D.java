@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 1.0.2
+ * v 1.0.3
  * 2019-2026
  * @author Knupel / Stanislas Marçais
  * @see https://github.com/knupel/Rope
@@ -50,6 +50,7 @@ public class R_Line2D extends R_Graphic {
   public R_Line2D(PApplet pa) {
   	super(pa);
     init();
+    rand();
   }
 
   /**
@@ -74,13 +75,14 @@ public class R_Line2D extends R_Graphic {
    * @param a
    * @param b
    */
+
   public R_Line2D(PApplet pa, vec3 a, vec3 b) {
   	super(pa);
     init();
-    this.a.set(a.x(),a.y(),0);
-    this.b.set(b.x(),b.y(),0);
-    this.ref_a.set(a.x(),a.y(),0);
-    this.ref_b.set(b.x(),b.y(),0);
+    this.a.set(a.x(),a.y(),a.z());
+    this.b.set(b.x(),b.y(),b.z());
+    this.ref_a.set(a.x(),a.y(),a.z());
+    this.ref_b.set(b.x(),b.y(),b.z());
   }
   
   /**
@@ -107,6 +109,15 @@ public class R_Line2D extends R_Graphic {
     this.ref_b = new vec3();
     this.use_gradient_is = new bvec2(false);
     this.palette = new R_Colour(this.pa, BLACK);
+  }
+
+  public void rand() {
+    vec3 min_pos = new vec3(0);
+    vec3 max_pos = new vec3(pa.width, pa.height, 0);
+    this.a.rand(min_pos, max_pos);
+    this.b.rand(min_pos, max_pos);
+    this.ref_a = a.copy();
+    this.ref_b = b.copy();
   }
   
 
@@ -949,11 +960,17 @@ public class R_Line2D extends R_Graphic {
   }
 
 
-
-
-  public void set_palette(int... colours) {
+  /**
+   * 
+   * @param colours list of color can be use to design the line
+   */
+  public void palette(int... colours) {
     this.palette.clear();
     this.palette.add(colours);
+  }
+
+  @Deprecated public void set_palette(int... colours) {
+    this.palette(colours);
   }
 
 
@@ -1303,9 +1320,26 @@ public class R_Line2D extends R_Graphic {
   /////////////////////////////////
 
   /**
-   * Show the result of all previous work on line
+   * Show line with the current setting for stroke and thickness
    */
   public void show() {
+    line(a.xy(),b.xy());
+    reset();
+  }
+
+
+  /**
+   * Show line with a specific color
+   * @param index of the color must be used from the palette
+   */
+  public void show(int index) {
+    stroke_is(true);
+    if(abs(index) >= palette.get("palette").length) {
+      print_err("class R_Line2D.show(", index, ") don't exist instead the function use the first argument of the list");
+      index = 0;
+    }
+    int c = palette.get("palette", index);
+    stroke(c);
     line(a.xy(),b.xy());
     reset();
   }
@@ -1552,8 +1586,8 @@ public class R_Line2D extends R_Graphic {
   }
 
 
-    /**
-   * Return the intersection point between this line and an other line.
+  /**
+   * 
    * @param target
    * @return boolean true if there is intersection with the target line argument
    */
@@ -1566,8 +1600,7 @@ public class R_Line2D extends R_Graphic {
 	}
 
 
-      /**
-   * Return the intersection point between this line and an other line.
+  /**
    * @param target
    * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
    * @return boolean true if there is intersection with the target line argument
@@ -1682,7 +1715,7 @@ public class R_Line2D extends R_Graphic {
    * https://www.javathinking.com/blog/check-is-a-point-x-y-is-between-two-points-drawn-on-a-straight-line/
    * 
    * @param pos is position of the point must test
-   * @return true if the moint meet the line segment
+   * @return true if the point meet the line segment
    */
   public boolean meet_is(vec pos) {
     return between_is(this.a(), this.b(), pos, EPSILON);
@@ -1749,6 +1782,7 @@ public class R_Line2D extends R_Graphic {
 
   protected void copy_impl(R_Line2D line) {
     line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
+    line.id(this.id().copy());
     line.mute(this.mute_is());
     line.pixel_density_is(this.pixel_density_is());
     if(pixies != null && pixies.size() > 0) {

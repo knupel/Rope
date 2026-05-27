@@ -24,6 +24,10 @@ import rope.vector.*;
 
 
 
+
+
+
+
 public class R_Shape extends R_Graphic {
 	protected ivec6 id = new ivec6(Integer.MIN_VALUE);
 	protected vec3 pos;
@@ -561,41 +565,6 @@ public class R_Shape extends R_Graphic {
 		this.summits = this.ref_pts.size();
 	}
 
-	////////////////////////////
-	// ADD DEPRECATED
-	////////////////////////////
-	// /**
-	//  * 
-	//  * @param x
-	//  * @param y
-	//  * @deprecated instead use void add_vec(float x, float y)
-	//  */
-	// @Deprecated public void add(float x, float y) {
-	// 	add_point(x, y, 0);
-	// }
-
-	// /**
-	//  * 
-	//  * @param x
-	//  * @param y
-	//  * @param z
-	//  * @deprecated instead use void add_point(float x, float y, float z)
-	//  */
-	// @Deprecated public void add(float x, float y, float z) {
-	// 	add_point(x,y,z);
-	// }
-
-
-
-	// /**
-	//  * 
-	//  * @param coord a list of vec
-	//  * @deprecated instead use void add_points(vec... coord)
-	//  */
-	// @Deprecated public void add(vec... coord) {
-	// 	add_points(coord);
-	// }
-
 
 	/////////////////////
 	// POINT
@@ -747,6 +716,26 @@ public class R_Shape extends R_Graphic {
   		return null;
   	}    
   }
+
+	/**
+	 * 
+	 * @return array of R_Line2D
+	 */
+	public R_Line2D [] get_lines() {
+		R_Line2D [] lines = new R_Line2D[pts.size()];
+		int max = pts.size();
+		for(int i = 0 ; i < max - 1 ; i++) {
+			vec3 a = pts.get(i);
+			vec3 b = pts.get(i+1);
+			lines[i] = new R_Line2D(this.pa, a, b);
+		}
+		// last line
+		vec3 a = pts.get(0);
+		vec3 b = pts.get(max -1);
+		lines[max -1] = new R_Line2D(this.pa, a, b);
+		return lines;
+
+	}
 
 	public float get_ref_x(int index) {
 		return get_ref_point(index).x();

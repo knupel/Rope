@@ -1,7 +1,7 @@
 /**
 * R_Lithos
 * 2026-2026
-* v 0.0.4
+* v 0.0.5
 * @author @knupel
 * @see https://github.com/knupel
 *
@@ -12,6 +12,7 @@
 
 package rope.geo;
 
+import rope.vector.vec2;
 import rope.vector.vec3;
 
 
@@ -19,6 +20,7 @@ public class R_Lithos {
   private vec3 pos = new vec3();
   private int radius = 1;
   private vec3 size = new vec3(1);
+  private vec2 altitude = new vec2(0,1);
   private int sol = 1;
   private int sous_sol = 1;
   private int moho = 1;
@@ -118,6 +120,23 @@ public class R_Lithos {
 	 */
   public int radius() {
     return this.radius;
+  }
+
+
+  /**
+   * @param normal_altitude
+   * @param altitude
+   */
+  public void altitude(float normal_altitude, float altitude) {
+    this.altitude.set(normal_altitude, altitude);
+  }
+
+  /**
+   * 
+   * @return
+   */
+  public vec2 altitude() {
+    return this.altitude;
   }
   
 	/**

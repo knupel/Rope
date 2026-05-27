@@ -1,8 +1,14 @@
 \* version 52
 
 > add new package <geo> to create world with geolocical logic !
-> add class R_Tectos with function()
-> add R_Lithos with function()
+> add class `R_Tectos` with function()
+> add class `R_Lithos` with function()
+> add class `R_Plate` with function()
+
+
+> R_Shape
+> add function `get_lines`
+> remove deprecated function `add()`
 
 
 > R_Constants
@@ -11,6 +17,7 @@
 
 > Rope
 > add function `random_ratio(float src, int[] proportion)`
+> add function `get_type(Object obj)`
 
 
 > vec2
@@ -22,6 +29,12 @@
 > add function `intersection(vec2 pos, int radius`
 > add function `boolean meet_is(vec pos)` meet point
 > add function `boolean meet_is(vec pos, float radius)` meet circle
+> add function `rand()`
+> deprecated function `set_palette(int ... arr)`
+> add function `palette(int ... arr)`
+> add function `show(int index)` index is a color from palette
+> change constructor `R_Line2D(PApplet pa, vec3 a, vec3 b)`
+> improve function `copy()`
 
 
 > R_Segment `deprecated` this class

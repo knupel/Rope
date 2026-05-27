@@ -50,7 +50,7 @@ void keyPressed() {
 }
 
 void set() {
-    float pos = random(marge, width - marge);
+  float pos = random(marge, width - marge);
   a = new vec2(marge,pos);
   pos = random(marge, width - marge);
   b = new vec2(width - marge, pos);
