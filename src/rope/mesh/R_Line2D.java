@@ -7,7 +7,7 @@
  *  |_| \_\  \___/  |_ |   |______/
  * 
  * R_Line2D class
- * v 1.0.3
+ * v 1.1.0
  * 2019-2026
  * @author Knupel / Stanislas Marçais
  * @see https://github.com/knupel/Rope
@@ -15,6 +15,7 @@
 
 package rope.mesh;
 
+import java.util.ArrayList;
 import processing.core.PApplet;
 import rope.colour.R_Colour;
 import rope.core.*;
@@ -29,6 +30,15 @@ import rope.vector.vec2;
 import rope.vector.vec3;
 
 
+
+
+
+
+
+
+
+
+
 public class R_Line2D extends R_Graphic {
   protected vec3 a;
   protected vec3 b;
@@ -36,6 +46,7 @@ public class R_Line2D extends R_Graphic {
   protected vec3 ref_b;
   private boolean mute_is = false;
   private boolean field_is = false;
+  protected ArrayList<Float> keys;
   protected R_Pixies pixies;
   protected R_Pixies pixies_growth;
   private int growth_type = NORMAL;
@@ -283,14 +294,49 @@ public class R_Line2D extends R_Graphic {
     this.b.set(x,y,0);
   }
 
+  ///////////////////
+  // KEYS
+  ///////////////////
+
+  /**
+   * 
+   * @param keys add a normal value, can be mapped on the length of the lines, where 0 is `a()` point and 1 is `b()`
+   */
+  public void add_keys(Float ...keys) {
+    if(this.keys == null) this.keys = new ArrayList<Float>();
+    for(int i = 0 ; i < keys.length ; i++) {
+      this.keys.add(keys[i]);
+    }
+  }
+
+  /**
+   * 
+   * @param keys add array vec2 position of points you want normalize to ad like key points
+   */
+  public void add_keys(vec2 ...keys) {
+    if(this.keys == null) this.keys = new ArrayList<Float>();
+    for(int i = 0 ; i < keys.length ; i++) {
+      this.keys.add(this.normal(this.ortho(keys[i])));
+    }
+  }
+
+  public Float [] get_keys() {
+    Float[] buf = new Float[this.keys.size()];
+    return this.keys.toArray(buf);
+  }
+
+
+  //////////////////
+  // END KEYS
+  /////////////////
 
 
 
 
-  //////////////////////////////
+
+  /////////////////////
   // POINTER
   ///////////////////////
-
     /**
    * This function must be use with precaution because that's can break few function of the class
    * like : offset(), change()... because the reference and the main point point on the same address
@@ -327,8 +373,6 @@ public class R_Line2D extends R_Graphic {
     this.ref_a = pointer_a;
   }
 
-
-
   /**
    * use with precaution because the vec who is returned pointer on real address 
    * in the memory so any modification can modify all value who ppoint on this one
@@ -348,6 +392,9 @@ public class R_Line2D extends R_Graphic {
     this.b = pointer_b;
     this.ref_b = pointer_b;
   }
+  ///////////////////////////
+  // END POINTER
+  ////////////////////////////
 
 
 
@@ -357,10 +404,9 @@ public class R_Line2D extends R_Graphic {
 
 
 
-
-
-
-
+  ///////////////////////
+  // OFFSET
+  //////////////////////
     /**
    * make a displacement of the line
    * @param offset
@@ -379,7 +425,7 @@ public class R_Line2D extends R_Graphic {
 
 
     /**
-   * If you don't use show() function for any reason, and in parralelele you change point
+   * If you don't use show() function for any reason, and in parrale you change point
    * with function offset(), function change() or any futur method yo must use
    * function reset() to come back to references points setting
    */
@@ -387,12 +433,20 @@ public class R_Line2D extends R_Graphic {
     this.a.set(ref_a);
     this.b.set(ref_b);
   }
+  /////////////////////
+  // END OFFSET
+  //////////////////
 
 
 
 
 
 
+
+
+  ///////////////////////////////
+  // GET POINT
+  //////////////////////////////
 
   /**
    * projected point on the line, the distance is calculated by multiplication the distance line by the normal argument
@@ -439,8 +493,26 @@ public class R_Line2D extends R_Graphic {
   public vec2 get_point(int len_abscissa, int len_ordinate) {
     return get_point(len_abscissa / this.dist(), len_ordinate / this.dist());
   }
+  ///////////////////////////////
+  // END GET POINT
+  //////////////////////////////
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  ///////////////////:
+  // GEOMETRY
+  ////////////////////
   /**
    * Return the angle of the line from "a" to "b"
    * @return
@@ -517,6 +589,32 @@ public class R_Line2D extends R_Graphic {
     return normal_dist;
   }
 
+  /**
+   * 
+   * @return the barycenter of the two points
+   */
+  public vec2 barycenter() {
+    return barycenter(a,b).xy();
+  }
+
+  /**
+   * Return the length of the line
+   * @return
+   */
+  public float dist() {
+    return abs(a.dist(b));
+  }
+
+  protected float dist_ref() {
+    return abs(ref_a.dist(ref_b));
+  }
+
+  //////////////////////////
+  // END GEOMETRY
+  ///////////////////////////
+
+
+
 
 
   //////////////////////////
@@ -574,7 +672,9 @@ public class R_Line2D extends R_Graphic {
 		return this.id;
 	}
 
-
+  ////////////////
+  // END ID
+  //////////////////
 
 
   
@@ -605,7 +705,9 @@ public class R_Line2D extends R_Graphic {
   public boolean mute_is() {
     return mute_is;
   }
-  
+  //////////////////////////////////////////
+  // END MUTE
+  /////////////////////////////////////////
 
 
 
@@ -664,12 +766,48 @@ public class R_Line2D extends R_Graphic {
     }
     return this;
   }
+  
+  /////////////////////////
+  // END MODIFY LINE
+  ////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   /////////////////////////////////
+  /////////////////////////////////
   // PIXEL
+  /////////////////////////////////
   /////////////////////////////////
   private int type_abscissa = NORMAL;
   private int type_ordinate = NORMAL;
@@ -974,9 +1112,9 @@ public class R_Line2D extends R_Graphic {
   }
 
 
-  ///////////////////////////////////
+  ////////////////////
   // GROWTH
-  ////////////////////////
+  /////////////////////
 
   /**
    * The direction is based on start_fov angle
@@ -1281,9 +1419,6 @@ public class R_Line2D extends R_Graphic {
 
 
 
-
-
-
   /**
    * 
    * @return the array of pixels a long the line if it's possible.
@@ -1309,14 +1444,49 @@ public class R_Line2D extends R_Graphic {
     return true;
   }
 
+  /////////////////////////////////
+  ////////////////////////////////
+  // END PIXEL
+  /////////////////////////////////
+  /////////////////////////////////
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /////////////////////////////////
   ////////////////////////////////
   // SHOW
+  /////////////////////////////////
   /////////////////////////////////
 
   /**
@@ -1487,33 +1657,58 @@ public class R_Line2D extends R_Graphic {
     }
     updatePixels();
   }
-
-
-
-  
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  // END SHOW
   ///////////////////////////////////////
-  // UTILS
-  //////////////////////////////////////
+  ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  /**
-   * 
-   * @return the barycenter of the two points
-   */
-  public vec2 barycenter() {
-    return barycenter(a,b).xy();
-  }
 
-  /**
-   * Return the length of the line
-   * @return
-   */
-  public float dist() {
-    return abs(a.dist(b));
-  }
 
-  protected float dist_ref() {
-    return abs(ref_a.dist(ref_b));
-  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   ///////////////////////////////////////
   ///////////////////////////////////////
@@ -1522,10 +1717,6 @@ public class R_Line2D extends R_Graphic {
   // TOUCH
   //////////////////////////////////////
   ///////////////////////////////////////
-
-
-
-
 
   /**
    * Return the intersection point between this line and an other line.
@@ -1756,6 +1947,20 @@ public class R_Line2D extends R_Graphic {
   }
 
 
+  ///////////////////////////////////
+  //////////////////////////////////
+  // END MEET INTERSECTION
+  //////////////////////////////////
+  /////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1783,6 +1988,7 @@ public class R_Line2D extends R_Graphic {
   protected void copy_impl(R_Line2D line) {
     line.set(this.a.x(), this.a.y(), this.b.x(), this.b.y());
     line.id(this.id().copy());
+    line.add_keys(this.get_keys());
     line.mute(this.mute_is());
     line.pixel_density_is(this.pixel_density_is());
     if(pixies != null && pixies.size() > 0) {
