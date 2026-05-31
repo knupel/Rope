@@ -22,7 +22,6 @@ void setup() {
   background(255);
   rg = new R_Graphic(this);
   create_keys();
-  
 }
   
 

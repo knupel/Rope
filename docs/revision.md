@@ -37,8 +37,10 @@
 > improve function `copy()`
 > add function `add_keys(float... arr)`
 > add function `add_keys(vec2... arr)`
+> add function `key_point_is(float value)`
 > add function `get_keys()`
-
+> add function `cut()`
+>
 
 > R_Segment `deprecated` this class
 

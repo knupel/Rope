@@ -16,6 +16,7 @@
 package rope.mesh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import processing.core.PApplet;
 import rope.colour.R_Colour;
 import rope.core.*;
@@ -28,6 +29,11 @@ import rope.vector.ivec6;
 import rope.vector.vec;
 import rope.vector.vec2;
 import rope.vector.vec3;
+
+
+
+
+
 
 
 
@@ -120,6 +126,9 @@ public class R_Line2D extends R_Graphic {
     this.ref_b = new vec3();
     this.use_gradient_is = new bvec2(false);
     this.palette = new R_Colour(this.pa, BLACK);
+    this.keys = new ArrayList<Float>();
+    this.add_keys(0f);
+    this.add_keys(1f);
   }
 
   public void rand() {
@@ -303,7 +312,6 @@ public class R_Line2D extends R_Graphic {
    * @param keys add a normal value, can be mapped on the length of the lines, where 0 is `a()` point and 1 is `b()`
    */
   public void add_keys(Float ...keys) {
-    if(this.keys == null) this.keys = new ArrayList<Float>();
     for(int i = 0 ; i < keys.length ; i++) {
       this.keys.add(keys[i]);
     }
@@ -314,7 +322,6 @@ public class R_Line2D extends R_Graphic {
    * @param keys add array vec2 position of points you want normalize to ad like key points
    */
   public void add_keys(vec2 ...keys) {
-    if(this.keys == null) this.keys = new ArrayList<Float>();
     for(int i = 0 ; i < keys.length ; i++) {
       this.keys.add(this.normal(this.ortho(keys[i])));
     }
@@ -323,6 +330,18 @@ public class R_Line2D extends R_Graphic {
   public Float [] get_keys() {
     Float[] buf = new Float[this.keys.size()];
     return this.keys.toArray(buf);
+  }
+
+  /**
+   * 
+   * @param value must me checked
+   * @return true is the value already exist. 
+   */
+  public boolean key_point_is(float value) {
+    for(Float key : keys) {
+      if(key == value) return true;
+    }
+    return false;
   }
 
 
@@ -711,6 +730,15 @@ public class R_Line2D extends R_Graphic {
 
 
 
+
+
+
+
+
+
+
+
+
   ////////////////////////////////////
   // MODIFY LINE
   ////////////////////////////////////////
@@ -766,6 +794,34 @@ public class R_Line2D extends R_Graphic {
     }
     return this;
   }
+
+
+
+  /**
+   * 
+   * @return return a set of segments covering the entire line, divided based on existing key points
+   */
+  public R_Line2D [] cut() {
+  ArrayList<R_Line2D> buf = new ArrayList();
+  // if (!key_point_is(0)) this.add_keys(0f);
+  // if (!key_point_is(1)) this.add_keys(1f);
+  Float [] arr_norm = this.get_keys();
+  Arrays.sort(arr_norm);
+  vec2 [] pts = new vec2[arr_norm.length];
+  for(int i = 0 ; i < pts.length - 1 ; i++) {
+    pts[i] = this.get_point((float)arr_norm[i]).copy();
+    pts[i+1] = this.get_point((float)arr_norm[i+1]).copy();
+    R_Line2D l = new R_Line2D(this.pa, pts[i], pts[i+1]);
+    buf.add(l);
+  }
+  R_Line2D [] res = new R_Line2D[buf.size()];
+  return buf.toArray(res);
+}
+
+
+
+
+
   
   /////////////////////////
   // END MODIFY LINE
@@ -798,12 +854,587 @@ public class R_Line2D extends R_Graphic {
 
 
 
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  // MEET
+  // INTERSECTION
+  // TOUCH
+  //////////////////////////////////////
+  ///////////////////////////////////////
+
+  /**
+   * Return the intersection point between this line and an other line.
+   * @param target
+   * @return vec2 postion of the intersection
+   */
+  public vec2 intersection(R_Line2D target) {
+    vec2 [] arr = null; 
+    return intersection(target, arr);
+  }
+
+  /**
+   * Return the intersection point between this line and an other one.
+   * @param target
+   * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
+   * @return vec2 postion of the intersection
+   */
+  public vec2 intersection(R_Line2D target, vec2... exception) {
+    float x1 = this.a.x();
+    float y1 = this.a.y();
+    float x2 = this.b.x();
+    float y2 = this.b.y();
+    
+    float x3 = target.a.x();
+    float y3 = target.a.y();
+    float x4 = target.b.x();
+    float y4 = target.b.y();
+    
+    float bx = x2 - x1;
+    float by = y2 - y1;
+    float dx = x4 - x3;
+    float dy = y4 - y3;
+   
+    float b_dot_d_perp = bx*dy - by*dx;
+    if(b_dot_d_perp == 0) return null;
+   
+    float cx = x3 -x1;
+    float cy = y3 -y1;
+    
+    // with dx and dy
+    float t = (cx*dy - cy*dx) /b_dot_d_perp;
+    if(t < 0 || t > 1) return null;
+   
+   // with bx and by
+    float u = (cx*by - cy*bx) /b_dot_d_perp;
+    if(u < 0 || u > 1) return null;
+
+    vec2 result = new vec2(x1 +t *bx, y1 +t *by);
+
+    if(exception != null) {
+      for(int i = 0 ; i < exception.length ; i++) {
+        if(exception[i].compare(result,new vec2(1))) {
+          result = null;
+        }
+      }
+    }
+    return result;
+  }
+
+
+  /**
+   * 
+   * @param target
+   * @return boolean true if there is intersection with the target line argument
+   */
+	public boolean intersection_is(R_Line2D target) {
+		if(intersection(target) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+  /**
+   * @param target
+   * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
+   * @return boolean true if there is intersection with the target line argument
+   */
+	public boolean intersection_is(R_Line2D target, vec2... exception) {
+		if(intersection(target, exception) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+
+  /**
+   * Find the two points make the intersection with circle area. In this case the line segment is considerate as a line
+   * @param pos the vec2 position of the circle
+   * @param radius the int radius value of the circle
+   * @return line if line meet the circle.
+   */
+  public R_Line2D intersection(vec2 pos, int radius) {
+    float ba_x = b().x() - a().x();
+    float ba_y = b().y() - a().y();
+    float ca_x = pos.x() - a().x();
+    float ca_y = pos.y() - a().y();
+
+    float a = ba_x * ba_x + ba_y * ba_y;
+    float b_by_2 = ba_x * ca_x + ba_y * ca_y;
+    float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
+
+    float p_by_2 = b_by_2 / a;
+    float q = c / a;
+
+    float disc = p_by_2 * p_by_2 - q;
+    if (disc < 0) {
+      return null;
+    }
+
+    // if disc == 0 ... dealt with later
+    float buf_sqrt = sqrt(disc);
+    float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
+    float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
+
+    vec2 p1 = new vec2(a().x() - ba_x * ab_scaling_factor_1, a().y() - ba_y * ab_scaling_factor_1);
+    if (disc == 0) { // abScalingFactor1 == abScalingFactor2
+      return new R_Line2D(pa, p1, p1);
+    }
+    vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
+    return new R_Line2D(pa, p1, p2);
+  }
+
+
+
+  /**
+   * https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+   * @param pos
+   * @param radius
+   * @return
+   */
+  public boolean meet_is(vec pos, float radius) {
+    vec2 d = a().sub(b());
+    vec2 f = b().sub(pos.xy());
+    float a = d.dot( d ) ;
+    float b = 2*f.dot( d ) ;
+    float c = f.dot( f ) - radius*radius;
+
+    float discriminant = b*b-4*a*c;
+    if(discriminant < 0) {  
+      // no intersection 
+    } else {
+      // ray didn't totally miss sphere,
+      // so there is a solution to
+      // the equation.
+      discriminant = sqrt( discriminant );
+
+      // either solution may be on or off the ray so need to test both
+      // t1 is always the smaller value, because BOTH discriminant and
+      // a are nonnegative.
+      float t1 = (-b - discriminant)/(2*a);
+      float t2 = (-b + discriminant)/(2*a);
+
+      // 3x HIT cases:
+      //          -o->             --|-->  |            |  --|->
+      // Impale(t1 hit,t2 hit), Poke(t1 hit,t2>1), ExitWound(t1<0, t2 hit), 
+
+      // 3x MISS cases:
+      //       ->  o                     o ->              | -> |
+      // FallShort (t1>1,t2>1), Past (t1<0,t2<0), CompletelyInside(t1<0, t2>1)
+      
+      if( t1 >= 0 && t1 <= 1 ) {
+        // t1 is the intersection, and it's closer than t2
+        // (since t1 uses -b - discriminant)
+        // Impale, Poke
+        return true;
+      }
+
+      // here t1 didn't intersect so we are either started
+      // inside the sphere or completely past it
+      if( t2 >= 0 && t2 <= 1 ) {
+        // ExitWound
+        return true;
+      }
+    
+      // return false;
+    }
+    return false;
+  }
+
+  
+  /**
+   * algorithm meed_is based from
+   * https://www.javathinking.com/blog/check-is-a-point-x-y-is-between-two-points-drawn-on-a-straight-line/
+   * 
+   * @param pos is position of the point must test
+   * @return true if the point meet the line segment
+   */
+  public boolean meet_is(vec pos) {
+    return between_is(this.a(), this.b(), pos, EPSILON);
+  }
+
+  private boolean between_is(vec a, vec b, vec p, double epsilon) {
+    // Edge case: If a and b are the same point, p must equal a (or b)
+    if (same_point_is(a, b, epsilon)) {
+      return same_point_is(a, p, epsilon);
+    }
+
+    // Step 1: Check collinearity
+    boolean collinear = collinear_is(a, b, p, epsilon);
+    if (!collinear) return false;
+
+    // Step 2: Check bounding box
+    return inside_is(a, b, p, epsilon);
+  }
+    
+
+  private boolean same_point_is(vec a, vec b, double epsilon) {
+    return Math.abs(a.x() - b.x()) < epsilon && Math.abs(a.y() - b.y()) < epsilon;
+  }
+
+  private boolean collinear_is(vec a, vec b, vec p, double epsilon) {
+    double crossProduct = (b.x() - a.x()) * (p.y() - a.y()) - 
+                          (b.y() - a.y()) * (p.x() - a.x());
+    return Math.abs(crossProduct) < epsilon;
+  }
+
+  private boolean inside_is(vec a, vec b, vec p, double epsilon) {
+    double min_x = Math.min(a.x(), b.x());
+    double max_x = Math.max(a.x(), b.x());
+    double min_y = Math.min(a.y(), b.y());
+    double max_y = Math.max(a.y(), b.y());
+    return  (p.x() >= min_x - epsilon && p.x() <= max_x + epsilon) && 
+            (p.y() >= min_y - epsilon && p.y() <= max_y + epsilon);
+  }
+
+
+  ///////////////////////////////////
+  //////////////////////////////////
+  // END MEET INTERSECTION
+  //////////////////////////////////
+  /////////////////////////////////
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /////////////////////////////////
+  ////////////////////////////////
+  // SHOW
+  /////////////////////////////////
+  /////////////////////////////////
+
+  /**
+   * Show line with the current setting for stroke and thickness
+   */
+  public void show() {
+    line(a.xy(),b.xy());
+    reset();
+  }
+
+
+  /**
+   * Show line with a specific color
+   * @param index of the color must be used from the palette
+   */
+  public void show(int index) {
+    stroke_is(true);
+    if(abs(index) >= palette.get("palette").length) {
+      print_err("class R_Line2D.show(", index, ") don't exist instead the function use the first argument of the list");
+      index = 0;
+    }
+    int c = palette.get("palette", index);
+    stroke(c);
+    line(a.xy(),b.xy());
+    reset();
+  }
+
+  public void show_pixels() {
+    if(pixies != null) {
+      show_pixels_impl(pixies);
+    }
+    if(pixies_growth != null) {
+      show_pixels_impl(pixies_growth);
+    }
+  }
+  
+  private void show_pixels_impl(R_Pixies list) {
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int index = 0 ; index < list.size(); index++) {
+        int x = (int)(list.get(index).x() *pa.displayDensity());
+        int y = (int)(list.get(index).y() *pa.displayDensity());
+        int c = list.get(index).fill();
+        plot(x,y,c);
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
+    loadPixels();
+    for(int index = 0 ; index < list.size(); index++) {
+      int entry = list.get(index).get_entry();
+      int c = list.get(index).fill();
+      plot(entry,c);
+    }
+    updatePixels();
+  }
+
+  public void show_pixels_x2() {
+    show_pixels_x2_impl(pixies);
+    if(pixies_growth != null) {
+      show_pixels_x2_impl(pixies_growth);
+    }
+  }
+
+  private void show_pixels_x2_impl(R_Pixies list) {
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int index = 0 ; index < list.size(); index++) {
+      int x = (int)(list.get(index).x() * pa.displayDensity());
+      int y = (int)(list.get(index).y() * pa.displayDensity());
+        int c = list.get(index).fill();
+        plot_x2(x,y,c);
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
+    loadPixels();
+    for(int index = 0 ; index < list.size(); index++) {
+      int x = (int)list.get(index).x();
+      int y = (int)list.get(index).y();
+      int c = list.get(index).fill();
+      plot_x2(x,y,c);
+    }
+    updatePixels();
+  }
+
+
+
+  public void show_pixels(float density) {
+    show_pixels(density, 1);
+  }
+
+
+    /**
+   * 
+   * @param density
+   * @param thickness
+   */
+  public void show_pixels(float density, float thickness) {
+    int num_pixel = (int)(dist() * density);
+    float range_ordinate = thickness / dist() * 0.5f;
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
+        if(pair != null) {
+          plot(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
+        }
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
+    loadPixels();
+    for(int i = 0 ; i < num_pixel ; i++) {
+      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
+      if(pair != null) {
+        plot(pair.a().xy(), (int)pair.b().x());
+      }
+    }
+    updatePixels();
+  }
+
+
+
+
+  /**
+   * 
+   * @param density
+   */
+  public void show_pixels_x2(float density) {
+    show_pixels_x2(density, 1);
+  }
+
+  /**
+   * 
+   * @param density
+   * @param thickness
+   */
+
+   public void show_pixels_x2(float density, float thickness) {
+    int num_pixel = (int)(dist() * density);
+    float range_ordinate = thickness / dist() * 0.5f;
+    // with pixel density
+    if(pixel_density_is()) {
+      loadPixels();
+      for(int i = 0 ; i < num_pixel ; i++) {
+        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
+        if(pair != null) {
+          plot_x2(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
+        }
+      }
+      updatePixels();
+      return;
+    }
+    // without pixel density
+    loadPixels();
+    for(int i = 0 ; i < num_pixel ; i++) {
+      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, palette.get());
+      if(pair != null) {
+        plot_x2(pair.a().xy(), (int)pair.b().x());
+      }
+    }
+    updatePixels();
+  }
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  // END SHOW
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   /////////////////////////////////
   /////////////////////////////////
   // PIXEL
@@ -1483,475 +2114,9 @@ public class R_Line2D extends R_Graphic {
 
 
 
-  /////////////////////////////////
-  ////////////////////////////////
-  // SHOW
-  /////////////////////////////////
-  /////////////////////////////////
 
-  /**
-   * Show line with the current setting for stroke and thickness
-   */
-  public void show() {
-    line(a.xy(),b.xy());
-    reset();
-  }
 
 
-  /**
-   * Show line with a specific color
-   * @param index of the color must be used from the palette
-   */
-  public void show(int index) {
-    stroke_is(true);
-    if(abs(index) >= palette.get("palette").length) {
-      print_err("class R_Line2D.show(", index, ") don't exist instead the function use the first argument of the list");
-      index = 0;
-    }
-    int c = palette.get("palette", index);
-    stroke(c);
-    line(a.xy(),b.xy());
-    reset();
-  }
-
-  public void show_pixels() {
-    if(pixies != null) {
-      show_pixels_impl(pixies);
-    }
-    if(pixies_growth != null) {
-      show_pixels_impl(pixies_growth);
-    }
-  }
-  
-  private void show_pixels_impl(R_Pixies list) {
-    // with pixel density
-    if(pixel_density_is()) {
-      loadPixels();
-      for(int index = 0 ; index < list.size(); index++) {
-        int x = (int)(list.get(index).x() *pa.displayDensity());
-        int y = (int)(list.get(index).y() *pa.displayDensity());
-        int c = list.get(index).fill();
-        plot(x,y,c);
-      }
-      updatePixels();
-      return;
-    }
-    // without pixel density
-    loadPixels();
-    for(int index = 0 ; index < list.size(); index++) {
-      int entry = list.get(index).get_entry();
-      int c = list.get(index).fill();
-      plot(entry,c);
-    }
-    updatePixels();
-  }
-
-  public void show_pixels_x2() {
-    show_pixels_x2_impl(pixies);
-    if(pixies_growth != null) {
-      show_pixels_x2_impl(pixies_growth);
-    }
-  }
-
-  private void show_pixels_x2_impl(R_Pixies list) {
-    // with pixel density
-    if(pixel_density_is()) {
-      loadPixels();
-      for(int index = 0 ; index < list.size(); index++) {
-      int x = (int)(list.get(index).x() * pa.displayDensity());
-      int y = (int)(list.get(index).y() * pa.displayDensity());
-        int c = list.get(index).fill();
-        plot_x2(x,y,c);
-      }
-      updatePixels();
-      return;
-    }
-    // without pixel density
-    loadPixels();
-    for(int index = 0 ; index < list.size(); index++) {
-      int x = (int)list.get(index).x();
-      int y = (int)list.get(index).y();
-      int c = list.get(index).fill();
-      plot_x2(x,y,c);
-    }
-    updatePixels();
-  }
-
-
-
-  public void show_pixels(float density) {
-    show_pixels(density, 1);
-  }
-
-
-    /**
-   * 
-   * @param density
-   * @param thickness
-   */
-  public void show_pixels(float density, float thickness) {
-    int num_pixel = (int)(dist() * density);
-    float range_ordinate = thickness / dist() * 0.5f;
-    // with pixel density
-    if(pixel_density_is()) {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
-        if(pair != null) {
-          plot(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
-        }
-      }
-      updatePixels();
-      return;
-    }
-    // without pixel density
-    loadPixels();
-    for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
-      if(pair != null) {
-        plot(pair.a().xy(), (int)pair.b().x());
-      }
-    }
-    updatePixels();
-  }
-
-
-
-
-  /**
-   * 
-   * @param density
-   */
-  public void show_pixels_x2(float density) {
-    show_pixels_x2(density, 1);
-  }
-
-  /**
-   * 
-   * @param density
-   * @param thickness
-   */
-
-   public void show_pixels_x2(float density, float thickness) {
-    int num_pixel = (int)(dist() * density);
-    float range_ordinate = thickness / dist() * 0.5f;
-    // with pixel density
-    if(pixel_density_is()) {
-      loadPixels();
-      for(int i = 0 ; i < num_pixel ; i++) {
-        R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, this.palette.get());
-        if(pair != null) {
-          plot_x2(pair.a().xy().mult(pa.displayDensity()), (int)pair.b().x());
-        }
-      }
-      updatePixels();
-      return;
-    }
-    // without pixel density
-    loadPixels();
-    for(int i = 0 ; i < num_pixel ; i++) {
-      R_Pair<vec3, vec2> pair = pixel_impl(range_ordinate, palette.get());
-      if(pair != null) {
-        plot_x2(pair.a().xy(), (int)pair.b().x());
-      }
-    }
-    updatePixels();
-  }
-  ////////////////////////////////////////
-  ////////////////////////////////////////
-  // END SHOW
-  ///////////////////////////////////////
-  ///////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ///////////////////////////////////////
-  ///////////////////////////////////////
-  // MEET
-  // INTERSECTION
-  // TOUCH
-  //////////////////////////////////////
-  ///////////////////////////////////////
-
-  /**
-   * Return the intersection point between this line and an other line.
-   * @param target
-   * @return vec2 postion of the intersection
-   */
-  public vec2 intersection(R_Line2D target) {
-    vec2 [] arr = null; 
-    return intersection(target, arr);
-  }
-
-  /**
-   * Return the intersection point between this line and an other one.
-   * @param target
-   * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
-   * @return vec2 postion of the intersection
-   */
-  public vec2 intersection(R_Line2D target, vec2... exception) {
-    float x1 = this.a.x();
-    float y1 = this.a.y();
-    float x2 = this.b.x();
-    float y2 = this.b.y();
-    
-    float x3 = target.a.x();
-    float y3 = target.a.y();
-    float x4 = target.b.x();
-    float y4 = target.b.y();
-    
-    float bx = x2 - x1;
-    float by = y2 - y1;
-    float dx = x4 - x3;
-    float dy = y4 - y3;
-   
-    float b_dot_d_perp = bx*dy - by*dx;
-    if(b_dot_d_perp == 0) return null;
-   
-    float cx = x3 -x1;
-    float cy = y3 -y1;
-    
-    // with dx and dy
-    float t = (cx*dy - cy*dx) /b_dot_d_perp;
-    if(t < 0 || t > 1) return null;
-   
-   // with bx and by
-    float u = (cx*by - cy*bx) /b_dot_d_perp;
-    if(u < 0 || u > 1) return null;
-
-    vec2 result = new vec2(x1 +t *bx, y1 +t *by);
-
-    if(exception != null) {
-      for(int i = 0 ; i < exception.length ; i++) {
-        if(exception[i].compare(result,new vec2(1))) {
-          result = null;
-        }
-      }
-    }
-    return result;
-  }
-
-
-  /**
-   * 
-   * @param target
-   * @return boolean true if there is intersection with the target line argument
-   */
-	public boolean intersection_is(R_Line2D target) {
-		if(intersection(target) == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-
-  /**
-   * @param target
-   * @param exception, list of vec2 point make an exception node, helpful when you don't want a specific node point
-   * @return boolean true if there is intersection with the target line argument
-   */
-	public boolean intersection_is(R_Line2D target, vec2... exception) {
-		if(intersection(target, exception) == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-
-
-  /**
-   * Find the two points make the intersection with circle area. In this case the line segment is considerate as a line
-   * @param pos the vec2 position of the circle
-   * @param radius the int radius value of the circle
-   * @return line if line meet the circle.
-   */
-  public R_Line2D intersection(vec2 pos, int radius) {
-    float ba_x = b().x() - a().x();
-    float ba_y = b().y() - a().y();
-    float ca_x = pos.x() - a().x();
-    float ca_y = pos.y() - a().y();
-
-    float a = ba_x * ba_x + ba_y * ba_y;
-    float b_by_2 = ba_x * ca_x + ba_y * ca_y;
-    float c = ca_x * ca_x + ca_y * ca_y - radius * radius;
-
-    float p_by_2 = b_by_2 / a;
-    float q = c / a;
-
-    float disc = p_by_2 * p_by_2 - q;
-    if (disc < 0) {
-      return null;
-    }
-
-    // if disc == 0 ... dealt with later
-    float buf_sqrt = sqrt(disc);
-    float ab_scaling_factor_1 = -p_by_2 + buf_sqrt;
-    float ab_scaling_factor_2 = -p_by_2 - buf_sqrt;
-
-    vec2 p1 = new vec2(a().x() - ba_x * ab_scaling_factor_1, a().y() - ba_y * ab_scaling_factor_1);
-    if (disc == 0) { // abScalingFactor1 == abScalingFactor2
-      return new R_Line2D(pa, p1, p1);
-    }
-    vec2 p2 = new vec2(a().x() - ba_x * ab_scaling_factor_2, a().y() - ba_y * ab_scaling_factor_2);
-    return new R_Line2D(pa, p1, p2);
-  }
-
-
-
-  /**
-   * https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
-   * @param pos
-   * @param radius
-   * @return
-   */
-  public boolean meet_is(vec pos, float radius) {
-    vec2 d = a().sub(b());
-    vec2 f = b().sub(pos.xy());
-    float a = d.dot( d ) ;
-    float b = 2*f.dot( d ) ;
-    float c = f.dot( f ) - radius*radius;
-
-    float discriminant = b*b-4*a*c;
-    if(discriminant < 0) {  
-      // no intersection 
-    } else {
-      // ray didn't totally miss sphere,
-      // so there is a solution to
-      // the equation.
-      discriminant = sqrt( discriminant );
-
-      // either solution may be on or off the ray so need to test both
-      // t1 is always the smaller value, because BOTH discriminant and
-      // a are nonnegative.
-      float t1 = (-b - discriminant)/(2*a);
-      float t2 = (-b + discriminant)/(2*a);
-
-      // 3x HIT cases:
-      //          -o->             --|-->  |            |  --|->
-      // Impale(t1 hit,t2 hit), Poke(t1 hit,t2>1), ExitWound(t1<0, t2 hit), 
-
-      // 3x MISS cases:
-      //       ->  o                     o ->              | -> |
-      // FallShort (t1>1,t2>1), Past (t1<0,t2<0), CompletelyInside(t1<0, t2>1)
-      
-      if( t1 >= 0 && t1 <= 1 ) {
-        // t1 is the intersection, and it's closer than t2
-        // (since t1 uses -b - discriminant)
-        // Impale, Poke
-        return true;
-      }
-
-      // here t1 didn't intersect so we are either started
-      // inside the sphere or completely past it
-      if( t2 >= 0 && t2 <= 1 ) {
-        // ExitWound
-        return true;
-      }
-    
-      // return false;
-    }
-    return false;
-  }
-
-  
-  /**
-   * algorithm meed_is based from
-   * https://www.javathinking.com/blog/check-is-a-point-x-y-is-between-two-points-drawn-on-a-straight-line/
-   * 
-   * @param pos is position of the point must test
-   * @return true if the point meet the line segment
-   */
-  public boolean meet_is(vec pos) {
-    return between_is(this.a(), this.b(), pos, EPSILON);
-  }
-
-  private boolean between_is(vec a, vec b, vec p, double epsilon) {
-    // Edge case: If a and b are the same point, p must equal a (or b)
-    if (same_point_is(a, b, epsilon)) {
-      return same_point_is(a, p, epsilon);
-    }
-
-    // Step 1: Check collinearity
-    boolean collinear = collinear_is(a, b, p, epsilon);
-    if (!collinear) return false;
-
-    // Step 2: Check bounding box
-    return inside_is(a, b, p, epsilon);
-  }
-    
-
-  private boolean same_point_is(vec a, vec b, double epsilon) {
-    return Math.abs(a.x() - b.x()) < epsilon && Math.abs(a.y() - b.y()) < epsilon;
-  }
-
-  private boolean collinear_is(vec a, vec b, vec p, double epsilon) {
-    double crossProduct = (b.x() - a.x()) * (p.y() - a.y()) - 
-                          (b.y() - a.y()) * (p.x() - a.x());
-    return Math.abs(crossProduct) < epsilon;
-  }
-
-  private boolean inside_is(vec a, vec b, vec p, double epsilon) {
-    double min_x = Math.min(a.x(), b.x());
-    double max_x = Math.max(a.x(), b.x());
-    double min_y = Math.min(a.y(), b.y());
-    double max_y = Math.max(a.y(), b.y());
-    return  (p.x() >= min_x - epsilon && p.x() <= max_x + epsilon) && 
-            (p.y() >= min_y - epsilon && p.y() <= max_y + epsilon);
-  }
-
-
-  ///////////////////////////////////
-  //////////////////////////////////
-  // END MEET INTERSECTION
-  //////////////////////////////////
-  /////////////////////////////////
 
 
 
