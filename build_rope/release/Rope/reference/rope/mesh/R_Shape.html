@@ -344,86 +344,97 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="R_Shape.html" title="class in rope.mesh">R_Shape</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#id_f(int)" class="member-name-link">id_f</a><wbr>(int&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#length()" class="member-name-link">length</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos()" class="member-name-link">pos</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float)" class="member-name-link">pos</a><wbr>(float&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float,float)" class="member-name-link">pos</a><wbr>(float&nbsp;x,
- float&nbsp;y)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float,float,float)" class="member-name-link">pos</a><wbr>(float&nbsp;x,
- float&nbsp;y,
- float&nbsp;z)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(rope.vector.ivec)" class="member-name-link">pos</a><wbr>(<a href="../vector/ivec.html" title="class in rope.vector">ivec</a>&nbsp;pos)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(rope.vector.vec)" class="member-name-link">pos</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#in_perimeter(rope.vector.vec,int)" class="member-name-link">in_perimeter</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos,
+ int&nbsp;marge)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset_is()" class="member-name-link">reset_is</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#in_polygon(rope.vector.vec)" class="member-name-link">in_polygon</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset_is(boolean)" class="member-name-link">reset_is</a><wbr>(boolean&nbsp;is)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#in_polygon(rope.vector.vec,int)" class="member-name-link">in_polygon</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos,
+ int&nbsp;marge)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#length()" class="member-name-link">length</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos()" class="member-name-link">pos</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,float,float)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
- float&nbsp;x,
- float&nbsp;y)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float)" class="member-name-link">pos</a><wbr>(float&nbsp;p)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,float,float,float)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float,float)" class="member-name-link">pos</a><wbr>(float&nbsp;x,
+ float&nbsp;y)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(float,float,float)" class="member-name-link">pos</a><wbr>(float&nbsp;x,
+ float&nbsp;y,
+ float&nbsp;z)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(rope.vector.ivec)" class="member-name-link">pos</a><wbr>(<a href="../vector/ivec.html" title="class in rope.vector">ivec</a>&nbsp;pos)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pos(rope.vector.vec)" class="member-name-link">pos</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset_is()" class="member-name-link">reset_is</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset_is(boolean)" class="member-name-link">reset_is</a><wbr>(boolean&nbsp;is)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,float,float)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
+ float&nbsp;x,
+ float&nbsp;y)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,float,float,float)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
  float&nbsp;x,
  float&nbsp;y,
  float&nbsp;z)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">replace point at the specific index, if this one exist</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,rope.vector.vec)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_point(int,rope.vector.vec)" class="member-name-link">set_point</a><wbr>(int&nbsp;index,
  <a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;point)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_summits(int)" class="member-name-link">set_summits</a><wbr>(int&nbsp;summits)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#show()" class="member-name-link">show</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float)" class="member-name-link">size</a><wbr>(float&nbsp;s)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set_summits(int)" class="member-name-link">set_summits</a><wbr>(int&nbsp;summits)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float,float)" class="member-name-link">size</a><wbr>(float&nbsp;w,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#show()" class="member-name-link">show</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float)" class="member-name-link">size</a><wbr>(float&nbsp;s)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float,float)" class="member-name-link">size</a><wbr>(float&nbsp;w,
  float&nbsp;h)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float,float,float)" class="member-name-link">size</a><wbr>(float&nbsp;w,
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(float,float,float)" class="member-name-link">size</a><wbr>(float&nbsp;w,
  float&nbsp;h,
  float&nbsp;d)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(rope.vector.ivec)" class="member-name-link">size</a><wbr>(<a href="../vector/ivec.html" title="class in rope.vector">ivec</a>&nbsp;size)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(rope.vector.ivec)" class="member-name-link">size</a><wbr>(<a href="../vector/ivec.html" title="class in rope.vector">ivec</a>&nbsp;size)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(rope.vector.vec)" class="member-name-link">size</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;size)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size(rope.vector.vec)" class="member-name-link">size</a><wbr>(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;size)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#use_pos_is()" class="member-name-link">use_pos_is</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#use_pos_is()" class="member-name-link">use_pos_is</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#use_pos_is(boolean)" class="member-name-link">use_pos_is</a><wbr>(boolean&nbsp;is)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#use_pos_is(boolean)" class="member-name-link">use_pos_is</a><wbr>(boolean&nbsp;is)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -727,6 +738,173 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="area()">
+<h3>area</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">area</span>()</div>
+<div class="block">area of the shape, but this one need to be a classical one, the line dont must cross each other and the shape must be close</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>area in pixel</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="compare(int,float,rope.vector.vec...)">
+<h3>compare</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(int&nbsp;max,
+ float&nbsp;marge,
+ <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>marge</code> - </dd>
+<dd><code>max</code> - </dd>
+<dd><code>points</code> - </dd>
+<dt>Returns:</dt>
+<dd>true if the num of common point is minimum equal to max and in the marge of error</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="compare(float,rope.vector.vec...)">
+<h3>compare</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../vector/vec3.html" title="class in rope.vector">vec3</a>&gt;</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(float&nbsp;marge,
+ <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>marge</code> - </dd>
+<dd><code>points</code> - </dd>
+<dt>Returns:</dt>
+<dd>the list of points contain in R_Shape and in the marge of error</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="equals(int,rope.vector.vec...)">
+<h3>equals</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(int&nbsp;max,
+ <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>max</code> - </dd>
+<dd><code>points</code> - </dd>
+<dt>Returns:</dt>
+<dd>true if the num of common point is minimum equal to max</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="equals(rope.vector.vec...)">
+<h3>equals</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../vector/vec3.html" title="class in rope.vector">vec3</a>&gt;</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>points</code> - </dd>
+<dt>Returns:</dt>
+<dd>the list of points contain in R_Shape</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="in_polygon(rope.vector.vec)">
+<h3>in_polygon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">in_polygon</span><wbr><span class="parameters">(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pos</code> - </dd>
+<dt>Returns:</dt>
+<dd>true if vector position is the polygon</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="in_perimeter(rope.vector.vec,int)">
+<h3>in_perimeter</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">in_perimeter</span><wbr><span class="parameters">(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos,
+ int&nbsp;marge)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pos</code> - </dd>
+<dd><code>marge</code> - </dd>
+<dt>Returns:</dt>
+<dd>true if vector position is on the perimeter of the polygone with the marge</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="in_polygon(rope.vector.vec,int)">
+<h3>in_polygon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">in_polygon</span><wbr><span class="parameters">(<a href="../vector/vec.html" title="class in rope.vector">vec</a>&nbsp;pos,
+ int&nbsp;marge)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pos</code> - </dd>
+<dd><code>marge</code> - </dd>
+<dt>Returns:</dt>
+<dd>true if vector position is in the polygone with marge</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="use_pos_is()">
+<h3>use_pos_is</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">use_pos_is</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="use_pos_is(boolean)">
+<h3>use_pos_is</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">use_pos_is</span><wbr><span class="parameters">(boolean&nbsp;is)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>is</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="reset_is(boolean)">
+<h3>reset_is</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">reset_is</span><wbr><span class="parameters">(boolean&nbsp;is)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>is</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="reset_is()">
+<h3>reset_is</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">reset_is</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="clear()">
+<h3>clear</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">clear</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../core/R_Graphic.html#clear()">R_Graphic</a></code></span></div>
+<div class="block">clone Processing function() clear</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../core/R_Graphic.html#clear()">clear</a></code>&nbsp;in class&nbsp;<code><a href="../core/R_Graphic.html" title="class in rope.core">R_Graphic</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="barycenter()">
+<h3>barycenter</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></span>&nbsp;<span class="element-name">barycenter</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the vec3 barycenter of the shape</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="angle()">
 <h3>angle</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></span>&nbsp;<span class="element-name">angle</span>()</div>
@@ -820,133 +998,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>angle z</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="area()">
-<h3>area</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">area</span>()</div>
-<div class="block">area of the shape, but this one need to be a classical one, the line dont must cross each other and the shape must be close</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>area in pixel</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="compare(int,float,rope.vector.vec...)">
-<h3>compare</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(int&nbsp;max,
- float&nbsp;marge,
- <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>marge</code> - </dd>
-<dd><code>max</code> - </dd>
-<dd><code>points</code> - </dd>
-<dt>Returns:</dt>
-<dd>true if the num of common point is minimum equal to max and in the marge of error</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="compare(float,rope.vector.vec...)">
-<h3>compare</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../vector/vec3.html" title="class in rope.vector">vec3</a>&gt;</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(float&nbsp;marge,
- <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>marge</code> - </dd>
-<dd><code>points</code> - </dd>
-<dt>Returns:</dt>
-<dd>the list of points contain in R_Shape and in the marge of error</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="equals(int,rope.vector.vec...)">
-<h3>equals</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(int&nbsp;max,
- <a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>max</code> - </dd>
-<dd><code>points</code> - </dd>
-<dt>Returns:</dt>
-<dd>true if the num of common point is minimum equal to max</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="equals(rope.vector.vec...)">
-<h3>equals</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../vector/vec3.html" title="class in rope.vector">vec3</a>&gt;</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="../vector/vec.html" title="class in rope.vector">vec</a>...&nbsp;points)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>points</code> - </dd>
-<dt>Returns:</dt>
-<dd>the list of points contain in R_Shape</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="use_pos_is()">
-<h3>use_pos_is</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">use_pos_is</span>()</div>
-<dl class="notes">
-<dt>Returns:</dt>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="use_pos_is(boolean)">
-<h3>use_pos_is</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">use_pos_is</span><wbr><span class="parameters">(boolean&nbsp;is)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>is</code> - </dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="reset_is(boolean)">
-<h3>reset_is</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">reset_is</span><wbr><span class="parameters">(boolean&nbsp;is)</span></div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>is</code> - </dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="reset_is()">
-<h3>reset_is</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">reset_is</span>()</div>
-<dl class="notes">
-<dt>Returns:</dt>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="clear()">
-<h3>clear</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">clear</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../core/R_Graphic.html#clear()">R_Graphic</a></code></span></div>
-<div class="block">clone Processing function() clear</div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="../core/R_Graphic.html#clear()">clear</a></code>&nbsp;in class&nbsp;<code><a href="../core/R_Graphic.html" title="class in rope.core">R_Graphic</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="barycenter()">
-<h3>barycenter</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../vector/vec3.html" title="class in rope.vector">vec3</a></span>&nbsp;<span class="element-name">barycenter</span>()</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the vec3 barycenter of the shape</dd>
 </dl>
 </section>
 </li>
@@ -1168,7 +1219,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="R_Line2D.html" title="class in rope.mesh">R_Line2D</a>[]</span>&nbsp;<span class="element-name">get_lines</span>()</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>array of R_Line2D</dd>
+<dd>array of R_Line2D from shape, plus add id of the R_Shape to R_Line2D</dd>
 </dl>
 </section>
 </li>

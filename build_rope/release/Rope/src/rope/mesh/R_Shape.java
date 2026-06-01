@@ -20,7 +20,26 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import rope.core.*;
-import rope.vector.*;
+import rope.utils.R_Utils.Ru;
+import rope.vector.ivec;
+import rope.vector.ivec6;
+import rope.vector.vec;
+import rope.vector.vec2;
+import rope.vector.vec3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -232,7 +251,266 @@ public class R_Shape extends R_Graphic {
 	}
 	
 	
+
+	
+
+
+
+
+
+	/////////////////////////
+	// AREA
+	///////////////
+
+	/**
+	 * area of the shape, but this one need to be a classical one, the line dont must cross each other and the shape must be close
+	 * @return area in pixel
+	 */
+	public float area() {
+		float sum = 0;
+		vec3 [] vertices = get_points();
+		for (int i = 0; i < vertices.length ; i++) {
+			if (i == 0) {
+				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[vertices.length - 1].y());
+			} else if (i == vertices.length - 1) {
+				sum += vertices[i].x() * (vertices[0].y() - vertices[i - 1].y());
+			} else {
+				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[i - 1].y());
+			}
+		}
+		float area = 0.5f * Math.abs(sum);
+		return area;
+	}
+
+
+
+	//////////////////////
+	// CONTAIN POINT
+	//////////////////////
+	// Je comprends plus à quoi ça sert :)
+
+		/**
+		 * @param marge
+	 * @param max
+	 * @param points
+	 * @return true if the num of common point is minimum equal to max and in the marge of error
+	 */
+	public boolean compare(int max, float marge, vec... points) {
+		int count = 0;
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().compare(v, marge)) {
+					count++;
+					if(count == max) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * @param marge
+	 * @param points
+	 * @return the list of points contain in R_Shape and in the marge of error
+	 */
+	public ArrayList<vec3> compare(float marge, vec... points) {
+		ArrayList<vec3> res = new ArrayList<vec3>();
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().compare(v, marge)) {
+					res.add(v);
+					break;
+				}
+			}
+		}
+		return res;
+	}
+
+
+	/**
+	 * @param max
+	 * @param points
+	 * @return true if the num of common point is minimum equal to max
+	 */
+	public boolean equals(int max, vec... points) {
+		int count = 0;
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().equals(v)) {
+					count++;
+					if(count == max) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * @param points
+	 * @return the list of points contain in R_Shape
+	 */
+	public ArrayList<vec3> equals(vec... points) {
+		ArrayList<vec3> res = new ArrayList<vec3>();
+		for(int i = 0 ; i < points.length ; i++) {
+			for(vec3 v : get_points()) {
+				if(points[i].xyz().equals(v)) {
+					res.add(v);
+					break;
+				}
+			}
+		}
+		return res;
+	}
+
+	//////////////////////
+	// END CONTAIN POINT
+	//////////////////////
+
+
+
+
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+  // MEET
+  // INTERSECTION
+  // TOUCH
+  //////////////////////////////////////
+  ///////////////////////////////////////
+
+	/**
+	 * 
+	 * @param pos
+	 * @return true if vector position is the polygon
+	 */
+	public boolean in_polygon(vec pos) {
+		return Ru.in_polygon(this.get_points(), pos);
+	}
+
+	/**
+	 * 
+	 * @param pos
+	 * @param marge
+	 * @return true if vector position is on the perimeter of the polygone with the marge
+	 */
+	public boolean in_perimeter(vec pos, int marge) {
+		boolean border_is = false;
+		for(R_Line2D line : this.get_lines()) {
+			if(line.meet_is(pos, marge)) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param pos
+	 * @param marge
+	 * @return true if vector position is in the polygone with marge
+	 */
+	public boolean in_polygon(vec pos, int marge) {
+		boolean in_poly = in_polygon(pos); 
+		boolean in_peri = in_perimeter(pos, marge);
+		if(in_poly && !in_peri) return true;
+		return false;
+	}
+
+
+
+
+
+  ///////////////////////////////////////
+  ///////////////////////////////////////
+	// END
+	////////////////////////////////////////
+  // MEET
+  // INTERSECTION
+  // TOUCH
+  //////////////////////////////////////
+  ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+	////////////////////////////////
+	// UTIL
 	//////////////////////////////////
+		/**
+   * 
+   * @return
+   */
+  public boolean use_pos_is() {
+    return use_pos_is;
+  }
+
+
+	/**
+   * 
+   * @param is
+   */
+  public void use_pos_is(boolean is) {
+    use_pos_is = is;
+  }
+  
+  /**
+   * 
+   * @param is
+   */
+  public void reset_is(boolean is) {
+    this.reset_is = is;
+  }
+
+    /**
+   * 
+   * @return
+   */
+  public boolean reset_is() {
+    return reset_is;
+  }
+
+ 	@Override
+	public void clear() {
+		this.ref_pts.clear();
+		this.pts.clear();
+		this.summits = 0;
+	}
+
+	////////////////////////////////
+	// END UTIL
+	//////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+	////////////////////
+	// GEOMETRY
+	///////////////////
+	/**
+	 * 
+	 * @return the vec3 barycenter of the shape
+	 */
+	public vec3 barycenter() {
+		return barycenter(get_points());
+	}
+
+
+
 	// ANGLE
 	//////////////////////////////////
 
@@ -316,9 +594,8 @@ public class R_Shape extends R_Graphic {
 			return (float)0.0;
 		}
   }
-	
 
-	/**
+		/**
 	 * set angle z to rotate
 	 * @param value
 	 */
@@ -340,180 +617,33 @@ public class R_Shape extends R_Graphic {
 			return (float)0.0;
 		}
   }
-
-
-
-	/////////////////////////
-	// AREA
-	///////////////
-
-	/**
-	 * area of the shape, but this one need to be a classical one, the line dont must cross each other and the shape must be close
-	 * @return area in pixel
-	 */
-	public float area() {
-		float sum = 0;
-		vec3 [] vertices = get_points();
-		for (int i = 0; i < vertices.length ; i++) {
-			if (i == 0) {
-				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[vertices.length - 1].y());
-			} else if (i == vertices.length - 1) {
-				sum += vertices[i].x() * (vertices[0].y() - vertices[i - 1].y());
-			} else {
-				sum += vertices[i].x() * (vertices[i + 1].y() - vertices[i - 1].y());
-			}
-		}
-		float area = 0.5f * Math.abs(sum);
-		return area;
-	}
-
-
-
-	/////////////////////////////////
-	// CONTAIN POINT
-	////////////////////////
-
-		/**
-		 * @param marge
-	 * @param max
-	 * @param points
-	 * @return true if the num of common point is minimum equal to max and in the marge of error
-	 */
-	public boolean compare(int max, float marge, vec... points) {
-		int count = 0;
-		for(int i = 0 ; i < points.length ; i++) {
-			for(vec3 v : get_points()) {
-				if(points[i].xyz().compare(v, marge)) {
-					count++;
-					if(count == max) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
 	
-	
-	/**
-	 * @param marge
-	 * @param points
-	 * @return the list of points contain in R_Shape and in the marge of error
-	 */
-	public ArrayList<vec3> compare(float marge, vec... points) {
-		ArrayList<vec3> res = new ArrayList<vec3>();
-		for(int i = 0 ; i < points.length ; i++) {
-			for(vec3 v : get_points()) {
-				if(points[i].xyz().compare(v, marge)) {
-					res.add(v);
-					break;
-				}
-			}
-		}
-		return res;
-	}
+	////////////////////
+	// END GEOMETRY
+	///////////////////
 
 
-	/**
-	 * @param max
-	 * @param points
-	 * @return true if the num of common point is minimum equal to max
-	 */
-	public boolean equals(int max, vec... points) {
-		int count = 0;
-		for(int i = 0 ; i < points.length ; i++) {
-			for(vec3 v : get_points()) {
-				if(points[i].xyz().equals(v)) {
-					count++;
-					if(count == max) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
-	
-	/**
-	 * 
-	 * @param points
-	 * @return the list of points contain in R_Shape
-	 */
-	public ArrayList<vec3> equals(vec... points) {
-		ArrayList<vec3> res = new ArrayList<vec3>();
-		for(int i = 0 ; i < points.length ; i++) {
-			for(vec3 v : get_points()) {
-				if(points[i].xyz().equals(v)) {
-					res.add(v);
-					break;
-				}
-			}
-		}
-		return res;
-	}
-
-	////////////////////////////////
-	// MISC
-	//////////////////////////////////
-		/**
-   * 
-   * @return
-   */
-  public boolean use_pos_is() {
-    return use_pos_is;
-  }
 
 
-		/**
-   * 
-   * @param is
-   */
-  public void use_pos_is(boolean is) {
-    use_pos_is = is;
-  }
-  
-  /**
-   * 
-   * @param is
-   */
-  public void reset_is(boolean is) {
-    this.reset_is = is;
-  }
-
-    /**
-   * 
-   * @return
-   */
-  public boolean reset_is() {
-    return reset_is;
-  }
-
- @Override
-	public void clear() {
-		this.ref_pts.clear();
-		this.pts.clear();
-		this.summits = 0;
-	}
 
 
-	/**
-	 * 
-	 * @return the vec3 barycenter of the shape
-	 */
-	public vec3 barycenter() {
-		return barycenter(get_points());
-	}
+
+
+
+
+
+
+
 
 
 	///////////////////////
 	// SUMMITS
 	////////////////////////
 
-/**
- * 
- * @return the num of summits
- */
+	/**
+	 * 
+	 * @return the num of summits
+	 */
 	public int get_summits() {
     return summits;
   }
@@ -536,6 +666,18 @@ public class R_Shape extends R_Graphic {
     	this.summits = summits; 	
     }	
   }
+
+	///////////////////////
+	// END SUMMITS
+	////////////////////////
+
+
+
+
+
+
+
+
 
 	////////////////////////
 	// POINTER
@@ -564,6 +706,20 @@ public class R_Shape extends R_Graphic {
 		}
 		this.summits = this.ref_pts.size();
 	}
+	////////////////////////
+	// END POINTER
+	//////////////////////
+
+
+
+
+
+
+
+
+
+
+
 
 
 	/////////////////////
@@ -661,6 +817,20 @@ public class R_Shape extends R_Graphic {
 		this.set_point(index, point.x(), point.y(), point.z());
 	}
 
+	///////////////////////////////
+	// END POINT
+	///////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -719,7 +889,7 @@ public class R_Shape extends R_Graphic {
 
 	/**
 	 * 
-	 * @return array of R_Line2D
+	 * @return array of R_Line2D from shape, plus add id of the R_Shape to R_Line2D
 	 */
 	public R_Line2D [] get_lines() {
 		R_Line2D [] lines = new R_Line2D[pts.size()];
@@ -728,6 +898,7 @@ public class R_Shape extends R_Graphic {
 			vec3 a = pts.get(i);
 			vec3 b = pts.get(i+1);
 			lines[i] = new R_Line2D(this.pa, a, b);
+			lines[i].id(this.id());
 		}
 		// last line
 		vec3 a = pts.get(0);
@@ -760,6 +931,29 @@ public class R_Shape extends R_Graphic {
 	public float get_z(int index) {
 		return get_point(index).z();
 	}
+
+
+	/////////////////////
+	// GET COORD
+	////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//////////////
 	// SHOW

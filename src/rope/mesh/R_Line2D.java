@@ -45,6 +45,11 @@ import rope.vector.vec3;
 
 
 
+
+
+
+
+
 public class R_Line2D extends R_Graphic {
   protected vec3 a;
   protected vec3 b;
@@ -816,11 +821,6 @@ public class R_Line2D extends R_Graphic {
   return buf.toArray(res);
 }
 
-
-
-
-
-  
   /////////////////////////
   // END MODIFY LINE
   ////////////////////////
@@ -857,8 +857,33 @@ public class R_Line2D extends R_Graphic {
   // MEET
   // INTERSECTION
   // TOUCH
+  // COMPARE
+  // EQUAL
   //////////////////////////////////////
   ///////////////////////////////////////
+
+  /**
+   * 
+   * @param target 
+   * @param strict_is if true compare this.a() to target.a() and this.b() to target.b(), if false add reverse compararaison this.a() to target.b() and this.b() to target.a()
+   * @return true if coordinate of vec a() and vec b() is a same of the target R_Line2D .
+   */
+  public boolean equals(R_Line2D target, boolean strict_is) {
+    boolean is = false;
+    boolean aa_is = target.a().equals(this.a());
+    boolean bb_is = target.b().equals(this.b());
+    if(strict_is) {
+      if( aa_is && bb_is) is = true; 
+    } else {
+      if(aa_is && bb_is) is = true;
+      boolean ab_is = target.a().equals(this.b());
+      boolean ba_is = target.b().equals(this.a());
+      if(ab_is && ba_is) is = true;
+    }
+    return is;
+  }
+
+
 
   /**
    * Return the intersection point between this line and an other line.
@@ -1091,7 +1116,11 @@ public class R_Line2D extends R_Graphic {
 
   ///////////////////////////////////
   //////////////////////////////////
-  // END MEET INTERSECTION
+  // END 
+  // MEET 
+  // INTERSECTION
+  // COMPARE
+  // EQUAL
   //////////////////////////////////
   /////////////////////////////////
 

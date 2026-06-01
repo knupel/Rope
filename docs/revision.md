@@ -9,6 +9,9 @@
 > R_Shape
 > add function `get_lines`
 > remove deprecated function `add()`
+> add function `boolean in_polygon(vec pos)`
+> add function `boolean in_perimeter(vec pos, int marge)`
+> add function `boolean in_polygon(vec pos, int marge)`
 
 
 > R_Constants
@@ -40,7 +43,7 @@
 > add function `key_point_is(float value)`
 > add function `get_keys()`
 > add function `cut()`
->
+> add function `equals(R_Line2D target, boolean stric_is)`
 
 > R_Segment `deprecated` this class
 
