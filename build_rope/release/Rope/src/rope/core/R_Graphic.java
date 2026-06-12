@@ -23,7 +23,18 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.opengl.PShader;
 import rope.utils.R_State.State;
-import rope.vector.*;
+import rope.vector.ivec;
+import rope.vector.ivec2;
+import rope.vector.ivec3;
+import rope.vector.vec;
+import rope.vector.vec2;
+import rope.vector.vec3;
+import rope.vector.vec4;
+
+
+
+
+
 
 
 public class R_Graphic extends BigBang {
@@ -41,6 +52,22 @@ public class R_Graphic extends BigBang {
 			this.other = other;
 		}
 	}
+
+
+	/**
+	 * Secure the place of window when fullScreen is used with processing 4.5.2
+	 * 
+	 */
+	// public void fullScreen_secure_place() {
+	// 	GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	// 	GraphicsDevice[] devices = env.getScreenDevices();
+	// 	Rectangle rect = devices[pa.sketchDisplay() -1].getDefaultConfiguration().getBounds();
+	// 	pa.surface.setLocation(0,0);
+	// 	int x = (int)rect.getX();
+	// 	int y = (int)rect.getY();
+	// 	pa.surface.setLocation(x,y);
+	// }
+
 
 
   

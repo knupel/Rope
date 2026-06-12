@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../script.js"></script>
-<script type="text/javascript" src="../../script-dir/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../script-dir/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -121,8 +121,8 @@ implements <a href="R_Constants.html" title="interface in rope.core">R_Constants
 <h2>Method Summary</h2>
 <div id="method-summary-table">
 <div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button><button id="method-summary-table-tab6" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab6', 3)" class="table-tab">Deprecated Methods</button></div>
-<div id="method-summary-table.tabpanel" role="tabpanel">
-<div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
+<div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
+<div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
@@ -308,6 +308,18 @@ implements <a href="R_Constants.html" title="interface in rope.core">R_Constants
  <a href="../vector/vec3.html" title="class in rope.vector">vec3</a>&nbsp;v2)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Cross product of vec3</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cycle(float,float,float)" class="member-name-link">cycle</a><wbr>(float&nbsp;amt,
+ float&nbsp;low,
+ float&nbsp;high)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cycle(int,int,int)" class="member-name-link">cycle</a><wbr>(int&nbsp;amt,
+ int&nbsp;low,
+ int&nbsp;high)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">the value is a logical value map between the low and the max to not exceed the range</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#d_bell(float,float,float,float)" class="member-name-link">d_bell</a><wbr>(float&nbsp;value,
@@ -1573,6 +1585,44 @@ implements <a href="R_Constants.html" title="interface in rope.core">R_Constants
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">constrain</span><wbr><span class="parameters">(float&nbsp;amt,
  float&nbsp;low,
  float&nbsp;high)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>amt</code> - </dd>
+<dd><code>low</code> - </dd>
+<dd><code>high</code> - </dd>
+<dt>Returns:</dt>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="cycle(int,int,int)">
+<h3>cycle</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cycle</span><wbr><span class="parameters">(int&nbsp;amt,
+ int&nbsp;low,
+ int&nbsp;high)</span></div>
+<div class="block">the value is a logical value map between the low and the max to not exceed the range</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>amt</code> - the value to constrain</dd>
+<dd><code>low</code> - </dd>
+<dd><code>high</code> - </dd>
+<dt>Returns:</dt>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="cycle(float,float,float)">
+<h3>cycle</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">cycle</span><wbr><span class="parameters">(float&nbsp;amt,
+ float&nbsp;low,
+ float&nbsp;high)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>amt</code> - </dd>
+<dd><code>low</code> - </dd>
+<dd><code>high</code> - </dd>
+<dt>Returns:</dt>
+</dl>
 </section>
 </li>
 <li>

@@ -36,6 +36,7 @@ import rope.vector.*;
 
 
 
+
 public class Rope implements R_Constants, R_Constants_Colour {
 	
 	public Rope() {}
@@ -337,11 +338,62 @@ public class Rope implements R_Constants, R_Constants_Colour {
     return (amt < low) ? low : ((amt > high) ? high : amt);
   }
 
-
+	/**
+	 * 
+	 * @param amt
+	 * @param low
+	 * @param high
+	 * @return
+	 */
 	public float constrain(float amt, float low, float high) {
     return (amt < low) ? low : ((amt > high) ? high : amt);
   }
   
+	/**
+	 * the value is a logical value map between the low and the max to not exceed the range
+	 * @param amt the value to constrain
+	 * @param low
+	 * @param high
+	 * @return
+	 */
+	public int cycle(int amt, int low, int high) {
+		int norm_high = high - low;
+		// normalization
+		if(amt < low) {  
+			int norm_amt = amt - low;
+			norm_amt = norm_amt%norm_high;
+			return high + norm_amt;
+		}
+		if(amt > high) {
+			int norm_amt = amt - high;
+			norm_amt = norm_amt%norm_high;
+			return low + norm_amt;
+		}
+		return amt;
+	}
+
+	/**
+	 * 
+	 * @param amt
+	 * @param low
+	 * @param high
+	 * @return
+	 */
+	public float cycle(float amt, float low, float high) {
+		float norm_high = high - low;
+		// normalization
+		if(amt < low) {  
+			float norm_amt = amt - low;
+			norm_amt = norm_amt%norm_high;
+			return high + norm_amt;
+		}
+		if(amt > high) {
+			float norm_amt = amt - high;
+			norm_amt = norm_amt%norm_high;
+			return low + norm_amt;
+		}
+		return amt;
+	}
   
 	/**
 	 * map method

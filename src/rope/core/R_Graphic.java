@@ -23,7 +23,18 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.opengl.PShader;
 import rope.utils.R_State.State;
-import rope.vector.*;
+import rope.vector.ivec;
+import rope.vector.ivec2;
+import rope.vector.ivec3;
+import rope.vector.vec;
+import rope.vector.vec2;
+import rope.vector.vec3;
+import rope.vector.vec4;
+
+
+
+
+
 
 
 public class R_Graphic extends BigBang {
@@ -41,6 +52,8 @@ public class R_Graphic extends BigBang {
 			this.other = other;
 		}
 	}
+
+
 
 
   

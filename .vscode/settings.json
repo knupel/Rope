@@ -7,5 +7,5 @@
   "editor.tabSize": 2,
   "editor.tabCompletion": "on",
   "editor.stickyTabStops": true,
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
 }

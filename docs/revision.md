@@ -6,6 +6,7 @@
 > add class `R_Plate` with function()
 
 
+
 > R_Shape
 > add function `get_lines`
 > remove deprecated function `add()`
@@ -21,6 +22,8 @@
 > Rope
 > add function `random_ratio(float src, int[] proportion)`
 > add function `get_type(Object obj)`
+> add function `cycle(int amt, int low, int high)`
+> add function `cycle(float amt, float low, float high)`
 
 
 > vec2

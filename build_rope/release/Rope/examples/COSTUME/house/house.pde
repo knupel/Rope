@@ -1,13 +1,13 @@
 /**
 * R_House
-* v 0.0.3
+* v 0.0.4
 * 2019-2026
 * @author @knupel
 * @see https://github.com/knupel/Rope
 *
 */
 
-import rope.core.*;
+import rope.core.Rope;
 import rope.costume.R_House;
 import rope.vector.vec3;
 R_House house;
@@ -23,6 +23,11 @@ float rot_x = 0;
 float rot_y = 0;
 void draw() {
   background(0);
+  house(house);
+}
+
+
+void house(R_House house) {
   house.fill_is(true);
   house.stroke_is(true);
   float min = width/12;
@@ -63,4 +68,5 @@ void draw() {
   rotateY(rot_x);
   house.show();
   popMatrix();
+
 }
